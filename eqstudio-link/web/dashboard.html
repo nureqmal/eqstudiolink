@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard — eqstudio.link</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <a href="/dashboard.html" class="brand">eqstudio<span class="dot">.</span>link</a>
+    <div>
+      <span class="hint" id="business-name"></span>
+      <button class="secondary" id="logout-btn" style="margin-left:1rem;">Log Keluar</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="card" style="margin-bottom:1.5rem;">
+      <div class="section-title"><h2 style="margin:0;">Tambah Customer</h2></div>
+      <form id="customer-form">
+        <div class="row">
+          <div>
+            <label for="c-name">Nama Customer</label>
+            <input type="text" id="c-name" required />
+          </div>
+          <div>
+            <label for="c-email">Emel Customer</label>
+            <input type="email" id="c-email" required placeholder="untuk hantar reminder" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="c-amount">Jumlah Bayaran (RM)</label>
+            <input type="number" id="c-amount" step="0.01" min="0" required />
+          </div>
+          <div>
+            <label for="c-due">Tarikh Due</label>
+            <input type="date" id="c-due" required />
+          </div>
+        </div>
+        <label for="c-notes">Catatan (optional)</label>
+        <textarea id="c-notes" rows="2" placeholder="cth: deposit kek birthday, 2kg"></textarea>
+        <button type="submit" style="margin-top:1.25rem;">Simpan Customer</button>
+        <p class="error" id="c-error" style="display:none;"></p>
+      </form>
+    </div>
+
+    <div class="card" style="margin-bottom:1.5rem;">
+      <div class="section-title">
+        <h2 style="margin:0;">Senarai Customer</h2>
+        <span class="hint" id="list-count"></span>
+      </div>
+      <table id="customer-table">
+        <thead>
+          <tr>
+            <th>Nama</th><th>Emel</th><th>RM</th><th>Due</th><th>Status</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="customer-tbody"></tbody>
+      </table>
+      <p class="hint" id="empty-state" style="display:none;">Belum ada customer lagi. Tambah satu di atas.</p>
+    </div>
+
+    <div class="card">
+      <div class="section-title"><h2 style="margin:0;">Jadual Reminder</h2></div>
+      <p class="hint">Bila sistem patut hantar reminder emel, relatif kepada tarikh due (hari-H).</p>
+      <form id="settings-form" class="row" style="align-items:flex-end;">
+        <div>
+          <label for="s-days">Hari sebelum/hari-H (pisah dengan koma)</label>
+          <input type="text" id="s-days" placeholder="cth: 3,1,0" class="mono" />
+          <p class="hint" style="margin-top:0.3rem;">3,1,0 = hantar H-3, H-1, dan hari-H</p>
+        </div>
+        <button type="submit" style="margin-top:0.9rem;">Simpan Jadual</button>
+      </form>
+      <p class="error" id="s-error" style="display:none;"></p>
+      <p class="hint" id="s-success" style="display:none; color:var(--ok);">Jadual disimpan.</p>
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { supabase } from "/assets/supabase-client.js";
+
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (!sessionData.session) {
+      window.location.href = "/index.html";
+    }
+    const user = sessionData.session.user;
+
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      window.location.href = "/index.html";
+    });
+
+    // Load business name
+    const { data: profile } = await supabase.from("profiles").select("business_name").eq("id", user.id).single();
+    if (profile?.business_name) {
+      document.getElementById("business-name").textContent = profile.business_name;
+    }
+
+    const STATUS_LABEL = {
+      belum_bayar: "Belum Bayar",
+      reminder_dihantar: "Reminder Dihantar",
+      dah_bayar: "Dah Bayar",
+    };
+
+    async function loadCustomers() {
+      const { data, error } = await supabase
+        .from("customers")
+        .select("*")
+        .order("due_date", { ascending: true });
+
+      const tbody = document.getElementById("customer-tbody");
+      tbody.innerHTML = "";
+      if (error) {
+        document.getElementById("empty-state").textContent = "Ralat: " + error.message;
+        document.getElementById("empty-state").style.display = "block";
+        return;
+      }
+      document.getElementById("list-count").textContent = data.length + " customer";
+      document.getElementById("empty-state").style.display = data.length ? "none" : "block";
+
+      for (const c of data) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td data-label="Nama">${escapeHtml(c.name)}</td>
+          <td data-label="Emel">${escapeHtml(c.contact_email)}</td>
+          <td data-label="RM" class="mono">${Number(c.amount).toFixed(2)}</td>
+          <td data-label="Due" class="mono">${c.due_date}</td>
+          <td data-label="Status"><span class="badge ${c.status}">${STATUS_LABEL[c.status]}</span></td>
+          <td data-label=""></td>
+        `;
+        const actionTd = tr.lastElementChild;
+        if (c.status !== "dah_bayar") {
+          const btn = document.createElement("button");
+          btn.className = "secondary";
+          btn.textContent = "Tanda Dah Bayar";
+          btn.addEventListener("click", async () => {
+            btn.disabled = true;
+            await supabase.from("customers").update({ status: "dah_bayar" }).eq("id", c.id);
+            loadCustomers();
+          });
+          actionTd.appendChild(btn);
+        }
+        tbody.appendChild(tr);
+      }
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str ?? "";
+      return div.innerHTML;
+    }
+
+    document.getElementById("customer-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const errorEl = document.getElementById("c-error");
+      errorEl.style.display = "none";
+
+      const payload = {
+        owner_id: user.id,
+        name: document.getElementById("c-name").value.trim(),
+        contact_email: document.getElementById("c-email").value.trim(),
+        amount: parseFloat(document.getElementById("c-amount").value),
+        due_date: document.getElementById("c-due").value,
+        notes: document.getElementById("c-notes").value.trim() || null,
+      };
+
+      const { error } = await supabase.from("customers").insert(payload);
+      if (error) {
+        errorEl.textContent = error.message;
+        errorEl.style.display = "block";
+        return;
+      }
+      e.target.reset();
+      loadCustomers();
+    });
+
+    // Reminder settings
+    async function loadSettings() {
+      const { data } = await supabase.from("reminder_settings").select("days_before").eq("owner_id", user.id).single();
+      if (data) {
+        document.getElementById("s-days").value = data.days_before.join(",");
+      }
+    }
+
+    document.getElementById("settings-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const errorEl = document.getElementById("s-error");
+      const successEl = document.getElementById("s-success");
+      errorEl.style.display = "none";
+      successEl.style.display = "none";
+
+      const raw = document.getElementById("s-days").value.trim();
+      const days = raw.split(",").map(s => parseInt(s.trim(), 10));
+      if (days.some(isNaN) || days.length === 0) {
+        errorEl.textContent = "Format tak sah. Contoh: 3,1,0";
+        errorEl.style.display = "block";
+        return;
+      }
+
+      const { error } = await supabase.from("reminder_settings").upsert({ owner_id: user.id, days_before: days });
+      if (error) {
+        errorEl.textContent = error.message;
+        errorEl.style.display = "block";
+        return;
+      }
+      successEl.style.display = "block";
+    });
+
+    loadCustomers();
+    loadSettings();
+  </script>
+</body>
+</html>

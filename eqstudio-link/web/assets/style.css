@@ -1,0 +1,118 @@
+/* eqstudio.link — design tokens
+   Concept: a "digital ledger book" — small business owners already think in
+   terms of buku catatan (notebooks) and resit (receipts). We lean into that
+   instead of a generic SaaS look: paper backgrounds, ink-teal for structure,
+   a stamped amber accent for money/status, tabular numerals for amounts. */
+
+:root {
+  --paper: #FBF7EF;
+  --paper-line: #E8DFCB;
+  --ink: #1F3A34;
+  --ink-soft: #4A6259;
+  --stamp: #C97A2B;
+  --stamp-soft: #F1D9B8;
+  --ok: #2F6B4F;
+  --ok-bg: #E3EFE6;
+  --warn: #B4472B;
+  --warn-bg: #F7E3DA;
+  --pending-bg: #F1EADA;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(31, 58, 52, 0.06), 0 4px 14px rgba(31, 58, 52, 0.05);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--paper-line) 1px, transparent 1px);
+  background-size: 100% 2.1rem;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+h1, h2, h3, .brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+a { color: var(--stamp); }
+
+.wrap { max-width: 880px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+.wrap-narrow { max-width: 420px; margin: 0 auto; padding: 3rem 1.25rem; }
+
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.25rem; border-bottom: 1px solid var(--paper-line);
+  background: rgba(251, 247, 239, 0.9); position: sticky; top: 0; backdrop-filter: blur(4px);
+}
+.brand { font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+.brand .dot { color: var(--stamp); }
+
+.card {
+  background: #fff;
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.75rem;
+}
+
+label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin: 0.9rem 0 0.3rem; }
+input, textarea, select {
+  width: 100%; padding: 0.6rem 0.75rem; border: 1px solid var(--paper-line);
+  border-radius: 8px; font-family: var(--font-body); font-size: 0.95rem;
+  background: var(--paper); color: var(--ink);
+}
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--stamp); outline-offset: 1px; border-color: var(--stamp);
+}
+input[type="number"], .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+button, .btn {
+  display: inline-block; cursor: pointer; border: none; border-radius: 8px;
+  padding: 0.65rem 1.2rem; font-family: var(--font-body); font-weight: 600;
+  font-size: 0.95rem; background: var(--stamp); color: #fff; text-decoration: none;
+}
+button:hover, .btn:hover { background: #b3691f; }
+button.secondary { background: transparent; color: var(--ink); border: 1px solid var(--paper-line); }
+button.secondary:hover { background: var(--pending-bg); }
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.error { color: var(--warn); font-size: 0.88rem; margin-top: 0.5rem; }
+.hint { color: var(--ink-soft); font-size: 0.85rem; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { text-align: left; padding: 0.65rem 0.6rem; border-bottom: 1px solid var(--paper-line); font-size: 0.92rem; }
+th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+.badge {
+  display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 600;
+}
+.badge.belum_bayar { background: var(--warn-bg); color: var(--warn); }
+.badge.reminder_dihantar { background: var(--pending-bg); color: #8A6A1F; }
+.badge.dah_bayar { background: var(--ok-bg); color: var(--ok); }
+
+.row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.row > * { flex: 1; min-width: 160px; }
+
+.section-title { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.5rem; }
+.stat { text-align: center; }
+.stat .num { font-family: var(--font-mono); font-size: 2rem; color: var(--ink); }
+.stat .label { color: var(--ink-soft); font-size: 0.85rem; }
+
+@media (max-width: 640px) {
+  table, thead, tbody, th, td, tr { display: block; }
+  thead { display: none; }
+  tr { border-bottom: 1px solid var(--paper-line); padding: 0.5rem 0; }
+  td { border: none; padding: 0.2rem 0; }
+  td::before { content: attr(data-label); display: block; font-size: 0.72rem; color: var(--ink-soft); text-transform: uppercase; }
+}

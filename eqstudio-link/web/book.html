@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Buat Tempahan</title>
+<meta name="description" content="Book slot senang, terus dari sini — tiada perlu WhatsApp/call untuk confirm tarikh." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Buat Tempahan — eqstudio.link" />
+<meta property="og:description" content="Book slot senang, terus dari sini — tiada perlu WhatsApp/call untuk confirm tarikh." />
+<meta property="og:image" content="https://eqstudio.link/assets/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css" />
+<script>
+  (function () {
+    var saved = localStorage.getItem("eqstudio_theme");
+    if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
+  })();
+</script>
+</head>
+<body>
+  <div class="wrap-narrow" style="padding-top:2.5rem;">
+    <div id="book-content">
+      <div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>
+    </div>
+  </div>
+
+  <script type="module">
+    const slug = new URLSearchParams(window.location.search).get("slug");
+    let availabilityData = null;
+    let selectedType = null;
+    let selectedDate = null;
+    let selectedSlot = null;
+    let lastFormValues = { name: "", email: "", phone: "" };
+    let lang = localStorage.getItem("eqstudio_booking_lang") || "ms";
+
+    // Note: zh/ta are AI-generated translations — a native speaker should review before go-live.
+    const UI = {
+      ms: { loading: "Memuatkan...", incomplete: "Link booking tidak lengkap.", notFound: "Link booking tidak dijumpai.", loadFail: "Gagal memuatkan. Cuba refresh.", noSlots: "Tiada slot available buat masa ni. Sila hubungi terus.", pickSlot: "Pilih tarikh & slot yang sesuai", pickType: "Pilih jenis perkhidmatan", slotChosen: "Slot dipilih", free: "Percuma", name: "Nama", email: "Emel", emailPlaceholder: "untuk terima confirmation & reminder deposit", phone: "Nombor Telefon (optional)", notes: "Catatan (optional)", confirmBtn: "Sahkan Tempahan", sending: "Menghantar...", confirmed: "Tempahan Disahkan!", confirmedNote: "Kami dah hantar confirmation ke emel anda. Reminder deposit akan menyusul sekejap lagi.", bookAgain: "+ Book Sesi Lagi", genericError: "Gagal buat tempahan.", changeType: "← Tukar Jenis Perkhidmatan" },
+      en: { loading: "Loading...", incomplete: "Incomplete booking link.", notFound: "Booking link not found.", loadFail: "Failed to load. Try refreshing.", noSlots: "No slots available right now. Please contact directly.", pickSlot: "Pick a date & time that suits you", pickType: "Choose a service", slotChosen: "Selected slot", free: "Free", name: "Name", email: "Email", emailPlaceholder: "to receive confirmation & deposit reminder", phone: "Phone Number (optional)", notes: "Notes (optional)", confirmBtn: "Confirm Booking", sending: "Sending...", confirmed: "Booking Confirmed!", confirmedNote: "We've sent a confirmation to your email. A deposit reminder will follow shortly.", bookAgain: "+ Book Another Session", genericError: "Failed to book.", changeType: "← Change Service" },
+      zh: { loading: "加载中...", incomplete: "预订链接不完整。", notFound: "找不到预订链接。", loadFail: "加载失败，请重试。", noSlots: "目前没有可用的时段，请直接联系。", pickSlot: "选择合适的日期和时间", pickType: "选择服务类型", slotChosen: "已选时段", free: "免费", name: "姓名", email: "电子邮件", emailPlaceholder: "用于接收确认和押金提醒", phone: "电话号码（可选）", notes: "备注（可选）", confirmBtn: "确认预订", sending: "发送中...", confirmed: "预订已确认！", confirmedNote: "我们已将确认发送到您的电子邮件。押金提醒将很快发送。", bookAgain: "+ 预订另一场", genericError: "预订失败。", changeType: "← 更改服务类型" },
+      ta: { loading: "ஏற்றுகிறது...", incomplete: "முழுமையற்ற முன்பதிவு இணைப்பு.", notFound: "முன்பதிவு இணைப்பு கிடைக்கவில்லை.", loadFail: "ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.", noSlots: "தற்போது இடங்கள் இல்லை. நேரடியாக தொடர்பு கொள்ளவும்.", pickSlot: "பொருத்தமான தேதி & நேரத்தைத் தேர்ந்தெடுக்கவும்", pickType: "சேவை வகையைத் தேர்ந்தெடுக்கவும்", slotChosen: "தேர்ந்தெடுக்கப்பட்ட நேரம்", free: "இலவசம்", name: "பெயர்", email: "மின்னஞ்சல்", emailPlaceholder: "உறுதிப்படுத்தல் & வைப்புத்தொகை நினைவூட்டலைப் பெற", phone: "தொலைபேசி எண் (விருப்பம்)", notes: "குறிப்புகள் (விருப்பம்)", confirmBtn: "முன்பதிவை உறுதிப்படுத்தவும்", sending: "அனுப்புகிறது...", confirmed: "முன்பதிவு உறுதி செய்யப்பட்டது!", confirmedNote: "உங்கள் மின்னஞ்சலுக்கு உறுதிப்படுத்தல் அனுப்பப்பட்டது. வைப்புத்தொகை நினைவூட்டல் விரைவில் வரும்.", bookAgain: "+ மற்றொரு அமர்வை முன்பதிவு செய்யவும்", genericError: "முன்பதிவு தோல்வியடைந்தது.", changeType: "← சேவை வகையை மாற்றவும்" },
+    };
+    const LANG_LABELS = { ms: "BM", en: "EN", zh: "中文", ta: "தமிழ்" };
+    function T() { return UI[lang] || UI.ms; }
+
+    function renderLangSwitcher() {
+      return `
+        <div class="lang-switcher" id="lang-switcher">
+          ${Object.keys(LANG_LABELS).map(code => `<button type="button" class="lang-chip ${code === lang ? "selected" : ""}" data-lang="${code}">${LANG_LABELS[code]}</button>`).join("")}
+        </div>`;
+    }
+    function wireLangSwitcher() {
+      document.querySelectorAll(".lang-chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          lang = btn.dataset.lang;
+          localStorage.setItem("eqstudio_booking_lang", lang);
+          renderCurrentStep();
+        });
+      });
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str ?? "";
+      return div.innerHTML;
+    }
+
+    function dateLabel(dateKey) {
+      const d = new Date(dateKey + "T00:00:00");
+      const localeMap = { ms: "ms-MY", en: "en-MY", zh: "zh-CN", ta: "ta-IN" };
+      return d.toLocaleDateString(localeMap[lang] || "ms-MY", { weekday: "short", day: "numeric", month: "short" });
+    }
+
+    function renderCurrentStep() {
+      if (!availabilityData) return;
+      if (availabilityData.slots_by_date === null) renderTypePicker();
+      else renderPicker();
+    }
+
+    async function loadAvailability(typeId) {
+      const content = document.getElementById("book-content");
+      if (!slug) {
+        content.innerHTML = renderLangSwitcher() + `<div class="card"><p class="error">${T().incomplete}</p></div>`;
+        wireLangSwitcher();
+        return;
+      }
+      content.innerHTML = renderLangSwitcher() + `<div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">${T().loading}</p></div>`;
+      wireLangSwitcher();
+      try {
+        const typeParam = typeId ? `&type=${encodeURIComponent(typeId)}` : "";
+        const res = await fetch(`/api/booking-availability?slug=${encodeURIComponent(slug)}&days=21${typeParam}`);
+        const data = await res.json();
+        if (!res.ok) {
+          content.innerHTML = renderLangSwitcher() + `<div class="card"><p class="error">${escapeHtml(data.error || T().notFound)}</p></div>`;
+          wireLangSwitcher();
+          return;
+        }
+        availabilityData = data;
+        renderCurrentStep();
+      } catch (err) {
+        content.innerHTML = renderLangSwitcher() + `<div class="card"><p class="error">${T().loadFail}</p></div>`;
+        wireLangSwitcher();
+      }
+    }
+
+    function renderBizHeader() {
+      const biz = availabilityData.business;
+      return `
+        <div style="text-align:center; margin-bottom:1.5rem;">
+          ${biz.logo_url ? `<img src="${escapeHtml(biz.logo_url)}" style="max-height:56px; margin-bottom:0.8rem;" />` : `<p class="brand" style="font-size:1.3rem;">${escapeHtml(biz.name)}</p>`}
+        </div>`;
+    }
+
+    function renderTypePicker() {
+      const content = document.getElementById("book-content");
+      const types = availabilityData.event_types || [];
+      content.innerHTML = renderLangSwitcher() + renderBizHeader() + `
+        <p class="hint" style="text-align:center; margin-bottom:1rem;">${T().pickType}</p>
+        <div class="card">
+          ${types.map(t => `
+            <button type="button" class="event-type-row" data-type-id="${t.id}">
+              <div>
+                <strong>${escapeHtml(t.name)}</strong>
+                <div class="hint" style="font-size:0.8rem;">${t.duration_minutes} minit${t.capacity > 1 ? ` · sehingga ${t.capacity} orang` : ""}</div>
+              </div>
+              <span class="mono" style="font-weight:600; color:var(--stamp);">${t.deposit_amount === 0 ? T().free : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "")}</span>
+            </button>
+          `).join("")}
+        </div>
+      `;
+      wireLangSwitcher();
+      document.querySelectorAll(".event-type-row").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedType = types.find(t => t.id === btn.dataset.typeId);
+          selectedDate = null;
+          selectedSlot = null;
+          loadAvailability(selectedType.id);
+        });
+      });
+    }
+
+    function renderPicker() {
+      const content = document.getElementById("book-content");
+      const dateKeys = Object.keys(availabilityData.slots_by_date);
+      const hasTypes = (availabilityData.event_types || []).length > 0;
+
+      if (dateKeys.length === 0) {
+        content.innerHTML = renderLangSwitcher() + renderBizHeader() +
+          `<div class="card"><p class="hint" style="text-align:center;">${T().noSlots}</p></div>`;
+        wireLangSwitcher();
+        return;
+      }
+
+      if (!selectedDate) selectedDate = dateKeys[0];
+
+      content.innerHTML = renderLangSwitcher() + renderBizHeader() + `
+        ${hasTypes ? `<button type="button" class="secondary" id="change-type-btn" style="margin-bottom:0.8rem;">${T().changeType}</button>` : ""}
+        <p class="hint" style="margin-bottom:0.8rem;">${T().pickSlot}</p>
+        <div class="card">
+          <div class="book-date-row" id="book-date-row"></div>
+          <div class="book-slot-grid" id="book-slot-grid" style="margin-top:1rem;"></div>
+        </div>
+        <div id="book-form-wrap"></div>
+      `;
+      wireLangSwitcher();
+
+      document.getElementById("change-type-btn")?.addEventListener("click", () => {
+        selectedType = null;
+        availabilityData.slots_by_date = null;
+        renderTypePicker();
+      });
+
+      const dateRow = document.getElementById("book-date-row");
+      dateRow.innerHTML = dateKeys.map(k => `
+        <button type="button" class="chip book-date-chip ${k === selectedDate ? "selected" : ""}" data-date="${k}">${dateLabel(k)}</button>
+      `).join("");
+      dateRow.querySelectorAll(".book-date-chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedDate = btn.dataset.date;
+          selectedSlot = null;
+          renderPicker();
+        });
+      });
+
+      const slotGrid = document.getElementById("book-slot-grid");
+      const slots = availabilityData.slots_by_date[selectedDate] || [];
+      slotGrid.innerHTML = slots.map(s => `
+        <button type="button" class="chip book-slot-chip ${selectedSlot?.iso === s.iso ? "selected" : ""}" data-iso="${s.iso}">${s.label}</button>
+      `).join("");
+      slotGrid.querySelectorAll(".book-slot-chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedSlot = slots.find(s => s.iso === btn.dataset.iso);
+          renderPicker();
+          renderForm();
+        });
+      });
+
+      if (selectedSlot) renderForm();
+    }
+
+    function renderForm() {
+      const wrap = document.getElementById("book-form-wrap");
+      const customQuestions = availabilityData.questions || [];
+      wrap.innerHTML = `
+        <div class="card" style="margin-top:1rem;">
+          <p class="hint" style="margin-bottom:0.8rem;">${T().slotChosen}: <strong>${dateLabel(selectedDate)}, ${selectedSlot.label}</strong></p>
+          <form id="book-form">
+            <label for="bk-name">${T().name}</label>
+            <input type="text" id="bk-name" required value="${escapeHtml(lastFormValues.name)}" />
+            <label for="bk-email">${T().email}</label>
+            <input type="email" id="bk-email" required placeholder="${T().emailPlaceholder}" value="${escapeHtml(lastFormValues.email)}" />
+            <label for="bk-phone">${T().phone}</label>
+            <input type="text" id="bk-phone" value="${escapeHtml(lastFormValues.phone)}" />
+            <label for="bk-notes">${T().notes}</label>
+            <textarea id="bk-notes" rows="2"></textarea>
+            ${customQuestions.map((q, i) => `
+              <label for="bk-custom-${i}">${escapeHtml(q.question_text)}</label>
+              <input type="text" id="bk-custom-${i}" data-question="${escapeHtml(q.question_text)}" />
+            `).join("")}
+            <button type="submit" style="width:100%; margin-top:1.25rem;">${T().confirmBtn}</button>
+            <p class="error" id="book-error" style="display:none;"></p>
+          </form>
+        </div>
+      `;
+
+      document.getElementById("book-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = e.target.querySelector("button[type=submit]");
+        btn.disabled = true;
+        btn.textContent = T().sending;
+
+        const customAnswers = {};
+        customQuestions.forEach((q, i) => {
+          const val = document.getElementById(`bk-custom-${i}`).value.trim();
+          if (val) customAnswers[q.question_text] = val;
+        });
+
+        lastFormValues = {
+          name: document.getElementById("bk-name").value,
+          email: document.getElementById("bk-email").value,
+          phone: document.getElementById("bk-phone").value,
+        };
+
+        try {
+          const res = await fetch("/api/booking-create", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              slug,
+              slot_iso: selectedSlot.iso,
+              event_type_id: selectedType ? selectedType.id : undefined,
+              duration_minutes: availabilityData.slot_duration_minutes,
+              name: lastFormValues.name,
+              email: lastFormValues.email,
+              phone: lastFormValues.phone,
+              notes: document.getElementById("bk-notes").value,
+              preferred_language: lang,
+              custom_answers: Object.keys(customAnswers).length ? customAnswers : undefined,
+            }),
+          });
+          const result = await res.json();
+          if (!res.ok) throw new Error(result.error || T().genericError);
+          renderSuccess(result);
+        } catch (err) {
+          document.getElementById("book-error").textContent = err.message;
+          document.getElementById("book-error").style.display = "block";
+          btn.disabled = false;
+          btn.textContent = T().confirmBtn;
+        }
+      });
+    }
+
+    function renderSuccess(result) {
+      document.getElementById("book-content").innerHTML = `
+        <div class="card" style="text-align:center;">
+          <div style="font-size:2.5rem; margin-bottom:0.5rem;">✅</div>
+          <h2 style="margin-top:0;">${T().confirmed}</h2>
+          <p class="hint">${escapeHtml(result.date_label)}, ${escapeHtml(result.slot_label)}</p>
+          <p class="hint" style="margin-top:0.8rem;">${T().confirmedNote}</p>
+          <button type="button" class="secondary" id="book-again-btn" style="width:100%; margin-top:1.5rem;">${T().bookAgain}</button>
+        </div>
+      `;
+      document.getElementById("book-again-btn").addEventListener("click", () => {
+        selectedDate = null;
+        selectedSlot = null;
+        // Same event type (if any) — re-fetch so the just-created booking is
+        // correctly excluded/counted in the fresh slot list.
+        loadAvailability(selectedType ? selectedType.id : undefined);
+      });
+    }
+
+    loadAvailability();
+  </script>
+</body>
+</html>

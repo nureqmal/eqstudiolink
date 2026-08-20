@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Pembayaran — eqstudio.link</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css" />
+<script>
+  (function () {
+    var saved = localStorage.getItem("eqstudio_theme");
+    if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
+  })();
+</script>
+</head>
+<body>
+  <div class="topbar">
+    <a href="/" class="brand">eqstudio<span class="dot">.</span>link</a>
+    <button class="secondary" id="logout-btn">Log Keluar</button>
+  </div>
+
+  <div class="wrap-narrow">
+    <div class="card" id="paid-banner" style="display:none; margin-bottom:1rem; background:var(--ok-bg); border-color:var(--ok);">
+      <p style="margin:0; color:var(--ok); font-weight:600;">Bayaran diterima! Langganan anda aktif.</p>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0;" id="status-title">Sila Bayar untuk Terus Guna</h2>
+      <p class="hint" id="status-sub">Langganan/trial anda telah tamat. Pilih pelan untuk sambung akses.</p>
+
+      <div class="row" id="tier-selector" style="margin-top:1rem;">
+        <label class="plan-option" for="tier-starter">
+          <input type="radio" name="tier" id="tier-starter" value="starter" checked />
+          <div class="plan-option-body">
+            <div class="plan-option-title">Starter</div>
+            <p class="hint" style="margin:0.2rem 0 0;">1 link booking</p>
+          </div>
+        </label>
+        <label class="plan-option" for="tier-pro">
+          <input type="radio" name="tier" id="tier-pro" value="pro" />
+          <div class="plan-option-body">
+            <div class="plan-option-title">Pro</div>
+            <p class="hint" style="margin:0.2rem 0 0;">Sehingga 3 link booking — untuk bisnes/venture berasingan</p>
+          </div>
+        </label>
+      </div>
+
+      <div class="row" id="plan-selector" style="margin-top:1rem;">
+        <label class="plan-option" for="plan-monthly">
+          <input type="radio" name="plan" id="plan-monthly" value="monthly" />
+          <div class="plan-option-body">
+            <div class="plan-option-title">Bulanan</div>
+            <div class="plan-option-price" id="price-monthly">RM19<span>/bulan</span></div>
+          </div>
+        </label>
+        <label class="plan-option" for="plan-yearly">
+          <input type="radio" name="plan" id="plan-yearly" value="yearly" checked />
+          <div class="plan-option-body">
+            <div class="plan-option-ribbon">Disyorkan</div>
+            <div class="plan-option-title">Tahunan <span class="plan-badge" id="price-save-badge">Jimat RM38</span></div>
+            <div class="plan-option-price" id="price-yearly">RM190<span>/tahun</span></div>
+            <div class="hint" style="margin-top:0.2rem;" id="price-yearly-sub">= RM15.83/bulan, 2 bulan percuma</div>
+          </div>
+        </label>
+      </div>
+
+      <button id="pay-btn" style="width:100%; margin-top:1.25rem;">Jana Bil & Bayar</button>
+      <p class="hint" id="pay-loading" style="display:none;">Sedang jana bil...</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from "/assets/supabase-client.js";
+    import { showToast } from "/assets/toast.js";
+
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (!sessionData.session) {
+      window.location.href = "/login.html";
+    }
+    const session = sessionData.session;
+
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      window.location.href = "/login.html";
+    });
+
+    // If redirected back from Billplz with ?paid=1, show a banner (webhook does the real update)
+    if (new URLSearchParams(location.search).get("paid") === "1") {
+      document.getElementById("paid-banner").style.display = "block";
+    }
+
+    // If subscription is actually still active, just send them back to the dashboard
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("subscription_status, subscription_end_date")
+      .eq("id", session.user.id)
+      .single();
+
+    if (profile && profile.subscription_status !== "past_due" && new Date(profile.subscription_end_date) > new Date()) {
+      window.location.href = "/dashboard.html";
+    }
+
+    // Pre-select the plan/tier they last chose, if known, and update button label live
+    const { data: profileForPlan } = await supabase.from("profiles").select("subscription_plan, tier").eq("id", session.user.id).single();
+    if (profileForPlan?.subscription_plan === "yearly") {
+      document.getElementById("plan-yearly").checked = true;
+    }
+    if (profileForPlan?.tier === "pro") {
+      document.getElementById("tier-pro").checked = true;
+    }
+
+    const TIER_PRICING = {
+      starter: { monthly: 19, yearly: 190, save: 38 },
+      pro: { monthly: 39, yearly: 390, save: 78 },
+    };
+
+    function updatePrices() {
+      const tier = document.querySelector('input[name="tier"]:checked').value;
+      const p = TIER_PRICING[tier];
+      document.getElementById("price-monthly").innerHTML = `RM${p.monthly}<span>/bulan</span>`;
+      document.getElementById("price-yearly").innerHTML = `RM${p.yearly}<span>/tahun</span>`;
+      document.getElementById("price-save-badge").textContent = `Jimat RM${p.save}`;
+      document.getElementById("price-yearly-sub").textContent = `= RM${(p.yearly / 12).toFixed(2)}/bulan, 2 bulan percuma`;
+      updatePayBtnLabel();
+    }
+    document.querySelectorAll('input[name="tier"]').forEach(el => el.addEventListener("change", updatePrices));
+
+    function updatePayBtnLabel() {
+      const plan = document.querySelector('input[name="plan"]:checked').value;
+      const tier = document.querySelector('input[name="tier"]:checked').value;
+      const price = TIER_PRICING[tier][plan];
+      document.getElementById("pay-btn").textContent = `Jana Bil & Bayar (RM${price}${plan === "yearly" ? "/tahun" : "/bulan"})`;
+    }
+    document.querySelectorAll('input[name="plan"]').forEach(el => el.addEventListener("change", updatePayBtnLabel));
+    updatePrices();
+
+    document.getElementById("pay-btn").addEventListener("click", async () => {
+      const btn = document.getElementById("pay-btn");
+      const loadingEl = document.getElementById("pay-loading");
+      const plan = document.querySelector('input[name="plan"]:checked').value;
+      const tier = document.querySelector('input[name="tier"]:checked').value;
+      btn.disabled = true;
+      loadingEl.style.display = "block";
+
+      try {
+        const res = await fetch("/api/create-bill", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+          body: JSON.stringify({ plan, tier }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Gagal jana bil.");
+        window.location.href = data.bill_url;
+      } catch (err) {
+        showToast(err.message, "error");
+        btn.disabled = false;
+        loadingEl.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

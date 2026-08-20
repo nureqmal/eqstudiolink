@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Forum — eqstudio.link</title>
+<meta name="description" content="Diskusi, soalan, dan pengumuman untuk komuniti eqstudio.link." />
+<link rel="canonical" href="https://eqstudio.link/forum.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css" />
+<script>
+  (function () {
+    var saved = localStorage.getItem("eqstudio_theme");
+    if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
+  })();
+</script>
+</head>
+<body>
+
+  <nav class="lp-nav">
+    <a href="/" class="brand" style="text-decoration:none;">eqstudio<span class="dot">.</span>link</a>
+    <div class="lp-nav-links">
+      <a href="/login.html" class="plain">Log Masuk</a>
+      <a href="/login.html" class="btn">Mula Percuma</a>
+    </div>
+  </nav>
+
+  <div class="wrap-narrow" style="padding-top:2rem; padding-bottom:4rem;">
+    <div id="forum-content">
+      <div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from "/assets/supabase-client.js";
+
+    let currentUser = null;
+    let canPost = false;
+
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str ?? "";
+      return div.innerHTML;
+    }
+    function fmtDate(iso) {
+      return new Date(iso).toLocaleString("ms-MY", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    }
+    function fmtDateShort(iso) {
+      return new Date(iso).toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
+    }
+
+    async function checkAuth() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) { currentUser = null; canPost = false; return; }
+      currentUser = session.user;
+      const { data: profile } = await supabase.from("profiles").select("subscription_status").eq("id", currentUser.id).single();
+      canPost = profile?.subscription_status === "active";
+    }
+
+    function notice() {
+      if (currentUser && canPost) return "";
+      if (currentUser && !canPost) return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--pending-bg); border-radius:8px;">⚠️ Anda perlu langganan <strong>aktif</strong> (bukan trial) untuk post/reply. <a href="/billing.html">Upgrade sekarang</a>.</p>`;
+      return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--paper); border-radius:8px;">👋 <a href="/login.html">Log masuk</a> dengan akaun langganan aktif untuk post/reply.</p>`;
+    }
+
+    // ── View: category list ──
+    async function renderCategoryList() {
+      const content = document.getElementById("forum-content");
+      content.innerHTML = `<div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>`;
+      const res = await fetch("/api/forum-categories");
+      const data = await res.json();
+      if (!res.ok) { content.innerHTML = `<p class="error">${escapeHtml(data.error)}</p>`; return; }
+
+      content.innerHTML = `
+        <div style="text-align:center; margin-bottom:1.5rem;">
+          <span class="lp-eyebrow">Forum</span>
+          <h1 style="font-size:1.8rem; margin:0.4rem 0;">Komuniti eqstudio.link</h1>
+          <p class="hint">Diskusi, soalan, dan pengumuman — sesama business owner.</p>
+        </div>
+        <div class="home-tile-grid" style="grid-template-columns:repeat(2,1fr);">
+          ${data.categories.map(c => `
+            <a href="?category=${c.slug}" class="home-tile" data-cat="coral" style="text-decoration:none;">
+              <div class="home-tile-icon">💬</div>
+              <div class="home-tile-label">${escapeHtml(c.name)}</div>
+              <div class="home-tile-stat">${c.thread_count} thread</div>
+            </a>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    // ── View: thread list within a category ──
+    async function renderThreadList(slug) {
+      const content = document.getElementById("forum-content");
+      content.innerHTML = `<div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>`;
+      const res = await fetch(`/api/forum-thread-list?category=${encodeURIComponent(slug)}`);
+      const data = await res.json();
+      if (!res.ok) { content.innerHTML = `<p class="error">${escapeHtml(data.error)}</p>`; return; }
+
+      content.innerHTML = `
+        <a href="/forum.html" class="legal-back" style="text-decoration:none; color:var(--stamp); font-weight:600; font-size:0.85rem;">← Semua Kategori</a>
+        <h1 style="font-size:1.5rem; margin:0.6rem 0 0.2rem;">${escapeHtml(data.category.name)}</h1>
+        <p class="hint" style="margin-bottom:1.2rem;">${escapeHtml(data.category.description || "")}</p>
+
+        ${notice()}
+
+        ${canPost ? `
+          <div class="card" style="margin:1rem 0;">
+            <button type="button" class="btn" id="new-thread-toggle" style="width:100%;">+ Mula Thread Baharu</button>
+            <form id="new-thread-form" style="display:none; margin-top:1rem;">
+              <label for="nt-title">Tajuk</label>
+              <input type="text" id="nt-title" required />
+              <label for="nt-message">Mesej</label>
+              <textarea id="nt-message" rows="4" required></textarea>
+              <button type="submit" style="margin-top:1rem;">Hantar</button>
+              <p class="error" id="nt-error" style="display:none;"></p>
+            </form>
+          </div>` : ""}
+
+        <div class="card">
+          ${data.threads.length === 0 ? `<p class="hint" style="text-align:center;">Belum ada thread. Mula yang pertama!</p>` : data.threads.map((t, i) => `
+            <a href="?thread=${t.id}" class="fade-in-row" style="animation-delay:${Math.min(i*0.04,0.4)}s; display:block; text-decoration:none; color:inherit; padding:0.9rem 0; border-bottom:1px solid var(--paper-line);">
+              <div style="display:flex; justify-content:space-between; gap:0.8rem; align-items:flex-start;">
+                <div style="min-width:0;">
+                  ${t.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">📌 Pinned</span>` : ""}
+                  ${t.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}
+                  <strong>${escapeHtml(t.title)}</strong>
+                  <div class="hint" style="font-size:0.8rem; margin-top:0.2rem;">oleh ${escapeHtml(t.author_name)} · ${fmtDateShort(t.created_at)}</div>
+                </div>
+                <span class="hint" style="flex-shrink:0; font-size:0.8rem;">${t.reply_count} balasan</span>
+              </div>
+            </a>
+          `).join("")}
+        </div>
+      `;
+
+      const toggleBtn = document.getElementById("new-thread-toggle");
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+          const form = document.getElementById("new-thread-form");
+          form.style.display = form.style.display === "none" ? "block" : "none";
+        });
+        document.getElementById("new-thread-form").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const errorEl = document.getElementById("nt-error");
+          errorEl.style.display = "none";
+          const { error } = await supabase.from("forum_threads").insert({
+            category_id: data.category.id,
+            owner_id: currentUser.id,
+            author_name: currentUser.email,
+            title: document.getElementById("nt-title").value.trim(),
+            message: document.getElementById("nt-message").value.trim(),
+          });
+          if (error) { errorEl.textContent = error.message; errorEl.style.display = "block"; return; }
+          renderThreadList(slug);
+        });
+      }
+    }
+
+    // ── View: single thread + replies ──
+    async function renderThreadDetail(id) {
+      const content = document.getElementById("forum-content");
+      content.innerHTML = `<div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>`;
+      const res = await fetch(`/api/forum-thread-detail?id=${id}`);
+      const data = await res.json();
+      if (!res.ok) { content.innerHTML = `<p class="error">${escapeHtml(data.error)}</p>`; return; }
+
+      content.innerHTML = `
+        <a href="javascript:history.back()" class="legal-back" style="text-decoration:none; color:var(--stamp); font-weight:600; font-size:0.85rem;">← Kembali</a>
+        <div class="card" style="margin:1rem 0;">
+          ${data.thread.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">📌 Pinned</span>` : ""}
+          ${data.thread.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}
+          <h1 style="font-size:1.4rem; margin:0.5rem 0 0.2rem;">${escapeHtml(data.thread.title)}</h1>
+          <p class="hint" style="margin-bottom:0.8rem;">oleh <strong>${escapeHtml(data.thread.author_name)}</strong> · ${fmtDate(data.thread.created_at)}</p>
+          <p style="white-space:pre-wrap; line-height:1.7;">${escapeHtml(data.thread.message)}</p>
+        </div>
+
+        <div id="replies-list">
+          ${data.replies.map((r, i) => `
+            <div class="card fade-in-row" style="animation-delay:${Math.min(i*0.04,0.4)}s; margin-bottom:0.8rem;">
+              ${r.is_founder ? `<span class="badge belum_bayar" style="margin-bottom:0.4rem; display:inline-block;">Team</span>` : ""}
+              <p class="hint" style="margin:0 0 0.4rem;"><strong>${escapeHtml(r.author_name)}</strong> · ${fmtDate(r.created_at)}</p>
+              <p style="white-space:pre-wrap; line-height:1.6; margin:0;">${escapeHtml(r.message)}</p>
+            </div>
+          `).join("")}
+        </div>
+
+        ${notice()}
+        ${canPost ? `
+          <div class="card" style="margin-top:1rem;">
+            <form id="reply-form">
+              <label for="reply-message">Balasan anda</label>
+              <textarea id="reply-message" rows="3" required></textarea>
+              <button type="submit" style="margin-top:0.8rem;">Hantar Balasan</button>
+              <p class="error" id="reply-error" style="display:none;"></p>
+            </form>
+          </div>` : ""}
+      `;
+
+      const replyForm = document.getElementById("reply-form");
+      if (replyForm) {
+        replyForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const errorEl = document.getElementById("reply-error");
+          errorEl.style.display = "none";
+          const { error } = await supabase.from("forum_replies").insert({
+            thread_id: id,
+            owner_id: currentUser.id,
+            author_name: currentUser.email,
+            message: document.getElementById("reply-message").value.trim(),
+          });
+          if (error) { errorEl.textContent = error.message; errorEl.style.display = "block"; return; }
+          await supabase.from("forum_threads").update({ last_activity_at: new Date().toISOString() }).eq("id", id);
+          renderThreadDetail(id);
+        });
+      }
+    }
+
+    async function router() {
+      await checkAuth();
+      const params = new URLSearchParams(location.search);
+      if (params.get("thread")) renderThreadDetail(params.get("thread"));
+      else if (params.get("category")) renderThreadList(params.get("category"));
+      else renderCategoryList();
+    }
+
+    router();
+  </script>
+</body>
+</html>

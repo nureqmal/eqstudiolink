@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Admin — eqstudio.link</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css" />
+<script>
+  (function () {
+    var saved = localStorage.getItem("eqstudio_theme");
+    if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
+  })();
+</script>
+</head>
+<body>
+  <div class="topbar">
+    <span class="brand">eqstudio<span class="dot">.</span>link <span class="hint" style="font-family:var(--font-body); font-weight:500;">/ admin</span></span>
+    <button type="button" class="secondary" id="admin-theme-toggle" style="padding:0.4rem 0.7rem;">🌙</button>
+  </div>
+
+  <div class="wrap">
+    <div class="card gate-card-anim" id="gate-card">
+      <span class="lp-eyebrow" style="margin-bottom:0.8rem;">Admin Sahaja</span>
+      <h2 style="margin-top:0;">Admin Login</h2>
+      <label for="admin-key">Admin Key</label>
+      <input type="password" id="admin-key" />
+      <button id="gate-btn" style="margin-top:1rem;">Masuk</button>
+      <p class="error" id="gate-error" style="display:none;"></p>
+    </div>
+
+    <div id="stats-skeleton" style="display:none;">
+      <div class="card" style="margin-bottom:1.5rem;">
+        <div class="skeleton" style="height:70px; border-radius:12px;"></div>
+      </div>
+      <div class="card"><div class="skeleton" style="height:180px; border-radius:12px;"></div></div>
+    </div>
+
+    <div id="stats-wrap" style="display:none;">
+      <div class="card" style="margin-bottom:1.5rem;">
+        <div class="row" style="text-align:center;">
+          <div class="stat"><div class="num" id="stat-bookings">–</div><div class="label">Booking Aktif</div></div>
+          <div class="stat"><div class="num" id="stat-users">–</div><div class="label">Jumlah Business Owner</div></div>
+          <div class="stat"><div class="num" id="stat-customers">–</div><div class="label">Customer Ditrack</div></div>
+          <div class="stat"><div class="num" id="stat-reminders">–</div><div class="label">Reminder Dihantar</div></div>
+          <div class="stat"><div class="num" id="stat-paid">–</div><div class="label">Dah Bayar</div></div>
+        </div>
+        <p class="hint" style="text-align:center; margin-top:1.5rem;" id="checked-at"></p>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <h2 style="margin:0;">Business Owner</h2>
+          <span class="hint" id="owner-count"></span>
+        </div>
+        <div class="db-search-row">
+          <input type="search" id="owner-search" placeholder="Cari nama bisnes atau emel..." />
+        </div>
+        <table>
+          <thead>
+            <tr><th>Bisnes</th><th>Emel</th><th>Daftar</th><th>Subscription</th><th>Customer</th><th>Booking</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="owner-tbody"></tbody>
+        </table>
+        <p class="hint" id="owner-empty" style="display:none;">Tiada business owner lagi.</p>
+      </div>
+
+      <div class="card" style="margin-top:1.5rem;">
+        <div class="section-title"><h2 style="margin:0;">📋 Kelola Forum</h2></div>
+        <p class="hint">Post sebagai "eqstudio.link Team" — pengumuman rasmi atau balasan kepada thread sedia ada.</p>
+
+        <label for="forum-new-category">Kategori</label>
+        <select id="forum-new-category"></select>
+        <label for="forum-new-title">Tajuk Thread Baharu</label>
+        <input type="text" id="forum-new-title" />
+        <label for="forum-new-message">Mesej</label>
+        <textarea id="forum-new-message" rows="3"></textarea>
+        <label style="display:flex; align-items:center; gap:0.5rem; margin-top:0.6rem; cursor:pointer;">
+          <input type="checkbox" id="forum-new-pinned" style="width:auto;" /> <span style="font-size:0.9rem;">Pin thread ni</span>
+        </label>
+        <button type="button" id="forum-new-submit" style="margin-top:1rem;">Post Thread Baharu</button>
+        <p class="hint" id="forum-new-status" style="margin-top:0.5rem;"></p>
+
+        <div style="border-top:1px solid var(--paper-line); margin:1.5rem 0 1rem; padding-top:1rem;">
+          <label for="forum-browse-category">Semak & Balas Thread Sedia Ada</label>
+          <select id="forum-browse-category"></select>
+          <div id="forum-thread-browse" style="margin-top:0.8rem;"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1.5rem;">
+        <div class="section-title">
+          <h2 style="margin:0;">Emel Log</h2>
+          <span class="hint" id="email-log-count"></span>
+        </div>
+        <p class="hint" id="email-log-failed-banner" style="display:none; color:var(--warn); font-weight:600;"></p>
+        <table>
+          <thead>
+            <tr><th>Masa</th><th>Jenis</th><th>Penerima</th><th>Status</th><th>Ralat</th></tr>
+          </thead>
+          <tbody id="email-log-tbody"></tbody>
+        </table>
+        <p class="hint" id="email-log-empty" style="display:none;">Tiada rekod emel lagi.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="forum-reply-modal" style="display:none;">
+    <div class="modal-box" style="max-width:480px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="forum-reply-title">Balas Thread</h2></div>
+      <textarea id="forum-reply-message" rows="3" placeholder="Balasan sebagai eqstudio.link Team..."></textarea>
+      <div class="row" style="margin-top:1rem;">
+        <button type="button" class="secondary" id="forum-reply-cancel" style="flex:1;">Batal</button>
+        <button type="button" id="forum-reply-submit" style="flex:1;">Hantar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="admin-modal" style="display:none;">
+    <div class="modal-box">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="admin-modal-title">Tindakan</h2></div>
+      <div id="admin-modal-body"></div>
+      <button type="button" class="secondary" id="admin-modal-close" style="width:100%; margin-top:1rem;">Tutup</button>
+    </div>
+  </div>
+
+  <script>
+    // ── Dark mode toggle ──
+    const themeBtn = document.getElementById("admin-theme-toggle");
+    function applyAdminThemeIcon() {
+      themeBtn.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+    }
+    themeBtn.addEventListener("click", () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      if (isDark) { document.documentElement.removeAttribute("data-theme"); localStorage.setItem("eqstudio_theme", "light"); }
+      else { document.documentElement.setAttribute("data-theme", "dark"); localStorage.setItem("eqstudio_theme", "dark"); }
+      applyAdminThemeIcon();
+    });
+    applyAdminThemeIcon();
+
+    function animateCountUp(el, targetValue) {
+      if (!el || targetValue === "–" || targetValue == null) { if (el) el.textContent = targetValue ?? "–"; return; }
+      const duration = 700;
+      const startTime = performance.now();
+      function step(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(targetValue * eased);
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    const gateBtn = document.getElementById("gate-btn");
+    const gateError = document.getElementById("gate-error");
+
+    async function loadStats(key) {
+      gateError.style.display = "none";
+      document.getElementById("stats-skeleton").style.display = "block";
+      const res = await fetch("/api/admin-stats", { headers: { "x-admin-key": key } });
+      if (!res.ok) {
+        document.getElementById("stats-skeleton").style.display = "none";
+        gateError.textContent = "Admin key salah.";
+        gateError.style.display = "block";
+        return;
+      }
+      const data = await res.json();
+      animateCountUp(document.getElementById("stat-bookings"), data.total_bookings);
+      animateCountUp(document.getElementById("stat-users"), data.total_users);
+      animateCountUp(document.getElementById("stat-customers"), data.total_customers_tracked);
+      animateCountUp(document.getElementById("stat-reminders"), data.total_reminders_sent);
+      animateCountUp(document.getElementById("stat-paid"), data.total_paid);
+      document.getElementById("checked-at").textContent = "Dikemaskini: " + new Date(data.checked_at).toLocaleString("ms-MY");
+
+      document.getElementById("gate-card").style.display = "none";
+      document.getElementById("stats-skeleton").style.display = "none";
+      document.getElementById("stats-wrap").style.display = "block";
+      document.getElementById("stats-wrap").classList.add("page-enter");
+      sessionStorage.setItem("eqstudio_admin_key", key);
+      loadOwners();
+      loadEmailLog();
+      loadForumCategories();
+    }
+
+    gateBtn.addEventListener("click", () => {
+      const key = document.getElementById("admin-key").value.trim();
+      if (key) loadStats(key);
+    });
+
+    // Reuse key already entered this session, if any
+    const savedKey = sessionStorage.getItem("eqstudio_admin_key");
+    if (savedKey) {
+      document.getElementById("gate-card").style.display = "none";
+      loadStats(savedKey);
+    }
+
+    // ── Owner list ──
+    let allOwners = [];
+
+    async function loadOwners() {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const res = await fetch("/api/admin-list-owners", { headers: { "x-admin-key": key } });
+      const data = await res.json();
+      if (!res.ok) {
+        document.getElementById("owner-empty").textContent = "Ralat: " + (data.error || "gagal load.");
+        document.getElementById("owner-empty").style.display = "block";
+        return;
+      }
+      allOwners = data.owners;
+      renderOwners(allOwners);
+    }
+
+    const STATUS_LABEL = { trialing: "Trial", active: "Aktif", past_due: "Tertunggak" };
+
+    function renderOwners(list) {
+      document.getElementById("owner-count").textContent = list.length + " owner";
+      document.getElementById("owner-empty").style.display = list.length ? "none" : "block";
+      const tbody = document.getElementById("owner-tbody");
+      tbody.innerHTML = "";
+
+      for (const [i, o] of list.entries()) {
+        const tr = document.createElement("tr");
+        tr.className = "fade-in-row";
+        tr.style.animationDelay = `${Math.min(i * 0.04, 0.4)}s`;
+        const subLabel = STATUS_LABEL[o.subscription_status] || o.subscription_status;
+        tr.innerHTML = `
+          <td data-label="Bisnes">${escapeHtml(o.business_name)}</td>
+          <td data-label="Emel">${escapeHtml(o.email)}</td>
+          <td data-label="Daftar">${new Date(o.created_at).toLocaleDateString("ms-MY")}</td>
+          <td data-label="Subscription">${subLabel}</td>
+          <td data-label="Customer">${o.customer_count}</td>
+          <td data-label="Booking">${o.booking_slug ? `<span class="badge dah_bayar">✅ ${o.booking_count}</span>` : '<span class="hint">— Tiada</span>'}</td>
+          <td data-label="Status">${o.is_suspended ? '<span class="badge belum_bayar">Digantung</span>' : '<span class="badge dah_bayar">Aktif</span>'}</td>
+          <td data-label=""></td>
+        `;
+        const actionTd = tr.lastElementChild;
+
+        const suspendBtn = document.createElement("button");
+        suspendBtn.className = "secondary";
+        suspendBtn.style.marginRight = "0.4rem";
+        suspendBtn.textContent = o.is_suspended ? "Reaktivate" : "Suspend";
+        suspendBtn.addEventListener("click", () => performAction(o, o.is_suspended ? "reactivate" : "suspend"));
+        actionTd.appendChild(suspendBtn);
+
+        const extendBtn = document.createElement("button");
+        extendBtn.className = "secondary";
+        extendBtn.style.marginRight = "0.4rem";
+        extendBtn.textContent = "Extend";
+        extendBtn.addEventListener("click", () => {
+          const days = prompt(`Extend subscription ${o.business_name} berapa hari?`, "30");
+          if (days) performAction(o, "extend_subscription", parseInt(days, 10));
+        });
+        actionTd.appendChild(extendBtn);
+
+        const resetBtn = document.createElement("button");
+        resetBtn.className = "secondary";
+        resetBtn.style.marginRight = "0.4rem";
+        resetBtn.textContent = "Reset PW";
+        resetBtn.addEventListener("click", () => performAction(o, "reset_password"));
+        actionTd.appendChild(resetBtn);
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "secondary";
+        deleteBtn.style.color = "var(--warn)";
+        deleteBtn.textContent = "Padam";
+        deleteBtn.addEventListener("click", () => {
+          const typed = prompt(`Ini PERMANENT dan tak boleh undo. Taip nama bisnes "${o.business_name}" untuk confirm padam:`);
+          if (typed === o.business_name) performAction(o, "delete");
+          else if (typed !== null) alert("Nama tak sepadan. Padam dibatalkan.");
+        });
+        actionTd.appendChild(deleteBtn);
+
+        tbody.appendChild(tr);
+      }
+    }
+
+    async function performAction(owner, action, days) {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      try {
+        const res = await fetch("/api/admin-owner-action", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-admin-key": key },
+          body: JSON.stringify({ owner_id: owner.id, action, days }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Gagal.");
+
+        if (action === "reset_password") {
+          showModal("Link Reset Kata Laluan", `
+            <p class="hint">Hantar link ni ke ${escapeHtml(data.email)} secara manual (WhatsApp/emel):</p>
+            <textarea readonly rows="4" style="font-family:var(--font-mono); font-size:0.8rem;">${escapeHtml(data.reset_link)}</textarea>
+          `);
+        } else if (action === "delete") {
+          showModal("Berjaya", `<p>${escapeHtml(owner.business_name)} telah dipadam.</p>`);
+        } else {
+          showModal("Berjaya", `<p>Tindakan "${action}" berjaya untuk ${escapeHtml(owner.business_name)}.</p>`);
+        }
+        loadOwners();
+      } catch (err) {
+        showModal("Ralat", `<p class="error">${escapeHtml(err.message)}</p>`);
+      }
+    }
+
+    function showModal(title, bodyHtml) {
+      document.getElementById("admin-modal-title").textContent = title;
+      document.getElementById("admin-modal-body").innerHTML = bodyHtml;
+      document.getElementById("admin-modal").style.display = "flex";
+    }
+    document.getElementById("admin-modal-close").addEventListener("click", () => {
+      document.getElementById("admin-modal").style.display = "none";
+    });
+
+    document.getElementById("owner-search").addEventListener("input", (e) => {
+      const q = e.target.value.trim().toLowerCase();
+      const filtered = !q ? allOwners : allOwners.filter(o =>
+        o.business_name.toLowerCase().includes(q) || o.email.toLowerCase().includes(q)
+      );
+      renderOwners(filtered);
+    });
+
+    // ── Email log ──
+    const EMAIL_TYPE_LABEL = { reminder: "Reminder", billing_reminder: "Bil Subscription", digest: "Digest", receipt: "Terima Kasih", appointment_reminder: "Appointment Esok" };
+
+    async function loadEmailLog() {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const res = await fetch("/api/admin-email-log", { headers: { "x-admin-key": key } });
+      const data = await res.json();
+      if (!res.ok) return;
+      renderEmailLog(data.logs, data.failed_count);
+    }
+
+    function renderEmailLog(logs, failedCount) {
+      document.getElementById("email-log-count").textContent = logs.length + " rekod terkini";
+      document.getElementById("email-log-empty").style.display = logs.length ? "none" : "block";
+
+      const banner = document.getElementById("email-log-failed-banner");
+      if (failedCount > 0) {
+        banner.textContent = `⚠ ${failedCount} emel gagal dihantar dalam senarai di bawah — semak sebab dalam lajur Ralat.`;
+        banner.style.display = "block";
+      } else {
+        banner.style.display = "none";
+      }
+
+      const tbody = document.getElementById("email-log-tbody");
+      tbody.innerHTML = "";
+      for (const [i, l] of logs.entries()) {
+        const tr = document.createElement("tr");
+        tr.className = "fade-in-row";
+        tr.style.animationDelay = `${Math.min(i * 0.03, 0.4)}s`;
+        tr.innerHTML = `
+          <td data-label="Masa">${new Date(l.created_at).toLocaleString("ms-MY")}</td>
+          <td data-label="Jenis">${EMAIL_TYPE_LABEL[l.email_type] || l.email_type}</td>
+          <td data-label="Penerima">${escapeHtml(l.recipient)}</td>
+          <td data-label="Status"><span class="badge ${l.status === "sent" ? "dah_bayar" : "belum_bayar"}">${l.status === "sent" ? "Berjaya" : "Gagal"}</span></td>
+          <td data-label="Ralat" style="font-size:0.78rem; color:var(--warn);">${l.error_message ? escapeHtml(l.error_message.slice(0, 120)) : ""}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str ?? "";
+      return div.innerHTML;
+    }
+
+    // ── Forum management ──
+    let forumReplyThreadId = null;
+
+    async function loadForumCategories() {
+      const res = await fetch("/api/forum-categories");
+      const data = await res.json();
+      if (!res.ok) return;
+      const options = data.categories.map(c => `<option value="${c.slug}">${escapeHtml(c.name)}</option>`).join("");
+      document.getElementById("forum-new-category").innerHTML = options;
+      document.getElementById("forum-browse-category").innerHTML = `<option value="">Pilih kategori...</option>` + options;
+    }
+
+    document.getElementById("forum-new-submit").addEventListener("click", async () => {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const statusEl = document.getElementById("forum-new-status");
+      const title = document.getElementById("forum-new-title").value.trim();
+      const message = document.getElementById("forum-new-message").value.trim();
+      if (!title || !message) { statusEl.textContent = "Tajuk & mesej diperlukan."; statusEl.style.color = "var(--warn)"; return; }
+
+      const res = await fetch("/api/forum-admin-post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-key": key },
+        body: JSON.stringify({
+          category_slug: document.getElementById("forum-new-category").value,
+          title, message,
+          is_pinned: document.getElementById("forum-new-pinned").checked,
+        }),
+      });
+      const result = await res.json();
+      if (!res.ok) { statusEl.textContent = result.error; statusEl.style.color = "var(--warn)"; return; }
+      statusEl.textContent = "✅ Thread berjaya di-post.";
+      statusEl.style.color = "var(--ok)";
+      document.getElementById("forum-new-title").value = "";
+      document.getElementById("forum-new-message").value = "";
+      document.getElementById("forum-new-pinned").checked = false;
+    });
+
+    document.getElementById("forum-browse-category").addEventListener("change", async (e) => {
+      const slug = e.target.value;
+      const browseEl = document.getElementById("forum-thread-browse");
+      if (!slug) { browseEl.innerHTML = ""; return; }
+      browseEl.innerHTML = `<p class="hint">Memuatkan...</p>`;
+      const res = await fetch(`/api/forum-thread-list?category=${encodeURIComponent(slug)}`);
+      const data = await res.json();
+      if (!res.ok) { browseEl.innerHTML = `<p class="error">${data.error}</p>`; return; }
+      if (data.threads.length === 0) { browseEl.innerHTML = `<p class="hint">Tiada thread dalam kategori ni.</p>`; return; }
+      browseEl.innerHTML = data.threads.map(t => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid var(--paper-line);">
+          <span style="font-size:0.88rem;">${escapeHtml(t.title)} <span class="hint">(${t.reply_count} balasan)</span></span>
+          <button type="button" class="secondary" data-thread-id="${t.id}" data-thread-title="${escapeHtml(t.title)}">Balas</button>
+        </div>
+      `).join("");
+      browseEl.querySelectorAll("[data-thread-id]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          forumReplyThreadId = btn.dataset.threadId;
+          document.getElementById("forum-reply-title").textContent = `Balas: ${btn.dataset.threadTitle}`;
+          document.getElementById("forum-reply-message").value = "";
+          document.getElementById("forum-reply-modal").style.display = "flex";
+        });
+      });
+    });
+
+    document.getElementById("forum-reply-cancel").addEventListener("click", () => {
+      document.getElementById("forum-reply-modal").style.display = "none";
+    });
+
+    document.getElementById("forum-reply-submit").addEventListener("click", async () => {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const message = document.getElementById("forum-reply-message").value.trim();
+      if (!message || !forumReplyThreadId) return;
+      const res = await fetch("/api/forum-admin-post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-key": key },
+        body: JSON.stringify({ thread_id: forumReplyThreadId, message }),
+      });
+      const result = await res.json();
+      if (!res.ok) { alert(result.error); return; }
+      document.getElementById("forum-reply-modal").style.display = "none";
+      document.getElementById("forum-browse-category").dispatchEvent(new Event("change"));
+    });
+  </script>
+</body>
+</html>

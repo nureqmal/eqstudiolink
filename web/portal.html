@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Status Bayaran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css" />
+<script>
+  (function () {
+    var saved = localStorage.getItem("eqstudio_theme");
+    if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
+  })();
+</script>
+</head>
+<body>
+  <div class="wrap-narrow">
+    <p class="brand" style="text-align:center; margin-bottom:2rem;" id="biz-brand">eqstudio<span class="dot">.</span>link</p>
+    <div class="card" id="content">
+      <p class="hint">Memuatkan...</p>
+    </div>
+  </div>
+
+  <script>
+    // Note: zh/ta are AI-generated translations — a native speaker should review before go-live.
+    const PORTAL_I18N = {
+      ms: { greet: (n) => `Salam ${n},`, sub: "Berikut status bayaran anda:", amount: "Jumlah", due: "Tarikh Due", status: "Status", payBtn: "Bayar Sekarang", waBtn: "Ada Soalan? WhatsApp Kami", bankLabel: "Atau bank transfer terus", qrLabel: "🇲🇾 Scan QR DuitNow", qrNote: "Serasi semua bank & e-wallet (TnG, Boost, GrabPay, dll)", questions: "Ada soalan?", ssm: "No. Pendaftaran", statusLabels: { belum_bayar: "Belum Bayar", reminder_dihantar: "Reminder Dihantar", dah_bayar: "Dah Bayar" } },
+      en: { greet: (n) => `Hi ${n},`, sub: "Here's your payment status:", amount: "Amount", due: "Due Date", status: "Status", payBtn: "Pay Now", waBtn: "Questions? WhatsApp Us", bankLabel: "Or bank transfer directly", qrLabel: "🇲🇾 Scan DuitNow QR", qrNote: "Works with all banks & e-wallets (TnG, Boost, GrabPay, etc.)", questions: "Questions?", ssm: "Registration No.", statusLabels: { belum_bayar: "Unpaid", reminder_dihantar: "Reminder Sent", dah_bayar: "Paid" } },
+      zh: { greet: (n) => `${n}，您好，`, sub: "以下是您的付款状态：", amount: "金额", due: "到期日", status: "状态", payBtn: "立即付款", waBtn: "有疑问？WhatsApp 联系我们", bankLabel: "或直接银行转账", qrLabel: "🇲🇾 扫描 DuitNow QR", qrNote: "适用于所有银行和电子钱包（TnG、Boost、GrabPay 等）", questions: "有疑问？", ssm: "注册号", statusLabels: { belum_bayar: "未付款", reminder_dihantar: "已发送提醒", dah_bayar: "已付款" } },
+      ta: { greet: (n) => `வணக்கம் ${n},`, sub: "உங்கள் கட்டண நிலை இதோ:", amount: "தொகை", due: "தவணை தேதி", status: "நிலை", payBtn: "இப்போது செலுத்துங்கள்", waBtn: "கேள்விகளா? WhatsApp", bankLabel: "அல்லது நேரடி வங்கி பரிமாற்றம்", qrLabel: "🇲🇾 DuitNow QR ஸ்கேன்", qrNote: "அனைத்து வங்கிகள் & இ-வாலட்களுடன் இணக்கமானது", questions: "கேள்விகளா?", ssm: "பதிவு எண்", statusLabels: { belum_bayar: "செலுத்தப்படவில்லை", reminder_dihantar: "நினைவூட்டல் அனுப்பப்பட்டது", dah_bayar: "செலுத்தப்பட்டது" } },
+    };
+
+    const token = new URLSearchParams(location.search).get("token");
+    const content = document.getElementById("content");
+
+    async function load() {
+      if (!token) {
+        content.innerHTML = `<p class="error">Link tidak sah.</p>`;
+        return;
+      }
+      try {
+        const res = await fetch(`/api/customer-portal?token=${encodeURIComponent(token)}`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Ralat memuatkan.");
+
+        if (data.business?.business_name) {
+          document.getElementById("biz-brand").textContent = data.business.business_name;
+        }
+
+        const c = data.customer;
+        const T = PORTAL_I18N[c.preferred_language] || PORTAL_I18N.ms;
+        content.innerHTML = `
+          <h2 style="margin-top:0;">${T.greet(escapeHtml(c.name))}</h2>
+          <p class="hint">${T.sub}</p>
+          <div class="row">
+            <div><label>${T.amount}</label><p class="mono" style="font-size:1.3rem; margin:0;">RM ${Number(c.amount).toFixed(2)}</p></div>
+            <div><label>${T.due}</label><p class="mono" style="font-size:1.3rem; margin:0;">${c.due_date}</p></div>
+          </div>
+          <label>${T.status}</label>
+          <p style="margin:0 0 1rem;"><span class="badge ${c.status}">${T.statusLabels[c.status]}</span></p>
+          ${c.notes ? `<p class="hint"><em>${escapeHtml(c.notes)}</em></p>` : ""}
+          ${data.pay_url ? `<a href="${data.pay_url}" class="btn" style="width:100%; text-align:center; margin-top:1rem;">${T.payBtn}</a>` : ""}
+          ${waLink(data.business, c) ? `<a href="${waLink(data.business, c)}" class="btn secondary" style="width:100%; text-align:center; margin-top:0.6rem;">${T.waBtn}</a>` : ""}
+          ${(data.business?.bank_name && data.business?.bank_account_number) || data.business?.qr_code_url ? `
+            <div style="background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px; padding:1rem; margin-top:1rem; text-align:center;">
+              <p class="hint" style="text-transform:uppercase; font-size:0.7rem; margin:0 0 0.5rem; text-align:left;">${T.bankLabel}</p>
+              ${data.business?.bank_name && data.business?.bank_account_number ? `
+                <p style="margin:0; font-size:0.9rem; text-align:left;">${escapeHtml(data.business.bank_name)}${data.business.bank_account_holder ? " — " + escapeHtml(data.business.bank_account_holder) : ""}<br/>
+                <strong class="mono">${escapeHtml(data.business.bank_account_number)}</strong></p>` : ""}
+              ${data.business?.qr_code_url ? `
+                <p class="hint" style="font-size:0.68rem; margin:${data.business.bank_name ? "0.9rem" : "0"} 0 0.4rem; text-transform:uppercase;">${T.qrLabel}</p>
+                <img src="${escapeHtml(data.business.qr_code_url)}" alt="QR DuitNow" style="max-width:160px; display:block; margin:0 auto;" />
+                <p class="hint" style="font-size:0.68rem; margin:0.4rem 0 0;">${T.qrNote}</p>` : ""}
+            </div>` : ""}
+          ${data.business?.contact_phone || data.business?.contact_email ? `
+            <p class="hint" style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--paper-line);">
+              ${T.questions} ${data.business.contact_phone ? "📞 " + escapeHtml(data.business.contact_phone) : ""}
+              ${data.business.contact_email ? " ✉️ " + escapeHtml(data.business.contact_email) : ""}
+            </p>` : ""}
+          ${data.business?.ssm_number ? `<p class="hint" style="font-size:0.72rem;">${T.ssm}: ${escapeHtml(data.business.ssm_number)}</p>` : ""}
+          <div class="pdpa-badge"><a href="/privacy-policy.html" style="color:inherit; text-decoration:none;">🔒 Data dilindungi PDPA</a></div>
+        `;
+      } catch (err) {
+        content.innerHTML = `<p class="error">${escapeHtml(err.message)}</p>`;
+      }
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str ?? "";
+      return div.innerHTML;
+    }
+
+    function waLink(business, customer) {
+      if (!business?.contact_phone) return null;
+      const digits = business.contact_phone.replace(/[^0-9]/g, "");
+      const withCountryCode = digits.startsWith("0") ? "60" + digits.slice(1) : digits;
+      const msg = encodeURIComponent(`Salam, saya nak tanya pasal invois RM${Number(customer.amount).toFixed(2)} (${customer.name}).`);
+      return `https://wa.me/${withCountryCode}?text=${msg}`;
+    }
+
+    load();
+  </script>
+</body>
+</html>

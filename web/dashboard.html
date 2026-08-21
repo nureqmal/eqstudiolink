@@ -1,0 +1,2660 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Dashboard — eqstudio.link</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css" />
+<script>
+  (function () {
+    var saved = localStorage.getItem("eqstudio_theme");
+    if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
+  })();
+</script>
+</head>
+<body>
+
+  <div class="db-shell">
+
+    <aside class="db-sidebar">
+      <a href="/dashboard.html" class="brand">eqstudio<span class="dot">.</span>link</a>
+      <div class="db-sidebar-footer">
+        <div class="db-biz-name" id="business-name-side">—</div>
+        <button class="secondary" id="restart-tour-btn" style="width:100%; margin-bottom:0.5rem;">❓ Panduan Guna Sistem</button>
+        <button class="secondary theme-toggle-btn" id="theme-toggle-btn" style="width:100%; margin-bottom:0.5rem;">
+          <span id="theme-toggle-icon">🌙</span> <span id="theme-toggle-label">Mod Gelap</span>
+        </button>
+        <button class="secondary" id="logout-btn" style="width:100%;">Log Keluar</button>
+      </div>
+    </aside>
+
+    <div class="db-topbar-mobile">
+      <a href="/dashboard.html" class="brand">eqstudio<span class="dot">.</span>link</a>
+      <div style="display:flex; gap:0.5rem;">
+        <button class="secondary" id="restart-tour-btn-mobile" style="padding:0.5rem 0.7rem;">❓</button>
+        <button class="secondary theme-toggle-btn" id="theme-toggle-btn-mobile" style="padding:0.5rem 0.7rem;">🌙</button>
+        <button class="secondary" id="logout-btn-mobile" title="Log Keluar" style="padding:0.5rem 0.65rem;">🚪</button>
+      </div>
+    </div>
+
+    <main class="db-main">
+      <div class="wrap">
+
+        <div id="banner-slot"></div>
+        <div id="setup-checklist-slot"></div>
+
+        <div class="db-page active" id="page-home">
+          <div class="home-hero">
+            <p class="hint" id="home-greeting">Selamat kembali</p>
+            <h1 class="home-biz-name" id="home-biz-name">—</h1>
+          </div>
+
+          <div class="home-summary-card" id="home-summary-card">
+            <div class="home-summary-item">
+              <span class="home-summary-icon">📅</span>
+              <span class="home-summary-text"><b id="home-summary-bookings">0</b> booking akan datang</span>
+            </div>
+            <div class="home-summary-divider"></div>
+            <div class="home-summary-item">
+              <span class="home-summary-icon">💰</span>
+              <span class="home-summary-text">RM <b id="home-summary-outstanding">0.00</b> belum diterima</span>
+            </div>
+          </div>
+
+          <div class="card home-booking-link-card" id="home-booking-link-card" style="display:none;">
+            <p class="hint" style="text-transform:uppercase; font-size:0.7rem; margin:0 0 0.4rem;">🔗 Link Booking Anda</p>
+            <div class="home-link-row">
+              <code class="mono" id="home-link-text" style="flex:1; word-break:break-all;"></code>
+            </div>
+            <div class="row" style="margin-top:0.8rem; flex-wrap:wrap; gap:0.5rem;">
+              <button type="button" class="secondary" id="home-copy-link-btn">📋 Copy</button>
+              <button type="button" class="secondary" id="home-whatsapp-link-btn">💬 Share WhatsApp</button>
+              <button type="button" class="secondary" id="home-edit-link-btn" data-page="booking-settings">✏️ Edit</button>
+            </div>
+          </div>
+          <div class="card" id="home-no-booking-link-card" style="display:none;">
+            <p class="hint" style="margin:0;">⚠️ Anda belum setup link booking lagi.</p>
+            <button type="button" class="secondary" data-page="booking-settings" style="margin-top:0.6rem;">Setup Sekarang →</button>
+          </div>
+
+          <div class="mobile-stat-strip">
+            <div class="mobile-stat-pill">
+              <span class="pill-icon">📅</span>
+              <span><span class="pill-value" id="pill-stat-booking">0</span> <span class="pill-label">akan datang</span></span>
+            </div>
+            <div class="mobile-stat-pill">
+              <span class="pill-icon">💰</span>
+              <span><span class="pill-value" id="pill-stat-outstanding">RM0</span> <span class="pill-label">belum diterima</span></span>
+            </div>
+            <div class="mobile-stat-pill">
+              <span class="pill-icon">👥</span>
+              <span><span class="pill-value" id="pill-stat-customers">0</span> <span class="pill-label">pelanggan</span></span>
+            </div>
+          </div>
+
+          <div class="bento-grid">
+            <button type="button" class="bento-tile bento-hero" data-page="booking-list" data-cat="coral">
+              <div class="bento-tile-top">
+                <div class="bento-tile-icon">📅</div>
+                <div>
+                  <div class="bento-tile-label">Senarai Booking</div>
+                  <div class="bento-tile-stat" id="home-stat-booking">—</div>
+                </div>
+              </div>
+              <div class="bento-hero-preview" id="home-hero-preview">
+                <p class="hint">Memuatkan...</p>
+              </div>
+            </button>
+
+            <button type="button" class="bento-tile" data-page="pelanggan-list" data-cat="sage">
+              <div class="bento-tile-icon">👥</div>
+              <div class="bento-tile-label">Senarai Pelanggan</div>
+              <div class="bento-tile-stat" id="home-stat-pelanggan">—</div>
+            </button>
+
+            <button type="button" class="bento-tile" data-page="laporan" data-cat="sun">
+              <div class="bento-tile-icon">📊</div>
+              <div class="bento-tile-label">Laporan</div>
+              <div class="bento-sparkline" id="home-sparkline"></div>
+              <div class="bento-tile-stat" id="home-stat-laporan">—</div>
+            </button>
+
+            <button type="button" class="bento-tile" data-page="pelanggan-add" data-cat="sage">
+              <div class="bento-tile-icon">➕</div>
+              <div class="bento-tile-label">Tambah Pelanggan</div>
+              <div class="bento-tile-stat">Manual / CSV</div>
+            </button>
+
+            <button type="button" class="bento-tile" data-page="kalendar" data-cat="sun">
+              <div class="bento-tile-icon">🗓️</div>
+              <div class="bento-tile-label">Kalendar</div>
+              <div class="bento-tile-stat" id="home-stat-kalendar">—</div>
+            </button>
+
+            <button type="button" class="bento-tile bento-small" data-page="booking-settings" data-cat="coral">
+              <div class="bento-tile-icon">⚙️</div>
+              <div class="bento-tile-label">Tetapan Booking</div>
+            </button>
+
+            <button type="button" class="bento-tile bento-small" data-page="tetapan-profil" data-cat="lilac">
+              <div class="bento-tile-icon">🏢</div>
+              <div class="bento-tile-label">Profil Perniagaan</div>
+            </button>
+
+            <button type="button" class="bento-tile bento-small" data-page="tetapan-reminder" data-cat="lilac">
+              <div class="bento-tile-icon">🔔</div>
+              <div class="bento-tile-label">Jadual Reminder</div>
+            </button>
+            <a href="/forum.html" target="_blank" class="bento-tile bento-small" data-cat="coral">
+              <div class="bento-tile-icon">💬</div>
+              <div class="bento-tile-label">Forum & Bantuan</div>
+              <div class="bento-tile-stat">Diskusi & pengumuman</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="db-page" id="page-booking-list">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="booking-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;">❓ Panduan</button>
+          </div>
+
+          <div class="card">
+            <div class="section-title">
+              <h2 style="margin:0;">Senarai Booking</h2>
+              <span class="hint" id="booking-list-count"></span>
+            </div>
+            <div id="booking-table-skeleton">
+              <div class="skeleton" style="height:56px; margin-bottom:8px; border-radius:12px;"></div>
+              <div class="skeleton" style="height:56px; border-radius:12px;"></div>
+            </div>
+            <div id="booking-list"></div>
+            <p class="hint" id="booking-list-empty" style="display:none;">Belum ada booking lagi. Kongsi link booking anda (dari menu Tetapan Booking) untuk mula terima tempahan.</p>
+          </div>
+        </div>
+
+        <div class="db-page" id="page-booking-settings">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="booking-settings" style="font-size:0.78rem; padding:0.35rem 0.7rem;">❓ Panduan</button>
+          </div>
+
+          <div class="card" id="link-switcher-card" style="margin-bottom:1rem;">
+            <label style="margin-bottom:0.5rem; display:block;">Link Booking</label>
+            <div id="link-switcher-chips" class="chip-row"></div>
+            <div id="add-link-row" style="display:none; margin-top:0.8rem;">
+              <div class="row">
+                <input type="text" id="new-link-slug" placeholder="slug (cth: kelas-piano)" style="flex:1;" />
+                <input type="text" id="new-link-label" placeholder="Label (cth: Kelas Piano)" style="flex:1;" />
+                <button type="button" id="confirm-new-link-btn" class="secondary">Tambah</button>
+              </div>
+            </div>
+            <button type="button" id="show-add-link-btn" class="secondary" style="display:none; margin-top:0.6rem; width:100%;">+ Tambah Link Booking (Pro)</button>
+            <p class="hint" id="link-switcher-upsell" style="display:none; margin-top:0.6rem;">Setiap link ada calendar & tetapan sendiri sepenuhnya. <a href="/billing.html">Upgrade ke Pro</a> untuk sehingga 3 link.</p>
+          </div>
+
+          <div class="card">
+            <div class="section-title"><h2 style="margin:0;">⚙️ Tetapan Booking</h2></div>
+            <p class="hint">Customer boleh book slot terus dari link peribadi anda — tiada perlu WhatsApp/call untuk confirm tarikh. Bila booking confirm, deposit + reminder automatik jalan.</p>
+
+            <label for="p-booking-slug">Slug</label>
+            <div class="booking-slug-row">
+              <span class="booking-slug-prefix">eqstudio.link/book.html?slug=</span>
+              <input type="text" id="p-booking-slug" placeholder="kak-aina-bakery" />
+            </div>
+            <p class="hint" id="booking-slug-status" style="margin-top:0.3rem;"></p>
+
+            <div id="booking-qr-wrap" style="display:none; margin-top:1rem;">
+              <div class="booking-qr-card" id="booking-qr-card">
+                <img id="booking-qr-img" alt="QR kod link booking" />
+                <p class="booking-qr-caption">📅 Scan untuk Book Slot</p>
+              </div>
+              <div class="row" style="margin-top:0.6rem;">
+                <a id="booking-qr-download" download="qr-booking.png" class="secondary" style="flex:1; text-align:center; text-decoration:none; display:inline-block;">⬇ Muat Turun</a>
+                <button type="button" class="secondary" id="booking-qr-print" style="flex:1;">🖨 Cetak</button>
+              </div>
+              <p class="hint" style="margin-top:0.4rem;">Print & letak sebelah QR DuitNow di kaunter — customer scan untuk terus book slot.</p>
+            </div>
+
+            <div class="row" style="margin-top:1rem;">
+              <div>
+                <label for="p-slot-duration">Tempoh Setiap Slot</label>
+                <select id="p-slot-duration">
+                  <option value="30">30 minit</option>
+                  <option value="60" selected>1 jam</option>
+                  <option value="90">1 jam 30 minit</option>
+                  <option value="120">2 jam</option>
+                </select>
+              </div>
+              <div>
+                <label for="p-min-notice">Notis Minimum</label>
+                <select id="p-min-notice">
+                  <option value="0">Tiada had</option>
+                  <option value="6">6 jam</option>
+                  <option value="24" selected>24 jam</option>
+                  <option value="48">48 jam</option>
+                </select>
+              </div>
+              <div>
+                <label for="p-buffer">Buffer Time</label>
+                <select id="p-buffer">
+                  <option value="0" selected>Tiada</option>
+                  <option value="5">5 minit</option>
+                  <option value="10">10 minit</option>
+                  <option value="15">15 minit</option>
+                  <option value="30">30 minit</option>
+                </select>
+              </div>
+            </div>
+
+            <label for="p-default-deposit">Deposit Lalai (RM)</label>
+            <input type="number" id="p-default-deposit" step="0.01" min="0" placeholder="cth: 50 (atau 0 untuk percuma)" />
+            <p class="hint" style="margin-top:0.3rem;">Auto-apply setiap booking baru — boleh edit lepas tu ikut customer. Kalau anda ada "Jenis Perkhidmatan" di bawah, field ni jadi <strong>fallback</strong> je (setiap jenis boleh ada deposit sendiri).</p>
+
+            <label style="margin-top:1rem; display:block;">Waktu Available</label>
+            <div id="availability-grid" class="availability-grid"></div>
+
+            <label for="p-cancel-notice" style="margin-top:1rem; display:block;">Notis Minimum Cancel (Customer)</label>
+            <select id="p-cancel-notice">
+              <option value="0" selected>Tiada had (customer boleh cancel bila-bila)</option>
+              <option value="6">6 jam sebelum</option>
+              <option value="24">24 jam sebelum</option>
+              <option value="48">48 jam sebelum</option>
+            </select>
+            <p class="hint" style="margin-top:0.3rem;">Lepas had ni, customer tak boleh self-cancel — kena hubungi anda terus.</p>
+
+            <button type="button" id="save-booking-btn" style="margin-top:1.25rem;">Simpan Tetapan Booking</button>
+          </div>
+
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="section-title"><h2 style="margin:0;">🎯 Jenis Perkhidmatan (Event Types)</h2></div>
+            <p class="hint">Tetapkan servis berbeza dengan tempoh, harga & kapasiti tersendiri. Kosongkan untuk guna satu tetapan sahaja.</p>
+            <div id="event-types-list" style="margin-top:0.8rem;"></div>
+            <div class="card" style="background:var(--paper); margin-top:0.8rem;">
+              <div class="row">
+                <div>
+                  <label for="et-name">Nama</label>
+                  <input type="text" id="et-name" placeholder="cth: Kelas Baking" />
+                </div>
+                <div>
+                  <label for="et-duration">Tempoh (minit)</label>
+                  <input type="number" id="et-duration" value="60" min="5" />
+                </div>
+              </div>
+              <div class="row" style="margin-top:0.6rem;">
+                <div>
+                  <label for="et-deposit">Deposit (RM, kosong = guna default, 0 = percuma)</label>
+                  <input type="number" id="et-deposit" step="0.01" min="0" placeholder="cth: 100" />
+                </div>
+                <div>
+                  <label for="et-capacity">Kapasiti (1 = individu)</label>
+                  <input type="number" id="et-capacity" value="1" min="1" />
+                </div>
+              </div>
+              <button type="button" id="add-event-type-btn" class="secondary" style="margin-top:0.8rem; width:100%;">+ Tambah Jenis Perkhidmatan</button>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="section-title"><h2 style="margin:0;">📝 Soalan Tambahan (Intake Questions)</h2></div>
+            <p class="hint">Tanya customer soalan khusus semasa booking (contoh: "Apa jenis kek?", "Saiz?"). Muncul selepas mereka pilih slot.</p>
+            <div id="booking-questions-list" style="margin-top:0.8rem;"></div>
+            <div class="row" style="margin-top:0.8rem;">
+              <input type="text" id="new-question-input" placeholder="cth: Apa jenis perkhidmatan yang anda perlukan?" style="flex:1;" />
+              <button type="button" id="add-question-btn" class="secondary">+ Tambah</button>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="section-title"><h2 style="margin:0;">🔗 Embed Dalam Website Anda</h2></div>
+            <p class="hint">Copy code ni, tampal terus dalam HTML website anda sendiri — booking widget akan muncul terus di situ.</p>
+            <textarea id="embed-code" rows="3" readonly style="font-family:var(--font-mono); font-size:0.8rem;" onclick="this.select()"></textarea>
+            <button type="button" class="secondary" id="copy-embed-btn" style="margin-top:0.6rem;">📋 Copy Code</button>
+          </div>
+        </div>
+
+        <div class="db-page" id="page-pelanggan-add">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="pelanggan-add" style="font-size:0.78rem; padding:0.35rem 0.7rem;">❓ Panduan</button>
+          </div>
+
+          <div class="card" style="margin-bottom:1.5rem;">
+            <h2 style="margin:0 0 0.3rem; font-size:1.15rem;">+ Tambah Pelanggan</h2>
+            <p class="hint">💡 Reminder disemak & dihantar automatik <strong>sekali sehari (~9 pagi waktu Malaysia)</strong> — bukan serta-merta lepas anda tambah pelanggan.</p>
+            <div id="add-customer-wrap" style="display:block; margin-top:1rem;">
+              <div class="add-cust-grid">
+                <form id="customer-form">
+                  <div class="row">
+                    <div>
+                      <label for="c-name">Nama Customer</label>
+                      <input type="text" id="c-name" required />
+                    </div>
+                    <div>
+                      <label for="c-email">Emel Customer</label>
+                      <input type="email" id="c-email" required placeholder="untuk hantar reminder" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div>
+                      <label for="c-amount">Jumlah Bayaran (RM)</label>
+                      <input type="number" id="c-amount" step="0.01" min="0" required />
+                    </div>
+                    <div>
+                      <label for="c-due">Tarikh Due</label>
+                      <input type="date" id="c-due" required />
+                      <div class="due-quickpick">
+                        <button type="button" class="qp-btn" data-days="0">Hari Ini</button>
+                        <button type="button" class="qp-btn" data-days="7">+7 Hari</button>
+                        <button type="button" class="qp-btn" data-days="14">+14 Hari</button>
+                        <button type="button" class="qp-btn" data-days="30">+30 Hari</button>
+                      </div>
+                    </div>
+                  </div>
+                  <label for="c-phone">Nombor Telefon (optional — untuk reminder WhatsApp)</label>
+                  <input type="text" id="c-phone" placeholder="cth: 012-345 6789" />
+                  <label for="c-notes">Catatan (optional)</label>
+                  <div class="note-tpl-row" id="c-note-tpl-row"></div>
+                  <textarea id="c-notes" rows="2" placeholder="cth: deposit kek birthday, 2kg"></textarea>
+                  <button type="button" class="secondary note-save-tpl-btn" id="c-save-tpl-btn">+ Simpan sebagai template</button>
+
+                  <label style="display:flex; align-items:center; gap:0.5rem; margin-top:1rem; cursor:pointer;">
+                    <input type="checkbox" id="c-recurring" style="width:auto;" />
+                    <span style="font-size:0.9rem; color:var(--ink);">Bayaran berulang (repeat customer)</span>
+                  </label>
+                  <div id="recurring-interval-wrap" style="display:none; margin-top:0.5rem;">
+                    <label for="c-recurring-days">Ulang setiap berapa hari?</label>
+                    <select id="c-recurring-days">
+                      <option value="7">7 hari</option>
+                      <option value="14">14 hari</option>
+                      <option value="30" selected>30 hari</option>
+                      <option value="60">60 hari</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" style="margin-top:1.25rem;">Simpan Pelanggan</button>
+                </form>
+
+                <div class="add-cust-preview">
+                  <p class="hint" style="text-align:center; margin-bottom:0.6rem; text-transform:uppercase; font-size:0.7rem; letter-spacing:0.04em;">Pratonton Resit</p>
+                  <div class="mini-receipt">
+                    <div class="mini-receipt-biz" id="mr-biz">Perniagaan Anda</div>
+                    <div class="mini-receipt-name" id="mr-name">Nama Pelanggan</div>
+                    <div class="mini-receipt-line"><span>Jumlah</span><b id="mr-amount">RM 0.00</b></div>
+                    <div class="mini-receipt-line"><span>Due</span><b id="mr-due">—</b></div>
+                    <div class="mini-receipt-line"><span>Telefon</span><b id="mr-phone">—</b></div>
+                    <span class="badge belum_bayar" style="margin-top:0.6rem; display:inline-block;">Belum Bayar</span>
+                    <p class="hint" id="mr-recurring" style="margin-top:0.6rem; display:none;">🔁 Berulang</p>
+                  </div>
+                  <p class="hint" style="text-align:center; margin-top:0.6rem;">Ini akan jadi asas emel reminder yang customer terima.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="db-toggle-form" id="toggle-import-form">
+              <h2 style="margin:0; font-size:1.15rem;">⇪ Import CSV</h2>
+              <span class="chevron">▾</span>
+            </div>
+            <div id="import-panel" style="display:none; margin-top:1rem;">
+              <p class="hint">Format CSV: <code class="mono">nama,emel,telefon,jumlah,tarikh_due,catatan</code> (baris pertama header, tarikh format YYYY-MM-DD)</p>
+              <input type="file" id="csv-file-input" accept=".csv" />
+              <div id="csv-preview" style="margin-top:0.8rem;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="db-page" id="page-pelanggan-list">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="pelanggan-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;">❓ Panduan</button>
+          </div>
+
+          <p class="hint" id="schedule-badge" style="margin-bottom:0.8rem;"></p>
+
+          <div class="db-stats" id="stats-row">
+            <div class="db-stat-card">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <div class="num" id="stat-total">–</div><div class="label">Jumlah Pelanggan</div>
+            </div>
+            <div class="db-stat-card">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <div class="num" id="stat-belum">–</div><div class="label">Belum Bayar</div>
+            </div>
+            <div class="db-stat-card">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+              <div class="num" id="stat-reminder">–</div><div class="label">Reminder Dihantar</div>
+            </div>
+            <div class="db-stat-card">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              <div class="num" id="stat-paid">–</div><div class="label">Dah Bayar</div>
+            </div>
+          </div>
+
+          <div class="card" id="customer-list-card">
+            <div class="section-title">
+              <h2 style="margin:0;">Senarai Pelanggan</h2>
+              <span class="hint" id="list-count"></span>
+            </div>
+            <div class="db-search-row">
+              <input type="search" id="search-input" placeholder="Cari nama atau emel pelanggan..." />
+            </div>
+            <div id="table-skeleton">
+              <div class="skeleton" style="height:56px; margin-bottom:8px; border-radius:12px;"></div>
+              <div class="skeleton" style="height:56px; margin-bottom:8px; border-radius:12px;"></div>
+              <div class="skeleton" style="height:56px; border-radius:12px;"></div>
+            </div>
+            <table class="desktop-customer-table" id="customer-table">
+              <thead>
+                <tr>
+                  <th>Nama</th><th>Emel</th><th>RM</th><th>Due</th><th>Status</th><th></th>
+                </tr>
+              </thead>
+              <tbody id="customer-tbody"></tbody>
+            </table>
+            <div class="cust-mobile-list" id="customer-mobile-list"></div>
+            <p class="hint" id="empty-state" style="display:none;">Belum ada pelanggan lagi. Pergi ke menu "Tambah Pelanggan" dari Home.</p>
+          </div>
+        </div>
+
+        <div class="db-page" id="page-laporan">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="laporan" style="font-size:0.78rem; padding:0.35rem 0.7rem;">❓ Panduan</button>
+          </div>
+
+          <div class="db-stats" id="report-stats" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="db-stat-card">
+              <div class="num mono" id="rpt-income-month">–</div><div class="label">Income Bulan Ini (Dah Bayar)</div>
+            </div>
+            <div class="db-stat-card">
+              <div class="num mono" id="rpt-outstanding">–</div><div class="label">Jumlah Belum Diterima</div>
+            </div>
+            <div class="db-stat-card">
+              <div class="num mono" id="rpt-total-lifetime">–</div><div class="label">Jumlah Diterima (Sepanjang Masa)</div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:1.5rem;">
+            <div class="section-title"><h2 style="margin:0;">Trend Income</h2></div>
+            <div class="report-bar-chart" id="report-bar-chart"></div>
+            <p class="hint" id="report-chart-empty" style="display:none;">Belum ada bayaran direkodkan lagi.</p>
+          </div>
+
+          <div class="card" style="margin-bottom:1.5rem;">
+            <div class="section-title">
+              <h2 style="margin:0;">Income Ikut Bulan</h2>
+              <button class="secondary" id="export-csv-btn">Export CSV</button>
+            </div>
+            <table>
+              <thead><tr><th>Bulan</th><th>Jumlah Diterima</th><th>Bil. Pelanggan Bayar</th></tr></thead>
+              <tbody id="report-monthly-tbody"></tbody>
+            </table>
+            <p class="hint" id="report-monthly-empty" style="display:none;">Belum ada bayaran direkodkan lagi.</p>
+          </div>
+
+          <div class="card">
+            <div class="section-title"><h2 style="margin:0;">Top 5 Pelanggan</h2></div>
+            <table>
+              <thead><tr><th>Nama</th><th>Emel</th><th>Jumlah Dibayar</th></tr></thead>
+              <tbody id="report-top-tbody"></tbody>
+            </table>
+            <p class="hint" id="report-top-empty" style="display:none;">Belum ada data untuk dipaparkan.</p>
+          </div>
+
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="section-title"><h2 style="margin:0;">🔮 Unjuran Cash-Flow (6 Minggu)</h2></div>
+            <p class="hint">Anggaran income akan datang dari customer belum bayar, ikut tarikh due — andaian semua bayar tepat masa.</p>
+            <div class="report-bar-chart" id="cashflow-chart"></div>
+            <p class="hint" id="cashflow-empty" style="display:none;">Tiada customer belum bayar lagi.</p>
+          </div>
+
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="section-title"><h2 style="margin:0;">⚠️ Customer Berisiko</h2></div>
+            <p class="hint">Dinilai berdasarkan rekod bayaran lepas customer ni dengan perniagaan anda.</p>
+            <table>
+              <thead><tr><th>Nama</th><th>RM</th><th>Risiko</th><th>Sebab</th></tr></thead>
+              <tbody id="risk-tbody"></tbody>
+            </table>
+            <p class="hint" id="risk-empty" style="display:none;">Tiada customer berisiko tinggi/sederhana buat masa ni. 🎉</p>
+          </div>
+        </div>
+
+        <div class="db-page" id="page-kalendar">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="kalendar" style="font-size:0.78rem; padding:0.35rem 0.7rem;">❓ Panduan</button>
+          </div>
+          <div class="card">
+            <div class="section-title">
+              <h2 style="margin:0;" id="cal-month-label">–</h2>
+              <div>
+                <button class="secondary" id="cal-prev">←</button>
+                <button class="secondary" id="cal-next">→</button>
+              </div>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+          </div>
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="section-title"><h2 style="margin:0;" id="cal-day-title">Pilih tarikh</h2></div>
+            <div id="cal-day-list"><p class="hint">Klik tarikh dalam kalendar untuk lihat pelanggan due hari tu.</p></div>
+          </div>
+        </div>
+
+        <div class="db-page" id="page-tetapan-profil">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="tetapan-profil" style="font-size:0.78rem; padding:0.35rem 0.7rem;">❓ Panduan</button>
+          </div>
+
+          <div class="card">
+            <div class="section-title"><h2 style="margin:0;">Profil Perniagaan</h2></div>
+            <p class="hint">Dipaparkan dalam emel dan invois yang pelanggan terima.</p>
+            <p class="hint" style="margin-top:-0.5rem;">Semua field wajib diisi, kecuali logo & QR code (optional).</p>
+            <form id="profile-form">
+              <label for="p-business-name">Nama Perniagaan</label>
+              <input type="text" id="p-business-name" placeholder="cth: Kek Rumah Kak Yong" required />
+
+              <div class="row">
+                <div>
+                  <label for="p-phone">Nombor Telefon</label>
+                  <input type="text" id="p-phone" placeholder="cth: 012-345 6789" required />
+                </div>
+                <div>
+                  <label for="p-email">Emel Contact (untuk customer reply)</label>
+                  <input type="email" id="p-email" placeholder="cth: hello@bisnesawak.com" required />
+                </div>
+              </div>
+
+              <label for="p-address">Alamat (optional)</label>
+              <input type="text" id="p-address" placeholder="cth: Kajang, Selangor" />
+
+              <label for="p-ssm">No. Pendaftaran Perniagaan / SSM (optional)</label>
+              <input type="text" id="p-ssm" placeholder="cth: 202301012345 (JR/SA/PT)" />
+              <p class="hint" style="margin-top:0.3rem;">Dipaparkan dalam invois PDF & emel — buat dokumen anda nampak rasmi/sah di sisi undang-undang.</p>
+
+              <label for="p-logo-file">Logo</label>
+              <div id="logo-preview-wrap" style="display:none; margin-bottom:0.5rem;">
+                <img id="logo-preview" style="max-height:60px; max-width:180px; border-radius:8px; border:1px solid var(--paper-line);" />
+              </div>
+              <input type="file" id="p-logo-file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
+              <input type="hidden" id="p-logo" />
+
+              <label for="p-color">Warna Jenama (dipakai dalam emel reminder)</label>
+              <div class="color-swatch-row">
+                <input type="color" id="p-color" value="#C97A2B" />
+                <span class="hex-label" id="p-color-hex">#C97A2B</span>
+              </div>
+
+              <p class="hint" style="margin-top:1.2rem; padding-top:1rem; border-top:1px solid var(--paper-line);">
+                <strong>Cara Bayar Alternatif</strong> — kalau diisi, customer boleh pilih bank transfer manual sebagai alternatif kepada bayar online dalam emel reminder.
+              </p>
+              <div class="row">
+                <div>
+                  <label for="p-bank-name">Nama Bank</label>
+                  <input type="text" id="p-bank-name" placeholder="cth: Maybank" required />
+                </div>
+                <div>
+                  <label for="p-bank-account">Nombor Akaun</label>
+                  <input type="text" id="p-bank-account" placeholder="cth: 1234567890" required />
+                </div>
+              </div>
+              <label for="p-bank-holder">Nama Pemegang Akaun</label>
+              <input type="text" id="p-bank-holder" placeholder="cth: Nama Penuh / Nama Bisnes" required />
+              <label for="p-qr-file">🇲🇾 QR DuitNow</label>
+              <p class="hint" style="margin-top:-0.2rem; margin-bottom:0.5rem;">Upload QR DuitNow perniagaan anda (dapat dari app bank/e-wallet anda) — serasi dengan <strong>semua bank & e-wallet</strong> (Touch 'n Go, Boost, GrabPay, dll), customer scan sekali je.</p>
+              <div id="qr-preview-wrap" style="display:none; margin-bottom:0.5rem;">
+                <img id="qr-preview" style="max-height:120px; border-radius:8px; border:1px solid var(--paper-line);" />
+              </div>
+              <input type="file" id="p-qr-file" accept="image/png,image/jpeg,image/webp" />
+              <input type="hidden" id="p-qr" />
+              <p class="hint" style="margin-top:0.3rem;">Upload terus gambar QR code — tak payah cari link dari mana-mana.</p>
+
+              <button type="submit" style="margin-top:1.25rem;">Simpan Profil</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="db-page" id="page-tetapan-reminder">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="tetapan-reminder" style="font-size:0.78rem; padding:0.35rem 0.7rem;">❓ Panduan</button>
+          </div>
+
+          <div class="card">
+            <div class="section-title"><h2 style="margin:0;">Jadual Reminder</h2></div>
+            <p class="hint">Klik hari bila sistem patut hantar reminder emel, relatif kepada tarikh due.</p>
+            <p class="hint" style="margin-top:-0.5rem;">💡 Sistem check jadual ni <strong>sekali sehari (~9 pagi)</strong>, bukan real-time.</p>
+            <div class="chip-row" id="chip-row"></div>
+            <p class="schedule-summary" id="schedule-summary"></p>
+            <div class="row" style="margin-top:1rem;">
+              <button id="save-schedule-btn">Simpan Jadual</button>
+              <button id="reset-schedule-btn" class="secondary">↻ Reset ke Default</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Guided tour: fixed docked panel (never repositioned) + glow directly on the target element -->
+  <div id="tour-panel" style="display:none;">
+    <p class="hint" id="tour-progress" style="margin:0 0 0.3rem;"></p>
+    <h3 id="tour-title" style="margin:0 0 0.4rem; font-size:1.05rem;"></h3>
+    <p id="tour-text" style="margin:0 0 1rem; font-size:0.88rem; line-height:1.6;"></p>
+    <div class="row" style="justify-content:space-between; align-items:center;">
+      <button type="button" class="secondary" id="tour-skip-btn" style="font-size:0.8rem; padding:0.4rem 0.7rem;">Langkau Semua</button>
+      <div style="display:flex; gap:0.5rem;">
+        <button type="button" class="secondary" id="tour-back-btn" style="font-size:0.8rem; padding:0.4rem 0.9rem;">← Balik</button>
+        <button type="button" id="tour-next-btn" style="font-size:0.8rem; padding:0.4rem 0.9rem;">Seterusnya →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Per-page contextual help (Lapisan 2) -->
+  <div class="modal-overlay" id="guide-modal" style="display:none;">
+    <div class="modal-box" style="max-width:420px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="guide-modal-title">Panduan</h2></div>
+      <div id="guide-modal-body" style="font-size:0.9rem; line-height:1.7;"></div>
+      <button type="button" class="secondary" id="guide-modal-close" style="width:100%; margin-top:1.25rem;">Tutup</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="reschedule-modal" style="display:none;">
+    <div class="modal-box" style="max-width:380px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Reschedule Booking</h2></div>
+      <p class="hint" id="reschedule-current"></p>
+      <p class="hint">Pilih slot baru (dari waktu available anda):</p>
+      <div class="book-date-row" id="reschedule-date-row"></div>
+      <div class="book-slot-grid" id="reschedule-slot-grid" style="margin-top:0.8rem;"></div>
+      <label for="reschedule-reason" style="margin-top:1rem;">Sebab (optional — dihantar ke customer)</label>
+      <textarea id="reschedule-reason" rows="2" placeholder="cth: slot asal clash dengan appointment lain"></textarea>
+      <div class="row" style="margin-top:1.25rem;">
+        <button type="button" class="secondary" id="reschedule-cancel-btn" style="flex:1;">Batal</button>
+        <button type="button" id="reschedule-save-btn" style="flex:1;" disabled>Pilih Slot Dulu</button>
+      </div>
+      <p class="error" id="reschedule-error" style="display:none;"></p>
+      <p class="hint" id="reschedule-loading" style="display:none;">Memuatkan slot available...</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="edit-modal" style="display:none;">
+    <div class="modal-box">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Edit Pelanggan</h2></div>
+      <div id="edit-status-bar" class="edit-status-bar"></div>
+      <form id="edit-form">
+        <input type="hidden" id="e-id" />
+        <label for="e-name">Nama Customer</label>
+        <input type="text" id="e-name" required />
+        <label for="e-email">Emel Customer</label>
+        <input type="email" id="e-email" required />
+        <div class="row">
+          <div>
+            <label for="e-amount">Jumlah (RM)</label>
+            <input type="number" id="e-amount" step="0.01" min="0" required />
+          </div>
+          <div>
+            <label for="e-due">Tarikh Due</label>
+            <input type="date" id="e-due" required />
+          </div>
+        </div>
+        <label for="e-phone">Nombor Telefon</label>
+        <input type="text" id="e-phone" />
+        <label for="e-notes">Catatan</label>
+        <div class="note-tpl-row" id="e-note-tpl-row"></div>
+        <textarea id="e-notes" rows="2"></textarea>
+        <div class="row" style="margin-top:1.25rem;">
+          <button type="button" class="secondary" id="edit-cancel-btn" style="flex:1;">Batal</button>
+          <button type="submit" style="flex:1;">Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="history-modal" style="display:none;">
+    <div class="modal-box">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="history-title">Riwayat Emel</h2></div>
+      <div id="history-list"><p class="hint">Memuatkan...</p></div>
+      <button type="button" class="secondary" id="history-close-btn" style="width:100%; margin-top:1rem;">Tutup</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from "/assets/supabase-client.js";
+    import { showToast } from "/assets/toast.js";
+
+    function flashButtonSuccess(btn, originalText) {
+      if (!btn) return;
+      const prevText = btn.textContent;
+      btn.textContent = "✓ Disimpan";
+      btn.classList.add("btn-success-morph");
+      setTimeout(() => {
+        btn.textContent = originalText || prevText;
+        btn.classList.remove("btn-success-morph");
+      }, 1200);
+    }
+    import Papa from "https://esm.sh/papaparse@5";
+
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (!sessionData.session) {
+      window.location.href = "/login.html";
+    }
+    const user = sessionData.session.user;
+
+    async function logout() {
+      await supabase.auth.signOut();
+      window.location.href = "/login.html";
+    }
+    document.getElementById("logout-btn")?.addEventListener("click", logout);
+
+    // ── Dark/Light mode toggle ──
+    function applyThemeUI() {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      const icon = isDark ? "☀️" : "🌙";
+      const label = isDark ? "Mod Terang" : "Mod Gelap";
+      document.getElementById("theme-toggle-icon").textContent = icon;
+      document.getElementById("theme-toggle-label").textContent = label;
+      document.getElementById("theme-toggle-btn-mobile").textContent = icon;
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      if (isDark) {
+        document.documentElement.removeAttribute("data-theme");
+        localStorage.setItem("eqstudio_theme", "light");
+      } else {
+        document.documentElement.setAttribute("data-theme", "dark");
+        localStorage.setItem("eqstudio_theme", "dark");
+      }
+      applyThemeUI();
+    }
+
+    document.getElementById("theme-toggle-btn")?.addEventListener("click", toggleTheme);
+    document.getElementById("theme-toggle-btn-mobile")?.addEventListener("click", toggleTheme);
+    applyThemeUI();
+    document.getElementById("logout-btn-mobile")?.addEventListener("click", logout);
+
+    // ── Navigation (pure hub — Home tile grid + Home back button on every other page) ──
+    function goToPage(id) {
+      document.querySelectorAll(".db-page").forEach(p => p.classList.remove("active"));
+      const target = document.getElementById("page-" + id);
+      target.classList.add("active", "page-enter");
+      window.scrollTo({ top: 0, behavior: "instant" });
+      setTimeout(() => target.classList.remove("page-enter"), 350);
+
+      if (id === "home") {
+        document.querySelectorAll(".bento-tile").forEach((tile, i) => {
+          tile.classList.remove("tile-enter");
+          void tile.offsetWidth;
+          tile.style.animationDelay = `${i * 0.05}s`;
+          tile.classList.add("tile-enter");
+        });
+      }
+    }
+
+    document.querySelectorAll(".bento-tile[data-page]").forEach(tile => {
+      tile.addEventListener("click", () => goToPage(tile.dataset.page));
+    });
+
+    document.querySelectorAll(".home-back-btn").forEach(btn => {
+      btn.addEventListener("click", () => goToPage("home"));
+    });
+
+    document.getElementById("c-recurring")?.addEventListener("change", (e) => {
+      document.getElementById("recurring-interval-wrap").style.display = e.target.checked ? "block" : "none";
+      updateMiniReceipt();
+    });
+
+    // ── Live receipt preview ──
+    function updateMiniReceipt() {
+      const name = document.getElementById("c-name").value.trim();
+      const amount = parseFloat(document.getElementById("c-amount").value);
+      const due = document.getElementById("c-due").value;
+      const phone = document.getElementById("c-phone").value.trim();
+      const recurring = document.getElementById("c-recurring").checked;
+
+      document.getElementById("mr-name").textContent = name || "Nama Pelanggan";
+      const amountEl = document.getElementById("mr-amount");
+      const newAmountText = "RM " + (isNaN(amount) ? "0.00" : amount.toFixed(2));
+      if (amountEl.textContent !== newAmountText) {
+        amountEl.textContent = newAmountText;
+        amountEl.classList.remove("flash");
+        void amountEl.offsetWidth;
+        amountEl.classList.add("flash");
+      }
+      document.getElementById("mr-due").textContent = due || "—";
+      document.getElementById("mr-phone").textContent = phone || "—";
+      document.getElementById("mr-recurring").style.display = recurring ? "block" : "none";
+    }
+    ["c-name", "c-amount", "c-due", "c-phone"].forEach(id => {
+      document.getElementById(id).addEventListener("input", updateMiniReceipt);
+    });
+
+    // ── Due date quick-pick ──
+    document.querySelectorAll(".qp-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const days = parseInt(btn.dataset.days, 10);
+        const d = new Date();
+        d.setDate(d.getDate() + days);
+        document.getElementById("c-due").value = d.toISOString().slice(0, 10);
+        document.querySelectorAll(".qp-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        updateMiniReceipt();
+      });
+    });
+
+    // ── Phone auto-format (Malaysia: 012-345 6789) ──
+    document.getElementById("c-phone")?.addEventListener("blur", (e) => {
+      const digits = e.target.value.replace(/[^0-9]/g, "");
+      if (digits.length < 9) return;
+      const prefixLen = digits.length === 11 ? 3 : 2; // 011-xxxx xxxx vs 01x-xxx xxxx
+      const formatted = `${digits.slice(0, prefixLen)}-${digits.slice(prefixLen, prefixLen + 3)} ${digits.slice(prefixLen + 3)}`;
+      e.target.value = formatted;
+      updateMiniReceipt();
+    });
+
+    // ── CSV import ──
+    const toggleImportBtn = document.getElementById("toggle-import-form");
+    const importPanel = document.getElementById("import-panel");
+    toggleImportBtn.addEventListener("click", () => {
+      const open = importPanel.style.display !== "none";
+      importPanel.style.display = open ? "none" : "block";
+      toggleImportBtn.classList.toggle("open", !open);
+    });
+
+    let pendingCsvRows = [];
+
+    document.getElementById("csv-file-input")?.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          const allRows = results.data.map(r => ({
+            owner_id: user.id,
+            name: (r.nama || "").trim(),
+            contact_email: (r.emel || "").trim(),
+            contact_phone: (r.telefon || "").trim() || null,
+            amount: parseFloat(r.jumlah),
+            due_date: (r.tarikh_due || "").trim(),
+            notes: (r.catatan || "").trim() || null,
+          }));
+          const validRows = allRows.filter(r => r.name && r.contact_email && !isNaN(r.amount) && r.due_date);
+          const invalidCount = allRows.length - validRows.length;
+          pendingCsvRows = validRows;
+
+          if (validRows.length === 0) {
+            document.getElementById("csv-preview").innerHTML = `<p class="error">Tiada baris sah dijumpai. Semak format lajur.</p>`;
+            return;
+          }
+
+          const previewRows = validRows.slice(0, 8);
+          document.getElementById("csv-preview").innerHTML = `
+            <p class="hint">${validRows.length} pelanggan sah dijumpai${invalidCount ? ` (${invalidCount} baris diabaikan — data tak lengkap)` : ""}. Semak dulu sebelum import:</p>
+            <table style="margin-top:0.5rem;">
+              <thead><tr><th>Nama</th><th>Emel</th><th>RM</th><th>Due</th></tr></thead>
+              <tbody>
+                ${previewRows.map(r => `<tr><td data-label="Nama">${escapeHtml(r.name)}</td><td data-label="Emel">${escapeHtml(r.contact_email)}</td><td data-label="RM" class="mono">${r.amount.toFixed(2)}</td><td data-label="Due" class="mono">${escapeHtml(r.due_date)}</td></tr>`).join("")}
+              </tbody>
+            </table>
+            ${validRows.length > 8 ? `<p class="hint" style="margin-top:0.4rem;">...dan ${validRows.length - 8} lagi.</p>` : ""}
+            <div class="row" style="margin-top:0.8rem;">
+              <button type="button" id="csv-confirm-btn">Sahkan Import (${validRows.length})</button>
+              <button type="button" class="secondary" id="csv-cancel-btn">Batal</button>
+            </div>
+          `;
+
+          document.getElementById("csv-cancel-btn")?.addEventListener("click", () => {
+            pendingCsvRows = [];
+            document.getElementById("csv-preview").innerHTML = "";
+            document.getElementById("csv-file-input").value = "";
+          });
+
+          document.getElementById("csv-confirm-btn")?.addEventListener("click", async () => {
+            const btn = document.getElementById("csv-confirm-btn");
+            btn.disabled = true;
+            btn.textContent = "Mengimport...";
+            const { error } = await supabase.from("customers").insert(pendingCsvRows);
+            if (error) {
+              document.getElementById("csv-preview").innerHTML = `<p class="error">${error.message}</p>`;
+              return;
+            }
+            document.getElementById("csv-preview").innerHTML = `<p class="hint" style="color:var(--ok);">${pendingCsvRows.length} pelanggan berjaya diimport.</p>`;
+            showToast(`${pendingCsvRows.length} pelanggan diimport dari CSV! → Cek menu "Senarai Pelanggan" untuk lihat.`, "success");
+            document.getElementById("csv-file-input").value = "";
+            pendingCsvRows = [];
+            loadCustomers();
+          });
+        },
+      });
+    });
+
+    // ── Profile (business name, contact info, brand color, subscription) ──
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("business_name, contact_phone, contact_email, business_address, logo_url, brand_color, bank_name, bank_account_number, bank_account_holder, qr_code_url, ssm_number, subscription_status, subscription_end_date, is_suspended, booking_slug, default_deposit_amount")
+      .eq("id", user.id)
+      .single();
+
+    const bizLabel = profile?.business_name || "Perniagaan Anda";
+    document.getElementById("business-name-side").textContent = bizLabel;
+    document.getElementById("mr-biz").textContent = bizLabel;
+    document.getElementById("home-biz-name").textContent = bizLabel;
+
+    const { data: primaryLinkData } = await supabase.from("booking_links").select("slug").eq("owner_id", user.id).order("is_primary", { ascending: false }).order("created_at", { ascending: true }).limit(1).single();
+
+    if (primaryLinkData?.slug) {
+      const bookingUrl = `${window.location.origin}/book.html?slug=${primaryLinkData.slug}`;
+      document.getElementById("home-booking-link-card").style.display = "block";
+      document.getElementById("home-no-booking-link-card").style.display = "none";
+      document.getElementById("home-link-text").textContent = bookingUrl;
+
+      document.getElementById("home-copy-link-btn").addEventListener("click", () => {
+        navigator.clipboard.writeText(bookingUrl).then(() => showToast("Link disalin!", "success"));
+      });
+      document.getElementById("home-whatsapp-link-btn").addEventListener("click", () => {
+        const msg = encodeURIComponent(`Jom book slot dengan ${bizLabel}: ${bookingUrl}`);
+        window.open(`https://wa.me/?text=${msg}`, "_blank");
+      });
+      document.getElementById("home-edit-link-btn").addEventListener("click", (e) => goToPage(e.currentTarget.dataset.page));
+    } else {
+      document.getElementById("home-booking-link-card").style.display = "none";
+      document.getElementById("home-no-booking-link-card").style.display = "block";
+      document.querySelector('#home-no-booking-link-card [data-page]')?.addEventListener("click", (e) => goToPage(e.currentTarget.dataset.page));
+    }
+
+    const hourNow = new Date().getHours();
+    const greetingText = hourNow < 12 ? "Selamat Pagi ☀️" : hourNow < 18 ? "Selamat Petang 🌤️" : "Selamat Malam 🌙";
+    document.getElementById("home-greeting").textContent = greetingText;
+
+    document.querySelectorAll(".bento-tile").forEach((tile, i) => {
+      tile.style.animationDelay = `${i * 0.06}s`;
+      tile.classList.add("tile-enter");
+    });
+    if (profile) {
+      document.getElementById("p-business-name").value = profile.business_name || "";
+      document.getElementById("p-phone").value = profile.contact_phone || "";
+      document.getElementById("p-email").value = profile.contact_email || "";
+      document.getElementById("p-address").value = profile.business_address || "";
+      document.getElementById("p-ssm").value = profile.ssm_number || "";
+      document.getElementById("p-logo").value = profile.logo_url || "";
+      if (profile.logo_url) {
+        document.getElementById("logo-preview").src = profile.logo_url;
+        document.getElementById("logo-preview-wrap").style.display = "block";
+      }
+      document.getElementById("p-bank-name").value = profile.bank_name || "";
+      document.getElementById("p-bank-account").value = profile.bank_account_number || "";
+      document.getElementById("p-bank-holder").value = profile.bank_account_holder || "";
+      document.getElementById("p-qr").value = profile.qr_code_url || "";
+      if (profile.qr_code_url) {
+        document.getElementById("qr-preview").src = profile.qr_code_url;
+        document.getElementById("qr-preview-wrap").style.display = "block";
+      }
+      const color = profile.brand_color || "#C97A2B";
+      document.getElementById("p-color").value = color;
+      document.getElementById("p-color-hex").textContent = color.toUpperCase();
+    }
+
+    document.getElementById("p-color")?.addEventListener("input", (e) => {
+      document.getElementById("p-color-hex").textContent = e.target.value.toUpperCase();
+    });
+
+    document.getElementById("p-logo-file")?.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const ext = file.name.split(".").pop();
+      const path = `${user.id}/logo-${Date.now()}.${ext}`;
+
+      showToast("Memuat naik logo...", "success", 1500);
+      const { error: uploadError } = await supabase.storage.from("business-assets").upload(path, file, { upsert: true });
+      if (uploadError) {
+        showToast(uploadError.message, "error");
+        return;
+      }
+
+      const { data: urlData } = supabase.storage.from("business-assets").getPublicUrl(path);
+      document.getElementById("p-logo").value = urlData.publicUrl;
+      document.getElementById("logo-preview").src = urlData.publicUrl;
+      document.getElementById("logo-preview-wrap").style.display = "block";
+      showToast("Logo dimuat naik. Klik 'Simpan Profil' untuk simpan.", "success");
+    });
+
+    document.getElementById("p-qr-file")?.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const ext = file.name.split(".").pop();
+      const path = `${user.id}/qr-${Date.now()}.${ext}`;
+
+      showToast("Memuat naik QR code...", "success", 1500);
+      const { error: uploadError } = await supabase.storage.from("business-assets").upload(path, file, { upsert: true });
+      if (uploadError) {
+        showToast(uploadError.message, "error");
+        return;
+      }
+
+      const { data: urlData } = supabase.storage.from("business-assets").getPublicUrl(path);
+      document.getElementById("p-qr").value = urlData.publicUrl;
+      document.getElementById("qr-preview").src = urlData.publicUrl;
+      document.getElementById("qr-preview-wrap").style.display = "block";
+      showToast("QR code dimuat naik. Klik 'Simpan Profil' untuk simpan.", "success");
+    });
+
+    // ── Setup checklist (dismissable once all steps done or user closes it) ──
+    function renderSetupChecklist(customerCount) {
+      if (localStorage.getItem("eqstudio_setup_dismissed") === "1") return;
+
+      const step1Done = !!profile?.business_name;
+      const step2Done = allBookingLinks.some(l => l.slug && l.default_deposit_amount != null);
+      const step3Done = localStorage.getItem("eqstudio_schedule_saved") === "1";
+      const step4Done = customerCount > 0;
+
+      if (step1Done && step2Done && step3Done && step4Done) {
+        localStorage.setItem("eqstudio_setup_dismissed", "1");
+        return;
+      }
+
+      const slot = document.getElementById("setup-checklist-slot");
+      const item = (done, label, linkPage) => `
+        <div class="setup-item ${done ? "done" : ""}">
+          <span class="tick">✓</span>
+          <span class="setup-label">${label}</span>
+          ${!done ? `<a href="#" data-goto="${linkPage}">→ pergi</a>` : ""}
+        </div>`;
+
+      slot.innerHTML = `
+        <div class="card" style="margin-bottom:1.5rem;">
+          <div class="section-title">
+            <h2 style="margin:0; font-size:1.05rem;">Setup Pantas</h2>
+            <button class="secondary" id="dismiss-setup" style="padding:0.3rem 0.7rem; font-size:0.8rem;">Tutup</button>
+          </div>
+          <div class="setup-checklist">
+            ${item(step1Done, "Isi Profil Perniagaan (nama, contact)", "tetapan-profil")}
+            ${item(step2Done, "Setup Booking (link, waktu available & deposit lalai)", "booking-settings")}
+            ${item(step3Done, "Semak & simpan Jadual Reminder", "tetapan-reminder")}
+            ${item(step4Done, "Tambah pelanggan pertama (atau kongsi link booking)", "pelanggan-add")}
+          </div>
+        </div>`;
+
+      document.getElementById("dismiss-setup")?.addEventListener("click", () => {
+        localStorage.setItem("eqstudio_setup_dismissed", "1");
+        slot.innerHTML = "";
+      });
+
+      slot.querySelectorAll("[data-goto]").forEach(a => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          goToPage(a.dataset.goto);
+        });
+      });
+    }
+
+    if (profile?.is_suspended) {
+      window.location.href = "/suspended.html";
+    } else if (profile?.subscription_status === "past_due") {
+      window.location.href = "/billing.html";
+    } else if (profile?.subscription_status === "trialing") {
+      const daysLeft = Math.ceil((new Date(profile.subscription_end_date) - new Date()) / (1000 * 60 * 60 * 24));
+      if (daysLeft <= 30) {
+        const banner = document.createElement("div");
+        banner.className = "trial-strip";
+        banner.innerHTML = `<span>⏳ Trial: <strong>${Math.max(daysLeft, 0)} hari</strong> lagi</span><a href="/billing.html">Bayar sekarang →</a>`;
+        document.getElementById("banner-slot").appendChild(banner);
+      }
+    }
+
+    document.getElementById("profile-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const payload = {
+        business_name: document.getElementById("p-business-name").value.trim() || null,
+        contact_phone: document.getElementById("p-phone").value.trim() || null,
+        contact_email: document.getElementById("p-email").value.trim() || null,
+        business_address: document.getElementById("p-address").value.trim() || null,
+        ssm_number: document.getElementById("p-ssm").value.trim() || null,
+        logo_url: document.getElementById("p-logo").value.trim() || null,
+        brand_color: document.getElementById("p-color").value || "#C97A2B",
+        bank_name: document.getElementById("p-bank-name").value.trim() || null,
+        bank_account_number: document.getElementById("p-bank-account").value.trim() || null,
+        bank_account_holder: document.getElementById("p-bank-holder").value.trim() || null,
+        qr_code_url: document.getElementById("p-qr").value.trim() || null,
+      };
+
+      const { error } = await supabase.from("profiles").update(payload).eq("id", user.id);
+      if (error) {
+        showToast(error.message, "error");
+        return;
+      }
+      document.getElementById("business-name-side").textContent = payload.business_name || "Perniagaan Anda";
+      profile.business_name = payload.business_name;
+      renderSetupChecklist(allCustomers.length);
+      showToast("Profil perniagaan disimpan.", "success");
+      flashButtonSuccess(e.target.querySelector('button[type="submit"]'), "Simpan Profil");
+    });
+
+    // ── Customers ──
+    const STATUS_LABEL = {
+      belum_bayar: "Belum Bayar",
+      reminder_dihantar: "Reminder Dihantar",
+      dah_bayar: "Dah Bayar",
+    };
+    let allCustomers = [];
+
+    // Shared action-button builder (quick toggle + kebab menu) — used by both the
+    // desktop table row and the mobile card, so behavior/logic stays identical.
+    function buildRowActions(c) {
+      const actionsWrap = document.createElement("div");
+      actionsWrap.className = "row-actions";
+
+      const quickBtn = document.createElement("button");
+      quickBtn.className = "icon-btn" + (c.status !== "dah_bayar" ? " success" : "");
+      quickBtn.title = c.status !== "dah_bayar" ? "Tanda Dah Bayar" : "Batal 'Dah Bayar'";
+      quickBtn.innerHTML = c.status !== "dah_bayar"
+        ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>`
+        : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>`;
+      quickBtn.addEventListener("click", async () => {
+        quickBtn.disabled = true;
+        if (c.status !== "dah_bayar") {
+          await supabase.from("customers").update({ status: "dah_bayar", paid_at: new Date().toISOString() }).eq("id", c.id);
+          showToast(`${c.name} ditanda sebagai dah bayar.`, "success");
+        } else {
+          await supabase.from("customers").update({ status: "belum_bayar", paid_at: null }).eq("id", c.id);
+          showToast(`${c.name} ditanda semula sebagai belum bayar.`, "success");
+        }
+        loadCustomers();
+      });
+      actionsWrap.appendChild(quickBtn);
+
+      const kebabWrap = document.createElement("div");
+      kebabWrap.className = "kebab-wrap";
+
+      const kebabBtn = document.createElement("button");
+      kebabBtn.className = "icon-btn";
+      kebabBtn.title = "Lagi tindakan";
+      kebabBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>`;
+
+      const menu = document.createElement("div");
+      menu.className = "kebab-menu";
+
+      function menuItem(label, iconSvg, onClick, danger = false) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "kebab-menu-item" + (danger ? " danger" : "");
+        btn.innerHTML = `${iconSvg}<span>${label}</span>`;
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          closeAllKebabMenus();
+          onClick();
+        });
+        return btn;
+      }
+
+      menu.appendChild(menuItem("Edit", `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>`, () => openEditModal(c)));
+      menu.appendChild(menuItem("Riwayat", `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`, () => openHistoryModal(c)));
+      menu.appendChild(menuItem("Muat Turun Invois", `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg>`, async () => {
+        const { data: sessionData } = await supabase.auth.getSession();
+        const url = `/api/invoice-pdf?customer_id=${c.id}&token=${encodeURIComponent(sessionData.session.access_token)}`;
+        window.open(url, "_blank");
+      }));
+
+      if (c.contact_phone) {
+        menu.appendChild(menuItem("WhatsApp Pelanggan", `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`, () => {
+          const digits = c.contact_phone.replace(/[^0-9]/g, "");
+          const withCountryCode = digits.startsWith("0") ? "60" + digits.slice(1) : digits;
+          const msg = encodeURIComponent(`Salam ${c.name}, peringatan mesra untuk bayaran RM${Number(c.amount).toFixed(2)} (due ${c.due_date}). Terima kasih!`);
+          window.open(`https://wa.me/${withCountryCode}?text=${msg}`, "_blank");
+        }));
+      }
+
+      if (c.status === "dah_bayar") {
+        menu.appendChild(menuItem("Hantar Emel Terima Kasih", `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>`, async () => {
+          try {
+            const { data: sessionData } = await supabase.auth.getSession();
+            const res = await fetch("/api/send-receipt-email", {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Authorization: `Bearer ${sessionData.session.access_token}` },
+              body: JSON.stringify({ customer_id: c.id }),
+            });
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.error || "Gagal hantar.");
+            showToast(`Emel terima kasih dihantar ke ${c.name}.`, "success");
+          } catch (err) {
+            showToast(err.message, "error");
+          }
+        }));
+      }
+
+      const divider = document.createElement("div");
+      divider.className = "kebab-menu-divider";
+      menu.appendChild(divider);
+
+      menu.appendChild(menuItem("Padam", `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>`, async () => {
+        if (!confirm(`Padam ${c.name}? Tindakan ini tidak boleh dibatalkan.`)) return;
+        const { error } = await supabase.from("customers").delete().eq("id", c.id);
+        if (error) { showToast(error.message, "error"); return; }
+        showToast(`${c.name} dipadam.`, "success");
+        loadCustomers();
+      }, true));
+
+      kebabBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const wasOpen = menu.classList.contains("open");
+        closeAllKebabMenus();
+        if (!wasOpen) {
+          menu.classList.add("open");
+          kebabBackdrop.classList.add("open");
+        }
+      });
+
+      kebabWrap.appendChild(kebabBtn);
+      kebabWrap.appendChild(menu);
+      actionsWrap.appendChild(kebabWrap);
+      return actionsWrap;
+    }
+
+    // Desktop: plain table, exactly as before — untouched structure/behavior.
+    function renderCustomerRows(list) {
+      const tbody = document.getElementById("customer-tbody");
+      tbody.innerHTML = "";
+      for (const c of list) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td data-label="Nama">${escapeHtml(c.name)}</td>
+          <td data-label="Emel">${escapeHtml(c.contact_email)}</td>
+          <td data-label="RM" class="mono">${Number(c.amount).toFixed(2)}</td>
+          <td data-label="Due" class="mono">${c.due_date}</td>
+          <td data-label="Status"><span class="badge ${c.status}">${STATUS_LABEL[c.status]}</span></td>
+          <td data-label=""></td>
+        `;
+        tr.lastElementChild.appendChild(buildRowActions(c));
+        tbody.appendChild(tr);
+      }
+    }
+
+    // Mobile: dedicated card layout — separate markup entirely, no shared grid area bugs.
+    function renderMobileCards(list) {
+      const container = document.getElementById("customer-mobile-list");
+      container.innerHTML = "";
+      for (const c of list) {
+        const card = document.createElement("div");
+        card.className = "cust-card";
+        card.innerHTML = `
+          <div class="cust-card-top">
+            <span class="name">${escapeHtml(c.name)}</span>
+            <span class="badge ${c.status}">${STATUS_LABEL[c.status]}</span>
+          </div>
+          <div class="cust-card-meta">
+            <span class="mono">RM ${Number(c.amount).toFixed(2)}</span>
+            <span class="due">Due ${c.due_date}</span>
+          </div>
+          <div class="cust-card-email">${escapeHtml(c.contact_email)}</div>
+        `;
+        const actionsHolder = document.createElement("div");
+        actionsHolder.className = "cust-card-actions";
+        actionsHolder.appendChild(buildRowActions(c));
+        card.appendChild(actionsHolder);
+        container.appendChild(card);
+      }
+    }
+
+    async function loadCustomers() {
+      const { data, error } = await supabase
+        .from("customers")
+        .select("*")
+        .order("due_date", { ascending: true });
+
+      document.getElementById("table-skeleton").style.display = "none";
+      document.getElementById("customer-list-card").classList.add("loaded");
+
+      if (error) {
+        document.getElementById("empty-state").textContent = "Ralat: " + error.message;
+        document.getElementById("empty-state").style.display = "block";
+        return;
+      }
+
+      allCustomers = data;
+      document.getElementById("list-count").textContent = data.length + " pelanggan";
+      document.getElementById("empty-state").style.display = data.length ? "none" : "block";
+
+      document.getElementById("stat-total").textContent = data.length;
+      document.getElementById("stat-belum").textContent = data.filter(c => c.status === "belum_bayar").length;
+      document.getElementById("stat-reminder").textContent = data.filter(c => c.status === "reminder_dihantar").length;
+      document.getElementById("stat-paid").textContent = data.filter(c => c.status === "dah_bayar").length;
+
+      renderCustomerRows(data);
+      renderMobileCards(data);
+      renderReports(data);
+      renderCalendar();
+      renderSetupChecklist(data.length);
+      updateHomeTileStats();
+    }
+
+    function renderReports(data) {
+      const paid = data.filter(c => c.status === "dah_bayar" && c.paid_at);
+
+      const now = new Date();
+      const thisMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+      const incomeThisMonth = paid
+        .filter(c => c.paid_at.slice(0, 7) === thisMonthKey)
+        .reduce((sum, c) => sum + Number(c.amount), 0);
+      const outstanding = data
+        .filter(c => c.status !== "dah_bayar")
+        .reduce((sum, c) => sum + Number(c.amount), 0);
+      const lifetimeTotal = paid.reduce((sum, c) => sum + Number(c.amount), 0);
+
+      document.getElementById("rpt-income-month").textContent = "RM " + incomeThisMonth.toFixed(2);
+      document.getElementById("rpt-outstanding").textContent = "RM " + outstanding.toFixed(2);
+      document.getElementById("rpt-total-lifetime").textContent = "RM " + lifetimeTotal.toFixed(2);
+
+      // Monthly breakdown, most recent first
+      const byMonth = new Map();
+      for (const c of paid) {
+        const key = c.paid_at.slice(0, 7);
+        if (!byMonth.has(key)) byMonth.set(key, { total: 0, count: 0 });
+        const entry = byMonth.get(key);
+        entry.total += Number(c.amount);
+        entry.count += 1;
+      }
+      const monthlyRows = [...byMonth.entries()].sort((a, b) => b[0].localeCompare(a[0]));
+      const monthTbody = document.getElementById("report-monthly-tbody");
+      monthTbody.innerHTML = "";
+      document.getElementById("report-monthly-empty").style.display = monthlyRows.length ? "none" : "block";
+      for (const [key, entry] of monthlyRows) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td data-label="Bulan">${key}</td><td data-label="Jumlah" class="mono">RM ${entry.total.toFixed(2)}</td><td data-label="Bil.">${entry.count}</td>`;
+        monthTbody.appendChild(tr);
+      }
+
+      // Bar chart — last 6 months, oldest to newest (opposite order from the table above)
+      const chartMonths = monthlyRows.slice(0, 6).reverse();
+      const chartEl = document.getElementById("report-bar-chart");
+      document.getElementById("report-chart-empty").style.display = chartMonths.length ? "none" : "block";
+      if (chartMonths.length) {
+        const maxTotal = Math.max(...chartMonths.map(([, e]) => e.total), 1);
+        const monthLabel = (key) => {
+          const [y, m] = key.split("-");
+          return new Date(Number(y), Number(m) - 1, 1).toLocaleDateString("ms-MY", { month: "short" });
+        };
+        chartEl.innerHTML = chartMonths.map(([key, entry]) => `
+          <div class="bar-col">
+            <div class="bar-val mono">RM${entry.total.toFixed(0)}</div>
+            <div class="bar" style="height:${Math.max(6, (entry.total / maxTotal) * 100)}%;"></div>
+            <div class="bar-lbl">${monthLabel(key)}</div>
+          </div>
+        `).join("");
+      } else {
+        chartEl.innerHTML = "";
+      }
+
+      // Top 5 customers by total paid (grouped by email)
+      const byCustomer = new Map();
+      for (const c of paid) {
+        const key = c.contact_email;
+        if (!byCustomer.has(key)) byCustomer.set(key, { name: c.name, email: c.contact_email, total: 0 });
+        byCustomer.get(key).total += Number(c.amount);
+      }
+      const topCustomers = [...byCustomer.values()].sort((a, b) => b.total - a.total).slice(0, 5);
+      const topTbody = document.getElementById("report-top-tbody");
+      topTbody.innerHTML = "";
+      document.getElementById("report-top-empty").style.display = topCustomers.length ? "none" : "block";
+      for (const cust of topCustomers) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td data-label="Nama">${escapeHtml(cust.name)}</td><td data-label="Emel">${escapeHtml(cust.email)}</td><td data-label="Jumlah" class="mono">RM ${cust.total.toFixed(2)}</td>`;
+        topTbody.appendChild(tr);
+      }
+
+      renderCashflowForecast(data, now);
+      renderRiskScoring(data, now);
+    }
+
+    // ── Cash-flow forecast: 6 minggu akan datang, dari customer belum bayar ──
+    function renderCashflowForecast(data, now) {
+      const unpaid = data.filter(c => c.status !== "dah_bayar");
+      const todayStr = now.toISOString().slice(0, 10);
+
+      const overdueTotal = unpaid.filter(c => c.due_date < todayStr).reduce((s, c) => s + Number(c.amount), 0);
+
+      const weekBuckets = [];
+      for (let w = 0; w < 6; w++) {
+        const start = new Date(now.getTime() + w * 7 * 24 * 60 * 60 * 1000);
+        const end = new Date(start.getTime() + 7 * 24 * 60 * 60 * 1000);
+        const startStr = start.toISOString().slice(0, 10);
+        const endStr = end.toISOString().slice(0, 10);
+        const total = unpaid
+          .filter(c => c.due_date >= (w === 0 ? todayStr : startStr) && c.due_date < endStr)
+          .reduce((s, c) => s + Number(c.amount), 0);
+        weekBuckets.push({ label: `M${w + 1}`, total });
+      }
+
+      const chartEl = document.getElementById("cashflow-chart");
+      const emptyEl = document.getElementById("cashflow-empty");
+      const hasData = overdueTotal > 0 || weekBuckets.some(b => b.total > 0);
+      emptyEl.style.display = hasData ? "none" : "block";
+      if (!hasData) { chartEl.innerHTML = ""; return; }
+
+      const allBars = [{ label: "Tertunggak", total: overdueTotal, warn: true }, ...weekBuckets];
+      const maxTotal = Math.max(...allBars.map(b => b.total), 1);
+      chartEl.innerHTML = allBars.map(b => `
+        <div class="bar-col">
+          <div class="bar-val mono">RM${b.total.toFixed(0)}</div>
+          <div class="bar" style="height:${Math.max(4, (b.total / maxTotal) * 100)}%; ${b.warn ? "background:var(--warn);" : ""}"></div>
+          <div class="bar-lbl">${b.label}</div>
+        </div>
+      `).join("");
+    }
+
+    // ── Risk scoring: customer belum bayar, dinilai ikut rekod bayaran lepas ──
+    function renderRiskScoring(data, now) {
+      const todayStr = now.toISOString().slice(0, 10);
+      const paidHistory = data.filter(c => c.status === "dah_bayar" && c.paid_at);
+
+      // Payment history per email: berapa kali lewat vs total
+      const historyByEmail = new Map();
+      for (const c of paidHistory) {
+        const key = c.contact_email;
+        if (!historyByEmail.has(key)) historyByEmail.set(key, { total: 0, late: 0 });
+        const h = historyByEmail.get(key);
+        h.total += 1;
+        if (c.paid_at.slice(0, 10) > c.due_date) h.late += 1;
+      }
+
+      const unpaid = data.filter(c => c.status !== "dah_bayar");
+      const scored = unpaid.map(c => {
+        const hist = historyByEmail.get(c.contact_email);
+        const isOverdue = c.due_date < todayStr;
+        let level, reason;
+
+        if (!hist) {
+          level = isOverdue ? "medium" : "low";
+          reason = isOverdue ? "Tertunggak sekarang — tiada rekod bayaran sebelum ni" : "Tiada rekod bayaran sebelum ni lagi";
+        } else {
+          const lateRate = hist.late / hist.total;
+          let base = lateRate >= 0.5 ? "high" : lateRate > 0 ? "medium" : "low";
+          if (isOverdue && base === "low") base = "medium";
+          else if (isOverdue && base === "medium") base = "high";
+          level = base;
+          reason = `${hist.late} dari ${hist.total} bayaran lepas lewat (${Math.round(lateRate * 100)}%)${isOverdue ? " — tertunggak sekarang" : ""}`;
+        }
+        return { ...c, riskLevel: level, riskReason: reason };
+      });
+
+      const order = { high: 0, medium: 1, low: 2 };
+      scored.sort((a, b) => order[a.riskLevel] - order[b.riskLevel]);
+      const riskyOnes = scored.filter(c => c.riskLevel !== "low").slice(0, 8);
+
+      const tbody = document.getElementById("risk-tbody");
+      const emptyEl = document.getElementById("risk-empty");
+      emptyEl.style.display = riskyOnes.length ? "none" : "block";
+      tbody.innerHTML = riskyOnes.map(c => `
+        <tr>
+          <td data-label="Nama">${escapeHtml(c.name)}</td>
+          <td data-label="RM" class="mono">${Number(c.amount).toFixed(2)}</td>
+          <td data-label="Risiko"><span class="risk-badge ${c.riskLevel}">${c.riskLevel === "high" ? "Tinggi" : "Sederhana"}</span></td>
+          <td data-label="Sebab" class="hint" style="font-size:0.78rem;">${escapeHtml(c.riskReason)}</td>
+        </tr>
+      `).join("");
+    }
+
+    document.getElementById("search-input")?.addEventListener("input", (e) => {
+      const q = e.target.value.trim().toLowerCase();
+      const filtered = !q ? allCustomers : allCustomers.filter(c =>
+        c.name.toLowerCase().includes(q) || c.contact_email.toLowerCase().includes(q)
+      );
+      renderCustomerRows(filtered);
+      document.getElementById("list-count").textContent = filtered.length + " pelanggan" + (q ? ` (dari ${allCustomers.length})` : "");
+    });
+
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str ?? "";
+      return div.innerHTML;
+    }
+
+    function closeAllKebabMenus() {
+      document.querySelectorAll(".kebab-menu.open").forEach(m => m.classList.remove("open"));
+      kebabBackdrop.classList.remove("open");
+    }
+    document.addEventListener("click", closeAllKebabMenus);
+
+    const kebabBackdrop = document.createElement("div");
+    kebabBackdrop.className = "kebab-backdrop";
+    kebabBackdrop.addEventListener("click", (e) => { e.stopPropagation(); closeAllKebabMenus(); });
+    document.body.appendChild(kebabBackdrop);
+
+    // ── Edit customer modal ──
+    const editModal = document.getElementById("edit-modal");
+
+    function openEditModal(c) {
+      document.getElementById("e-id").value = c.id;
+      document.getElementById("e-name").value = c.name;
+      document.getElementById("e-email").value = c.contact_email;
+      document.getElementById("e-amount").value = c.amount;
+      document.getElementById("e-due").value = c.due_date;
+      document.getElementById("e-phone").value = c.contact_phone || "";
+      document.getElementById("e-notes").value = c.notes || "";
+      document.getElementById("edit-status-bar").innerHTML = `
+        <span>Status semasa:</span>
+        <span class="badge ${c.status}">${STATUS_LABEL[c.status]}</span>
+        ${c.is_recurring ? '<span class="hint">🔁 Berulang</span>' : ""}
+      `;
+      editModal.style.display = "flex";
+    }
+
+    function closeEditModal() {
+      editModal.style.display = "none";
+    }
+
+    document.getElementById("edit-cancel-btn")?.addEventListener("click", closeEditModal);
+    editModal.addEventListener("click", (e) => {
+      if (e.target === editModal) closeEditModal();
+    });
+
+    document.getElementById("edit-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("e-id").value;
+      const payload = {
+        name: document.getElementById("e-name").value.trim(),
+        contact_email: document.getElementById("e-email").value.trim(),
+        amount: parseFloat(document.getElementById("e-amount").value),
+        due_date: document.getElementById("e-due").value,
+        contact_phone: document.getElementById("e-phone").value.trim() || null,
+        notes: document.getElementById("e-notes").value.trim() || null,
+      };
+      const { error } = await supabase.from("customers").update(payload).eq("id", id);
+      if (error) {
+        showToast(error.message, "error");
+        return;
+      }
+      closeEditModal();
+      showToast("Perubahan disimpan.", "success");
+      loadCustomers();
+    });
+
+    // ── Riwayat emel modal ──
+    const historyModal = document.getElementById("history-modal");
+    document.getElementById("history-close-btn")?.addEventListener("click", () => historyModal.style.display = "none");
+    historyModal.addEventListener("click", (e) => { if (e.target === historyModal) historyModal.style.display = "none"; });
+
+    const OFFSET_LABEL = { 7: "H-7", 5: "H-5", 3: "H-3", 2: "H-2", 1: "H-1", 0: "Hari-Ini", "-1": "H+1", "-3": "H+3" };
+
+    async function openHistoryModal(c) {
+      document.getElementById("history-title").textContent = `Riwayat Emel — ${c.name}`;
+      document.getElementById("history-list").innerHTML = `<p class="hint">Memuatkan...</p>`;
+      historyModal.style.display = "flex";
+
+      const { data, error } = await supabase
+        .from("reminders_log")
+        .select("days_offset, sent_at")
+        .eq("customer_id", c.id)
+        .order("sent_at", { ascending: false });
+
+      const listEl = document.getElementById("history-list");
+      if (error) {
+        listEl.innerHTML = `<p class="error">${error.message}</p>`;
+        return;
+      }
+      if (data.length === 0) {
+        listEl.innerHTML = `<p class="hint">Tiada reminder dihantar.</p>`;
+        return;
+      }
+      listEl.innerHTML = data.map(r => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid var(--paper-line);">
+          <span class="badge reminder_dihantar">${OFFSET_LABEL[r.days_offset] ?? r.days_offset}</span>
+          <span class="hint mono">${new Date(r.sent_at).toLocaleString("ms-MY")}</span>
+        </div>
+      `).join("") + `<p class="hint" style="margin-top:0.8rem;">✓ Setiap baris = emel berjaya dihantar melalui Resend pada masa tu.</p>`;
+    }
+
+    document.getElementById("customer-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        owner_id: user.id,
+        name: document.getElementById("c-name").value.trim(),
+        contact_email: document.getElementById("c-email").value.trim(),
+        contact_phone: document.getElementById("c-phone").value.trim() || null,
+        amount: parseFloat(document.getElementById("c-amount").value),
+        due_date: document.getElementById("c-due").value,
+        notes: document.getElementById("c-notes").value.trim() || null,
+        is_recurring: document.getElementById("c-recurring").checked,
+        recurring_days: parseInt(document.getElementById("c-recurring-days").value, 10),
+      };
+
+      const { data: inserted, error } = await supabase.from("customers").insert(payload).select("id").single();
+      if (error) {
+        showToast(error.message, "error");
+        return;
+      }
+      e.target.reset();
+      document.getElementById("recurring-interval-wrap").style.display = "none";
+      document.querySelectorAll(".qp-btn").forEach(b => b.classList.remove("active"));
+      updateMiniReceipt();
+      showToast(`${payload.name} berjaya ditambah! → Cek menu "Senarai Pelanggan" untuk lihat.`, "success");
+      loadCustomers();
+
+      // Due date already today or overdue? Don't make them wait for tomorrow's cron.
+      const todayStr = new Date().toISOString().slice(0, 10);
+      if (inserted?.id && payload.due_date <= todayStr) {
+        try {
+          const { data: sessionData } = await supabase.auth.getSession();
+          const res = await fetch("/api/trigger-instant-reminder", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${sessionData.session.access_token}` },
+            body: JSON.stringify({ customer_id: inserted.id }),
+          });
+          const result = await res.json();
+          if (result.sent) {
+            showToast(`Reminder terus dihantar ke ${payload.name} (due date dah tiba).`, "success");
+            loadCustomers();
+          }
+          // Silently do nothing on "not_in_schedule"/"not_configured"/errors — customer
+          // was still added successfully; this is a bonus, not a blocking requirement.
+        } catch { /* best-effort — next day's cron will still catch it if applicable */ }
+      }
+    });
+
+    // ── Reminder settings (interactive day-chip selector) ──
+    const SCHEDULE_OPTIONS = [
+      { offset: 7, label: "H-7" }, { offset: 5, label: "H-5" }, { offset: 3, label: "H-3" },
+      { offset: 2, label: "H-2" }, { offset: 1, label: "H-1" }, { offset: 0, label: "Hari-Ini" },
+      { offset: -1, label: "H+1" }, { offset: -3, label: "H+3" },
+    ];
+    const DEFAULT_SCHEDULE = [3, 1, 0];
+    let selectedOffsets = new Set(DEFAULT_SCHEDULE);
+
+    function renderChips() {
+      const row = document.getElementById("chip-row");
+      row.innerHTML = "";
+      for (const opt of SCHEDULE_OPTIONS) {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip" + (opt.offset === 0 ? " due" : "") + (selectedOffsets.has(opt.offset) ? " selected" : "");
+        chip.textContent = opt.label;
+        chip.addEventListener("click", () => {
+          if (selectedOffsets.has(opt.offset)) selectedOffsets.delete(opt.offset);
+          else selectedOffsets.add(opt.offset);
+          renderChips();
+        });
+        row.appendChild(chip);
+      }
+      renderSummary();
+      updateScheduleBadge();
+    }
+
+    function renderSummary() {
+      const summaryEl = document.getElementById("schedule-summary");
+      if (selectedOffsets.size === 0) {
+        summaryEl.innerHTML = `<span style="color:var(--warn);">⚠ Tiada hari dipilih — reminder <b>tidak akan dihantar</b> langsung.</span>`;
+        return;
+      }
+      const sorted = [...selectedOffsets].sort((a, b) => b - a);
+      const labels = sorted.map(o => SCHEDULE_OPTIONS.find(s => s.offset === o)?.label || o).join(", ");
+      if (!selectedOffsets.has(0)) {
+        summaryEl.innerHTML = `<span style="color:var(--warn);">⚠ "Hari-Ini" tidak dipilih — customer <b>tidak akan diberitahu pada tarikh due sebenar</b>.</span> Reminder akan dihantar pada: <b>${labels}</b>`;
+        return;
+      }
+      summaryEl.innerHTML = `Reminder akan dihantar pada: <b>${labels}</b>`;
+    }
+
+    function updateScheduleBadge() {
+      const badge = document.getElementById("schedule-badge");
+      if (!badge) return;
+      if (selectedOffsets.size === 0) {
+        badge.innerHTML = `⚠ Jadual reminder <b>kosong</b> — <a href="#" data-goto="tetapan-reminder">betulkan</a>`;
+        badge.style.color = "var(--warn)";
+      } else if (!selectedOffsets.has(0)) {
+        badge.innerHTML = `⚠ "Hari-Ini" tak aktif dalam jadual — <a href="#" data-goto="tetapan-reminder">semak</a>`;
+        badge.style.color = "var(--warn)";
+      } else {
+        const sorted = [...selectedOffsets].sort((a, b) => b - a);
+        const labels = sorted.map(o => SCHEDULE_OPTIONS.find(s => s.offset === o)?.label || o).join(", ");
+        badge.innerHTML = `Jadual aktif: <b>${labels}</b>`;
+        badge.style.color = "var(--ink-soft)";
+      }
+      const link = badge.querySelector("[data-goto]");
+      if (link) {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          goToPage(link.dataset.goto);
+        });
+      }
+    }
+
+    async function loadSettings() {
+      const { data } = await supabase.from("reminder_settings").select("days_before").eq("owner_id", user.id).single();
+      if (data?.days_before) {
+        selectedOffsets = new Set(data.days_before);
+      }
+      renderChips();
+    }
+
+    // ── Booking settings ──
+    const DAY_LABELS = ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"];
+
+    // ── Booking Links (each fully independent: own settings/availability/types/questions) ──
+    let allBookingLinks = [];
+    let currentLinkId = null;
+
+    function currentLink() {
+      return allBookingLinks.find(l => l.id === currentLinkId) || null;
+    }
+
+    async function loadBookingLinksAndSettings() {
+      const { data: profTier } = await supabase.from("profiles").select("tier").eq("id", user.id).single();
+      const isPro = profTier?.tier === "pro";
+
+      const { data: links } = await supabase.from("booking_links").select("*").eq("owner_id", user.id).order("is_primary", { ascending: false }).order("created_at", { ascending: true });
+      allBookingLinks = links || [];
+      if (!currentLinkId || !currentLink()) currentLinkId = allBookingLinks[0]?.id || null;
+
+      renderLinkSwitcher(isPro);
+      await loadSettingsForCurrentLink();
+      renderSetupChecklist(allCustomers.length);
+    }
+
+    function renderLinkSwitcher(isPro) {
+      const chipRow = document.getElementById("link-switcher-chips");
+      if (allBookingLinks.length === 0) {
+        chipRow.innerHTML = `<p class="hint">Belum ada link booking — isi tetapan di bawah untuk cipta link pertama anda.</p>`;
+      } else {
+        chipRow.innerHTML = allBookingLinks.map(l => `
+          <button type="button" class="chip ${l.id === currentLinkId ? "selected" : ""}" data-link-id="${l.id}">${escapeHtml(l.label || l.slug || "Link")}</button>
+        `).join("");
+        chipRow.querySelectorAll("[data-link-id]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            currentLinkId = btn.dataset.linkId;
+            renderLinkSwitcher(isPro);
+            loadSettingsForCurrentLink();
+          });
+        });
+      }
+
+      const canAddMore = isPro && allBookingLinks.length < 3;
+      document.getElementById("show-add-link-btn").style.display = canAddMore ? "block" : "none";
+      document.getElementById("link-switcher-upsell").style.display = (!isPro && allBookingLinks.length >= 1) ? "block" : "none";
+    }
+
+    document.getElementById("show-add-link-btn")?.addEventListener("click", () => {
+      document.getElementById("add-link-row").style.display = "block";
+    });
+
+    document.getElementById("confirm-new-link-btn")?.addEventListener("click", async () => {
+      const rawSlug = document.getElementById("new-link-slug").value.trim().toLowerCase();
+      const slug = rawSlug.replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+      const label = document.getElementById("new-link-label").value.trim();
+      if (!slug || !label) { showToast("Slug & label diperlukan.", "error"); return; }
+
+      const { data: inserted, error } = await supabase.from("booking_links").insert({ owner_id: user.id, slug, label, is_primary: allBookingLinks.length === 0 }).select().single();
+      if (error) { showToast(error.message.includes("duplicate") ? "Slug ni dah digunakan." : error.message, "error"); return; }
+
+      document.getElementById("new-link-slug").value = "";
+      document.getElementById("new-link-label").value = "";
+      document.getElementById("add-link-row").style.display = "none";
+      currentLinkId = inserted.id;
+      showToast("Link baharu dicipta — sila setkan deposit & availability sendiri.", "success");
+      loadBookingLinksAndSettings();
+    });
+
+    function renderAvailabilityGrid(rows) {
+      const byDay = new Map(rows.map(r => [r.day_of_week, r]));
+      const grid = document.getElementById("availability-grid");
+      grid.innerHTML = DAY_LABELS.map((label, i) => {
+        const existing = byDay.get(i);
+        const active = !!existing;
+        return `
+          <div class="avail-day-row">
+            <label class="avail-day-toggle">
+              <input type="checkbox" class="avail-active" data-day="${i}" ${active ? "checked" : ""} />
+              <span>${label}</span>
+            </label>
+            <input type="time" class="avail-start" data-day="${i}" value="${existing?.start_time?.slice(0, 5) || "09:00"}" ${active ? "" : "disabled"} />
+            <span class="hint">hingga</span>
+            <input type="time" class="avail-end" data-day="${i}" value="${existing?.end_time?.slice(0, 5) || "18:00"}" ${active ? "" : "disabled"} />
+          </div>`;
+      }).join("");
+
+      grid.querySelectorAll(".avail-active").forEach(cb => {
+        cb.addEventListener("change", (e) => {
+          const day = e.target.dataset.day;
+          const disabled = !e.target.checked;
+          grid.querySelector(`.avail-start[data-day="${day}"]`).disabled = disabled;
+          grid.querySelector(`.avail-end[data-day="${day}"]`).disabled = disabled;
+        });
+      });
+    }
+
+    async function loadSettingsForCurrentLink() {
+      const link = currentLink();
+
+      document.getElementById("p-booking-slug").value = link?.slug || "";
+      document.getElementById("p-slot-duration").value = link?.slot_duration_minutes || 60;
+      document.getElementById("p-min-notice").value = link?.booking_min_notice_hours ?? 24;
+      document.getElementById("p-buffer").value = link?.buffer_minutes ?? 0;
+      document.getElementById("p-cancel-notice").value = link?.cancellation_notice_hours ?? 0;
+      document.getElementById("p-default-deposit").value = link?.default_deposit_amount != null ? link.default_deposit_amount : "";
+
+      if (link?.slug && link.default_deposit_amount == null) {
+        document.getElementById("booking-slug-status").innerHTML = `⚠️ <strong>Link ni TIDAK berfungsi</strong> — Deposit Lalai belum diisi. Booking customer akan gagal sehingga anda isi & simpan semula.`;
+        document.getElementById("booking-slug-status").style.color = "var(--warn)";
+        document.getElementById("booking-qr-wrap").style.display = "none";
+        document.getElementById("embed-code").value = "";
+      } else if (link?.slug) {
+        const bookingUrl = `${window.location.origin}/book.html?slug=${link.slug}`;
+        document.getElementById("booking-slug-status").innerHTML = `✅ Link aktif: <a href="/book.html?slug=${link.slug}" target="_blank">eqstudio.link/book.html?slug=${link.slug}</a>`;
+        document.getElementById("booking-slug-status").style.color = "";
+
+        const qrImgUrl = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data=${encodeURIComponent(bookingUrl)}`;
+        document.getElementById("booking-qr-img").src = qrImgUrl;
+        document.getElementById("booking-qr-download").href = qrImgUrl;
+        document.getElementById("booking-qr-wrap").style.display = "block";
+        document.getElementById("embed-code").value = `<iframe src="${bookingUrl}" width="100%" height="700" style="border:none; max-width:480px;" title="Booking"></iframe>`;
+      } else {
+        document.getElementById("booking-slug-status").textContent = "";
+        document.getElementById("booking-qr-wrap").style.display = "none";
+        document.getElementById("embed-code").value = "";
+      }
+
+      if (link) {
+        const { data: avail } = await supabase.from("availability").select("day_of_week, start_time, end_time").eq("booking_link_id", link.id);
+        renderAvailabilityGrid(avail || []);
+      } else {
+        renderAvailabilityGrid([]);
+      }
+
+      loadBookingQuestions();
+      loadEventTypes();
+    }
+
+    document.getElementById("copy-embed-btn")?.addEventListener("click", () => {
+      const el = document.getElementById("embed-code");
+      if (!el.value) { showToast("Setup link booking dulu sebelum embed.", "error"); return; }
+      el.select();
+      navigator.clipboard.writeText(el.value).then(() => showToast("Embed code disalin!", "success"));
+    });
+
+    // ── Custom intake questions (scoped to the currently selected link) ──
+    async function loadBookingQuestions() {
+      if (!currentLinkId) { renderBookingQuestions([]); return; }
+      const { data } = await supabase.from("booking_questions").select("id, question_text").eq("booking_link_id", currentLinkId).order("sort_order", { ascending: true });
+      renderBookingQuestions(data || []);
+    }
+
+    function renderBookingQuestions(questions) {
+      const list = document.getElementById("booking-questions-list");
+      if (questions.length === 0) {
+        list.innerHTML = `<p class="hint">Belum ada soalan tambahan.</p>`;
+        return;
+      }
+      list.innerHTML = questions.map(q => `
+        <div class="row" style="align-items:center; margin-bottom:0.5rem;">
+          <span style="flex:1; font-size:0.9rem;">${escapeHtml(q.question_text)}</span>
+          <button type="button" class="secondary" data-qid="${q.id}" style="color:var(--warn); padding:0.3rem 0.6rem;">✕</button>
+        </div>
+      `).join("");
+      list.querySelectorAll("[data-qid]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          await supabase.from("booking_questions").delete().eq("id", btn.dataset.qid);
+          loadBookingQuestions();
+        });
+      });
+    }
+
+    document.getElementById("add-question-btn")?.addEventListener("click", async () => {
+      if (!currentLinkId) { showToast("Setkan slug & simpan link dulu sebelum tambah soalan.", "error"); return; }
+      const input = document.getElementById("new-question-input");
+      const text = input.value.trim();
+      if (!text) return;
+      const { data: existing } = await supabase.from("booking_questions").select("id").eq("booking_link_id", currentLinkId);
+      await supabase.from("booking_questions").insert({ owner_id: user.id, booking_link_id: currentLinkId, question_text: text, sort_order: (existing?.length || 0) });
+      input.value = "";
+      loadBookingQuestions();
+      showToast("Soalan ditambah.", "success");
+    });
+
+    // ── Event Types (scoped to the currently selected link) ──
+    async function loadEventTypes() {
+      if (!currentLinkId) { renderEventTypesList([]); return; }
+      const { data } = await supabase.from("event_types").select("*").eq("booking_link_id", currentLinkId).order("sort_order", { ascending: true });
+      renderEventTypesList(data || []);
+    }
+
+    function renderEventTypesList(types) {
+      const list = document.getElementById("event-types-list");
+      if (types.length === 0) {
+        list.innerHTML = `<p class="hint">Tiada servis ditambah.</p>`;
+        return;
+      }
+      list.innerHTML = types.map(t => `
+        <div class="row" style="align-items:center; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--paper-line);">
+          <div>
+            <strong>${escapeHtml(t.name)}</strong>
+            <span class="hint" style="font-size:0.8rem;"> — ${t.duration_minutes} minit, ${t.deposit_amount === 0 ? "Percuma" : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "guna default")}${t.capacity > 1 ? `, kapasiti ${t.capacity}` : ""}</span>
+          </div>
+          <button type="button" class="secondary" data-et-id="${t.id}" style="color:var(--warn); padding:0.3rem 0.6rem;">✕</button>
+        </div>
+      `).join("");
+      list.querySelectorAll("[data-et-id]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          await supabase.from("event_types").delete().eq("id", btn.dataset.etId);
+          loadEventTypes();
+        });
+      });
+    }
+
+    document.getElementById("add-event-type-btn")?.addEventListener("click", async () => {
+      if (!currentLinkId) { showToast("Setkan slug & simpan link dulu sebelum tambah servis.", "error"); return; }
+      const name = document.getElementById("et-name").value.trim();
+      const duration = parseInt(document.getElementById("et-duration").value, 10);
+      const depositRaw = document.getElementById("et-deposit").value.trim();
+      const deposit = depositRaw === "" ? null : parseFloat(depositRaw);
+      const capacity = parseInt(document.getElementById("et-capacity").value, 10) || 1;
+
+      if (!name || !duration) { showToast("Nama & tempoh diperlukan.", "error"); return; }
+
+      const { data: existing } = await supabase.from("event_types").select("id").eq("booking_link_id", currentLinkId);
+      const { error } = await supabase.from("event_types").insert({
+        owner_id: user.id, booking_link_id: currentLinkId, name, duration_minutes: duration, deposit_amount: deposit, capacity, sort_order: (existing?.length || 0),
+      });
+      if (error) { showToast(error.message, "error"); return; }
+
+      document.getElementById("et-name").value = "";
+      document.getElementById("et-duration").value = "60";
+      document.getElementById("et-deposit").value = "";
+      document.getElementById("et-capacity").value = "1";
+      loadEventTypes();
+      showToast("Jenis perkhidmatan ditambah.", "success");
+    });
+
+    document.getElementById("save-booking-btn")?.addEventListener("click", async () => {
+      const btn = document.getElementById("save-booking-btn");
+
+      const rawSlug = document.getElementById("p-booking-slug").value.trim().toLowerCase();
+      const slug = rawSlug.replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+      const depositRaw = document.getElementById("p-default-deposit").value.trim();
+      const depositValue = depositRaw === "" ? null : parseFloat(depositRaw);
+
+      if (slug && depositValue == null) {
+        showToast("Deposit Lalai WAJIB diisi supaya booking berfungsi untuk customer. Sila isi dulu.", "error");
+        document.getElementById("p-default-deposit").focus();
+        return;
+      }
+      if (!slug) {
+        showToast("Isi slug link booking dulu.", "error");
+        document.getElementById("p-booking-slug").focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Menyimpan...";
+
+      const linkUpdate = {
+        slug,
+        slot_duration_minutes: parseInt(document.getElementById("p-slot-duration").value, 10),
+        booking_min_notice_hours: parseInt(document.getElementById("p-min-notice").value, 10),
+        buffer_minutes: parseInt(document.getElementById("p-buffer").value, 10),
+        cancellation_notice_hours: parseInt(document.getElementById("p-cancel-notice").value, 10),
+        default_deposit_amount: depositValue,
+      };
+
+      let linkErr;
+      if (currentLinkId) {
+        const { error } = await supabase.from("booking_links").update(linkUpdate).eq("id", currentLinkId);
+        linkErr = error;
+      } else {
+        // First-ever link for this owner
+        const { data: inserted, error } = await supabase.from("booking_links").insert({ owner_id: user.id, label: "Link Utama", is_primary: true, ...linkUpdate }).select().single();
+        linkErr = error;
+        if (inserted) currentLinkId = inserted.id;
+      }
+
+      if (linkErr) {
+        showToast(linkErr.message.includes("duplicate") ? "Slug ni dah digunakan. Cuba nama lain." : linkErr.message, "error");
+        btn.disabled = false;
+        btn.textContent = "Simpan Tetapan Booking";
+        return;
+      }
+
+      const grid = document.getElementById("availability-grid");
+      const newRows = [];
+      grid.querySelectorAll(".avail-active:checked").forEach(cb => {
+        const day = cb.dataset.day;
+        const start = grid.querySelector(`.avail-start[data-day="${day}"]`).value;
+        const end = grid.querySelector(`.avail-end[data-day="${day}"]`).value;
+        newRows.push({ owner_id: user.id, booking_link_id: currentLinkId, day_of_week: parseInt(day, 10), start_time: start, end_time: end });
+      });
+
+      await supabase.from("availability").delete().eq("booking_link_id", currentLinkId);
+      if (newRows.length > 0) {
+        await supabase.from("availability").insert(newRows);
+      }
+
+      btn.disabled = false;
+      btn.textContent = "Simpan Tetapan Booking";
+      showToast(`Tetapan booking disimpan! → Cek menu "Senarai Booking" untuk lihat link & test.`, "success");
+      flashButtonSuccess(btn, "Simpan Tetapan Booking");
+      loadBookingLinksAndSettings();
+    });
+
+    loadBookingLinksAndSettings();
+
+    document.getElementById("booking-qr-print")?.addEventListener("click", () => {
+      const imgSrc = document.getElementById("booking-qr-img").src;
+      const win = window.open("", "_blank");
+      win.document.write(`
+        <html><head><title>QR Booking</title></head>
+        <body style="text-align:center; font-family:sans-serif; padding:2rem;">
+          <img src="${imgSrc}" style="width:320px; height:320px;" />
+          <p style="font-size:1.2rem; font-weight:600; margin-top:1rem;">📅 Scan untuk Book Slot</p>
+          <script>window.onload = () => window.print();<\/script>
+        </body></html>
+      `);
+      win.document.close();
+    });
+
+    // ── Bookings list (senarai, cancel, reschedule) ──
+    let allBookings = [];
+    // (reschedule state variables declared near the reschedule modal logic below)
+
+    async function loadBookings() {
+      const { data, error } = await supabase
+        .from("bookings")
+        .select("id, slot_datetime, duration_minutes, customer_name, customer_email, customer_phone, customer_notes, status, customer_id, custom_answers, booking_link_id, event_type_id")
+        .eq("owner_id", user.id)
+        .order("slot_datetime", { ascending: true });
+
+      document.getElementById("booking-table-skeleton").style.display = "none";
+      if (error) {
+        document.getElementById("booking-list-empty").textContent = "Ralat: " + error.message;
+        document.getElementById("booking-list-empty").style.display = "block";
+        return;
+      }
+      allBookings = data || [];
+      renderBookingList();
+      updateHomeTileStats();
+    }
+
+    function animateCountUp(el, targetValue, isMoney) {
+      if (!el) return;
+      const startValue = 0;
+      const duration = 700;
+      const startTime = performance.now();
+      function step(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        const current = startValue + (targetValue - startValue) * eased;
+        el.textContent = isMoney ? current.toFixed(2) : Math.round(current);
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function updateHomeTileStats() {
+      const bookingEl = document.getElementById("home-stat-booking");
+      const pelangganEl = document.getElementById("home-stat-pelanggan");
+      const laporanEl = document.getElementById("home-stat-laporan");
+      const kalendarEl = document.getElementById("home-stat-kalendar");
+      if (!bookingEl) return;
+
+      const now = new Date();
+      const upcoming = allBookings.filter(b => b.status === "confirmed" && new Date(b.slot_datetime) >= now).sort((a, b) => new Date(a.slot_datetime) - new Date(b.slot_datetime));
+      bookingEl.textContent = `${upcoming.length} akan datang`;
+
+      const previewEl = document.getElementById("home-hero-preview");
+      if (previewEl) {
+        if (upcoming.length === 0) {
+          previewEl.innerHTML = `<p class="hint">Tiada booking akan datang.</p>`;
+        } else {
+          previewEl.innerHTML = upcoming.slice(0, 3).map(b => `
+            <div class="bento-hero-row">
+              <span class="bento-hero-name">${escapeHtml(b.customer_name)}</span>
+              <span class="bento-hero-time">${fmtBookingDateTime(b.slot_datetime)}</span>
+            </div>
+          `).join("");
+        }
+      }
+
+      pelangganEl.textContent = `${allCustomers.length} pelanggan`;
+      document.getElementById("pill-stat-booking").textContent = upcoming.length;
+      document.getElementById("pill-stat-customers").textContent = allCustomers.length;
+
+      const outstanding = allCustomers.filter(c => c.status !== "dah_bayar").reduce((sum, c) => sum + Number(c.amount), 0);
+      laporanEl.textContent = `RM ${outstanding.toFixed(2)} belum diterima`;
+      document.getElementById("pill-stat-outstanding").textContent = `RM${outstanding.toFixed(0)}`;
+
+      // Mini sparkline — last 5 months' paid income
+      const sparkEl = document.getElementById("home-sparkline");
+      if (sparkEl) {
+        const byMonth = new Map();
+        for (const c of allCustomers) {
+          if (c.status === "dah_bayar" && c.paid_at) {
+            const key = c.paid_at.slice(0, 7);
+            byMonth.set(key, (byMonth.get(key) || 0) + Number(c.amount));
+          }
+        }
+        const months = [...byMonth.entries()].sort((a, b) => a[0].localeCompare(b[0])).slice(-5);
+        const max = Math.max(...months.map(([, v]) => v), 1);
+        sparkEl.innerHTML = months.length
+          ? months.map(([, v]) => `<div class="spark-bar" style="height:${Math.max(8, (v / max) * 100)}%;"></div>`).join("")
+          : `<div class="spark-bar" style="height:8%;"></div><div class="spark-bar" style="height:8%;"></div><div class="spark-bar" style="height:8%;"></div>`;
+      }
+
+      animateCountUp(document.getElementById("home-summary-bookings"), upcoming.length, false);
+      animateCountUp(document.getElementById("home-summary-outstanding"), outstanding, true);
+
+      const weekAhead = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+      const todayStr = now.toISOString().slice(0, 10);
+      const dueThisWeek = allCustomers.filter(c => c.status !== "dah_bayar" && c.due_date >= todayStr && c.due_date <= weekAhead).length;
+      kalendarEl.textContent = `${dueThisWeek} due minggu ini`;
+    }
+
+    function fmtBookingDateTime(iso) {
+      const d = new Date(iso);
+      return d.toLocaleString("ms-MY", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+    }
+
+    function renderBookingList() {
+      const now = new Date();
+      const upcoming = allBookings.filter(b => b.status === "confirmed" && new Date(b.slot_datetime) >= now);
+      const past = allBookings.filter(b => b.status !== "confirmed" || new Date(b.slot_datetime) < now);
+
+      document.getElementById("booking-list-count").textContent = `${upcoming.length} akan datang`;
+      document.getElementById("booking-list-empty").style.display = allBookings.length ? "none" : "block";
+
+      const list = document.getElementById("booking-list");
+      list.innerHTML = "";
+
+      function row(b, isPast) {
+        const isToday = new Date(b.slot_datetime).toDateString() === new Date().toDateString();
+        const div = document.createElement("div");
+        div.className = "booking-row" + (isPast ? " past" : "") + (isToday && !isPast ? " today-badge" : "");
+        div.innerHTML = `
+          <div class="booking-row-main">
+            <div class="booking-row-time">${fmtBookingDateTime(b.slot_datetime)}</div>
+            <div class="booking-row-name">${escapeHtml(b.customer_name)} <span class="hint">(${escapeHtml(b.customer_email)})</span></div>
+            ${b.customer_notes ? `<div class="hint"><em>${escapeHtml(b.customer_notes)}</em></div>` : ""}
+            ${b.custom_answers && Object.keys(b.custom_answers).length ? Object.entries(b.custom_answers).map(([q, a]) => `<div class="hint" style="font-size:0.78rem;"><strong>${escapeHtml(q)}:</strong> ${escapeHtml(a)}</div>`).join("") : ""}
+          </div>
+          <div class="booking-row-actions">
+            ${b.status === "cancelled" ? '<span class="badge belum_bayar">Dibatalkan</span>' : isPast ? '<span class="hint">Lepas</span>' : ""}
+          </div>
+        `;
+        if (b.status === "confirmed" && !isPast) {
+          const actions = div.querySelector(".booking-row-actions");
+          const rescheduleBtn = document.createElement("button");
+          rescheduleBtn.className = "secondary";
+          rescheduleBtn.textContent = "Reschedule";
+          rescheduleBtn.addEventListener("click", () => openRescheduleModal(b));
+          const cancelBtn = document.createElement("button");
+          cancelBtn.className = "secondary";
+          cancelBtn.style.color = "var(--warn)";
+          cancelBtn.textContent = "Batal";
+          cancelBtn.addEventListener("click", () => cancelBooking(b));
+          actions.appendChild(rescheduleBtn);
+          actions.appendChild(cancelBtn);
+        }
+        return div;
+      }
+
+      upcoming.forEach((b, i) => {
+        const el = row(b, false);
+        el.style.animationDelay = `${Math.min(i * 0.05, 0.5)}s`;
+        list.appendChild(el);
+      });
+      if (past.length > 0) {
+        const divider = document.createElement("p");
+        divider.className = "hint";
+        divider.style.cssText = "margin-top:1.2rem; text-transform:uppercase; font-size:0.7rem; letter-spacing:0.04em;";
+        divider.textContent = "Lepas / Dibatalkan";
+        list.appendChild(divider);
+        for (const b of past.slice(0, 10)) list.appendChild(row(b, true));
+      }
+    }
+
+    async function cancelBooking(b) {
+      if (!confirm(`Batalkan booking ${b.customer_name}?`)) return;
+      const reason = prompt("Sebab batalkan (optional — dihantar ke customer):", "") || "";
+
+      const { error } = await supabase.from("bookings").update({ status: "cancelled" }).eq("id", b.id);
+      if (error) { showToast(error.message, "error"); return; }
+
+      // If the linked customer deposit hasn't been paid yet, no reason to keep chasing it
+      if (b.customer_id) {
+        const { data: cust } = await supabase.from("customers").select("status").eq("id", b.customer_id).single();
+        if (cust && cust.status !== "dah_bayar") {
+          await supabase.from("customers").delete().eq("id", b.customer_id);
+        }
+      }
+
+      try {
+        const { data: sessionData } = await supabase.auth.getSession();
+        await fetch("/api/booking-notify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${sessionData.session.access_token}` },
+          body: JSON.stringify({ booking_id: b.id, type: "cancel", reason }),
+        });
+      } catch { /* cancellation itself succeeded — notification is best-effort */ }
+
+      showToast("Booking dibatalkan & customer dimaklumkan.", "success");
+      loadBookings();
+      loadCustomers();
+    }
+
+    let rescheduleBooking = null;
+    let rescheduleSlotsData = null;
+    let rescheduleSelectedDate = null;
+    let rescheduleSelectedSlot = null;
+
+    async function openRescheduleModal(b) {
+      rescheduleBooking = b;
+      rescheduleSelectedDate = null;
+      rescheduleSelectedSlot = null;
+      document.getElementById("reschedule-current").textContent = `Slot semasa: ${fmtBookingDateTime(b.slot_datetime)}`;
+      document.getElementById("reschedule-reason").value = "";
+      document.getElementById("reschedule-error").style.display = "none";
+      document.getElementById("reschedule-save-btn").disabled = true;
+      document.getElementById("reschedule-save-btn").textContent = "Pilih Slot Dulu";
+      document.getElementById("reschedule-date-row").innerHTML = "";
+      document.getElementById("reschedule-slot-grid").innerHTML = "";
+      document.getElementById("reschedule-loading").style.display = "block";
+      document.getElementById("reschedule-modal").style.display = "flex";
+
+      if (!b.booking_link_id) {
+        document.getElementById("reschedule-loading").style.display = "none";
+        document.getElementById("reschedule-error").textContent = "Booking lama ni tiada link berkaitan — reschedule dari dashboard tak tersedia untuk rekod ni.";
+        document.getElementById("reschedule-error").style.display = "block";
+        return;
+      }
+      const bookingLink = allBookingLinks.find(l => l.id === b.booking_link_id);
+      const slug = bookingLink?.slug || (await supabase.from("booking_links").select("slug").eq("id", b.booking_link_id).single()).data?.slug;
+      const res = await fetch(`/api/booking-availability?slug=${encodeURIComponent(slug)}&days=21${b.event_type_id ? `&type=${encodeURIComponent(b.event_type_id)}` : ""}`);
+      rescheduleSlotsData = await res.json();
+      document.getElementById("reschedule-loading").style.display = "none";
+      renderRescheduleSlots();
+    }
+
+    function renderRescheduleSlots() {
+      const dateKeys = Object.keys(rescheduleSlotsData.slots_by_date || {});
+      if (!rescheduleSelectedDate) rescheduleSelectedDate = dateKeys[0];
+
+      const dateRow = document.getElementById("reschedule-date-row");
+      if (dateKeys.length === 0) {
+        dateRow.innerHTML = `<p class="hint">Tiada slot tersedia.</p>`;
+        return;
+      }
+      dateRow.innerHTML = dateKeys.map(k => {
+        const d = new Date(k + "T00:00:00");
+        const label = d.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short" });
+        return `<button type="button" class="chip book-date-chip ${k === rescheduleSelectedDate ? "selected" : ""}" data-date="${k}">${label}</button>`;
+      }).join("");
+      dateRow.querySelectorAll(".book-date-chip").forEach(btn => {
+        btn.addEventListener("click", () => { rescheduleSelectedDate = btn.dataset.date; rescheduleSelectedSlot = null; renderRescheduleSlots(); });
+      });
+
+      const slots = rescheduleSlotsData.slots_by_date[rescheduleSelectedDate] || [];
+      const slotGrid = document.getElementById("reschedule-slot-grid");
+      slotGrid.innerHTML = slots.map(s => `<button type="button" class="chip book-slot-chip ${rescheduleSelectedSlot?.iso === s.iso ? "selected" : ""}" data-iso="${s.iso}">${s.label}</button>`).join("");
+      slotGrid.querySelectorAll("[data-iso]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          rescheduleSelectedSlot = slots.find(s => s.iso === btn.dataset.iso);
+          const saveBtn = document.getElementById("reschedule-save-btn");
+          saveBtn.disabled = false;
+          saveBtn.textContent = "Simpan & Maklum Customer";
+          renderRescheduleSlots();
+        });
+      });
+    }
+
+    document.getElementById("reschedule-cancel-btn")?.addEventListener("click", () => {
+      document.getElementById("reschedule-modal").style.display = "none";
+    });
+
+    document.getElementById("reschedule-save-btn")?.addEventListener("click", async () => {
+      if (!rescheduleSelectedSlot) return;
+      const btn = document.getElementById("reschedule-save-btn");
+      btn.disabled = true;
+      btn.textContent = "Menyimpan...";
+
+      const oldLabel = fmtBookingDateTime(rescheduleBooking.slot_datetime);
+      const newLabel = new Date(rescheduleSelectedSlot.iso).toLocaleString("ms-MY", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+      const reason = document.getElementById("reschedule-reason").value.trim();
+
+      if (rescheduleBooking.booking_link_id) {
+        let capacity = 1;
+        if (rescheduleBooking.event_type_id) {
+          const { data: etData } = await supabase.from("event_types").select("capacity").eq("id", rescheduleBooking.event_type_id).single();
+          capacity = etData?.capacity || 1;
+        }
+        let conflictQuery = supabase.from("bookings").select("id", { count: "exact", head: true })
+          .eq("booking_link_id", rescheduleBooking.booking_link_id)
+          .eq("slot_datetime", new Date(rescheduleSelectedSlot.iso).toISOString())
+          .eq("status", "confirmed")
+          .neq("id", rescheduleBooking.id);
+        if (rescheduleBooking.event_type_id) conflictQuery = conflictQuery.eq("event_type_id", rescheduleBooking.event_type_id);
+        const { count } = await conflictQuery;
+        if ((count || 0) >= capacity) {
+          document.getElementById("reschedule-error").textContent = "Slot ni dah ada booking lain. Pilih masa berbeza.";
+          document.getElementById("reschedule-error").style.display = "block";
+          btn.disabled = false;
+          btn.textContent = "Simpan & Maklum Customer";
+          return;
+        }
+      }
+
+      const { error } = await supabase.from("bookings").update({ slot_datetime: rescheduleSelectedSlot.iso }).eq("id", rescheduleBooking.id);
+      if (error) {
+        document.getElementById("reschedule-error").textContent = error.message;
+        document.getElementById("reschedule-error").style.display = "block";
+        btn.disabled = false;
+        btn.textContent = "Simpan & Maklum Customer";
+        return;
+      }
+
+      try {
+        const { data: sessionData } = await supabase.auth.getSession();
+        await fetch("/api/booking-notify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${sessionData.session.access_token}` },
+          body: JSON.stringify({ booking_id: rescheduleBooking.id, type: "reschedule", old_slot_label: oldLabel, new_slot_label: newLabel, reason }),
+        });
+      } catch { /* booking itself succeeded — notification is best-effort */ }
+
+      document.getElementById("reschedule-modal").style.display = "none";
+      showToast("Booking di-reschedule & customer dimaklumkan.", "success");
+      loadBookings();
+    });
+
+    loadBookings();
+
+    document.getElementById("save-schedule-btn")?.addEventListener("click", async (e) => {
+      const days = [...selectedOffsets].sort((a, b) => b - a);
+      const { error } = await supabase.from("reminder_settings").upsert({ owner_id: user.id, days_before: days });
+      if (error) {
+        showToast(error.message, "error");
+        return;
+      }
+      localStorage.setItem("eqstudio_schedule_saved", "1");
+      renderSetupChecklist(allCustomers.length);
+      showToast("Jadual reminder disimpan.", "success");
+      flashButtonSuccess(e.target, "Simpan Jadual");
+    });
+
+    document.getElementById("reset-schedule-btn")?.addEventListener("click", () => {
+      selectedOffsets = new Set(DEFAULT_SCHEDULE);
+      renderChips();
+      showToast('Jadual direset ke default (H-3, H-1, Hari-Ini) — klik "Simpan Jadual" untuk sahkan.', "success");
+    });
+
+    document.getElementById("export-csv-btn")?.addEventListener("click", () => {
+      const paid = allCustomers.filter(c => c.status === "dah_bayar" && c.paid_at);
+      if (paid.length === 0) {
+        showToast("Tiada data untuk export lagi.", "error");
+        return;
+      }
+      const header = "Nama,Emel,Jumlah,Tarikh Due,Tarikh Bayar\n";
+      const rows = paid.map(c =>
+        [c.name, c.contact_email, Number(c.amount).toFixed(2), c.due_date, c.paid_at.slice(0, 10)]
+          .map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")
+      ).join("\n");
+      const blob = new Blob([header + rows], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `laporan-eqstudio-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // ── Calendar ──
+    const MONTH_NAMES = ["Januari","Februari","Mac","April","Mei","Jun","Julai","Ogos","September","Oktober","November","Disember"];
+    const DOW = ["Ahd","Isn","Sel","Rab","Kha","Jum","Sab"];
+    let calYear = new Date().getFullYear();
+    let calMonth = new Date().getMonth(); // 0-indexed
+
+    function renderCalendar() {
+      document.getElementById("cal-month-label").textContent = `${MONTH_NAMES[calMonth]} ${calYear}`;
+      const grid = document.getElementById("cal-grid");
+      grid.classList.remove("cal-grid");
+      void grid.offsetWidth;
+      grid.classList.add("cal-grid");
+      grid.innerHTML = "";
+      DOW.forEach(d => {
+        const el = document.createElement("div");
+        el.className = "cal-dow";
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+
+      const firstDay = new Date(calYear, calMonth, 1).getDay();
+      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+      const todayStr = new Date().toISOString().slice(0, 10);
+
+      const dueByDay = new Map();
+      for (const c of allCustomers) {
+        if (c.due_date.slice(0, 7) === `${calYear}-${String(calMonth + 1).padStart(2, "0")}`) {
+          const day = parseInt(c.due_date.slice(8, 10), 10);
+          if (!dueByDay.has(day)) dueByDay.set(day, []);
+          dueByDay.get(day).push(c);
+        }
+      }
+
+      for (let i = 0; i < firstDay; i++) {
+        const el = document.createElement("div");
+        el.className = "cal-cell empty";
+        grid.appendChild(el);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        const cell = document.createElement("div");
+        cell.className = "cal-cell" + (dateStr === todayStr ? " today" : "");
+        cell.innerHTML = `<span>${day}</span>` + (dueByDay.has(day) ? `<span class="dot"></span>` : "");
+        cell.addEventListener("click", () => {
+          document.querySelectorAll(".cal-cell.selected").forEach(el => el.classList.remove("selected"));
+          cell.classList.add("selected");
+          renderDayList(dateStr, dueByDay.get(day) || []);
+        });
+        grid.appendChild(cell);
+      }
+    }
+
+    function renderDayList(dateStr, customersOnDay) {
+      document.getElementById("cal-day-title").textContent = dateStr;
+      const listEl = document.getElementById("cal-day-list");
+      if (customersOnDay.length === 0) {
+        listEl.innerHTML = `<p class="hint">Tiada pelanggan due pada tarikh ini.</p>`;
+        return;
+      }
+      listEl.innerHTML = customersOnDay.map(c => `
+        <div style="display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px solid var(--paper-line);">
+          <span>${escapeHtml(c.name)}</span>
+          <span class="mono">RM ${Number(c.amount).toFixed(2)}</span>
+        </div>
+      `).join("");
+    }
+
+    document.getElementById("cal-prev")?.addEventListener("click", () => {
+      calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; }
+      renderCalendar();
+    });
+    document.getElementById("cal-next")?.addEventListener("click", () => {
+      calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; }
+      renderCalendar();
+    });
+
+    loadCustomers();
+    loadSettings();
+
+    // ── Catatan templates (default suggestions + owner's saved custom ones) ──
+    const DEFAULT_NOTE_TEMPLATES = ["Deposit", "Baki Penuh", "Bayaran Penuh", "Yuran Bulanan", "Sewa"];
+    let customNoteTemplates = [];
+
+    async function loadNoteTemplates() {
+      const { data } = await supabase.from("note_templates").select("id, label").eq("owner_id", user.id).order("created_at", { ascending: true });
+      customNoteTemplates = data || [];
+      renderNoteTplRow("c-note-tpl-row", "c-notes");
+      renderNoteTplRow("e-note-tpl-row", "e-notes");
+    }
+
+    function renderNoteTplRow(rowId, textareaId) {
+      const row = document.getElementById(rowId);
+      if (!row) return;
+      row.innerHTML = "";
+
+      for (const label of DEFAULT_NOTE_TEMPLATES) {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip note-chip";
+        chip.textContent = label;
+        chip.addEventListener("click", () => { document.getElementById(textareaId).value = label; });
+        row.appendChild(chip);
+      }
+
+      for (const tpl of customNoteTemplates) {
+        const wrap = document.createElement("span");
+        wrap.className = "note-chip-wrap";
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip note-chip custom";
+        chip.textContent = tpl.label;
+        chip.addEventListener("click", () => { document.getElementById(textareaId).value = tpl.label; });
+        const del = document.createElement("button");
+        del.type = "button";
+        del.className = "note-chip-del";
+        del.title = "Padam template";
+        del.textContent = "✕";
+        del.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          await supabase.from("note_templates").delete().eq("id", tpl.id);
+          await loadNoteTemplates();
+        });
+        wrap.appendChild(chip);
+        wrap.appendChild(del);
+        row.appendChild(wrap);
+      }
+    }
+
+    async function saveNoteTemplate(textareaId) {
+      const text = document.getElementById(textareaId).value.trim();
+      if (!text) { showToast("Taip catatan dulu sebelum simpan sebagai template.", "error"); return; }
+      const allLabels = [...DEFAULT_NOTE_TEMPLATES, ...customNoteTemplates.map(t => t.label)];
+      if (allLabels.some(l => l.toLowerCase() === text.toLowerCase())) {
+        showToast("Template ni dah wujud.", "error");
+        return;
+      }
+      const { error } = await supabase.from("note_templates").insert({ owner_id: user.id, label: text });
+      if (error) { showToast(error.message, "error"); return; }
+      showToast("Template disimpan.", "success");
+      await loadNoteTemplates();
+    }
+
+    document.getElementById("c-save-tpl-btn")?.addEventListener("click", () => saveNoteTemplate("c-notes"));
+
+    loadNoteTemplates();
+
+    // ── Guided tour (Lapisan 1: spotlight, fokus Home + Booking) ──
+    const TOUR_STEPS = [
+      { page: "home", selector: ".home-hero", title: "Selamat Datang! 👋", text: "Ni Home anda — semua feature diakses dari sini. Setiap kotak (tile) bawa anda ke satu fungsi khusus. Jom kita jalan-jalan sekejap." },
+      { page: "home", selector: ".home-summary-card", title: "Ringkasan Pantas", text: "Kotak ni tunjuk gambaran cepat — berapa booking akan datang, dan berapa RM belum diterima." },
+      { page: "home", selector: '.bento-tile[data-page="booking-settings"]', title: "Mula Dari Sini: Booking", text: "Booking adalah feature UTAMA sistem ni — customer book slot sendiri, deposit & reminder jalan automatik lepas tu. Jom setup dulu." },
+      { page: "booking-settings", selector: "#p-booking-slug", title: "Link Booking Anda", text: "Pilih nama link (contoh: kedai-anda) — ni yang anda akan kongsi dengan customer supaya mereka boleh book slot terus. Lepas simpan, link ni juga terus terpapar di Home untuk senang copy/share." },
+      { page: "booking-settings", selector: "#p-default-deposit", title: "⚠️ Deposit Lalai — WAJIB DIISI!", text: "Ni PALING PENTING — kalau tak diisi, booking customer akan GAGAL. Auto-apply setiap booking baharu. Nak booking PERCUMA (contoh konsultasi)? Taip 0 — sistem sekarang faham 0 tu sengaja, bukan tak diisi." },
+      { page: "booking-settings", selector: "#availability-grid", title: "Waktu Available", text: "Tandakan hari & jam anda free. Customer cuma nampak slot yang anda dah set di sini — tiada lagi tanya \"awak free bila\"." },
+      { page: "booking-settings", selector: "#event-types-list", title: "🎯 Lebih Dari Satu Jenis Servis?", text: "Contoh: \"Collection Kek — 10 minit\" vs \"Kelas Baking — 2 jam, RM100\". Setiap jenis ada tempoh/harga/kapasiti sendiri (kapasiti >1 untuk group class). Kosongkan kalau semua booking anda sama." },
+      { page: "booking-settings", selector: "#new-question-input", title: "Soalan Tambahan (Optional)", text: "Tanya customer sesuatu semasa booking, contoh \"Apa jenis kek?\" — jawapan terus nampak dalam Senarai Booking anda." },
+      { page: "booking-settings", selector: "#save-booking-btn", title: "Simpan & Dapatkan Link", text: "Lepas simpan, link booking dan QR code printable akan muncul di atas — boleh terus kongsi atau print letak kaunter." },
+      { page: "booking-list", selector: "#booking-list", title: "Senarai Booking Anda", text: "Setiap booking yang customer buat akan muncul di sini — dengan status, jawapan soalan tambahan (jika ada), dan butang Reschedule/Batal." },
+      { page: "home", selector: ".bento-grid", title: "Menu Lain", text: "Pelanggan, Laporan, Kalendar, dan Tetapan — explore ikut keperluan anda. Setiap page ada butang \"❓ Panduan\" untuk penjelasan detail bila anda perlukan." },
+      { page: "home", selector: "#restart-tour-btn", title: "Sesat? Klik Sini Bila-Bila", text: "Tour ni boleh dibuka semula bila-bila dari sini (atau butang ❓ atas mobile) — dan setiap page pun ada butang Panduan sendiri. Nak run lebih dari satu bisnes? Ada pelan Pro untuk sehingga 3 link booking — check Billing. Selamat mencuba! 🎉" },
+    ];
+    let tourStepIndex = 0;
+
+    let currentGlowEl = null;
+
+    function showTourStep(step) {
+      const panel = document.getElementById("tour-panel");
+
+      document.getElementById("tour-progress").textContent = `Langkah ${tourStepIndex + 1} / ${TOUR_STEPS.length}`;
+      document.getElementById("tour-title").textContent = step.title;
+      document.getElementById("tour-text").textContent = step.text;
+      document.getElementById("tour-back-btn").style.visibility = tourStepIndex === 0 ? "hidden" : "visible";
+      document.getElementById("tour-next-btn").textContent = tourStepIndex === TOUR_STEPS.length - 1 ? "Selesai 🎉" : "Seterusnya →";
+      panel.style.display = "block";
+
+      if (currentGlowEl) { currentGlowEl.classList.remove("tour-glow"); currentGlowEl = null; }
+      const el = document.querySelector(step.selector);
+      if (el) {
+        el.classList.add("tour-glow");
+        currentGlowEl = el;
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+
+    async function goToTourStep(i) {
+      if (i < 0 || i >= TOUR_STEPS.length) return;
+      const step = TOUR_STEPS[i];
+      const needsNav = !document.getElementById("page-" + step.page).classList.contains("active");
+      tourStepIndex = i;
+      if (needsNav) {
+        goToPage(step.page);
+        setTimeout(() => showTourStep(step), 380);
+      } else {
+        showTourStep(step);
+      }
+    }
+
+    function startTour() {
+      tourStepIndex = 0;
+      goToTourStep(0);
+    }
+    function endTour() {
+      document.getElementById("tour-panel").style.display = "none";
+      if (currentGlowEl) { currentGlowEl.classList.remove("tour-glow"); currentGlowEl = null; }
+      localStorage.setItem("eqstudio_tour_completed", "1");
+    }
+
+    document.getElementById("tour-next-btn").addEventListener("click", () => {
+      if (tourStepIndex === TOUR_STEPS.length - 1) { endTour(); return; }
+      goToTourStep(tourStepIndex + 1);
+    });
+    document.getElementById("tour-back-btn").addEventListener("click", () => goToTourStep(tourStepIndex - 1));
+    document.getElementById("tour-skip-btn").addEventListener("click", endTour);
+    document.getElementById("restart-tour-btn").addEventListener("click", startTour);
+    document.getElementById("restart-tour-btn-mobile").addEventListener("click", startTour);
+
+    // Auto-launch for first-time visitors only
+    if (!localStorage.getItem("eqstudio_tour_completed")) {
+      setTimeout(startTour, 900);
+    }
+
+    // ── Per-page contextual guide (Lapisan 2) ──
+    const GUIDE_CONTENT = {
+      "booking-list": { title: "📅 Senarai Booking", html: "<p>Setiap booking yang customer buat muncul di sini, disusun ikut masa akan datang. Klik <strong>Reschedule</strong> untuk tukar slot (customer auto-dimaklumkan via emel), atau <strong>Batal</strong> untuk cancel (customer pun auto-dimaklumkan).</p><p>Booking hari ini ada badge <strong>HARI INI</strong> berkelip supaya senang nampak.</p>" },
+      "booking-settings": { title: "⚙️ Tetapan Booking", html: "<p><strong>Link Booking</strong> — nama unik untuk link awam anda.</p><p><strong>Deposit Lalai</strong> — WAJIB diisi, tanpa ni booking customer akan gagal.</p><p><strong>Buffer Time</strong> — rehat automatik antara booking.</p><p><strong>Soalan Tambahan</strong> — tanya customer sesuatu semasa booking.</p><p><strong>QR & Embed</strong> — muncul selepas link aktif, untuk print atau letak dalam website sendiri.</p>" },
+      "pelanggan-add": { title: "➕ Tambah Pelanggan", html: "<p>Tambah pelanggan manual (untuk order bukan dari booking online) — pratonton resit di sebelah update live semasa anda taip.</p><p>Boleh juga <strong>Import CSV</strong> untuk tambah beramai-ramai sekali gus (format: nama,emel,telefon,jumlah,tarikh_due,catatan).</p>" },
+      "pelanggan-list": { title: "👥 Senarai Pelanggan", html: "<p>Semua pelanggan anda (dari booking atau tambah manual) — status Belum Bayar/Reminder Dihantar/Dah Bayar. Klik nama untuk edit, atau guna carian untuk cari cepat.</p>" },
+      "laporan": { title: "📊 Laporan", html: "<p><strong>Trend Income</strong> — income bulanan lepas.</p><p><strong>Unjuran Cash-Flow</strong> — anggaran income 6 minggu akan datang dari customer belum bayar.</p><p><strong>Customer Berisiko</strong> — sistem kenal pasti customer yang selalu lewat bayar, berdasarkan sejarah mereka dengan anda.</p>" },
+      "kalendar": { title: "🗓️ Kalendar", html: "<p>Lihat semua tarikh due pelanggan dalam pandangan bulanan. Klik mana-mana tarikh untuk lihat siapa yang due pada hari tu.</p>" },
+      "tetapan-profil": { title: "🏢 Profil Perniagaan", html: "<p>Nama, logo, warna jenama, dan maklumat bank/QR DuitNow — semua ni dipaparkan dalam emel reminder yang customer terima. Isi No. SSM (optional) untuk invois nampak lebih rasmi.</p>" },
+      "tetapan-reminder": { title: "🔔 Jadual Reminder", html: "<p>Klik hari bila sistem patut hantar reminder deposit — relatif kepada tarikh due (contoh: H-3, H-1, Hari-Ini). Sistem check jadual ni sekali sehari (~9 pagi).</p>" },
+    };
+
+    document.querySelectorAll(".guide-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const guide = GUIDE_CONTENT[btn.dataset.guide];
+        if (!guide) return;
+        document.getElementById("guide-modal-title").textContent = guide.title;
+        document.getElementById("guide-modal-body").innerHTML = guide.html;
+        document.getElementById("guide-modal").style.display = "flex";
+      });
+    });
+    document.getElementById("guide-modal-close").addEventListener("click", () => {
+      document.getElementById("guide-modal").style.display = "none";
+    });
+  </script>
+</body>
+</html>

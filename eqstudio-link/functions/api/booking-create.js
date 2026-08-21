@@ -110,7 +110,9 @@ export async function onRequestPost(context) {
       const types = await typeRes.json();
       const type = types[0];
       if (!type) return json({ error: "Jenis perkhidmatan tidak dijumpai." }, 404);
-      depositAmount = type.deposit_amount != null ? type.deposit_amount : link.default_deposit_amount;
+      // No fallback to the link default — event types always carry an explicit
+      // deposit set by the owner, no hidden runtime inheritance.
+      depositAmount = type.deposit_amount;
       capacity = type.capacity || 1;
       resolvedDuration = type.duration_minutes;
     }

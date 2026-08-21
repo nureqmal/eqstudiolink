@@ -285,7 +285,7 @@
               </div>
               <div class="row" style="margin-top:0.6rem;">
                 <div>
-                  <label for="et-deposit">Deposit (RM, kosong = guna default, 0 = percuma)</label>
+                  <label for="et-deposit">Deposit (RM) — 0 untuk percuma</label>
                   <input type="number" id="et-deposit" step="0.01" min="0" placeholder="cth: 100" />
                 </div>
                 <div>
@@ -1868,6 +1868,7 @@
 
       loadBookingQuestions();
       loadEventTypes();
+      prefillEventTypeDeposit();
     }
 
     document.getElementById("copy-embed-btn")?.addEventListener("click", () => {
@@ -1933,7 +1934,7 @@
         <div class="row" style="align-items:center; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--paper-line);">
           <div>
             <strong>${escapeHtml(t.name)}</strong>
-            <span class="hint" style="font-size:0.8rem;"> — ${t.duration_minutes} minit, ${t.deposit_amount === 0 ? "Percuma" : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "guna default")}${t.capacity > 1 ? `, kapasiti ${t.capacity}` : ""}</span>
+            <span class="hint" style="font-size:0.8rem;"> — ${t.duration_minutes} minit, ${t.deposit_amount === 0 ? "Percuma" : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "⚠️ deposit belum diset")}${t.capacity > 1 ? `, kapasiti ${t.capacity}` : ""}</span>
           </div>
           <button type="button" class="secondary" data-et-id="${t.id}" style="color:var(--warn); padding:0.3rem 0.6rem;">✕</button>
         </div>
@@ -1951,10 +1952,11 @@
       const name = document.getElementById("et-name").value.trim();
       const duration = parseInt(document.getElementById("et-duration").value, 10);
       const depositRaw = document.getElementById("et-deposit").value.trim();
-      const deposit = depositRaw === "" ? null : parseFloat(depositRaw);
       const capacity = parseInt(document.getElementById("et-capacity").value, 10) || 1;
 
       if (!name || !duration) { showToast("Nama & tempoh diperlukan.", "error"); return; }
+      if (depositRaw === "") { showToast("Deposit diperlukan (taip 0 untuk percuma).", "error"); document.getElementById("et-deposit").focus(); return; }
+      const deposit = parseFloat(depositRaw);
 
       const { data: existing } = await supabase.from("event_types").select("id").eq("booking_link_id", currentLinkId);
       const { error } = await supabase.from("event_types").insert({
@@ -1964,11 +1966,20 @@
 
       document.getElementById("et-name").value = "";
       document.getElementById("et-duration").value = "60";
-      document.getElementById("et-deposit").value = "";
+      prefillEventTypeDeposit();
       document.getElementById("et-capacity").value = "1";
       loadEventTypes();
       showToast("Jenis perkhidmatan ditambah.", "success");
     });
+
+    // Pre-fills the new-event-type deposit field from the current link's default —
+    // a one-time convenience copy, not a live fallback. What's saved on the event
+    // type is exactly what gets charged, always, no hidden inheritance.
+    function prefillEventTypeDeposit() {
+      const link = currentLink();
+      const field = document.getElementById("et-deposit");
+      field.value = link?.default_deposit_amount != null ? link.default_deposit_amount : "";
+    }
 
     document.getElementById("save-booking-btn")?.addEventListener("click", async () => {
       const btn = document.getElementById("save-booking-btn");

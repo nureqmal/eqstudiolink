@@ -502,36 +502,20 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 /* ── Dashboard (db-) ────────────────────────────────────────────────── */
 
 /* ── Dashboard (db-) — sidebar app shell ─────────────────────────── */
-.db-shell { display: flex; min-height: 100vh; }
-.db-sidebar {
-  width: 232px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--paper-line);
-  display: flex; flex-direction: column; padding: 1.4rem 1rem; position: sticky; top: 0; height: 100vh;
-}
-.db-sidebar .brand { padding: 0 0.5rem; margin-bottom: 2rem; display: block; }
-.db-nav { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; }
-.db-nav-btn {
-  display: flex; align-items: center; gap: 0.7rem; text-align: left; background: none; border: none;
-  padding: 0.65rem 0.75rem; border-radius: 8px; font-family: var(--font-body); font-weight: 500;
-  font-size: 0.92rem; color: var(--ink-soft); cursor: pointer;
-}
-.db-nav-btn:hover { background: var(--paper); color: var(--ink); }
-.db-nav-btn.active { background: var(--pending-bg); color: var(--stamp); font-weight: 600; }
-.db-nav-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+.db-shell { display: flex; flex-direction: column; min-height: 100vh; }
+.db-sidebar { display: none; }
 .db-sidebar-footer { border-top: 1px solid var(--paper-line); padding-top: 0.9rem; margin-top: auto; }
 .db-biz-name { font-size: 0.82rem; color: var(--ink-soft); padding: 0 0.75rem; margin-bottom: 0.6rem; }
 .db-main { flex: 1; min-width: 0; }
-.db-topbar-mobile { display: none; }
+.db-topbar-mobile {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--paper-line); background: var(--surface);
+  position: sticky; top: 0; z-index: 5;
+}
 
-@media (max-width: 860px) {
-  .db-shell { flex-direction: column; }
-  .db-sidebar { display: none; }
-  .db-topbar-mobile {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.85rem 1rem; border-bottom: 1px solid var(--paper-line); background: var(--surface);
-    position: sticky; top: 0; z-index: 5;
-  }
-  .db-mobile-nav { display: flex; gap: 0.4rem; padding: 0.7rem 1rem 0; background: var(--surface); border-bottom: 1px solid var(--paper-line); }
-  .db-mobile-nav .db-nav-btn { flex: 1; justify-content: center; }
+@media (min-width: 640px) {
+  .db-topbar-mobile { padding: 1rem 2rem; }
+  .db-topbar-mobile .brand { font-size: 1.3rem; }
 }
 
 .db-search-row { display: flex; gap: 0.6rem; margin-bottom: 0.9rem; }

@@ -56,7 +56,10 @@ export async function onRequestGet(context) {
       if (!selectedType) return json({ error: "Jenis perkhidmatan tidak dijumpai." }, 404);
       durationMinutes = selectedType.duration_minutes;
       capacity = selectedType.capacity || 1;
-      depositAmount = selectedType.deposit_amount != null ? selectedType.deposit_amount : link.default_deposit_amount;
+      // No fallback to the link default anymore — event types always carry an
+      // explicit deposit (the dashboard pre-fills it as a one-time convenience,
+      // but what's saved is what's charged, with no hidden runtime inheritance).
+      depositAmount = selectedType.deposit_amount;
     }
     if (depositAmount == null) {
       return json({ error: "Perniagaan ni belum sedia untuk terima booking online. Sila hubungi mereka terus." }, 400);

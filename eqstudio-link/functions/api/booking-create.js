@@ -1,5 +1,5 @@
 // Cloudflare Pages Function — POST /api/booking-create
-// Public (no auth) — used by the public /book/<slug> page.
+// Public (no auth) — used by the public /book.html?slug=<slug> page.
 // Body: { slug, slot_iso, event_type_id, duration_minutes, name, email, phone, notes, custom_answers, preferred_language }
 //
 // Required env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY, RESEND_FROM_EMAIL,
@@ -31,37 +31,36 @@ const BOOKING_I18N = {
   ta: { title: "முன்பதிவு உறுதி செய்யப்பட்டது! ✅", greet: (n, b) => `வணக்கம் ${n}, <strong>${b}</strong> உடனான உங்கள் முன்பதிவு உறுதி செய்யப்பட்டது:`, footer: "வைப்புத்தொகை நினைவூட்டலை தனியாக விரைவில் அனுப்புவோம்.", manageLink: "மறு திட்டமிடல் / முன்பதிவை ரத்து செய்யவும்", subject: "முன்பதிவு உறுதி செய்யப்பட்டது" },
 };
 
-async function sendConfirmationEmails(env, { profile, booking, slotLabel, dateLabel, lang }) {
+async function sendConfirmationEmails(env, { profile, bizName, booking, slotLabel, dateLabel, lang }) {
   if (!env.RESEND_API_KEY) return;
-  const bizName = profile.business_name?.trim() || "eqstudio.link";
-  const brandColor = profile.brand_color || "#E8834E";
+  const brandColor = profile.brand_color || "#4F46E5";
   const site = env.PUBLIC_SITE_URL || "https://eqstudio.link";
   const manageUrl = `${site}/manage-booking.html?token=${booking.manage_token}`;
   const T = BOOKING_I18N[lang] || BOOKING_I18N.ms;
 
   const customerHtml = `
-    <div style="font-family:Helvetica,Arial,sans-serif; max-width:440px; margin:0 auto; background:#FBF7EF; border-radius:10px; overflow:hidden; border:1px solid #E8DFCB;">
+    <div style="font-family:Helvetica,Arial,sans-serif; max-width:440px; margin:0 auto; background:#FAFAFA; border-radius:10px; overflow:hidden; border:1px solid #E4E4E9;">
       <div style="height:5px; background:${brandColor};"></div>
       <div style="padding:24px 28px;">
         <p style="font-size:16px; font-weight:600; margin:0 0 8px;">${T.title}</p>
-        <p style="font-size:14px; color:#4A6259; margin:0 0 16px;">${T.greet(escapeHtml(booking.customer_name), escapeHtml(bizName))}</p>
+        <p style="font-size:14px; color:#6B6B75; margin:0 0 16px;">${T.greet(escapeHtml(booking.customer_name), escapeHtml(bizName))}</p>
         <p style="font-size:14px; margin:0 0 4px;">📅 ${dateLabel}, ${slotLabel}</p>
-        <p style="font-size:12px; color:#9AA8A2; margin:16px 0 12px;">${T.footer}</p>
+        <p style="font-size:12px; color:#9A9AA5; margin:16px 0 12px;">${T.footer}</p>
         <a href="${manageUrl}" style="display:block; text-align:center; background:#ffffff; color:${brandColor}; text-decoration:none; font-weight:600; font-size:13px; padding:10px 18px; border-radius:8px; border:1.5px solid ${brandColor};">${T.manageLink}</a>
       </div>
     </div>`;
 
   const ownerHtml = `
-    <div style="font-family:Helvetica,Arial,sans-serif; max-width:440px; margin:0 auto; background:#FBF7EF; border-radius:10px; overflow:hidden; border:1px solid #E8DFCB;">
+    <div style="font-family:Helvetica,Arial,sans-serif; max-width:440px; margin:0 auto; background:#FAFAFA; border-radius:10px; overflow:hidden; border:1px solid #E4E4E9;">
       <div style="height:5px; background:${brandColor};"></div>
       <div style="padding:24px 28px;">
         <p style="font-size:16px; font-weight:600; margin:0 0 8px;">Tempahan Baru! 🎉</p>
         <p style="font-size:14px; margin:0 0 4px;"><strong>${escapeHtml(booking.customer_name)}</strong> — ${escapeHtml(booking.customer_email)}${booking.customer_phone ? " — " + escapeHtml(booking.customer_phone) : ""}</p>
         <p style="font-size:14px; margin:0 0 4px;">📅 ${dateLabel}, ${slotLabel}</p>
-        ${booking.customer_notes ? `<p style="font-size:13px; color:#4A6259; margin:8px 0 0;"><em>${escapeHtml(booking.customer_notes)}</em></p>` : ""}
+        ${booking.customer_notes ? `<p style="font-size:13px; color:#6B6B75; margin:8px 0 0;"><em>${escapeHtml(booking.customer_notes)}</em></p>` : ""}
         ${booking.custom_answers && Object.keys(booking.custom_answers).length ? `
-        <div style="margin-top:10px; padding-top:10px; border-top:1px dashed #E8DFCB;">
-          ${Object.entries(booking.custom_answers).map(([q, a]) => `<p style="font-size:13px; color:#4A6259; margin:0 0 4px;"><strong>${escapeHtml(q)}:</strong> ${escapeHtml(a)}</p>`).join("")}
+        <div style="margin-top:10px; padding-top:10px; border-top:1px dashed #E4E4E9;">
+          ${Object.entries(booking.custom_answers).map(([q, a]) => `<p style="font-size:13px; color:#6B6B75; margin:0 0 4px;"><strong>${escapeHtml(q)}:</strong> ${escapeHtml(a)}</p>`).join("")}
         </div>` : ""}
       </div>
     </div>`;
@@ -93,29 +92,25 @@ export async function onRequestPost(context) {
     }
     const lang = ["ms", "en", "zh", "ta"].includes(preferred_language) ? preferred_language : "ms";
 
-    const profRes = await sbAdmin(env, `/profiles?booking_slug=eq.${encodeURIComponent(slug)}&select=id,business_name,contact_email,brand_color,default_deposit_amount,booking_min_notice_hours`);
-    const profiles = await profRes.json();
-    let profile = profiles[0];
-    if (!profile) {
-      const linksRes = await sbAdmin(env, `/booking_links?slug=eq.${encodeURIComponent(slug)}&select=owner_id`);
-      const links = await linksRes.json();
-      if (links[0]) {
-        const ownerRes = await sbAdmin(env, `/profiles?id=eq.${links[0].owner_id}&select=id,business_name,contact_email,brand_color,default_deposit_amount,booking_min_notice_hours`);
-        const ownerProfiles = await ownerRes.json();
-        profile = ownerProfiles[0];
-      }
-    }
-    if (!profile) return json({ error: "Link booking tidak dijumpai." }, 404);
+    const linkRes = await sbAdmin(env, `/booking_links?slug=eq.${encodeURIComponent(slug)}&select=*`);
+    const links = await linkRes.json();
+    const link = links[0];
+    if (!link) return json({ error: "Link booking tidak dijumpai." }, 404);
 
-    let depositAmount = profile.default_deposit_amount;
+    const profRes = await sbAdmin(env, `/profiles?id=eq.${link.owner_id}&select=business_name,contact_email,brand_color`);
+    const profiles = await profRes.json();
+    const profile = profiles[0] || {};
+    const bizName = link.label || profile.business_name || "eqstudio.link";
+
+    let depositAmount = link.default_deposit_amount;
     let capacity = 1;
     let resolvedDuration = duration_minutes || 60;
     if (event_type_id) {
-      const typeRes = await sbAdmin(env, `/event_types?id=eq.${event_type_id}&owner_id=eq.${profile.id}&select=*`);
+      const typeRes = await sbAdmin(env, `/event_types?id=eq.${event_type_id}&booking_link_id=eq.${link.id}&select=*`);
       const types = await typeRes.json();
       const type = types[0];
       if (!type) return json({ error: "Jenis perkhidmatan tidak dijumpai." }, 404);
-      depositAmount = type.deposit_amount != null ? type.deposit_amount : profile.default_deposit_amount;
+      depositAmount = type.deposit_amount != null ? type.deposit_amount : link.default_deposit_amount;
       capacity = type.capacity || 1;
       resolvedDuration = type.duration_minutes;
     }
@@ -125,30 +120,25 @@ export async function onRequestPost(context) {
     }
 
     const slotDate = new Date(slot_iso);
-    const earliestAllowed = new Date(Date.now() + (profile.booking_min_notice_hours || 0) * 60 * 60 * 1000);
+    const earliestAllowed = new Date(Date.now() + (link.booking_min_notice_hours || 0) * 60 * 60 * 1000);
     if (slotDate < earliestAllowed) {
       return json({ error: "Slot ni terlalu hampir dengan masa sekarang. Sila pilih slot lain." }, 400);
     }
 
-    // Capacity check — the DB no longer enforces a hard unique(owner_id, slot_datetime)
-    // constraint (capacity > 1 event types legitimately need multiple bookings at the
-    // same slot_datetime), so this is an application-level check-then-insert. Same
-    // small race-condition tradeoff already accepted for buffer time.
     if (event_type_id) {
-      const existingRes = await sbAdmin(env, `/bookings?owner_id=eq.${profile.id}&event_type_id=eq.${event_type_id}&slot_datetime=eq.${slotDate.toISOString()}&status=eq.confirmed&select=id`);
+      const existingRes = await sbAdmin(env, `/bookings?booking_link_id=eq.${link.id}&event_type_id=eq.${event_type_id}&slot_datetime=eq.${slotDate.toISOString()}&status=eq.confirmed&select=id`);
       const existingAtSlot = await existingRes.json();
       if (existingAtSlot.length >= capacity) {
         return json({ error: "Alamak, slot ni dah penuh. Sila pilih slot lain." }, 409);
       }
     }
 
-    const todayISO = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString().slice(0, 10); // Malaysia "today"
+    const todayISO = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
-    // Create the customer record first (deposit due immediately — ties into the instant-reminder feature)
     const custRes = await sbAdmin(env, "/customers", {
       method: "POST",
       body: JSON.stringify({
-        owner_id: profile.id,
+        owner_id: link.owner_id,
         name: name.trim(),
         contact_email: email.trim(),
         contact_phone: phone?.trim() || null,
@@ -163,15 +153,12 @@ export async function onRequestPost(context) {
     const customers = await custRes.json();
     const customer = customers[0];
 
-    // Now the booking. Without event_type_id (legacy/no-Event-Types owners) the
-    // dropped unique constraint means a genuinely simultaneous double-booking of the
-    // SAME exact slot_datetime is no longer caught at the DB level — low risk in
-    // practice given the min-notice window, but worth knowing.
     const bookingRes = await sbAdmin(env, "/bookings", {
       method: "POST",
       body: JSON.stringify({
-        owner_id: profile.id,
+        owner_id: link.owner_id,
         customer_id: customer.id,
+        booking_link_id: link.id,
         event_type_id: event_type_id || null,
         slot_datetime: slotDate.toISOString(),
         duration_minutes: resolvedDuration,
@@ -186,14 +173,12 @@ export async function onRequestPost(context) {
 
     if (!bookingRes.ok) {
       const detail = await bookingRes.text();
-      // Roll back the customer row we just created since the booking didn't go through
       await sbAdmin(env, `/customers?id=eq.${customer.id}`, { method: "DELETE", prefer: "return=minimal" });
       return json({ error: `Gagal buat tempahan: ${detail}` }, 502);
     }
     const bookings = await bookingRes.json();
     const booking = bookings[0];
 
-    // Best-effort: instant reminder (deposit request) — skip entirely for free (RM0) bookings
     if (env.WORKER_CRON_URL && env.MANUAL_TRIGGER_KEY && Number(customer.amount) > 0) {
       try {
         await fetch(`${env.WORKER_CRON_URL}/?key=${encodeURIComponent(env.MANUAL_TRIGGER_KEY)}&run=single&customer_id=${encodeURIComponent(customer.id)}`);
@@ -204,7 +189,7 @@ export async function onRequestPost(context) {
     const dateLabel = myParts.toLocaleDateString("ms-MY", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
     const slotLabel = `${String(myParts.getUTCHours()).padStart(2, "0")}:${String(myParts.getUTCMinutes()).padStart(2, "0")}`;
 
-    await sendConfirmationEmails(env, { profile, booking, slotLabel, dateLabel, lang });
+    await sendConfirmationEmails(env, { profile, bizName, booking, slotLabel, dateLabel, lang });
 
     return json({ success: true, booking_id: booking.id, date_label: dateLabel, slot_label: slotLabel });
   } catch (err) {

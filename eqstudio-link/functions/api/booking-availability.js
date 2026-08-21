@@ -1,9 +1,8 @@
-// Cloudflare Pages Function — GET /api/booking-availability?slug=<booking_slug>&days=14&type=<event_type_id>
-// Public (no auth) — used by the public /book/<slug> page.
-// If the owner has Event Types configured and no `type` param is given, returns the
-// list of event types instead of slots (client must pick one, then re-call with `type`).
-// If the owner has no Event Types at all, behaves exactly as before (profile-level
-// duration/deposit/no type list) — fully backward compatible.
+// Cloudflare Pages Function — GET /api/booking-availability?slug=<slug>&days=14&type=<event_type_id>
+// Public (no auth) — used by the public /book.html?slug=<slug> page.
+// Every booking_links row (including the "primary" one) is now fully independent:
+// its own availability, event types, questions, and settings — not shared with
+// the owner's other links.
 //
 // Required env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 
@@ -15,15 +14,12 @@ async function sbAdmin(env, path) {
   return res.json();
 }
 
-// Malaysia is a fixed UTC+8 offset year-round (no DST) — safe to hardcode.
 const MY_OFFSET_MS = 8 * 60 * 60 * 1000;
 
 function myDateParts(utcDate) {
   const my = new Date(utcDate.getTime() + MY_OFFSET_MS);
   return { year: my.getUTCFullYear(), month: my.getUTCMonth(), date: my.getUTCDate(), day: my.getUTCDay(), hh: my.getUTCHours(), mm: my.getUTCMinutes() };
 }
-
-// Builds a UTC timestamp for a given Malaysia-local Y/M/D + HH:mm wall-clock time.
 function myWallClockToUTC(year, month, date, hh, mm) {
   return new Date(Date.UTC(year, month, date, hh, mm, 0) - MY_OFFSET_MS);
 }
@@ -37,55 +33,46 @@ export async function onRequestGet(context) {
   if (!slug) return json({ error: "slug diperlukan." }, 400);
 
   try {
-    const profiles = await sbAdmin(env, `/profiles?booking_slug=eq.${encodeURIComponent(slug)}&select=id,business_name,logo_url,brand_color,slot_duration_minutes,booking_min_notice_hours,default_deposit_amount,buffer_minutes`);
-    let profile = profiles[0];
-    if (!profile) {
-      // Not the primary slug — check secondary Pro-tier booking_links (same calendar, alternate slug)
-      const links = await sbAdmin(env, `/booking_links?slug=eq.${encodeURIComponent(slug)}&select=owner_id`);
-      if (links[0]) {
-        const ownerProfiles = await sbAdmin(env, `/profiles?id=eq.${links[0].owner_id}&select=id,business_name,logo_url,brand_color,slot_duration_minutes,booking_min_notice_hours,default_deposit_amount,buffer_minutes`);
-        profile = ownerProfiles[0];
-      }
-    }
-    if (!profile) return json({ error: "Link booking tidak dijumpai." }, 404);
+    const links = await sbAdmin(env, `/booking_links?slug=eq.${encodeURIComponent(slug)}&select=*`);
+    const link = links[0];
+    if (!link) return json({ error: "Link booking tidak dijumpai." }, 404);
 
-    const eventTypes = await sbAdmin(env, `/event_types?owner_id=eq.${profile.id}&is_active=eq.true&select=*&order=sort_order.asc`);
-    const questions = await sbAdmin(env, `/booking_questions?owner_id=eq.${profile.id}&select=id,question_text&order=sort_order.asc`);
-    const business = { name: profile.business_name, logo_url: profile.logo_url, brand_color: profile.brand_color };
+    const profiles = await sbAdmin(env, `/profiles?id=eq.${link.owner_id}&select=business_name,logo_url,brand_color`);
+    const profile = profiles[0] || {};
+    const business = { name: link.label || profile.business_name, logo_url: profile.logo_url, brand_color: profile.brand_color };
 
-    // Owner has event types but customer hasn't picked one yet — return the list only.
+    const eventTypes = await sbAdmin(env, `/event_types?booking_link_id=eq.${link.id}&is_active=eq.true&select=*&order=sort_order.asc`);
+    const questions = await sbAdmin(env, `/booking_questions?booking_link_id=eq.${link.id}&select=id,question_text&order=sort_order.asc`);
+
     if (eventTypes.length > 0 && !requestedTypeId) {
       return json({ business, event_types: eventTypes, slots_by_date: null, questions });
     }
 
-    let durationMinutes = profile.slot_duration_minutes || 60;
+    let durationMinutes = link.slot_duration_minutes || 60;
     let capacity = 1;
-    let depositAmount = profile.default_deposit_amount;
-    let selectedType = null;
+    let depositAmount = link.default_deposit_amount;
     if (requestedTypeId) {
-      selectedType = eventTypes.find(t => t.id === requestedTypeId);
+      const selectedType = eventTypes.find(t => t.id === requestedTypeId);
       if (!selectedType) return json({ error: "Jenis perkhidmatan tidak dijumpai." }, 404);
       durationMinutes = selectedType.duration_minutes;
       capacity = selectedType.capacity || 1;
-      depositAmount = selectedType.deposit_amount != null ? selectedType.deposit_amount : profile.default_deposit_amount;
+      depositAmount = selectedType.deposit_amount != null ? selectedType.deposit_amount : link.default_deposit_amount;
     }
     if (depositAmount == null) {
       return json({ error: "Perniagaan ni belum sedia untuk terima booking online. Sila hubungi mereka terus." }, 400);
     }
 
     const now = new Date();
-    const earliestAllowed = new Date(now.getTime() + (profile.booking_min_notice_hours || 0) * 60 * 60 * 1000);
+    const earliestAllowed = new Date(now.getTime() + (link.booking_min_notice_hours || 0) * 60 * 60 * 1000);
     const rangeEnd = new Date(now.getTime() + daysAhead * 24 * 60 * 60 * 1000);
     const durationMs = durationMinutes * 60 * 1000;
-    const bufferMs = (profile.buffer_minutes || 0) * 60 * 1000;
+    const bufferMs = (link.buffer_minutes || 0) * 60 * 1000;
 
     const existing = await sbAdmin(
       env,
-      `/bookings?owner_id=eq.${profile.id}&status=eq.confirmed&slot_datetime=gte.${now.toISOString()}&slot_datetime=lte.${rangeEnd.toISOString()}&select=slot_datetime,duration_minutes,event_type_id`
+      `/bookings?booking_link_id=eq.${link.id}&status=eq.confirmed&slot_datetime=gte.${now.toISOString()}&slot_datetime=lte.${rangeEnd.toISOString()}&select=slot_datetime,duration_minutes,event_type_id`
     );
 
-    // Same-type-same-slot bookings are capacity-managed (not a hard block) — everything
-    // else still buffer-blocks normally, exactly as before Event Types existed.
     const sameSlotCounts = new Map();
     if (requestedTypeId) {
       for (const b of existing) {
@@ -107,7 +94,7 @@ export async function onRequestGet(context) {
       return blockedRanges.some(([bStart, bEnd]) => slotStartMs < bEnd && slotEndMs > bStart);
     }
 
-    const availability = await sbAdmin(env, `/availability?owner_id=eq.${profile.id}&select=day_of_week,start_time,end_time`);
+    const availability = await sbAdmin(env, `/availability?booking_link_id=eq.${link.id}&select=day_of_week,start_time,end_time`);
     if (availability.length === 0) {
       return json({ business, event_types: eventTypes, slots_by_date: {}, questions, slot_duration_minutes: durationMinutes, capacity });
     }
@@ -119,7 +106,6 @@ export async function onRequestGet(context) {
     }
 
     const slotsByDate = {};
-
     for (let d = 0; d <= daysAhead; d++) {
       const cursor = new Date(now.getTime() + d * 24 * 60 * 60 * 1000);
       const { year, month, date, day } = myDateParts(cursor);
@@ -145,7 +131,6 @@ export async function onRequestGet(context) {
           slotStart = new Date(slotStart.getTime() + durationMs);
         }
       }
-
       if (daySlots.length > 0) slotsByDate[dateKey] = daySlots;
     }
 

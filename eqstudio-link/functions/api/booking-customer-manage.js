@@ -1,5 +1,7 @@
 // Cloudflare Pages Function — GET /api/booking-customer-manage?token=<manage_token>&days=21
 // Public (no auth) — used by the customer self-serve manage-booking page.
+// Booking links are fully independent — slot computation now uses the booking's
+// OWN booking_link settings/availability, not the owner's profile-level defaults.
 // Required env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 
 async function sbAdmin(env, path) {
@@ -28,29 +30,33 @@ export async function onRequestGet(context) {
   if (!token) return json({ error: "Token diperlukan." }, 400);
 
   try {
-    const bookings = await sbAdmin(env, `/bookings?manage_token=eq.${token}&select=id,owner_id,slot_datetime,duration_minutes,customer_name,customer_email,status`);
+    const bookings = await sbAdmin(env, `/bookings?manage_token=eq.${token}&select=id,owner_id,booking_link_id,slot_datetime,duration_minutes,customer_name,customer_email,status`);
     const booking = bookings[0];
     if (!booking) return json({ error: "Tempahan tidak dijumpai." }, 404);
 
-    const profiles = await sbAdmin(env, `/profiles?id=eq.${booking.owner_id}&select=business_name,logo_url,brand_color,slot_duration_minutes,booking_min_notice_hours,buffer_minutes`);
+    const links = booking.booking_link_id ? await sbAdmin(env, `/booking_links?id=eq.${booking.booking_link_id}&select=*`) : [];
+    const link = links[0] || {};
+
+    const profiles = await sbAdmin(env, `/profiles?id=eq.${booking.owner_id}&select=business_name,logo_url,brand_color`);
     const profile = profiles[0] || {};
+    const bizName = link.label || profile.business_name;
 
     const currentSlotLabel = new Date(booking.slot_datetime).toLocaleString("ms-MY", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kuala_Lumpur" });
 
-    if (booking.status === "cancelled") {
-      return json({ booking: { ...booking, current_slot_label: currentSlotLabel }, business: { name: profile.business_name }, slots_by_date: {} });
+    if (booking.status === "cancelled" || !booking.booking_link_id) {
+      return json({ booking: { ...booking, current_slot_label: currentSlotLabel }, business: { name: bizName }, slots_by_date: {} });
     }
 
-    const availability = await sbAdmin(env, `/availability?owner_id=eq.${booking.owner_id}&select=day_of_week,start_time,end_time`);
+    const availability = await sbAdmin(env, `/availability?booking_link_id=eq.${booking.booking_link_id}&select=day_of_week,start_time,end_time`);
     const now = new Date();
-    const earliestAllowed = new Date(now.getTime() + (profile.booking_min_notice_hours || 0) * 60 * 60 * 1000);
+    const earliestAllowed = new Date(now.getTime() + (link.booking_min_notice_hours || 0) * 60 * 60 * 1000);
     const rangeEnd = new Date(now.getTime() + daysAhead * 24 * 60 * 60 * 1000);
-    const durationMs = (profile.slot_duration_minutes || 60) * 60 * 1000;
-    const bufferMs = (profile.buffer_minutes || 0) * 60 * 1000;
+    const durationMs = (link.slot_duration_minutes || 60) * 60 * 1000;
+    const bufferMs = (link.buffer_minutes || 0) * 60 * 1000;
 
     const existing = await sbAdmin(
       env,
-      `/bookings?owner_id=eq.${booking.owner_id}&status=eq.confirmed&id=neq.${booking.id}&slot_datetime=gte.${now.toISOString()}&slot_datetime=lte.${rangeEnd.toISOString()}&select=slot_datetime,duration_minutes`
+      `/bookings?booking_link_id=eq.${booking.booking_link_id}&status=eq.confirmed&id=neq.${booking.id}&slot_datetime=gte.${now.toISOString()}&slot_datetime=lte.${rangeEnd.toISOString()}&select=slot_datetime,duration_minutes`
     );
     const blockedRanges = existing.map(b => {
       const start = new Date(b.slot_datetime).getTime() - bufferMs;
@@ -98,8 +104,8 @@ export async function onRequestGet(context) {
 
     return json({
       booking: { ...booking, current_slot_label: currentSlotLabel },
-      business: { name: profile.business_name, logo_url: profile.logo_url, brand_color: profile.brand_color },
-      slot_duration_minutes: profile.slot_duration_minutes,
+      business: { name: bizName, logo_url: profile.logo_url, brand_color: profile.brand_color },
+      slot_duration_minutes: link.slot_duration_minutes,
       slots_by_date: slotsByDate,
     });
   } catch (err) {

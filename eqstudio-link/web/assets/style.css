@@ -1175,15 +1175,47 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 }
 @media (max-width: 560px) {
   .bento-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas: "hero" "list" "report" "add" "cal" "settings" "profil" "reminder" "forum";
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "hero hero"
+      "list list"
+      "report report"
+      "add add"
+      "cal cal"
+      "settings profil"
+      "reminder forum";
   }
   .card { padding: 1.15rem; }
   .bento-tile { padding: 1.1rem; }
-  .bento-tile.bento-small { padding: 0.85rem 1rem; }
+  .bento-tile.bento-small { padding: 0.9rem; }
+  .bento-tile.bento-small .bento-tile-label { font-size: 0.8rem; }
   .wrap { padding: 1rem 1rem 2rem; }
   .home-hero .home-biz-name { font-size: 1.5rem; }
+
+  /* Hero tile gets a distinctive top accent bar so it still reads as "the
+     important one" even when every tile is forced to the same column width. */
+  .bento-hero { position: relative; overflow: hidden; }
+  .bento-hero::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--stamp), var(--accent-lilac));
+  }
+
+  /* Horizontally-scrollable quick-stat strip — app-like, sits above the grid */
+  .mobile-stat-strip {
+    display: flex; gap: 0.6rem; overflow-x: auto; padding: 0.2rem 0.1rem 0.9rem;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .mobile-stat-strip::-webkit-scrollbar { display: none; }
+  .mobile-stat-pill {
+    flex-shrink: 0; display: flex; align-items: center; gap: 0.5rem;
+    background: var(--surface); border: 1px solid var(--paper-line); border-radius: 999px;
+    padding: 0.55rem 1rem; box-shadow: var(--shadow); white-space: nowrap;
+  }
+  .mobile-stat-pill .pill-icon { font-size: 1rem; }
+  .mobile-stat-pill .pill-value { font-family: var(--font-mono); font-weight: 700; font-size: 0.88rem; }
+  .mobile-stat-pill .pill-label { font-size: 0.72rem; color: var(--ink-soft); }
 }
+@media (min-width: 561px) { .mobile-stat-strip { display: none; } }
 
 .bento-tile {
   position: relative; display: flex; flex-direction: column; gap: 0.5rem;

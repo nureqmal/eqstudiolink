@@ -49,14 +49,21 @@ export async function onRequestPost(context) {
     if (!booking) return json({ error: "Tempahan tidak dijumpai." }, 404);
     if (booking.status === "cancelled") return json({ error: "Tempahan ni dah dibatalkan." }, 400);
 
-    const profRes = await sbAdmin(env, `/profiles?id=eq.${booking.owner_id}&select=business_name,contact_email,brand_color,cancellation_notice_hours`);
+    const profRes = await sbAdmin(env, `/profiles?id=eq.${booking.owner_id}&select=business_name,contact_email,brand_color`);
     const profiles = await profRes.json();
     const profile = profiles[0] || {};
-    const bizName = profile.business_name?.trim() || "eqstudio.link";
-    const brandColor = profile.brand_color || "#E8834E";
+
+    let link = {};
+    if (booking.booking_link_id) {
+      const linkRes = await sbAdmin(env, `/booking_links?id=eq.${booking.booking_link_id}&select=label,cancellation_notice_hours`);
+      const links = await linkRes.json();
+      link = links[0] || {};
+    }
+    const bizName = link.label || profile.business_name?.trim() || "eqstudio.link";
+    const brandColor = profile.brand_color || "#4F46E5";
 
     if (action === "cancel") {
-      const noticeHours = profile.cancellation_notice_hours || 0;
+      const noticeHours = link.cancellation_notice_hours || 0;
       if (noticeHours > 0) {
         const cutoff = new Date(new Date(booking.slot_datetime).getTime() - noticeHours * 60 * 60 * 1000);
         if (new Date() > cutoff) {
@@ -85,6 +92,24 @@ export async function onRequestPost(context) {
 
     if (action === "reschedule") {
       if (!new_slot_iso) return json({ error: "Slot baru diperlukan." }, 400);
+
+      // Capacity-aware conflict check (the DB no longer enforces a hard unique
+      // slot constraint — capacity>1 event types need multiple bookings at the
+      // same slot_datetime, same tradeoff as booking-create.js).
+      if (booking.booking_link_id) {
+        let capacity = 1;
+        if (booking.event_type_id) {
+          const typeRes = await sbAdmin(env, `/event_types?id=eq.${booking.event_type_id}&select=capacity`);
+          const types = await typeRes.json();
+          capacity = types[0]?.capacity || 1;
+        }
+        const conflictRes = await sbAdmin(env, `/bookings?booking_link_id=eq.${booking.booking_link_id}&slot_datetime=eq.${new Date(new_slot_iso).toISOString()}&status=eq.confirmed&id=neq.${booking.id}&select=id${booking.event_type_id ? `&event_type_id=eq.${booking.event_type_id}` : ""}`);
+        const conflicts = await conflictRes.json();
+        if (conflicts.length >= capacity) {
+          return json({ error: "Alamak, slot ni baru sahaja diambil orang lain. Sila pilih slot lain." }, 409);
+        }
+      }
+
       const oldLabel = new Date(booking.slot_datetime).toLocaleString("ms-MY", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kuala_Lumpur" });
       const newLabel = new Date(new_slot_iso).toLocaleString("ms-MY", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kuala_Lumpur" });
 
@@ -95,9 +120,6 @@ export async function onRequestPost(context) {
       });
       if (!updateRes.ok) {
         const detail = await updateRes.text();
-        if (detail.includes("duplicate") || detail.includes("unique")) {
-          return json({ error: "Alamak, slot ni baru sahaja diambil orang lain. Sila pilih slot lain." }, 409);
-        }
         return json({ error: `Gagal reschedule: ${detail}` }, 502);
       }
 

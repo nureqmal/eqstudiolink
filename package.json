@@ -1,7 +1,0 @@
-{
-  "name": "eqstudio-link-pages",
-  "private": true,
-  "dependencies": {
-    "pdf-lib": "^1.17.1"
-  }
-}

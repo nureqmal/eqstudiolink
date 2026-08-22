@@ -1169,6 +1169,20 @@
         showToast(error.message, "error");
         return;
       }
+
+      // Keep the PRIMARY booking link's public-facing label in sync with the
+      // business name — otherwise the public booking page silently keeps
+      // showing whatever name was set when the link was first created.
+      // (Non-primary/Pro-tier links are left alone — those intentionally
+      // carry their own distinct label for a different business/venture.)
+      if (payload.business_name) {
+        await supabase.from("booking_links").update({ label: payload.business_name }).eq("owner_id", user.id).eq("is_primary", true);
+        if (typeof allBookingLinks !== "undefined") {
+          const primaryLink = allBookingLinks.find(l => l.is_primary);
+          if (primaryLink) primaryLink.label = payload.business_name;
+        }
+      }
+
       document.getElementById("business-name-side").textContent = payload.business_name || "Perniagaan Anda";
       profile.business_name = payload.business_name;
       renderSetupChecklist(allCustomers.length);
@@ -2122,7 +2136,7 @@
         linkErr = error;
       } else {
         // First-ever link for this owner
-        const { data: inserted, error } = await supabase.from("booking_links").insert({ owner_id: user.id, label: "Link Utama", is_primary: true, ...linkUpdate }).select().single();
+        const { data: inserted, error } = await supabase.from("booking_links").insert({ owner_id: user.id, label: profile?.business_name || "Link Utama", is_primary: true, ...linkUpdate }).select().single();
         linkErr = error;
         if (inserted) currentLinkId = inserted.id;
       }

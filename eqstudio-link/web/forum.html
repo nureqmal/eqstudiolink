@@ -7,7 +7,7 @@
 <meta name="description" content="Diskusi, soalan, dan pengumuman untuk komuniti eqstudio.link." />
 <link rel="canonical" href="https://eqstudio.link/forum.html" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css" />
 <script>
   (function () {
@@ -26,7 +26,7 @@
     </div>
   </nav>
 
-  <div class="wrap-narrow" style="padding-top:2rem; padding-bottom:4rem;">
+  <div class="wrap" style="padding-top:2rem; padding-bottom:4rem; max-width:760px;">
     <div id="forum-content">
       <div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>
     </div>
@@ -37,6 +37,10 @@
 
     let currentUser = null;
     let canPost = false;
+    let allThreads = [];
+    let allCategories = [];
+    let activeCategorySlug = "all";
+    let searchQuery = "";
 
     function escapeHtml(str) {
       const div = document.createElement("div");
@@ -60,17 +64,20 @@
 
     function notice() {
       if (currentUser && canPost) return "";
-      if (currentUser && !canPost) return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--pending-bg); border-radius:8px;">⚠️ Anda perlu langganan <strong>aktif</strong> (bukan trial) untuk post/reply. <a href="/billing.html">Upgrade sekarang</a>.</p>`;
-      return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--paper); border-radius:8px;">👋 <a href="/login.html">Log masuk</a> dengan akaun langganan aktif untuk post/reply.</p>`;
+      if (currentUser && !canPost) return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--pending-bg); border-radius:8px;">Anda perlu langganan <strong>aktif</strong> (bukan trial) untuk post/reply. <a href="/billing.html">Upgrade sekarang</a>.</p>`;
+      return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--paper); border-radius:8px;"><a href="/login.html">Log masuk</a> dengan akaun langganan aktif untuk post/reply.</p>`;
     }
 
-    // ── View: category list ──
-    async function renderCategoryList() {
+    // ── Unified feed (default landing) — search + category tabs, HivePress-style ──
+    async function renderFeed() {
       const content = document.getElementById("forum-content");
       content.innerHTML = `<div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>`;
-      const res = await fetch("/api/forum-categories");
+
+      const res = await fetch("/api/forum-all-threads");
       const data = await res.json();
       if (!res.ok) { content.innerHTML = `<p class="error">${escapeHtml(data.error)}</p>`; return; }
+      allThreads = data.threads;
+      allCategories = data.categories;
 
       content.innerHTML = `
         <div style="text-align:center; margin-bottom:1.5rem;">
@@ -78,37 +85,17 @@
           <h1 style="font-size:1.8rem; margin:0.4rem 0;">Komuniti eqstudio.link</h1>
           <p class="hint">Diskusi, soalan, dan pengumuman — sesama business owner.</p>
         </div>
-        <div class="home-tile-grid" style="grid-template-columns:repeat(2,1fr);">
-          ${data.categories.map(c => `
-            <a href="?category=${c.slug}" class="home-tile" data-cat="coral" style="text-decoration:none;">
-              <div class="home-tile-icon">💬</div>
-              <div class="home-tile-label">${escapeHtml(c.name)}</div>
-              <div class="home-tile-stat">${c.thread_count} thread</div>
-            </a>
-          `).join("")}
-        </div>
-      `;
-    }
 
-    // ── View: thread list within a category ──
-    async function renderThreadList(slug) {
-      const content = document.getElementById("forum-content");
-      content.innerHTML = `<div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>`;
-      const res = await fetch(`/api/forum-thread-list?category=${encodeURIComponent(slug)}`);
-      const data = await res.json();
-      if (!res.ok) { content.innerHTML = `<p class="error">${escapeHtml(data.error)}</p>`; return; }
+        <input type="search" id="forum-search" placeholder="Cari thread..." style="margin-bottom:0.8rem;" />
 
-      content.innerHTML = `
-        <a href="/forum.html" class="legal-back" style="text-decoration:none; color:var(--stamp); font-weight:600; font-size:0.85rem;">← Semua Kategori</a>
-        <h1 style="font-size:1.5rem; margin:0.6rem 0 0.2rem;">${escapeHtml(data.category.name)}</h1>
-        <p class="hint" style="margin-bottom:1.2rem;">${escapeHtml(data.category.description || "")}</p>
-
-        ${notice()}
+        <div class="chip-row" id="forum-category-tabs" style="margin-bottom:1rem;"></div>
 
         ${canPost ? `
-          <div class="card" style="margin:1rem 0;">
+          <div class="card" style="margin-bottom:1rem;">
             <button type="button" class="btn" id="new-thread-toggle" style="width:100%;">+ Mula Thread Baharu</button>
             <form id="new-thread-form" style="display:none; margin-top:1rem;">
+              <label for="nt-category">Kategori</label>
+              <select id="nt-category">${allCategories.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join("")}</select>
               <label for="nt-title">Tajuk</label>
               <input type="text" id="nt-title" required />
               <label for="nt-message">Mesej</label>
@@ -116,24 +103,18 @@
               <button type="submit" style="margin-top:1rem;">Hantar</button>
               <p class="error" id="nt-error" style="display:none;"></p>
             </form>
-          </div>` : ""}
+          </div>` : notice()}
 
-        <div class="card">
-          ${data.threads.length === 0 ? `<p class="hint" style="text-align:center;">Belum ada thread. Mula yang pertama!</p>` : data.threads.map((t, i) => `
-            <a href="?thread=${t.id}" class="fade-in-row" style="animation-delay:${Math.min(i*0.04,0.4)}s; display:block; text-decoration:none; color:inherit; padding:0.9rem 0; border-bottom:1px solid var(--paper-line);">
-              <div style="display:flex; justify-content:space-between; gap:0.8rem; align-items:flex-start;">
-                <div style="min-width:0;">
-                  ${t.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">📌 Pinned</span>` : ""}
-                  ${t.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}
-                  <strong>${escapeHtml(t.title)}</strong>
-                  <div class="hint" style="font-size:0.8rem; margin-top:0.2rem;">oleh ${escapeHtml(t.author_name)} · ${fmtDateShort(t.created_at)}</div>
-                </div>
-                <span class="hint" style="flex-shrink:0; font-size:0.8rem; text-align:right;">${t.reply_count} balasan${t.reaction_count > 0 ? `<br>♥ ${t.reaction_count}` : ""}</span>
-              </div>
-            </a>
-          `).join("")}
-        </div>
+        <div class="card" id="forum-thread-feed"></div>
       `;
+
+      renderCategoryTabs();
+      renderFilteredThreads();
+
+      document.getElementById("forum-search").addEventListener("input", (e) => {
+        searchQuery = e.target.value.trim().toLowerCase();
+        renderFilteredThreads();
+      });
 
       const toggleBtn = document.getElementById("new-thread-toggle");
       if (toggleBtn) {
@@ -146,16 +127,58 @@
           const errorEl = document.getElementById("nt-error");
           errorEl.style.display = "none";
           const { error } = await supabase.from("forum_threads").insert({
-            category_id: data.category.id,
+            category_id: document.getElementById("nt-category").value,
             owner_id: currentUser.id,
             author_name: currentUser.email,
             title: document.getElementById("nt-title").value.trim(),
             message: document.getElementById("nt-message").value.trim(),
           });
           if (error) { errorEl.textContent = error.message; errorEl.style.display = "block"; return; }
-          renderThreadList(slug);
+          renderFeed();
         });
       }
+    }
+
+    function renderCategoryTabs() {
+      const tabsEl = document.getElementById("forum-category-tabs");
+      const tabs = [{ slug: "all", name: "Semua" }, ...allCategories.map(c => ({ slug: c.slug, name: c.name }))];
+      tabsEl.innerHTML = tabs.map(t => `
+        <button type="button" class="chip ${t.slug === activeCategorySlug ? "selected" : ""}" data-cat-slug="${t.slug}">${escapeHtml(t.name)}</button>
+      `).join("");
+      tabsEl.querySelectorAll("[data-cat-slug]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          activeCategorySlug = btn.dataset.catSlug;
+          renderCategoryTabs();
+          renderFilteredThreads();
+        });
+      });
+    }
+
+    function renderFilteredThreads() {
+      const feedEl = document.getElementById("forum-thread-feed");
+      let filtered = allThreads;
+      if (activeCategorySlug !== "all") filtered = filtered.filter(t => t.category_slug === activeCategorySlug);
+      if (searchQuery) filtered = filtered.filter(t => t.title.toLowerCase().includes(searchQuery) || t.message.toLowerCase().includes(searchQuery));
+
+      if (filtered.length === 0) {
+        feedEl.innerHTML = `<p class="hint" style="text-align:center;">${searchQuery ? "Tiada thread sepadan dengan carian." : "Belum ada thread dalam kategori ni. Mula yang pertama!"}</p>`;
+        return;
+      }
+
+      feedEl.innerHTML = filtered.map((t, i) => `
+        <a href="?thread=${t.id}" class="fade-in-row" style="animation-delay:${Math.min(i * 0.04, 0.4)}s; display:block; text-decoration:none; color:inherit; padding:0.9rem 0; border-bottom:1px solid var(--paper-line);">
+          <div style="display:flex; justify-content:space-between; gap:0.8rem; align-items:flex-start;">
+            <div style="min-width:0;">
+              ${t.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pinned</span>` : ""}
+              ${t.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}
+              <span class="hint" style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em;">${escapeHtml(t.category_name || "")}</span>
+              <div><strong>${escapeHtml(t.title)}</strong></div>
+              <div class="hint" style="font-size:0.8rem; margin-top:0.2rem;">oleh ${escapeHtml(t.author_name)} · ${fmtDateShort(t.created_at)}</div>
+            </div>
+            <span class="hint" style="flex-shrink:0; font-size:0.8rem; text-align:right;">${t.reply_count} balasan${t.reaction_count > 0 ? `<br>♥ ${t.reaction_count}` : ""}</span>
+          </div>
+        </a>
+      `).join("");
     }
 
     // ── View: single thread + replies ──
@@ -167,9 +190,9 @@
       if (!res.ok) { content.innerHTML = `<p class="error">${escapeHtml(data.error)}</p>`; return; }
 
       content.innerHTML = `
-        <a href="javascript:history.back()" class="legal-back" style="text-decoration:none; color:var(--stamp); font-weight:600; font-size:0.85rem;">← Kembali</a>
+        <a href="/forum.html" class="legal-back" style="text-decoration:none; color:var(--stamp); font-weight:600; font-size:0.85rem;">← Semua Thread</a>
         <div class="card" style="margin:1rem 0;">
-          ${data.thread.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">📌 Pinned</span>` : ""}
+          ${data.thread.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pinned</span>` : ""}
           ${data.thread.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}
           <h1 style="font-size:1.4rem; margin:0.5rem 0 0.2rem;">${escapeHtml(data.thread.title)}</h1>
           <p class="hint" style="margin-bottom:0.8rem;">oleh <strong>${escapeHtml(data.thread.author_name)}</strong> · ${fmtDate(data.thread.created_at)}</p>
@@ -183,7 +206,7 @@
 
         <div id="replies-list">
           ${data.replies.map((r, i) => `
-            <div class="card fade-in-row" style="animation-delay:${Math.min(i*0.04,0.4)}s; margin-bottom:0.8rem;">
+            <div class="card fade-in-row" style="animation-delay:${Math.min(i * 0.04, 0.4)}s; margin-bottom:0.8rem;">
               ${r.is_founder ? `<span class="badge belum_bayar" style="margin-bottom:0.4rem; display:inline-block;">Team</span>` : ""}
               <p class="hint" style="margin:0 0 0.4rem;"><strong>${escapeHtml(r.author_name)}</strong> · ${fmtDate(r.created_at)}</p>
               <p style="white-space:pre-wrap; line-height:1.6; margin:0;">${escapeHtml(r.message)}</p>
@@ -237,8 +260,7 @@
       await checkAuth();
       const params = new URLSearchParams(location.search);
       if (params.get("thread")) renderThreadDetail(params.get("thread"));
-      else if (params.get("category")) renderThreadList(params.get("category"));
-      else renderCategoryList();
+      else renderFeed();
     }
 
     router();

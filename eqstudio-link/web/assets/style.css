@@ -1263,3 +1263,31 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 
 /* ── Progressive disclosure: Tetapan Booking Advanced toggle ─────────── */
 #advanced-settings-wrap { animation: tile-fade-in 0.25s ease both; }
+
+/* ── Home hub: fuller data-rich stat grid + trend chart + pastel icon chips ── */
+.home-stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; margin-bottom: 1.5rem; }
+@media (max-width: 900px) { .home-stat-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .home-stat-grid { grid-template-columns: repeat(2, 1fr); } }
+.home-stat-box {
+  background: var(--surface); border: 1px solid var(--paper-line); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 0.95rem 0.9rem; transition: transform 0.2s cubic-bezier(.2,.9,.3,1);
+}
+.home-stat-box:hover { transform: translateY(-3px); }
+.home-stat-icon-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 9px; margin-bottom: 0.5rem;
+}
+.home-stat-icon-chip[data-accent="coral"] { background: rgba(79,70,229,0.12); color: var(--accent-coral); }
+.home-stat-icon-chip[data-accent="sage"] { background: rgba(13,148,136,0.12); color: var(--accent-sage); }
+.home-stat-icon-chip[data-accent="sun"] { background: rgba(180,83,9,0.12); color: var(--accent-sun); }
+.home-stat-icon-chip[data-accent="lilac"] { background: rgba(124,58,237,0.12); color: var(--accent-lilac); }
+.home-stat-value { font-family: var(--font-mono); font-size: 1.35rem; font-weight: 700; }
+.home-stat-label { font-size: 0.72rem; color: var(--ink-soft); margin-top: 0.15rem; }
+
+/* Pastel icon-chip background applied to the existing bento tile icons too — pure
+   CSS, no HTML change needed, keyed off the tile's existing data-cat attribute. */
+.bento-tile-icon { border-radius: 10px; padding: 6px; }
+.bento-tile[data-cat="coral"] .bento-tile-icon { background: rgba(79,70,229,0.12); color: var(--accent-coral); }
+.bento-tile[data-cat="sage"] .bento-tile-icon { background: rgba(13,148,136,0.12); color: var(--accent-sage); }
+.bento-tile[data-cat="sun"] .bento-tile-icon { background: rgba(180,83,9,0.12); color: var(--accent-sun); }
+.bento-tile[data-cat="lilac"] .bento-tile-icon { background: rgba(124,58,237,0.12); color: var(--accent-lilac); }

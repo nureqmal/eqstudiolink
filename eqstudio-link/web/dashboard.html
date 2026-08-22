@@ -51,16 +51,37 @@
             <h1 class="home-biz-name" id="home-biz-name">—</h1>
           </div>
 
-          <div class="home-summary-card" id="home-summary-card">
-            <div class="home-summary-item">
-              <span class="home-summary-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-              <span class="home-summary-text"><b id="home-summary-bookings">0</b> booking akan datang</span>
+          <div class="home-stat-grid" id="home-stat-grid">
+            <div class="home-stat-box" data-accent="coral">
+              <div class="home-stat-icon-chip" data-accent="coral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+              <div class="home-stat-value" id="hs-upcoming">0</div>
+              <div class="home-stat-label">Booking Akan Datang</div>
             </div>
-            <div class="home-summary-divider"></div>
-            <div class="home-summary-item">
-              <span class="home-summary-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg></span>
-              <span class="home-summary-text">RM <b id="home-summary-outstanding">0.00</b> belum diterima</span>
+            <div class="home-stat-box" data-accent="sun">
+              <div class="home-stat-icon-chip" data-accent="sun"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg></div>
+              <div class="home-stat-value" id="hs-outstanding">RM0</div>
+              <div class="home-stat-label">Belum Diterima</div>
             </div>
+            <div class="home-stat-box" data-accent="sage">
+              <div class="home-stat-icon-chip" data-accent="sage"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
+              <div class="home-stat-value" id="hs-income-month">RM0</div>
+              <div class="home-stat-label">Income Bulan Ini</div>
+            </div>
+            <div class="home-stat-box" data-accent="lilac">
+              <div class="home-stat-icon-chip" data-accent="lilac"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+              <div class="home-stat-value" id="hs-customers">0</div>
+              <div class="home-stat-label">Jumlah Pelanggan</div>
+            </div>
+            <div class="home-stat-box" data-accent="coral">
+              <div class="home-stat-icon-chip" data-accent="coral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+              <div class="home-stat-value" id="hs-completed-month">0</div>
+              <div class="home-stat-label">Selesai Bulan Ini</div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:1.5rem;">
+            <div class="section-title"><h2 style="margin:0; font-size:0.95rem;">Tren Booking (14 Hari)</h2></div>
+            <div id="home-trend-chart" style="margin-top:0.6rem;"></div>
           </div>
 
           <div class="card home-booking-link-card" id="home-booking-link-card" style="display:none;">
@@ -2229,12 +2250,15 @@
         if (upcoming.length === 0) {
           previewEl.innerHTML = `<p class="hint">Tiada booking akan datang.</p>`;
         } else {
-          previewEl.innerHTML = upcoming.slice(0, 3).map(b => `
+          previewEl.innerHTML = upcoming.slice(0, 3).map(b => {
+            const isToday = new Date(b.slot_datetime).toDateString() === now.toDateString();
+            return `
             <div class="bento-hero-row">
-              <span class="bento-hero-name">${escapeHtml(b.customer_name)}</span>
+              <span class="bento-hero-name">${isToday ? `<span class="badge dah_bayar" style="margin-right:0.4rem; font-size:0.62rem;">Hari Ini</span>` : ""}${escapeHtml(b.customer_name)}</span>
               <span class="bento-hero-time">${fmtBookingDateTime(b.slot_datetime)}</span>
             </div>
-          `).join("");
+          `;
+          }).join("");
         }
       }
 
@@ -2263,13 +2287,79 @@
           : `<div class="spark-bar" style="height:8%;"></div><div class="spark-bar" style="height:8%;"></div><div class="spark-bar" style="height:8%;"></div>`;
       }
 
-      animateCountUp(document.getElementById("home-summary-bookings"), upcoming.length, false);
-      animateCountUp(document.getElementById("home-summary-outstanding"), outstanding, true);
+      // ── New data-rich stat grid (5 boxes) ──
+      const nowMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+      const incomeThisMonth = allCustomers
+        .filter(c => c.status === "dah_bayar" && c.paid_at && c.paid_at.slice(0, 7) === nowMonthKey)
+        .reduce((sum, c) => sum + Number(c.amount), 0);
+      const completedThisMonth = allBookings.filter(b => {
+        if (b.status !== "confirmed") return false;
+        const d = new Date(b.slot_datetime);
+        return d < now && d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+      }).length;
+
+      animateCountUp(document.getElementById("hs-upcoming"), upcoming.length, false);
+      document.getElementById("hs-outstanding").textContent = "RM" + outstanding.toFixed(0);
+      document.getElementById("hs-income-month").textContent = "RM" + incomeThisMonth.toFixed(0);
+      animateCountUp(document.getElementById("hs-customers"), allCustomers.length, false);
+      animateCountUp(document.getElementById("hs-completed-month"), completedThisMonth, false);
+
+      renderHomeTrendChart();
 
       const weekAhead = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
       const todayStr = now.toISOString().slice(0, 10);
       const dueThisWeek = allCustomers.filter(c => c.status !== "dah_bayar" && c.due_date >= todayStr && c.due_date <= weekAhead).length;
       kalendarEl.textContent = `${dueThisWeek} due minggu ini`;
+    }
+
+    function renderHomeTrendChart() {
+      const chartEl = document.getElementById("home-trend-chart");
+      if (!chartEl) return;
+
+      const now = new Date();
+      const days = [];
+      for (let i = 13; i >= 0; i--) {
+        const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+        const dateStr = d.toISOString().slice(0, 10);
+        const count = allBookings.filter(b => b.status === "confirmed" && new Date(b.slot_datetime).toISOString().slice(0, 10) === dateStr).length;
+        days.push({ date: d, count });
+      }
+
+      const totalBookings = days.reduce((sum, d) => sum + d.count, 0);
+      if (totalBookings === 0) {
+        chartEl.innerHTML = `<p class="hint" style="text-align:center; padding:1.5rem 0;">Belum ada booking dalam 14 hari lepas.</p>`;
+        return;
+      }
+
+      const w = 600, h = 130, pad = 8;
+      const max = Math.max(...days.map(d => d.count), 1);
+      const points = days.map((d, i) => {
+        const x = pad + (i / (days.length - 1)) * (w - pad * 2);
+        const y = h - pad - (d.count / max) * (h - pad * 2);
+        return `${x.toFixed(1)},${y.toFixed(1)}`;
+      });
+      const linePath = "M" + points.join(" L");
+      const areaPath = `${linePath} L${(w - pad).toFixed(1)},${(h - pad).toFixed(1)} L${pad.toFixed(1)},${(h - pad).toFixed(1)} Z`;
+
+      const firstLabel = days[0].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
+      const lastLabel = days[days.length - 1].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
+
+      chartEl.innerHTML = `
+        <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:110px; display:block;" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="homeTrendFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" style="stop-color:var(--stamp); stop-opacity:0.28"/>
+              <stop offset="100%" style="stop-color:var(--stamp); stop-opacity:0"/>
+            </linearGradient>
+          </defs>
+          <path d="${areaPath}" style="fill:url(#homeTrendFill); stroke:none;" />
+          <path d="${linePath}" style="fill:none; stroke:var(--stamp); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;" />
+        </svg>
+        <div class="row" style="justify-content:space-between; margin-top:0.3rem;">
+          <span class="hint" style="font-size:0.72rem;">${firstLabel}</span>
+          <span class="hint" style="font-size:0.72rem;">${lastLabel}</span>
+        </div>
+      `;
     }
 
     function fmtBookingDateTime(iso) {

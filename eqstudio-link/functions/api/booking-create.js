@@ -62,6 +62,7 @@ async function sendConfirmationEmails(env, { profile, bizName, booking, slotLabe
         <div style="margin-top:10px; padding-top:10px; border-top:1px dashed #E4E4E9;">
           ${Object.entries(booking.custom_answers).map(([q, a]) => `<p style="font-size:13px; color:#6B6B75; margin:0 0 4px;"><strong>${escapeHtml(q)}:</strong> ${escapeHtml(a)}</p>`).join("")}
         </div>` : ""}
+        <p style="font-size:12px; color:#9A9AA5; margin:14px 0 0;">Satu lagi customer percaya bisnes anda. Teruskan usaha!</p>
       </div>
     </div>`;
 

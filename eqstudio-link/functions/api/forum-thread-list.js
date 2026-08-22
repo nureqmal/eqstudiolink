@@ -25,7 +25,11 @@ export async function onRequestGet(context) {
     const replyCountByThread = new Map();
     for (const r of replies) replyCountByThread.set(r.thread_id, (replyCountByThread.get(r.thread_id) || 0) + 1);
 
-    const result = threads.map(t => ({ ...t, reply_count: replyCountByThread.get(t.id) || 0 }));
+    const reactions = await sbAdmin(env, `/forum_reactions?select=thread_id`);
+    const reactionCountByThread = new Map();
+    for (const r of reactions) reactionCountByThread.set(r.thread_id, (reactionCountByThread.get(r.thread_id) || 0) + 1);
+
+    const result = threads.map(t => ({ ...t, reply_count: replyCountByThread.get(t.id) || 0, reaction_count: reactionCountByThread.get(t.id) || 0 }));
     return new Response(JSON.stringify({ category, threads: result }), { headers: { "content-type": "application/json" } });
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { "content-type": "application/json" } });

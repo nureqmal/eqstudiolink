@@ -1247,3 +1247,19 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .bento-sparkline { display: flex; align-items: flex-end; gap: 3px; height: 32px; margin: 0.2rem 0; }
 .bento-sparkline .spark-bar { flex: 1; background: var(--stamp); opacity: 0.65; border-radius: 2px 2px 0 0; transition: height 0.5s ease; }
 .bento-tile:hover .bento-sparkline .spark-bar { opacity: 1; }
+
+/* ── Admin panel: bento-style stat cards (matches dashboard visual language) ── */
+.admin-stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.9rem; }
+@media (max-width: 760px) { .admin-stat-grid { grid-template-columns: repeat(2, 1fr); } }
+.admin-stat-card {
+  background: var(--surface); border: 1px solid var(--paper-line); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 1.1rem 1rem; text-align: center;
+  transition: transform 0.2s cubic-bezier(.2,.9,.3,1);
+}
+.admin-stat-card:hover { transform: translateY(-3px); }
+.admin-stat-icon { color: var(--stamp); margin-bottom: 0.4rem; display: flex; justify-content: center; }
+.admin-stat-card .num { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; }
+.admin-stat-card .label { font-size: 0.72rem; color: var(--ink-soft); margin-top: 0.2rem; }
+
+/* ── Progressive disclosure: Tetapan Booking Advanced toggle ─────────── */
+#advanced-settings-wrap { animation: tile-fade-in 0.25s ease both; }

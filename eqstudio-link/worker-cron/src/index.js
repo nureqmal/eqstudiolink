@@ -936,13 +936,44 @@ async function runAppointmentReminderSweep(env) {
   return { matched: bookings.length, sent, failed };
 }
 
+// Wraps a sweep so a thrown error doesn't just vanish into Cloudflare's logs unseen —
+// emails the founder so a genuine failure (e.g. Supabase blip) doesn't silently mean
+// zero reminders went out that day with nobody noticing.
+async function safeRun(sweepName, fn, env) {
+  try {
+    await fn(env);
+  } catch (err) {
+    console.error(`${sweepName} sweep failed:`, err);
+    try {
+      if (env.RESEND_API_KEY && env.FOUNDER_NOTIFY_EMAIL) {
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            from: env.RESEND_FROM_EMAIL,
+            to: env.FOUNDER_NOTIFY_EMAIL,
+            subject: `⚠️ eqstudio.link — Sweep "${sweepName}" Gagal`,
+            html: `<p>Sweep <strong>${escapeHtml(sweepName)}</strong> gagal jalan pada ${new Date().toISOString()}.</p><p>Ralat: ${escapeHtml(String(err.message || err).slice(0, 500))}</p><p>Sila semak Cloudflare Worker logs untuk detail penuh.</p>`,
+          }),
+        });
+      }
+    } catch { /* alerting itself is best-effort — must never mask the original failure */ }
+  }
+}
+
 export default {
   async scheduled(event, env, ctx) {
-    ctx.waitUntil(runReminderSweep(env));
-    ctx.waitUntil(runBillingSweep(env));
-    ctx.waitUntil(runRecurringSweep(env));
-    ctx.waitUntil(runDigestSweep(env));
-    ctx.waitUntil(runAppointmentReminderSweep(env));
+    if (event.cron === "0 1 * * *") {
+      // Once-daily full sweep
+      ctx.waitUntil(safeRun("Reminders", runReminderSweep, env));
+      ctx.waitUntil(safeRun("Billing", runBillingSweep, env));
+      ctx.waitUntil(safeRun("Recurring", runRecurringSweep, env));
+      ctx.waitUntil(safeRun("Digest", runDigestSweep, env));
+      ctx.waitUntil(safeRun("Appointment Reminder", runAppointmentReminderSweep, env));
+    } else {
+      // Frequent trigger (every 2 hours) — reminders only, see wrangler.toml comment
+      ctx.waitUntil(safeRun("Reminders (frequent)", runReminderSweep, env));
+    }
   },
   // Manual trigger for testing: visit the Worker URL with ?key=<a secret you set>
   async fetch(request, env) {

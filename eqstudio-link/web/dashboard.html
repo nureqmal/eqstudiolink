@@ -101,6 +101,7 @@
                 <div>
                   <div class="bento-tile-label">Senarai Booking</div>
                   <div class="bento-tile-stat" id="home-stat-booking">—</div>
+                  <div class="hint" id="home-streak" style="font-size:0.72rem; margin-top:0.2rem;"></div>
                 </div>
               </div>
               <div class="bento-hero-preview" id="home-hero-preview">
@@ -218,100 +219,107 @@
               <p class="hint" style="margin-top:0.4rem;">Print & letak sebelah QR DuitNow di kaunter — customer scan untuk terus book slot.</p>
             </div>
 
-            <div class="row" style="margin-top:1rem;">
-              <div>
-                <label for="p-slot-duration">Tempoh Setiap Slot</label>
-                <select id="p-slot-duration">
-                  <option value="30">30 minit</option>
-                  <option value="60" selected>1 jam</option>
-                  <option value="90">1 jam 30 minit</option>
-                  <option value="120">2 jam</option>
-                </select>
-              </div>
-              <div>
-                <label for="p-min-notice">Notis Minimum</label>
-                <select id="p-min-notice">
-                  <option value="0">Tiada had</option>
-                  <option value="6">6 jam</option>
-                  <option value="24" selected>24 jam</option>
-                  <option value="48">48 jam</option>
-                </select>
-              </div>
-              <div>
-                <label for="p-buffer">Buffer Time</label>
-                <select id="p-buffer">
-                  <option value="0" selected>Tiada</option>
-                  <option value="5">5 minit</option>
-                  <option value="10">10 minit</option>
-                  <option value="15">15 minit</option>
-                  <option value="30">30 minit</option>
-                </select>
-              </div>
-            </div>
+            <label for="p-slot-duration" style="margin-top:1rem; display:block;">Tempoh Setiap Slot</label>
+            <select id="p-slot-duration">
+              <option value="30">30 minit</option>
+              <option value="60" selected>1 jam</option>
+              <option value="90">1 jam 30 minit</option>
+              <option value="120">2 jam</option>
+            </select>
 
             <label for="p-default-deposit">Deposit Lalai (RM)</label>
             <input type="number" id="p-default-deposit" step="0.01" min="0" placeholder="cth: 50 (atau 0 untuk percuma)" />
-            <p class="hint" style="margin-top:0.3rem;">Auto-apply setiap booking baru — boleh edit lepas tu ikut customer. Kalau anda ada "Jenis Perkhidmatan" di bawah, field ni jadi <strong>fallback</strong> je (setiap jenis boleh ada deposit sendiri).</p>
+            <p class="hint" style="margin-top:0.3rem;">Auto-apply setiap booking baru — boleh edit lepas tu ikut customer.</p>
 
             <label style="margin-top:1rem; display:block;">Waktu Available</label>
             <div id="availability-grid" class="availability-grid"></div>
 
-            <label for="p-cancel-notice" style="margin-top:1rem; display:block;">Notis Minimum Cancel (Customer)</label>
-            <select id="p-cancel-notice">
-              <option value="0" selected>Tiada had (customer boleh cancel bila-bila)</option>
-              <option value="6">6 jam sebelum</option>
-              <option value="24">24 jam sebelum</option>
-              <option value="48">48 jam sebelum</option>
-            </select>
-            <p class="hint" style="margin-top:0.3rem;">Lepas had ni, customer tak boleh self-cancel — kena hubungi anda terus.</p>
-
             <button type="button" id="save-booking-btn" style="margin-top:1.25rem;">Simpan Tetapan Booking</button>
           </div>
 
-          <div class="card" style="margin-top:1.5rem;">
-            <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Jenis Perkhidmatan (Event Types)</h2></div>
-            <p class="hint">Tetapkan servis berbeza dengan tempoh, harga & kapasiti tersendiri. Kosongkan untuk guna satu tetapan sahaja.</p>
-            <div id="event-types-list" style="margin-top:0.8rem;"></div>
-            <div class="card" style="background:var(--paper); margin-top:0.8rem;">
+          <button type="button" id="advanced-settings-toggle" class="secondary" style="margin-top:1rem; width:100%; display:flex; align-items:center; justify-content:center; gap:0.4rem;">
+            <svg id="advanced-toggle-chevron" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            Tetapan Advanced (buffer, notis cancel, jenis servis, soalan, embed)
+          </button>
+
+          <div id="advanced-settings-wrap" style="display:none;">
+            <div class="card" style="margin-top:1rem;">
               <div class="row">
                 <div>
-                  <label for="et-name">Nama</label>
-                  <input type="text" id="et-name" placeholder="cth: Kelas Baking" />
+                  <label for="p-min-notice">Notis Minimum Booking</label>
+                  <select id="p-min-notice">
+                    <option value="0">Tiada had</option>
+                    <option value="6">6 jam</option>
+                    <option value="24" selected>24 jam</option>
+                    <option value="48">48 jam</option>
+                  </select>
                 </div>
                 <div>
-                  <label for="et-duration">Tempoh (minit)</label>
-                  <input type="number" id="et-duration" value="60" min="5" />
+                  <label for="p-buffer">Buffer Time</label>
+                  <select id="p-buffer">
+                    <option value="0" selected>Tiada</option>
+                    <option value="5">5 minit</option>
+                    <option value="10">10 minit</option>
+                    <option value="15">15 minit</option>
+                    <option value="30">30 minit</option>
+                  </select>
                 </div>
               </div>
-              <div class="row" style="margin-top:0.6rem;">
-                <div>
-                  <label for="et-deposit">Deposit (RM) — 0 untuk percuma</label>
-                  <input type="number" id="et-deposit" step="0.01" min="0" placeholder="cth: 100" />
+              <label for="p-cancel-notice" style="margin-top:1rem; display:block;">Notis Minimum Cancel (Customer)</label>
+              <select id="p-cancel-notice">
+                <option value="0" selected>Tiada had (customer boleh cancel bila-bila)</option>
+                <option value="6">6 jam sebelum</option>
+                <option value="24">24 jam sebelum</option>
+                <option value="48">48 jam sebelum</option>
+              </select>
+              <p class="hint" style="margin-top:0.3rem;">Lepas had ni, customer tak boleh self-cancel — kena hubungi anda terus. Klik "Simpan Tetapan Booking" di atas untuk simpan tetapan ni sekali.</p>
+            </div>
+
+            <div class="card" style="margin-top:1rem;">
+              <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Jenis Perkhidmatan (Event Types)</h2></div>
+              <p class="hint">Tetapkan servis berbeza dengan tempoh, harga & kapasiti tersendiri. Kosongkan untuk guna satu tetapan sahaja.</p>
+              <div id="event-types-list" style="margin-top:0.8rem;"></div>
+              <div class="card" style="background:var(--paper); margin-top:0.8rem;">
+                <div class="row">
+                  <div>
+                    <label for="et-name">Nama</label>
+                    <input type="text" id="et-name" placeholder="cth: Kelas Baking" />
+                  </div>
+                  <div>
+                    <label for="et-duration">Tempoh (minit)</label>
+                    <input type="number" id="et-duration" value="60" min="5" />
+                  </div>
                 </div>
-                <div>
-                  <label for="et-capacity">Kapasiti (1 = individu)</label>
-                  <input type="number" id="et-capacity" value="1" min="1" />
+                <div class="row" style="margin-top:0.6rem;">
+                  <div>
+                    <label for="et-deposit">Deposit (RM) — 0 untuk percuma</label>
+                    <input type="number" id="et-deposit" step="0.01" min="0" placeholder="cth: 100" />
+                  </div>
+                  <div>
+                    <label for="et-capacity">Kapasiti (1 = individu)</label>
+                    <input type="number" id="et-capacity" value="1" min="1" />
+                  </div>
                 </div>
+                <button type="button" id="add-event-type-btn" class="secondary" style="margin-top:0.8rem; width:100%;">+ Tambah Jenis Perkhidmatan</button>
               </div>
-              <button type="button" id="add-event-type-btn" class="secondary" style="margin-top:0.8rem; width:100%;">+ Tambah Jenis Perkhidmatan</button>
             </div>
-          </div>
 
-          <div class="card" style="margin-top:1.5rem;">
-            <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg> Soalan Tambahan (Intake Questions)</h2></div>
-            <p class="hint">Tanya customer soalan khusus semasa booking (contoh: "Apa jenis kek?", "Saiz?"). Muncul selepas mereka pilih slot.</p>
-            <div id="booking-questions-list" style="margin-top:0.8rem;"></div>
-            <div class="row" style="margin-top:0.8rem;">
-              <input type="text" id="new-question-input" placeholder="cth: Apa jenis perkhidmatan yang anda perlukan?" style="flex:1;" />
-              <button type="button" id="add-question-btn" class="secondary">+ Tambah</button>
+            <div class="card" style="margin-top:1rem;">
+              <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg> Soalan Tambahan (Intake Questions)</h2></div>
+              <p class="hint">Tanya customer soalan khusus semasa booking (contoh: "Apa jenis kek?", "Saiz?"). Muncul selepas mereka pilih slot.</p>
+              <div id="booking-questions-list" style="margin-top:0.8rem;"></div>
+              <div class="row" style="margin-top:0.8rem;">
+                <input type="text" id="new-question-input" placeholder="cth: Apa jenis perkhidmatan yang anda perlukan?" style="flex:1;" />
+                <button type="button" id="add-question-btn" class="secondary">+ Tambah</button>
+              </div>
             </div>
-          </div>
 
-          <div class="card" style="margin-top:1.5rem;">
-            <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> Embed Dalam Website Anda</h2></div>
-            <p class="hint">Copy code ni, tampal terus dalam HTML website anda sendiri — booking widget akan muncul terus di situ.</p>
-            <textarea id="embed-code" rows="3" readonly style="font-family:var(--font-mono); font-size:0.8rem;" onclick="this.select()"></textarea>
-            <button type="button" class="secondary" id="copy-embed-btn" style="margin-top:0.6rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy Code</button>
+            <div class="card" style="margin-top:1rem;">
+              <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> Embed Dalam Website Anda</h2></div>
+              <p class="hint">Copy code ni, tampal terus dalam HTML website anda sendiri — booking widget akan muncul terus di situ.</p>
+              <textarea id="embed-code" rows="3" readonly style="font-family:var(--font-mono); font-size:0.8rem;" onclick="this.select()"></textarea>
+              <button type="button" class="secondary" id="copy-embed-btn" style="margin-top:0.6rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy Code</button>
+            </div>
           </div>
         </div>
 
@@ -469,6 +477,7 @@
           <div class="db-stats" id="report-stats" style="grid-template-columns: repeat(3, 1fr);">
             <div class="db-stat-card">
               <div class="num mono" id="rpt-income-month">–</div><div class="label">Income Bulan Ini (Dah Bayar)</div>
+              <div class="hint" id="rpt-momentum" style="margin-top:0.3rem; font-size:0.78rem;"></div>
             </div>
             <div class="db-stat-card">
               <div class="num mono" id="rpt-outstanding">–</div><div class="label">Jumlah Belum Diterima</div>
@@ -476,6 +485,15 @@
             <div class="db-stat-card">
               <div class="num mono" id="rpt-total-lifetime">–</div><div class="label">Jumlah Diterima (Sepanjang Masa)</div>
             </div>
+          </div>
+
+          <div class="card" id="weekly-narrative-card" style="margin-bottom:1.5rem; display:none;">
+            <p style="margin:0; font-size:0.95rem; line-height:1.6;" id="weekly-narrative-text"></p>
+          </div>
+
+          <div class="card" id="milestone-card" style="margin-bottom:1.5rem; display:none;">
+            <div class="section-title"><h2 style="margin:0; font-size:1rem;">Pencapaian</h2></div>
+            <div id="milestone-badges" style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.6rem;"></div>
           </div>
 
           <div class="card" style="margin-bottom:1.5rem;">
@@ -1351,6 +1369,71 @@
       document.getElementById("rpt-outstanding").textContent = "RM " + outstanding.toFixed(2);
       document.getElementById("rpt-total-lifetime").textContent = "RM " + lifetimeTotal.toFixed(2);
 
+      // ── Momentum: this month vs last month ──
+      const lastMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+      const lastMonthKey = `${lastMonthDate.getFullYear()}-${String(lastMonthDate.getMonth() + 1).padStart(2, "0")}`;
+      const incomeLastMonth = paid.filter(c => c.paid_at.slice(0, 7) === lastMonthKey).reduce((sum, c) => sum + Number(c.amount), 0);
+      const momentumEl = document.getElementById("rpt-momentum");
+      if (incomeLastMonth > 0) {
+        const pctChange = Math.round(((incomeThisMonth - incomeLastMonth) / incomeLastMonth) * 100);
+        if (pctChange > 0) {
+          momentumEl.textContent = `↑ Naik ${pctChange}% berbanding bulan lepas`;
+          momentumEl.style.color = "var(--ok)";
+        } else if (pctChange < 0) {
+          momentumEl.textContent = `↓ Turun ${Math.abs(pctChange)}% berbanding bulan lepas`;
+          momentumEl.style.color = "var(--ink-soft)";
+        } else {
+          momentumEl.textContent = "Sama macam bulan lepas";
+          momentumEl.style.color = "var(--ink-soft)";
+        }
+      } else if (incomeThisMonth > 0) {
+        momentumEl.textContent = "Bulan pertama ada income — tahniah!";
+        momentumEl.style.color = "var(--ok)";
+      } else {
+        momentumEl.textContent = "";
+      }
+
+      // ── Naratif mingguan ──
+      const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const bookingsThisWeek = allBookings.filter(b => b.status === "confirmed" && new Date(b.slot_datetime) >= weekAgo && new Date(b.slot_datetime) <= now);
+      const incomeThisWeek = paid.filter(c => new Date(c.paid_at) >= weekAgo).reduce((sum, c) => sum + Number(c.amount), 0);
+      const emailCounts = new Map();
+      for (const c of data) emailCounts.set(c.contact_email, (emailCounts.get(c.contact_email) || 0) + 1);
+      const repeatThisWeek = data.filter(c => {
+        const createdRecently = c.due_date >= weekAgo.toISOString().slice(0, 10);
+        return createdRecently && emailCounts.get(c.contact_email) > 1;
+      }).length;
+
+      const narrativeCard = document.getElementById("weekly-narrative-card");
+      if (bookingsThisWeek.length > 0 || incomeThisWeek > 0) {
+        const parts = [];
+        if (bookingsThisWeek.length > 0) parts.push(`<strong>${bookingsThisWeek.length}</strong> booking baru`);
+        if (incomeThisWeek > 0) parts.push(`<strong>RM${incomeThisWeek.toFixed(0)}</strong> masuk`);
+        if (repeatThisWeek > 0) parts.push(`<strong>${repeatThisWeek}</strong> customer datang balik`);
+        document.getElementById("weekly-narrative-text").innerHTML = `Minggu ni: ${parts.join(", ")}.`;
+        narrativeCard.style.display = "block";
+      } else {
+        narrativeCard.style.display = "none";
+      }
+
+      // ── Milestone badges (lifetime achievements — quiet, permanent, not a one-time popup) ──
+      const lifetimeBookingCount = allBookings.filter(b => b.status === "confirmed").length;
+      const MILESTONES_BOOKING = [1, 10, 50, 100, 500];
+      const MILESTONES_REVENUE = [500, 1000, 5000, 10000, 50000];
+      const achievedBookingMilestones = MILESTONES_BOOKING.filter(m => lifetimeBookingCount >= m);
+      const achievedRevenueMilestones = MILESTONES_REVENUE.filter(m => lifetimeTotal >= m);
+      const milestoneCard = document.getElementById("milestone-card");
+      if (achievedBookingMilestones.length > 0 || achievedRevenueMilestones.length > 0) {
+        const badges = [
+          ...achievedBookingMilestones.map(m => `<span class="badge dah_bayar">${m} Booking</span>`),
+          ...achievedRevenueMilestones.map(m => `<span class="badge dah_bayar">RM${m >= 1000 ? (m / 1000) + "K" : m} Dikutip</span>`),
+        ];
+        document.getElementById("milestone-badges").innerHTML = badges.join("");
+        milestoneCard.style.display = "block";
+      } else {
+        milestoneCard.style.display = "none";
+      }
+
       // Monthly breakdown, most recent first
       const byMonth = new Map();
       for (const c of paid) {
@@ -2051,6 +2134,14 @@
       loadBookingLinksAndSettings();
     });
 
+    document.getElementById("advanced-settings-toggle")?.addEventListener("click", () => {
+      const wrap = document.getElementById("advanced-settings-wrap");
+      const chevron = document.getElementById("advanced-toggle-chevron");
+      const isOpen = wrap.style.display !== "none";
+      wrap.style.display = isOpen ? "none" : "block";
+      chevron.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+    });
+
     loadBookingLinksAndSettings();
 
     document.getElementById("booking-qr-print")?.addEventListener("click", () => {
@@ -2114,6 +2205,24 @@
       const now = new Date();
       const upcoming = allBookings.filter(b => b.status === "confirmed" && new Date(b.slot_datetime) >= now).sort((a, b) => new Date(a.slot_datetime) - new Date(b.slot_datetime));
       bookingEl.textContent = `${upcoming.length} akan datang`;
+
+      // ── Streak: consecutive weeks (ending this week) with at least 1 confirmed booking ──
+      const streakEl = document.getElementById("home-streak");
+      if (streakEl) {
+        const confirmedBookings = allBookings.filter(b => b.status === "confirmed");
+        let streak = 0;
+        for (let w = 0; w < 26; w++) { // cap the lookback at 26 weeks
+          const weekEnd = new Date(now.getTime() - w * 7 * 24 * 60 * 60 * 1000);
+          const weekStart = new Date(weekEnd.getTime() - 7 * 24 * 60 * 60 * 1000);
+          const hasBooking = confirmedBookings.some(b => {
+            const t = new Date(b.slot_datetime).getTime();
+            return t >= weekStart.getTime() && t <= weekEnd.getTime();
+          });
+          if (hasBooking) streak++;
+          else break;
+        }
+        streakEl.textContent = streak >= 2 ? `${streak} minggu berturut-turut ada booking` : "";
+      }
 
       const previewEl = document.getElementById("home-hero-preview");
       if (previewEl) {
@@ -2595,6 +2704,12 @@
       document.getElementById("tour-back-btn").style.visibility = tourStepIndex === 0 ? "hidden" : "visible";
       document.getElementById("tour-next-btn").textContent = tourStepIndex === TOUR_STEPS.length - 1 ? "Selesai" : "Seterusnya →";
       panel.style.display = "block";
+
+      // If this step's target lives inside the collapsed Advanced section, open it first
+      const advancedWrap = document.getElementById("advanced-settings-wrap");
+      if (advancedWrap && advancedWrap.style.display === "none" && advancedWrap.querySelector(step.selector)) {
+        document.getElementById("advanced-settings-toggle")?.click();
+      }
 
       if (currentGlowEl) { currentGlowEl.classList.remove("tour-glow"); currentGlowEl = null; }
       const el = document.querySelector(step.selector);

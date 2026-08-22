@@ -20,7 +20,8 @@ export async function onRequestGet(context) {
     if (threads.length === 0) return new Response(JSON.stringify({ error: "Thread tidak dijumpai." }), { status: 404, headers: { "content-type": "application/json" } });
 
     const replies = await sbAdmin(env, `/forum_replies?thread_id=eq.${id}&select=*&order=created_at.asc`);
-    return new Response(JSON.stringify({ thread: threads[0], replies }), { headers: { "content-type": "application/json" } });
+    const reactions = await sbAdmin(env, `/forum_reactions?thread_id=eq.${id}&select=owner_id`);
+    return new Response(JSON.stringify({ thread: threads[0], replies, reaction_count: reactions.length, reactor_ids: reactions.map(r => r.owner_id) }), { headers: { "content-type": "application/json" } });
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { "content-type": "application/json" } });
   }

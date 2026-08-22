@@ -173,6 +173,7 @@
               ${t.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}
               <span class="hint" style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em;">${escapeHtml(t.category_name || "")}</span>
               <div><strong>${escapeHtml(t.title)}</strong></div>
+              <div class="hint" style="font-size:0.83rem; margin-top:0.2rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(t.message.length > 110 ? t.message.slice(0, 110) + "…" : t.message)}</div>
               <div class="hint" style="font-size:0.8rem; margin-top:0.2rem;">oleh ${escapeHtml(t.author_name)} · ${fmtDateShort(t.created_at)}</div>
             </div>
             <span class="hint" style="flex-shrink:0; font-size:0.8rem; text-align:right;">${t.reply_count} balasan${t.reaction_count > 0 ? `<br>♥ ${t.reaction_count}` : ""}</span>

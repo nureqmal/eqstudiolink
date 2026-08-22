@@ -2769,7 +2769,8 @@
     // ── Guided tour (Lapisan 1: spotlight, fokus Home + Booking) ──
     const TOUR_STEPS = [
       { page: "home", selector: ".home-hero", title: "Selamat Datang!", text: "Ni Home anda — semua feature diakses dari sini. Setiap kotak (tile) bawa anda ke satu fungsi khusus. Jom kita jalan-jalan sekejap." },
-      { page: "home", selector: ".home-summary-card", title: "Ringkasan Pantas", text: "Kotak ni tunjuk gambaran cepat — berapa booking akan datang, dan berapa RM belum diterima." },
+      { page: "home", selector: ".home-stat-grid", title: "Ringkasan Pantas", text: "5 nombor penting sekali imbas — booking akan datang, belum diterima, income bulan ini, jumlah pelanggan, dan booking selesai bulan ini." },
+      { page: "home", selector: "#home-trend-chart", title: "Tren Booking", text: "Chart ni tunjuk trend booking 14 hari terkini — senang nampak momentum bisnes anda tanpa perlu buka Laporan." },
       { page: "home", selector: '.bento-tile[data-page="booking-settings"]', title: "Mula Dari Sini: Booking", text: "Booking adalah feature UTAMA sistem ni — customer book slot sendiri, deposit & reminder jalan automatik lepas tu. Jom setup dulu." },
       { page: "booking-settings", selector: "#p-booking-slug", title: "Link Booking Anda", text: "Pilih nama link (contoh: kedai-anda) — ni yang anda akan kongsi dengan customer supaya mereka boleh book slot terus. Lepas simpan, link ni juga terus terpapar di Home untuk senang copy/share." },
       { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai — WAJIB DIISI!", text: "Ni PALING PENTING — kalau tak diisi, booking customer akan GAGAL. Auto-apply setiap booking baharu. Nak booking PERCUMA (contoh konsultasi)? Taip 0 — sistem sekarang faham 0 tu sengaja, bukan tak diisi." },
@@ -2778,8 +2779,8 @@
       { page: "booking-settings", selector: "#new-question-input", title: "Soalan Tambahan (Optional)", text: "Tanya customer sesuatu semasa booking, contoh \"Apa jenis kek?\" — jawapan terus nampak dalam Senarai Booking anda." },
       { page: "booking-settings", selector: "#save-booking-btn", title: "Simpan & Dapatkan Link", text: "Lepas simpan, link booking dan QR code printable akan muncul di atas — boleh terus kongsi atau print letak kaunter." },
       { page: "booking-list", selector: "#booking-list", title: "Senarai Booking Anda", text: "Setiap booking yang customer buat akan muncul di sini — dengan status, jawapan soalan tambahan (jika ada), dan butang Reschedule/Batal." },
-      { page: "home", selector: ".bento-grid", title: "Menu Lain", text: "Pelanggan, Laporan, Kalendar, dan Tetapan — explore ikut keperluan anda. Setiap page ada butang \"❓ Panduan\" untuk penjelasan detail bila anda perlukan." },
-      { page: "home", selector: "#restart-tour-btn", title: "Sesat? Klik Sini Bila-Bila", text: "Tour ni boleh dibuka semula bila-bila dari sini (atau butang ❓ atas mobile) — dan setiap page pun ada butang Panduan sendiri. Nak run lebih dari satu bisnes? Ada pelan Pro untuk sehingga 3 link booking — check Billing. Selamat mencuba!" },
+      { page: "home", selector: ".bento-grid", title: "Menu Lain", text: "Pelanggan, Laporan, Kalendar, dan Tetapan — explore ikut keperluan anda. Setiap page ada butang \"Panduan\" untuk penjelasan detail bila anda perlukan." },
+      { page: "home", selector: "#restart-tour-btn", title: "Sesat? Klik Sini Bila-Bila", text: "Tour ni boleh dibuka semula bila-bila dari sini (atau butang di mobile) — dan setiap page pun ada butang Panduan sendiri. Nak run lebih dari satu bisnes? Ada pelan Pro untuk sehingga 3 link booking — check Billing. Selamat mencuba!" },
     ];
     let tourStepIndex = 0;
 

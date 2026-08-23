@@ -1291,3 +1291,16 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .bento-tile[data-cat="sage"] .bento-tile-icon { background: rgba(13,148,136,0.12); color: var(--accent-sage); }
 .bento-tile[data-cat="sun"] .bento-tile-icon { background: rgba(180,83,9,0.12); color: var(--accent-sun); }
 .bento-tile[data-cat="lilac"] .bento-tile-icon { background: rgba(124,58,237,0.12); color: var(--accent-lilac); }
+
+/* ── Home: "Booking Terbaru" ranked table (desktop-oriented data-density widget) ── */
+.home-recent-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.home-recent-table th { text-align: left; padding: 0.5rem 0.6rem; color: var(--ink-soft); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.02em; border-bottom: 1px solid var(--paper-line); }
+.home-recent-table td { padding: 0.6rem; border-bottom: 1px solid var(--paper-line); }
+.home-recent-table tr:last-child td { border-bottom: none; }
+.home-recent-table tr:hover td { background: var(--paper); }
+@media (max-width: 560px) { .home-recent-bookings-card, #home-recent-bookings-card { display: none !important; } }
+
+/* ── EN/BM language toggle (owner-facing UI, separate from customer-facing i18n) ── */
+.lang-toggle { display: inline-flex; background: var(--paper); border: 1px solid var(--paper-line); border-radius: 999px; padding: 2px; }
+.lang-toggle-btn { border: none; background: none; padding: 0.3rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; color: var(--ink-soft); cursor: pointer; font-family: var(--font-body); }
+.lang-toggle-btn.active { background: var(--surface); color: var(--stamp); box-shadow: var(--shadow); }

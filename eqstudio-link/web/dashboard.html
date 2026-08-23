@@ -84,6 +84,18 @@
             <div id="home-trend-chart" style="margin-top:0.6rem;"></div>
           </div>
 
+          <div class="card" id="home-recent-bookings-card" style="margin-bottom:1.5rem; display:none;">
+            <div class="section-title"><h2 style="margin:0; font-size:0.95rem;">Booking Terbaru</h2></div>
+            <div style="overflow-x:auto; margin-top:0.6rem;">
+              <table class="home-recent-table">
+                <thead>
+                  <tr><th>Pelanggan</th><th>Tarikh Booking</th><th>Status</th><th style="text-align:right;">Amaun</th></tr>
+                </thead>
+                <tbody id="home-recent-bookings-body"></tbody>
+              </table>
+            </div>
+          </div>
+
           <div class="card home-booking-link-card" id="home-booking-link-card" style="display:none;">
             <p class="hint" style="text-transform:uppercase; font-size:0.7rem; margin:0 0 0.4rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> Link Booking Anda</p>
             <div class="home-link-row">
@@ -2200,7 +2212,7 @@
     async function loadBookings() {
       const { data, error } = await supabase
         .from("bookings")
-        .select("id, slot_datetime, duration_minutes, customer_name, customer_email, customer_phone, customer_notes, status, customer_id, custom_answers, booking_link_id, event_type_id")
+        .select("id, slot_datetime, duration_minutes, customer_name, customer_email, customer_phone, customer_notes, status, customer_id, custom_answers, booking_link_id, event_type_id, created_at")
         .eq("owner_id", user.id)
         .order("slot_datetime", { ascending: true });
 
@@ -2319,11 +2331,44 @@
       animateCountUp(document.getElementById("hs-completed-month"), completedThisMonth, false);
 
       renderHomeTrendChart();
+      renderHomeRecentBookings();
 
       const weekAhead = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
       const todayStr = now.toISOString().slice(0, 10);
       const dueThisWeek = allCustomers.filter(c => c.status !== "dah_bayar" && c.due_date >= todayStr && c.due_date <= weekAhead).length;
       kalendarEl.textContent = `${dueThisWeek} due minggu ini`;
+    }
+
+    function renderHomeRecentBookings() {
+      const card = document.getElementById("home-recent-bookings-card");
+      const body = document.getElementById("home-recent-bookings-body");
+      if (!card || !body) return;
+
+      const recent = [...allBookings]
+        .filter(b => b.created_at)
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        .slice(0, 6);
+
+      if (recent.length === 0) {
+        card.style.display = "none";
+        return;
+      }
+      card.style.display = "block";
+
+      const customerByBookingCustomerId = new Map(allCustomers.map(c => [c.id, c]));
+      body.innerHTML = recent.map(b => {
+        const cust = customerByBookingCustomerId.get(b.customer_id);
+        const isPaid = cust?.status === "dah_bayar";
+        const amount = cust?.amount != null ? `RM ${Number(cust.amount).toFixed(2)}` : "—";
+        return `
+          <tr>
+            <td>${escapeHtml(b.customer_name)}</td>
+            <td class="hint">${fmtBookingDateTime(b.slot_datetime)}</td>
+            <td><span class="badge ${isPaid ? "dah_bayar" : "belum_bayar"}" style="font-size:0.7rem;">${isPaid ? "Dah Bayar" : "Belum Bayar"}</span></td>
+            <td style="text-align:right;" class="mono">${amount}</td>
+          </tr>
+        `;
+      }).join("");
     }
 
     function renderHomeTrendChart() {

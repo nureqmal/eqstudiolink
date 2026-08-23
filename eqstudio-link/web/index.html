@@ -30,20 +30,24 @@
   <nav class="lp-nav">
     <a href="/" class="brand" style="text-decoration:none;">eqstudio<span class="dot">.</span>link</a>
     <div class="lp-nav-links">
-      <a href="/login.html" class="plain">Log Masuk</a>
-      <a href="/login.html" class="btn">Mula Percuma</a>
+      <div class="lang-toggle">
+        <button type="button" class="lang-toggle-btn active" data-lang-toggle="en">EN</button>
+        <button type="button" class="lang-toggle-btn" data-lang-toggle="ms">BM</button>
+      </div>
+      <a href="/login.html" class="plain" data-i18n="nav_login">Log In</a>
+      <a href="/login.html" class="btn" data-i18n="nav_cta">Start Free</a>
     </div>
   </nav>
 
   <section class="lp-hero">
     <div>
-      <span class="lp-eyebrow">Booking & Client Manager untuk Business Owner Solo</span>
-      <h1>Customer Book Sendiri. Deposit & Reminder Jalan Automatik.</h1>
-      <p class="sub">Home baker, tutor, photographer, fitness coach — sesiapa yang selalu terlepas lead sebab lambat reply WhatsApp. Bagi customer book slot terus dari link peribadi anda. Deposit, invois, reminder — semua automatik lepas booking confirm.</p>
+      <span class="lp-eyebrow" data-i18n="hero_eyebrow">Booking & Client Manager for Solo Business Owners</span>
+      <h1 data-i18n="hero_h1">Customers book themselves. Deposits and reminders handle themselves too.</h1>
+      <p class="sub" data-i18n="hero_sub">Home baker, tutor, photographer, fitness coach — anyone who's lost a lead because a WhatsApp reply came too late. Give customers a link to book you directly. Deposit, invoice, reminder all run automatically once a booking's confirmed.</p>
       <div class="cta-row">
-        <a href="/login.html" class="btn btn-lg">Mula Percuma</a>
-        <a href="/ciri-ciri.html" class="btn secondary btn-lg">Butiran Lanjut</a>
-        <span class="hint">14 hari percuba, tak perlu kad kredit</span>
+        <a href="/login.html" class="btn btn-lg" data-i18n="hero_cta_primary">Start Free</a>
+        <a href="/ciri-ciri.html" class="btn secondary btn-lg" data-i18n="hero_cta_secondary">See Full Details</a>
+        <span class="hint" data-i18n="hero_trial_note">14-day trial, no card needed</span>
       </div>
     </div>
 
@@ -98,8 +102,8 @@
   </section>
 
   <section class="lp-section" id="harga">
-    <h2>Harga</h2>
-    <p class="lead">Pilih pelan ikut keperluan. <strong>Jimat 2 bulan</strong> kalau pilih tahunan.</p>
+    <h2 data-i18n="pricing_h2">Pricing</h2>
+    <p class="lead" data-i18n="pricing_lead">Pick the plan that fits. Go yearly and save 2 months.</p>
 
     <div class="lp-price-toggle">
       <button type="button" class="lp-toggle-btn" id="price-toggle-monthly">Bulanan</button>
@@ -149,15 +153,15 @@
     </details>
     <details>
       <summary>Boleh tanya customer soalan tambahan semasa booking?</summary>
-      <p>Boleh — tambah "Soalan Tambahan" (custom intake questions) dalam Tetapan Booking, contoh "Apa jenis kek?" atau "Saiz?". Muncul dalam borang booking selepas customer pilih slot, jawapan terus nampak dalam dashboard anda.</p>
+      <p>Boleh je. Masuk je "Soalan Tambahan" dalam Tetapan Booking, contoh "Apa jenis kek?" ke, "Saiz?" ke. Nanti muncul dalam borang booking lepas customer pilih slot, dan jawapan dia terus nampak dalam dashboard anda.</p>
     </details>
     <details>
       <summary>Boleh set waktu available dan buffer time?</summary>
-      <p>Boleh — set hari & jam operasi anda dalam Tetapan Booking (grid mingguan, senang klik). Ada juga pilihan "Buffer Time" (0-30 minit) untuk rehat automatik antara setiap booking.</p>
+      <p>Ya boleh. Set hari & jam operasi anda dalam Tetapan Booking, ada grid mingguan, tinggal klik je. Nak rehat antara booking pun ada — "Buffer Time" (0-30 minit) untuk automatikkan tu.</p>
     </details>
     <details>
       <summary>Customer boleh reschedule/cancel sendiri ke?</summary>
-      <p>Boleh — setiap emel confirmation booking ada butang "Reschedule / Batal Tempahan". Customer pilih slot baru sendiri (dari waktu available sebenar), atau cancel dengan sebab — anda automatik dapat emel notification setiap kali mereka buat perubahan.</p>
+      <p>Memang boleh, malah setiap emel confirmation booking ada butang "Reschedule / Batal Tempahan" terus. Customer pilih slot baru sendiri dari waktu available sebenar, atau cancel dengan sebab. Anda pun automatik dapat emel notification setiap kali ada perubahan.</p>
     </details>
     <details>
       <summary>Ada invois rasmi ke?</summary>
@@ -165,15 +169,15 @@
     </details>
     <details>
       <summary>Boleh customer semak status bayaran diorang sendiri?</summary>
-      <p>Boleh — setiap emel ada link peribadi untuk customer semak status (dah bayar/belum) dan bayar terus, tanpa perlu daftar akaun.</p>
+      <p>Ada je. Setiap emel ada link peribadi untuk customer semak status dah bayar ke belum, dan boleh bayar terus, tak payah daftar akaun pun.</p>
     </details>
     <details>
       <summary>Boleh ada lebih dari satu jenis perkhidmatan (harga/tempoh berbeza)?</summary>
-      <p>Boleh — tambah "Jenis Perkhidmatan" (Event Types) dalam Tetapan Booking. Contoh: "Collection Kek — 10 minit" vs "Kelas Baking — 2 jam, RM100". Customer pilih jenis dulu semasa booking. Boleh juga set kapasiti >1 untuk group class (contoh Zumba, ramai orang boleh book slot sama).</p>
+      <p>Boleh. Tambah "Jenis Perkhidmatan" (Event Types) dalam Tetapan Booking — contoh "Collection Kek, 10 minit" lawan "Kelas Baking, 2 jam, RM100". Customer pilih jenis tu dulu semasa booking. Nak group class pun boleh, set kapasiti lebih dari 1 (contoh kelas Zumba, ramai orang boleh book slot yang sama).</p>
     </details>
     <details>
       <summary>Boleh buat booking percuma (konsultasi RM0)?</summary>
-      <p>Boleh — taip 0 dalam field Deposit Lalai (atau per jenis perkhidmatan). Sistem tak hantar emel "sila bayar" untuk booking percuma.</p>
+      <p>Senang je, taip 0 dalam field Deposit Lalai (atau per jenis perkhidmatan pun boleh). Sistem tak hantar emel "sila bayar" untuk booking percuma punya.</p>
     </details>
     <details>
       <summary>Boleh run lebih dari satu bisnes dalam satu akaun?</summary>
@@ -185,7 +189,7 @@
     </details>
     <details>
       <summary>Boleh guna bahasa lain untuk customer?</summary>
-      <p>Boleh — customer pilih bahasa sendiri semasa booking (Bahasa Melayu, English, 中文, தமிழ்). Emel dan portal mereka terus dalam bahasa yang dipilih.</p>
+      <p>Ya, customer pilih sendiri bahasa masa booking — Bahasa Melayu, English, 中文, atau தமிழ். Emel dengan portal mereka pun terus ikut bahasa yang dipilih tu.</p>
     </details>
     <details>
       <summary>Customer bayaran berulang (repeat order) macam mana?</summary>
@@ -987,6 +991,14 @@
     });
     document.getElementById("explore-overlay").addEventListener("click", (e) => {
       if (e.target.id === "explore-overlay") document.getElementById("explore-overlay").classList.remove("open");
+    });
+  </script>
+
+  <script type="module">
+    import { applyLanguage, getCurrentLang } from "/assets/i18n-ui.js";
+    applyLanguage(getCurrentLang());
+    document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.dataset.langToggle));
     });
   </script>
 

@@ -21,8 +21,12 @@
   <nav class="lp-nav">
     <a href="/" class="brand" style="text-decoration:none;">eqstudio<span class="dot">.</span>link</a>
     <div class="lp-nav-links">
-      <a href="/login.html" class="plain">Log Masuk</a>
-      <a href="/login.html" class="btn">Mula Percuma</a>
+      <div class="lang-toggle">
+        <button type="button" class="lang-toggle-btn active" data-lang-toggle="en">EN</button>
+        <button type="button" class="lang-toggle-btn" data-lang-toggle="ms">BM</button>
+      </div>
+      <a href="/login.html" class="plain" data-i18n="nav_login">Log In</a>
+      <a href="/login.html" class="btn" data-i18n="nav_cta">Start Free</a>
     </div>
   </nav>
 
@@ -34,6 +38,7 @@
 
   <script type="module">
     import { supabase } from "/assets/supabase-client.js";
+    import { applyLanguage, getCurrentLang } from "/assets/i18n-ui.js";
 
     let currentUser = null;
     let canPost = false;
@@ -86,13 +91,13 @@
           <p class="hint">Diskusi, soalan, dan pengumuman — sesama business owner.</p>
         </div>
 
-        <input type="search" id="forum-search" placeholder="Cari thread..." style="margin-bottom:0.8rem;" />
+        <input type="search" id="forum-search" data-i18n-placeholder="forum_search_placeholder" placeholder="Search threads..." style="margin-bottom:0.8rem;" />
 
         <div class="chip-row" id="forum-category-tabs" style="margin-bottom:1rem;"></div>
 
         ${canPost ? `
           <div class="card" style="margin-bottom:1rem;">
-            <button type="button" class="btn" id="new-thread-toggle" style="width:100%;">+ Mula Thread Baharu</button>
+            <button type="button" class="btn" id="new-thread-toggle" data-i18n="forum_new_thread_btn" style="width:100%;">+ Start New Thread</button>
             <form id="new-thread-form" style="display:none; margin-top:1rem;">
               <label for="nt-category">Kategori</label>
               <select id="nt-category">${allCategories.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join("")}</select>
@@ -141,7 +146,7 @@
 
     function renderCategoryTabs() {
       const tabsEl = document.getElementById("forum-category-tabs");
-      const tabs = [{ slug: "all", name: "Semua" }, ...allCategories.map(c => ({ slug: c.slug, name: c.name }))];
+      const tabs = [{ slug: "all", name: getCurrentLang() === "ms" ? "Semua" : "All" }, ...allCategories.map(c => ({ slug: c.slug, name: c.name }))];
       tabsEl.innerHTML = tabs.map(t => `
         <button type="button" class="chip ${t.slug === activeCategorySlug ? "selected" : ""}" data-cat-slug="${t.slug}">${escapeHtml(t.name)}</button>
       `).join("");
@@ -263,6 +268,14 @@
       if (params.get("thread")) renderThreadDetail(params.get("thread"));
       else renderFeed();
     }
+
+    applyLanguage(getCurrentLang());
+    document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        applyLanguage(btn.dataset.langToggle);
+        router();
+      });
+    });
 
     router();
   </script>

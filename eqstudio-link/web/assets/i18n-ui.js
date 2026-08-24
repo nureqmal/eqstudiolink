@@ -113,6 +113,23 @@ export const UI_STRINGS = {
     dash_link_label: "Booking Link",
     dash_booking_settings_title: "Booking Settings",
     dash_booking_settings_desc: "Customers book their own slot from your personal link, no WhatsApp or calls needed to confirm a date. Once a booking is confirmed, deposit and reminder run automatically.",
+
+    pricing_recommended: "Recommended",
+    pricing_starter_feat1: "1 booking link, plus website embed",
+    pricing_starter_feat2: "Unlimited service types (different durations, prices, capacities)",
+    pricing_starter_feat3: "Automatic deposit and reminders, checked once a day",
+    pricing_starter_feat4: "Self-serve reschedule and cancel",
+    pricing_starter_feat5: "Multi-language (BM/EN/中文/தமிழ்) for customers",
+    pricing_starter_feat6: "Cash-flow forecast and risk scoring",
+    pricing_starter_feat7: "Monthly summary email",
+    pricing_pro_feat1: "Everything in Starter",
+    pricing_pro_feat2: "Up to 3 booking links, each fully independent",
+    pricing_pro_feat3: "Reminders checked every 2 hours, not once a day",
+    pricing_pro_feat4: "Weekly summary email instead of monthly",
+    pricing_pro_feat5: "Pro badge on your forum posts",
+
+    pricing_monthly: "Monthly",
+    pricing_yearly: "Yearly <span class=\"plan-badge\">Save 2 Months</span>",
   },
   ms: {
     nav_login: "Log Masuk",
@@ -213,6 +230,23 @@ export const UI_STRINGS = {
     dash_link_label: "Link Booking",
     dash_booking_settings_title: "Tetapan Booking",
     dash_booking_settings_desc: "Customer boleh book slot terus dari link peribadi anda, tak payah WhatsApp atau call untuk confirm tarikh. Bila booking confirm, deposit dan reminder jalan automatic.",
+
+    pricing_recommended: "Disyorkan",
+    pricing_starter_feat1: "1 link booking, plus embed website",
+    pricing_starter_feat2: "Jenis perkhidmatan tanpa had (tempoh, harga, kapasiti berbeza)",
+    pricing_starter_feat3: "Deposit dan reminder automatic, disemak sekali sehari",
+    pricing_starter_feat4: "Reschedule dan cancel self serve",
+    pricing_starter_feat5: "Multi bahasa (BM/EN/中文/தமிழ்) untuk customer",
+    pricing_starter_feat6: "Cash flow forecast dan risk scoring",
+    pricing_starter_feat7: "Emel ringkasan bulanan",
+    pricing_pro_feat1: "Semua dalam Starter",
+    pricing_pro_feat2: "Sehingga 3 link booking, setiap satu independen sepenuhnya",
+    pricing_pro_feat3: "Reminder disemak setiap 2 jam, bukan sekali sehari",
+    pricing_pro_feat4: "Emel ringkasan mingguan, bukan bulanan",
+    pricing_pro_feat5: "Badge Pro pada post forum anda",
+
+    pricing_monthly: "Bulanan",
+    pricing_yearly: "Tahunan <span class=\"plan-badge\">Jimat 2 Bulan</span>",
   },
 };
 

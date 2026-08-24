@@ -717,9 +717,17 @@
   <!-- Per-page contextual help (Lapisan 2) -->
   <div class="modal-overlay" id="guide-modal" style="display:none;">
     <div class="modal-box" style="max-width:420px;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="guide-modal-title">Panduan</h2></div>
-      <div id="guide-modal-body" style="font-size:0.9rem; line-height:1.7;"></div>
-      <button type="button" class="secondary" id="guide-modal-close" style="width:100%; margin-top:1.25rem;">Tutup</button>
+      <div class="section-title">
+        <h2 style="margin:0; font-size:1.1rem;" id="guide-modal-title">Panduan</h2>
+        <span class="hint" id="guide-step-progress"></span>
+      </div>
+      <h3 style="margin:0.8rem 0 0.4rem; font-size:1rem;" id="guide-step-heading"></h3>
+      <p style="font-size:0.9rem; line-height:1.7; margin:0;" id="guide-step-text"></p>
+      <div class="row" style="margin-top:1.25rem; gap:0.5rem;">
+        <button type="button" class="secondary" id="guide-back-btn" style="flex:1;">← Kembali</button>
+        <button type="button" id="guide-next-btn" style="flex:1;">Seterusnya →</button>
+      </div>
+      <button type="button" class="secondary" id="guide-modal-close" style="width:100%; margin-top:0.6rem;">Tutup</button>
     </div>
   </div>
 
@@ -2926,24 +2934,111 @@
 
     // ── Per-page contextual guide (Lapisan 2) ──
     const GUIDE_CONTENT = {
-      "booking-list": { title: "Senarai Booking", html: "<p>Setiap booking yang customer buat muncul di sini, disusun ikut masa akan datang. Klik <strong>Reschedule</strong> untuk tukar slot (customer auto-dimaklumkan via emel), atau <strong>Batal</strong> untuk cancel (customer pun auto-dimaklumkan).</p><p>Booking hari ini ada badge <strong>HARI INI</strong> berkelip supaya senang nampak.</p>" },
-      "booking-settings": { title: "Tetapan Booking", html: "<p><strong>Link Booking</strong> — nama unik untuk link awam anda.</p><p><strong>Deposit Lalai</strong> — WAJIB diisi, tanpa ni booking customer akan gagal.</p><p><strong>Buffer Time</strong> — rehat automatik antara booking.</p><p><strong>Soalan Tambahan</strong> — tanya customer sesuatu semasa booking.</p><p><strong>QR & Embed</strong> — muncul selepas link aktif, untuk print atau letak dalam website sendiri.</p>" },
-      "pelanggan-add": { title: "Tambah Pelanggan", html: "<p>Tambah pelanggan manual (untuk order bukan dari booking online) — pratonton resit di sebelah update live semasa anda taip.</p><p>Boleh juga <strong>Import CSV</strong> untuk tambah beramai-ramai sekali gus (format: nama,emel,telefon,jumlah,tarikh_due,catatan).</p>" },
-      "pelanggan-list": { title: "Senarai Pelanggan", html: "<p>Semua pelanggan anda (dari booking atau tambah manual) — status Belum Bayar/Reminder Dihantar/Dah Bayar. Klik nama untuk edit, atau guna carian untuk cari cepat.</p>" },
-      "laporan": { title: "Laporan", html: "<p><strong>Trend Income</strong> — income bulanan lepas.</p><p><strong>Unjuran Cash-Flow</strong> — anggaran income 6 minggu akan datang dari customer belum bayar.</p><p><strong>Customer Berisiko</strong> — sistem kenal pasti customer yang selalu lewat bayar, berdasarkan sejarah mereka dengan anda.</p>" },
-      "kalendar": { title: "Kalendar", html: "<p>Lihat semua tarikh due pelanggan dalam pandangan bulanan. Klik mana-mana tarikh untuk lihat siapa yang due pada hari tu.</p>" },
-      "tetapan-profil": { title: "Profil Perniagaan", html: "<p>Nama, logo, warna jenama, dan maklumat bank/QR DuitNow — semua ni dipaparkan dalam emel reminder yang customer terima. Isi No. SSM (optional) untuk invois nampak lebih rasmi.</p>" },
-      "tetapan-reminder": { title: "Jadual Reminder", html: "<p>Klik hari bila sistem patut hantar reminder deposit — relatif kepada tarikh due (contoh: H-3, H-1, Hari-Ini). Sistem check jadual ni sekali sehari (~9 pagi).</p>" },
+      "booking-list": {
+        title: "Senarai Booking",
+        steps: [
+          { heading: "Semua Booking Anda", text: "Setiap booking yang customer buat melalui link anda muncul di sini, disusun ikut masa akan datang." },
+          { heading: "Badge Hari Ini", text: "Booking yang jatuh hari ini ada badge \"HARI INI\" berkelip, senang nampak tanpa perlu scroll cari." },
+          { heading: "Reschedule", text: "Klik \"Reschedule\" untuk tukar slot booking ke masa lain. Customer automatik dapat emel notification tentang perubahan." },
+          { heading: "Batal", text: "Klik \"Batal\" untuk cancel booking. Customer pun automatik dimaklumkan melalui emel." },
+        ],
+      },
+      "booking-settings": {
+        title: "Tetapan Booking",
+        steps: [
+          { heading: "Link Switcher", text: "Kalau anda pelan Pro dengan lebih dari satu link booking, tukar link yang sedang diedit di sini." },
+          { heading: "Slug", text: "Nama unik untuk link awam anda (contoh: eqstudio.link/book.html?slug=nama-anda). Tukar ni akan tukar URL booking anda." },
+          { heading: "QR Code", text: "Muncul automatik bila link anda aktif. Boleh print untuk letak kaunter, atau muat turun untuk digunakan di mana-mana." },
+          { heading: "Tempoh Slot", text: "Berapa lama setiap booking mengambil masa (30 minit, 1 jam, dan seterusnya)." },
+          { heading: "Deposit Lalai", text: "WAJIB diisi, booking customer akan gagal kalau kosong. Taip 0 kalau nak booking percuma." },
+          { heading: "Waktu Available", text: "Set hari dan jam anda bukak dalam grid mingguan. Customer cuma nampak slot yang anda dah set." },
+          { heading: "Tetapan Advanced", text: "Klik butang \"Tetapan Advanced\" untuk expand buffer time, notis cancel, jenis perkhidmatan, soalan tambahan, dan embed code." },
+          { heading: "Jenis Perkhidmatan", text: "Kalau anda ada servis berbeza (contoh kelas vs collection), set tempoh, harga, dan kapasiti sendiri untuk setiap satu." },
+          { heading: "Soalan Tambahan", text: "Tanya customer soalan khusus semasa booking (contoh: \"Apa jenis kek?\"). Jawapan terus nampak dalam Senarai Booking." },
+          { heading: "Embed & QR", text: "Copy embed code untuk letak dalam website sendiri, atau muat turun QR code untuk cetak." },
+        ],
+      },
+      "pelanggan-add": {
+        title: "Tambah Pelanggan",
+        steps: [
+          { heading: "Borang Manual", text: "Tambah pelanggan untuk order yang bukan dari booking online. Preview resit di sebelah update live semasa anda taip." },
+          { heading: "Import CSV", text: "Nak tambah beramai-ramai sekali gus? Guna Import CSV. Format: nama, emel, telefon, jumlah, tarikh_due, catatan." },
+        ],
+      },
+      "pelanggan-list": {
+        title: "Senarai Pelanggan",
+        steps: [
+          { heading: "Status Bayaran", text: "Setiap pelanggan ada status: Belum Bayar, Reminder Dihantar, atau Dah Bayar." },
+          { heading: "Carian", text: "Guna search bar untuk cari pelanggan tertentu dengan cepat, ikut nama atau emel." },
+          { heading: "Edit", text: "Klik nama pelanggan untuk edit maklumat atau tukar status bayaran secara manual." },
+        ],
+      },
+      "laporan": {
+        title: "Laporan",
+        steps: [
+          { heading: "Trend Income", text: "Chart yang tunjuk income bulanan anda dari masa ke masa." },
+          { heading: "Unjuran Cash-Flow", text: "Anggaran income untuk 6 minggu akan datang, dikira dari customer yang masih belum bayar." },
+          { heading: "Customer Berisiko", text: "Sistem kenal pasti customer yang selalu lewat bayar, berdasarkan sejarah mereka dengan anda." },
+          { heading: "Momentum", text: "Nampak terus sama ada income bulan ini naik atau turun berbanding bulan lepas." },
+          { heading: "Milestone", text: "Pencapaian kekal (bilangan booking, jumlah income) muncul di sini bila anda mencapainya." },
+        ],
+      },
+      "kalendar": {
+        title: "Kalendar",
+        steps: [
+          { heading: "Pandangan Bulanan", text: "Lihat semua tarikh due pelanggan dalam satu pandangan bulan." },
+          { heading: "Klik Tarikh", text: "Klik mana-mana tarikh untuk lihat siapa yang due bayar pada hari tersebut." },
+        ],
+      },
+      "tetapan-profil": {
+        title: "Profil Perniagaan",
+        steps: [
+          { heading: "Nama dan Logo", text: "Dipaparkan dalam setiap emel reminder yang customer anda terima." },
+          { heading: "Warna Jenama", text: "Customize warna utama yang muncul dalam emel dan portal customer." },
+          { heading: "Bank dan QR DuitNow", text: "Isi maklumat ni supaya customer boleh bayar terus melalui bank transfer atau QR." },
+          { heading: "No. SSM", text: "Optional, tapi buat invois anda nampak lebih rasmi untuk customer." },
+        ],
+      },
+      "tetapan-reminder": {
+        title: "Jadual Reminder",
+        steps: [
+          { heading: "Pilih Hari Reminder", text: "Klik hari bila sistem patut hantar reminder deposit, relatif kepada tarikh due (contoh: H-3, H-1, Hari-Ini)." },
+          { heading: "Kekerapan Semakan", text: "Pelan Starter disemak sekali sehari. Pelan Pro disemak setiap 2 jam, jadi reminder sampai lebih pantas." },
+        ],
+      },
     };
+
+    let guideStepIndex = 0;
+    let currentGuideKey = null;
+
+    function renderGuideStep() {
+      const guide = GUIDE_CONTENT[currentGuideKey];
+      const step = guide.steps[guideStepIndex];
+      document.getElementById("guide-modal-title").textContent = guide.title;
+      document.getElementById("guide-step-progress").textContent = `${guideStepIndex + 1} / ${guide.steps.length}`;
+      document.getElementById("guide-step-heading").textContent = step.heading;
+      document.getElementById("guide-step-text").textContent = step.text;
+      document.getElementById("guide-back-btn").style.visibility = guideStepIndex === 0 ? "hidden" : "visible";
+      document.getElementById("guide-next-btn").textContent = guideStepIndex === guide.steps.length - 1 ? "Selesai" : "Seterusnya →";
+    }
 
     document.querySelectorAll(".guide-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const guide = GUIDE_CONTENT[btn.dataset.guide];
         if (!guide) return;
-        document.getElementById("guide-modal-title").textContent = guide.title;
-        document.getElementById("guide-modal-body").innerHTML = guide.html;
+        currentGuideKey = btn.dataset.guide;
+        guideStepIndex = 0;
+        renderGuideStep();
         document.getElementById("guide-modal").style.display = "flex";
       });
+    });
+    document.getElementById("guide-back-btn")?.addEventListener("click", () => {
+      if (guideStepIndex > 0) { guideStepIndex--; renderGuideStep(); }
+    });
+    document.getElementById("guide-next-btn")?.addEventListener("click", () => {
+      const guide = GUIDE_CONTENT[currentGuideKey];
+      if (guideStepIndex < guide.steps.length - 1) { guideStepIndex++; renderGuideStep(); }
+      else { document.getElementById("guide-modal").style.display = "none"; }
     });
     document.getElementById("guide-modal-close").addEventListener("click", () => {
       document.getElementById("guide-modal").style.display = "none";

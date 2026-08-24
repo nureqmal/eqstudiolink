@@ -110,37 +110,40 @@
     <p class="lead" data-i18n="pricing_lead">Pick the plan that fits. Go yearly and save 2 months.</p>
 
     <div class="lp-price-toggle">
-      <button type="button" class="lp-toggle-btn" id="price-toggle-monthly">Bulanan</button>
-      <button type="button" class="lp-toggle-btn active" id="price-toggle-yearly">Tahunan <span class="plan-badge">Jimat 2 Bulan</span></button>
+      <button type="button" class="lp-toggle-btn" id="price-toggle-monthly" data-i18n="pricing_monthly">Monthly</button>
+      <button type="button" class="lp-toggle-btn active" id="price-toggle-yearly" data-i18n-html="pricing_yearly">Yearly <span class="plan-badge">Save 2 Months</span></button>
     </div>
 
     <div class="lp-price-grid">
       <div class="lp-price-card" id="price-card">
-        <div class="lp-price-ribbon" id="price-ribbon">Disyorkan</div>
-        <p class="hint" style="text-transform:uppercase; font-size:0.75rem; font-weight:700; letter-spacing:0.04em; color:var(--stamp); margin:0 0 0.3rem;">Starter</p>
-        <div class="amount" id="price-amount">RM190<span>/tahun</span></div>
-        <p class="hint" id="price-sub">= RM15.83/bulan, jimat 2 bulan, lepas trial 14 hari</p>
+        <div class="lp-price-ribbon" id="price-ribbon" data-i18n="pricing_recommended">Recommended</div>
+        <p class="hint" style="text-transform:uppercase; font-size:0.75rem; font-weight:700; letter-spacing:0.04em; color:var(--stamp); margin:0 0 0.3rem;" data-i18n="pricing_starter">Starter</p>
+        <div class="amount" id="price-amount">RM190<span>/year</span></div>
+        <p class="hint" id="price-sub">= RM15.83/month, save 2 months, after 14-day trial</p>
         <ul>
-          <li>1 link booking + embed website</li>
-          <li>Jenis perkhidmatan tanpa had (tempoh/harga/kapasiti berbeza)</li>
-          <li>Deposit & reminder bayaran automatik</li>
-          <li>Reschedule/cancel self-serve</li>
-          <li>Multi-bahasa (BM/EN/中文/தமிழ்) untuk customer</li>
-          <li>Cash-flow forecast & risk scoring</li>
+          <li data-i18n="pricing_starter_feat1">1 booking link, plus website embed</li>
+          <li data-i18n="pricing_starter_feat2">Unlimited service types (different durations, prices, capacities)</li>
+          <li data-i18n="pricing_starter_feat3">Automatic deposit and reminders, checked once a day</li>
+          <li data-i18n="pricing_starter_feat4">Self-serve reschedule and cancel</li>
+          <li data-i18n="pricing_starter_feat5">Multi-language (BM/EN/中文/தமிழ்) for customers</li>
+          <li data-i18n="pricing_starter_feat6">Cash-flow forecast and risk scoring</li>
+          <li data-i18n="pricing_starter_feat7">Monthly summary email</li>
         </ul>
-        <a href="/login.html" class="btn" style="width:100%;">Mula Percuma</a>
+        <a href="/login.html" class="btn" style="width:100%;" data-i18n="pricing_cta">Start Free</a>
       </div>
 
       <div class="lp-price-card" id="pro-price-card">
-        <p class="hint" style="text-transform:uppercase; font-size:0.75rem; font-weight:700; letter-spacing:0.04em; color:var(--stamp); margin:0 0 0.3rem;">Pro</p>
-        <div class="amount" id="pro-price-amount">RM390<span>/tahun</span></div>
-        <p class="hint" id="pro-price-sub">= RM32.50/bulan, untuk owner yang run lebih dari satu bisnes atau venture</p>
+        <p class="hint" style="text-transform:uppercase; font-size:0.75rem; font-weight:700; letter-spacing:0.04em; color:var(--stamp); margin:0 0 0.3rem;" data-i18n="pricing_pro">Pro</p>
+        <div class="amount" id="pro-price-amount">RM390<span>/year</span></div>
+        <p class="hint" id="pro-price-sub">= RM32.50/month</p>
         <ul>
-          <li>Semua dalam Starter</li>
-          <li><strong>Sehingga 3 link booking</strong>, slug berasingan untuk setiap venture</li>
-          <li>Sesuai untuk multi-bisnes bawah satu akaun</li>
+          <li data-i18n="pricing_pro_feat1">Everything in Starter</li>
+          <li data-i18n="pricing_pro_feat2">Up to 3 booking links, each fully independent</li>
+          <li data-i18n="pricing_pro_feat3">Reminders checked every 2 hours, not once a day</li>
+          <li data-i18n="pricing_pro_feat4">Weekly summary email instead of monthly</li>
+          <li data-i18n="pricing_pro_feat5">Pro badge on your forum posts</li>
         </ul>
-        <a href="/login.html" class="btn secondary" style="width:100%;">Mula Percuma</a>
+        <a href="/login.html" class="btn secondary" style="width:100%;" data-i18n="pricing_cta">Start Free</a>
       </div>
     </div>
   </section>
@@ -826,20 +829,22 @@
     document.getElementById("price-toggle-monthly").addEventListener("click", () => {
       document.getElementById("price-toggle-monthly").classList.add("active");
       document.getElementById("price-toggle-yearly").classList.remove("active");
-      document.getElementById("price-amount").innerHTML = 'RM19<span>/bulan</span>';
-      document.getElementById("price-sub").textContent = "14 hari percuba percuma, tak perlu kad kredit";
-      document.getElementById("pro-price-amount").innerHTML = 'RM39<span>/bulan</span>';
-      document.getElementById("pro-price-sub").textContent = "Untuk owner yang run lebih dari satu bisnes/venture";
+      const isMs = document.documentElement.getAttribute("lang") === "ms";
+      document.getElementById("price-amount").innerHTML = isMs ? 'RM19<span>/bulan</span>' : 'RM19<span>/month</span>';
+      document.getElementById("price-sub").textContent = isMs ? "Trial 14 hari, tak perlu kad kredit" : "14-day trial, no card needed";
+      document.getElementById("pro-price-amount").innerHTML = isMs ? 'RM39<span>/bulan</span>' : 'RM39<span>/month</span>';
+      document.getElementById("pro-price-sub").textContent = "";
       document.getElementById("price-ribbon").style.display = "none";
       document.getElementById("price-card").classList.remove("featured");
     });
     document.getElementById("price-toggle-yearly").addEventListener("click", () => {
       document.getElementById("price-toggle-yearly").classList.add("active");
       document.getElementById("price-toggle-monthly").classList.remove("active");
-      document.getElementById("price-amount").innerHTML = 'RM190<span>/tahun</span>';
-      document.getElementById("price-sub").textContent = "= RM15.83/bulan, jimat 2 bulan, lepas trial 14 hari";
-      document.getElementById("pro-price-amount").innerHTML = 'RM390<span>/tahun</span>';
-      document.getElementById("pro-price-sub").textContent = "= RM32.50/bulan, untuk owner yang run lebih dari satu bisnes atau venture";
+      const isMs = document.documentElement.getAttribute("lang") === "ms";
+      document.getElementById("price-amount").innerHTML = isMs ? 'RM190<span>/tahun</span>' : 'RM190<span>/year</span>';
+      document.getElementById("price-sub").textContent = isMs ? "= RM15.83/bulan, jimat 2 bulan, lepas trial 14 hari" : "= RM15.83/month, save 2 months, after 14-day trial";
+      document.getElementById("pro-price-amount").innerHTML = isMs ? 'RM390<span>/tahun</span>' : 'RM390<span>/year</span>';
+      document.getElementById("pro-price-sub").textContent = isMs ? "= RM32.50/bulan" : "= RM32.50/month";
       document.getElementById("price-ribbon").style.display = "block";
       document.getElementById("price-card").classList.add("featured");
     });

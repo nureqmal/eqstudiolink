@@ -25,12 +25,20 @@ export async function onRequestGet(context) {
     for (const r of reactions) reactionCountByThread.set(r.thread_id, (reactionCountByThread.get(r.thread_id) || 0) + 1);
     const catById = new Map(categories.map(c => [c.id, c]));
 
+    const ownerIds = [...new Set(threads.map(t => t.owner_id).filter(Boolean))];
+    let tierByOwner = new Map();
+    if (ownerIds.length > 0) {
+      const profs = await sbAdmin(env, `/profiles?id=in.(${ownerIds.join(",")})&select=id,tier`);
+      tierByOwner = new Map(profs.map(p => [p.id, p.tier]));
+    }
+
     const result = threads.map(t => ({
       ...t,
       reply_count: replyCountByThread.get(t.id) || 0,
       reaction_count: reactionCountByThread.get(t.id) || 0,
       category_slug: catById.get(t.category_id)?.slug || null,
       category_name: catById.get(t.category_id)?.name || null,
+      author_tier: tierByOwner.get(t.owner_id) || null,
     }));
 
     return new Response(JSON.stringify({ categories, threads: result }), { headers: { "content-type": "application/json" } });

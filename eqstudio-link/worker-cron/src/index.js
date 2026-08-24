@@ -513,7 +513,7 @@ function escapeHtml(str) {
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-async function runReminderSweep(env) {
+async function runReminderSweep(env, { proOnly = false } = {}) {
   const today = todayISO();
 
   // 1. Fetch every owner's reminder schedule and business profile (for email branding)
@@ -521,7 +521,7 @@ async function runReminderSweep(env) {
   const settings = await sb(env, "/reminder_settings?select=owner_id,days_before");
   const scheduleByOwner = new Map(settings.map(s => [s.owner_id, s.days_before]));
 
-  const profiles = await sb(env, "/profiles?select=id,business_name,contact_phone,contact_email,business_address,logo_url,brand_color,bank_name,bank_account_number,bank_account_holder,qr_code_url,ssm_number");
+  const profiles = await sb(env, "/profiles?select=id,business_name,contact_phone,contact_email,business_address,logo_url,brand_color,bank_name,bank_account_number,bank_account_holder,qr_code_url,ssm_number,tier");
   const profileByOwner = new Map(profiles.map(p => [p.id, p]));
 
   const customers = await sb(env, "/customers?select=*&status=neq.dah_bayar");
@@ -529,6 +529,12 @@ async function runReminderSweep(env) {
   // 2. Work out which customers match today's schedule
   const candidates = [];
   for (const c of customers) {
+    // Reminder frequency by tier: Pro owners get checked every 2 hours (this sweep
+    // running on both the daily AND frequent triggers), Starter owners only get
+    // caught by the once-daily trigger. proOnly=true means "this is the frequent
+    // trigger — skip anyone who isn't Pro" so Starter reminders aren't duplicated
+    // or double-processed outside their once-daily cadence.
+    if (proOnly && profileByOwner.get(c.owner_id)?.tier !== "pro") continue;
     const schedule = scheduleByOwner.get(c.owner_id) || [3, 1, 0];
     const offset = daysBetween(c.due_date, today);
     if (schedule.includes(offset)) candidates.push({ customer: c, offset });
@@ -842,6 +848,7 @@ async function sendDigestEmail(env, ownerId, ownerEmail, stats, profile) {
 
 async function runDigestSweep(env) {
   const today = todayISO();
+  const now = new Date();
   const customers = await sb(env, "/customers?select=owner_id,due_date,status");
   const byOwner = new Map();
 
@@ -854,14 +861,30 @@ async function runDigestSweep(env) {
     if (c.due_date < today) stats.overdue++;
   }
 
-  let sent = 0, failed = 0;
+  // Digest cadence by tier: Pro gets a weekly summary, Starter gets monthly.
+  // This applies during trial too (whichever tier they're trialing), which
+  // also solves the "digest felt too frequent during trial" concern, since
+  // nobody gets it daily any more regardless of trial/paid status.
+  const CADENCE_DAYS = { pro: 7, starter: 30 };
+  const profiles = await sb(env, "/profiles?select=id,tier,last_digest_sent_at");
+  const profileByOwner = new Map(profiles.map(p => [p.id, p]));
+
+  let sent = 0, failed = 0, skippedNotDue = 0;
   for (const [ownerId, stats] of byOwner.entries()) {
     if (stats.due === 0 && stats.reminded === 0 && stats.overdue === 0) continue;
+
+    const ownerProfile = profileByOwner.get(ownerId);
+    const cadenceDays = CADENCE_DAYS[ownerProfile?.tier] || CADENCE_DAYS.starter;
+    const lastSent = ownerProfile?.last_digest_sent_at ? new Date(ownerProfile.last_digest_sent_at) : null;
+    const daysSinceLast = lastSent ? (now - lastSent) / (24 * 60 * 60 * 1000) : Infinity;
+    if (daysSinceLast < cadenceDays) { skippedNotDue++; continue; }
+
     try {
       const email = await getUserEmail(env, ownerId);
       if (!email) continue;
       const profRes = await sb(env, `/profiles?id=eq.${ownerId}&select=business_name,brand_color,logo_url`);
       await sendDigestEmail(env, ownerId, email, stats, profRes[0]);
+      await sb(env, `/profiles?id=eq.${ownerId}`, { method: "PATCH", prefer: "return=minimal", body: JSON.stringify({ last_digest_sent_at: now.toISOString() }) });
       sent++;
     } catch (err) {
       console.error(err.message);
@@ -869,7 +892,7 @@ async function runDigestSweep(env) {
     }
   }
 
-  console.log(`Digest sweep done: sent=${sent} failed=${failed}`);
+  console.log(`Digest sweep done: sent=${sent} failed=${failed} skipped_not_due=${skippedNotDue}`);
   return { sent, failed };
 }
 
@@ -939,9 +962,9 @@ async function runAppointmentReminderSweep(env) {
 // Wraps a sweep so a thrown error doesn't just vanish into Cloudflare's logs unseen —
 // emails the founder so a genuine failure (e.g. Supabase blip) doesn't silently mean
 // zero reminders went out that day with nobody noticing.
-async function safeRun(sweepName, fn, env) {
+async function safeRun(sweepName, fn, env, opts) {
   try {
-    await fn(env);
+    await fn(env, opts);
     try {
       await sb(env, "/cron_runs", { method: "POST", body: JSON.stringify({ sweep_name: sweepName, status: "success" }) });
     } catch { /* logging itself is best-effort */ }
@@ -977,8 +1000,10 @@ export default {
       ctx.waitUntil(safeRun("Digest", runDigestSweep, env));
       ctx.waitUntil(safeRun("Appointment Reminder", runAppointmentReminderSweep, env));
     } else {
-      // Frequent trigger (every 2 hours) — reminders only, see wrangler.toml comment
-      ctx.waitUntil(safeRun("Reminders (frequent)", runReminderSweep, env));
+      // Frequent trigger (every 2 hours) — Pro-tier reminders only. Starter owners
+      // are covered once daily by the full sweep above; this is the Pro-exclusive
+      // faster-cadence benefit agreed with the founder.
+      ctx.waitUntil(safeRun("Reminders (frequent)", runReminderSweep, env, { proOnly: true }));
     }
   },
   // Manual trigger for testing: visit the Worker URL with ?key=<a secret you set>

@@ -27,7 +27,7 @@ export async function onRequestPost(context) {
   }
 
   try {
-    const { owner_id, action, days } = await request.json();
+    const { owner_id, action, days, tier } = await request.json();
     if (!owner_id || !action) return json({ error: "owner_id dan action diperlukan." }, 400);
 
     if (action === "suspend") {
@@ -85,6 +85,15 @@ export async function onRequestPost(context) {
       if (!linkRes.ok) return json({ error: `Gagal jana link: ${await linkRes.text()}` }, 502);
       const linkData = await linkRes.json();
       return json({ success: true, reset_link: linkData.action_link, email: userData.email });
+    }
+
+    if (action === "change_tier") {
+      if (tier !== "starter" && tier !== "pro") return json({ error: "tier mesti 'starter' atau 'pro'." }, 400);
+      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ tier }),
+      });
+      return json({ success: true, tier });
     }
 
     if (action === "delete") {

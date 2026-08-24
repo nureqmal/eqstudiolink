@@ -121,7 +121,7 @@
           </div>
           <table>
             <thead>
-              <tr><th>Bisnes</th><th>Emel</th><th>Daftar</th><th>Subscription</th><th>Customer</th><th>Booking</th><th>Status</th><th></th></tr>
+              <tr><th>Bisnes</th><th>Emel</th><th>Daftar</th><th>Plan</th><th>Subscription</th><th>Customer</th><th>Booking</th><th>Status</th><th></th></tr>
             </thead>
             <tbody id="owner-tbody"></tbody>
           </table>
@@ -389,6 +389,7 @@
           <td data-label="Bisnes">${escapeHtml(o.business_name)}</td>
           <td data-label="Emel">${escapeHtml(o.email)}</td>
           <td data-label="Daftar">${new Date(o.created_at).toLocaleDateString("ms-MY")}</td>
+          <td data-label="Plan"><span class="badge ${o.tier === "pro" ? "dah_bayar" : "pending"}">${o.tier === "pro" ? "Pro" : "Starter"}</span></td>
           <td data-label="Subscription">${subLabel}</td>
           <td data-label="Customer">${o.customer_count}</td>
           <td data-label="Booking">${o.booking_slug ? `<span class="badge dah_bayar">${o.booking_count}</span>` : '<span class="hint">— Tiada</span>'}</td>
@@ -427,6 +428,25 @@
         resetBtn.textContent = "Reset PW";
         resetBtn.addEventListener("click", () => performAction(o, "reset_password"));
         actionTd.appendChild(resetBtn);
+
+        const tierBtn = document.createElement("button");
+        tierBtn.className = "secondary";
+        tierBtn.style.marginRight = "0.4rem";
+        const otherTier = o.tier === "pro" ? "starter" : "pro";
+        tierBtn.textContent = `Jadikan ${otherTier === "pro" ? "Pro" : "Starter"}`;
+        tierBtn.addEventListener("click", async () => {
+          if (!confirm(`Tukar ${o.business_name} dari ${o.tier === "pro" ? "Pro" : "Starter"} ke ${otherTier === "pro" ? "Pro" : "Starter"}?`)) return;
+          const key = sessionStorage.getItem("eqstudio_admin_key");
+          const res = await fetch("/api/admin-owner-action", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-admin-key": key },
+            body: JSON.stringify({ owner_id: o.id, action: "change_tier", tier: otherTier }),
+          });
+          const result = await res.json();
+          if (!res.ok) { alert(result.error); return; }
+          loadOwners();
+        });
+        actionTd.appendChild(tierBtn);
 
         const deleteBtn = document.createElement("button");
         deleteBtn.className = "secondary";

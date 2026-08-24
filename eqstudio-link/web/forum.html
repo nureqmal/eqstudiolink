@@ -175,7 +175,7 @@
           <div style="display:flex; justify-content:space-between; gap:0.8rem; align-items:flex-start;">
             <div style="min-width:0;">
               ${t.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pinned</span>` : ""}
-              ${t.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}
+              ${t.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}${t.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pro</span>` : ""}
               <span class="hint" style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em;">${escapeHtml(t.category_name || "")}</span>
               <div><strong>${escapeHtml(t.title)}</strong></div>
               <div class="hint" style="font-size:0.83rem; margin-top:0.2rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(t.message.length > 110 ? t.message.slice(0, 110) + "…" : t.message)}</div>
@@ -199,7 +199,7 @@
         <a href="/forum.html" class="legal-back" style="text-decoration:none; color:var(--stamp); font-weight:600; font-size:0.85rem;">← Semua Thread</a>
         <div class="card" style="margin:1rem 0;">
           ${data.thread.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pinned</span>` : ""}
-          ${data.thread.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}
+          ${data.thread.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}${data.thread.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pro</span>` : ""}
           <h1 style="font-size:1.4rem; margin:0.5rem 0 0.2rem;">${escapeHtml(data.thread.title)}</h1>
           <p class="hint" style="margin-bottom:0.8rem;">oleh <strong>${escapeHtml(data.thread.author_name)}</strong> · ${fmtDate(data.thread.created_at)}</p>
           <p style="white-space:pre-wrap; line-height:1.7;">${escapeHtml(data.thread.message)}</p>
@@ -213,7 +213,7 @@
         <div id="replies-list">
           ${data.replies.map((r, i) => `
             <div class="card fade-in-row" style="animation-delay:${Math.min(i * 0.04, 0.4)}s; margin-bottom:0.8rem;">
-              ${r.is_founder ? `<span class="badge belum_bayar" style="margin-bottom:0.4rem; display:inline-block;">Team</span>` : ""}
+              ${r.is_founder ? `<span class="badge belum_bayar" style="margin-bottom:0.4rem; display:inline-block;">Team</span>` : ""}${r.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-bottom:0.4rem; display:inline-block;">Pro</span>` : ""}
               <p class="hint" style="margin:0 0 0.4rem;"><strong>${escapeHtml(r.author_name)}</strong> · ${fmtDate(r.created_at)}</p>
               <p style="white-space:pre-wrap; line-height:1.6; margin:0;">${escapeHtml(r.message)}</p>
             </div>

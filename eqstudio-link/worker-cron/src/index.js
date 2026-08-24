@@ -942,8 +942,14 @@ async function runAppointmentReminderSweep(env) {
 async function safeRun(sweepName, fn, env) {
   try {
     await fn(env);
+    try {
+      await sb(env, "/cron_runs", { method: "POST", body: JSON.stringify({ sweep_name: sweepName, status: "success" }) });
+    } catch { /* logging itself is best-effort */ }
   } catch (err) {
     console.error(`${sweepName} sweep failed:`, err);
+    try {
+      await sb(env, "/cron_runs", { method: "POST", body: JSON.stringify({ sweep_name: sweepName, status: "failed", error_message: String(err.message || err).slice(0, 500) }) });
+    } catch { /* logging itself is best-effort */ }
     try {
       if (env.RESEND_API_KEY && env.FOUNDER_NOTIFY_EMAIL) {
         await fetch("https://api.resend.com/emails", {

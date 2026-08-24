@@ -15,13 +15,8 @@
 </script>
 </head>
 <body>
-  <div class="topbar">
-    <span class="brand">eqstudio<span class="dot">.</span>link <span class="hint" style="font-family:var(--font-body); font-weight:500;">/ admin</span></span>
-    <button type="button" class="secondary" id="admin-theme-toggle" style="padding:0.4rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
-  </div>
-
-  <div class="wrap">
-    <div class="card gate-card-anim" id="gate-card">
+  <div class="wrap" style="max-width:420px;">
+    <div class="card gate-card-anim" id="gate-card" style="margin-top:4rem;">
       <span class="lp-eyebrow" style="margin-bottom:0.8rem;">Admin Sahaja</span>
       <h2 style="margin-top:0;">Admin Login</h2>
       <label for="admin-key">Admin Key</label>
@@ -29,92 +24,176 @@
       <button id="gate-btn" style="margin-top:1rem;">Masuk</button>
       <p class="error" id="gate-error" style="display:none;"></p>
     </div>
+  </div>
 
-    <div id="stats-skeleton" style="display:none;">
-      <div class="card" style="margin-bottom:1.5rem;">
-        <div class="skeleton" style="height:70px; border-radius:12px;"></div>
+  <div class="admin-shell" id="admin-shell" style="display:none;">
+    <div class="admin-sidebar">
+      <a href="/" class="brand" style="text-decoration:none;">eqstudio<span class="dot">.</span>link <span class="hint" style="font-family:var(--font-body); font-weight:500; display:block; font-size:0.7rem;">admin</span></a>
+      <div class="admin-nav">
+        <button type="button" class="admin-nav-btn active" data-admin-page="overview"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Overview</button>
+        <button type="button" class="admin-nav-btn" data-admin-page="metrics"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg> Metrics</button>
+        <button type="button" class="admin-nav-btn" data-admin-page="health"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg> System Health</button>
+        <button type="button" class="admin-nav-btn" data-admin-page="owners"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> Owners</button>
+        <button type="button" class="admin-nav-btn" data-admin-page="notices"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg> Notices</button>
+        <button type="button" class="admin-nav-btn" data-admin-page="forum"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Forum</button>
+        <button type="button" class="admin-nav-btn" data-admin-page="emaillog"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> Email Log</button>
       </div>
-      <div class="card"><div class="skeleton" style="height:180px; border-radius:12px;"></div></div>
+      <button type="button" class="secondary" id="admin-theme-toggle" style="width:100%;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> Mod Gelap</button>
     </div>
 
-    <div id="stats-wrap" style="display:none;">
-      <div class="admin-stat-grid" style="margin-bottom:1.5rem;">
-        <div class="admin-stat-card">
-          <div class="admin-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
-          <div class="num" id="stat-bookings">–</div><div class="label">Booking Aktif</div>
-        </div>
-        <div class="admin-stat-card">
-          <div class="admin-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-          <div class="num" id="stat-users">–</div><div class="label">Jumlah Business Owner</div>
-        </div>
-        <div class="admin-stat-card">
-          <div class="admin-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-          <div class="num" id="stat-customers">–</div><div class="label">Customer Ditrack</div>
-        </div>
-        <div class="admin-stat-card">
-          <div class="admin-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></div>
-          <div class="num" id="stat-reminders">–</div><div class="label">Reminder Dihantar</div>
-        </div>
-        <div class="admin-stat-card">
-          <div class="admin-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
-          <div class="num" id="stat-paid">–</div><div class="label">Dah Bayar</div>
-        </div>
-      </div>
-      <p class="hint" style="text-align:center; margin-bottom:1.5rem;" id="checked-at"></p>
-
-      <div class="card">
-        <div class="section-title">
-          <h2 style="margin:0;">Business Owner</h2>
-          <span class="hint" id="owner-count"></span>
-        </div>
-        <div class="db-search-row">
-          <input type="search" id="owner-search" placeholder="Cari nama bisnes atau emel..." />
-        </div>
-        <table>
-          <thead>
-            <tr><th>Bisnes</th><th>Emel</th><th>Daftar</th><th>Subscription</th><th>Customer</th><th>Booking</th><th>Status</th><th></th></tr>
-          </thead>
-          <tbody id="owner-tbody"></tbody>
-        </table>
-        <p class="hint" id="owner-empty" style="display:none;">Tiada business owner lagi.</p>
+    <div class="admin-main">
+      <div id="stats-skeleton" style="display:none;">
+        <div class="card" style="margin-bottom:1.5rem;"><div class="skeleton" style="height:70px; border-radius:12px;"></div></div>
+        <div class="card"><div class="skeleton" style="height:180px; border-radius:12px;"></div></div>
       </div>
 
-      <div class="card" style="margin-top:1.5rem;">
-        <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Kelola Forum</h2></div>
-        <p class="hint">Post sebagai "eqstudio.link Team" — pengumuman rasmi atau balasan kepada thread sedia ada.</p>
+      <div id="admin-page-overview" class="admin-page">
+        <div class="admin-stat-grid" style="margin-bottom:1.5rem;">
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+            <div class="num" id="stat-bookings">–</div><div class="label">Booking Aktif</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+            <div class="num" id="stat-users">–</div><div class="label">Jumlah Business Owner</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+            <div class="num" id="stat-customers">–</div><div class="label">Customer Ditrack</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></div>
+            <div class="num" id="stat-reminders">–</div><div class="label">Reminder Dihantar</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+            <div class="num" id="stat-paid">–</div><div class="label">Dah Bayar</div>
+          </div>
+        </div>
+        <p class="hint" style="text-align:center;" id="checked-at"></p>
+      </div>
 
-        <label for="forum-new-category">Kategori</label>
-        <select id="forum-new-category"></select>
-        <label for="forum-new-title">Tajuk Thread Baharu</label>
-        <input type="text" id="forum-new-title" />
-        <label for="forum-new-message">Mesej</label>
-        <textarea id="forum-new-message" rows="3"></textarea>
-        <label style="display:flex; align-items:center; gap:0.5rem; margin-top:0.6rem; cursor:pointer;">
-          <input type="checkbox" id="forum-new-pinned" style="width:auto;" /> <span style="font-size:0.9rem;">Pin thread ni</span>
-        </label>
-        <button type="button" id="forum-new-submit" style="margin-top:1rem;">Post Thread Baharu</button>
-        <p class="hint" id="forum-new-status" style="margin-top:0.5rem;"></p>
-
-        <div style="border-top:1px solid var(--paper-line); margin:1.5rem 0 1rem; padding-top:1rem;">
-          <label for="forum-browse-category">Semak & Balas Thread Sedia Ada</label>
-          <select id="forum-browse-category"></select>
-          <div id="forum-thread-browse" style="margin-top:0.8rem;"></div>
+      <div id="admin-page-metrics" class="admin-page" style="display:none;">
+        <div class="admin-stat-grid" style="margin-bottom:1.5rem; grid-template-columns:repeat(4,1fr);">
+          <div class="admin-stat-card">
+            <div class="num" id="metric-mrr">–</div><div class="label">MRR (Anggaran)</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="num" id="metric-conversion">–</div><div class="label">Conversion Rate</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="num" id="metric-signups-month">–</div><div class="label">Signup Bulan Ini</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="num" id="metric-trialing">–</div><div class="label">Sedang Trial</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-title"><h2 style="margin:0;">Pecahan Subscription</h2></div>
+          <table>
+            <thead><tr><th>Status</th><th style="text-align:right;">Jumlah</th></tr></thead>
+            <tbody id="metrics-breakdown-tbody"></tbody>
+          </table>
+          <p class="hint" style="margin-top:1rem;" id="metrics-notes"></p>
         </div>
       </div>
 
-      <div class="card" style="margin-top:1.5rem;">
-        <div class="section-title">
-          <h2 style="margin:0;">Emel Log</h2>
-          <span class="hint" id="email-log-count"></span>
+      <div id="admin-page-health" class="admin-page" style="display:none;">
+        <div class="card">
+          <div class="section-title"><h2 style="margin:0;">Status Cron Sweep</h2></div>
+          <p class="hint">Run terkini setiap sweep — kalau ada yang "Gagal" atau tak run baru-baru ni, semak Cloudflare Worker logs.</p>
+          <table>
+            <thead><tr><th>Sweep</th><th>Status</th><th>Masa Terakhir</th></tr></thead>
+            <tbody id="health-tbody"></tbody>
+          </table>
         </div>
-        <p class="hint" id="email-log-failed-banner" style="display:none; color:var(--warn); font-weight:600;"></p>
-        <table>
-          <thead>
-            <tr><th>Masa</th><th>Jenis</th><th>Penerima</th><th>Status</th><th>Ralat</th></tr>
-          </thead>
-          <tbody id="email-log-tbody"></tbody>
-        </table>
-        <p class="hint" id="email-log-empty" style="display:none;">Tiada rekod emel lagi.</p>
+      </div>
+
+      <div id="admin-page-owners" class="admin-page" style="display:none;">
+        <div class="card">
+          <div class="section-title">
+            <h2 style="margin:0;">Business Owner</h2>
+            <span class="hint" id="owner-count"></span>
+          </div>
+          <div class="db-search-row" style="align-items:center; gap:0.6rem;">
+            <input type="search" id="owner-search" placeholder="Cari nama bisnes atau emel..." style="flex:1;" />
+            <button type="button" class="secondary" id="owner-export-csv" style="width:auto; padding:0.5rem 1rem; font-size:0.85rem; white-space:nowrap;">Export CSV</button>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Bisnes</th><th>Emel</th><th>Daftar</th><th>Subscription</th><th>Customer</th><th>Booking</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody id="owner-tbody"></tbody>
+          </table>
+          <p class="hint" id="owner-empty" style="display:none;">Tiada business owner lagi.</p>
+        </div>
+
+        <div class="modal-overlay" id="owner-detail-modal" style="display:none;">
+          <div class="modal-box" style="max-width:560px; max-height:80vh; overflow-y:auto;">
+            <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="owner-detail-title">Detail Owner</h2></div>
+            <div id="owner-detail-body"><p class="hint">Memuatkan...</p></div>
+            <button type="button" class="secondary" id="owner-detail-close" style="width:100%; margin-top:1rem;">Tutup</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="admin-page-notices" class="admin-page" style="display:none;">
+        <div class="card">
+          <div class="section-title">
+            <h2 style="margin:0;">Notices / Banner</h2>
+            <button type="button" id="notice-add-btn" style="width:auto; padding:0.5rem 1rem; font-size:0.85rem;">+ Notice Baharu</button>
+          </div>
+          <p class="hint">Banner yang muncul di landing page dan/atau dashboard — boleh scheduled, target audience tertentu, dan boleh on/off bila-bila masa.</p>
+          <table>
+            <thead>
+              <tr><th>Kategori</th><th>Mesej</th><th>Status</th><th>Target</th><th>Lokasi</th><th></th></tr>
+            </thead>
+            <tbody id="notices-tbody"></tbody>
+          </table>
+          <p class="hint" id="notices-empty" style="display:none;">Tiada notice lagi. Klik "+ Notice Baharu" untuk mula.</p>
+        </div>
+      </div>
+
+      <div id="admin-page-forum" class="admin-page" style="display:none;">
+        <div class="card">
+          <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Kelola Forum</h2></div>
+          <p class="hint">Post sebagai "eqstudio.link Team" — pengumuman rasmi atau balasan kepada thread sedia ada.</p>
+
+          <label for="forum-new-category">Kategori</label>
+          <select id="forum-new-category"></select>
+          <label for="forum-new-title">Tajuk Thread Baharu</label>
+          <input type="text" id="forum-new-title" />
+          <label for="forum-new-message">Mesej</label>
+          <textarea id="forum-new-message" rows="3"></textarea>
+          <label style="display:flex; align-items:center; gap:0.5rem; margin-top:0.6rem; cursor:pointer;">
+            <input type="checkbox" id="forum-new-pinned" style="width:auto;" /> <span style="font-size:0.9rem;">Pin thread ni</span>
+          </label>
+          <button type="button" id="forum-new-submit" style="margin-top:1rem;">Post Thread Baharu</button>
+          <p class="hint" id="forum-new-status" style="margin-top:0.5rem;"></p>
+
+          <div style="border-top:1px solid var(--paper-line); margin:1.5rem 0 1rem; padding-top:1rem;">
+            <label for="forum-browse-category">Semak & Balas Thread Sedia Ada</label>
+            <select id="forum-browse-category"></select>
+            <div id="forum-thread-browse" style="margin-top:0.8rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="admin-page-emaillog" class="admin-page" style="display:none;">
+        <div class="card">
+          <div class="section-title">
+            <h2 style="margin:0;">Emel Log</h2>
+            <span class="hint" id="email-log-count"></span>
+          </div>
+          <p class="hint" id="email-log-failed-banner" style="display:none; color:var(--warn); font-weight:600;"></p>
+          <table>
+            <thead>
+              <tr><th>Masa</th><th>Jenis</th><th>Penerima</th><th>Status</th><th>Ralat</th></tr>
+            </thead>
+            <tbody id="email-log-tbody"></tbody>
+          </table>
+          <p class="hint" id="email-log-empty" style="display:none;">Tiada rekod emel lagi.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -130,6 +209,70 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="notice-modal" style="display:none;">
+    <div class="modal-box" style="max-width:560px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="notice-modal-title">Notice Baharu</h2></div>
+      <input type="hidden" id="notice-id" />
+
+      <label for="notice-category">Kategori</label>
+      <select id="notice-category">
+        <option value="info">Info (Biru)</option>
+        <option value="success">Success (Hijau)</option>
+        <option value="warning">Amaran (Kuning)</option>
+        <option value="critical">Kritikal (Merah)</option>
+      </select>
+
+      <label for="notice-message">Mesej</label>
+      <textarea id="notice-message" rows="2"></textarea>
+
+      <div class="row">
+        <div><label for="notice-cta-text">CTA Text (optional)</label><input type="text" id="notice-cta-text" placeholder="cth: Baca lanjut" /></div>
+        <div><label for="notice-cta-url">CTA URL (optional)</label><input type="text" id="notice-cta-url" placeholder="/forum.html" /></div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="notice-audience">Target Audience</label>
+          <select id="notice-audience">
+            <option value="all">Semua</option>
+            <option value="trial">Trial sahaja</option>
+            <option value="starter">Starter sahaja</option>
+            <option value="pro">Pro sahaja</option>
+          </select>
+        </div>
+        <div>
+          <label for="notice-location">Target Lokasi</label>
+          <select id="notice-location">
+            <option value="both">Landing + Dashboard</option>
+            <option value="landing">Landing sahaja</option>
+            <option value="dashboard">Dashboard sahaja</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div><label for="notice-start">Tarikh Mula (optional)</label><input type="datetime-local" id="notice-start" /></div>
+        <div><label for="notice-end">Tarikh Tamat (optional)</label><input type="datetime-local" id="notice-end" /></div>
+      </div>
+
+      <label style="display:flex; align-items:center; gap:0.5rem; margin-top:0.8rem; cursor:pointer;">
+        <input type="checkbox" id="notice-dismissible" style="width:auto;" checked /> <span style="font-size:0.9rem;">Customer boleh tutup (dismiss) banner ni</span>
+      </label>
+      <label style="display:flex; align-items:center; gap:0.5rem; margin-top:0.5rem; cursor:pointer;">
+        <input type="checkbox" id="notice-active" style="width:auto;" checked /> <span style="font-size:0.9rem;">Aktif sekarang</span>
+      </label>
+
+      <p class="hint" style="margin-top:1rem;">Preview:</p>
+      <div id="notice-preview"></div>
+
+      <div class="row" style="margin-top:1.2rem;">
+        <button type="button" class="secondary" id="notice-cancel-btn" style="flex:1;">Batal</button>
+        <button type="button" id="notice-save-btn" style="flex:1;">Simpan</button>
+      </div>
+      <p class="error" id="notice-error" style="display:none;"></p>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="admin-modal" style="display:none;">
     <div class="modal-box">
       <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="admin-modal-title">Tindakan</h2></div>
@@ -138,7 +281,9 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { renderNotice } from "/assets/notices.js";
+
     // ── Dark mode toggle ──
     const themeBtn = document.getElementById("admin-theme-toggle");
     function applyAdminThemeIcon() {
@@ -191,12 +336,12 @@
 
       document.getElementById("gate-card").style.display = "none";
       document.getElementById("stats-skeleton").style.display = "none";
-      document.getElementById("stats-wrap").style.display = "block";
-      document.getElementById("stats-wrap").classList.add("page-enter");
+      document.getElementById("admin-shell").style.display = "flex";
       sessionStorage.setItem("eqstudio_admin_key", key);
       loadOwners();
       loadEmailLog();
       loadForumCategories();
+      loadAdminNotices();
     }
 
     gateBtn.addEventListener("click", () => {
@@ -251,6 +396,13 @@
           <td data-label=""></td>
         `;
         const actionTd = tr.lastElementChild;
+
+        const detailBtn = document.createElement("button");
+        detailBtn.className = "secondary";
+        detailBtn.style.marginRight = "0.4rem";
+        detailBtn.textContent = "Detail";
+        detailBtn.addEventListener("click", () => openOwnerDetail(o));
+        actionTd.appendChild(detailBtn);
 
         const suspendBtn = document.createElement("button");
         suspendBtn.className = "secondary";
@@ -430,9 +582,20 @@
       browseEl.innerHTML = data.threads.map(t => `
         <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid var(--paper-line);">
           <span style="font-size:0.88rem;">${escapeHtml(t.title)} <span class="hint">(${t.reply_count} balasan)</span></span>
-          <button type="button" class="secondary" data-thread-id="${t.id}" data-thread-title="${escapeHtml(t.title)}">Balas</button>
+          <span>
+            <button type="button" class="secondary" data-thread-id="${t.id}" data-thread-title="${escapeHtml(t.title)}" style="margin-right:0.4rem;">Balas</button>
+            <button type="button" class="secondary" data-delete-thread-id="${t.id}" style="color:var(--warn);">Padam</button>
+          </span>
         </div>
       `).join("");
+      browseEl.querySelectorAll("[data-delete-thread-id]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          if (!confirm("Padam thread ni (dan semua balasan)? Tindakan ni tak boleh undo.")) return;
+          const key = sessionStorage.getItem("eqstudio_admin_key");
+          await fetch(`/api/forum-admin-post?thread_id=${btn.dataset.deleteThreadId}`, { method: "DELETE", headers: { "x-admin-key": key } });
+          document.getElementById("forum-browse-category").dispatchEvent(new Event("change"));
+        });
+      });
       browseEl.querySelectorAll("[data-thread-id]").forEach(btn => {
         btn.addEventListener("click", () => {
           forumReplyThreadId = btn.dataset.threadId;
@@ -461,6 +624,245 @@
       document.getElementById("forum-reply-modal").style.display = "none";
       document.getElementById("forum-browse-category").dispatchEvent(new Event("change"));
     });
+
+    // ── Sidebar page switching ──
+    document.querySelectorAll("[data-admin-page]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("[data-admin-page]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.querySelectorAll(".admin-page").forEach(p => p.style.display = "none");
+        document.getElementById(`admin-page-${btn.dataset.adminPage}`).style.display = "block";
+      });
+    });
+
+    // ── Notices / Banner management ──
+    const NOTICE_CATEGORY_LABEL = { info: "Info", success: "Success", warning: "Amaran", critical: "Kritikal" };
+    const NOTICE_AUDIENCE_LABEL = { all: "Semua", trial: "Trial", starter: "Starter", pro: "Pro" };
+    const NOTICE_LOCATION_LABEL = { both: "Landing + Dashboard", landing: "Landing", dashboard: "Dashboard" };
+    let allNotices = [];
+
+    function noticeStatusLabel(n) {
+      if (!n.is_active) return { text: "Tak aktif", cls: "belum_bayar" };
+      const now = new Date();
+      if (n.start_at && new Date(n.start_at) > now) return { text: "Berjadual", cls: "pending" };
+      if (n.end_at && new Date(n.end_at) < now) return { text: "Tamat", cls: "belum_bayar" };
+      return { text: "Aktif", cls: "dah_bayar" };
+    }
+
+    async function loadAdminNotices() {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const res = await fetch("/api/admin-notices", { headers: { "x-admin-key": key } });
+      const data = await res.json();
+      if (!res.ok) return;
+      allNotices = data.notices;
+      renderNoticesTable();
+    }
+
+    function renderNoticesTable() {
+      const tbody = document.getElementById("notices-tbody");
+      document.getElementById("notices-empty").style.display = allNotices.length ? "none" : "block";
+      tbody.innerHTML = allNotices.map((n, i) => {
+        const status = noticeStatusLabel(n);
+        return `
+          <tr class="fade-in-row" style="animation-delay:${Math.min(i * 0.03, 0.4)}s;">
+            <td><span class="badge dah_bayar" style="background:var(--paper);">${NOTICE_CATEGORY_LABEL[n.category]}</span></td>
+            <td style="max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(n.message)}</td>
+            <td><span class="badge ${status.cls}">${status.text}</span></td>
+            <td class="hint" style="font-size:0.78rem;">${NOTICE_AUDIENCE_LABEL[n.target_audience]}</td>
+            <td class="hint" style="font-size:0.78rem;">${NOTICE_LOCATION_LABEL[n.target_location]}</td>
+            <td style="white-space:nowrap;">
+              <button type="button" class="secondary" data-edit-notice="${n.id}" style="padding:0.3rem 0.6rem; font-size:0.78rem;">Edit</button>
+              <button type="button" class="secondary" data-delete-notice="${n.id}" style="padding:0.3rem 0.6rem; font-size:0.78rem; color:var(--warn);">Padam</button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      tbody.querySelectorAll("[data-edit-notice]").forEach(btn => {
+        btn.addEventListener("click", () => openNoticeModal(allNotices.find(n => n.id === btn.dataset.editNotice)));
+      });
+      tbody.querySelectorAll("[data-delete-notice]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          if (!confirm("Padam notice ni? Tindakan ni tak boleh undo.")) return;
+          const key = sessionStorage.getItem("eqstudio_admin_key");
+          await fetch(`/api/admin-notices?id=${btn.dataset.deleteNotice}`, { method: "DELETE", headers: { "x-admin-key": key } });
+          loadAdminNotices();
+        });
+      });
+    }
+
+    function updateNoticePreview() {
+      const draft = {
+        id: "preview",
+        category: document.getElementById("notice-category").value,
+        message: document.getElementById("notice-message").value.trim() || "Contoh mesej notice akan muncul di sini...",
+        cta_text: document.getElementById("notice-cta-text").value.trim(),
+        cta_url: document.getElementById("notice-cta-url").value.trim(),
+        is_dismissible: document.getElementById("notice-dismissible").checked,
+      };
+      document.getElementById("notice-preview").innerHTML = renderNotice(draft);
+      // Preview shouldn't actually be dismissible/clickable in the modal
+      const previewEl = document.getElementById("notice-preview");
+      previewEl.querySelector(".notice-banner-dismiss")?.setAttribute("disabled", "true");
+    }
+
+    ["notice-category", "notice-message", "notice-cta-text", "notice-cta-url", "notice-dismissible"].forEach(id => {
+      document.getElementById(id).addEventListener("input", updateNoticePreview);
+      document.getElementById(id).addEventListener("change", updateNoticePreview);
+    });
+
+    function openNoticeModal(notice) {
+      document.getElementById("notice-error").style.display = "none";
+      document.getElementById("notice-modal-title").textContent = notice ? "Edit Notice" : "Notice Baharu";
+      document.getElementById("notice-id").value = notice?.id || "";
+      document.getElementById("notice-category").value = notice?.category || "info";
+      document.getElementById("notice-message").value = notice?.message || "";
+      document.getElementById("notice-cta-text").value = notice?.cta_text || "";
+      document.getElementById("notice-cta-url").value = notice?.cta_url || "";
+      document.getElementById("notice-audience").value = notice?.target_audience || "all";
+      document.getElementById("notice-location").value = notice?.target_location || "both";
+      document.getElementById("notice-start").value = notice?.start_at ? notice.start_at.slice(0, 16) : "";
+      document.getElementById("notice-end").value = notice?.end_at ? notice.end_at.slice(0, 16) : "";
+      document.getElementById("notice-dismissible").checked = notice?.is_dismissible !== false;
+      document.getElementById("notice-active").checked = notice ? notice.is_active : true;
+      updateNoticePreview();
+      document.getElementById("notice-modal").style.display = "flex";
+    }
+
+    document.getElementById("notice-add-btn").addEventListener("click", () => openNoticeModal(null));
+    document.getElementById("notice-cancel-btn").addEventListener("click", () => {
+      document.getElementById("notice-modal").style.display = "none";
+    });
+
+    document.getElementById("notice-save-btn").addEventListener("click", async () => {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const errorEl = document.getElementById("notice-error");
+      errorEl.style.display = "none";
+
+      const payload = {
+        id: document.getElementById("notice-id").value || undefined,
+        category: document.getElementById("notice-category").value,
+        message: document.getElementById("notice-message").value.trim(),
+        cta_text: document.getElementById("notice-cta-text").value.trim(),
+        cta_url: document.getElementById("notice-cta-url").value.trim(),
+        target_audience: document.getElementById("notice-audience").value,
+        target_location: document.getElementById("notice-location").value,
+        start_at: document.getElementById("notice-start").value ? new Date(document.getElementById("notice-start").value).toISOString() : null,
+        end_at: document.getElementById("notice-end").value ? new Date(document.getElementById("notice-end").value).toISOString() : null,
+        is_dismissible: document.getElementById("notice-dismissible").checked,
+        is_active: document.getElementById("notice-active").checked,
+        priority: 0,
+      };
+
+      if (!payload.message) { errorEl.textContent = "Mesej diperlukan."; errorEl.style.display = "block"; return; }
+
+      const res = await fetch("/api/admin-notices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-key": key },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+      if (!res.ok) { errorEl.textContent = result.error; errorEl.style.display = "block"; return; }
+
+      document.getElementById("notice-modal").style.display = "none";
+      loadAdminNotices();
+    });
+
+    // ── Metrics ──
+    async function loadMetrics() {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const res = await fetch("/api/admin-metrics", { headers: { "x-admin-key": key } });
+      const data = await res.json();
+      if (!res.ok) return;
+
+      document.getElementById("metric-mrr").textContent = "RM " + data.mrr;
+      document.getElementById("metric-conversion").textContent = data.conversion_rate + "%";
+      document.getElementById("metric-signups-month").textContent = data.signups_this_month;
+      document.getElementById("metric-trialing").textContent = data.counts.trialing;
+
+      document.getElementById("metrics-breakdown-tbody").innerHTML = `
+        <tr><td>Trial</td><td style="text-align:right;">${data.counts.trialing}</td></tr>
+        <tr><td>Aktif — Starter</td><td style="text-align:right;">${data.counts.starter}</td></tr>
+        <tr><td>Aktif — Pro</td><td style="text-align:right;">${data.counts.pro}</td></tr>
+        <tr><td>Tertunggak (Past Due)</td><td style="text-align:right;">${data.counts.past_due}</td></tr>
+        <tr><td>Cancelled/Suspended</td><td style="text-align:right;">${data.counts.cancelled}</td></tr>
+        <tr><td>Signup Bulan Lepas</td><td style="text-align:right;">${data.signups_last_month}</td></tr>
+      `;
+      document.getElementById("metrics-notes").innerHTML = `${escapeHtml(data.mrr_note)}<br>${escapeHtml(data.conversion_note)}`;
+    }
+
+    // ── System Health ──
+    async function loadHealth() {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const res = await fetch("/api/admin-metrics", { headers: { "x-admin-key": key } });
+      const data = await res.json();
+      if (!res.ok) return;
+
+      const tbody = document.getElementById("health-tbody");
+      tbody.innerHTML = Object.entries(data.last_run_by_sweep).map(([name, run]) => {
+        if (!run) return `<tr><td>${escapeHtml(name)}</td><td><span class="badge pending">Belum pernah run</span></td><td class="hint">—</td></tr>`;
+        const statusBadge = run.status === "success" ? '<span class="badge dah_bayar">Berjaya</span>' : `<span class="badge belum_bayar" title="${escapeHtml(run.error_message || "")}">Gagal</span>`;
+        return `<tr><td>${escapeHtml(name)}</td><td>${statusBadge}</td><td class="hint">${new Date(run.ran_at).toLocaleString("ms-MY")}</td></tr>`;
+      }).join("");
+    }
+
+    // Load metrics/health lazily when their sidebar page is first opened
+    document.querySelector('[data-admin-page="metrics"]').addEventListener("click", loadMetrics, { once: true });
+    document.querySelector('[data-admin-page="health"]').addEventListener("click", loadHealth, { once: true });
+
+    // ── Owner detail drill-down ──
+    async function openOwnerDetail(owner) {
+      document.getElementById("owner-detail-title").textContent = owner.business_name;
+      document.getElementById("owner-detail-body").innerHTML = `<p class="hint">Memuatkan...</p>`;
+      document.getElementById("owner-detail-modal").style.display = "flex";
+
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const res = await fetch(`/api/admin-owner-detail?owner_id=${owner.id}`, { headers: { "x-admin-key": key } });
+      const data = await res.json();
+      if (!res.ok) {
+        document.getElementById("owner-detail-body").innerHTML = `<p class="error">${escapeHtml(data.error)}</p>`;
+        return;
+      }
+
+      document.getElementById("owner-detail-body").innerHTML = `
+        <p class="hint" style="margin-bottom:1rem;">${escapeHtml(data.profile.email)} · ${data.profile.tier || "starter"} · ${STATUS_LABEL[data.profile.subscription_status] || data.profile.subscription_status}</p>
+        <div class="row" style="margin-bottom:1rem;">
+          <div class="admin-stat-card" style="flex:1;"><div class="num" style="font-size:1.1rem;">RM ${Number(data.total_paid).toFixed(2)}</div><div class="label">Diterima</div></div>
+          <div class="admin-stat-card" style="flex:1;"><div class="num" style="font-size:1.1rem;">RM ${Number(data.total_outstanding).toFixed(2)}</div><div class="label">Belum Diterima</div></div>
+          <div class="admin-stat-card" style="flex:1;"><div class="num" style="font-size:1.1rem;">${data.booking_links.length}</div><div class="label">Link Booking</div></div>
+        </div>
+        <p class="hint" style="font-weight:600; margin-bottom:0.4rem;">Link Booking</p>
+        ${data.booking_links.map(l => `<p class="hint" style="margin:0 0 0.3rem;">${escapeHtml(l.label)} — /book.html?slug=${escapeHtml(l.slug)}${l.is_primary ? " (Utama)" : ""}</p>`).join("") || '<p class="hint">Tiada.</p>'}
+        <p class="hint" style="font-weight:600; margin:1rem 0 0.4rem;">Booking Terkini</p>
+        ${data.recent_bookings.slice(0, 8).map(b => `<p class="hint" style="margin:0 0 0.3rem;">${escapeHtml(b.customer_name)} — ${new Date(b.slot_datetime).toLocaleDateString("ms-MY")} (${b.status})</p>`).join("") || '<p class="hint">Tiada booking lagi.</p>'}
+        <p class="hint" style="font-weight:600; margin:1rem 0 0.4rem;">Forum</p>
+        <p class="hint">${data.forum_thread_count} thread, ${data.forum_reply_count} balasan</p>
+      `;
+    }
+
+    document.getElementById("owner-detail-close").addEventListener("click", () => {
+      document.getElementById("owner-detail-modal").style.display = "none";
+    });
+
+    // ── Export owners to CSV (client-side, from already-loaded allOwners) ──
+    document.getElementById("owner-export-csv").addEventListener("click", () => {
+      if (!allOwners.length) return;
+      const headers = ["Bisnes", "Emel", "Tarikh Daftar", "Subscription", "Customer", "Booking", "Status"];
+      const rows = allOwners.map(o => [
+        o.business_name, o.email, new Date(o.created_at).toLocaleDateString("ms-MY"),
+        STATUS_LABEL[o.subscription_status] || o.subscription_status, o.customer_count, o.booking_count,
+        o.is_suspended ? "Digantung" : "Aktif",
+      ]);
+      const csv = [headers, ...rows].map(r => r.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `eqstudio-owners-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
   </script>
 </body>
 </html>

@@ -74,3 +74,22 @@ export async function onRequestPost(context) {
 function json(obj, status = 200) {
   return new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json" } });
 }
+
+export async function onRequestDelete(context) {
+  const { request, env } = context;
+  const adminKey = request.headers.get("x-admin-key");
+  if (!adminKey || adminKey !== env.ADMIN_DASHBOARD_KEY) return json({ error: "Unauthorized" }, 401);
+
+  const url = new URL(request.url);
+  const threadId = url.searchParams.get("thread_id");
+  if (!threadId) return json({ error: "thread_id diperlukan." }, 400);
+
+  try {
+    // Replies/reactions cascade-delete via FK on delete cascade (see forum schema).
+    const res = await sbAdmin(env, `/forum_threads?id=eq.${threadId}`, { method: "DELETE", prefer: "return=minimal" });
+    if (!res.ok) return json({ error: `Gagal padam thread: ${await res.text()}` }, 502);
+    return json({ success: true });
+  } catch (err) {
+    return json({ error: err.message }, 500);
+  }
+}

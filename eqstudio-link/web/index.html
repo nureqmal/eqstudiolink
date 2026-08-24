@@ -39,6 +39,10 @@
     </div>
   </nav>
 
+  <div class="wrap" style="padding-top:0.8rem; padding-bottom:0;">
+    <div id="notice-container"></div>
+  </div>
+
   <section class="lp-hero">
     <div>
       <span class="lp-eyebrow" data-i18n="hero_eyebrow">Booking & Client Manager for Solo Business Owners</span>
@@ -996,10 +1000,12 @@
 
   <script type="module">
     import { applyLanguage, getCurrentLang } from "/assets/i18n-ui.js";
+    import { loadNotices } from "/assets/notices.js";
     applyLanguage(getCurrentLang());
     document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
       btn.addEventListener("click", () => applyLanguage(btn.dataset.langToggle));
     });
+    loadNotices({ containerId: "notice-container", location: "landing" });
   </script>
 
 </body>

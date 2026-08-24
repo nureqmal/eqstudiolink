@@ -40,6 +40,10 @@
     </div>
 
     <main class="db-main">
+      <div class="wrap" style="padding-bottom:0;">
+        <div id="notice-container"></div>
+      </div>
+
       <div class="wrap">
 
         <div id="banner-slot"></div>
@@ -777,6 +781,7 @@
   <script type="module">
     import { supabase } from "/assets/supabase-client.js";
     import { showToast } from "/assets/toast.js";
+    import { loadNotices } from "/assets/notices.js";
 
     function flashButtonSuccess(btn, originalText) {
       if (!btn) return;
@@ -988,7 +993,7 @@
     // ── Profile (business name, contact info, brand color, subscription) ──
     const { data: profile } = await supabase
       .from("profiles")
-      .select("business_name, contact_phone, contact_email, business_address, logo_url, brand_color, bank_name, bank_account_number, bank_account_holder, qr_code_url, ssm_number, subscription_status, subscription_end_date, is_suspended, booking_slug, default_deposit_amount")
+      .select("business_name, contact_phone, contact_email, business_address, logo_url, brand_color, bank_name, bank_account_number, bank_account_holder, qr_code_url, ssm_number, subscription_status, subscription_end_date, is_suspended, booking_slug, default_deposit_amount, tier")
       .eq("id", user.id)
       .single();
 
@@ -996,6 +1001,8 @@
     document.getElementById("business-name-side").textContent = bizLabel;
     document.getElementById("mr-biz").textContent = bizLabel;
     document.getElementById("home-biz-name").textContent = bizLabel;
+
+    loadNotices({ containerId: "notice-container", location: "dashboard", tier: profile?.tier, isTrial: profile?.subscription_status === "trialing" });
 
     const { data: primaryLinkData } = await supabase.from("booking_links").select("slug").eq("owner_id", user.id).order("is_primary", { ascending: false }).order("created_at", { ascending: true }).limit(1).single();
 

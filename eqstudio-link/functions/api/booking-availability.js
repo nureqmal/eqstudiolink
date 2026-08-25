@@ -99,7 +99,7 @@ export async function onRequestGet(context) {
 
     const availability = await sbAdmin(env, `/availability?booking_link_id=eq.${link.id}&select=day_of_week,start_time,end_time`);
     if (availability.length === 0) {
-      return json({ business, event_types: eventTypes, slots_by_date: {}, questions, slot_duration_minutes: durationMinutes, capacity });
+      return json({ business, event_types: eventTypes, slots_by_date: {}, questions, slot_duration_minutes: durationMinutes, capacity, deposit_amount: depositAmount });
     }
 
     const availByDay = new Map();
@@ -137,7 +137,7 @@ export async function onRequestGet(context) {
       if (daySlots.length > 0) slotsByDate[dateKey] = daySlots;
     }
 
-    return json({ business, event_types: eventTypes, slot_duration_minutes: durationMinutes, capacity, slots_by_date: slotsByDate, questions });
+    return json({ business, event_types: eventTypes, slot_duration_minutes: durationMinutes, capacity, slots_by_date: slotsByDate, questions, deposit_amount: depositAmount });
   } catch (err) {
     return json({ error: err.message }, 500);
   }

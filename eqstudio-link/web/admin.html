@@ -600,14 +600,30 @@
       if (!res.ok) { browseEl.innerHTML = `<p class="error">${data.error}</p>`; return; }
       if (data.threads.length === 0) { browseEl.innerHTML = `<p class="hint">Tiada thread dalam kategori ni.</p>`; return; }
       browseEl.innerHTML = data.threads.map(t => `
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid var(--paper-line);">
-          <span style="font-size:0.88rem;">${escapeHtml(t.title)} <span class="hint">(${t.reply_count} balasan)</span></span>
-          <span>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid var(--paper-line); gap:0.6rem;">
+          <span style="font-size:0.88rem; flex:1;">${escapeHtml(t.title)} <span class="hint">(${t.reply_count} balasan)</span></span>
+          <select data-status-thread-id="${t.id}" style="width:auto; padding:0.3rem 0.5rem; font-size:0.78rem;">
+            <option value="" ${!t.feature_status ? "selected" : ""}>Tiada status</option>
+            <option value="planned" ${t.feature_status === "planned" ? "selected" : ""}>Planned</option>
+            <option value="in_progress" ${t.feature_status === "in_progress" ? "selected" : ""}>In Progress</option>
+            <option value="shipped" ${t.feature_status === "shipped" ? "selected" : ""}>Shipped</option>
+          </select>
+          <span style="white-space:nowrap;">
             <button type="button" class="secondary" data-thread-id="${t.id}" data-thread-title="${escapeHtml(t.title)}" style="margin-right:0.4rem;">Balas</button>
             <button type="button" class="secondary" data-delete-thread-id="${t.id}" style="color:var(--warn);">Padam</button>
           </span>
         </div>
       `).join("");
+      browseEl.querySelectorAll("[data-status-thread-id]").forEach(select => {
+        select.addEventListener("change", async () => {
+          const key = sessionStorage.getItem("eqstudio_admin_key");
+          await fetch("/api/forum-admin-post", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json", "x-admin-key": key },
+            body: JSON.stringify({ thread_id: select.dataset.statusThreadId, feature_status: select.value || null }),
+          });
+        });
+      });
       browseEl.querySelectorAll("[data-delete-thread-id]").forEach(btn => {
         btn.addEventListener("click", async () => {
           if (!confirm("Padam thread ni (dan semua balasan)? Tindakan ni tak boleh undo.")) return;

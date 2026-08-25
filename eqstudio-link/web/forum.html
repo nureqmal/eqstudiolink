@@ -25,6 +25,7 @@
         <button type="button" class="lang-toggle-btn active" data-lang-toggle="en">EN</button>
         <button type="button" class="lang-toggle-btn" data-lang-toggle="ms">BM</button>
       </div>
+      <a href="/roadmap.html" class="plain">Roadmap</a>
       <a href="/login.html" class="plain" data-i18n="nav_login">Log In</a>
       <a href="/login.html" class="btn" data-i18n="nav_cta">Start Free</a>
     </div>
@@ -51,6 +52,12 @@
       const div = document.createElement("div");
       div.textContent = str ?? "";
       return div.innerHTML;
+    }
+    function featureStatusBadge(status) {
+      if (status === "planned") return `<span class="badge pending" style="margin-right:0.4rem;">Planned</span>`;
+      if (status === "in_progress") return `<span class="badge" style="margin-right:0.4rem; background:var(--stamp-soft); color:var(--stamp);">In Progress</span>`;
+      if (status === "shipped") return `<span class="badge dah_bayar" style="margin-right:0.4rem;">Shipped</span>`;
+      return "";
     }
     function fmtDate(iso) {
       return new Date(iso).toLocaleString("ms-MY", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
@@ -175,7 +182,7 @@
           <div style="display:flex; justify-content:space-between; gap:0.8rem; align-items:flex-start;">
             <div style="min-width:0;">
               ${t.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pinned</span>` : ""}
-              ${t.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}${t.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pro</span>` : ""}
+              ${t.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}${t.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pro</span>` : ""}${featureStatusBadge(t.feature_status)}
               <span class="hint" style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em;">${escapeHtml(t.category_name || "")}</span>
               <div><strong>${escapeHtml(t.title)}</strong></div>
               <div class="hint" style="font-size:0.83rem; margin-top:0.2rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(t.message.length > 110 ? t.message.slice(0, 110) + "…" : t.message)}</div>
@@ -199,7 +206,7 @@
         <a href="/forum.html" class="legal-back" style="text-decoration:none; color:var(--stamp); font-weight:600; font-size:0.85rem;">← Semua Thread</a>
         <div class="card" style="margin:1rem 0;">
           ${data.thread.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pinned</span>` : ""}
-          ${data.thread.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}${data.thread.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pro</span>` : ""}
+          ${data.thread.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}${data.thread.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pro</span>` : ""}${featureStatusBadge(data.thread.feature_status)}
           <h1 style="font-size:1.4rem; margin:0.5rem 0 0.2rem;">${escapeHtml(data.thread.title)}</h1>
           <p class="hint" style="margin-bottom:0.8rem;">oleh <strong>${escapeHtml(data.thread.author_name)}</strong> · ${fmtDate(data.thread.created_at)}</p>
           <p style="white-space:pre-wrap; line-height:1.7;">${escapeHtml(data.thread.message)}</p>

@@ -75,6 +75,29 @@ function json(obj, status = 200) {
   return new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json" } });
 }
 
+export async function onRequestPatch(context) {
+  const { request, env } = context;
+  const adminKey = request.headers.get("x-admin-key");
+  if (!adminKey || adminKey !== env.ADMIN_DASHBOARD_KEY) return json({ error: "Unauthorized" }, 401);
+
+  try {
+    const { thread_id, feature_status } = await request.json();
+    if (!thread_id) return json({ error: "thread_id diperlukan." }, 400);
+    const validStatuses = [null, "planned", "in_progress", "shipped"];
+    if (!validStatuses.includes(feature_status)) return json({ error: "feature_status tidak sah." }, 400);
+
+    const res = await sbAdmin(env, `/forum_threads?id=eq.${thread_id}`, {
+      method: "PATCH",
+      prefer: "return=minimal",
+      body: JSON.stringify({ feature_status }),
+    });
+    if (!res.ok) return json({ error: `Gagal update status: ${await res.text()}` }, 502);
+    return json({ success: true });
+  } catch (err) {
+    return json({ error: err.message }, 500);
+  }
+}
+
 export async function onRequestDelete(context) {
   const { request, env } = context;
   const adminKey = request.headers.get("x-admin-key");

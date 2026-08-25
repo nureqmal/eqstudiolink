@@ -92,6 +92,12 @@
             <div id="home-trend-chart" style="margin-top:0.6rem;"></div>
           </div>
 
+          <div class="card" id="home-next-action-card" style="margin-bottom:1.5rem; display:none; border-left:4px solid var(--stamp);">
+            <p class="hint" style="text-transform:uppercase; font-size:0.7rem; font-weight:700; letter-spacing:0.03em; color:var(--stamp); margin:0 0 0.5rem;">Next Action</p>
+            <p style="font-weight:600; margin:0 0 0.8rem; font-size:0.95rem;" id="home-next-action-text"></p>
+            <button type="button" class="secondary" id="home-next-action-btn" style="width:auto; padding:0.5rem 1rem; font-size:0.85rem;"></button>
+          </div>
+
           <div class="card" id="home-recent-bookings-card" style="margin-bottom:1.5rem; display:none;">
             <div class="section-title"><h2 style="margin:0; font-size:0.95rem;">Booking Terbaru</h2></div>
             <div style="overflow-x:auto; margin-top:0.6rem;">
@@ -749,6 +755,83 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="wizard-modal" style="display:none;">
+    <div class="modal-box" style="max-width:460px;">
+      <div style="text-align:right; margin-bottom:0.3rem;">
+        <button type="button" id="wizard-skip-btn" class="secondary" style="padding:0.25rem 0.6rem; font-size:0.75rem; width:auto;">Skip for now</button>
+      </div>
+      <p class="hint" id="wizard-progress" style="text-align:center; margin:0 0 1rem;"></p>
+
+      <div id="wizard-step-1">
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">What do you do?</h2>
+        <p class="hint" style="text-align:center; margin-bottom:1.2rem;">This just helps us tailor the setup.</p>
+        <div id="wizard-persona-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:0.6rem;"></div>
+      </div>
+
+      <div id="wizard-step-2" style="display:none;">
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">What do you want customers to book?</h2>
+        <label for="wizard-service-name">Service name</label>
+        <input type="text" id="wizard-service-name" placeholder="e.g. Cake Consultation" />
+      </div>
+
+      <div id="wizard-step-3" style="display:none;">
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">When are you available?</h2>
+        <div id="wizard-availability-options" style="display:flex; flex-direction:column; gap:0.6rem;"></div>
+        <p class="hint" style="margin-top:0.8rem;">You can fine-tune exact hours later in Booking Settings.</p>
+      </div>
+
+      <div id="wizard-step-4" style="display:none;">
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">How much is your deposit?</h2>
+        <label for="wizard-deposit">Deposit (RM), 0 for free</label>
+        <input type="number" id="wizard-deposit" step="0.01" min="0" placeholder="e.g. 50" />
+      </div>
+
+      <div id="wizard-step-5" style="display:none; text-align:center;">
+        <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎉</div>
+        <h2 style="margin-top:0; font-size:1.2rem;">Your booking page is ready!</h2>
+        <p class="hint" id="wizard-final-link" style="word-break:break-all; margin-bottom:1rem;"></p>
+        <button type="button" id="wizard-copy-link-btn" class="secondary" style="width:100%; margin-bottom:0.5rem;">Copy Link</button>
+        <a href="#" id="wizard-open-link-btn" target="_blank" class="btn" style="width:100%; display:block; text-align:center;">Open Booking Page</a>
+      </div>
+
+      <p class="error" id="wizard-error" style="display:none; margin-top:0.8rem;"></p>
+
+      <div class="row" style="margin-top:1.4rem; gap:0.5rem;" id="wizard-nav-row">
+        <button type="button" class="secondary" id="wizard-back-btn" style="flex:1;">Back</button>
+        <button type="button" id="wizard-next-btn" style="flex:1;">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="profile-modal" style="display:none;">
+    <div class="modal-box" style="max-width:520px; max-height:82vh; overflow-y:auto;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="profile-modal-name">Profil Pelanggan</h2></div>
+      <p class="hint" id="profile-modal-since" style="margin:0 0 1rem;"></p>
+
+      <div class="row" style="margin-bottom:1rem;">
+        <div class="admin-stat-card" style="flex:1;"><div class="num" style="font-size:1.05rem;" id="profile-total-paid">RM0</div><div class="label">Dah Bayar</div></div>
+        <div class="admin-stat-card" style="flex:1;"><div class="num" style="font-size:1.05rem;" id="profile-total-pending">RM0</div><div class="label">Belum Bayar</div></div>
+      </div>
+
+      <p class="hint" style="font-weight:600; margin:0 0 0.4rem;">Hubungi</p>
+      <p class="hint" id="profile-contact" style="margin:0 0 1rem;"></p>
+
+      <div id="profile-upcoming-wrap" style="display:none; margin-bottom:1rem;">
+        <p class="hint" style="font-weight:600; margin:0 0 0.4rem;">Booking Akan Datang</p>
+        <div id="profile-upcoming-list"></div>
+      </div>
+
+      <p class="hint" style="font-weight:600; margin:0 0 0.4rem;">Riwayat</p>
+      <table style="margin-bottom:1rem;">
+        <thead><tr><th>Tarikh</th><th>Catatan</th><th style="text-align:right;">RM</th><th>Status</th></tr></thead>
+        <tbody id="profile-history-tbody"></tbody>
+      </table>
+
+      <div class="row" id="profile-actions" style="margin-top:1rem;"></div>
+      <button type="button" class="secondary" id="profile-modal-close" style="width:100%; margin-top:0.6rem;">Tutup</button>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="edit-modal" style="display:none;">
     <div class="modal-box">
       <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Edit Pelanggan</h2></div>
@@ -1237,6 +1320,80 @@
 
     // Shared action-button builder (quick toggle + kebab menu) — used by both the
     // desktop table row and the mobile card, so behavior/logic stays identical.
+    async function openCustomerProfile(customer) {
+      document.getElementById("profile-modal-name").textContent = customer.name;
+      document.getElementById("profile-modal").style.display = "flex";
+
+      const allRecords = allCustomers.filter(c => c.contact_email === customer.contact_email);
+      const totalPaid = allRecords.filter(c => c.status === "dah_bayar").reduce((s, c) => s + Number(c.amount), 0);
+      const totalPending = allRecords.filter(c => c.status !== "dah_bayar").reduce((s, c) => s + Number(c.amount), 0);
+      document.getElementById("profile-total-paid").textContent = `RM${totalPaid.toFixed(2)}`;
+      document.getElementById("profile-total-pending").textContent = `RM${totalPending.toFixed(2)}`;
+
+      const contactParts = [customer.contact_email];
+      if (customer.contact_phone) contactParts.push(customer.contact_phone);
+      document.getElementById("profile-contact").textContent = contactParts.join(" · ");
+
+      const earliestDate = allRecords.reduce((min, c) => (c.due_date < min ? c.due_date : min), allRecords[0].due_date);
+      document.getElementById("profile-modal-since").textContent = `Pelanggan sejak ${new Date(earliestDate).toLocaleDateString("ms-MY", { month: "long", year: "numeric" })}`;
+
+      const now = new Date();
+      const upcomingBookings = (allBookings || []).filter(b => b.customer_email === customer.contact_email && b.status === "confirmed" && new Date(b.slot_datetime) >= now);
+      const upcomingWrap = document.getElementById("profile-upcoming-wrap");
+      if (upcomingBookings.length > 0) {
+        document.getElementById("profile-upcoming-list").innerHTML = upcomingBookings
+          .map(b => `<p class="hint" style="margin:0 0 0.3rem;">${fmtBookingDateTime(b.slot_datetime)}</p>`)
+          .join("");
+        upcomingWrap.style.display = "block";
+      } else {
+        upcomingWrap.style.display = "none";
+      }
+
+      const sorted = [...allRecords].sort((a, b) => new Date(b.due_date) - new Date(a.due_date));
+      document.getElementById("profile-history-tbody").innerHTML = sorted.map(c => `
+        <tr>
+          <td class="hint">${new Date(c.due_date).toLocaleDateString("ms-MY", { day: "numeric", month: "short" })}</td>
+          <td class="hint" style="max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(c.notes || "-")}</td>
+          <td class="mono" style="text-align:right;">${Number(c.amount).toFixed(2)}</td>
+          <td><span class="badge ${c.status}" style="font-size:0.7rem;">${STATUS_LABEL[c.status]}</span></td>
+        </tr>
+      `).join("");
+
+      const actionsEl = document.getElementById("profile-actions");
+      actionsEl.innerHTML = "";
+      if (customer.contact_phone) {
+        const waBtn = document.createElement("button");
+        waBtn.type = "button";
+        waBtn.className = "secondary";
+        waBtn.style.flex = "1";
+        waBtn.textContent = "WhatsApp";
+        waBtn.addEventListener("click", () => {
+          const digits = customer.contact_phone.replace(/[^0-9]/g, "");
+          const withCountryCode = digits.startsWith("0") ? "60" + digits.slice(1) : digits;
+          window.open(`https://wa.me/${withCountryCode}`, "_blank");
+        });
+        actionsEl.appendChild(waBtn);
+      }
+      const invoiceBtn = document.createElement("button");
+      invoiceBtn.type = "button";
+      invoiceBtn.className = "secondary";
+      invoiceBtn.style.flex = "1";
+      invoiceBtn.textContent = "Invois Terkini";
+      invoiceBtn.addEventListener("click", async () => {
+        const { data: sessionData } = await supabase.auth.getSession();
+        const url = `/api/invoice-pdf?customer_id=${customer.id}&token=${encodeURIComponent(sessionData.session.access_token)}`;
+        window.open(url, "_blank");
+      });
+      actionsEl.appendChild(invoiceBtn);
+    }
+
+    document.getElementById("profile-modal-close")?.addEventListener("click", () => {
+      document.getElementById("profile-modal").style.display = "none";
+    });
+    document.getElementById("profile-modal")?.addEventListener("click", (e) => {
+      if (e.target === document.getElementById("profile-modal")) document.getElementById("profile-modal").style.display = "none";
+    });
+
     function buildRowActions(c) {
       const actionsWrap = document.createElement("div");
       actionsWrap.className = "row-actions";
@@ -1284,6 +1441,7 @@
         return btn;
       }
 
+      menu.appendChild(menuItem("Profil", `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`, () => openCustomerProfile(c)));
       menu.appendChild(menuItem("Edit", `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>`, () => openEditModal(c)));
       menu.appendChild(menuItem("Riwayat", `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`, () => openHistoryModal(c)));
       menu.appendChild(menuItem("Muat Turun Invois", `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg>`, async () => {
@@ -1899,6 +2057,7 @@
       return allBookingLinks.find(l => l.id === currentLinkId) || null;
     }
 
+    let onboardingChecked = false;
     async function loadBookingLinksAndSettings() {
       const { data: profTier } = await supabase.from("profiles").select("tier").eq("id", user.id).single();
       const isPro = profTier?.tier === "pro";
@@ -1910,6 +2069,15 @@
       renderLinkSwitcher(isPro);
       await loadSettingsForCurrentLink();
       renderSetupChecklist(allCustomers.length);
+
+      if (!onboardingChecked) {
+        onboardingChecked = true;
+        if (allBookingLinks.length === 0 && !localStorage.getItem("eqstudio_onboarding_completed")) {
+          openOnboardingWizard();
+        } else if (!localStorage.getItem("eqstudio_tour_completed")) {
+          setTimeout(startTour, 900);
+        }
+      }
     }
 
     function renderLinkSwitcher(isPro) {
@@ -2357,11 +2525,62 @@
 
       renderHomeTrendChart();
       renderHomeRecentBookings();
+      renderHomeNextAction();
 
       const weekAhead = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
       const todayStr = now.toISOString().slice(0, 10);
       const dueThisWeek = allCustomers.filter(c => c.status !== "dah_bayar" && c.due_date >= todayStr && c.due_date <= weekAhead).length;
       kalendarEl.textContent = `${dueThisWeek} due minggu ini`;
+    }
+
+    function renderHomeNextAction() {
+      const card = document.getElementById("home-next-action-card");
+      const textEl = document.getElementById("home-next-action-text");
+      const btnEl = document.getElementById("home-next-action-btn");
+      if (!card) return;
+
+      const unpaid = allCustomers.filter(c => c.status !== "dah_bayar");
+      if (unpaid.length === 0) {
+        card.style.display = "none";
+        return;
+      }
+
+      const sorted = [...unpaid].sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
+      const target = sorted[0];
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const isOverdue = target.due_date < todayStr;
+      const amount = `RM${Number(target.amount).toFixed(2)}`;
+      const dueLabel = new Date(target.due_date).toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
+
+      textEl.textContent = isOverdue
+        ? `${target.name} belum bayar ${amount}. Dah lepas tarikh due (${dueLabel}).`
+        : `${target.name} belum bayar ${amount}. Due ${dueLabel}.`;
+
+      btnEl.textContent = "Hantar Reminder";
+      btnEl.onclick = async () => {
+        btnEl.disabled = true;
+        btnEl.textContent = "Menghantar...";
+        try {
+          const { data: sessionData } = await supabase.auth.getSession();
+          const res = await fetch("/api/trigger-instant-reminder", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${sessionData.session.access_token}` },
+            body: JSON.stringify({ customer_id: target.id }),
+          });
+          const result = await res.json();
+          if (result.sent === false) {
+            showToast("Reminder akan dihantar dalam sweep seterusnya.", "success");
+          } else {
+            showToast("Reminder dihantar!", "success");
+          }
+        } catch {
+          showToast("Gagal hantar reminder. Cuba lagi sekejap.", "error");
+        }
+        btnEl.disabled = false;
+        btnEl.textContent = "Hantar Reminder";
+      };
+
+      card.style.display = "block";
     }
 
     function renderHomeRecentBookings() {
@@ -2736,6 +2955,13 @@
         }
       }
 
+      const bookingDaysSet = new Set();
+      for (const b of (allBookings || [])) {
+        if (b.status === "confirmed" && b.slot_datetime.slice(0, 7) === `${calYear}-${String(calMonth + 1).padStart(2, "0")}`) {
+          bookingDaysSet.add(parseInt(b.slot_datetime.slice(8, 10), 10));
+        }
+      }
+
       for (let i = 0; i < firstDay; i++) {
         const el = document.createElement("div");
         el.className = "cal-cell empty";
@@ -2746,7 +2972,7 @@
         const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
         const cell = document.createElement("div");
         cell.className = "cal-cell" + (dateStr === todayStr ? " today" : "");
-        cell.innerHTML = `<span>${day}</span>` + (dueByDay.has(day) ? `<span class="dot"></span>` : "");
+        cell.innerHTML = `<span>${day}</span>` + ((dueByDay.has(day) || bookingDaysSet.has(day)) ? `<span class="dot"></span>` : "");
         cell.addEventListener("click", () => {
           document.querySelectorAll(".cal-cell.selected").forEach(el => el.classList.remove("selected"));
           cell.classList.add("selected");
@@ -2757,18 +2983,90 @@
     }
 
     function renderDayList(dateStr, customersOnDay) {
-      document.getElementById("cal-day-title").textContent = dateStr;
+      document.getElementById("cal-day-title").textContent = new Date(dateStr + "T00:00:00").toLocaleDateString("ms-MY", { weekday: "long", day: "numeric", month: "long" });
       const listEl = document.getElementById("cal-day-list");
-      if (customersOnDay.length === 0) {
-        listEl.innerHTML = `<p class="hint">Tiada pelanggan due pada tarikh ini.</p>`;
+
+      const dayBookings = (allBookings || [])
+        .filter(b => b.status === "confirmed" && b.slot_datetime.slice(0, 10) === dateStr)
+        .sort((a, b) => new Date(a.slot_datetime) - new Date(b.slot_datetime));
+
+      if (dayBookings.length === 0 && customersOnDay.length === 0) {
+        listEl.innerHTML = `<p class="hint">Tiada booking atau bayaran due pada tarikh ini.</p>`;
         return;
       }
-      listEl.innerHTML = customersOnDay.map(c => `
-        <div style="display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px solid var(--paper-line);">
-          <span>${escapeHtml(c.name)}</span>
-          <span class="mono">RM ${Number(c.amount).toFixed(2)}</span>
-        </div>
-      `).join("");
+
+      const timelineHtml = dayBookings.map(b => {
+        const time = new Date(b.slot_datetime).toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+        return `
+          <div class="cal-timeline-row" data-booking-id="${b.id}" style="border-bottom:1px solid var(--paper-line); padding:0.6rem 0; cursor:pointer;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="mono" style="font-weight:600; color:var(--stamp); min-width:52px;">${time}</span>
+              <span style="flex:1; margin-left:0.6rem;">${escapeHtml(b.customer_name)}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cal-chevron" style="transition:transform 0.15s; color:var(--ink-soft);"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="cal-timeline-actions" style="display:none; margin-top:0.6rem; gap:0.4rem;" data-actions-for="${b.id}"></div>
+          </div>
+        `;
+      }).join("");
+
+      const dueHtml = customersOnDay.length > 0 ? `
+        <p class="hint" style="font-weight:600; margin:1rem 0 0.4rem;">Bayaran Due</p>
+        ${customersOnDay.map(c => `
+          <div style="display:flex; justify-content:space-between; padding:0.4rem 0; border-bottom:1px solid var(--paper-line);">
+            <span>${escapeHtml(c.name)}</span>
+            <span class="mono">RM ${Number(c.amount).toFixed(2)}</span>
+          </div>
+        `).join("")}
+      ` : "";
+
+      listEl.innerHTML = timelineHtml + dueHtml;
+
+      listEl.querySelectorAll(".cal-timeline-row").forEach(row => {
+        row.addEventListener("click", (e) => {
+          if (e.target.closest(".cal-timeline-actions")) return;
+          const booking = dayBookings.find(b => b.id === row.dataset.bookingId);
+          const actionsEl = row.querySelector(".cal-timeline-actions");
+          const isOpen = actionsEl.style.display === "flex";
+          listEl.querySelectorAll(".cal-timeline-actions").forEach(a => a.style.display = "none");
+          listEl.querySelectorAll(".cal-chevron").forEach(c => c.style.transform = "");
+          if (isOpen) return;
+
+          actionsEl.style.display = "flex";
+          row.querySelector(".cal-chevron").style.transform = "rotate(180deg)";
+          actionsEl.innerHTML = "";
+
+          if (booking.customer_phone) {
+            const waBtn = document.createElement("button");
+            waBtn.type = "button";
+            waBtn.className = "secondary";
+            waBtn.style.flex = "1";
+            waBtn.textContent = "WhatsApp";
+            waBtn.addEventListener("click", (ev) => {
+              ev.stopPropagation();
+              const digits = booking.customer_phone.replace(/[^0-9]/g, "");
+              const withCC = digits.startsWith("0") ? "60" + digits.slice(1) : digits;
+              window.open(`https://wa.me/${withCC}`, "_blank");
+            });
+            actionsEl.appendChild(waBtn);
+          }
+          const rescheduleBtn = document.createElement("button");
+          rescheduleBtn.type = "button";
+          rescheduleBtn.className = "secondary";
+          rescheduleBtn.style.flex = "1";
+          rescheduleBtn.textContent = "Reschedule";
+          rescheduleBtn.addEventListener("click", (ev) => { ev.stopPropagation(); openRescheduleModal(booking); });
+          actionsEl.appendChild(rescheduleBtn);
+
+          const cancelBtn = document.createElement("button");
+          cancelBtn.type = "button";
+          cancelBtn.className = "secondary";
+          cancelBtn.style.flex = "1";
+          cancelBtn.style.color = "var(--warn)";
+          cancelBtn.textContent = "Batal";
+          cancelBtn.addEventListener("click", (ev) => { ev.stopPropagation(); cancelBooking(booking); });
+          actionsEl.appendChild(cancelBtn);
+        });
+      });
     }
 
     document.getElementById("cal-prev")?.addEventListener("click", () => {
@@ -2908,6 +3206,141 @@
       }
     }
 
+    // ── Onboarding Wizard (first-time setup, "first booking in 5 minutes") ──
+    const WIZARD_PERSONAS = ["Home Baker", "Tutor", "Photographer", "Fitness Coach", "Freelancer", "Other"];
+    let wizardPersona = null;
+    let wizardStepIdx = 1;
+
+    function openOnboardingWizard() {
+      wizardStepIdx = 1;
+      wizardPersona = null;
+      document.getElementById("wizard-persona-grid").innerHTML = WIZARD_PERSONAS.map(p => `
+        <button type="button" class="secondary wizard-persona-btn" data-persona="${p}" style="padding:0.8rem 0.5rem;">${p}</button>
+      `).join("");
+      document.getElementById("wizard-persona-grid").querySelectorAll(".wizard-persona-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".wizard-persona-btn").forEach(b => { b.style.background = ""; b.style.color = ""; });
+          btn.style.background = "var(--stamp)";
+          btn.style.color = "#fff";
+          wizardPersona = btn.dataset.persona;
+        });
+      });
+
+      document.getElementById("wizard-availability-options").innerHTML = `
+        <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;"><input type="radio" name="wizard-avail" value="everyday" checked style="width:auto;" /> Every day, 9am to 6pm</label>
+        <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;"><input type="radio" name="wizard-avail" value="weekdays" style="width:auto;" /> Weekdays only, 9am to 6pm</label>
+        <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;"><input type="radio" name="wizard-avail" value="later" style="width:auto;" /> I'll set this myself later</label>
+      `;
+
+      renderWizardStep();
+      document.getElementById("wizard-modal").style.display = "flex";
+    }
+
+    function renderWizardStep() {
+      for (let i = 1; i <= 5; i++) {
+        const el = document.getElementById(`wizard-step-${i}`);
+        if (el) el.style.display = i === wizardStepIdx ? "block" : "none";
+      }
+      document.getElementById("wizard-progress").textContent = wizardStepIdx <= 4 ? `Step ${wizardStepIdx} of 4` : "";
+      document.getElementById("wizard-back-btn").style.visibility = wizardStepIdx === 1 ? "hidden" : "visible";
+      document.getElementById("wizard-nav-row").style.display = wizardStepIdx === 5 ? "none" : "flex";
+      document.getElementById("wizard-next-btn").textContent = wizardStepIdx === 4 ? "Finish" : "Next";
+      document.getElementById("wizard-error").style.display = "none";
+    }
+
+    function closeWizard(markComplete) {
+      if (markComplete) {
+        localStorage.setItem("eqstudio_onboarding_completed", "1");
+        localStorage.setItem("eqstudio_tour_completed", "1");
+      }
+      document.getElementById("wizard-modal").style.display = "none";
+    }
+
+    document.getElementById("wizard-skip-btn")?.addEventListener("click", () => closeWizard(true));
+
+    document.getElementById("wizard-back-btn")?.addEventListener("click", () => {
+      if (wizardStepIdx > 1) { wizardStepIdx--; renderWizardStep(); }
+    });
+
+    document.getElementById("wizard-next-btn")?.addEventListener("click", async () => {
+      const errorEl = document.getElementById("wizard-error");
+      errorEl.style.display = "none";
+
+      if (wizardStepIdx === 1 && !wizardPersona) {
+        errorEl.textContent = "Please pick one to continue.";
+        errorEl.style.display = "block";
+        return;
+      }
+      if (wizardStepIdx === 2 && !document.getElementById("wizard-service-name").value.trim()) {
+        errorEl.textContent = "Please enter a service name.";
+        errorEl.style.display = "block";
+        return;
+      }
+
+      if (wizardStepIdx === 4) {
+        const btn = document.getElementById("wizard-next-btn");
+        btn.disabled = true;
+        btn.textContent = "Setting up...";
+        try {
+          await finishWizardSetup();
+          wizardStepIdx = 5;
+          renderWizardStep();
+        } catch (err) {
+          errorEl.textContent = err.message || "Something went wrong. Please try again.";
+          errorEl.style.display = "block";
+        }
+        btn.disabled = false;
+        btn.textContent = "Finish";
+        return;
+      }
+
+      wizardStepIdx++;
+      renderWizardStep();
+    });
+
+    async function finishWizardSetup() {
+      const serviceName = document.getElementById("wizard-service-name").value.trim();
+      const depositRaw = document.getElementById("wizard-deposit").value.trim();
+      const deposit = depositRaw === "" ? 0 : parseFloat(depositRaw);
+      const availPreset = document.querySelector('input[name="wizard-avail"]:checked').value;
+
+      const baseSource = (profile?.business_name || serviceName || "bisnes").toLowerCase();
+      const baseSlug = baseSource.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || `bisnes-${Date.now().toString(36)}`;
+
+      let inserted = null;
+      let finalSlug = baseSlug;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const trySlug = attempt === 0 ? baseSlug : `${baseSlug}-${Math.random().toString(36).slice(2, 6)}`;
+        const { data, error } = await supabase.from("booking_links").insert({
+          owner_id: user.id, slug: trySlug, label: profile?.business_name || serviceName, is_primary: true,
+          slot_duration_minutes: 60, booking_min_notice_hours: 24, buffer_minutes: 0, cancellation_notice_hours: 0,
+          default_deposit_amount: deposit,
+        }).select().single();
+        if (!error) { inserted = data; finalSlug = trySlug; break; }
+        if (!error.message?.includes("duplicate")) throw new Error(error.message);
+      }
+      if (!inserted) throw new Error("Couldn't create your booking link. Please try again.");
+
+      currentLinkId = inserted.id;
+
+      if (availPreset !== "later") {
+        const days = availPreset === "everyday" ? [0, 1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5];
+        const rows = days.map(d => ({ owner_id: user.id, booking_link_id: inserted.id, day_of_week: d, start_time: "09:00", end_time: "18:00" }));
+        await supabase.from("availability").insert(rows);
+      }
+
+      const bookingUrl = `${window.location.origin}/book.html?slug=${finalSlug}`;
+      document.getElementById("wizard-final-link").textContent = bookingUrl;
+      document.getElementById("wizard-open-link-btn").href = bookingUrl;
+      document.getElementById("wizard-copy-link-btn").onclick = () => {
+        navigator.clipboard.writeText(bookingUrl).then(() => showToast("Link copied!", "success"));
+      };
+
+      loadBookingLinksAndSettings();
+    }
+
+    document.getElementById("wizard-open-link-btn")?.addEventListener("click", () => closeWizard(true));
+
     function startTour() {
       tourStepIndex = 0;
       goToTourStep(0);
@@ -2926,11 +3359,6 @@
     document.getElementById("tour-skip-btn").addEventListener("click", endTour);
     document.getElementById("restart-tour-btn").addEventListener("click", startTour);
     document.getElementById("restart-tour-btn-mobile").addEventListener("click", startTour);
-
-    // Auto-launch for first-time visitors only
-    if (!localStorage.getItem("eqstudio_tour_completed")) {
-      setTimeout(startTour, 900);
-    }
 
     // ── Per-page contextual guide (Lapisan 2) ──
     const GUIDE_CONTENT = {

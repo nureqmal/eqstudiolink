@@ -39,7 +39,8 @@
 
   <script type="module">
     import { supabase } from "/assets/supabase-client.js";
-    import { applyLanguage, getCurrentLang } from "/assets/i18n-ui.js";
+    import { applyLanguage, getCurrentLang, UI_STRINGS } from "/assets/i18n-ui.js";
+    function t(key) { return UI_STRINGS[getCurrentLang()]?.[key] ?? key; }
 
     let currentUser = null;
     let canPost = false;
@@ -76,8 +77,8 @@
 
     function notice() {
       if (currentUser && canPost) return "";
-      if (currentUser && !canPost) return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--pending-bg); border-radius:8px;">Anda perlu langganan <strong>aktif</strong> (bukan trial) untuk post/reply. <a href="/billing.html">Upgrade sekarang</a>.</p>`;
-      return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--paper); border-radius:8px;"><a href="/login.html">Log masuk</a> dengan akaun langganan aktif untuk post/reply.</p>`;
+      if (currentUser && !canPost) return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--pending-bg); border-radius:8px;">${t("forum_subscribe_needed")}</p>`;
+      return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--paper); border-radius:8px;">${t("forum_login_needed")}</p>`;
     }
 
     // ── Unified feed (default landing) — search + category tabs, HivePress-style ──
@@ -94,8 +95,8 @@
       content.innerHTML = `
         <div style="text-align:center; margin-bottom:1.5rem;">
           <span class="lp-eyebrow">Forum</span>
-          <h1 style="font-size:1.8rem; margin:0.4rem 0;">Komuniti eqstudio.link</h1>
-          <p class="hint">Diskusi, soalan, dan pengumuman — sesama business owner.</p>
+          <h1 style="font-size:1.8rem; margin:0.4rem 0;">${t("forum_hero_title")}</h1>
+          <p class="hint">${t("forum_hero_sub")}</p>
         </div>
 
         <input type="search" id="forum-search" data-i18n-placeholder="forum_search_placeholder" placeholder="Search threads..." style="margin-bottom:0.8rem;" />
@@ -108,9 +109,9 @@
             <form id="new-thread-form" style="display:none; margin-top:1rem;">
               <label for="nt-category">Kategori</label>
               <select id="nt-category">${allCategories.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join("")}</select>
-              <label for="nt-title">Tajuk</label>
+              <label for="nt-title">${t("forum_title_label")}</label>
               <input type="text" id="nt-title" required />
-              <label for="nt-message">Mesej</label>
+              <label for="nt-message">${t("forum_message_label")}</label>
               <textarea id="nt-message" rows="4" required></textarea>
               <button type="submit" style="margin-top:1rem;">Hantar</button>
               <p class="error" id="nt-error" style="display:none;"></p>
@@ -173,22 +174,22 @@
       if (searchQuery) filtered = filtered.filter(t => t.title.toLowerCase().includes(searchQuery) || t.message.toLowerCase().includes(searchQuery));
 
       if (filtered.length === 0) {
-        feedEl.innerHTML = `<p class="hint" style="text-align:center;">${searchQuery ? "Tiada thread sepadan dengan carian." : "Belum ada thread dalam kategori ni. Mula yang pertama!"}</p>`;
+        feedEl.innerHTML = `<p class="hint" style="text-align:center;">${searchQuery ? t("forum_no_threads_search") : t("forum_no_threads_category")}</p>`;
         return;
       }
 
-      feedEl.innerHTML = filtered.map((t, i) => `
-        <a href="?thread=${t.id}" class="fade-in-row" style="animation-delay:${Math.min(i * 0.04, 0.4)}s; display:block; text-decoration:none; color:inherit; padding:0.9rem 0; border-bottom:1px solid var(--paper-line);">
+      feedEl.innerHTML = filtered.map((th, i) => `
+        <a href="?thread=${th.id}" class="fade-in-row" style="animation-delay:${Math.min(i * 0.04, 0.4)}s; display:block; text-decoration:none; color:inherit; padding:0.9rem 0; border-bottom:1px solid var(--paper-line);">
           <div style="display:flex; justify-content:space-between; gap:0.8rem; align-items:flex-start;">
             <div style="min-width:0;">
-              ${t.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pinned</span>` : ""}
-              ${t.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}${t.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pro</span>` : ""}${featureStatusBadge(t.feature_status)}
-              <span class="hint" style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em;">${escapeHtml(t.category_name || "")}</span>
-              <div><strong>${escapeHtml(t.title)}</strong></div>
-              <div class="hint" style="font-size:0.83rem; margin-top:0.2rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(t.message.length > 110 ? t.message.slice(0, 110) + "…" : t.message)}</div>
-              <div class="hint" style="font-size:0.8rem; margin-top:0.2rem;">oleh ${escapeHtml(t.author_name)} · ${fmtDateShort(t.created_at)}</div>
+              ${th.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pinned</span>` : ""}
+              ${th.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}${th.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pro</span>` : ""}${featureStatusBadge(th.feature_status)}
+              <span class="hint" style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em;">${escapeHtml(th.category_name || "")}</span>
+              <div><strong>${escapeHtml(th.title)}</strong></div>
+              <div class="hint" style="font-size:0.83rem; margin-top:0.2rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(th.message.length > 110 ? th.message.slice(0, 110) + "…" : th.message)}</div>
+              <div class="hint" style="font-size:0.8rem; margin-top:0.2rem;">oleh ${escapeHtml(th.author_name)} · ${fmtDateShort(th.created_at)}</div>
             </div>
-            <span class="hint" style="flex-shrink:0; font-size:0.8rem; text-align:right;">${t.reply_count} balasan${t.reaction_count > 0 ? `<br>♥ ${t.reaction_count}` : ""}</span>
+            <span class="hint" style="flex-shrink:0; font-size:0.8rem; text-align:right;">${th.reply_count} ${t("forum_replies_suffix")}${th.reaction_count > 0 ? `<br>♥ ${th.reaction_count}` : ""}</span>
           </div>
         </a>
       `).join("");
@@ -212,7 +213,7 @@
           <p style="white-space:pre-wrap; line-height:1.7;">${escapeHtml(data.thread.message)}</p>
           <div style="margin-top:1rem; padding-top:0.8rem; border-top:1px solid var(--paper-line);">
             <button type="button" class="secondary" id="reaction-btn" ${!canPost ? "disabled" : ""} style="font-size:0.85rem;">
-              ${currentUser && data.reactor_ids?.includes(currentUser.id) ? "♥" : "♡"} Hargai${data.reaction_count > 0 ? ` (${data.reaction_count})` : ""}
+              ${currentUser && data.reactor_ids?.includes(currentUser.id) ? "♥" : "♡"} ${t("forum_appreciate")}${data.reaction_count > 0 ? ` (${data.reaction_count})` : ""}
             </button>
           </div>
         </div>
@@ -231,9 +232,9 @@
         ${canPost ? `
           <div class="card" style="margin-top:1rem;">
             <form id="reply-form">
-              <label for="reply-message">Balasan anda</label>
+              <label for="reply-message">${t("forum_your_reply_label")}</label>
               <textarea id="reply-message" rows="3" required></textarea>
-              <button type="submit" style="margin-top:0.8rem;">Hantar Balasan</button>
+              <button type="submit" style="margin-top:0.8rem;">${t("forum_submit_reply_btn")}</button>
               <p class="error" id="reply-error" style="display:none;"></p>
             </form>
           </div>` : ""}

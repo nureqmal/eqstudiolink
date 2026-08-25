@@ -53,6 +53,10 @@
         <a href="/ciri-ciri.html" class="btn secondary btn-lg" data-i18n="hero_cta_secondary">See Full Details</a>
         <span class="hint" data-i18n="hero_trial_note">14-day trial, no card needed</span>
       </div>
+      <p class="hint" style="margin-top:0.6rem; display:flex; align-items:center; gap:0.4rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span data-i18n="hero_setup_time">Guided setup, most owners are live in under 5 minutes</span>
+      </p>
     </div>
 
     <div>
@@ -215,6 +219,18 @@
     <details>
       <summary data-i18n="faq_q16">Can I cancel my subscription anytime?</summary>
       <p data-i18n="faq_a16">Yes, there's no lock-in contract.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q17">How fast can I actually get set up?</summary>
+      <p data-i18n="faq_a17">A guided setup walks you through picking your business type, naming your first service, setting your hours, and your deposit.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q18">Can I see a customer's full history in one place?</summary>
+      <p data-i18n="faq_a18">Yes. Open any customer's profile to see everything they've booked, what's paid vs pending, and their upcoming appointments.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q19">Can I suggest features, and see what's coming?</summary>
+      <p data-i18n-html="faq_a19">Post a suggestion in the forum, other owners can vote on it.</p>
     </details>
   </section>
 
@@ -862,6 +878,11 @@
 
     function renderExploreHome() {
       return `
+        <div class="card" style="margin-bottom:1rem; border-left:3px solid var(--stamp); text-align:left;">
+          <p class="hint" style="text-transform:uppercase; font-size:0.7rem; font-weight:700; letter-spacing:0.03em; color:var(--stamp); margin:0 0 0.5rem;">Next Action</p>
+          <p style="margin:0 0 0.7rem; font-weight:600; font-size:0.9rem;">Danial Haziq belum bayar RM50.00. Due esok.</p>
+          <button type="button" class="secondary" style="width:auto; padding:0.4rem 0.9rem; font-size:0.82rem;">Hantar Reminder</button>
+        </div>
         <div class="home-summary-card" style="margin-bottom:1rem;">
           <div class="home-summary-item"><span class="home-summary-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span><span class="home-summary-text"><b>4</b> booking akan datang</span></div>
           <div class="home-summary-divider"></div>

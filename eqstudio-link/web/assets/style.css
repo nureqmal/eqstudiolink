@@ -1342,3 +1342,62 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   .admin-main { padding: 1rem; }
 }
 .badge.pending { background: var(--pending-bg); color: #B45309; }
+
+/* ── book.html: topnotch redesign — step indicator + growing summary card ── */
+.book-biz-banner {
+  text-align: center; padding: 1.5rem 1rem 1.2rem; margin-bottom: 1.2rem; border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--stamp-soft) 0%, transparent 100%);
+}
+.book-biz-banner img { max-height: 56px; margin-bottom: 0.7rem; }
+
+.book-steps { display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-bottom: 1.4rem; }
+.book-step { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--ink-soft); }
+.book-step-dot {
+  width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 700; background: var(--paper); border: 1.5px solid var(--paper-line); flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.book-step.done .book-step-dot { background: var(--ok); border-color: var(--ok); color: #fff; }
+.book-step.active .book-step-dot { background: var(--stamp); border-color: var(--stamp); color: #fff; }
+.book-step.active { color: var(--ink); font-weight: 600; }
+.book-step-line { width: 20px; height: 1.5px; background: var(--paper-line); flex-shrink: 0; }
+.book-step-line.done { background: var(--ok); }
+
+.book-summary-card {
+  background: var(--surface); border: 1px solid var(--paper-line); border-radius: var(--radius-lg);
+  padding: 1.1rem 1.2rem; margin-bottom: 1.2rem; box-shadow: var(--shadow);
+  border-left: 3px solid var(--stamp);
+}
+.book-summary-row {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 0.6rem;
+  padding: 0.35rem 0; animation: book-summary-in 0.3s ease both;
+}
+.book-summary-row + .book-summary-row { border-top: 1px dashed var(--paper-line); }
+.book-summary-label { font-size: 0.78rem; color: var(--ink-soft); }
+.book-summary-value { font-weight: 600; text-align: right; }
+.book-summary-value.deposit { color: var(--stamp); }
+@keyframes book-summary-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#book-content > * { animation: book-step-in 0.25s ease both; }
+@keyframes book-step-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.book-success-check {
+  width: 64px; height: 64px; margin: 0 auto 0.8rem; border-radius: 50%;
+  background: var(--ok-bg); display: flex; align-items: center; justify-content: center;
+  animation: book-check-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.book-success-check svg { stroke: var(--ok); stroke-width: 2.5; }
+.book-success-check svg path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: book-check-draw 0.35s 0.25s ease forwards; }
+@keyframes book-check-pop {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes book-check-draw {
+  to { stroke-dashoffset: 0; }
+}

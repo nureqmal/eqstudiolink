@@ -205,13 +205,13 @@
 
         <div class="db-page" id="page-booking-list">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="booking-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan</button>
+            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="booking-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
           </div>
 
           <div class="card">
             <div class="section-title">
-              <h2 style="margin:0;">Senarai Booking</h2>
+              <h2 style="margin:0;" data-i18n="dash_page_booking_list_title">Booking List</h2>
               <span class="hint" id="booking-list-count"></span>
             </div>
             <div id="booking-table-skeleton">
@@ -225,8 +225,8 @@
 
         <div class="db-page" id="page-booking-settings">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="booking-settings" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan</button>
+            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="booking-settings" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
           </div>
 
           <div class="card" id="link-switcher-card" style="margin-bottom:1rem;">
@@ -372,12 +372,12 @@
 
         <div class="db-page" id="page-pelanggan-add">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="pelanggan-add" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan</button>
+            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="pelanggan-add" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
           </div>
 
           <div class="card" style="margin-bottom:1.5rem;">
-            <h2 style="margin:0 0 0.3rem; font-size:1.15rem;">+ Tambah Pelanggan</h2>
+            <h2 style="margin:0 0 0.3rem; font-size:1.15rem;" data-i18n="dash_page_pelanggan_add_title">+ Add Customer</h2>
             <p class="hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Reminder disemak & dihantar automatik <strong>sekali sehari (~9 pagi waktu Malaysia)</strong> — bukan serta-merta lepas anda tambah pelanggan.</p>
             <div id="add-customer-wrap" style="display:block; margin-top:1rem;">
               <div class="add-cust-grid">
@@ -464,8 +464,8 @@
 
         <div class="db-page" id="page-pelanggan-list">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="pelanggan-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan</button>
+            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="pelanggan-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
           </div>
 
           <p class="hint" id="schedule-badge" style="margin-bottom:0.8rem;"></p>
@@ -491,7 +491,7 @@
 
           <div class="card" id="customer-list-card">
             <div class="section-title">
-              <h2 style="margin:0;">Senarai Pelanggan</h2>
+              <h2 style="margin:0;" data-i18n="dash_page_pelanggan_list_title">Customer List</h2>
               <span class="hint" id="list-count"></span>
             </div>
             <div class="db-search-row">
@@ -517,20 +517,20 @@
 
         <div class="db-page" id="page-laporan">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="laporan" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan</button>
+            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="laporan" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
           </div>
 
           <div class="db-stats" id="report-stats" style="grid-template-columns: repeat(3, 1fr);">
             <div class="db-stat-card">
-              <div class="num mono" id="rpt-income-month">–</div><div class="label">Income Bulan Ini (Dah Bayar)</div>
+              <div class="num mono" id="rpt-income-month">–</div><div class="label" data-i18n="dash_rpt_income_month">Income This Month (Paid)</div>
               <div class="hint" id="rpt-momentum" style="margin-top:0.3rem; font-size:0.78rem;"></div>
             </div>
             <div class="db-stat-card">
-              <div class="num mono" id="rpt-outstanding">–</div><div class="label">Jumlah Belum Diterima</div>
+              <div class="num mono" id="rpt-outstanding">–</div><div class="label" data-i18n="dash_rpt_outstanding">Total Outstanding</div>
             </div>
             <div class="db-stat-card">
-              <div class="num mono" id="rpt-total-lifetime">–</div><div class="label">Jumlah Diterima (Sepanjang Masa)</div>
+              <div class="num mono" id="rpt-total-lifetime">–</div><div class="label" data-i18n="dash_rpt_lifetime">Total Received (All Time)</div>
             </div>
           </div>
 
@@ -590,8 +590,8 @@
 
         <div class="db-page" id="page-kalendar">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="kalendar" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan</button>
+            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="kalendar" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
           </div>
           <div class="card">
             <div class="section-title">
@@ -611,12 +611,12 @@
 
         <div class="db-page" id="page-tetapan-profil">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="tetapan-profil" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan</button>
+            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="tetapan-profil" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
           </div>
 
           <div class="card">
-            <div class="section-title"><h2 style="margin:0;">Profil Perniagaan</h2></div>
+            <div class="section-title"><h2 style="margin:0;" data-i18n="dash_page_tetapan_profil_title">Business Profile</h2></div>
             <p class="hint">Dipaparkan dalam emel dan invois yang pelanggan terima.</p>
             <p class="hint" style="margin-top:-0.5rem;">Semua field wajib diisi, kecuali logo & QR code (optional).</p>
             <form id="profile-form">
@@ -685,12 +685,12 @@
 
         <div class="db-page" id="page-tetapan-reminder">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="tetapan-reminder" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan</button>
+            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="tetapan-reminder" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
           </div>
 
           <div class="card">
-            <div class="section-title"><h2 style="margin:0;">Jadual Reminder</h2></div>
+            <div class="section-title"><h2 style="margin:0;" data-i18n="dash_page_tetapan_reminder_title">Reminder Schedule</h2></div>
             <p class="hint">Klik hari bila sistem patut hantar reminder emel, relatif kepada tarikh due.</p>
             <p class="hint" style="margin-top:-0.5rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Sistem check jadual ni <strong>sekali sehari (~9 pagi)</strong>, bukan real-time.</p>
             <div class="chip-row" id="chip-row"></div>
@@ -3064,6 +3064,34 @@
 
     loadCustomers();
     loadSettings();
+
+    // ── Realtime: live-update the dashboard when a new booking or payment
+    // status change comes in, without the owner needing to refresh manually ──
+    supabase
+      .channel("dashboard-bookings")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "bookings", filter: `owner_id=eq.${user.id}` }, (payload) => {
+        showToast(`Booking baru daripada ${payload.new.customer_name}!`, "success");
+        loadBookings();
+        if (document.getElementById("page-kalendar")?.classList.contains("active")) renderCalendar();
+      })
+      .on("postgres_changes", { event: "UPDATE", schema: "public", table: "bookings", filter: `owner_id=eq.${user.id}` }, () => {
+        loadBookings();
+        if (document.getElementById("page-kalendar")?.classList.contains("active")) renderCalendar();
+      })
+      .subscribe();
+
+    supabase
+      .channel("dashboard-customers")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "customers", filter: `owner_id=eq.${user.id}` }, () => {
+        loadCustomers();
+      })
+      .on("postgres_changes", { event: "UPDATE", schema: "public", table: "customers", filter: `owner_id=eq.${user.id}` }, (payload) => {
+        if (payload.old.status !== "dah_bayar" && payload.new.status === "dah_bayar") {
+          showToast(`${payload.new.name} telah bayar!`, "success");
+        }
+        loadCustomers();
+      })
+      .subscribe();
 
     // ── Catatan templates (default suggestions + owner's saved custom ones) ──
     const DEFAULT_NOTE_TEMPLATES = ["Deposit", "Baki Penuh", "Bayaran Penuh", "Yuran Bulanan", "Sewa"];

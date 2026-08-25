@@ -721,22 +721,6 @@
   </div>
 
   <!-- Per-page contextual help (Lapisan 2) -->
-  <div class="modal-overlay" id="guide-modal" style="display:none;">
-    <div class="modal-box" style="max-width:420px;">
-      <div class="section-title">
-        <h2 style="margin:0; font-size:1.1rem;" id="guide-modal-title">Panduan</h2>
-        <span class="hint" id="guide-step-progress"></span>
-      </div>
-      <h3 style="margin:0.8rem 0 0.4rem; font-size:1rem;" id="guide-step-heading"></h3>
-      <p style="font-size:0.9rem; line-height:1.7; margin:0;" id="guide-step-text"></p>
-      <div class="row" style="margin-top:1.25rem; gap:0.5rem;">
-        <button type="button" class="secondary" id="guide-back-btn" style="flex:1;">← Kembali</button>
-        <button type="button" id="guide-next-btn" style="flex:1;">Seterusnya →</button>
-      </div>
-      <button type="button" class="secondary" id="guide-modal-close" style="width:100%; margin-top:0.6rem;">Tutup</button>
-    </div>
-  </div>
-
   <div class="modal-overlay" id="reschedule-modal" style="display:none;">
     <div class="modal-box" style="max-width:380px;">
       <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Reschedule Booking</h2></div>
@@ -3165,17 +3149,18 @@
       { page: "home", selector: "#restart-tour-btn", title: "Sesat? Klik Sini Bila-Bila", text: "Tour ni boleh dibuka semula bila-bila dari sini (atau butang di mobile) — dan setiap page pun ada butang Panduan sendiri. Nak run lebih dari satu bisnes? Ada pelan Pro untuk sehingga 3 link booking — check Billing. Selamat mencuba!" },
     ];
     let tourStepIndex = 0;
-
     let currentGlowEl = null;
+    let activeTourSteps = TOUR_STEPS;
+    let isMainTour = true;
 
     function showTourStep(step) {
       const panel = document.getElementById("tour-panel");
 
-      document.getElementById("tour-progress").textContent = `Langkah ${tourStepIndex + 1} / ${TOUR_STEPS.length}`;
+      document.getElementById("tour-progress").textContent = `Langkah ${tourStepIndex + 1} / ${activeTourSteps.length}`;
       document.getElementById("tour-title").textContent = step.title;
       document.getElementById("tour-text").textContent = step.text;
       document.getElementById("tour-back-btn").style.visibility = tourStepIndex === 0 ? "hidden" : "visible";
-      document.getElementById("tour-next-btn").textContent = tourStepIndex === TOUR_STEPS.length - 1 ? "Selesai" : "Seterusnya →";
+      document.getElementById("tour-next-btn").textContent = tourStepIndex === activeTourSteps.length - 1 ? "Selesai" : "Seterusnya →";
       panel.style.display = "block";
 
       // If this step's target lives inside the collapsed Advanced section, open it first
@@ -3194,8 +3179,8 @@
     }
 
     async function goToTourStep(i) {
-      if (i < 0 || i >= TOUR_STEPS.length) return;
-      const step = TOUR_STEPS[i];
+      if (i < 0 || i >= activeTourSteps.length) return;
+      const step = activeTourSteps[i];
       const needsNav = !document.getElementById("page-" + step.page).classList.contains("active");
       tourStepIndex = i;
       if (needsNav) {
@@ -3342,17 +3327,27 @@
     document.getElementById("wizard-open-link-btn")?.addEventListener("click", () => closeWizard(true));
 
     function startTour() {
+      isMainTour = true;
+      activeTourSteps = TOUR_STEPS;
+      tourStepIndex = 0;
+      goToTourStep(0);
+    }
+    function startPageGuide(pageKey) {
+      const steps = PAGE_GUIDES[pageKey];
+      if (!steps || steps.length === 0) return;
+      isMainTour = false;
+      activeTourSteps = steps;
       tourStepIndex = 0;
       goToTourStep(0);
     }
     function endTour() {
       document.getElementById("tour-panel").style.display = "none";
       if (currentGlowEl) { currentGlowEl.classList.remove("tour-glow"); currentGlowEl = null; }
-      localStorage.setItem("eqstudio_tour_completed", "1");
+      if (isMainTour) localStorage.setItem("eqstudio_tour_completed", "1");
     }
 
     document.getElementById("tour-next-btn").addEventListener("click", () => {
-      if (tourStepIndex === TOUR_STEPS.length - 1) { endTour(); return; }
+      if (tourStepIndex === activeTourSteps.length - 1) { endTour(); return; }
       goToTourStep(tourStepIndex + 1);
     });
     document.getElementById("tour-back-btn").addEventListener("click", () => goToTourStep(tourStepIndex - 1));
@@ -3360,117 +3355,54 @@
     document.getElementById("restart-tour-btn").addEventListener("click", startTour);
     document.getElementById("restart-tour-btn-mobile").addEventListener("click", startTour);
 
-    // ── Per-page contextual guide (Lapisan 2) ──
-    const GUIDE_CONTENT = {
-      "booking-list": {
-        title: "Senarai Booking",
-        steps: [
-          { heading: "Semua Booking Anda", text: "Setiap booking yang customer buat melalui link anda muncul di sini, disusun ikut masa akan datang." },
-          { heading: "Badge Hari Ini", text: "Booking yang jatuh hari ini ada badge \"HARI INI\" berkelip, senang nampak tanpa perlu scroll cari." },
-          { heading: "Reschedule", text: "Klik \"Reschedule\" untuk tukar slot booking ke masa lain. Customer automatik dapat emel notification tentang perubahan." },
-          { heading: "Batal", text: "Klik \"Batal\" untuk cancel booking. Customer pun automatik dimaklumkan melalui emel." },
-        ],
-      },
-      "booking-settings": {
-        title: "Tetapan Booking",
-        steps: [
-          { heading: "Link Switcher", text: "Kalau anda pelan Pro dengan lebih dari satu link booking, tukar link yang sedang diedit di sini." },
-          { heading: "Slug", text: "Nama unik untuk link awam anda (contoh: eqstudio.link/book.html?slug=nama-anda). Tukar ni akan tukar URL booking anda." },
-          { heading: "QR Code", text: "Muncul automatik bila link anda aktif. Boleh print untuk letak kaunter, atau muat turun untuk digunakan di mana-mana." },
-          { heading: "Tempoh Slot", text: "Berapa lama setiap booking mengambil masa (30 minit, 1 jam, dan seterusnya)." },
-          { heading: "Deposit Lalai", text: "WAJIB diisi, booking customer akan gagal kalau kosong. Taip 0 kalau nak booking percuma." },
-          { heading: "Waktu Available", text: "Set hari dan jam anda bukak dalam grid mingguan. Customer cuma nampak slot yang anda dah set." },
-          { heading: "Tetapan Advanced", text: "Klik butang \"Tetapan Advanced\" untuk expand buffer time, notis cancel, jenis perkhidmatan, soalan tambahan, dan embed code." },
-          { heading: "Jenis Perkhidmatan", text: "Kalau anda ada servis berbeza (contoh kelas vs collection), set tempoh, harga, dan kapasiti sendiri untuk setiap satu." },
-          { heading: "Soalan Tambahan", text: "Tanya customer soalan khusus semasa booking (contoh: \"Apa jenis kek?\"). Jawapan terus nampak dalam Senarai Booking." },
-          { heading: "Embed & QR", text: "Copy embed code untuk letak dalam website sendiri, atau muat turun QR code untuk cetak." },
-        ],
-      },
-      "pelanggan-add": {
-        title: "Tambah Pelanggan",
-        steps: [
-          { heading: "Borang Manual", text: "Tambah pelanggan untuk order yang bukan dari booking online. Preview resit di sebelah update live semasa anda taip." },
-          { heading: "Import CSV", text: "Nak tambah beramai-ramai sekali gus? Guna Import CSV. Format: nama, emel, telefon, jumlah, tarikh_due, catatan." },
-        ],
-      },
-      "pelanggan-list": {
-        title: "Senarai Pelanggan",
-        steps: [
-          { heading: "Status Bayaran", text: "Setiap pelanggan ada status: Belum Bayar, Reminder Dihantar, atau Dah Bayar." },
-          { heading: "Carian", text: "Guna search bar untuk cari pelanggan tertentu dengan cepat, ikut nama atau emel." },
-          { heading: "Edit", text: "Klik nama pelanggan untuk edit maklumat atau tukar status bayaran secara manual." },
-        ],
-      },
-      "laporan": {
-        title: "Laporan",
-        steps: [
-          { heading: "Trend Income", text: "Chart yang tunjuk income bulanan anda dari masa ke masa." },
-          { heading: "Unjuran Cash-Flow", text: "Anggaran income untuk 6 minggu akan datang, dikira dari customer yang masih belum bayar." },
-          { heading: "Customer Berisiko", text: "Sistem kenal pasti customer yang selalu lewat bayar, berdasarkan sejarah mereka dengan anda." },
-          { heading: "Momentum", text: "Nampak terus sama ada income bulan ini naik atau turun berbanding bulan lepas." },
-          { heading: "Milestone", text: "Pencapaian kekal (bilangan booking, jumlah income) muncul di sini bila anda mencapainya." },
-        ],
-      },
-      "kalendar": {
-        title: "Kalendar",
-        steps: [
-          { heading: "Pandangan Bulanan", text: "Lihat semua tarikh due pelanggan dalam satu pandangan bulan." },
-          { heading: "Klik Tarikh", text: "Klik mana-mana tarikh untuk lihat siapa yang due bayar pada hari tersebut." },
-        ],
-      },
-      "tetapan-profil": {
-        title: "Profil Perniagaan",
-        steps: [
-          { heading: "Nama dan Logo", text: "Dipaparkan dalam setiap emel reminder yang customer anda terima." },
-          { heading: "Warna Jenama", text: "Customize warna utama yang muncul dalam emel dan portal customer." },
-          { heading: "Bank dan QR DuitNow", text: "Isi maklumat ni supaya customer boleh bayar terus melalui bank transfer atau QR." },
-          { heading: "No. SSM", text: "Optional, tapi buat invois anda nampak lebih rasmi untuk customer." },
-        ],
-      },
-      "tetapan-reminder": {
-        title: "Jadual Reminder",
-        steps: [
-          { heading: "Pilih Hari Reminder", text: "Klik hari bila sistem patut hantar reminder deposit, relatif kepada tarikh due (contoh: H-3, H-1, Hari-Ini)." },
-          { heading: "Kekerapan Semakan", text: "Pelan Starter disemak sekali sehari. Pelan Pro disemak setiap 2 jam, jadi reminder sampai lebih pantas." },
-        ],
-      },
-    };
-
-    let guideStepIndex = 0;
-    let currentGuideKey = null;
-
-    function renderGuideStep() {
-      const guide = GUIDE_CONTENT[currentGuideKey];
-      const step = guide.steps[guideStepIndex];
-      document.getElementById("guide-modal-title").textContent = guide.title;
-      document.getElementById("guide-step-progress").textContent = `${guideStepIndex + 1} / ${guide.steps.length}`;
-      document.getElementById("guide-step-heading").textContent = step.heading;
-      document.getElementById("guide-step-text").textContent = step.text;
-      document.getElementById("guide-back-btn").style.visibility = guideStepIndex === 0 ? "hidden" : "visible";
-      document.getElementById("guide-next-btn").textContent = guideStepIndex === guide.steps.length - 1 ? "Selesai" : "Seterusnya →";
-    }
-
     document.querySelectorAll(".guide-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const guide = GUIDE_CONTENT[btn.dataset.guide];
-        if (!guide) return;
-        currentGuideKey = btn.dataset.guide;
-        guideStepIndex = 0;
-        renderGuideStep();
-        document.getElementById("guide-modal").style.display = "flex";
-      });
+      btn.addEventListener("click", () => startPageGuide(btn.dataset.guide));
     });
-    document.getElementById("guide-back-btn")?.addEventListener("click", () => {
-      if (guideStepIndex > 0) { guideStepIndex--; renderGuideStep(); }
-    });
-    document.getElementById("guide-next-btn")?.addEventListener("click", () => {
-      const guide = GUIDE_CONTENT[currentGuideKey];
-      if (guideStepIndex < guide.steps.length - 1) { guideStepIndex++; renderGuideStep(); }
-      else { document.getElementById("guide-modal").style.display = "none"; }
-    });
-    document.getElementById("guide-modal-close").addEventListener("click", () => {
-      document.getElementById("guide-modal").style.display = "none";
-    });
+
+    // ── Per-page contextual guide (Lapisan 2) ──
+    const PAGE_GUIDES = {
+      "booking-list": [
+        { page: "booking-list", selector: "#booking-list", title: "Semua Booking Anda", text: "Setiap booking yang customer buat melalui link anda muncul di sini, disusun ikut masa akan datang. Ada badge \"HARI INI\" untuk booking hari tu, dan butang Reschedule/Batal pada setiap row." },
+      ],
+      "booking-settings": [
+        { page: "booking-settings", selector: "#link-switcher-chips", title: "Link Switcher", text: "Kalau anda pelan Pro dengan lebih dari satu link booking, tukar link yang sedang diedit di sini." },
+        { page: "booking-settings", selector: "#p-booking-slug", title: "Slug", text: "Nama unik untuk link awam anda. Tukar ni akan tukar URL booking anda." },
+        { page: "booking-settings", selector: "#p-slot-duration", title: "Tempoh Slot", text: "Berapa lama setiap booking mengambil masa." },
+        { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai", text: "WAJIB diisi, booking customer akan gagal kalau kosong. Taip 0 kalau nak booking percuma." },
+        { page: "booking-settings", selector: "#availability-grid", title: "Waktu Available", text: "Set hari dan jam anda bukak dalam grid mingguan." },
+        { page: "booking-settings", selector: "#advanced-settings-toggle", title: "Tetapan Advanced", text: "Klik untuk expand buffer time, notis cancel, jenis perkhidmatan, soalan tambahan, dan embed code." },
+        { page: "booking-settings", selector: "#event-types-list", title: "Jenis Perkhidmatan", text: "Kalau anda ada servis berbeza, set tempoh, harga, dan kapasiti sendiri untuk setiap satu di sini." },
+        { page: "booking-settings", selector: "#new-question-input", title: "Soalan Tambahan", text: "Tanya customer soalan khusus semasa booking. Jawapan terus nampak dalam Senarai Booking." },
+        { page: "booking-settings", selector: "#save-booking-btn", title: "Simpan", text: "Jangan lupa klik ni lepas buat perubahan." },
+      ],
+      "pelanggan-add": [
+        { page: "pelanggan-add", selector: "#customer-form", title: "Borang Manual", text: "Tambah pelanggan untuk order yang bukan dari booking online." },
+        { page: "pelanggan-add", selector: "#c-recurring", title: "Bayaran Berulang", text: "Tandakan ni kalau customer bayar secara berkala (contoh kelas tuisyen bulanan)." },
+        { page: "pelanggan-add", selector: "#mr-biz", title: "Preview Resit", text: "Update live semasa anda taip, tunjuk macam mana resit customer akan nampak." },
+      ],
+      "pelanggan-list": [
+        { page: "pelanggan-list", selector: "#search-input", title: "Carian", text: "Cari pelanggan tertentu dengan cepat, ikut nama atau emel." },
+        { page: "pelanggan-list", selector: "#customer-table", title: "Status Bayaran", text: "Setiap pelanggan ada status: Belum Bayar, Reminder Dihantar, atau Dah Bayar. Klik ikon titik tiga untuk lihat Profil penuh, Edit, atau tindakan lain." },
+      ],
+      "laporan": [
+        { page: "laporan", selector: "#report-stats", title: "Ringkasan Income", text: "Income bulan ini, jumlah belum diterima, dan jumlah sepanjang masa." },
+        { page: "laporan", selector: "#cashflow-chart", title: "Unjuran Cash-Flow", text: "Anggaran income untuk 6 minggu akan datang, dikira dari customer yang masih belum bayar." },
+        { page: "laporan", selector: "#risk-tbody", title: "Customer Berisiko", text: "Sistem kenal pasti customer yang selalu lewat bayar, berdasarkan sejarah mereka dengan anda." },
+      ],
+      "kalendar": [
+        { page: "kalendar", selector: "#cal-grid", title: "Kalendar", text: "Tarikh dengan titik ada booking atau bayaran due. Klik tarikh untuk lihat timeline booking sebenar, dan klik mana-mana row untuk WhatsApp/Reschedule/Batal terus." },
+      ],
+      "tetapan-profil": [
+        { page: "tetapan-profil", selector: "#p-business-name", title: "Nama Bisnes", text: "Dipaparkan dalam setiap emel reminder yang customer anda terima." },
+        { page: "tetapan-profil", selector: "#p-logo-file", title: "Logo", text: "Naik gambar logo bisnes anda, akan muncul dalam emel." },
+        { page: "tetapan-profil", selector: "#p-color", title: "Warna Jenama", text: "Customize warna utama yang muncul dalam emel dan portal customer." },
+        { page: "tetapan-profil", selector: "#p-bank-name", title: "Bank & QR DuitNow", text: "Isi maklumat ni supaya customer boleh bayar terus melalui bank transfer atau QR." },
+      ],
+      "tetapan-reminder": [
+        { page: "tetapan-reminder", selector: "#chip-row", title: "Pilih Hari Reminder", text: "Klik hari bila sistem patut hantar reminder deposit, relatif kepada tarikh due (contoh: H-3, H-1, Hari-Ini)." },
+        { page: "tetapan-reminder", selector: "#save-schedule-btn", title: "Simpan Jadual", text: "Pelan Starter disemak sekali sehari. Pelan Pro disemak setiap 2 jam, jadi reminder sampai lebih pantas." },
+      ],
+    };
   </script>
 </body>
 </html>

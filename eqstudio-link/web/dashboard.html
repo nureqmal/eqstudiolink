@@ -742,47 +742,56 @@
   <div class="modal-overlay" id="wizard-modal" style="display:none;">
     <div class="modal-box" style="max-width:460px;">
       <div style="text-align:right; margin-bottom:0.3rem;">
-        <button type="button" id="wizard-skip-btn" class="secondary" style="padding:0.25rem 0.6rem; font-size:0.75rem; width:auto;">Skip for now</button>
+        <button type="button" id="wizard-skip-btn" class="secondary" style="padding:0.25rem 0.6rem; font-size:0.75rem; width:auto;" data-i18n="wiz_skip">Skip for now</button>
       </div>
       <p class="hint" id="wizard-progress" style="text-align:center; margin:0 0 1rem;"></p>
 
-      <div id="wizard-step-1">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">What do you do?</h2>
-        <p class="hint" style="text-align:center; margin-bottom:1.2rem;">This just helps us tailor the setup.</p>
+      <div id="wizard-step-0">
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wiz_lang_title">Choose your language</h2>
+        <p class="hint" style="text-align:center; margin-bottom:1.2rem;" data-i18n="wiz_lang_sub">You can switch anytime from the topbar.</p>
+        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:0.6rem;">
+          <button type="button" class="secondary wizard-lang-btn" data-wizard-lang="en" style="padding:1rem 0.5rem;">English</button>
+          <button type="button" class="secondary wizard-lang-btn" data-wizard-lang="ms" style="padding:1rem 0.5rem;">Bahasa Melayu</button>
+        </div>
+      </div>
+
+      <div id="wizard-step-1" style="display:none;">
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wiz_persona_title">What do you do?</h2>
+        <p class="hint" style="text-align:center; margin-bottom:1.2rem;" data-i18n="wiz_persona_sub">This just helps us tailor the setup.</p>
         <div id="wizard-persona-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:0.6rem;"></div>
       </div>
 
       <div id="wizard-step-2" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">What do you want customers to book?</h2>
-        <label for="wizard-service-name">Service name</label>
-        <input type="text" id="wizard-service-name" placeholder="e.g. Cake Consultation" />
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wiz_service_title">What do you want customers to book?</h2>
+        <label for="wizard-service-name" data-i18n="wiz_service_label">Service name</label>
+        <input type="text" id="wizard-service-name" data-i18n-placeholder="wiz_service_placeholder" placeholder="e.g. Cake Consultation" />
       </div>
 
       <div id="wizard-step-3" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">When are you available?</h2>
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wiz_avail_title">When are you available?</h2>
         <div id="wizard-availability-options" style="display:flex; flex-direction:column; gap:0.6rem;"></div>
-        <p class="hint" style="margin-top:0.8rem;">You can fine-tune exact hours later in Booking Settings.</p>
+        <p class="hint" style="margin-top:0.8rem;" data-i18n="wiz_avail_note">You can fine-tune exact hours later in Booking Settings.</p>
       </div>
 
       <div id="wizard-step-4" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">How much is your deposit?</h2>
-        <label for="wizard-deposit">Deposit (RM), 0 for free</label>
-        <input type="number" id="wizard-deposit" step="0.01" min="0" placeholder="e.g. 50" />
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wiz_deposit_title">How much is your deposit?</h2>
+        <label for="wizard-deposit" data-i18n="wiz_deposit_label">Deposit (RM), 0 for free</label>
+        <input type="number" id="wizard-deposit" step="0.01" min="0" data-i18n-placeholder="wiz_deposit_placeholder" placeholder="e.g. 50" />
       </div>
 
       <div id="wizard-step-5" style="display:none; text-align:center;">
         <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎉</div>
-        <h2 style="margin-top:0; font-size:1.2rem;">Your booking page is ready!</h2>
+        <h2 style="margin-top:0; font-size:1.2rem;" data-i18n="wiz_done_title">Your booking page is ready!</h2>
         <p class="hint" id="wizard-final-link" style="word-break:break-all; margin-bottom:1rem;"></p>
-        <button type="button" id="wizard-copy-link-btn" class="secondary" style="width:100%; margin-bottom:0.5rem;">Copy Link</button>
-        <a href="#" id="wizard-open-link-btn" target="_blank" class="btn" style="width:100%; display:block; text-align:center;">Open Booking Page</a>
+        <button type="button" id="wizard-copy-link-btn" class="secondary" style="width:100%; margin-bottom:0.5rem;" data-i18n="wiz_copy_link">Copy Link</button>
+        <a href="#" id="wizard-open-link-btn" target="_blank" class="btn" style="width:100%; display:block; text-align:center;" data-i18n="wiz_open_link">Open Booking Page</a>
       </div>
 
       <p class="error" id="wizard-error" style="display:none; margin-top:0.8rem;"></p>
 
       <div class="row" style="margin-top:1.4rem; gap:0.5rem;" id="wizard-nav-row">
-        <button type="button" class="secondary" id="wizard-back-btn" style="flex:1;">Back</button>
-        <button type="button" id="wizard-next-btn" style="flex:1;">Next</button>
+        <button type="button" class="secondary" id="wizard-back-btn" style="flex:1;" data-i18n="wiz_back">Back</button>
+        <button type="button" id="wizard-next-btn" style="flex:1;" data-i18n="wiz_next">Next</button>
       </div>
     </div>
   </div>
@@ -3277,15 +3286,40 @@
     }
 
     // ── Onboarding Wizard (first-time setup, "first booking in 5 minutes") ──
-    const WIZARD_PERSONAS = ["Home Baker", "Tutor", "Photographer", "Fitness Coach", "Freelancer", "Other"];
+    const WIZARD_PERSONAS = [
+      { en: "Home Baker", ms: "Home Baker" },
+      { en: "Tutor", ms: "Tutor" },
+      { en: "Photographer", ms: "Photographer" },
+      { en: "Fitness Coach", ms: "Fitness Coach" },
+      { en: "Freelancer", ms: "Freelancer" },
+      { en: "Consultant", ms: "Consultant" },
+      { en: "Clinic or Medical", ms: "Klinik atau Perubatan" },
+      { en: "Hair & Beauty Salon", ms: "Salon Kecantikan" },
+      { en: "Spa & Massage", ms: "Spa & Urut" },
+      { en: "Pet Grooming", ms: "Pet Grooming" },
+      { en: "Car Detailing", ms: "Car Detailing" },
+      { en: "Event Planner", ms: "Perancang Majlis" },
+      { en: "Home Cleaning", ms: "Perkhidmatan Pembersihan" },
+      { en: "Tailor", ms: "Tukang Jahit" },
+      { en: "Music or Art Teacher", ms: "Guru Muzik atau Seni" },
+      { en: "Other", ms: "Lain-lain" },
+    ];
     let wizardPersona = null;
-    let wizardStepIdx = 1;
+    let wizardStepIdx = 0;
 
     function openOnboardingWizard() {
-      wizardStepIdx = 1;
+      wizardStepIdx = 0;
       wizardPersona = null;
+      renderWizardPersonaGrid();
+      renderWizardAvailabilityOptions();
+      renderWizardStep();
+      document.getElementById("wizard-modal").style.display = "flex";
+    }
+
+    function renderWizardPersonaGrid() {
+      const lang = getCurrentLang();
       document.getElementById("wizard-persona-grid").innerHTML = WIZARD_PERSONAS.map(p => `
-        <button type="button" class="secondary wizard-persona-btn" data-persona="${p}" style="padding:0.8rem 0.5rem;">${p}</button>
+        <button type="button" class="secondary wizard-persona-btn" data-persona="${p.en}" style="padding:0.8rem 0.5rem;">${lang === "ms" ? p.ms : p.en}</button>
       `).join("");
       document.getElementById("wizard-persona-grid").querySelectorAll(".wizard-persona-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -3295,26 +3329,37 @@
           wizardPersona = btn.dataset.persona;
         });
       });
-
-      document.getElementById("wizard-availability-options").innerHTML = `
-        <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;"><input type="radio" name="wizard-avail" value="everyday" checked style="width:auto;" /> Every day, 9am to 6pm</label>
-        <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;"><input type="radio" name="wizard-avail" value="weekdays" style="width:auto;" /> Weekdays only, 9am to 6pm</label>
-        <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;"><input type="radio" name="wizard-avail" value="later" style="width:auto;" /> I'll set this myself later</label>
-      `;
-
-      renderWizardStep();
-      document.getElementById("wizard-modal").style.display = "flex";
     }
 
+    function renderWizardAvailabilityOptions() {
+      const lang = getCurrentLang();
+      const opts = lang === "ms"
+        ? [["everyday", "Setiap hari, 9 pagi hingga 6 petang", true], ["weekdays", "Hari bekerja je, 9 pagi hingga 6 petang", false], ["later", "Saya set sendiri lepas ni", false]]
+        : [["everyday", "Every day, 9am to 6pm", true], ["weekdays", "Weekdays only, 9am to 6pm", false], ["later", "I'll set this myself later", false]];
+      document.getElementById("wizard-availability-options").innerHTML = opts.map(([val, label, checked]) => `
+        <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;"><input type="radio" name="wizard-avail" value="${val}" ${checked ? "checked" : ""} style="width:auto;" /> ${label}</label>
+      `).join("");
+    }
+
+    document.querySelectorAll("[data-wizard-lang]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        applyLanguage(btn.dataset.wizardLang);
+        renderWizardPersonaGrid();
+        renderWizardAvailabilityOptions();
+        wizardStepIdx = 1;
+        renderWizardStep();
+      });
+    });
+
     function renderWizardStep() {
-      for (let i = 1; i <= 5; i++) {
+      for (let i = 0; i <= 5; i++) {
         const el = document.getElementById(`wizard-step-${i}`);
         if (el) el.style.display = i === wizardStepIdx ? "block" : "none";
       }
-      document.getElementById("wizard-progress").textContent = wizardStepIdx <= 4 ? `Step ${wizardStepIdx} of 4` : "";
-      document.getElementById("wizard-back-btn").style.visibility = wizardStepIdx === 1 ? "hidden" : "visible";
-      document.getElementById("wizard-nav-row").style.display = wizardStepIdx === 5 ? "none" : "flex";
-      document.getElementById("wizard-next-btn").textContent = wizardStepIdx === 4 ? "Finish" : "Next";
+      document.getElementById("wizard-progress").textContent = (wizardStepIdx >= 1 && wizardStepIdx <= 4) ? `${getCurrentLang() === "ms" ? "Langkah" : "Step"} ${wizardStepIdx} ${getCurrentLang() === "ms" ? "dari" : "of"} 4` : "";
+      document.getElementById("wizard-back-btn").style.visibility = wizardStepIdx <= 1 ? "hidden" : "visible";
+      document.getElementById("wizard-nav-row").style.display = (wizardStepIdx === 0 || wizardStepIdx === 5) ? "none" : "flex";
+      document.getElementById("wizard-next-btn").textContent = wizardStepIdx === 4 ? (getCurrentLang() === "ms" ? "Selesai" : "Finish") : (getCurrentLang() === "ms" ? "Seterusnya" : "Next");
       document.getElementById("wizard-error").style.display = "none";
     }
 
@@ -3334,15 +3379,16 @@
 
     document.getElementById("wizard-next-btn")?.addEventListener("click", async () => {
       const errorEl = document.getElementById("wizard-error");
+      const isMs = getCurrentLang() === "ms";
       errorEl.style.display = "none";
 
       if (wizardStepIdx === 1 && !wizardPersona) {
-        errorEl.textContent = "Please pick one to continue.";
+        errorEl.textContent = isMs ? "Sila pilih satu untuk teruskan." : "Please pick one to continue.";
         errorEl.style.display = "block";
         return;
       }
       if (wizardStepIdx === 2 && !document.getElementById("wizard-service-name").value.trim()) {
-        errorEl.textContent = "Please enter a service name.";
+        errorEl.textContent = isMs ? "Sila masukkan nama servis." : "Please enter a service name.";
         errorEl.style.display = "block";
         return;
       }
@@ -3350,17 +3396,17 @@
       if (wizardStepIdx === 4) {
         const btn = document.getElementById("wizard-next-btn");
         btn.disabled = true;
-        btn.textContent = "Setting up...";
+        btn.textContent = isMs ? "Sedang setup..." : "Setting up...";
         try {
           await finishWizardSetup();
           wizardStepIdx = 5;
           renderWizardStep();
         } catch (err) {
-          errorEl.textContent = err.message || "Something went wrong. Please try again.";
+          errorEl.textContent = err.message || (isMs ? "Ada masalah berlaku. Sila cuba lagi." : "Something went wrong. Please try again.");
           errorEl.style.display = "block";
         }
         btn.disabled = false;
-        btn.textContent = "Finish";
+        btn.textContent = isMs ? "Selesai" : "Finish";
         return;
       }
 

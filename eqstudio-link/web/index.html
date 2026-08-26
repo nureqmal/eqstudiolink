@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/x-icon" href="/assets/logo/favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png" />
 <title>eqstudio.link: Booking & Client Manager untuk Business Owner Solo</title>
 <meta name="description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Booking online, invois, dan pengurusan pelanggan untuk usahawan solo Malaysia. Percuba 14 hari, RM19/bulan." />
 <link rel="canonical" href="https://eqstudio.link/" />
@@ -28,7 +32,7 @@
 <body>
 
   <nav class="lp-nav">
-    <a href="/" class="brand" style="text-decoration:none;">eqstudio<span class="dot">.</span>link</a>
+    <a href="/" class="brand" style="text-decoration:none;"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
     <div class="lp-nav-links">
       <div class="lang-toggle">
         <button type="button" class="lang-toggle-btn active" data-lang-toggle="en">EN</button>
@@ -688,7 +692,7 @@
         body.innerHTML = `
           <h3>${ST("s2_title")}</h3>
           <p class="sim-narrative">${ST("s2_narrative")}</p>
-          <div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">${ST("confirming_booking")(escapeSim(simCustomer.slotLabel || ""))}</p></div>
+          <div class="sim-spinner-wrap"><img src="/assets/logo/logo-64.png" class="logo-loader" alt="" /><p class="hint">${ST("confirming_booking")(escapeSim(simCustomer.slotLabel || ""))}</p></div>
         `;
         nextBtn.style.display = "none";
         backBtn.style.visibility = "hidden";
@@ -721,7 +725,7 @@
       else if (simStep === 4) {
         body.innerHTML = `
           <h3>${ST("s5_title")}</h3>
-          <div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">${ST("verifying")}</p></div>
+          <div class="sim-spinner-wrap"><img src="/assets/logo/logo-64.png" class="logo-loader" alt="" /><p class="hint">${ST("verifying")}</p></div>
         `;
         nextBtn.style.display = "none";
         backBtn.style.visibility = "hidden";
@@ -1304,3 +1308,4 @@
 
 </body>
 </html>
+

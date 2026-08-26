@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<link rel="icon" type="image/x-icon" href="/assets/logo/favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png" />
 <title>Dashboard — eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -19,7 +23,7 @@
   <div class="db-shell">
 
     <aside class="db-sidebar">
-      <a href="/dashboard.html" class="brand">eqstudio<span class="dot">.</span>link</a>
+      <a href="/dashboard.html" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
       <div class="db-sidebar-footer">
         <div class="db-biz-name" id="business-name-side">—</div>
         <button class="secondary" id="restart-tour-btn" style="width:100%; margin-bottom:0.5rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan Guna Sistem</button>
@@ -31,7 +35,7 @@
     </aside>
 
     <div class="db-topbar-mobile">
-      <a href="/dashboard.html" class="brand">eqstudio<span class="dot">.</span>link</a>
+      <a href="/dashboard.html" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
       <div style="display:flex; gap:0.5rem;">
         <div class="lang-toggle">
           <button type="button" class="lang-toggle-btn active" data-lang-toggle="en">EN</button>
@@ -54,9 +58,12 @@
         <div id="setup-checklist-slot"></div>
 
         <div class="db-page active" id="page-home">
-          <div class="home-hero">
-            <p class="hint" id="home-greeting">Selamat kembali</p>
-            <h1 class="home-biz-name" id="home-biz-name">—</h1>
+          <div class="home-hero" style="display:flex; justify-content:space-between; align-items:flex-end; gap:0.6rem; flex-wrap:wrap;">
+            <div>
+              <p class="hint" id="home-greeting">Selamat kembali</p>
+              <h1 class="home-biz-name" id="home-biz-name">—</h1>
+            </div>
+            <button type="button" id="quick-add-open-btn" style="width:auto; white-space:nowrap;">+ Tambah Pelanggan Pantas</button>
           </div>
 
           <div class="home-stat-grid" id="home-stat-grid">
@@ -92,7 +99,7 @@
             <div id="home-trend-chart" style="margin-top:0.6rem;"></div>
           </div>
 
-          <div class="card" id="home-next-action-card" style="margin-bottom:1.5rem; display:none; border-left:4px solid var(--stamp);">
+          <div class="card tile-enter" id="home-next-action-card" style="margin-bottom:1.5rem; display:none; border-left:4px solid var(--stamp);">
             <p class="hint" style="text-transform:uppercase; font-size:0.7rem; font-weight:700; letter-spacing:0.03em; color:var(--stamp); margin:0 0 0.5rem;">Next Action</p>
             <p style="font-weight:600; margin:0 0 0.8rem; font-size:0.95rem;" id="home-next-action-text"></p>
             <button type="button" class="secondary" id="home-next-action-btn" style="width:auto; padding:0.5rem 1rem; font-size:0.85rem;"></button>
@@ -219,7 +226,11 @@
               <div class="skeleton" style="height:56px; border-radius:12px;"></div>
             </div>
             <div id="booking-list"></div>
-            <p class="hint" id="booking-list-empty" style="display:none;">Belum ada booking lagi. Kongsi link booking anda (dari menu Tetapan Booking) untuk mula terima tempahan.</p>
+            <div class="empty-state-visual" id="booking-list-empty" style="display:none;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <p class="empty-state-title">Belum ada booking lagi</p>
+              <p class="hint">Kongsi link booking anda (dari menu Tetapan Booking) untuk mula terima tempahan.</p>
+            </div>
           </div>
         </div>
 
@@ -511,7 +522,11 @@
               <tbody id="customer-tbody"></tbody>
             </table>
             <div class="cust-mobile-list" id="customer-mobile-list"></div>
-            <p class="hint" id="empty-state" style="display:none;">Belum ada pelanggan lagi. Pergi ke menu "Tambah Pelanggan" dari Home.</p>
+            <div class="empty-state-visual" id="empty-state" style="display:none;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <p class="empty-state-title">Belum ada pelanggan lagi</p>
+              <p class="hint">Pergi ke menu "Tambah Pelanggan" dari Home.</p>
+            </div>
           </div>
         </div>
 
@@ -736,6 +751,26 @@
       </div>
       <p class="error" id="reschedule-error" style="display:none;"></p>
       <p class="hint" id="reschedule-loading" style="display:none;">Memuatkan slot available...</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="quick-add-modal" style="display:none;">
+    <div class="modal-box" style="max-width:400px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tambah Pelanggan Pantas</h2></div>
+      <form id="quick-add-form">
+        <label for="qa-name">Nama</label>
+        <input type="text" id="qa-name" required />
+        <label for="qa-email">Emel</label>
+        <input type="email" id="qa-email" required />
+        <label for="qa-amount">Jumlah (RM)</label>
+        <input type="number" id="qa-amount" step="0.01" min="0" required />
+        <label for="qa-due">Tarikh Due</label>
+        <input type="date" id="qa-due" required />
+        <button type="submit" style="width:100%; margin-top:1rem;">Tambah</button>
+        <p class="error" id="qa-error" style="display:none;"></p>
+      </form>
+      <p class="hint" style="text-align:center; margin-top:0.8rem;"><a href="#" id="quick-add-more-link">Perlukan telefon, catatan, atau bayaran berulang? Buka borang penuh →</a></p>
+      <button type="button" class="secondary" id="quick-add-close-btn" style="width:100%; margin-top:0.5rem;">Batal</button>
     </div>
   </div>
 
@@ -1891,7 +1926,7 @@
         return;
       }
       closeEditModal();
-      showToast("Perubahan disimpan.", "success");
+      showToast(`Maklumat ${payload.name} dikemaskini.`, "success");
       loadCustomers();
     });
 
@@ -2252,7 +2287,7 @@
       await supabase.from("booking_questions").insert({ owner_id: user.id, booking_link_id: currentLinkId, question_text: text, sort_order: (existing?.length || 0) });
       input.value = "";
       loadBookingQuestions();
-      showToast("Soalan ditambah.", "success");
+      showToast("Soalan tambahan ditambah. Customer akan nampak dalam borang booking lepas ni.", "success");
     });
 
     // ── Event Types (scoped to the currently selected link) ──
@@ -2307,7 +2342,7 @@
       prefillEventTypeDeposit();
       document.getElementById("et-capacity").value = "1";
       loadEventTypes();
-      showToast("Jenis perkhidmatan ditambah.", "success");
+      showToast(`Jenis perkhidmatan "${name}" ditambah. Customer boleh pilih ni semasa booking lepas ni.`, "success");
     });
 
     // Pre-fills the new-event-type deposit field from the current link's default —
@@ -2590,9 +2625,9 @@
           });
           const result = await res.json();
           if (result.sent === false) {
-            showToast("Reminder akan dihantar dalam sweep seterusnya.", "success");
+            showToast(`Reminder untuk ${target.name} akan dihantar dalam sweep seterusnya (dalam 2 jam).`, "success");
           } else {
-            showToast("Reminder dihantar!", "success");
+            showToast(`Reminder dihantar ke ${target.name}. Emel dah keluar!`, "success");
           }
         } catch {
           showToast("Gagal hantar reminder. Cuba lagi sekejap.", "error");
@@ -2925,7 +2960,7 @@
       }
       localStorage.setItem("eqstudio_schedule_saved", "1");
       renderSetupChecklist(allCustomers.length);
-      showToast("Jadual reminder disimpan.", "success");
+      showToast("Jadual reminder disimpan. Reminder akan hantar ikut jadual baharu ni lepas ni.", "success");
       flashButtonSuccess(e.target, "Simpan Jadual");
     });
 
@@ -3039,7 +3074,7 @@
               <span style="flex:1; margin-left:0.6rem;">${escapeHtml(b.customer_name)}</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cal-chevron" style="transition:transform 0.15s; color:var(--ink-soft);"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </div>
-            <div class="cal-timeline-actions" style="display:none; margin-top:0.6rem; gap:0.4rem;" data-actions-for="${b.id}"></div>
+            <div class="cal-timeline-actions" data-actions-for="${b.id}"></div>
           </div>
         `;
       }).join("");
@@ -3061,12 +3096,12 @@
           if (e.target.closest(".cal-timeline-actions")) return;
           const booking = dayBookings.find(b => b.id === row.dataset.bookingId);
           const actionsEl = row.querySelector(".cal-timeline-actions");
-          const isOpen = actionsEl.style.display === "flex";
-          listEl.querySelectorAll(".cal-timeline-actions").forEach(a => a.style.display = "none");
+          const isOpen = actionsEl.classList.contains("cal-actions-open");
+          listEl.querySelectorAll(".cal-timeline-actions").forEach(a => a.classList.remove("cal-actions-open"));
           listEl.querySelectorAll(".cal-chevron").forEach(c => c.style.transform = "");
           if (isOpen) return;
 
-          actionsEl.style.display = "flex";
+          actionsEl.classList.add("cal-actions-open");
           row.querySelector(".cal-chevron").style.transform = "rotate(180deg)";
           actionsEl.innerHTML = "";
 
@@ -3111,6 +3146,53 @@
     document.getElementById("cal-next")?.addEventListener("click", () => {
       calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; }
       renderCalendar();
+    });
+
+    // ── Quick Add (Home hub shortcut — 4 required fields only, skips full
+    // page navigation for the common case; "more options" link opens the
+    // full Tambah Pelanggan page for phone/notes/recurring) ──
+    document.getElementById("quick-add-open-btn")?.addEventListener("click", () => {
+      document.getElementById("quick-add-form").reset();
+      document.getElementById("qa-error").style.display = "none";
+      document.getElementById("quick-add-modal").style.display = "flex";
+    });
+    document.getElementById("quick-add-close-btn")?.addEventListener("click", () => {
+      document.getElementById("quick-add-modal").style.display = "none";
+    });
+    document.getElementById("quick-add-more-link")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      document.getElementById("quick-add-modal").style.display = "none";
+      goToPage("pelanggan-add");
+    });
+    document.getElementById("quick-add-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Menambah...";
+
+      const payload = {
+        owner_id: user.id,
+        name: document.getElementById("qa-name").value.trim(),
+        contact_email: document.getElementById("qa-email").value.trim(),
+        amount: parseFloat(document.getElementById("qa-amount").value),
+        due_date: document.getElementById("qa-due").value,
+      };
+
+      const { error } = await supabase.from("customers").insert(payload);
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+
+      if (error) {
+        const errEl = document.getElementById("qa-error");
+        errEl.textContent = error.message;
+        errEl.style.display = "block";
+        return;
+      }
+
+      document.getElementById("quick-add-modal").style.display = "none";
+      showToast(`${payload.name} ditambah. RM${payload.amount.toFixed(2)} due ${new Date(payload.due_date).toLocaleDateString("ms-MY")}.`, "success");
+      loadCustomers().catch(() => {});
     });
 
     loadCustomers().catch(err => {
@@ -3218,7 +3300,7 @@
       }
       const { error } = await supabase.from("note_templates").insert({ owner_id: user.id, label: text });
       if (error) { showToast(error.message, "error"); return; }
-      showToast("Template disimpan.", "success");
+      showToast(`Template "${text}" disimpan. Boleh guna terus lepas ni.`, "success");
       await loadNoteTemplates();
     }
 

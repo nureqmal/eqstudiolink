@@ -10,8 +10,8 @@
   --ink: #16161A;
   --ink-soft: #6B6B75;
   --surface: #ffffff;
-  --stamp: #4F46E5;
-  --stamp-soft: #EEF0FF;
+  --stamp: #4A098F;
+  --stamp-soft: #f3ecfa;
   --ok: #16A34A;
   --ok-bg: #EAF7EF;
   --warn: #DC2626;
@@ -19,7 +19,7 @@
   --pending-bg: #FEF6E4;
 
   /* Category tint quartet — cool family, used for bento tile accents/icons */
-  --accent-coral: #4F46E5;
+  --accent-coral: #DC5B4A;
   --accent-sage: #0D9488;
   --accent-sun: #B45309;
   --accent-lilac: #7C3AED;
@@ -39,8 +39,8 @@
   --ink: #F2F2F5;
   --ink-soft: #9A9AA5;
   --surface: #18181C;
-  --stamp: #818CF8;
-  --stamp-soft: #262A4A;
+  --stamp: #b689e6;
+  --stamp-soft: #28163b;
   --ok: #4ADE80;
   --ok-bg: #133321;
   --warn: #F87171;
@@ -87,8 +87,13 @@ a { color: var(--stamp); }
   padding: 1rem 1.25rem; border-bottom: 1px solid var(--paper-line);
   background: rgba(251, 247, 239, 0.9); position: sticky; top: 0; backdrop-filter: blur(4px);
 }
-.brand { font-size: 1.25rem; color: var(--ink); text-decoration: none; }
+.brand { font-size: 1.25rem; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; }
+.brand img { height: 34px; width: auto; display: block; }
 .brand .dot { color: var(--stamp); }
+
+/* ── Wizard persona buttons: some labels are long ("Hair & Beauty Salon"),
+   keep them uniform on narrow screens rather than wrapping unevenly ── */
+.wizard-persona-btn { font-size: 0.85rem; line-height: 1.25; min-height: 44px; }
 
 .card {
   background: var(--surface);
@@ -115,7 +120,7 @@ button, .btn {
   font-size: 0.95rem; background: var(--stamp); color: #fff; text-decoration: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s;
 }
-button:hover, .btn:hover { background: #4338CA; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(79,70,229,0.35); }
+button:hover, .btn:hover { background: #360669; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(74,9,143,0.35); }
 button:active, .btn:active { transform: translateY(0); }
 button.secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--paper-line); border-radius: 999px; }
 button.secondary:hover { background: var(--pending-bg); transform: none; box-shadow: none; }
@@ -169,7 +174,7 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 }
 .lp-hero::before {
   content: ""; position: absolute; top: -60px; right: -80px; width: 480px; height: 480px;
-  background: radial-gradient(circle, rgba(79,70,229,0.16) 0%, rgba(180,83,9,0.06) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(74,9,143,0.16) 0%, rgba(180,83,9,0.06) 45%, transparent 70%);
   border-radius: 50%; pointer-events: none; z-index: 0;
 }
 .lp-hero > * { position: relative; z-index: 1; }
@@ -311,7 +316,7 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 }
 .lp-sim-cta::before {
   content: ""; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 400px 200px at 50% 0%, rgba(79,70,229,0.10), transparent 70%);
+  background: radial-gradient(ellipse 400px 200px at 50% 0%, rgba(74,9,143,0.10), transparent 70%);
   pointer-events: none;
 }
 .lp-sim-cta-icon { font-size: 2.75rem; margin-bottom: 0.5rem; }
@@ -354,6 +359,14 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 }
 @keyframes sim-spin { to { transform: rotate(360deg); } }
 
+/* ── Logo loading animation — gentle "breathing" pulse, not a spin, to stay
+   in keeping with the calm/trustworthy tone rather than looking frantic ── */
+.logo-loader { width: 56px; height: 56px; margin: 0 auto 1rem; animation: logo-pulse 1.4s ease-in-out infinite; }
+@keyframes logo-pulse {
+  0%, 100% { transform: scale(0.88); opacity: 0.55; }
+  50% { transform: scale(1.04); opacity: 1; }
+}
+
 /* Realistic email mockup — mirrors the actual branded template */
 .sim-email-mock { background: var(--surface); border-radius: 12px; overflow: hidden; border: 1px solid var(--paper-line); box-shadow: var(--shadow); }
 .sim-email-mock .bar { height: 5px; background: var(--stamp); }
@@ -377,7 +390,7 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
   display: block; width: 100%; text-align: center; background: var(--stamp); color: #fff; border: none;
   padding: 0.75rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; cursor: pointer;
 }
-.sim-email-mock .cta-pay:hover { background: #4338CA; transform: none; }
+.sim-email-mock .cta-pay:hover { background: #360669; transform: none; }
 .sim-email-mock .cta-wa {
   display: block; width: 100%; text-align: center; background: var(--surface); color: var(--stamp); border: 1.5px solid var(--stamp);
   padding: 0.65rem; border-radius: 8px; font-weight: 700; font-size: 0.83rem; margin-bottom: 0.9rem;
@@ -407,10 +420,10 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .chat-bubble-btn {
   position: fixed; bottom: 1.25rem; right: 1.25rem; width: 56px; height: 56px; border-radius: 50%;
   background: var(--stamp); color: #fff; border: none; font-size: 1.5rem; cursor: pointer;
-  box-shadow: 0 8px 24px rgba(79,70,229,0.4); z-index: 250; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(74,9,143,0.4); z-index: 250; display: flex; align-items: center; justify-content: center;
   transition: transform 0.15s;
 }
-.chat-bubble-btn:hover { transform: scale(1.08) translateY(0); box-shadow: 0 8px 24px rgba(79,70,229,0.4); }
+.chat-bubble-btn:hover { transform: scale(1.08) translateY(0); box-shadow: 0 8px 24px rgba(74,9,143,0.4); }
 .chat-bubble-btn .chat-dot { position: absolute; top: 4px; right: 4px; width: 12px; height: 12px; background: var(--accent-coral); border: 2px solid #fff; border-radius: 50%; }
 
 .chat-panel {
@@ -663,12 +676,16 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(42,33,24,0.35); display: flex;
   align-items: center; justify-content: center; z-index: 200; padding: 1rem;
+  animation: modal-overlay-in 0.2s ease both;
 }
 .modal-box {
   background: var(--paper); border-radius: var(--radius-lg); padding: 1.75rem;
   max-width: 440px; width: 100%; max-height: 90vh; overflow-y: auto;
   box-shadow: 0 20px 60px rgba(42,33,24,0.25);
+  animation: modal-box-in 0.22s cubic-bezier(.2,.9,.3,1) both;
 }
+@keyframes modal-overlay-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-box-in { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .modal-box .section-title { margin-bottom: 0.5rem; }
 .lp-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 .lp-compare-col { border-radius: var(--radius-lg); padding: 1.75rem; }
@@ -990,7 +1007,7 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 @media (max-width: 480px) { .home-summary-divider { display: none; } .home-summary-card { flex-direction: column; align-items: flex-start; } }
 
 /* ── Home tile category gradients (subtle accent tint on hover) ──── */
-.home-tile[data-cat="coral"]:hover { background: linear-gradient(135deg, var(--surface), rgba(79,70,229,0.06)); }
+.home-tile[data-cat="coral"]:hover { background: linear-gradient(135deg, var(--surface), rgba(220,91,74,0.06)); }
 .home-tile[data-cat="sage"]:hover { background: linear-gradient(135deg, var(--surface), rgba(13,148,136,0.07)); }
 .home-tile[data-cat="sun"]:hover { background: linear-gradient(135deg, var(--surface), rgba(180,83,9,0.08)); }
 .home-tile[data-cat="lilac"]:hover { background: linear-gradient(135deg, var(--surface), rgba(124,58,237,0.07)); }
@@ -1086,8 +1103,8 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   animation: tour-pulse 1.4s ease-in-out infinite;
 }
 @keyframes tour-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.45); }
-  50% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 9, 143, 0.45); }
+  50% { box-shadow: 0 0 0 10px rgba(74, 9, 143, 0); }
 }
 
 #tour-panel {
@@ -1227,7 +1244,7 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .bento-tile-label { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; color: var(--ink); }
 .bento-tile-stat { font-size: 0.78rem; color: var(--stamp); font-weight: 600; }
 
-.bento-tile[data-cat="coral"]:hover { background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(79,70,229,0.1)); }
+.bento-tile[data-cat="coral"]:hover { background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(220,91,74,0.1)); }
 .bento-tile[data-cat="sage"]:hover { background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(13,148,136,0.12)); }
 .bento-tile[data-cat="sun"]:hover { background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(180,83,9,0.13)); }
 .bento-tile[data-cat="lilac"]:hover { background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(124,58,237,0.12)); }
@@ -1285,7 +1302,7 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   display: inline-flex; align-items: center; justify-content: center;
   width: 34px; height: 34px; border-radius: 9px; margin-bottom: 0.5rem;
 }
-.home-stat-icon-chip[data-accent="coral"] { background: rgba(79,70,229,0.12); color: var(--accent-coral); }
+.home-stat-icon-chip[data-accent="coral"] { background: rgba(220,91,74,0.12); color: var(--accent-coral); }
 .home-stat-icon-chip[data-accent="sage"] { background: rgba(13,148,136,0.12); color: var(--accent-sage); }
 .home-stat-icon-chip[data-accent="sun"] { background: rgba(180,83,9,0.12); color: var(--accent-sun); }
 .home-stat-icon-chip[data-accent="lilac"] { background: rgba(124,58,237,0.12); color: var(--accent-lilac); }
@@ -1295,7 +1312,7 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 /* Pastel icon-chip background applied to the existing bento tile icons too — pure
    CSS, no HTML change needed, keyed off the tile's existing data-cat attribute. */
 .bento-tile-icon { border-radius: 10px; padding: 6px; }
-.bento-tile[data-cat="coral"] .bento-tile-icon { background: rgba(79,70,229,0.12); color: var(--accent-coral); }
+.bento-tile[data-cat="coral"] .bento-tile-icon { background: rgba(220,91,74,0.12); color: var(--accent-coral); }
 .bento-tile[data-cat="sage"] .bento-tile-icon { background: rgba(13,148,136,0.12); color: var(--accent-sage); }
 .bento-tile[data-cat="sun"] .bento-tile-icon { background: rgba(180,83,9,0.12); color: var(--accent-sun); }
 .bento-tile[data-cat="lilac"] .bento-tile-icon { background: rgba(124,58,237,0.12); color: var(--accent-lilac); }
@@ -1421,3 +1438,18 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   .lp-nav-links a.plain { font-size: 0.8rem; }
   .lp-nav .brand { font-size: 0.95rem; }
 }
+
+/* ── Empty state visual — icon + heading, not just a bare hint line, so it
+   reads as a designed moment ("Onboarding Sebagai Feature") rather than an
+   afterthought fallback ── */
+.empty-state-visual { text-align: center; padding: 2.5rem 1rem; color: var(--ink-soft); }
+.empty-state-visual svg { color: var(--stamp); opacity: 0.55; margin-bottom: 0.8rem; }
+.empty-state-title { font-weight: 600; color: var(--ink); margin: 0 0 0.3rem; font-size: 0.98rem; }
+.empty-state-visual .hint { max-width: 320px; margin-left: auto; margin-right: auto; }
+
+/* ── Calendar drawer expand/collapse — smooth, not a display:none/flex snap ── */
+.cal-timeline-actions {
+  display: flex; gap: 0.4rem; overflow: hidden; max-height: 0; opacity: 0;
+  transition: max-height 0.22s cubic-bezier(.2,.9,.3,1), opacity 0.18s ease, margin-top 0.22s ease;
+}
+.cal-timeline-actions.cal-actions-open { max-height: 60px; opacity: 1; margin-top: 0.6rem; }

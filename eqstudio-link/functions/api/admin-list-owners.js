@@ -23,7 +23,7 @@ export async function onRequestGet(context) {
 
   try {
     const [profiles, customers, bookings, bookingLinks, authUsersRes] = await Promise.all([
-      sbAdmin(env, "/profiles?select=id,business_name,subscription_status,subscription_end_date,is_suspended,created_at,tier"),
+      sbAdmin(env, "/profiles?select=id,business_name,subscription_status,subscription_end_date,is_suspended,created_at,tier,forum_banned"),
       sbAdmin(env, "/customers?select=owner_id"),
       sbAdmin(env, "/bookings?select=owner_id,status"),
       sbAdmin(env, "/booking_links?select=owner_id,slug"),
@@ -52,6 +52,7 @@ export async function onRequestGet(context) {
       id: p.id,
       email: emailById.get(p.id) || "—",
       business_name: p.business_name || "(belum diisi)",
+      forum_banned: p.forum_banned || false,
       tier: p.tier || "starter",
       subscription_status: p.subscription_status,
       subscription_end_date: p.subscription_end_date,

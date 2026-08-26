@@ -1,6 +1,7 @@
 // Cloudflare Pages Function — POST /api/admin-owner-action
-// Password-gated (x-admin-key header). Body: { owner_id, action, days? }
+// Password-gated (x-admin-key header). Body: { owner_id, action, days?, tier?, status? }
 // action: 'suspend' | 'reactivate' | 'delete' | 'extend_subscription' | 'reset_password'
+//       | 'change_tier' | 'set_subscription_status' | 'impersonate'
 // Required Pages env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, ADMIN_DASHBOARD_KEY, PUBLIC_SITE_URL
 
 async function sbAdmin(env, path, options = {}) {
@@ -18,6 +19,20 @@ async function sbAdmin(env, path, options = {}) {
   return res.status === 204 ? null : res.json();
 }
 
+async function logAuditAction(env, action, targetOwnerId, details) {
+  try {
+    await sbAdmin(env, "/admin_audit_log", {
+      method: "POST",
+      body: JSON.stringify({ action, target_owner_id: targetOwnerId, details: details || null }),
+    });
+  } catch (err) {
+    // Logging failure must never block the actual admin action from succeeding.
+    console.error("Audit log write failed:", err.message);
+  }
+}
+
+const VALID_STATUSES = ["trialing", "active", "past_due", "cancelled"];
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -27,22 +42,30 @@ export async function onRequestPost(context) {
   }
 
   try {
-    const { owner_id, action, days, tier } = await request.json();
+    const { owner_id, action, days, tier, status } = await request.json();
     if (!owner_id || !action) return json({ error: "owner_id dan action diperlukan." }, 400);
 
     if (action === "suspend") {
-      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ is_suspended: true }),
-      });
+      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify({ is_suspended: true }) });
+      await logAuditAction(env, "suspend", owner_id);
       return json({ success: true });
     }
 
     if (action === "reactivate") {
-      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ is_suspended: false }),
-      });
+      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify({ is_suspended: false }) });
+      await logAuditAction(env, "reactivate", owner_id);
+      return json({ success: true });
+    }
+
+    if (action === "forum_ban") {
+      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify({ forum_banned: true }) });
+      await logAuditAction(env, "forum_ban", owner_id);
+      return json({ success: true });
+    }
+
+    if (action === "forum_unban") {
+      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify({ forum_banned: false }) });
+      await logAuditAction(env, "forum_unban", owner_id);
       return json({ success: true });
     }
 
@@ -56,7 +79,15 @@ export async function onRequestPost(context) {
         method: "PATCH",
         body: JSON.stringify({ subscription_status: "active", subscription_end_date: newEnd.toISOString() }),
       });
+      await logAuditAction(env, "extend_subscription", owner_id, `+${extendDays} hari, tamat baharu ${newEnd.toISOString().slice(0, 10)}`);
       return json({ success: true, new_end_date: newEnd.toISOString() });
+    }
+
+    if (action === "set_subscription_status") {
+      if (!VALID_STATUSES.includes(status)) return json({ error: `status mesti salah satu: ${VALID_STATUSES.join(", ")}` }, 400);
+      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify({ subscription_status: status }) });
+      await logAuditAction(env, "set_subscription_status", owner_id, `status ditukar ke ${status}`);
+      return json({ success: true, subscription_status: status });
     }
 
     if (action === "reset_password") {
@@ -84,7 +115,38 @@ export async function onRequestPost(context) {
       });
       if (!linkRes.ok) return json({ error: `Gagal jana link: ${await linkRes.text()}` }, 502);
       const linkData = await linkRes.json();
+      await logAuditAction(env, "reset_password", owner_id, `link reset dijana untuk ${userData.email}`);
       return json({ success: true, reset_link: linkData.action_link, email: userData.email });
+    }
+
+    if (action === "impersonate") {
+      const userRes = await fetch(`${env.SUPABASE_URL}/auth/v1/admin/users/${owner_id}`, {
+        headers: { apikey: env.SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}` },
+      });
+      const userData = await userRes.json();
+      if (!userData.email) return json({ error: "Emel owner tidak dijumpai." }, 404);
+
+      // Reuses the same generate_link mechanism as reset_password, but type "magiclink"
+      // instead of "recovery" — this signs the admin straight into a real session AS
+      // this owner when the link is opened, rather than sending them to a password-reset
+      // flow. No custom session/token handling needed, Supabase's own auth flow does it.
+      const linkRes = await fetch(`${env.SUPABASE_URL}/auth/v1/admin/generate_link`, {
+        method: "POST",
+        headers: {
+          apikey: env.SUPABASE_SERVICE_ROLE_KEY,
+          Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type: "magiclink",
+          email: userData.email,
+          options: { redirect_to: `${env.PUBLIC_SITE_URL || "https://eqstudio.link"}/dashboard.html` },
+        }),
+      });
+      if (!linkRes.ok) return json({ error: `Gagal jana link: ${await linkRes.text()}` }, 502);
+      const linkData = await linkRes.json();
+      await logAuditAction(env, "impersonate", owner_id, `admin login sebagai ${userData.email}`);
+      return json({ success: true, impersonate_link: linkData.action_link, email: userData.email });
     }
 
     if (action === "change_tier") {
@@ -95,11 +157,6 @@ export async function onRequestPost(context) {
       const currentEnd = profRes[0]?.subscription_end_date ? new Date(profRes[0].subscription_end_date) : null;
 
       const payload = { tier };
-      // Manually granting a tier should also end trial/lapsed status, otherwise the owner
-      // is "Pro" in name only while every other trial/past-due gate in the app still treats
-      // them as not-yet-a-real-subscriber. Only touch status if it isn't already active, and
-      // only reset the end date if there isn't already a future one (avoid shortening a
-      // legitimate paid period that's already in progress).
       if (currentStatus !== "active") {
         payload.subscription_status = "active";
         if (!currentEnd || currentEnd < new Date()) {
@@ -107,10 +164,8 @@ export async function onRequestPost(context) {
         }
       }
 
-      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, {
-        method: "PATCH",
-        body: JSON.stringify(payload),
-      });
+      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify(payload) });
+      await logAuditAction(env, "change_tier", owner_id, `tier ditukar ke ${tier}`);
       return json({ success: true, tier, subscription_status: payload.subscription_status || currentStatus });
     }
 
@@ -120,8 +175,9 @@ export async function onRequestPost(context) {
         headers: { apikey: env.SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}` },
       });
       if (!res.ok) return json({ error: `Gagal padam: ${await res.text()}` }, 502);
-      // profiles/customers/bills/reminder_settings/reminders_log all cascade-delete
-      // via "references auth.users(id) on delete cascade" — no manual cleanup needed.
+      // profiles/customers/bills/reminder_settings/reminders_log/booking_links/bookings
+      // all cascade-delete via "references auth.users(id) on delete cascade".
+      await logAuditAction(env, "delete", owner_id);
       return json({ success: true });
     }
 

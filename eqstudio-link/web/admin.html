@@ -37,6 +37,7 @@
         <button type="button" class="admin-nav-btn" data-admin-page="notices"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg> Notices</button>
         <button type="button" class="admin-nav-btn" data-admin-page="forum"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> Forum</button>
         <button type="button" class="admin-nav-btn" data-admin-page="emaillog"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> Email Log</button>
+        <button type="button" class="admin-nav-btn" data-admin-page="auditlog"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg> Audit Log</button>
       </div>
       <button type="button" class="secondary" id="admin-theme-toggle" style="width:100%;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> Mod Gelap</button>
     </div>
@@ -195,6 +196,20 @@
           <p class="hint" id="email-log-empty" style="display:none;">Tiada rekod emel lagi.</p>
         </div>
       </div>
+
+      <div id="admin-page-auditlog" class="admin-page" style="display:none;">
+        <div class="card">
+          <div class="section-title"><h2 style="margin:0;">Audit Log</h2></div>
+          <p class="hint">Setiap tindakan admin (suspend/extend/tukar tier/status/impersonate/padam) direkod di sini.</p>
+          <table>
+            <thead>
+              <tr><th>Masa</th><th>Tindakan</th><th>Owner</th><th>Detail</th></tr>
+            </thead>
+            <tbody id="audit-log-tbody"></tbody>
+          </table>
+          <p class="hint" id="audit-log-empty" style="display:none;">Tiada rekod lagi.</p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -278,6 +293,42 @@
       <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="admin-modal-title">Tindakan</h2></div>
       <div id="admin-modal-body"></div>
       <button type="button" class="secondary" id="admin-modal-close" style="width:100%; margin-top:1rem;">Tutup</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="status-modal" style="display:none;">
+    <div class="modal-box" style="max-width:380px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tukar Status Langganan</h2></div>
+      <p class="hint" id="status-modal-owner-name" style="margin-bottom:0.8rem;"></p>
+      <label for="status-modal-select">Status Baharu</label>
+      <select id="status-modal-select">
+        <option value="trialing">Trial</option>
+        <option value="active">Aktif</option>
+        <option value="past_due">Tertunggak</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+      <div class="row" style="margin-top:1.2rem; gap:0.5rem;">
+        <button type="button" class="secondary" id="status-modal-cancel" style="flex:1;">Batal</button>
+        <button type="button" id="status-modal-save" style="flex:1;">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="thread-edit-modal" style="display:none;">
+    <div class="modal-box" style="max-width:480px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Edit Thread</h2></div>
+      <input type="hidden" id="te-thread-id" />
+      <label for="te-title">Tajuk</label>
+      <input type="text" id="te-title" />
+      <label for="te-category">Kategori</label>
+      <select id="te-category"></select>
+      <label for="te-message">Mesej</label>
+      <textarea id="te-message" rows="4"></textarea>
+      <div class="row" style="margin-top:1.2rem; gap:0.5rem;">
+        <button type="button" class="secondary" id="te-cancel" style="flex:1;">Batal</button>
+        <button type="button" id="te-save" style="flex:1;">Simpan</button>
+      </div>
+      <p class="error" id="te-error" style="display:none;"></p>
     </div>
   </div>
 
@@ -399,6 +450,7 @@
           <td data-label=""></td>
         `;
         const actionTd = tr.lastElementChild;
+        actionTd.style.whiteSpace = "nowrap";
 
         const detailBtn = document.createElement("button");
         detailBtn.className = "secondary";
@@ -407,63 +459,132 @@
         detailBtn.addEventListener("click", () => openOwnerDetail(o));
         actionTd.appendChild(detailBtn);
 
-        const suspendBtn = document.createElement("button");
-        suspendBtn.className = "secondary";
-        suspendBtn.style.marginRight = "0.4rem";
-        suspendBtn.textContent = o.is_suspended ? "Reaktivate" : "Suspend";
-        suspendBtn.addEventListener("click", () => performAction(o, o.is_suspended ? "reactivate" : "suspend"));
-        actionTd.appendChild(suspendBtn);
+        const kebabWrap = document.createElement("div");
+        kebabWrap.className = "kebab-wrap";
+        kebabWrap.style.display = "inline-block";
 
-        const extendBtn = document.createElement("button");
-        extendBtn.className = "secondary";
-        extendBtn.style.marginRight = "0.4rem";
-        extendBtn.textContent = "Extend";
-        extendBtn.addEventListener("click", () => {
-          const days = prompt(`Extend subscription ${o.business_name} berapa hari?`, "30");
-          if (days) performAction(o, "extend_subscription", parseInt(days, 10));
-        });
-        actionTd.appendChild(extendBtn);
+        const kebabBtn = document.createElement("button");
+        kebabBtn.className = "icon-btn";
+        kebabBtn.title = "Lagi tindakan";
+        kebabBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>`;
 
-        const resetBtn = document.createElement("button");
-        resetBtn.className = "secondary";
-        resetBtn.style.marginRight = "0.4rem";
-        resetBtn.textContent = "Reset PW";
-        resetBtn.addEventListener("click", () => performAction(o, "reset_password"));
-        actionTd.appendChild(resetBtn);
+        const menu = document.createElement("div");
+        menu.className = "kebab-menu";
 
-        const tierBtn = document.createElement("button");
-        tierBtn.className = "secondary";
-        tierBtn.style.marginRight = "0.4rem";
-        const otherTier = o.tier === "pro" ? "starter" : "pro";
-        tierBtn.textContent = `Jadikan ${otherTier === "pro" ? "Pro" : "Starter"}`;
-        tierBtn.addEventListener("click", async () => {
-          if (!confirm(`Tukar ${o.business_name} dari ${o.tier === "pro" ? "Pro" : "Starter"} ke ${otherTier === "pro" ? "Pro" : "Starter"}?`)) return;
-          const key = sessionStorage.getItem("eqstudio_admin_key");
-          const res = await fetch("/api/admin-owner-action", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "x-admin-key": key },
-            body: JSON.stringify({ owner_id: o.id, action: "change_tier", tier: otherTier }),
+        function ownerMenuItem(label, iconSvg, onClick, danger = false) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "kebab-menu-item" + (danger ? " danger" : "");
+          btn.innerHTML = `${iconSvg}<span>${label}</span>`;
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeAllKebabMenus();
+            onClick();
           });
-          const result = await res.json();
-          if (!res.ok) { alert(result.error); return; }
-          loadOwners();
-        });
-        actionTd.appendChild(tierBtn);
+          return btn;
+        }
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.className = "secondary";
-        deleteBtn.style.color = "var(--warn)";
-        deleteBtn.textContent = "Padam";
-        deleteBtn.addEventListener("click", () => {
-          const typed = prompt(`Ini PERMANENT dan tak boleh undo. Taip nama bisnes "${o.business_name}" untuk confirm padam:`);
-          if (typed === o.business_name) performAction(o, "delete");
-          else if (typed !== null) alert("Nama tak sepadan. Padam dibatalkan.");
+        menu.appendChild(ownerMenuItem(
+          "Login Sebagai Owner",
+          `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>`,
+          () => impersonateOwner(o)
+        ));
+
+        menu.appendChild(ownerMenuItem(
+          o.is_suspended ? "Reaktivate" : "Suspend",
+          `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>`,
+          () => performAction(o, o.is_suspended ? "reactivate" : "suspend")
+        ));
+
+        menu.appendChild(ownerMenuItem(
+          o.forum_banned ? "Buang Forum Ban" : "Forum Ban",
+          `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="19.07" x2="19.07" y2="4.93"/></svg>`,
+          () => {
+            if (!o.forum_banned && !confirm(`Forum ban ${o.business_name}? Mereka masih boleh guna dashboard/booking macam biasa, cuma tak boleh post/reply dalam forum.`)) return;
+            performAction(o, o.forum_banned ? "forum_unban" : "forum_ban");
+          }
+        ));
+
+        menu.appendChild(ownerMenuItem(
+          "Extend Subscription",
+          `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+          () => {
+            const days = prompt(`Extend subscription ${o.business_name} berapa hari?`, "30");
+            if (days) performAction(o, "extend_subscription", parseInt(days, 10));
+          }
+        ));
+
+        menu.appendChild(ownerMenuItem(
+          "Tukar Status Langganan",
+          `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>`,
+          () => openStatusModal(o)
+        ));
+
+        menu.appendChild(ownerMenuItem(
+          "Reset Password",
+          `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+          () => performAction(o, "reset_password")
+        ));
+
+        const otherTier = o.tier === "pro" ? "starter" : "pro";
+        menu.appendChild(ownerMenuItem(
+          `Jadikan ${otherTier === "pro" ? "Pro" : "Starter"}`,
+          `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg>`,
+          async () => {
+            if (!confirm(`Tukar ${o.business_name} dari ${o.tier === "pro" ? "Pro" : "Starter"} ke ${otherTier === "pro" ? "Pro" : "Starter"}?`)) return;
+            const key = sessionStorage.getItem("eqstudio_admin_key");
+            const res = await fetch("/api/admin-owner-action", {
+              method: "POST",
+              headers: { "Content-Type": "application/json", "x-admin-key": key },
+              body: JSON.stringify({ owner_id: o.id, action: "change_tier", tier: otherTier }),
+            });
+            const result = await res.json();
+            if (!res.ok) { alert(result.error); return; }
+            loadOwners();
+          }
+        ));
+
+        menu.appendChild(document.createElement("div")).className = "kebab-menu-divider";
+
+        menu.appendChild(ownerMenuItem(
+          "Padam",
+          `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`,
+          () => {
+            const typed = prompt(`Ini PERMANENT dan tak boleh undo. Taip nama bisnes "${o.business_name}" untuk confirm padam:`);
+            if (typed === o.business_name) performAction(o, "delete");
+            else if (typed !== null) alert("Nama tak sepadan. Padam dibatalkan.");
+          },
+          true
+        ));
+
+        kebabBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const wasOpen = menu.classList.contains("open");
+          closeAllKebabMenus();
+          if (!wasOpen) {
+            menu.classList.add("open");
+            kebabBackdrop.classList.add("open");
+          }
         });
-        actionTd.appendChild(deleteBtn);
+
+        kebabWrap.appendChild(kebabBtn);
+        kebabWrap.appendChild(menu);
+        actionTd.appendChild(kebabWrap);
 
         tbody.appendChild(tr);
       }
     }
+
+    function closeAllKebabMenus() {
+      document.querySelectorAll(".kebab-menu.open").forEach(m => m.classList.remove("open"));
+      kebabBackdrop.classList.remove("open");
+    }
+    document.addEventListener("click", closeAllKebabMenus);
+
+    const kebabBackdrop = document.createElement("div");
+    kebabBackdrop.className = "kebab-backdrop";
+    kebabBackdrop.addEventListener("click", (e) => { e.stopPropagation(); closeAllKebabMenus(); });
+    document.body.appendChild(kebabBackdrop);
 
     async function performAction(owner, action, days) {
       const key = sessionStorage.getItem("eqstudio_admin_key");
@@ -499,6 +620,52 @@
     }
     document.getElementById("admin-modal-close").addEventListener("click", () => {
       document.getElementById("admin-modal").style.display = "none";
+    });
+
+    async function impersonateOwner(owner) {
+      if (!confirm(`Login sebagai ${owner.business_name}? Ni akan buka tab baharu dan log masuk terus ke dashboard mereka. Guna tab/window berasingan supaya tak tertukar dengan sesi admin anda.`)) return;
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      try {
+        const res = await fetch("/api/admin-owner-action", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-admin-key": key },
+          body: JSON.stringify({ owner_id: owner.id, action: "impersonate" }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Gagal.");
+        window.open(data.impersonate_link, "_blank");
+        showModal("Login Sebagai Owner", `<p class="hint">Tab baharu dah dibuka, log masuk terus sebagai ${escapeHtml(data.email)}. Tindakan ni dah direkod dalam Audit Log.</p>`);
+      } catch (err) {
+        showModal("Ralat", `<p class="error">${escapeHtml(err.message)}</p>`);
+      }
+    }
+
+    let statusModalOwner = null;
+    function openStatusModal(owner) {
+      statusModalOwner = owner;
+      document.getElementById("status-modal-owner-name").textContent = owner.business_name;
+      document.getElementById("status-modal-select").value = owner.subscription_status;
+      document.getElementById("status-modal").style.display = "flex";
+    }
+    document.getElementById("status-modal-cancel")?.addEventListener("click", () => {
+      document.getElementById("status-modal").style.display = "none";
+    });
+    document.getElementById("status-modal-save")?.addEventListener("click", async () => {
+      const status = document.getElementById("status-modal-select").value;
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      try {
+        const res = await fetch("/api/admin-owner-action", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-admin-key": key },
+          body: JSON.stringify({ owner_id: statusModalOwner.id, action: "set_subscription_status", status }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Gagal.");
+        document.getElementById("status-modal").style.display = "none";
+        loadOwners();
+      } catch (err) {
+        showModal("Ralat", `<p class="error">${escapeHtml(err.message)}</p>`);
+      }
     });
 
     document.getElementById("owner-search").addEventListener("input", (e) => {
@@ -558,14 +725,49 @@
     // ── Forum management ──
     let forumReplyThreadId = null;
 
+    let allForumCategories = [];
     async function loadForumCategories() {
       const res = await fetch("/api/forum-categories");
       const data = await res.json();
       if (!res.ok) return;
+      allForumCategories = data.categories;
       const options = data.categories.map(c => `<option value="${c.slug}">${escapeHtml(c.name)}</option>`).join("");
       document.getElementById("forum-new-category").innerHTML = options;
       document.getElementById("forum-browse-category").innerHTML = `<option value="">Pilih kategori...</option>` + options;
     }
+
+    function openThreadEditModal(thread) {
+      document.getElementById("te-error").style.display = "none";
+      document.getElementById("te-thread-id").value = thread.id;
+      document.getElementById("te-title").value = thread.title;
+      document.getElementById("te-message").value = thread.message;
+      document.getElementById("te-category").innerHTML = allForumCategories.map(c => `<option value="${c.id}" ${c.id === thread.category_id ? "selected" : ""}>${escapeHtml(c.name)}</option>`).join("");
+      document.getElementById("thread-edit-modal").style.display = "flex";
+    }
+    document.getElementById("te-cancel")?.addEventListener("click", () => {
+      document.getElementById("thread-edit-modal").style.display = "none";
+    });
+    document.getElementById("te-save")?.addEventListener("click", async () => {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const errorEl = document.getElementById("te-error");
+      errorEl.style.display = "none";
+
+      const res = await fetch("/api/forum-admin-post", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", "x-admin-key": key },
+        body: JSON.stringify({
+          thread_id: document.getElementById("te-thread-id").value,
+          title: document.getElementById("te-title").value,
+          category_id: document.getElementById("te-category").value,
+          message: document.getElementById("te-message").value,
+        }),
+      });
+      const result = await res.json();
+      if (!res.ok) { errorEl.textContent = result.error; errorEl.style.display = "block"; return; }
+
+      document.getElementById("thread-edit-modal").style.display = "none";
+      document.getElementById("forum-browse-category").dispatchEvent(new Event("change"));
+    });
 
     document.getElementById("forum-new-submit").addEventListener("click", async () => {
       const key = sessionStorage.getItem("eqstudio_admin_key");
@@ -611,6 +813,7 @@
             <option value="shipped" ${t.feature_status === "shipped" ? "selected" : ""}>Shipped</option>
           </select>
           <span style="white-space:nowrap;">
+            <button type="button" class="secondary" data-edit-thread-id="${t.id}" style="margin-right:0.4rem;">Edit</button>
             <button type="button" class="secondary" data-thread-id="${t.id}" data-thread-title="${escapeHtml(t.title)}" style="margin-right:0.4rem;">Balas</button>
             <button type="button" class="secondary" data-delete-thread-id="${t.id}" style="color:var(--warn);">Padam</button>
           </span>
@@ -624,6 +827,12 @@
             headers: { "Content-Type": "application/json", "x-admin-key": key },
             body: JSON.stringify({ thread_id: select.dataset.statusThreadId, feature_status: select.value || null }),
           });
+        });
+      });
+      browseEl.querySelectorAll("[data-edit-thread-id]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const thread = data.threads.find(t => t.id === btn.dataset.editThreadId);
+          openThreadEditModal(thread);
         });
       });
       browseEl.querySelectorAll("[data-delete-thread-id]").forEach(btn => {
@@ -848,6 +1057,31 @@
     document.querySelector('[data-admin-page="metrics"]').addEventListener("click", loadMetrics, { once: true });
     document.querySelector('[data-admin-page="health"]').addEventListener("click", loadHealth, { once: true });
 
+    async function loadAuditLog() {
+      const key = sessionStorage.getItem("eqstudio_admin_key");
+      const res = await fetch("/api/admin-audit-log", { headers: { "x-admin-key": key } });
+      const data = await res.json();
+      if (!res.ok) return;
+
+      const tbody = document.getElementById("audit-log-tbody");
+      document.getElementById("audit-log-empty").style.display = data.logs.length ? "none" : "block";
+      const ACTION_LABEL = {
+        suspend: "Suspend", reactivate: "Reaktivate", extend_subscription: "Extend Subscription",
+        set_subscription_status: "Tukar Status", reset_password: "Reset Password",
+        impersonate: "Login Sebagai Owner", change_tier: "Tukar Tier", delete: "Padam Owner",
+        resend_email: "Resend Emel",
+      };
+      tbody.innerHTML = data.logs.map(l => `
+        <tr>
+          <td class="hint">${new Date(l.created_at).toLocaleString("ms-MY")}</td>
+          <td>${ACTION_LABEL[l.action] || l.action}</td>
+          <td>${escapeHtml(l.target_business_name || "—")}</td>
+          <td class="hint" style="font-size:0.8rem;">${escapeHtml(l.details || "")}</td>
+        </tr>
+      `).join("");
+    }
+    document.querySelector('[data-admin-page="auditlog"]').addEventListener("click", loadAuditLog, { once: true });
+
     // ── Owner detail drill-down ──
     async function openOwnerDetail(owner) {
       document.getElementById("owner-detail-title").textContent = owner.business_name;
@@ -855,9 +1089,13 @@
       document.getElementById("owner-detail-modal").style.display = "flex";
 
       const key = sessionStorage.getItem("eqstudio_admin_key");
-      const res = await fetch(`/api/admin-owner-detail?owner_id=${owner.id}`, { headers: { "x-admin-key": key } });
-      const data = await res.json();
-      if (!res.ok) {
+      const [detailRes, notesRes] = await Promise.all([
+        fetch(`/api/admin-owner-detail?owner_id=${owner.id}`, { headers: { "x-admin-key": key } }),
+        fetch(`/api/admin-notes?owner_id=${owner.id}`, { headers: { "x-admin-key": key } }),
+      ]);
+      const data = await detailRes.json();
+      const notesData = await notesRes.json();
+      if (!detailRes.ok) {
         document.getElementById("owner-detail-body").innerHTML = `<p class="error">${escapeHtml(data.error)}</p>`;
         return;
       }
@@ -873,9 +1111,51 @@
         ${data.booking_links.map(l => `<p class="hint" style="margin:0 0 0.3rem;">${escapeHtml(l.label)} — /book.html?slug=${escapeHtml(l.slug)}${l.is_primary ? " (Utama)" : ""}</p>`).join("") || '<p class="hint">Tiada.</p>'}
         <p class="hint" style="font-weight:600; margin:1rem 0 0.4rem;">Booking Terkini</p>
         ${data.recent_bookings.slice(0, 8).map(b => `<p class="hint" style="margin:0 0 0.3rem;">${escapeHtml(b.customer_name)} — ${new Date(b.slot_datetime).toLocaleDateString("ms-MY")} (${b.status})</p>`).join("") || '<p class="hint">Tiada booking lagi.</p>'}
+        <p class="hint" style="font-weight:600; margin:1rem 0 0.4rem;">Pelanggan Terkini <span style="font-weight:400;">(resend emel reminder/invois)</span></p>
+        <div id="owner-detail-customers">
+          ${(data.recent_customers || []).slice(0, 8).map(c => `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.35rem 0; border-bottom:1px solid var(--paper-line); font-size:0.85rem;">
+              <span>${escapeHtml(c.name)} <span class="hint">(RM ${Number(c.amount).toFixed(2)}, ${c.status === "dah_bayar" ? "Dah Bayar" : "Belum Bayar"})</span></span>
+              <button type="button" class="secondary" data-resend-customer-id="${c.id}" style="padding:0.25rem 0.6rem; font-size:0.75rem;">Resend Emel</button>
+            </div>
+          `).join("") || '<p class="hint">Tiada pelanggan lagi.</p>'}
+        </div>
         <p class="hint" style="font-weight:600; margin:1rem 0 0.4rem;">Forum</p>
         <p class="hint">${data.forum_thread_count} thread, ${data.forum_reply_count} balasan</p>
+
+        <p class="hint" style="font-weight:600; margin:1.2rem 0 0.4rem; border-top:1px solid var(--paper-line); padding-top:1rem;">Nota Admin (dalaman)</p>
+        <div id="owner-detail-notes">
+          ${(notesData.notes || []).map(n => `<p class="hint" style="margin:0 0 0.4rem; font-size:0.8rem;"><span class="mono">${new Date(n.created_at).toLocaleDateString("ms-MY")}</span> — ${escapeHtml(n.note)}</p>`).join("") || '<p class="hint">Tiada nota lagi.</p>'}
+        </div>
+        <textarea id="owner-detail-new-note" rows="2" placeholder="Tambah nota (contoh: customer emel pasal X, diselesaikan Y)" style="margin-top:0.5rem;"></textarea>
+        <button type="button" class="secondary" id="owner-detail-add-note" style="width:100%; margin-top:0.4rem; padding:0.4rem;">+ Tambah Nota</button>
       `;
+
+      document.querySelectorAll("[data-resend-customer-id]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          btn.disabled = true;
+          btn.textContent = "Menghantar...";
+          const res2 = await fetch("/api/admin-resend-email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-admin-key": key },
+            body: JSON.stringify({ customer_id: btn.dataset.resendCustomerId }),
+          });
+          const result = await res2.json();
+          if (!res2.ok) { alert(result.error); btn.disabled = false; btn.textContent = "Resend Emel"; return; }
+          btn.textContent = "Dihantar ✓";
+        });
+      });
+
+      document.getElementById("owner-detail-add-note")?.addEventListener("click", async () => {
+        const noteText = document.getElementById("owner-detail-new-note").value.trim();
+        if (!noteText) return;
+        await fetch("/api/admin-notes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-admin-key": key },
+          body: JSON.stringify({ owner_id: owner.id, note: noteText }),
+        });
+        openOwnerDetail(owner);
+      });
     }
 
     document.getElementById("owner-detail-close").addEventListener("click", () => {

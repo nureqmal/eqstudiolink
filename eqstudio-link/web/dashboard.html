@@ -1254,6 +1254,8 @@
 
     document.getElementById("profile-form")?.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
       const payload = {
         business_name: document.getElementById("p-business-name").value.trim() || null,
         contact_phone: document.getElementById("p-phone").value.trim() || null,
@@ -1271,6 +1273,7 @@
       const { error } = await supabase.from("profiles").update(payload).eq("id", user.id);
       if (error) {
         showToast(error.message, "error");
+        if (submitBtn) submitBtn.disabled = false;
         return;
       }
 
@@ -1292,6 +1295,7 @@
       renderSetupChecklist(allCustomers.length);
       showToast("Profil perniagaan disimpan.", "success");
       flashButtonSuccess(e.target.querySelector('button[type="submit"]'), "Simpan Profil");
+      if (submitBtn) submitBtn.disabled = false;
     });
 
     // ── Customers ──
@@ -1812,6 +1816,16 @@
       return div.innerHTML;
     }
 
+    // slot_datetime is stored as UTC (timestamptz). Raw string-slicing it (e.g.
+    // slot_datetime.slice(0,10)) stays in UTC and mis-dates any booking between
+    // 12:00am-7:59am Malaysia time onto the PREVIOUS calendar day. This converts
+    // to the browser's local date instead (correct for MYT-based users), same
+    // approach already used correctly by the "Hari Ini" badge logic elsewhere.
+    function toLocalDateStr(isoString) {
+      const d = new Date(isoString);
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    }
+
     function closeAllKebabMenus() {
       document.querySelectorAll(".kebab-menu.open").forEach(m => m.classList.remove("open"));
       kebabBackdrop.classList.remove("open");
@@ -1909,6 +1923,9 @@
 
     document.getElementById("customer-form")?.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn?.textContent;
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Menambah..."; }
 
       const payload = {
         owner_id: user.id,
@@ -1925,8 +1942,10 @@
       const { data: inserted, error } = await supabase.from("customers").insert(payload).select("id").single();
       if (error) {
         showToast(error.message, "error");
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
         return;
       }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
       e.target.reset();
       document.getElementById("recurring-interval-wrap").style.display = "none";
       document.querySelectorAll(".qp-btn").forEach(b => b.classList.remove("active"));
@@ -2104,7 +2123,10 @@
       document.getElementById("add-link-row").style.display = "none";
       currentLinkId = inserted.id;
       showToast("Link baharu dicipta — sila setkan deposit & availability sendiri.", "success");
-      loadBookingLinksAndSettings();
+      loadBookingLinksAndSettings().catch(err => {
+      console.error("loadBookingLinksAndSettings failed:", err);
+      showToast("Gagal muatkan tetapan booking. Cuba refresh page.", "error");
+    });
     });
 
     function renderAvailabilityGrid(rows) {
@@ -2355,7 +2377,10 @@
       btn.textContent = "Simpan Tetapan Booking";
       showToast(`Tetapan booking disimpan! → Cek menu "Senarai Booking" untuk lihat link & test.`, "success");
       flashButtonSuccess(btn, "Simpan Tetapan Booking");
-      loadBookingLinksAndSettings();
+      loadBookingLinksAndSettings().catch(err => {
+      console.error("loadBookingLinksAndSettings failed:", err);
+      showToast("Gagal muatkan tetapan booking. Cuba refresh page.", "error");
+    });
     });
 
     document.getElementById("advanced-settings-toggle")?.addEventListener("click", () => {
@@ -2366,7 +2391,10 @@
       chevron.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
     });
 
-    loadBookingLinksAndSettings();
+    loadBookingLinksAndSettings().catch(err => {
+      console.error("loadBookingLinksAndSettings failed:", err);
+      showToast("Gagal muatkan tetapan booking. Cuba refresh page.", "error");
+    });
 
     document.getElementById("booking-qr-print")?.addEventListener("click", () => {
       const imgSrc = document.getElementById("booking-qr-img").src;
@@ -2737,7 +2765,11 @@
       } catch { /* cancellation itself succeeded — notification is best-effort */ }
 
       showToast("Booking dibatalkan & customer dimaklumkan.", "success");
-      loadBookings();
+      loadBookings().catch(err => {
+      console.error("loadBookings failed:", err);
+      document.getElementById("booking-table-skeleton").style.display = "none";
+      showToast("Gagal muatkan senarai booking. Cuba refresh page.", "error");
+    });
       loadCustomers();
     }
 
@@ -2862,10 +2894,18 @@
 
       document.getElementById("reschedule-modal").style.display = "none";
       showToast("Booking di-reschedule & customer dimaklumkan.", "success");
-      loadBookings();
+      loadBookings().catch(err => {
+      console.error("loadBookings failed:", err);
+      document.getElementById("booking-table-skeleton").style.display = "none";
+      showToast("Gagal muatkan senarai booking. Cuba refresh page.", "error");
+    });
     });
 
-    loadBookings();
+    loadBookings().catch(err => {
+      console.error("loadBookings failed:", err);
+      document.getElementById("booking-table-skeleton").style.display = "none";
+      showToast("Gagal muatkan senarai booking. Cuba refresh page.", "error");
+    });
 
     document.getElementById("save-schedule-btn")?.addEventListener("click", async (e) => {
       const days = [...selectedOffsets].sort((a, b) => b - a);
@@ -2941,8 +2981,10 @@
 
       const bookingDaysSet = new Set();
       for (const b of (allBookings || [])) {
-        if (b.status === "confirmed" && b.slot_datetime.slice(0, 7) === `${calYear}-${String(calMonth + 1).padStart(2, "0")}`) {
-          bookingDaysSet.add(parseInt(b.slot_datetime.slice(8, 10), 10));
+        if (b.status !== "confirmed") continue;
+        const localDate = toLocalDateStr(b.slot_datetime);
+        if (localDate.slice(0, 7) === `${calYear}-${String(calMonth + 1).padStart(2, "0")}`) {
+          bookingDaysSet.add(parseInt(localDate.slice(8, 10), 10));
         }
       }
 
@@ -2971,7 +3013,7 @@
       const listEl = document.getElementById("cal-day-list");
 
       const dayBookings = (allBookings || [])
-        .filter(b => b.status === "confirmed" && b.slot_datetime.slice(0, 10) === dateStr)
+        .filter(b => b.status === "confirmed" && toLocalDateStr(b.slot_datetime) === dateStr)
         .sort((a, b) => new Date(a.slot_datetime) - new Date(b.slot_datetime));
 
       if (dayBookings.length === 0 && customersOnDay.length === 0) {
@@ -3062,8 +3104,15 @@
       renderCalendar();
     });
 
-    loadCustomers();
-    loadSettings();
+    loadCustomers().catch(err => {
+      console.error("loadCustomers failed:", err);
+      document.getElementById("table-skeleton").style.display = "none";
+      showToast("Gagal muatkan senarai pelanggan. Cuba refresh page.", "error");
+    });
+    loadSettings().catch(err => {
+      console.error("loadSettings failed:", err);
+      showToast("Gagal muatkan tetapan. Cuba refresh page.", "error");
+    });
 
     // ── Realtime: live-update the dashboard when a new booking or payment
     // status change comes in, without the owner needing to refresh manually ──
@@ -3071,11 +3120,19 @@
       .channel("dashboard-bookings")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "bookings", filter: `owner_id=eq.${user.id}` }, (payload) => {
         showToast(`Booking baru daripada ${payload.new.customer_name}!`, "success");
-        loadBookings();
+        loadBookings().catch(err => {
+      console.error("loadBookings failed:", err);
+      document.getElementById("booking-table-skeleton").style.display = "none";
+      showToast("Gagal muatkan senarai booking. Cuba refresh page.", "error");
+    });
         if (document.getElementById("page-kalendar")?.classList.contains("active")) renderCalendar();
       })
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "bookings", filter: `owner_id=eq.${user.id}` }, () => {
-        loadBookings();
+        loadBookings().catch(err => {
+      console.error("loadBookings failed:", err);
+      document.getElementById("booking-table-skeleton").style.display = "none";
+      showToast("Gagal muatkan senarai booking. Cuba refresh page.", "error");
+    });
         if (document.getElementById("page-kalendar")?.classList.contains("active")) renderCalendar();
       })
       .subscribe();
@@ -3349,7 +3406,10 @@
         navigator.clipboard.writeText(bookingUrl).then(() => showToast("Link copied!", "success"));
       };
 
-      loadBookingLinksAndSettings();
+      loadBookingLinksAndSettings().catch(err => {
+      console.error("loadBookingLinksAndSettings failed:", err);
+      showToast("Gagal muatkan tetapan booking. Cuba refresh page.", "error");
+    });
     }
 
     document.getElementById("wizard-open-link-btn")?.addEventListener("click", () => closeWizard(true));

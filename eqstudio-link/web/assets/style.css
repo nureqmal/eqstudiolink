@@ -1109,8 +1109,9 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 /* ── Event type picker (booking page) ─────────────────────────────── */
 .event-type-row {
   display: flex; justify-content: space-between; align-items: center; width: 100%;
-  background: #fff; border: 1px solid var(--paper-line); border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--paper-line); border-radius: 10px;
   padding: 0.9rem 1.1rem; margin-bottom: 0.6rem; cursor: pointer; text-align: left; font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 .event-type-row:hover { border-color: var(--stamp); transform: translateY(-1px); }
 .event-type-row:last-child { margin-bottom: 0; }
@@ -1266,8 +1267,15 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 
 /* ── Home hub: fuller data-rich stat grid + trend chart + pastel icon chips ── */
 .home-stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; margin-bottom: 1.5rem; }
-@media (max-width: 900px) { .home-stat-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 560px) { .home-stat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) {
+  .home-stat-grid { grid-template-columns: repeat(3, 1fr); }
+  .home-stat-box:nth-child(4) { grid-column: span 2; }
+}
+@media (max-width: 560px) {
+  .home-stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .home-stat-box:nth-child(4) { grid-column: span 1; }
+  .home-stat-box:last-child { grid-column: span 2; }
+}
 .home-stat-box {
   background: var(--surface); border: 1px solid var(--paper-line); border-radius: var(--radius);
   box-shadow: var(--shadow); padding: 0.95rem 0.9rem; transition: transform 0.2s cubic-bezier(.2,.9,.3,1);
@@ -1400,4 +1408,16 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 }
 @keyframes book-check-draw {
   to { stroke-dashoffset: 0; }
+}
+
+/* ── Mobile nav fix: crowded/inconsistent-sized items at small widths ──
+   Root cause of the "looks bad when pinch-zoomed" report: .lp-nav had zero
+   mobile overrides, so items were already cramped/oversized at real mobile
+   widths — zooming out just makes that pre-existing overflow visible. */
+@media (max-width: 640px) {
+  .lp-nav { padding: 0.75rem 1rem; }
+  .lp-nav-links { gap: 0.5rem; }
+  .lp-nav-links .btn { padding: 0.45rem 0.85rem; font-size: 0.82rem; }
+  .lp-nav-links a.plain { font-size: 0.8rem; }
+  .lp-nav .brand { font-size: 0.95rem; }
 }

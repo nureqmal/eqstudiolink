@@ -81,17 +81,34 @@ export async function onRequestPatch(context) {
   if (!adminKey || adminKey !== env.ADMIN_DASHBOARD_KEY) return json({ error: "Unauthorized" }, 401);
 
   try {
-    const { thread_id, feature_status } = await request.json();
+    const { thread_id, feature_status, title, category_id, message } = await request.json();
     if (!thread_id) return json({ error: "thread_id diperlukan." }, 400);
-    const validStatuses = [null, "planned", "in_progress", "shipped"];
-    if (!validStatuses.includes(feature_status)) return json({ error: "feature_status tidak sah." }, 400);
+
+    const payload = {};
+
+    if (feature_status !== undefined) {
+      const validStatuses = [null, "planned", "in_progress", "shipped"];
+      if (!validStatuses.includes(feature_status)) return json({ error: "feature_status tidak sah." }, 400);
+      payload.feature_status = feature_status;
+    }
+    if (title !== undefined) {
+      if (!title.trim()) return json({ error: "Tajuk tak boleh kosong." }, 400);
+      payload.title = title.trim();
+    }
+    if (category_id !== undefined) payload.category_id = category_id;
+    if (message !== undefined) {
+      if (!message.trim()) return json({ error: "Mesej tak boleh kosong." }, 400);
+      payload.message = message.trim();
+    }
+
+    if (Object.keys(payload).length === 0) return json({ error: "Tiada apa-apa untuk dikemaskini." }, 400);
 
     const res = await sbAdmin(env, `/forum_threads?id=eq.${thread_id}`, {
       method: "PATCH",
       prefer: "return=minimal",
-      body: JSON.stringify({ feature_status }),
+      body: JSON.stringify(payload),
     });
-    if (!res.ok) return json({ error: `Gagal update status: ${await res.text()}` }, 502);
+    if (!res.ok) return json({ error: `Gagal update thread: ${await res.text()}` }, 502);
     return json({ success: true });
   } catch (err) {
     return json({ error: err.message }, 500);

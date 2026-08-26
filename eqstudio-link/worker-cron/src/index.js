@@ -223,7 +223,12 @@ function chunk(arr, size) {
 }
 
 function todayISO() {
-  return new Date().toISOString().slice(0, 10); // YYYY-MM-DD (UTC — Worker runs on UTC cron)
+  // Workers always run in UTC (no local timezone concept). Booking/reminder dates
+  // are all Malaysia-time (UTC+8), so shift by 8 hours before taking the date —
+  // otherwise "today" is wrong for roughly 8 hours a day (UTC evening = MYT
+  // early morning next day), which can throw off H-3/H-1/today reminder matching.
+  const mytNow = new Date(Date.now() + 8 * 60 * 60 * 1000);
+  return mytNow.toISOString().slice(0, 10); // YYYY-MM-DD in Malaysia time
 }
 
 function daysBetween(dueISO, todayStr) {

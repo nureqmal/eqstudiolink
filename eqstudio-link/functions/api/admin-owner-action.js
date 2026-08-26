@@ -89,11 +89,29 @@ export async function onRequestPost(context) {
 
     if (action === "change_tier") {
       if (tier !== "starter" && tier !== "pro") return json({ error: "tier mesti 'starter' atau 'pro'." }, 400);
+
+      const profRes = await sbAdmin(env, `/profiles?id=eq.${owner_id}&select=subscription_status,subscription_end_date`, { prefer: "return=representation" });
+      const currentStatus = profRes[0]?.subscription_status;
+      const currentEnd = profRes[0]?.subscription_end_date ? new Date(profRes[0].subscription_end_date) : null;
+
+      const payload = { tier };
+      // Manually granting a tier should also end trial/lapsed status, otherwise the owner
+      // is "Pro" in name only while every other trial/past-due gate in the app still treats
+      // them as not-yet-a-real-subscriber. Only touch status if it isn't already active, and
+      // only reset the end date if there isn't already a future one (avoid shortening a
+      // legitimate paid period that's already in progress).
+      if (currentStatus !== "active") {
+        payload.subscription_status = "active";
+        if (!currentEnd || currentEnd < new Date()) {
+          payload.subscription_end_date = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+        }
+      }
+
       await sbAdmin(env, `/profiles?id=eq.${owner_id}`, {
         method: "PATCH",
-        body: JSON.stringify({ tier }),
+        body: JSON.stringify(payload),
       });
-      return json({ success: true, tier });
+      return json({ success: true, tier, subscription_status: payload.subscription_status || currentStatus });
     }
 
     if (action === "delete") {

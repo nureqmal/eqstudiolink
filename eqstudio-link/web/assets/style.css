@@ -5,6 +5,20 @@
    cool family (indigo/teal/amber/violet) rather than a warm/playful palette. */
 
 :root {
+  /* ── Formal spacing scale — derived from the values already most used
+     across the app (36 distinct rem values existed inline before this;
+     these 8 tokens capture the actual common cases without a full
+     807-site inline-style migration, which was judged too risky/costly
+     for a maintainability concern with no visible bug) ── */
+  --space-1: 0.25rem;
+  --space-2: 0.4rem;
+  --space-3: 0.6rem;
+  --space-4: 0.8rem;
+  --space-5: 1rem;
+  --space-6: 1.25rem;
+  --space-7: 1.75rem;
+  --space-8: 3rem;
+
   --paper: #F7F7F9;
   --paper-line: #E4E4E9;
   --ink: #16161A;
@@ -100,12 +114,12 @@ a { color: var(--stamp); }
   border: 1px solid var(--paper-line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 1.75rem;
+  padding: var(--space-7);
 }
 
-label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin: 0.9rem 0 0.3rem; }
+label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin: var(--space-4) 0 var(--space-2); }
 input, textarea, select {
-  width: 100%; padding: 0.6rem 0.75rem; border: 1px solid var(--paper-line);
+  width: 100%; padding: var(--space-3) var(--space-4); border: 1px solid var(--paper-line);
   border-radius: 8px; font-family: var(--font-body); font-size: 0.95rem;
   background: var(--paper); color: var(--ink);
 }
@@ -679,7 +693,7 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
   animation: modal-overlay-in 0.2s ease both;
 }
 .modal-box {
-  background: var(--paper); border-radius: var(--radius-lg); padding: 1.75rem;
+  background: var(--paper); border-radius: var(--radius-lg); padding: var(--space-7);
   max-width: 440px; width: 100%; max-height: 90vh; overflow-y: auto;
   box-shadow: 0 20px 60px rgba(42,33,24,0.25);
   animation: modal-box-in 0.22s cubic-bezier(.2,.9,.3,1) both;

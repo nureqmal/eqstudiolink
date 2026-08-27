@@ -114,23 +114,28 @@
       window.location.href = "/login.html";
     });
 
-    // If subscription is actually still active, just send them back to the dashboard
+    // Show a different framing depending on whether they still have time left
+    // or have actually run out — but never block access to this page, since
+    // subscribing early (trial or mid-cycle) is a perfectly valid choice with
+    // manual bank-transfer billing (no proration complexity to worry about).
     const { data: profile } = await supabase
       .from("profiles")
-      .select("subscription_status, subscription_end_date")
+      .select("subscription_status, subscription_end_date, tier, subscription_plan")
       .eq("id", session.user.id)
       .single();
 
-    if (profile && profile.subscription_status !== "past_due" && new Date(profile.subscription_end_date) > new Date()) {
-      window.location.href = "/dashboard.html";
+    const stillHasTime = profile && profile.subscription_status !== "past_due" && new Date(profile.subscription_end_date) > new Date();
+    if (stillHasTime) {
+      const endDateLabel = new Date(profile.subscription_end_date).toLocaleDateString("ms-MY", { day: "numeric", month: "long", year: "numeric" });
+      document.getElementById("status-title").textContent = `Anda Okay Sehingga ${endDateLabel}`;
+      document.getElementById("status-sub").textContent = `Akses anda masih aktif (pelan ${profile.tier === "pro" ? "Pro" : "Starter"}). Nak bayar awal atau upgrade pelan? Boleh terus di bawah.`;
     }
 
     // Pre-select the plan/tier they last chose, if known, and update button label live
-    const { data: profileForPlan } = await supabase.from("profiles").select("subscription_plan, tier").eq("id", session.user.id).single();
-    if (profileForPlan?.subscription_plan === "yearly") {
+    if (profile?.subscription_plan === "yearly") {
       document.getElementById("plan-yearly").checked = true;
     }
-    if (profileForPlan?.tier === "pro") {
+    if (profile?.tier === "pro") {
       document.getElementById("tier-pro").checked = true;
     }
 

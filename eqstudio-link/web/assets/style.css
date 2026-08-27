@@ -1501,3 +1501,42 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .book-cal-day .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--stamp); margin-top: 2px; }
 .book-cal-day.selected { background: var(--stamp); color: #fff; }
 .book-cal-day.selected .dot { background: #fff; }
+
+/* ── billing.html: topnotch redesign ── */
+.billing-hero {
+  text-align: center; padding: 1.8rem 1.2rem; margin-bottom: 1.2rem; border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--stamp-soft) 0%, transparent 100%);
+}
+.billing-hero-icon { width: 48px; height: 48px; margin: 0 auto 0.8rem; }
+.billing-value-list { list-style: none; padding: 0; margin: 0.8rem 0 0; }
+.billing-value-list li { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.4rem 0; font-size: 0.88rem; }
+.billing-value-list li svg { flex-shrink: 0; color: var(--ok); margin-top: 0.15rem; }
+.billing-trust-row { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--paper-line); }
+.billing-trust-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; color: var(--ink-soft); }
+.billing-trust-item svg { color: var(--stamp); flex-shrink: 0; }
+
+.billing-step-row { display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-bottom: 1.2rem; }
+.billing-step { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--ink-soft); }
+.billing-step-dot {
+  width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 700; background: var(--paper); border: 1.5px solid var(--paper-line); flex-shrink: 0;
+}
+.billing-step.done .billing-step-dot { background: var(--ok); border-color: var(--ok); color: #fff; }
+.billing-step.active .billing-step-dot { background: var(--stamp); border-color: var(--stamp); color: #fff; }
+.billing-step.active { color: var(--ink); font-weight: 600; }
+.billing-step-line { width: 20px; height: 1.5px; background: var(--paper-line); flex-shrink: 0; }
+.billing-step-line.done { background: var(--ok); }
+
+.transfer-row {
+  display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 0;
+  border-bottom: 1px solid var(--paper-line); animation: tile-fade-in 0.3s ease both;
+}
+.transfer-row:last-child { border-bottom: none; }
+.transfer-row-icon { width: 34px; height: 34px; border-radius: 8px; background: var(--stamp-soft); color: var(--stamp); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+.billing-pending-icon {
+  width: 64px; height: 64px; margin: 0 auto 0.9rem; border-radius: 50%;
+  background: var(--pending-bg); display: flex; align-items: center; justify-content: center;
+  animation: logo-pulse 1.6s ease-in-out infinite;
+}
+.billing-pending-icon svg { color: #B45309; }

@@ -21,15 +21,35 @@
 <body>
   <div class="topbar">
     <a href="/" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
-    <button class="secondary" id="logout-btn">Log Keluar</button>
+    <div style="display:flex; align-items:center; gap:0.6rem;">
+      <a href="/dashboard.html" class="secondary" style="text-decoration:none; display:inline-block; padding:0.5rem 1rem; border-radius:999px; border:1.5px solid var(--paper-line); color:var(--ink); font-size:0.88rem; font-weight:600;">← Dashboard</a>
+      <button class="secondary" id="logout-btn">Log Keluar</button>
+    </div>
   </div>
 
   <div class="wrap-narrow">
-    <div class="card" id="plan-selector-card">
-      <h2 style="margin-top:0;" id="status-title">Sila Bayar untuk Terus Guna</h2>
-      <p class="hint" id="status-sub">Langganan/trial anda telah tamat. Pilih pelan untuk sambung akses.</p>
+    <div class="billing-hero" id="value-hero">
+      <svg class="billing-hero-icon" viewBox="0 0 24 24" fill="none" stroke="var(--stamp)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6.5 7 1-5 5 1.5 7L12 18l-6.5 3.5L7 14.5l-5-5 7-1z"/></svg>
+      <h2 style="margin:0 0 0.3rem;" id="status-title">Sila Bayar untuk Terus Guna</h2>
+      <p class="hint" style="margin:0;" id="status-sub">Langganan/trial anda telah tamat. Pilih pelan untuk sambung akses.</p>
+      <ul class="billing-value-list" id="value-checklist"></ul>
+      <div class="billing-trust-row">
+        <span class="billing-trust-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Data anda selamat</span>
+        <span class="billing-trust-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Aktif dalam beberapa jam</span>
+        <span class="billing-trust-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Tiada kontrak</span>
+      </div>
+    </div>
 
-      <div class="row" id="tier-selector" style="margin-top:1rem;">
+    <div class="billing-step-row" id="billing-steps">
+      <div class="billing-step active" id="step-1"><span class="billing-step-dot">1</span><span>Pilih Pelan</span></div>
+      <span class="billing-step-line" id="line-1"></span>
+      <div class="billing-step" id="step-2"><span class="billing-step-dot">2</span><span>Bayar</span></div>
+      <span class="billing-step-line" id="line-2"></span>
+      <div class="billing-step" id="step-3"><span class="billing-step-dot">3</span><span>Sah</span></div>
+    </div>
+
+    <div class="card" id="plan-selector-card">
+      <div class="row" id="tier-selector" style="margin-top:0;">
         <label class="plan-option" for="tier-starter">
           <input type="radio" name="tier" id="tier-starter" value="starter" checked />
           <div class="plan-option-body">
@@ -75,27 +95,41 @@
         <img src="/assets/payment/duitnow-qr.jpeg" alt="QR DuitNow eqstudio.link" style="max-width:220px; width:100%; border-radius:12px; box-shadow:var(--shadow);" />
       </div>
       <div class="card" style="background:var(--paper);">
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--paper-line);">
-          <div><p class="hint" style="margin:0;">Nombor Akaun (GXBank)</p><p style="margin:0; font-weight:600; font-family:var(--font-mono);">8188-018660-6</p></div>
+        <div class="transfer-row">
+          <div style="display:flex; align-items:center; gap:0.7rem;">
+            <span class="transfer-row-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+            <div><p class="hint" style="margin:0;">Nombor Akaun (GXBank)</p><p style="margin:0; font-weight:600; font-family:var(--font-mono);">8188-018660-6</p></div>
+          </div>
           <button type="button" class="secondary" data-copy="8188-018660-6" style="width:auto; padding:0.4rem 0.8rem;">Salin</button>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--paper-line);">
-          <div><p class="hint" style="margin:0;">Jumlah</p><p style="margin:0; font-weight:600; font-size:1.15rem; color:var(--stamp);" id="transfer-amount"></p></div>
+        <div class="transfer-row">
+          <div style="display:flex; align-items:center; gap:0.7rem;">
+            <span class="transfer-row-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+            <div><p class="hint" style="margin:0;">Jumlah</p><p style="margin:0; font-weight:600; font-size:1.15rem; color:var(--stamp);" id="transfer-amount"></p></div>
+          </div>
           <button type="button" class="secondary" id="copy-amount-btn" style="width:auto; padding:0.4rem 0.8rem;">Salin</button>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0;">
-          <div><p class="hint" style="margin:0;">Reference (sertakan dalam nota transfer)</p><p style="margin:0; font-weight:600; font-family:var(--font-mono);" id="transfer-ref"></p></div>
+        <div class="transfer-row">
+          <div style="display:flex; align-items:center; gap:0.7rem;">
+            <span class="transfer-row-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+            <div><p class="hint" style="margin:0;">Reference (sertakan dalam nota transfer)</p><p style="margin:0; font-weight:600; font-family:var(--font-mono);" id="transfer-ref"></p></div>
+          </div>
           <button type="button" class="secondary" id="copy-ref-btn" style="width:auto; padding:0.4rem 0.8rem;">Salin</button>
         </div>
       </div>
-      <p class="hint" style="margin-top:0.8rem;">Lepas transfer, klik butang di bawah — kami akan semak dan aktifkan pelan anda secepat mungkin.</p>
+      <p class="hint" style="margin-top:0.8rem;">Lepas transfer, klik butang di bawah, kami akan semak dan aktifkan pelan anda secepat mungkin.</p>
       <button type="button" id="claim-paid-btn" style="width:100%; margin-top:0.5rem;">✓ Saya Dah Bayar</button>
       <button type="button" class="secondary" id="back-to-plan-btn" style="width:100%; margin-top:0.5rem;">← Kembali</button>
     </div>
 
-    <div class="card" id="pending-panel" style="display:none; margin-top:1rem; text-align:center; background:var(--pending-bg);">
-      <p style="margin:0; font-weight:600;">⏳ Tuntutan bayaran anda sedang disemak.</p>
-      <p class="hint" style="margin:0.4rem 0 0;">Kami akan aktifkan pelan anda sebaik bayaran disahkan — biasanya dalam beberapa jam.</p>
+    <div class="card" id="pending-panel" style="display:none; margin-top:1rem; text-align:center;">
+      <div class="billing-pending-icon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <p style="margin:0; font-weight:600; font-size:1.05rem;">Tuntutan Bayaran Diterima</p>
+      <p class="hint" style="margin:0.5rem 0 0; max-width:340px; margin-left:auto; margin-right:auto;">Kami akan semak akaun bank dan aktifkan pelan anda secepat mungkin, biasanya dalam beberapa jam. Anda akan terima emel pengesahan sebaik pelan diaktifkan.</p>
+      <p class="hint" style="margin-top:0.6rem; font-size:0.78rem;">Reference: <strong id="pending-ref-display" style="font-family:var(--font-mono);"></strong></p>
+      <a href="/dashboard.html" class="btn" style="width:100%; text-align:center; display:block; margin-top:1.2rem;">Kembali ke Dashboard</a>
     </div>
   </div>
 
@@ -144,6 +178,41 @@
       pro: { monthly: 39, yearly: 390, save: 78 },
     };
 
+    const TIER_FEATURES = {
+      starter: [
+        "1 booking link, plus embed website",
+        "Jenis perkhidmatan tanpa had (tempoh, harga, kapasiti berbeza)",
+        "Deposit dan reminder automatic, disemak sekali sehari",
+        "Reschedule dan cancel self serve",
+        "Cash flow forecast dan risk scoring",
+      ],
+      pro: [
+        "Semua dalam Starter",
+        "Sehingga 3 booking link, setiap satu berasingan",
+        "Reminder disemak setiap 2 jam, bukan sekali sehari",
+        "Emel ringkasan mingguan, bukan bulanan",
+        "Pro badge pada post forum anda",
+      ],
+    };
+
+    const checkSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+    function updateValueChecklist() {
+      const tier = document.querySelector('input[name="tier"]:checked').value;
+      document.getElementById("value-checklist").innerHTML = TIER_FEATURES[tier].map(f => `<li>${checkSvg}<span>${f}</span></li>`).join("");
+    }
+
+    function setBillingStep(step) {
+      for (let i = 1; i <= 3; i++) {
+        const el = document.getElementById(`step-${i}`);
+        el.classList.remove("active", "done");
+        if (i < step) el.classList.add("done");
+        else if (i === step) el.classList.add("active");
+      }
+      document.getElementById("line-1").classList.toggle("done", step > 1);
+      document.getElementById("line-2").classList.toggle("done", step > 2);
+    }
+
     function updatePrices() {
       const tier = document.querySelector('input[name="tier"]:checked').value;
       const p = TIER_PRICING[tier];
@@ -152,6 +221,7 @@
       document.getElementById("price-save-badge").textContent = `Jimat RM${p.save}`;
       document.getElementById("price-yearly-sub").textContent = `= RM${(p.yearly / 12).toFixed(2)}/bulan, 2 bulan percuma`;
       updatePayBtnLabel();
+      updateValueChecklist();
     }
     document.querySelectorAll('input[name="tier"]').forEach(el => el.addEventListener("change", updatePrices));
 
@@ -167,8 +237,11 @@
     // Show "pending verification" state if they already claimed a payment
     const { data: claimProfile } = await supabase.from("profiles").select("payment_claimed_at").eq("id", session.user.id).single();
     if (claimProfile?.payment_claimed_at) {
+      document.getElementById("value-hero").style.display = "none";
+      document.getElementById("billing-steps").style.display = "none";
       document.getElementById("plan-selector-card").style.display = "none";
       document.getElementById("pending-panel").style.display = "block";
+      document.getElementById("pending-ref-display").textContent = refCode();
     }
 
     function refCode() {
@@ -183,11 +256,13 @@
       document.getElementById("transfer-ref").textContent = refCode();
       document.getElementById("plan-selector-card").style.display = "none";
       document.getElementById("transfer-panel").style.display = "block";
+      setBillingStep(2);
     });
 
     document.getElementById("back-to-plan-btn").addEventListener("click", () => {
       document.getElementById("transfer-panel").style.display = "none";
       document.getElementById("plan-selector-card").style.display = "block";
+      setBillingStep(1);
     });
 
     document.querySelectorAll("[data-copy]").forEach(btn => {
@@ -217,8 +292,11 @@
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Gagal hantar tuntutan.");
+        document.getElementById("value-hero").style.display = "none";
         document.getElementById("transfer-panel").style.display = "none";
         document.getElementById("pending-panel").style.display = "block";
+        document.getElementById("pending-ref-display").textContent = refCode();
+        setBillingStep(3);
       } catch (err) {
         showToast(err.message, "error");
         btn.disabled = false;

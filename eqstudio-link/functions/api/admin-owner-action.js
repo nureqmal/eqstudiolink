@@ -2,7 +2,38 @@
 // Password-gated (x-admin-key header). Body: { owner_id, action, days?, tier?, status? }
 // action: 'suspend' | 'reactivate' | 'delete' | 'extend_subscription' | 'reset_password'
 //       | 'change_tier' | 'set_subscription_status' | 'impersonate'
-// Required Pages env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, ADMIN_DASHBOARD_KEY, PUBLIC_SITE_URL
+// Required Pages env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, ADMIN_DASHBOARD_KEY,
+//   PUBLIC_SITE_URL, RESEND_API_KEY, RESEND_FROM_EMAIL
+
+function escapeHtml(str) {
+  return String(str ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+async function sendPaymentConfirmedEmail(env, ownerId, newEndDate) {
+  if (!env.RESEND_API_KEY) return;
+  try {
+    const userRes = await fetch(`${env.SUPABASE_URL}/auth/v1/admin/users/${ownerId}`, {
+      headers: { apikey: env.SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}` },
+    });
+    const userData = await userRes.json();
+    if (!userData.email) return;
+    const profRes = await sbAdmin(env, `/profiles?id=eq.${ownerId}&select=business_name,tier`);
+    const bizName = profRes[0]?.business_name || "";
+    const tier = profRes[0]?.tier === "pro" ? "Pro" : "Starter";
+    const endLabel = newEndDate ? new Date(newEndDate).toLocaleDateString("ms-MY", { day: "numeric", month: "long", year: "numeric" }) : "";
+    const site = env.PUBLIC_SITE_URL || "https://eqstudio.link";
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: env.RESEND_FROM_EMAIL,
+        to: userData.email,
+        subject: "✅ Bayaran Disahkan — Pelan Anda Aktif",
+        html: `<p>Salam${bizName ? " " + escapeHtml(bizName) : ""},</p><p>Bayaran anda telah <strong>disahkan</strong>. Pelan <strong>${tier}</strong> anda kini aktif${endLabel ? ` sehingga <strong>${endLabel}</strong>` : ""}.</p><p>Terima kasih kerana terus bersama eqstudio.link!</p><p><a href="${site}/dashboard.html">Pergi ke Dashboard →</a></p>`,
+      }),
+    });
+  } catch { /* best-effort — the actual tier/status change already succeeded regardless */ }
+}
 
 async function sbAdmin(env, path, options = {}) {
   const res = await fetch(`${env.SUPABASE_URL}/rest/v1${path}`, {
@@ -71,7 +102,8 @@ export async function onRequestPost(context) {
 
     if (action === "extend_subscription") {
       const extendDays = parseInt(days, 10) || 30;
-      const profRes = await sbAdmin(env, `/profiles?id=eq.${owner_id}&select=subscription_end_date`, { prefer: "return=representation" });
+      const profRes = await sbAdmin(env, `/profiles?id=eq.${owner_id}&select=subscription_end_date,payment_claimed_at`, { prefer: "return=representation" });
+      const wasClaimPending = !!profRes[0]?.payment_claimed_at;
       const current = profRes[0]?.subscription_end_date ? new Date(profRes[0].subscription_end_date) : new Date();
       const base = current > new Date() ? current : new Date();
       const newEnd = new Date(base.getTime() + extendDays * 24 * 60 * 60 * 1000);
@@ -79,6 +111,7 @@ export async function onRequestPost(context) {
         method: "PATCH",
         body: JSON.stringify({ subscription_status: "active", subscription_end_date: newEnd.toISOString(), payment_claimed_at: null }),
       });
+      if (wasClaimPending) await sendPaymentConfirmedEmail(env, owner_id, newEnd.toISOString());
       await logAuditAction(env, "extend_subscription", owner_id, `+${extendDays} hari, tamat baharu ${newEnd.toISOString().slice(0, 10)}`);
       return json({ success: true, new_end_date: newEnd.toISOString() });
     }
@@ -86,8 +119,16 @@ export async function onRequestPost(context) {
     if (action === "set_subscription_status") {
       if (!VALID_STATUSES.includes(status)) return json({ error: `status mesti salah satu: ${VALID_STATUSES.join(", ")}` }, 400);
       const payload = { subscription_status: status };
-      if (status === "active") payload.payment_claimed_at = null;
+      let wasClaimPending = false;
+      let currentEndDate = null;
+      if (status === "active") {
+        const profRes = await sbAdmin(env, `/profiles?id=eq.${owner_id}&select=payment_claimed_at,subscription_end_date`, { prefer: "return=representation" });
+        wasClaimPending = !!profRes[0]?.payment_claimed_at;
+        currentEndDate = profRes[0]?.subscription_end_date;
+        payload.payment_claimed_at = null;
+      }
       await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify(payload) });
+      if (wasClaimPending) await sendPaymentConfirmedEmail(env, owner_id, currentEndDate);
       await logAuditAction(env, "set_subscription_status", owner_id, `status ditukar ke ${status}`);
       return json({ success: true, subscription_status: status });
     }
@@ -154,9 +195,10 @@ export async function onRequestPost(context) {
     if (action === "change_tier") {
       if (tier !== "starter" && tier !== "pro") return json({ error: "tier mesti 'starter' atau 'pro'." }, 400);
 
-      const profRes = await sbAdmin(env, `/profiles?id=eq.${owner_id}&select=subscription_status,subscription_end_date`, { prefer: "return=representation" });
+      const profRes = await sbAdmin(env, `/profiles?id=eq.${owner_id}&select=subscription_status,subscription_end_date,payment_claimed_at`, { prefer: "return=representation" });
       const currentStatus = profRes[0]?.subscription_status;
       const currentEnd = profRes[0]?.subscription_end_date ? new Date(profRes[0].subscription_end_date) : null;
+      const wasClaimPending = !!profRes[0]?.payment_claimed_at;
 
       const payload = { tier };
       if (currentStatus !== "active") {
@@ -168,6 +210,7 @@ export async function onRequestPost(context) {
       }
 
       await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify(payload) });
+      if (wasClaimPending) await sendPaymentConfirmedEmail(env, owner_id, payload.subscription_end_date || currentEnd?.toISOString());
       await logAuditAction(env, "change_tier", owner_id, `tier ditukar ke ${tier}`);
       return json({ success: true, tier, subscription_status: payload.subscription_status || currentStatus });
     }

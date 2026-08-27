@@ -1569,3 +1569,37 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   animation: logo-pulse 1.6s ease-in-out infinite;
 }
 .billing-pending-icon svg { color: #B45309; }
+
+/* ── Dashboard "topnotch" pass — signature: the income figure is the one
+   number this whole app exists to grow, so it gets the one moment of visual
+   confidence on the page. Everything else stays quiet by comparison. ── */
+.home-stat-box-hero {
+  background: linear-gradient(165deg, var(--surface) 0%, var(--stamp-soft) 140%);
+  border-color: transparent;
+  box-shadow: 0 1px 2px rgba(16,16,20,0.05), 0 12px 28px -6px rgba(74,9,143,0.22);
+  position: relative; overflow: hidden;
+}
+.home-stat-box-hero::after {
+  content: ""; position: absolute; top: -30%; right: -20%; width: 120px; height: 120px;
+  background: radial-gradient(circle, var(--stamp) 0%, transparent 70%);
+  opacity: 0.12; border-radius: 50%; pointer-events: none;
+}
+.home-stat-box-hero .home-stat-value {
+  font-size: 1.7rem; letter-spacing: -0.01em;
+  background: linear-gradient(120deg, var(--stamp) 0%, var(--accent-lilac) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.home-stat-box-hero .home-stat-label { color: var(--ink); font-weight: 600; opacity: 0.75; }
+.home-stat-box-hero:hover { transform: translateY(-4px); }
+
+/* Subtle, STATIC atmosphere on Home — unlike the landing page's animated
+   mesh, this is a workspace viewed for hours, so motion here would tire
+   rather than delight. A faint wash is enough to feel considered. */
+.home-hero { position: relative; }
+.home-hero::before {
+  content: ""; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 200px; max-width: 90vw;
+  background: radial-gradient(ellipse, var(--stamp-soft) 0%, transparent 70%);
+  opacity: 0.5; pointer-events: none; z-index: 0;
+}
+.home-hero > * { position: relative; z-index: 1; }

@@ -1139,13 +1139,19 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 
 /* ── Event type picker (booking page) ─────────────────────────────── */
 .event-type-row {
-  display: flex; justify-content: space-between; align-items: center; width: 100%;
+  display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 0.7rem;
   background: var(--surface); border: 1px solid var(--paper-line); border-radius: 10px;
   padding: 0.9rem 1.1rem; margin-bottom: 0.6rem; cursor: pointer; text-align: left; font-family: inherit;
   -webkit-tap-highlight-color: transparent;
 }
 .event-type-row:hover { border-color: var(--stamp); transform: translateY(-1px); }
 .event-type-row:last-child { margin-bottom: 0; }
+.event-type-thumb { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+.event-type-viewmore {
+  background: none; border: none; color: var(--stamp); font-size: 0.78rem; font-weight: 600;
+  padding: 0.15rem 0; cursor: pointer; text-decoration: underline; width: auto;
+}
+.event-type-viewmore:hover { background: none; transform: none; box-shadow: none; }
 
 /* ── Home hub: prominent booking link card ────────────────────────── */
 .home-booking-link-card { margin-bottom: 1.5rem; border-color: var(--stamp-soft); }

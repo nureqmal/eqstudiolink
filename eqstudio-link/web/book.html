@@ -31,6 +31,15 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="service-detail-modal" style="display:none;">
+    <div class="modal-box" style="max-width:420px;">
+      <img id="service-detail-poster" style="width:100%; border-radius:10px; margin-bottom:0.8rem; display:none;" alt="" />
+      <h2 id="service-detail-title" style="margin:0 0 0.5rem;"></h2>
+      <p class="hint" id="service-detail-description" style="white-space:pre-wrap;"></p>
+      <button type="button" class="secondary" id="service-detail-close-btn" style="width:100%; margin-top:1rem;">Tutup</button>
+    </div>
+  </div>
+
   <script type="module">
     const slug = new URLSearchParams(window.location.search).get("slug");
     let availabilityData = null;
@@ -42,10 +51,10 @@
 
     // Note: zh/ta are AI-generated translations — a native speaker should review before go-live.
     const UI = {
-      ms: { yourBooking: "Tempahan Anda", deposit: "Deposit", stepDetails: "Butiran", loading: "Memuatkan...", incomplete: "Link booking tidak lengkap.", notFound: "Link booking tidak dijumpai.", loadFail: "Gagal memuatkan. Cuba refresh.", noSlots: "Tiada slot available buat masa ni. Sila hubungi terus.", pickSlot: "Pilih tarikh & slot yang sesuai", pickType: "Pilih jenis perkhidmatan", slotChosen: "Slot dipilih", free: "Percuma", name: "Nama", email: "Emel", emailPlaceholder: "untuk terima confirmation & reminder deposit", phone: "Nombor Telefon (optional)", notes: "Catatan (optional)", confirmBtn: "Sahkan Tempahan", sending: "Menghantar...", confirmed: "Tempahan Disahkan!", confirmedNote: "Kami dah hantar confirmation ke emel anda. Reminder deposit akan menyusul sekejap lagi.", bookAgain: "+ Book Sesi Lagi", genericError: "Gagal buat tempahan.", changeType: "← Tukar Jenis Perkhidmatan" },
-      en: { yourBooking: "Your Booking", deposit: "Deposit", stepDetails: "Details", loading: "Loading...", incomplete: "Incomplete booking link.", notFound: "Booking link not found.", loadFail: "Failed to load. Try refreshing.", noSlots: "No slots available right now. Please contact directly.", pickSlot: "Pick a date & time that suits you", pickType: "Choose a service", slotChosen: "Selected slot", free: "Free", name: "Name", email: "Email", emailPlaceholder: "to receive confirmation & deposit reminder", phone: "Phone Number (optional)", notes: "Notes (optional)", confirmBtn: "Confirm Booking", sending: "Sending...", confirmed: "Booking Confirmed!", confirmedNote: "We've sent a confirmation to your email. A deposit reminder will follow shortly.", bookAgain: "+ Book Another Session", genericError: "Failed to book.", changeType: "← Change Service" },
-      zh: { yourBooking: "您的预订", deposit: "押金", stepDetails: "详情", loading: "加载中...", incomplete: "预订链接不完整。", notFound: "找不到预订链接。", loadFail: "加载失败，请重试。", noSlots: "目前没有可用的时段，请直接联系。", pickSlot: "选择合适的日期和时间", pickType: "选择服务类型", slotChosen: "已选时段", free: "免费", name: "姓名", email: "电子邮件", emailPlaceholder: "用于接收确认和押金提醒", phone: "电话号码（可选）", notes: "备注（可选）", confirmBtn: "确认预订", sending: "发送中...", confirmed: "预订已确认！", confirmedNote: "我们已将确认发送到您的电子邮件。押金提醒将很快发送。", bookAgain: "+ 预订另一场", genericError: "预订失败。", changeType: "← 更改服务类型" },
-      ta: { yourBooking: "உங்கள் முன்பதிவு", deposit: "வைப்புத்தொகை", stepDetails: "விவரங்கள்", loading: "ஏற்றுகிறது...", incomplete: "முழுமையற்ற முன்பதிவு இணைப்பு.", notFound: "முன்பதிவு இணைப்பு கிடைக்கவில்லை.", loadFail: "ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.", noSlots: "தற்போது இடங்கள் இல்லை. நேரடியாக தொடர்பு கொள்ளவும்.", pickSlot: "பொருத்தமான தேதி & நேரத்தைத் தேர்ந்தெடுக்கவும்", pickType: "சேவை வகையைத் தேர்ந்தெடுக்கவும்", slotChosen: "தேர்ந்தெடுக்கப்பட்ட நேரம்", free: "இலவசம்", name: "பெயர்", email: "மின்னஞ்சல்", emailPlaceholder: "உறுதிப்படுத்தல் & வைப்புத்தொகை நினைவூட்டலைப் பெற", phone: "தொலைபேசி எண் (விருப்பம்)", notes: "குறிப்புகள் (விருப்பம்)", confirmBtn: "முன்பதிவை உறுதிப்படுத்தவும்", sending: "அனுப்புகிறது...", confirmed: "முன்பதிவு உறுதி செய்யப்பட்டது!", confirmedNote: "உங்கள் மின்னஞ்சலுக்கு உறுதிப்படுத்தல் அனுப்பப்பட்டது. வைப்புத்தொகை நினைவூட்டல் விரைவில் வரும்.", bookAgain: "+ மற்றொரு அமர்வை முன்பதிவு செய்யவும்", genericError: "முன்பதிவு தோல்வியடைந்தது.", changeType: "← சேவை வகையை மாற்றவும்" },
+      ms: { yourBooking: "Tempahan Anda", deposit: "Deposit", stepDetails: "Butiran", loading: "Memuatkan...", incomplete: "Link booking tidak lengkap.", notFound: "Link booking tidak dijumpai.", loadFail: "Gagal memuatkan. Cuba refresh.", noSlots: "Tiada slot available buat masa ni. Sila hubungi terus.", pickSlot: "Pilih tarikh & slot yang sesuai", pickType: "Pilih jenis perkhidmatan", slotChosen: "Slot dipilih", free: "Percuma", name: "Nama", email: "Emel", emailPlaceholder: "untuk terima confirmation & reminder deposit", phone: "Nombor Telefon (optional)", notes: "Catatan (optional)", confirmBtn: "Sahkan Tempahan", sending: "Menghantar...", confirmed: "Tempahan Disahkan!", confirmedNote: "Kami dah hantar confirmation ke emel anda. Reminder deposit akan menyusul sekejap lagi.", bookAgain: "+ Book Sesi Lagi", genericError: "Gagal buat tempahan.", changeType: "← Tukar Jenis Perkhidmatan", viewMore: "Lihat Lagi" },
+      en: { yourBooking: "Your Booking", deposit: "Deposit", stepDetails: "Details", loading: "Loading...", incomplete: "Incomplete booking link.", notFound: "Booking link not found.", loadFail: "Failed to load. Try refreshing.", noSlots: "No slots available right now. Please contact directly.", pickSlot: "Pick a date & time that suits you", pickType: "Choose a service", slotChosen: "Selected slot", free: "Free", name: "Name", email: "Email", emailPlaceholder: "to receive confirmation & deposit reminder", phone: "Phone Number (optional)", notes: "Notes (optional)", confirmBtn: "Confirm Booking", sending: "Sending...", confirmed: "Booking Confirmed!", confirmedNote: "We've sent a confirmation to your email. A deposit reminder will follow shortly.", bookAgain: "+ Book Another Session", genericError: "Failed to book.", changeType: "← Change Service", viewMore: "Learn More" },
+      zh: { yourBooking: "您的预订", deposit: "押金", stepDetails: "详情", loading: "加载中...", incomplete: "预订链接不完整。", notFound: "找不到预订链接。", loadFail: "加载失败，请重试。", noSlots: "目前没有可用的时段，请直接联系。", pickSlot: "选择合适的日期和时间", pickType: "选择服务类型", slotChosen: "已选时段", free: "免费", name: "姓名", email: "电子邮件", emailPlaceholder: "用于接收确认和押金提醒", phone: "电话号码（可选）", notes: "备注（可选）", confirmBtn: "确认预订", sending: "发送中...", confirmed: "预订已确认！", confirmedNote: "我们已将确认发送到您的电子邮件。押金提醒将很快发送。", bookAgain: "+ 预订另一场", genericError: "预订失败。", changeType: "← 更改服务类型", viewMore: "了解更多" },
+      ta: { yourBooking: "உங்கள் முன்பதிவு", deposit: "வைப்புத்தொகை", stepDetails: "விவரங்கள்", loading: "ஏற்றுகிறது...", incomplete: "முழுமையற்ற முன்பதிவு இணைப்பு.", notFound: "முன்பதிவு இணைப்பு கிடைக்கவில்லை.", loadFail: "ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.", noSlots: "தற்போது இடங்கள் இல்லை. நேரடியாக தொடர்பு கொள்ளவும்.", pickSlot: "பொருத்தமான தேதி & நேரத்தைத் தேர்ந்தெடுக்கவும்", pickType: "சேவை வகையைத் தேர்ந்தெடுக்கவும்", slotChosen: "தேர்ந்தெடுக்கப்பட்ட நேரம்", free: "இலவசம்", name: "பெயர்", email: "மின்னஞ்சல்", emailPlaceholder: "உறுதிப்படுத்தல் & வைப்புத்தொகை நினைவூட்டலைப் பெற", phone: "தொலைபேசி எண் (விருப்பம்)", notes: "குறிப்புகள் (விருப்பம்)", confirmBtn: "முன்பதிவை உறுதிப்படுத்தவும்", sending: "அனுப்புகிறது...", confirmed: "முன்பதிவு உறுதி செய்யப்பட்டது!", confirmedNote: "உங்கள் மின்னஞ்சலுக்கு உறுதிப்படுத்தல் அனுப்பப்பட்டது. வைப்புத்தொகை நினைவூட்டல் விரைவில் வரும்.", bookAgain: "+ மற்றொரு அமர்வை முன்பதிவு செய்யவும்", genericError: "முன்பதிவு தோல்வியடைந்தது.", changeType: "← சேவை வகையை மாற்றவும்", viewMore: "மேலும் அறிக" },
     };
     const LANG_LABELS = { ms: "BM", en: "EN", zh: "中文", ta: "தமிழ்" };
     function T() { return UI[lang] || UI.ms; }
@@ -162,26 +171,48 @@
         <p class="hint" style="text-align:center; margin-bottom:1rem;">${T().pickType}</p>
         <div class="card">
           ${types.map(t => `
-            <button type="button" class="event-type-row" data-type-id="${t.id}">
-              <div>
+            <div class="event-type-row" data-select-type="${t.id}">
+              ${t.poster_url ? `<img src="${escapeHtml(t.poster_url)}" class="event-type-thumb" alt="" />` : ""}
+              <div style="flex:1; min-width:0;">
                 <strong>${escapeHtml(t.name)}</strong>
                 <div class="hint" style="font-size:0.8rem;">${t.duration_minutes} minit${t.capacity > 1 ? ` · sehingga ${t.capacity} orang` : ""}</div>
+                ${(t.description || t.poster_url) ? `<button type="button" class="event-type-viewmore" data-viewmore-id="${t.id}">${T().viewMore}</button>` : ""}
               </div>
-              <span class="mono" style="font-weight:600; color:var(--stamp);">${t.deposit_amount === 0 ? T().free : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "")}</span>
-            </button>
+              <span class="mono" style="font-weight:600; color:var(--stamp); white-space:nowrap;">${t.deposit_amount === 0 ? T().free : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "")}</span>
+            </div>
           `).join("")}
         </div>
       `;
       wireLangSwitcher();
-      document.querySelectorAll(".event-type-row").forEach(btn => {
-        btn.addEventListener("click", () => {
-          selectedType = types.find(t => t.id === btn.dataset.typeId);
+      document.querySelectorAll("[data-select-type]").forEach(row => {
+        row.addEventListener("click", (e) => {
+          if (e.target.closest(".event-type-viewmore")) return;
+          const t = types.find(t => t.id === row.dataset.selectType);
+          selectedType = t;
           selectedDate = null;
           selectedSlot = null;
-          loadAvailability(selectedType.id);
+          loadAvailability(t.id);
+        });
+      });
+      document.querySelectorAll(".event-type-viewmore").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const t = types.find(t => t.id === btn.dataset.viewmoreId);
+          openServiceDetailModal(t);
         });
       });
     }
+
+    function openServiceDetailModal(t) {
+      document.getElementById("service-detail-title").textContent = t.name;
+      document.getElementById("service-detail-poster").style.display = t.poster_url ? "block" : "none";
+      document.getElementById("service-detail-poster").src = t.poster_url || "";
+      document.getElementById("service-detail-description").textContent = t.description || "";
+      document.getElementById("service-detail-modal").style.display = "flex";
+    }
+    document.getElementById("service-detail-close-btn")?.addEventListener("click", () => {
+      document.getElementById("service-detail-modal").style.display = "none";
+    });
 
     function renderPicker() {
       const content = document.getElementById("book-content");

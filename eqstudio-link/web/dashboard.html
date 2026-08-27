@@ -383,6 +383,14 @@
                   </div>
                 </div>
                 <button type="button" id="add-event-type-btn" class="secondary" style="margin-top:0.8rem; width:100%;">+ Tambah Jenis Perkhidmatan</button>
+                <label for="et-description" style="margin-top:0.8rem;">Description (opsyenal — customer nampak bila klik "Lihat Lagi")</label>
+                <textarea id="et-description" rows="2" placeholder="cth: Kek 3-tier custom design, termasuk konsultasi rasa & topping."></textarea>
+                <div id="et-poster-wrap" style="display:none; margin-top:0.6rem;">
+                  <label for="et-poster-file">Poster / Gambar Servis (opsyenal, maks 2MB)</label>
+                  <input type="file" id="et-poster-file" accept="image/*" />
+                  <p class="hint" id="et-poster-status" style="margin-top:0.3rem;"></p>
+                </div>
+                <p class="hint" id="et-poster-locked" style="display:none; margin-top:0.6rem;">📌 Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk buka feature ni.</p>
               </div>
             </div>
 
@@ -2245,9 +2253,15 @@
     }
 
     let onboardingChecked = false;
+    let currentUserIsPro = false;
     async function loadBookingLinksAndSettings() {
       const { data: profTier } = await supabase.from("profiles").select("tier").eq("id", user.id).single();
       const isPro = profTier?.tier === "pro";
+      currentUserIsPro = isPro;
+      const posterWrap = document.getElementById("et-poster-wrap");
+      const posterLocked = document.getElementById("et-poster-locked");
+      if (posterWrap) posterWrap.style.display = isPro ? "block" : "none";
+      if (posterLocked) posterLocked.style.display = isPro ? "none" : "block";
 
       const { data: links } = await supabase.from("booking_links").select("*").eq("owner_id", user.id).order("is_primary", { ascending: false }).order("created_at", { ascending: true });
       allBookingLinks = links || [];
@@ -2460,27 +2474,87 @@
       });
     }
 
+    // Resizes+re-encodes an image client-side before upload, keeping the free
+    // Supabase Storage tier (1GB total, shared across all Pro owners) usable —
+    // a phone photo can easily be 8-15MB uncompressed, this brings it well
+    // under the 2MB app-level cap in the vast majority of cases.
+    function compressImageFile(file, maxDimension = 1200, quality = 0.8) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        const reader = new FileReader();
+        reader.onload = (e) => { img.src = e.target.result; };
+        reader.onerror = reject;
+        img.onload = () => {
+          let { width, height } = img;
+          if (width > maxDimension || height > maxDimension) {
+            const scale = maxDimension / Math.max(width, height);
+            width = Math.round(width * scale);
+            height = Math.round(height * scale);
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+          canvas.toBlob((blob) => resolve(blob), "image/jpeg", quality);
+        };
+        img.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
     document.getElementById("add-event-type-btn")?.addEventListener("click", async () => {
       if (!currentLinkId) { showToast("Setkan slug & simpan link dulu sebelum tambah servis.", "error"); return; }
       const name = document.getElementById("et-name").value.trim();
       const duration = parseInt(document.getElementById("et-duration").value, 10);
       const depositRaw = document.getElementById("et-deposit").value.trim();
       const capacity = parseInt(document.getElementById("et-capacity").value, 10) || 1;
+      const description = document.getElementById("et-description").value.trim() || null;
+      const posterFile = currentUserIsPro ? document.getElementById("et-poster-file").files[0] : null;
 
       if (!name || !duration) { showToast("Nama & tempoh diperlukan.", "error"); return; }
       if (depositRaw === "") { showToast("Deposit diperlukan (taip 0 untuk percuma).", "error"); document.getElementById("et-deposit").focus(); return; }
       const deposit = parseFloat(depositRaw);
 
+      if (posterFile && posterFile.size > 2 * 1024 * 1024) {
+        showToast("Poster terlalu besar. Sila guna gambar bawah 2MB.", "error");
+        return;
+      }
+
+      const btn = document.getElementById("add-event-type-btn");
+      btn.disabled = true;
+      let posterUrl = null;
+      if (posterFile) {
+        btn.textContent = "Memuat naik poster...";
+        try {
+          const compressed = await compressImageFile(posterFile);
+          const path = `${user.id}/${Date.now()}.jpg`;
+          const { error: uploadError } = await supabase.storage.from("posters").upload(path, compressed, { contentType: "image/jpeg" });
+          if (uploadError) throw uploadError;
+          const { data: urlData } = supabase.storage.from("posters").getPublicUrl(path);
+          posterUrl = urlData.publicUrl;
+        } catch (err) {
+          showToast("Gagal upload poster: " + err.message, "error");
+          btn.disabled = false;
+          btn.textContent = "+ Tambah Jenis Perkhidmatan";
+          return;
+        }
+      }
+      btn.textContent = "+ Tambah Jenis Perkhidmatan";
+
       const { data: existing } = await supabase.from("event_types").select("id").eq("booking_link_id", currentLinkId);
       const { error } = await supabase.from("event_types").insert({
         owner_id: user.id, booking_link_id: currentLinkId, name, duration_minutes: duration, deposit_amount: deposit, capacity, sort_order: (existing?.length || 0),
+        description, poster_url: posterUrl,
       });
+      btn.disabled = false;
       if (error) { showToast(error.message, "error"); return; }
 
       document.getElementById("et-name").value = "";
       document.getElementById("et-duration").value = "60";
       prefillEventTypeDeposit();
       document.getElementById("et-capacity").value = "1";
+      document.getElementById("et-description").value = "";
+      if (document.getElementById("et-poster-file")) document.getElementById("et-poster-file").value = "";
       loadEventTypes();
       showToast(`Jenis perkhidmatan "${name}" ditambah. Customer boleh pilih ni semasa booking lepas ni.`, "success");
     });

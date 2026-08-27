@@ -24,7 +24,5 @@ crons = ["0 1 * * *", "0 */2 * * *"]
 #   RESEND_API_KEY
 #   RESEND_FROM_EMAIL        (e.g. "eqstudio.link <reminder@eqstudio.link>")
 #   MANUAL_TRIGGER_KEY       (any random string, for manual test-triggering via curl)
-#   BILLPLZ_API_KEY          (Billplz Settings > API Keys)
-#   BILLPLZ_COLLECTION_ID    (the Billplz collection to bill into)
 #   PUBLIC_SITE_URL          (Fasa 3 — e.g. https://eqstudio.link)
 #   FOUNDER_NOTIFY_EMAIL     (optional but recommended — where sweep-failure alerts go)

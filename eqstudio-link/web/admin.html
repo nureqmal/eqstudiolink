@@ -450,7 +450,7 @@
           <td data-label="Subscription"><span class="badge ${subBadgeClass}">${subLabel}</span>${tierTrialMismatch ? ' <span title="Pro tapi masih Trial — pelik, semak semula" style="color:var(--warn);">⚠</span>' : ""}</td>
           <td data-label="Customer">${o.customer_count}</td>
           <td data-label="Booking">${o.booking_slug ? `<span class="badge dah_bayar">${o.booking_count}</span>` : '<span class="hint">— Tiada</span>'}</td>
-          <td data-label="Status">${o.is_suspended ? '<span class="badge belum_bayar">Digantung</span>' : '<span class="badge dah_bayar">Aktif</span>'}</td>
+          <td data-label="Status">${o.is_suspended ? '<span class="badge belum_bayar">Digantung</span>' : '<span class="badge dah_bayar">Aktif</span>'}${o.payment_claimed_at ? ` <span class="badge pending" title="Tuntut bayar pada ${new Date(o.payment_claimed_at).toLocaleString("ms-MY")}">💰 Bayaran Dituntut</span>` : ""}</td>
           <td data-label=""></td>
         `;
         const actionTd = tr.lastElementChild;

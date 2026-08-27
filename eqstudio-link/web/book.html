@@ -191,6 +191,7 @@
           selectedType = t;
           selectedDate = null;
           selectedSlot = null;
+          calendarViewMonth = null;
           loadAvailability(t.id);
         });
       });
@@ -214,6 +215,68 @@
       document.getElementById("service-detail-modal").style.display = "none";
     });
 
+    let calendarViewMonth = null; // "YYYY-MM" string, tracks which month is shown
+
+    function renderDateCalendar(dateKeys) {
+      if (dateKeys.length === 0) return;
+      if (!calendarViewMonth) calendarViewMonth = (selectedDate || dateKeys[0]).slice(0, 7);
+
+      const slotsByDate = availabilityData.slots_by_date;
+      const [viewYear, viewMonthNum] = calendarViewMonth.split("-").map(Number);
+      const firstOfMonth = new Date(viewYear, viewMonthNum - 1, 1);
+      const daysInMonth = new Date(viewYear, viewMonthNum, 0).getDate();
+      const startWeekday = firstOfMonth.getDay(); // 0=Sun
+
+      const minMonth = dateKeys[0].slice(0, 7);
+      const maxMonth = dateKeys[dateKeys.length - 1].slice(0, 7);
+      const canGoPrev = calendarViewMonth > minMonth;
+      const canGoNext = calendarViewMonth < maxMonth;
+
+      const weekdayLabels = lang === "ms" ? ["A", "I", "S", "R", "K", "J", "S"] : ["S", "M", "T", "W", "T", "F", "S"];
+      const monthLabel = firstOfMonth.toLocaleDateString(lang === "ms" ? "ms-MY" : "en-MY", { month: "long", year: "numeric" });
+
+      let cells = "";
+      for (let i = 0; i < startWeekday; i++) cells += `<div class="book-cal-day empty"></div>`;
+      for (let d = 1; d <= daysInMonth; d++) {
+        const key = `${viewYear}-${String(viewMonthNum).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        const slots = slotsByDate[key];
+        const count = slots ? slots.length : 0;
+        const density = count === 0 ? "" : count <= 2 ? "density-low" : count <= 5 ? "density-med" : "density-high";
+        const isSelected = key === selectedDate;
+        cells += `<div class="book-cal-day ${count > 0 ? "has-slots " + density : ""} ${isSelected ? "selected" : ""}" ${count > 0 ? `data-date-cell="${key}"` : ""}>
+          <span>${d}</span>${count > 0 ? '<span class="dot"></span>' : ""}
+        </div>`;
+      }
+
+      document.getElementById("book-date-row").innerHTML = `
+        <div class="book-cal-header">
+          <button type="button" class="book-cal-nav-btn" id="cal-prev-btn" ${!canGoPrev ? "disabled" : ""}>‹</button>
+          <span class="book-cal-month-label">${monthLabel}</span>
+          <button type="button" class="book-cal-nav-btn" id="cal-next-btn" ${!canGoNext ? "disabled" : ""}>›</button>
+        </div>
+        <div class="book-cal-weekdays">${weekdayLabels.map(w => `<span>${w}</span>`).join("")}</div>
+        <div class="book-cal-grid">${cells}</div>
+      `;
+
+      document.getElementById("cal-prev-btn")?.addEventListener("click", () => {
+        const d = new Date(viewYear, viewMonthNum - 2, 1);
+        calendarViewMonth = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+        renderDateCalendar(dateKeys);
+      });
+      document.getElementById("cal-next-btn")?.addEventListener("click", () => {
+        const d = new Date(viewYear, viewMonthNum, 1);
+        calendarViewMonth = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+        renderDateCalendar(dateKeys);
+      });
+      document.querySelectorAll("[data-date-cell]").forEach(cell => {
+        cell.addEventListener("click", () => {
+          selectedDate = cell.dataset.dateCell;
+          selectedSlot = null;
+          renderPicker();
+        });
+      });
+    }
+
     function renderPicker() {
       const content = document.getElementById("book-content");
       const dateKeys = Object.keys(availabilityData.slots_by_date);
@@ -230,6 +293,7 @@
 
       content.innerHTML = renderLangSwitcher() + renderBizHeader() + renderStepIndicator(selectedSlot ? 3 : 2) + renderSummaryCard() + `
         ${hasTypes ? `<button type="button" class="secondary" id="change-type-btn" style="margin-bottom:0.8rem;">${T().changeType}</button>` : ""}
+        ${!hasTypes && (availabilityData.link_description || availabilityData.link_poster_url) ? `<button type="button" class="event-type-viewmore" id="link-viewmore-btn" style="margin-bottom:0.8rem; display:block;">${T().viewMore}</button>` : ""}
         <p class="hint" style="margin-bottom:0.8rem;">${T().pickSlot}</p>
         <div class="card">
           <div class="book-date-row" id="book-date-row"></div>
@@ -237,6 +301,9 @@
         </div>
         <div id="book-form-wrap"></div>
       `;
+      document.getElementById("link-viewmore-btn")?.addEventListener("click", () => {
+        openServiceDetailModal({ name: availabilityData.business.name, description: availabilityData.link_description, poster_url: availabilityData.link_poster_url });
+      });
       wireLangSwitcher();
 
       document.getElementById("change-type-btn")?.addEventListener("click", () => {
@@ -245,17 +312,7 @@
         renderTypePicker();
       });
 
-      const dateRow = document.getElementById("book-date-row");
-      dateRow.innerHTML = dateKeys.map(k => `
-        <button type="button" class="chip book-date-chip ${k === selectedDate ? "selected" : ""}" data-date="${k}">${dateLabel(k)}</button>
-      `).join("");
-      dateRow.querySelectorAll(".book-date-chip").forEach(btn => {
-        btn.addEventListener("click", () => {
-          selectedDate = btn.dataset.date;
-          selectedSlot = null;
-          renderPicker();
-        });
-      });
+      renderDateCalendar(dateKeys);
 
       const slotGrid = document.getElementById("book-slot-grid");
       const slots = availabilityData.slots_by_date[selectedDate] || [];
@@ -362,6 +419,7 @@
       document.getElementById("book-again-btn").addEventListener("click", () => {
         selectedDate = null;
         selectedSlot = null;
+        calendarViewMonth = null;
         // Same event type (if any) — re-fetch so the just-created booking is
         // correctly excluded/counted in the fresh slot list.
         loadAvailability(selectedType ? selectedType.id : undefined);

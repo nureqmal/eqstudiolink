@@ -64,7 +64,6 @@
           <label>${T.status}</label>
           <p style="margin:0 0 1rem;"><span class="badge ${c.status}">${T.statusLabels[c.status]}</span></p>
           ${c.notes ? `<p class="hint"><em>${escapeHtml(c.notes)}</em></p>` : ""}
-          ${data.pay_url ? `<a href="${data.pay_url}" class="btn" style="width:100%; text-align:center; margin-top:1rem;">${T.payBtn}</a>` : ""}
           ${waLink(data.business, c) ? `<a href="${waLink(data.business, c)}" class="btn secondary" style="width:100%; text-align:center; margin-top:0.6rem;">${T.waBtn}</a>` : ""}
           ${(data.business?.bank_name && data.business?.bank_account_number) || data.business?.qr_code_url ? `
             <div style="background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px; padding:1rem; margin-top:1rem; text-align:center;">

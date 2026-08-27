@@ -77,7 +77,7 @@ export async function onRequestPost(context) {
       const newEnd = new Date(base.getTime() + extendDays * 24 * 60 * 60 * 1000);
       await sbAdmin(env, `/profiles?id=eq.${owner_id}`, {
         method: "PATCH",
-        body: JSON.stringify({ subscription_status: "active", subscription_end_date: newEnd.toISOString() }),
+        body: JSON.stringify({ subscription_status: "active", subscription_end_date: newEnd.toISOString(), payment_claimed_at: null }),
       });
       await logAuditAction(env, "extend_subscription", owner_id, `+${extendDays} hari, tamat baharu ${newEnd.toISOString().slice(0, 10)}`);
       return json({ success: true, new_end_date: newEnd.toISOString() });
@@ -85,7 +85,9 @@ export async function onRequestPost(context) {
 
     if (action === "set_subscription_status") {
       if (!VALID_STATUSES.includes(status)) return json({ error: `status mesti salah satu: ${VALID_STATUSES.join(", ")}` }, 400);
-      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify({ subscription_status: status }) });
+      const payload = { subscription_status: status };
+      if (status === "active") payload.payment_claimed_at = null;
+      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify(payload) });
       await logAuditAction(env, "set_subscription_status", owner_id, `status ditukar ke ${status}`);
       return json({ success: true, subscription_status: status });
     }
@@ -159,6 +161,7 @@ export async function onRequestPost(context) {
       const payload = { tier };
       if (currentStatus !== "active") {
         payload.subscription_status = "active";
+        payload.payment_claimed_at = null;
         if (!currentEnd || currentEnd < new Date()) {
           payload.subscription_end_date = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
         }

@@ -28,20 +28,9 @@ export async function onRequestGet(context) {
   const profiles = await profRes.json();
   const profile = profiles[0] || {};
 
-  let payUrl = null;
-  if (customer.status !== "dah_bayar") {
-    const billRes = await fetch(
-      `${env.SUPABASE_URL}/rest/v1/bills?customer_id=eq.${customer.id}&bill_type=eq.customer_invoice&status=eq.pending&select=gateway_bill_url&order=created_at.desc&limit=1`,
-      { headers }
-    );
-    const bills = await billRes.json();
-    payUrl = bills[0]?.gateway_bill_url || null;
-  }
-
   return json({
     customer: { name: customer.name, amount: customer.amount, due_date: customer.due_date, status: customer.status, notes: customer.notes },
     business: profile,
-    pay_url: payUrl,
   });
 }
 

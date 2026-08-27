@@ -3,7 +3,6 @@
 // Required secrets (set via `wrangler secret put <NAME>`):
 //   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY, RESEND_FROM_EMAIL
 //   MANUAL_TRIGGER_KEY, PUBLIC_SITE_URL
-//   BILLPLZ_API_KEY, BILLPLZ_COLLECTION_ID
 
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 
@@ -255,49 +254,6 @@ async function sb(env, path, options = {}) {
   return res.status === 204 ? null : res.json();
 }
 
-async function ensureCustomerBill(env, customer) {
-  // Reuse an existing pending invoice bill for this customer if one exists
-  const existing = await sb(env, `/bills?customer_id=eq.${customer.id}&bill_type=eq.customer_invoice&status=eq.pending&select=gateway_bill_url&limit=1`);
-  if (existing.length > 0) return existing[0].gateway_bill_url;
-
-  const site = env.PUBLIC_SITE_URL || "https://eqstudio.link";
-  const form = new URLSearchParams({
-    collection_id: env.BILLPLZ_COLLECTION_ID,
-    email: customer.contact_email,
-    name: customer.name,
-    amount: String(Math.round(Number(customer.amount) * 100)),
-    description: `Bayaran: ${customer.name}${customer.notes ? " — " + customer.notes : ""}`.slice(0, 200),
-    callback_url: `${site}/api/billplz-webhook`,
-    redirect_url: `${site}/paid.html`,
-  });
-  const res = await fetch("https://www.billplz.com/api/v3/bills", {
-    method: "POST",
-    headers: {
-      Authorization: "Basic " + btoa(`${env.BILLPLZ_API_KEY}:`),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: form.toString(),
-  });
-  if (!res.ok) throw new Error(`Billplz create customer bill failed: ${res.status} ${await res.text()}`);
-  const bill = await res.json();
-
-  await sb(env, "/bills", {
-    method: "POST",
-    prefer: "return=minimal",
-    body: JSON.stringify({
-      owner_id: customer.owner_id,
-      customer_id: customer.id,
-      gateway_bill_id: bill.id,
-      payment_gateway: "billplz",
-      amount: customer.amount,
-      status: "pending",
-      gateway_bill_url: bill.url,
-      bill_type: "customer_invoice",
-    }),
-  });
-
-  return bill.url;
-}
 
 function hexToRgb01(hex) {
   const clean = (hex || "#C97A2B").replace("#", "");
@@ -452,10 +408,6 @@ async function sendReminderEmail(env, customer, daysOffset, profile, payUrl) {
         <tr><td style="padding:20px 32px 4px;">
           <span style="display:inline-block; border:2px solid ${urgencyColor}; color:${urgencyColor}; border-radius:6px; padding:4px 12px; font-size:12px; font-weight:700; letter-spacing:0.05em;">${T.tagLabel}</span>
         </td></tr>
-        ${payUrl ? `
-        <tr><td style="padding:16px 32px 4px;">
-          <a href="${payUrl}" style="display:block; text-align:center; background:${brandColor}; color:#ffffff; text-decoration:none; font-weight:700; font-size:14px; padding:13px 20px; border-radius:8px; font-family:Helvetica,Arial,sans-serif;">${T.payBtn(amount)}</a>
-        </td></tr>` : ""}
         <tr><td style="padding:8px 32px 0;">
           <a href="${calendarLink}" style="display:block; text-align:center; background:#ffffff; color:#4A6259; text-decoration:none; font-weight:600; font-size:12px; padding:9px 20px; border-radius:8px; border:1px dashed #C9BFA9; font-family:Helvetica,Arial,sans-serif;">${T.calBtn}</a>
         </td></tr>
@@ -585,14 +537,7 @@ async function runReminderSweep(env, { proOnly = false } = {}) {
 async function processReminderMessage(env, msg) {
   const { customer: c, offset, profile } = msg;
 
-  let payUrl = null;
-  try {
-    payUrl = await ensureCustomerBill(env, c);
-  } catch (billErr) {
-    console.error(`Bill creation failed for ${c.id}: ${billErr.message}`); // still send the reminder even if the payment gateway hiccups
-  }
-
-  await sendReminderEmail(env, c, offset, profile, payUrl);
+  await sendReminderEmail(env, c, offset, profile);
 
   await sb(env, "/reminders_log", {
     method: "POST",
@@ -654,42 +599,25 @@ const PLAN_PRICING = {
   yearly: { amountCents: "19000", amountRM: 190.0, label: "Langganan tahunan eqstudio.link (2 bulan percuma)", days: 365 },
 };
 
-async function createRenewalBill(env, ownerId, email, plan) {
-  const pricing = PLAN_PRICING[plan] || PLAN_PRICING.monthly;
-  const site = env.PUBLIC_SITE_URL || "https://eqstudio.link";
-  const form = new URLSearchParams({
-    collection_id: env.BILLPLZ_COLLECTION_ID,
-    email,
-    name: email,
-    amount: pricing.amountCents,
-    description: pricing.label,
-    callback_url: `${site}/api/billplz-webhook`,
-    redirect_url: `${site}/billing.html?paid=1`,
-  });
-  const res = await fetch("https://www.billplz.com/api/v3/bills", {
-    method: "POST",
-    headers: {
-      Authorization: "Basic " + btoa(`${env.BILLPLZ_API_KEY}:`),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: form.toString(),
-  });
-  if (!res.ok) throw new Error(`Billplz create bill failed: ${res.status} ${await res.text()}`);
-  const bill = await res.json();
+function paymentRefCode(ownerId) {
+  return `EQ-${ownerId.slice(0, 6).toUpperCase()}`;
+}
 
+async function recordPendingManualBill(env, ownerId, plan) {
+  const pricing = PLAN_PRICING[plan] || PLAN_PRICING.monthly;
   await sb(env, "/bills", {
     method: "POST",
     prefer: "return=minimal",
-    body: JSON.stringify({ owner_id: ownerId, gateway_bill_id: bill.id, payment_gateway: "billplz", amount: pricing.amountRM, status: "pending", gateway_bill_url: bill.url }),
+    body: JSON.stringify({ owner_id: ownerId, payment_gateway: "manual_bank_transfer", amount: pricing.amountRM, status: "pending" }),
   });
-
-  return { url: bill.url };
 }
 
-async function sendBillingReminderEmail(env, ownerId, email, billUrl, daysLeft, plan, profile) {
+async function sendBillingReminderEmail(env, ownerId, email, daysLeft, plan, profile) {
   const pricing = PLAN_PRICING[plan] || PLAN_PRICING.monthly;
   const bizName = profile?.business_name?.trim() || "eqstudio.link";
   const brandColor = profile?.brand_color || "#E8834E";
+  const site = env.PUBLIC_SITE_URL || "https://eqstudio.link";
+  const ref = paymentRefCode(ownerId);
   const subject = daysLeft > 0
     ? `Langganan eqstudio.link tamat dalam ${daysLeft} hari — sila bayar`
     : `Langganan eqstudio.link telah tamat — sila bayar untuk sambung akses`;
@@ -699,10 +627,16 @@ async function sendBillingReminderEmail(env, ownerId, email, billUrl, daysLeft, 
           <p style="color:#1F3A34; font-size:15px; line-height:1.6; margin:0 0 12px;">
             ${daysLeft > 0 ? `Langganan eqstudio.link anda akan tamat dalam <strong>${daysLeft} hari</strong>.` : "Langganan eqstudio.link anda telah <strong>tamat</strong>."}
           </p>
-          <p style="color:#4A6259; font-size:13px; line-height:1.6; margin:0 0 20px;">
-            Sila bayar RM${pricing.amountRM.toFixed(2)} (pelan ${plan === "yearly" ? "tahunan" : "bulanan"}) untuk sambung akses ${pricing.days} hari lagi — dashboard, reminder automatik, dan semua data pelanggan anda kekal tersedia.
+          <p style="color:#4A6259; font-size:13px; line-height:1.6; margin:0 0 16px;">
+            Sila transfer RM${pricing.amountRM.toFixed(2)} (pelan ${plan === "yearly" ? "tahunan" : "bulanan"}) ke akaun GXBank kami untuk sambung akses.
           </p>
-          <a href="${billUrl}" style="display:inline-block; background:${brandColor}; color:#ffffff; text-decoration:none; font-weight:700; font-size:14px; padding:12px 28px; border-radius:8px; font-family:Helvetica,Arial,sans-serif;">Bayar Sekarang</a>
+          <img src="${site}/assets/payment/duitnow-qr.jpeg" alt="QR DuitNow eqstudio.link" style="max-width:180px; width:100%; border-radius:12px; margin-bottom:16px;" />
+          <table role="presentation" style="width:100%; max-width:320px; margin:0 auto 16px; text-align:left; font-size:13px; color:#1F3A34; border-collapse:collapse;">
+            <tr><td style="padding:6px 0; border-bottom:1px solid #E4E4E9;">Akaun (GXBank)</td><td style="padding:6px 0; border-bottom:1px solid #E4E4E9; text-align:right; font-weight:700;">8188-018660-6</td></tr>
+            <tr><td style="padding:6px 0; border-bottom:1px solid #E4E4E9;">Jumlah</td><td style="padding:6px 0; border-bottom:1px solid #E4E4E9; text-align:right; font-weight:700;">RM${pricing.amountRM.toFixed(2)}</td></tr>
+            <tr><td style="padding:6px 0;">Reference</td><td style="padding:6px 0; text-align:right; font-weight:700;">${ref}</td></tr>
+          </table>
+          <a href="${site}/billing.html" style="display:inline-block; background:${brandColor}; color:#ffffff; text-decoration:none; font-weight:700; font-size:14px; padding:12px 28px; border-radius:8px; font-family:Helvetica,Arial,sans-serif;">Pergi ke Billing</a>
         </td></tr>`;
 
   const html = emailShell({
@@ -754,10 +688,10 @@ async function runBillingSweep(env) {
       const email = await getUserEmail(env, p.id);
       if (!email) { skipped++; continue; }
       const plan = p.subscription_plan || "monthly";
-      const bill = await createRenewalBill(env, p.id, email, plan);
+      await recordPendingManualBill(env, p.id, plan);
       const daysLeft = Math.ceil((new Date(p.subscription_end_date) - now) / (1000 * 60 * 60 * 24));
       const profRes = await sb(env, `/profiles?id=eq.${p.id}&select=business_name,brand_color,logo_url`);
-      await sendBillingReminderEmail(env, p.id, email, bill.url, daysLeft, plan, profRes[0]);
+      await sendBillingReminderEmail(env, p.id, email, daysLeft, plan, profRes[0]);
       billed++;
     } catch (err) {
       console.error(err.message);

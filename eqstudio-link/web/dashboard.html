@@ -313,6 +313,15 @@
             <input type="number" id="p-default-deposit" step="0.01" min="0" placeholder="cth: 50 (atau 0 untuk percuma)" />
             <p class="hint" style="margin-top:0.3rem;">Auto-apply setiap booking baru — boleh edit lepas tu ikut customer.</p>
 
+            <label for="p-link-description" style="margin-top:1rem; display:block;">Description Servis (opsyenal — customer nampak bila klik "Lihat Lagi")</label>
+            <textarea id="p-link-description" rows="2" placeholder="cth: Kami sediakan kek custom untuk majlis, siap dalam 3-5 hari bekerja."></textarea>
+            <div id="p-link-poster-wrap" style="display:none; margin-top:0.6rem;">
+              <label for="p-link-poster-file">Poster / Gambar Servis (opsyenal, maks 2MB)</label>
+              <input type="file" id="p-link-poster-file" accept="image/*" />
+              <img id="p-link-poster-preview" style="max-width:120px; border-radius:8px; margin-top:0.5rem; display:none;" alt="" />
+            </div>
+            <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.6rem;">📌 Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk buka feature ni.</p>
+
             <label style="margin-top:1rem; display:block;">Waktu Available</label>
             <div id="availability-grid" class="availability-grid"></div>
 
@@ -2262,6 +2271,10 @@
       const posterLocked = document.getElementById("et-poster-locked");
       if (posterWrap) posterWrap.style.display = isPro ? "block" : "none";
       if (posterLocked) posterLocked.style.display = isPro ? "none" : "block";
+      const linkPosterWrap = document.getElementById("p-link-poster-wrap");
+      const linkPosterLocked = document.getElementById("p-link-poster-locked");
+      if (linkPosterWrap) linkPosterWrap.style.display = isPro ? "block" : "none";
+      if (linkPosterLocked) linkPosterLocked.style.display = isPro ? "none" : "block";
 
       const { data: links } = await supabase.from("booking_links").select("*").eq("owner_id", user.id).order("is_primary", { ascending: false }).order("created_at", { ascending: true });
       allBookingLinks = links || [];
@@ -2364,6 +2377,12 @@
       document.getElementById("p-buffer").value = link?.buffer_minutes ?? 0;
       document.getElementById("p-cancel-notice").value = link?.cancellation_notice_hours ?? 0;
       document.getElementById("p-default-deposit").value = link?.default_deposit_amount != null ? link.default_deposit_amount : "";
+      document.getElementById("p-link-description").value = link?.description || "";
+      const posterPreview = document.getElementById("p-link-poster-preview");
+      if (posterPreview) {
+        posterPreview.src = link?.poster_url || "";
+        posterPreview.style.display = link?.poster_url ? "block" : "none";
+      }
 
       if (link?.slug && link.default_deposit_amount == null) {
         document.getElementById("booking-slug-status").innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <strong>Link ni TIDAK berfungsi</strong> — Deposit Lalai belum diisi. Booking customer akan gagal sehingga anda isi & simpan semula.`;
@@ -2590,6 +2609,34 @@
       btn.disabled = true;
       btn.textContent = "Menyimpan...";
 
+      const description = document.getElementById("p-link-description").value.trim() || null;
+      const linkPosterFile = currentUserIsPro ? document.getElementById("p-link-poster-file")?.files[0] : null;
+      let posterUrl = undefined; // undefined = don't touch existing value unless a new file was picked
+
+      if (linkPosterFile) {
+        if (linkPosterFile.size > 2 * 1024 * 1024) {
+          showToast("Poster terlalu besar. Sila guna gambar bawah 2MB.", "error");
+          btn.disabled = false;
+          btn.textContent = "Simpan Tetapan Booking";
+          return;
+        }
+        btn.textContent = "Memuat naik poster...";
+        try {
+          const compressed = await compressImageFile(linkPosterFile);
+          const path = `${user.id}/link-${Date.now()}.jpg`;
+          const { error: uploadError } = await supabase.storage.from("posters").upload(path, compressed, { contentType: "image/jpeg" });
+          if (uploadError) throw uploadError;
+          const { data: urlData } = supabase.storage.from("posters").getPublicUrl(path);
+          posterUrl = urlData.publicUrl;
+        } catch (err) {
+          showToast("Gagal upload poster: " + err.message, "error");
+          btn.disabled = false;
+          btn.textContent = "Simpan Tetapan Booking";
+          return;
+        }
+        btn.textContent = "Menyimpan...";
+      }
+
       const linkUpdate = {
         slug,
         slot_duration_minutes: parseInt(document.getElementById("p-slot-duration").value, 10),
@@ -2597,6 +2644,8 @@
         buffer_minutes: parseInt(document.getElementById("p-buffer").value, 10),
         cancellation_notice_hours: parseInt(document.getElementById("p-cancel-notice").value, 10),
         default_deposit_amount: depositValue,
+        description,
+        ...(posterUrl !== undefined ? { poster_url: posterUrl } : {}),
       };
 
       let linkErr;

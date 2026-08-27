@@ -4,8 +4,9 @@
 // waiting for the next ~9am cron run.
 //
 // This is a thin authenticated proxy to the Worker cron's own single-customer
-// mode — the Worker already owns all the sending logic (Billplz bill, branded
-// email, PDF, logging), so we call into it rather than duplicating that here.
+// mode — the Worker already owns all the sending logic (branded email with
+// bank transfer details, PDF, logging), so we call into it rather than
+// duplicating that here.
 //
 // Required Pages environment variables/secrets:
 //   SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY,

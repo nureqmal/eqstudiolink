@@ -25,11 +25,7 @@
   </div>
 
   <div class="wrap-narrow">
-    <div class="card" id="paid-banner" style="display:none; margin-bottom:1rem; background:var(--ok-bg); border-color:var(--ok);">
-      <p style="margin:0; color:var(--ok); font-weight:600;">Bayaran diterima! Langganan anda aktif.</p>
-    </div>
-
-    <div class="card">
+    <div class="card" id="plan-selector-card">
       <h2 style="margin-top:0;" id="status-title">Sila Bayar untuk Terus Guna</h2>
       <p class="hint" id="status-sub">Langganan/trial anda telah tamat. Pilih pelan untuk sambung akses.</p>
 
@@ -69,8 +65,37 @@
         </label>
       </div>
 
-      <button id="pay-btn" style="width:100%; margin-top:1.25rem;">Jana Bil & Bayar</button>
-      <p class="hint" id="pay-loading" style="display:none;">Sedang jana bil...</p>
+      <button id="pay-btn" style="width:100%; margin-top:1.25rem;">Teruskan ke Arahan Bayaran</button>
+    </div>
+
+    <div class="card" id="transfer-panel" style="display:none; margin-top:1rem;">
+      <h2 style="margin-top:0;">Bayar Terus ke Akaun Kami</h2>
+      <p class="hint">Scan QR DuitNow di bawah, atau transfer manual guna butiran akaun.</p>
+      <div style="text-align:center; margin:1rem 0;">
+        <img src="/assets/payment/duitnow-qr.jpeg" alt="QR DuitNow eqstudio.link" style="max-width:220px; width:100%; border-radius:12px; box-shadow:var(--shadow);" />
+      </div>
+      <div class="card" style="background:var(--paper);">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--paper-line);">
+          <div><p class="hint" style="margin:0;">Nombor Akaun (GXBank)</p><p style="margin:0; font-weight:600; font-family:var(--font-mono);">8188-018660-6</p></div>
+          <button type="button" class="secondary" data-copy="8188-018660-6" style="width:auto; padding:0.4rem 0.8rem;">Salin</button>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0; border-bottom:1px solid var(--paper-line);">
+          <div><p class="hint" style="margin:0;">Jumlah</p><p style="margin:0; font-weight:600; font-size:1.15rem; color:var(--stamp);" id="transfer-amount"></p></div>
+          <button type="button" class="secondary" id="copy-amount-btn" style="width:auto; padding:0.4rem 0.8rem;">Salin</button>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0;">
+          <div><p class="hint" style="margin:0;">Reference (sertakan dalam nota transfer)</p><p style="margin:0; font-weight:600; font-family:var(--font-mono);" id="transfer-ref"></p></div>
+          <button type="button" class="secondary" id="copy-ref-btn" style="width:auto; padding:0.4rem 0.8rem;">Salin</button>
+        </div>
+      </div>
+      <p class="hint" style="margin-top:0.8rem;">Lepas transfer, klik butang di bawah — kami akan semak dan aktifkan pelan anda secepat mungkin.</p>
+      <button type="button" id="claim-paid-btn" style="width:100%; margin-top:0.5rem;">✓ Saya Dah Bayar</button>
+      <button type="button" class="secondary" id="back-to-plan-btn" style="width:100%; margin-top:0.5rem;">← Kembali</button>
+    </div>
+
+    <div class="card" id="pending-panel" style="display:none; margin-top:1rem; text-align:center; background:var(--pending-bg);">
+      <p style="margin:0; font-weight:600;">⏳ Tuntutan bayaran anda sedang disemak.</p>
+      <p class="hint" style="margin:0.4rem 0 0;">Kami akan aktifkan pelan anda sebaik bayaran disahkan — biasanya dalam beberapa jam.</p>
     </div>
   </div>
 
@@ -88,11 +113,6 @@
       await supabase.auth.signOut();
       window.location.href = "/login.html";
     });
-
-    // If redirected back from Billplz with ?paid=1, show a banner (webhook does the real update)
-    if (new URLSearchParams(location.search).get("paid") === "1") {
-      document.getElementById("paid-banner").style.display = "block";
-    }
 
     // If subscription is actually still active, just send them back to the dashboard
     const { data: profile } = await supabase
@@ -139,27 +159,65 @@
     document.querySelectorAll('input[name="plan"]').forEach(el => el.addEventListener("change", updatePayBtnLabel));
     updatePrices();
 
-    document.getElementById("pay-btn").addEventListener("click", async () => {
-      const btn = document.getElementById("pay-btn");
-      const loadingEl = document.getElementById("pay-loading");
+    // Show "pending verification" state if they already claimed a payment
+    const { data: claimProfile } = await supabase.from("profiles").select("payment_claimed_at").eq("id", session.user.id).single();
+    if (claimProfile?.payment_claimed_at) {
+      document.getElementById("plan-selector-card").style.display = "none";
+      document.getElementById("pending-panel").style.display = "block";
+    }
+
+    function refCode() {
+      return `EQ-${session.user.id.slice(0, 6).toUpperCase()}`;
+    }
+
+    document.getElementById("pay-btn").addEventListener("click", () => {
       const plan = document.querySelector('input[name="plan"]:checked').value;
       const tier = document.querySelector('input[name="tier"]:checked').value;
-      btn.disabled = true;
-      loadingEl.style.display = "block";
+      const price = TIER_PRICING[tier][plan];
+      document.getElementById("transfer-amount").textContent = `RM${price.toFixed(2)}`;
+      document.getElementById("transfer-ref").textContent = refCode();
+      document.getElementById("plan-selector-card").style.display = "none";
+      document.getElementById("transfer-panel").style.display = "block";
+    });
 
+    document.getElementById("back-to-plan-btn").addEventListener("click", () => {
+      document.getElementById("transfer-panel").style.display = "none";
+      document.getElementById("plan-selector-card").style.display = "block";
+    });
+
+    document.querySelectorAll("[data-copy]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        navigator.clipboard.writeText(btn.dataset.copy).then(() => showToast("Disalin!", "success"));
+      });
+    });
+    document.getElementById("copy-amount-btn").addEventListener("click", () => {
+      navigator.clipboard.writeText(document.getElementById("transfer-amount").textContent.replace("RM", "")).then(() => showToast("Jumlah disalin!", "success"));
+    });
+    document.getElementById("copy-ref-btn").addEventListener("click", () => {
+      navigator.clipboard.writeText(refCode()).then(() => showToast("Reference disalin!", "success"));
+    });
+
+    document.getElementById("claim-paid-btn").addEventListener("click", async () => {
+      const btn = document.getElementById("claim-paid-btn");
+      const plan = document.querySelector('input[name="plan"]:checked').value;
+      const tier = document.querySelector('input[name="tier"]:checked').value;
+      const price = TIER_PRICING[tier][plan];
+      btn.disabled = true;
+      btn.textContent = "Menghantar...";
       try {
-        const res = await fetch("/api/create-bill", {
+        const res = await fetch("/api/claim-payment", {
           method: "POST",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
-          body: JSON.stringify({ plan, tier }),
+          body: JSON.stringify({ tier, amount: price }),
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Gagal jana bil.");
-        window.location.href = data.bill_url;
+        if (!res.ok) throw new Error(data.error || "Gagal hantar tuntutan.");
+        document.getElementById("transfer-panel").style.display = "none";
+        document.getElementById("pending-panel").style.display = "block";
       } catch (err) {
         showToast(err.message, "error");
         btn.disabled = false;
-        loadingEl.style.display = "none";
+        btn.textContent = "✓ Saya Dah Bayar";
       }
     });
   </script>

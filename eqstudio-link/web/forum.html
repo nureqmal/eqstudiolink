@@ -48,6 +48,7 @@
 
     let currentUser = null;
     let canPost = false;
+    let currentBusinessName = "";
     let allThreads = [];
     let allCategories = [];
     let activeCategorySlug = "all";
@@ -75,8 +76,9 @@
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { currentUser = null; canPost = false; return; }
       currentUser = session.user;
-      const { data: profile } = await supabase.from("profiles").select("subscription_status").eq("id", currentUser.id).single();
+      const { data: profile } = await supabase.from("profiles").select("subscription_status, business_name").eq("id", currentUser.id).single();
       canPost = profile?.subscription_status === "active";
+      currentBusinessName = profile?.business_name?.trim() || "";
     }
 
     function notice() {
@@ -117,6 +119,11 @@
               <input type="text" id="nt-title" required />
               <label for="nt-message">${t("forum_message_label")}</label>
               <textarea id="nt-message" rows="4" required></textarea>
+              <label style="margin-top:0.6rem;">Post sebagai</label>
+              <div style="display:flex; gap:1rem; margin:0.3rem 0 0.2rem;">
+                <label style="display:flex; align-items:center; gap:0.4rem; font-weight:400; cursor:pointer;"><input type="radio" name="nt-identity" value="business" checked style="width:auto;" /> ${escapeHtml(currentBusinessName || "Business Owner")}</label>
+                <label style="display:flex; align-items:center; gap:0.4rem; font-weight:400; cursor:pointer;"><input type="radio" name="nt-identity" value="anonymous" style="width:auto;" /> Anonymous</label>
+              </div>
               <button type="submit" style="margin-top:1rem;">Hantar</button>
               <p class="error" id="nt-error" style="display:none;"></p>
             </form>
@@ -143,10 +150,12 @@
           e.preventDefault();
           const errorEl = document.getElementById("nt-error");
           errorEl.style.display = "none";
+          const identityChoice = document.querySelector('input[name="nt-identity"]:checked')?.value;
+          const authorName = identityChoice === "anonymous" ? "Anonymous" : (currentBusinessName || "Business Owner");
           const { error } = await supabase.from("forum_threads").insert({
             category_id: document.getElementById("nt-category").value,
             owner_id: currentUser.id,
-            author_name: currentUser.email,
+            author_name: authorName,
             title: document.getElementById("nt-title").value.trim(),
             message: document.getElementById("nt-message").value.trim(),
           });
@@ -238,6 +247,11 @@
             <form id="reply-form">
               <label for="reply-message">${t("forum_your_reply_label")}</label>
               <textarea id="reply-message" rows="3" required></textarea>
+              <label style="margin-top:0.6rem;">Post sebagai</label>
+              <div style="display:flex; gap:1rem; margin:0.3rem 0 0.2rem;">
+                <label style="display:flex; align-items:center; gap:0.4rem; font-weight:400; cursor:pointer;"><input type="radio" name="reply-identity" value="business" checked style="width:auto;" /> ${escapeHtml(currentBusinessName || "Business Owner")}</label>
+                <label style="display:flex; align-items:center; gap:0.4rem; font-weight:400; cursor:pointer;"><input type="radio" name="reply-identity" value="anonymous" style="width:auto;" /> Anonymous</label>
+              </div>
               <button type="submit" style="margin-top:0.8rem;">${t("forum_submit_reply_btn")}</button>
               <p class="error" id="reply-error" style="display:none;"></p>
             </form>
@@ -261,10 +275,12 @@
           e.preventDefault();
           const errorEl = document.getElementById("reply-error");
           errorEl.style.display = "none";
+          const replyIdentity = document.querySelector('input[name="reply-identity"]:checked')?.value;
+          const replyAuthorName = replyIdentity === "anonymous" ? "Anonymous" : (currentBusinessName || "Business Owner");
           const { error } = await supabase.from("forum_replies").insert({
             thread_id: id,
             owner_id: currentUser.id,
-            author_name: currentUser.email,
+            author_name: replyAuthorName,
             message: document.getElementById("reply-message").value.trim(),
           });
           if (error) { errorEl.textContent = error.message; errorEl.style.display = "block"; return; }

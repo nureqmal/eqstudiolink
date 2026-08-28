@@ -566,7 +566,7 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .db-topbar-mobile {
   display: flex; align-items: center; justify-content: space-between;
   padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--paper-line); background: var(--surface);
-  position: sticky; top: 0; z-index: 5;
+  position: sticky; top: 0; z-index: 56;
 }
 
 @media (min-width: 640px) {
@@ -587,7 +587,7 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .db-page.active { display: block; }
 
 .db-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; margin-bottom: 1.5rem; }
-#report-stats { grid-template-columns: repeat(3, 1fr); }
+#report-stats { grid-template-columns: repeat(3, 1fr); align-items: start; }
 @media (max-width: 640px) {
   .db-stats { grid-template-columns: repeat(2, 1fr); }
   #report-stats { grid-template-columns: repeat(2, 1fr); }
@@ -1608,3 +1608,17 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   opacity: 0.5; pointer-events: none; z-index: 0;
 }
 .home-hero > * { position: relative; z-index: 1; }
+
+/* ── Tier badge — always-visible plan indicator, doubles as the upgrade
+   entry point (previously Starter/Pro owners had NO persistent way back
+   to billing.html once past trial/expiry) ── */
+.tier-badge {
+  display: inline-flex; align-items: center; gap: 0.3rem; text-decoration: none;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase;
+  padding: 0.2rem 0.55rem; border-radius: 999px; margin-top: 0.3rem; transition: transform 0.15s ease;
+}
+.tier-badge:hover { transform: translateY(-1px); }
+.tier-badge.tier-trial { background: var(--pending-bg); color: #B45309; }
+.tier-badge.tier-starter { background: var(--paper); color: var(--ink-soft); border: 1px solid var(--paper-line); }
+.tier-badge.tier-pro { background: var(--stamp-soft); color: var(--stamp); }
+.tier-badge .tier-badge-upgrade { font-weight: 500; text-transform: none; opacity: 0.75; }

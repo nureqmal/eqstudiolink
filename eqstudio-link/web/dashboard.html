@@ -32,6 +32,7 @@
       </div>
       <div class="db-sidebar-footer">
         <div class="db-biz-name" id="business-name-side">—</div>
+        <a href="/billing.html" id="tier-badge" class="tier-badge" style="display:none;"></a>
         <button class="secondary" id="restart-tour-btn" style="width:100%; margin-bottom:0.5rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan Guna Sistem</button>
         <button class="secondary theme-toggle-btn" id="theme-toggle-btn" style="width:100%; margin-bottom:0.5rem;">
           <span id="theme-toggle-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span id="theme-toggle-label">Mod Gelap</span>
@@ -41,7 +42,10 @@
     </aside>
 
     <div class="db-topbar-mobile">
-      <a href="/dashboard.html" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <a href="/dashboard.html" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
+        <a href="/billing.html" id="tier-badge-mobile" class="tier-badge" style="display:none;"></a>
+      </div>
       <div style="display:flex; gap:0.5rem;">
         <div class="lang-toggle">
           <button type="button" class="lang-toggle-btn active" data-lang-toggle="en">EN</button>
@@ -1185,6 +1189,19 @@
     document.getElementById("business-name-side").textContent = bizLabel;
     document.getElementById("mr-biz").textContent = bizLabel;
     document.getElementById("home-biz-name").textContent = bizLabel;
+
+    function renderTierBadge(el) {
+      if (!el || !profile) return;
+      const isTrial = profile.subscription_status === "trialing";
+      const isPro = profile.tier === "pro";
+      el.className = "tier-badge " + (isTrial ? "tier-trial" : isPro ? "tier-pro" : "tier-starter");
+      const label = isTrial ? "Trial" : isPro ? "Pro" : "Starter";
+      const upgradeHint = !isPro && !isTrial ? ` <span class="tier-badge-upgrade">· Upgrade</span>` : "";
+      el.innerHTML = `${label}${upgradeHint}`;
+      el.style.display = "inline-flex";
+    }
+    renderTierBadge(document.getElementById("tier-badge"));
+    renderTierBadge(document.getElementById("tier-badge-mobile"));
 
     loadNotices({ containerId: "notice-container", location: "dashboard", tier: profile?.tier, isTrial: profile?.subscription_status === "trialing" });
 

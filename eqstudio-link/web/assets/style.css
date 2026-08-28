@@ -587,6 +587,12 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .db-page.active { display: block; }
 
 .db-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; margin-bottom: 1.5rem; }
+#report-stats { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 640px) {
+  .db-stats { grid-template-columns: repeat(2, 1fr); }
+  #report-stats { grid-template-columns: repeat(2, 1fr); }
+  #report-stats > *:last-child { grid-column: span 2; }
+}
 .db-stat-card { background: var(--surface); border: 1px solid var(--paper-line); border-radius: var(--radius-lg); padding: 1.1rem 1rem; text-align: center; position: relative; }
 .db-stat-card .num { font-family: var(--font-mono); font-size: 1.6rem; color: var(--ink); }
 .db-stat-card .label { color: var(--ink-soft); font-size: 0.78rem; margin-top: 0.2rem; }
@@ -595,7 +601,6 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .db-stat-card:nth-child(2) .icon { color: var(--accent-sun); }
 .db-stat-card:nth-child(3) .icon { color: var(--accent-coral); }
 .db-stat-card:nth-child(4) .icon { color: var(--accent-sage); }
-@media (max-width: 640px) { .db-stats { grid-template-columns: repeat(2, 1fr); } }
 
 .color-swatch-row { display: flex; align-items: center; gap: 0.7rem; }
 .color-swatch-row input[type="color"] {

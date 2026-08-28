@@ -35,6 +35,30 @@ async function sendPaymentConfirmedEmail(env, ownerId, newEndDate) {
   } catch { /* best-effort — the actual tier/status change already succeeded regardless */ }
 }
 
+async function sendPaymentRejectedEmail(env, ownerId) {
+  if (!env.RESEND_API_KEY) return;
+  try {
+    const userRes = await fetch(`${env.SUPABASE_URL}/auth/v1/admin/users/${ownerId}`, {
+      headers: { apikey: env.SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}` },
+    });
+    const userData = await userRes.json();
+    if (!userData.email) return;
+    const profRes = await sbAdmin(env, `/profiles?id=eq.${ownerId}&select=business_name`);
+    const bizName = profRes[0]?.business_name || "";
+    const site = env.PUBLIC_SITE_URL || "https://eqstudio.link";
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: env.RESEND_FROM_EMAIL,
+        to: userData.email,
+        subject: "Bayaran Belum Kami Terima",
+        html: `<p>Salam${bizName ? " " + escapeHtml(bizName) : ""},</p><p>Kami belum jumpa bayaran anda dalam akaun bank kami buat masa ni. Ini boleh berlaku sebab transfer belum selesai, atau mungkin tertekan butang secara tidak sengaja.</p><p>Sila semak dan cuba transfer semula, atau hubungi kami kalau anda rasa ini kesilapan.</p><p><a href="${site}/billing.html">Kembali ke Billing →</a></p>`,
+      }),
+    });
+  } catch { /* best-effort — the flag clear already succeeded regardless */ }
+}
+
 async function sbAdmin(env, path, options = {}) {
   const res = await fetch(`${env.SUPABASE_URL}/rest/v1${path}`, {
     ...options,
@@ -97,6 +121,13 @@ export async function onRequestPost(context) {
     if (action === "forum_unban") {
       await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify({ forum_banned: false }) });
       await logAuditAction(env, "forum_unban", owner_id);
+      return json({ success: true });
+    }
+
+    if (action === "reject_payment_claim") {
+      await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify({ payment_claimed_at: null }) });
+      await sendPaymentRejectedEmail(env, owner_id);
+      await logAuditAction(env, "reject_payment_claim", owner_id, "Tuntutan bayaran ditolak — duit belum diterima");
       return json({ success: true });
     }
 

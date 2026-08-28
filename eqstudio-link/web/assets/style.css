@@ -655,9 +655,16 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .kebab-menu {
   position: absolute; top: calc(100% + 4px); right: 0; background: var(--surface); border: 1px solid var(--paper-line);
   border-radius: 12px; box-shadow: 0 10px 28px rgba(42,33,24,0.14); min-width: 200px; z-index: 60;
-  padding: 0.35rem; display: none;
+  padding: 0.35rem; display: none; max-height: 340px; overflow-y: auto;
 }
 .kebab-menu.open { display: block; }
+@media (max-width: 640px) {
+  .kebab-menu.open {
+    position: fixed; top: auto; bottom: 0; left: 0; right: 0; max-width: none;
+    border-radius: 16px 16px 0 0; max-height: 70vh; padding: 0.5rem;
+    box-shadow: 0 -8px 28px rgba(42,33,24,0.18);
+  }
+}
 .kebab-menu-item {
   display: flex; align-items: center; gap: 0.6rem; width: 100%; text-align: left; background: none; border: none;
   padding: 0.55rem 0.65rem; border-radius: 8px; font-size: 0.85rem; color: var(--ink); cursor: pointer;

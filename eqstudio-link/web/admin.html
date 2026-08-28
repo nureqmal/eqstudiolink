@@ -509,6 +509,18 @@
           }
         ));
 
+        if (o.payment_claimed_at) {
+          menu.appendChild(ownerMenuItem(
+            "Tolak Tuntutan Bayaran",
+            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
+            () => {
+              if (!confirm(`Tolak tuntutan bayaran ${o.business_name}? Ni akan hantar emel bagitahu mereka duit belum diterima, dan mereka kena bayar/klik "Dah Bayar" semula.`)) return;
+              performAction(o, "reject_payment_claim");
+            },
+            true
+          ));
+        }
+
         menu.appendChild(ownerMenuItem(
           "Extend Subscription",
           `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
@@ -1074,6 +1086,7 @@
         set_subscription_status: "Tukar Status", reset_password: "Reset Password",
         impersonate: "Login Sebagai Owner", change_tier: "Tukar Tier", delete: "Padam Owner",
         resend_email: "Resend Emel",
+        reject_payment_claim: "Tolak Tuntutan Bayaran",
       };
       tbody.innerHTML = data.logs.map(l => `
         <tr>

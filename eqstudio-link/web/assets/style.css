@@ -1622,3 +1622,20 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .tier-badge.tier-starter { background: var(--paper); color: var(--ink-soft); border: 1px solid var(--paper-line); }
 .tier-badge.tier-pro { background: var(--stamp-soft); color: var(--stamp); }
 .tier-badge .tier-badge-upgrade { font-weight: 500; text-transform: none; opacity: 0.75; }
+
+/* ── Notification bell + list ── */
+.notif-unread-badge {
+  position: absolute; top: -4px; right: -4px; min-width: 16px; height: 16px; padding: 0 3px;
+  border-radius: 999px; background: var(--warn); color: #fff; font-size: 0.62rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; line-height: 1;
+}
+.notif-item {
+  display: block; width: 100%; text-align: left; background: var(--paper); border: 1px solid var(--paper-line);
+  border-radius: 10px; padding: 0.7rem 0.8rem; cursor: pointer; text-decoration: none; color: var(--ink);
+  transition: border-color 0.15s;
+}
+.notif-item:hover { border-color: var(--stamp); transform: none; box-shadow: none; }
+.notif-item.unread { background: var(--stamp-soft); border-color: var(--stamp-soft); }
+.notif-item-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.15rem; }
+.notif-item-message { font-size: 0.8rem; color: var(--ink-soft); }
+.notif-item-time { font-size: 0.72rem; color: var(--ink-soft); margin-top: 0.3rem; }

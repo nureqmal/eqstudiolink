@@ -10,7 +10,7 @@
 <title>Dashboard — eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=2" />
+<link rel="stylesheet" href="/assets/style.css?v=3" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -30,6 +30,10 @@
         </button>
         <div class="kebab-menu" id="quick-nav-menu"></div>
       </div>
+      <button type="button" class="secondary" id="notif-bell-btn" style="width:100%; margin-bottom:0.8rem; position:relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg> Notifikasi
+        <span id="notif-unread-badge" class="notif-unread-badge" style="display:none;"></span>
+      </button>
       <div class="db-sidebar-footer">
         <div class="db-biz-name" id="business-name-side">—</div>
         <a href="/billing.html" id="tier-badge" class="tier-badge" style="display:none;"></a>
@@ -55,6 +59,10 @@
           <button class="secondary" id="quick-nav-btn-mobile" title="Lompat ke Page" style="padding:0.5rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></button>
           <div class="kebab-menu" id="quick-nav-menu-mobile"></div>
         </div>
+        <button class="secondary" id="notif-bell-btn-mobile" title="Notifikasi" style="padding:0.5rem 0.7rem; position:relative;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+          <span id="notif-unread-badge-mobile" class="notif-unread-badge" style="display:none;"></span>
+        </button>
         <button class="secondary" id="restart-tour-btn-mobile" style="padding:0.5rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></button>
         <button class="secondary theme-toggle-btn" id="theme-toggle-btn-mobile" style="padding:0.5rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
         <button class="secondary" id="logout-btn-mobile" title="Log Keluar" style="padding:0.5rem 0.65rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></button>
@@ -813,6 +821,15 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="notif-modal" style="display:none;">
+    <div class="modal-box" style="max-width:400px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Notifikasi</h2></div>
+      <div id="notif-list" style="display:flex; flex-direction:column; gap:0.4rem; max-height:60vh; overflow-y:auto;"></div>
+      <p class="hint" id="notif-empty" style="display:none; text-align:center; padding:1.5rem 0;">Tiada notifikasi lagi.</p>
+      <button type="button" class="secondary" id="notif-modal-close" style="width:100%; margin-top:1rem;">Tutup</button>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="quick-add-modal" style="display:none;">
     <div class="modal-box" style="max-width:400px;">
       <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tambah Pelanggan Pantas</h2></div>
@@ -1202,6 +1219,49 @@
     }
     renderTierBadge(document.getElementById("tier-badge"));
     renderTierBadge(document.getElementById("tier-badge-mobile"));
+
+    async function loadNotifications() {
+      const { data: notifs } = await supabase
+        .from("notifications")
+        .select("*")
+        .eq("owner_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(50);
+
+      const unreadCount = (notifs || []).filter(n => !n.is_read).length;
+      [document.getElementById("notif-unread-badge"), document.getElementById("notif-unread-badge-mobile")].forEach(badge => {
+        if (!badge) return;
+        badge.textContent = unreadCount > 9 ? "9+" : String(unreadCount);
+        badge.style.display = unreadCount > 0 ? "flex" : "none";
+      });
+
+      const list = document.getElementById("notif-list");
+      document.getElementById("notif-empty").style.display = (notifs || []).length ? "none" : "block";
+      list.innerHTML = (notifs || []).map(n => `
+        <a href="${n.link_url || "#"}" class="notif-item ${n.is_read ? "" : "unread"}" data-notif-id="${n.id}">
+          <div class="notif-item-title">${escapeHtml(n.title)}</div>
+          ${n.message ? `<div class="notif-item-message">${escapeHtml(n.message)}</div>` : ""}
+          <div class="notif-item-time">${new Date(n.created_at).toLocaleString("ms-MY")}</div>
+        </a>
+      `).join("");
+
+      list.querySelectorAll("[data-notif-id]").forEach(el => {
+        el.addEventListener("click", async () => {
+          await supabase.from("notifications").update({ is_read: true }).eq("id", el.dataset.notifId);
+        });
+      });
+    }
+    loadNotifications().catch(() => {});
+
+    function openNotifModal() {
+      document.getElementById("notif-modal").style.display = "flex";
+    }
+    document.getElementById("notif-bell-btn")?.addEventListener("click", openNotifModal);
+    document.getElementById("notif-bell-btn-mobile")?.addEventListener("click", openNotifModal);
+    document.getElementById("notif-modal-close")?.addEventListener("click", () => {
+      document.getElementById("notif-modal").style.display = "none";
+      loadNotifications().catch(() => {}); // refresh badge count now that some may be read
+    });
 
     loadNotices({ containerId: "notice-container", location: "dashboard", tier: profile?.tier, isTrial: profile?.subscription_status === "trialing" });
 

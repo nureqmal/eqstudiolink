@@ -12,7 +12,7 @@
 <link rel="canonical" href="https://eqstudio.link/forum.html" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=2" />
+<link rel="stylesheet" href="/assets/style.css?v=3" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -285,6 +285,18 @@
           });
           if (error) { errorEl.textContent = error.message; errorEl.style.display = "block"; return; }
           await supabase.from("forum_threads").update({ last_activity_at: new Date().toISOString() }).eq("id", id);
+
+          const threadOwnerId = data.thread.owner_id;
+          if (threadOwnerId && threadOwnerId !== currentUser.id) {
+            await supabase.from("notifications").insert({
+              owner_id: threadOwnerId,
+              type: "forum_reply",
+              title: "Ada balasan baharu untuk thread anda",
+              message: `${replyAuthorName} balas: "${data.thread.title}"`,
+              link_url: `/forum.html?thread=${id}`,
+            }).then(() => {}, () => {}); // best-effort — reply itself already succeeded regardless
+          }
+
           renderThreadDetail(id);
         });
       }

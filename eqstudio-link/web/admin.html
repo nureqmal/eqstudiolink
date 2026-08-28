@@ -578,6 +578,7 @@
           const wasOpen = menu.classList.contains("open");
           closeAllKebabMenus();
           if (!wasOpen) {
+            positionKebabMenuFixed(kebabBtn, menu);
             menu.classList.add("open");
             kebabBackdrop.classList.add("open");
           }
@@ -592,10 +593,34 @@
     }
 
     function closeAllKebabMenus() {
-      document.querySelectorAll(".kebab-menu.open").forEach(m => m.classList.remove("open"));
+      document.querySelectorAll(".kebab-menu.open").forEach(m => {
+        m.classList.remove("open");
+        m.style.top = ""; m.style.left = ""; m.style.right = ""; m.style.bottom = "";
+      });
       kebabBackdrop.classList.remove("open");
     }
     document.addEventListener("click", closeAllKebabMenus);
+
+    // Positions the menu with JS-calculated fixed coordinates near the button —
+    // this is what actually eliminates overlap with sibling table rows, since a
+    // CSS max-height cap alone doesn't help once a menu has this many items
+    // (9 items ≈ the same height as the cap, so it barely ever triggered).
+    // Skipped below the mobile breakpoint — that already has a working
+    // bottom-sheet layout via CSS media query, and setting inline top/left/right
+    // here would override it (same class of bug as an inline style beating a
+    // media query rule, seen twice already this project).
+    function positionKebabMenuFixed(btn, menu) {
+      if (window.innerWidth <= 640) return;
+      const rect = btn.getBoundingClientRect();
+      const menuHeight = Math.min(menu.scrollHeight || 340, 340);
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const openUpward = spaceBelow < menuHeight + 12 && rect.top > menuHeight;
+      menu.style.position = "fixed";
+      menu.style.top = openUpward ? "" : `${rect.bottom + 4}px`;
+      menu.style.bottom = openUpward ? `${window.innerHeight - rect.top + 4}px` : "";
+      menu.style.right = `${window.innerWidth - rect.right}px`;
+      menu.style.left = "";
+    }
 
     const kebabBackdrop = document.createElement("div");
     kebabBackdrop.className = "kebab-backdrop";

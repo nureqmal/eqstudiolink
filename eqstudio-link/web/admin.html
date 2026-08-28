@@ -300,6 +300,14 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="owner-actions-modal" style="display:none;">
+    <div class="modal-box" style="max-width:340px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="owner-actions-title">Tindakan</h2></div>
+      <div id="owner-actions-list" style="display:flex; flex-direction:column; gap:0.3rem;"></div>
+      <button type="button" class="secondary" id="owner-actions-close" style="width:100%; margin-top:1rem;">Tutup</button>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="status-modal" style="display:none;">
     <div class="modal-box" style="max-width:380px;">
       <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tukar Status Langganan</h2></div>
@@ -464,7 +472,6 @@
         actionTd.appendChild(detailBtn);
 
         const kebabWrap = document.createElement("div");
-        kebabWrap.className = "kebab-wrap";
         kebabWrap.style.display = "inline-block";
 
         const kebabBtn = document.createElement("button");
@@ -472,35 +479,32 @@
         kebabBtn.title = "Lagi tindakan";
         kebabBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg>`;
 
-        const menu = document.createElement("div");
-        menu.className = "kebab-menu";
-
         function ownerMenuItem(label, iconSvg, onClick, danger = false) {
           const btn = document.createElement("button");
           btn.type = "button";
           btn.className = "kebab-menu-item" + (danger ? " danger" : "");
           btn.innerHTML = `${iconSvg}<span>${label}</span>`;
-          btn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            closeAllKebabMenus();
+          btn.addEventListener("click", () => {
+            document.getElementById("owner-actions-modal").style.display = "none";
             onClick();
           });
           return btn;
         }
 
-        menu.appendChild(ownerMenuItem(
+        const actionItems = [];
+        actionItems.push(ownerMenuItem(
           "Login Sebagai Owner",
           `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>`,
           () => impersonateOwner(o)
         ));
 
-        menu.appendChild(ownerMenuItem(
+        actionItems.push(ownerMenuItem(
           o.is_suspended ? "Reaktivate" : "Suspend",
           `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>`,
           () => performAction(o, o.is_suspended ? "reactivate" : "suspend")
         ));
 
-        menu.appendChild(ownerMenuItem(
+        actionItems.push(ownerMenuItem(
           o.forum_banned ? "Buang Forum Ban" : "Forum Ban",
           `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="19.07" x2="19.07" y2="4.93"/></svg>`,
           () => {
@@ -510,7 +514,7 @@
         ));
 
         if (o.payment_claimed_at) {
-          menu.appendChild(ownerMenuItem(
+          actionItems.push(ownerMenuItem(
             "Tolak Tuntutan Bayaran",
             `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
             () => {
@@ -521,7 +525,7 @@
           ));
         }
 
-        menu.appendChild(ownerMenuItem(
+        actionItems.push(ownerMenuItem(
           "Extend Subscription",
           `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
           () => {
@@ -530,20 +534,20 @@
           }
         ));
 
-        menu.appendChild(ownerMenuItem(
+        actionItems.push(ownerMenuItem(
           "Tukar Status Langganan",
           `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>`,
           () => openStatusModal(o)
         ));
 
-        menu.appendChild(ownerMenuItem(
+        actionItems.push(ownerMenuItem(
           "Reset Password",
           `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
           () => performAction(o, "reset_password")
         ));
 
         const otherTier = o.tier === "pro" ? "starter" : "pro";
-        menu.appendChild(ownerMenuItem(
+        actionItems.push(ownerMenuItem(
           `Jadikan ${otherTier === "pro" ? "Pro" : "Starter"}`,
           `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg>`,
           async () => {
@@ -560,9 +564,11 @@
           }
         ));
 
-        menu.appendChild(document.createElement("div")).className = "kebab-menu-divider";
+        const divider = document.createElement("div");
+        divider.className = "kebab-menu-divider";
+        actionItems.push(divider);
 
-        menu.appendChild(ownerMenuItem(
+        actionItems.push(ownerMenuItem(
           "Padam",
           `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`,
           () => {
@@ -573,59 +579,23 @@
           true
         ));
 
-        kebabBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const wasOpen = menu.classList.contains("open");
-          closeAllKebabMenus();
-          if (!wasOpen) {
-            positionKebabMenuFixed(kebabBtn, menu);
-            menu.classList.add("open");
-            kebabBackdrop.classList.add("open");
-          }
+        kebabBtn.addEventListener("click", () => {
+          document.getElementById("owner-actions-title").textContent = o.business_name;
+          const list = document.getElementById("owner-actions-list");
+          list.innerHTML = "";
+          actionItems.forEach(item => list.appendChild(item));
+          document.getElementById("owner-actions-modal").style.display = "flex";
         });
 
         kebabWrap.appendChild(kebabBtn);
-        kebabWrap.appendChild(menu);
         actionTd.appendChild(kebabWrap);
 
         tbody.appendChild(tr);
       }
     }
-
-    function closeAllKebabMenus() {
-      document.querySelectorAll(".kebab-menu.open").forEach(m => {
-        m.classList.remove("open");
-        m.style.top = ""; m.style.left = ""; m.style.right = ""; m.style.bottom = "";
-      });
-      kebabBackdrop.classList.remove("open");
-    }
-    document.addEventListener("click", closeAllKebabMenus);
-
-    // Positions the menu with JS-calculated fixed coordinates near the button —
-    // this is what actually eliminates overlap with sibling table rows, since a
-    // CSS max-height cap alone doesn't help once a menu has this many items
-    // (9 items ≈ the same height as the cap, so it barely ever triggered).
-    // Skipped below the mobile breakpoint — that already has a working
-    // bottom-sheet layout via CSS media query, and setting inline top/left/right
-    // here would override it (same class of bug as an inline style beating a
-    // media query rule, seen twice already this project).
-    function positionKebabMenuFixed(btn, menu) {
-      if (window.innerWidth <= 640) return;
-      const rect = btn.getBoundingClientRect();
-      const menuHeight = Math.min(menu.scrollHeight || 340, 340);
-      const spaceBelow = window.innerHeight - rect.bottom;
-      const openUpward = spaceBelow < menuHeight + 12 && rect.top > menuHeight;
-      menu.style.position = "fixed";
-      menu.style.top = openUpward ? "" : `${rect.bottom + 4}px`;
-      menu.style.bottom = openUpward ? `${window.innerHeight - rect.top + 4}px` : "";
-      menu.style.right = `${window.innerWidth - rect.right}px`;
-      menu.style.left = "";
-    }
-
-    const kebabBackdrop = document.createElement("div");
-    kebabBackdrop.className = "kebab-backdrop";
-    kebabBackdrop.addEventListener("click", (e) => { e.stopPropagation(); closeAllKebabMenus(); });
-    document.body.appendChild(kebabBackdrop);
+    document.getElementById("owner-actions-close")?.addEventListener("click", () => {
+      document.getElementById("owner-actions-modal").style.display = "none";
+    });
 
     async function performAction(owner, action, days) {
       const key = sessionStorage.getItem("eqstudio_admin_key");

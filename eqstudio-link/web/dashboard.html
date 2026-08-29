@@ -1054,6 +1054,13 @@
       tile.addEventListener("click", () => goToPage(tile.dataset.page));
     });
 
+    // Deep-link support — e.g. notification links pointing to a specific page
+    // (?page=booking-list) instead of always landing on Home.
+    const deepLinkPage = new URLSearchParams(location.search).get("page");
+    if (deepLinkPage && document.getElementById("page-" + deepLinkPage)) {
+      goToPage(deepLinkPage);
+    }
+
     document.querySelectorAll(".home-back-btn").forEach(btn => {
       btn.addEventListener("click", () => goToPage("home"));
     });

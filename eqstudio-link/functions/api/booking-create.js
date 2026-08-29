@@ -194,6 +194,18 @@ export async function onRequestPost(context) {
 
     await sendConfirmationEmails(env, { profile, bizName, booking, slotLabel, dateLabel, lang });
 
+    await sbAdmin(env, "/notifications", {
+      method: "POST",
+      prefer: "return=minimal",
+      body: JSON.stringify({
+        owner_id: link.owner_id,
+        type: "new_booking",
+        title: "Booking baharu diterima",
+        message: `${name.trim()} — ${dateLabel}, ${slotLabel}`,
+        link_url: "/dashboard.html?page=booking-list",
+      }),
+    }).catch(() => {}); // best-effort — the booking itself already succeeded regardless
+
     return json({ success: true, booking_id: booking.id, date_label: dateLabel, slot_label: slotLabel });
   } catch (err) {
     return json({ error: err.message }, 500);

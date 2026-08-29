@@ -87,6 +87,18 @@ export async function onRequestPost(context) {
         bodyHtml: `<p style="font-size:15px; margin:0 0 8px;"><strong>${escapeHtml(booking.customer_name)}</strong> telah batalkan tempahan mereka.</p>${reason ? `<p style="font-size:13px; color:#4A6259;"><em>Sebab: ${escapeHtml(reason)}</em></p>` : ""}`,
       });
 
+      await sbAdmin(env, "/notifications", {
+        method: "POST",
+        prefer: "return=minimal",
+        body: JSON.stringify({
+          owner_id: booking.owner_id,
+          type: "booking_cancelled",
+          title: "Booking dibatalkan oleh customer",
+          message: `${booking.customer_name} batalkan tempahan mereka${reason ? ` — ${reason}` : ""}`,
+          link_url: "/dashboard.html?page=booking-list",
+        }),
+      }).catch(() => {});
+
       return json({ success: true });
     }
 
@@ -131,6 +143,18 @@ export async function onRequestPost(context) {
           <p style="font-size:14px; text-decoration:line-through; color:#9AA8A2; margin:0;">${escapeHtml(oldLabel)}</p>
           <p style="font-size:14px; font-weight:600; margin:0 0 8px;">→ ${escapeHtml(newLabel)}</p>`,
       });
+
+      await sbAdmin(env, "/notifications", {
+        method: "POST",
+        prefer: "return=minimal",
+        body: JSON.stringify({
+          owner_id: booking.owner_id,
+          type: "booking_rescheduled",
+          title: "Booking ditukar oleh customer",
+          message: `${booking.customer_name} — ${oldLabel} → ${newLabel}`,
+          link_url: "/dashboard.html?page=booking-list",
+        }),
+      }).catch(() => {});
 
       return json({ success: true, new_slot_label: newLabel });
     }

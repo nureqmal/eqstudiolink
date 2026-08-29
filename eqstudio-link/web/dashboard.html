@@ -10,7 +10,7 @@
 <title>Dashboard — eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=3" />
+<link rel="stylesheet" href="/assets/style.css?v=4" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -1414,10 +1414,15 @@
       });
     }
 
+    const isPastDue = profile?.subscription_status === "past_due";
+
     if (profile?.is_suspended) {
       window.location.href = "/suspended.html";
-    } else if (profile?.subscription_status === "past_due") {
-      window.location.href = "/billing.html";
+    } else if (isPastDue) {
+      const banner = document.createElement("div");
+      banner.className = "trial-strip past-due-strip";
+      banner.innerHTML = `<span>⚠️ Langganan anda tamat — booking baharu tetap diterima, tapi sesetengah fungsi disekat.</span><a href="/billing.html">Bayar sekarang →</a>`;
+      document.getElementById("banner-slot").appendChild(banner);
     } else if (profile?.subscription_status === "trialing") {
       const daysLeft = Math.ceil((new Date(profile.subscription_end_date) - new Date()) / (1000 * 60 * 60 * 24));
       if (daysLeft <= 30) {
@@ -1426,6 +1431,17 @@
         banner.innerHTML = `<span>⏳ Trial: <strong>${Math.max(daysLeft, 0)} hari</strong> lagi</span><a href="/billing.html">Bayar sekarang →</a>`;
         document.getElementById("banner-slot").appendChild(banner);
       }
+    }
+
+    // Shared guard for actions that should be blocked while past_due (view-only
+    // access is fine, but resource-consuming actions like adding customers,
+    // changing settings, or sending reminders are not — this is what actually
+    // creates renewal pressure, unlike the old hard-redirect which just locked
+    // owners out entirely and gave them no reason to come back and pay).
+    function blockIfPastDue() {
+      if (!isPastDue) return false;
+      showToast("Langganan anda tamat. Sila bayar untuk teruskan guna feature ni.", "error");
+      return true;
     }
 
     document.getElementById("profile-form")?.addEventListener("submit", async (e) => {
@@ -2020,6 +2036,7 @@
     document.getElementById("customer-sort")?.addEventListener("change", applyCustomerListFilters);
 
     document.getElementById("bulk-remind-overdue-btn")?.addEventListener("click", async () => {
+      if (blockIfPastDue()) return;
       const todayStr = new Date().toISOString().slice(0, 10);
       const overdue = allCustomers.filter(c => c.status === "belum_bayar" && c.due_date < todayStr);
       if (overdue.length === 0) {
@@ -2201,6 +2218,7 @@
 
     document.getElementById("customer-form")?.addEventListener("submit", async (e) => {
       e.preventDefault();
+      if (blockIfPastDue()) return;
       const submitBtn = e.target.querySelector('button[type="submit"]');
       const originalBtnText = submitBtn?.textContent;
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Menambah..."; }
@@ -2665,6 +2683,7 @@
     }
 
     document.getElementById("save-booking-btn")?.addEventListener("click", async () => {
+      if (blockIfPastDue()) return;
       const btn = document.getElementById("save-booking-btn");
 
       const rawSlug = document.getElementById("p-booking-slug").value.trim().toLowerCase();
@@ -2954,6 +2973,7 @@
 
       btnEl.textContent = "Hantar Reminder";
       btnEl.onclick = async () => {
+        if (blockIfPastDue()) return;
         btnEl.disabled = true;
         btnEl.textContent = "Menghantar...";
         try {
@@ -3543,6 +3563,7 @@
     });
     document.getElementById("quick-add-form")?.addEventListener("submit", async (e) => {
       e.preventDefault();
+      if (blockIfPastDue()) return;
       const submitBtn = e.target.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;

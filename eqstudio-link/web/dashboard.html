@@ -51,10 +51,6 @@
         <a href="/billing.html" id="tier-badge-mobile" class="tier-badge" style="display:none;"></a>
       </div>
       <div style="display:flex; gap:0.5rem;">
-        <div class="lang-toggle">
-          <button type="button" class="lang-toggle-btn active" data-lang-toggle="en">EN</button>
-          <button type="button" class="lang-toggle-btn" data-lang-toggle="ms">BM</button>
-        </div>
         <div class="kebab-wrap">
           <button class="secondary" id="quick-nav-btn-mobile" title="Lompat ke Page" style="padding:0.5rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></button>
           <div class="kebab-menu" id="quick-nav-menu-mobile"></div>
@@ -1035,9 +1031,6 @@
     document.getElementById("logout-btn-mobile")?.addEventListener("click", logout);
 
     applyLanguage(getCurrentLang());
-    document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.dataset.langToggle));
-    });
 
     // ── Navigation (pure hub — Home tile grid + Home back button on every other page) ──
     function goToPage(id) {

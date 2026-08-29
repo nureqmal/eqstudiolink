@@ -1677,3 +1677,45 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .etype-card-body { flex: 1; min-width: 0; }
 .etype-card-name { font-weight: 700; font-size: 0.92rem; }
 .etype-card-meta { font-size: 0.78rem; color: var(--ink-soft); margin-top: 0.15rem; }
+
+/* ── Owner Waktu Available calendar (explicit-date, replaces day-of-week grid) ── */
+.avail-cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.7rem; }
+.avail-cal-nav-btn {
+  background: none; border: 1px solid var(--paper-line); border-radius: 8px; width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); padding: 0;
+}
+.avail-cal-nav-btn:hover { border-color: var(--stamp); transform: none; box-shadow: none; background: none; }
+.avail-cal-month-label { font-weight: 600; font-size: 0.95rem; }
+.avail-cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 0.3rem; }
+.avail-cal-weekdays span { text-align: center; font-size: 0.7rem; color: var(--ink-soft); font-weight: 600; text-transform: uppercase; }
+.avail-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.avail-cal-day {
+  aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border-radius: 8px; font-size: 0.85rem; border: 1.5px solid transparent; cursor: pointer; color: var(--ink);
+  -webkit-tap-highlight-color: transparent; position: relative; transition: border-color 0.15s;
+}
+.avail-cal-day:hover { border-color: var(--stamp); }
+.avail-cal-day.empty { visibility: hidden; cursor: default; }
+.avail-cal-day.past { color: var(--ink-soft); opacity: 0.4; cursor: not-allowed; }
+.avail-cal-day .dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 2px; }
+.avail-cal-day.density-none .dot { background: transparent; }
+.avail-cal-day.density-some { background: var(--pending-bg); }
+.avail-cal-day.density-some .dot { background: #B45309; }
+.avail-cal-day.density-full { background: var(--ok-bg); }
+.avail-cal-day.density-full .dot { background: var(--ok); }
+.avail-cal-legend { display: flex; justify-content: center; gap: 1rem; margin-top: 0.8rem; font-size: 0.75rem; color: var(--ink-soft); }
+.avail-cal-legend span { display: flex; align-items: center; gap: 0.3rem; }
+.avail-cal-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.avail-cal-dot.density-none { border: 1.5px solid var(--paper-line); }
+.avail-cal-dot.density-some { background: #B45309; }
+.avail-cal-dot.density-full { background: var(--ok); }
+
+.avail-preset-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 0.6rem; }
+.avail-preset-btn {
+  padding: 0.7rem 0.5rem; border-radius: 10px; border: 1.5px solid var(--paper-line); background: var(--surface);
+  cursor: pointer; text-align: center; font-size: 0.82rem; font-weight: 600; color: var(--ink); transition: all 0.15s;
+}
+.avail-preset-btn:hover { border-color: var(--stamp); transform: none; box-shadow: none; }
+.avail-preset-btn.selected { background: var(--stamp); border-color: var(--stamp); color: #fff; }
+.avail-custom-block-row { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem; }
+.avail-custom-block-row input[type="time"] { flex: 1; }

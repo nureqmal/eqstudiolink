@@ -97,25 +97,37 @@ export async function onRequestGet(context) {
       return blockedRanges.some(([bStart, bEnd]) => slotStartMs < bEnd && slotEndMs > bStart);
     }
 
-    const availability = await sbAdmin(env, `/availability?booking_link_id=eq.${link.id}&select=day_of_week,start_time,end_time`);
+    const rangeEndDateKey = (() => {
+      const d = new Date(now.getTime() + daysAhead * 24 * 60 * 60 * 1000);
+      const p = myDateParts(d);
+      return `${p.year}-${String(p.month + 1).padStart(2, "0")}-${String(p.date).padStart(2, "0")}`;
+    })();
+    const todayDateKey = (() => {
+      const p = myDateParts(now);
+      return `${p.year}-${String(p.month + 1).padStart(2, "0")}-${String(p.date).padStart(2, "0")}`;
+    })();
+    const availability = await sbAdmin(
+      env,
+      `/availability_dates?booking_link_id=eq.${link.id}&specific_date=gte.${todayDateKey}&specific_date=lte.${rangeEndDateKey}&select=specific_date,start_time,end_time`
+    );
     if (availability.length === 0) {
       return json({ business, event_types: eventTypes, slots_by_date: {}, questions, slot_duration_minutes: durationMinutes, capacity, deposit_amount: depositAmount, link_description: link.description, link_poster_url: link.poster_url });
     }
 
-    const availByDay = new Map();
+    const availByDate = new Map();
     for (const a of availability) {
-      if (!availByDay.has(a.day_of_week)) availByDay.set(a.day_of_week, []);
-      availByDay.get(a.day_of_week).push(a);
+      if (!availByDate.has(a.specific_date)) availByDate.set(a.specific_date, []);
+      availByDate.get(a.specific_date).push(a);
     }
 
     const slotsByDate = {};
     for (let d = 0; d <= daysAhead; d++) {
       const cursor = new Date(now.getTime() + d * 24 * 60 * 60 * 1000);
-      const { year, month, date, day } = myDateParts(cursor);
-      const dayRanges = availByDay.get(day);
+      const { year, month, date } = myDateParts(cursor);
+      const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
+      const dayRanges = availByDate.get(dateKey);
       if (!dayRanges) continue;
 
-      const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
       const daySlots = [];
 
       for (const range of dayRanges) {

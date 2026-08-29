@@ -10,7 +10,7 @@
 <title>Dashboard — eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=5" />
+<link rel="stylesheet" href="/assets/style.css?v=6" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -288,6 +288,7 @@
 
           <div class="bset-tabs" id="bset-tabs">
             <button type="button" class="bset-tab active" data-bset-tab="asas"><span class="bset-tab-dot"></span> 🔧 Asas</button>
+            <button type="button" class="bset-tab" data-bset-tab="waktu">📅 Waktu Available</button>
             <button type="button" class="bset-tab" data-bset-tab="jenis">🎯 Jenis Perkhidmatan</button>
             <button type="button" class="bset-tab" data-bset-tab="soalan">❓ Soalan Tambahan</button>
             <button type="button" class="bset-tab" data-bset-tab="embed">🔗 Embed</button>
@@ -344,9 +345,6 @@
               </div>
               <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.6rem;">📌 Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk buka feature ni.</p>
 
-              <label style="margin-top:1rem; display:block;">Waktu Available</label>
-              <div id="availability-grid" class="availability-grid"></div>
-
               <div class="row" style="margin-top:1rem;">
                 <div>
                   <label for="p-min-notice">Notis Minimum Booking</label>
@@ -380,6 +378,30 @@
             </div>
           </div>
 
+          <div class="bset-panel" id="bset-panel-waktu">
+            <div class="card">
+              <div class="section-title"><h2 style="margin:0;">📅 Waktu Available</h2></div>
+              <p class="hint">Klik tarikh untuk tetapkan waktu anda available pada hari tu. Customer cuma nampak slot dari tarikh yang anda dah set — takde tarikh, takde slot.</p>
+
+              <div class="avail-cal-header">
+                <button type="button" class="avail-cal-nav-btn" id="avail-cal-prev">‹</button>
+                <span class="avail-cal-month-label" id="avail-cal-month-label"></span>
+                <button type="button" class="avail-cal-nav-btn" id="avail-cal-next">›</button>
+              </div>
+              <div class="avail-cal-weekdays" id="avail-cal-weekdays"></div>
+              <div class="avail-cal-grid" id="avail-cal-grid"></div>
+
+              <div class="avail-cal-legend">
+                <span><span class="avail-cal-dot density-none"></span> Tiada</span>
+                <span><span class="avail-cal-dot density-some"></span> Sebahagian</span>
+                <span><span class="avail-cal-dot density-full"></span> Penuh</span>
+              </div>
+
+              <button type="button" class="secondary" id="avail-copy-week-btn" style="width:100%; margin-top:0.8rem;">📋 Salin Minggu Ni ke 4 Minggu Depan</button>
+              <p class="hint" style="margin-top:0.4rem; text-align:center;">Berguna kalau jadual anda konsisten setiap minggu — kalau tak konsisten (macam salon), set tiap minggu je ikut apa yang betul-betul available.</p>
+            </div>
+          </div>
+
           <div class="bset-panel" id="bset-panel-jenis">
             <div class="card">
               <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Jenis Perkhidmatan (Event Types)</h2></div>
@@ -407,6 +429,7 @@
                   </div>
                 </div>
                 <button type="button" id="add-event-type-btn" class="secondary" style="margin-top:0.8rem; width:100%;">+ Tambah Jenis Perkhidmatan</button>
+                <button type="button" id="et-cancel-edit-btn" class="secondary" style="margin-top:0.4rem; width:100%; display:none;">Batal Edit</button>
                 <label for="et-description" style="margin-top:0.8rem;">Description (opsyenal — customer nampak bila klik "Lihat Lagi")</label>
                 <textarea id="et-description" rows="2" placeholder="cth: Kek 3-tier custom design, termasuk konsultasi rasa & topping."></textarea>
                 <div id="et-poster-wrap" style="display:none; margin-top:0.6rem;">
@@ -831,6 +854,20 @@
       </div>
       <p class="error" id="reschedule-error" style="display:none;"></p>
       <p class="hint" id="reschedule-loading" style="display:none;">Memuatkan slot available...</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="avail-date-modal" style="display:none;">
+    <div class="modal-box" style="max-width:380px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="avail-date-modal-title">Tetapkan Waktu</h2></div>
+      <p class="hint" style="margin-top:-0.3rem;">Tekan untuk toggle waktu pantas, atau tambah waktu custom.</p>
+      <div class="avail-preset-grid" id="avail-preset-grid"></div>
+      <div id="avail-custom-blocks-list" style="margin-top:0.6rem;"></div>
+      <button type="button" class="secondary" id="avail-add-custom-btn" style="width:100%; margin-top:0.5rem;">+ Waktu Custom</button>
+      <div class="row" style="margin-top:1rem;">
+        <button type="button" class="secondary" id="avail-clear-date-btn" style="color:var(--warn);">🗑 Kosongkan</button>
+        <button type="button" id="avail-save-date-btn">Simpan</button>
+      </div>
     </div>
   </div>
 
@@ -2461,35 +2498,189 @@
     });
     });
 
-    function renderAvailabilityGrid(rows) {
-      const byDay = new Map(rows.map(r => [r.day_of_week, r]));
-      const grid = document.getElementById("availability-grid");
-      grid.innerHTML = DAY_LABELS.map((label, i) => {
-        const existing = byDay.get(i);
-        const active = !!existing;
-        return `
-          <div class="avail-day-row">
-            <label class="avail-day-toggle">
-              <input type="checkbox" class="avail-active" data-day="${i}" ${active ? "checked" : ""} />
-              <span>${label}</span>
-            </label>
-            <input type="time" class="avail-start" data-day="${i}" value="${existing?.start_time?.slice(0, 5) || "09:00"}" ${active ? "" : "disabled"} />
-            <span class="hint">hingga</span>
-            <input type="time" class="avail-end" data-day="${i}" value="${existing?.end_time?.slice(0, 5) || "18:00"}" ${active ? "" : "disabled"} />
-          </div>`;
-      }).join("");
+    // ── Waktu Available: explicit-date calendar (replaces the old recurring
+    // day-of-week grid — real solo operators' availability often varies week
+    // to week, not a fixed weekly rhythm, so owners now publish specific open
+    // date+time blocks instead of "every Monday"). ──
+    const AVAIL_PRESETS = [
+      { key: "09:00-12:00", label: "🌅 Pagi", sub: "9pg - 12tgh" },
+      { key: "12:00-15:00", label: "☀️ Tengahari", sub: "12tgh - 3ptg" },
+      { key: "15:00-18:00", label: "🌤️ Petang", sub: "3ptg - 6ptg" },
+      { key: "18:00-21:00", label: "🌙 Malam", sub: "6ptg - 9mlm" },
+    ];
+    let availCalMonth = null; // "YYYY-MM"
+    let availDatesCache = new Map(); // dateKey -> [{start_time, end_time}]
+    let availModalDateKey = null;
+    let availModalBlocks = []; // working copy while modal is open
 
-      grid.querySelectorAll(".avail-active").forEach(cb => {
-        cb.addEventListener("change", (e) => {
-          const day = e.target.dataset.day;
-          const disabled = !e.target.checked;
-          grid.querySelector(`.avail-start[data-day="${day}"]`).disabled = disabled;
-          grid.querySelector(`.avail-end[data-day="${day}"]`).disabled = disabled;
-          updateBsetLiveSummary();
+    async function loadAvailabilityForCalendar() {
+      const link = currentLink();
+      if (!link) return;
+      const { data } = await supabase
+        .from("availability_dates")
+        .select("specific_date, start_time, end_time")
+        .eq("booking_link_id", link.id)
+        .gte("specific_date", new Date().toISOString().slice(0, 10));
+      availDatesCache = new Map();
+      (data || []).forEach(row => {
+        if (!availDatesCache.has(row.specific_date)) availDatesCache.set(row.specific_date, []);
+        availDatesCache.get(row.specific_date).push({ start_time: row.start_time.slice(0, 5), end_time: row.end_time.slice(0, 5) });
+      });
+      if (!availCalMonth) availCalMonth = new Date().toISOString().slice(0, 7);
+      renderAvailCalendar();
+    }
+
+    function renderAvailCalendar() {
+      const [viewYear, viewMonthNum] = availCalMonth.split("-").map(Number);
+      const firstOfMonth = new Date(viewYear, viewMonthNum - 1, 1);
+      const daysInMonth = new Date(viewYear, viewMonthNum, 0).getDate();
+      const startWeekday = firstOfMonth.getDay();
+      const todayKey = new Date().toISOString().slice(0, 10);
+      const monthLabel = firstOfMonth.toLocaleDateString("ms-MY", { month: "long", year: "numeric" });
+
+      document.getElementById("avail-cal-month-label").textContent = monthLabel;
+      document.getElementById("avail-cal-weekdays").innerHTML = DAY_LABELS.map(l => `<span>${l[0]}</span>`).join("");
+
+      let cells = "";
+      for (let i = 0; i < startWeekday; i++) cells += `<div class="avail-cal-day empty"></div>`;
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateKey = `${viewYear}-${String(viewMonthNum).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        const blocks = availDatesCache.get(dateKey) || [];
+        const isPast = dateKey < todayKey;
+        const density = blocks.length === 0 ? "density-none" : blocks.length === 1 ? "density-some" : "density-full";
+        cells += `<div class="avail-cal-day ${isPast ? "past" : density}" ${isPast ? "" : `data-avail-date="${dateKey}"`}>
+          <span>${d}</span><span class="dot"></span>
+        </div>`;
+      }
+      document.getElementById("avail-cal-grid").innerHTML = cells;
+      document.querySelectorAll("[data-avail-date]").forEach(cell => {
+        cell.addEventListener("click", () => openAvailDateModal(cell.dataset.availDate));
+      });
+    }
+
+    document.getElementById("avail-cal-prev")?.addEventListener("click", () => {
+      const [y, m] = availCalMonth.split("-").map(Number);
+      const d = new Date(y, m - 2, 1);
+      availCalMonth = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+      renderAvailCalendar();
+    });
+    document.getElementById("avail-cal-next")?.addEventListener("click", () => {
+      const [y, m] = availCalMonth.split("-").map(Number);
+      const d = new Date(y, m, 1);
+      availCalMonth = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+      renderAvailCalendar();
+    });
+
+    function openAvailDateModal(dateKey) {
+      availModalDateKey = dateKey;
+      availModalBlocks = [...(availDatesCache.get(dateKey) || [])];
+      const d = new Date(dateKey + "T00:00:00");
+      document.getElementById("avail-date-modal-title").textContent = d.toLocaleDateString("ms-MY", { weekday: "long", day: "numeric", month: "long" });
+      renderAvailModalContent();
+      document.getElementById("avail-date-modal").style.display = "flex";
+    }
+
+    function renderAvailModalContent() {
+      document.getElementById("avail-preset-grid").innerHTML = AVAIL_PRESETS.map(p => {
+        const [start, end] = p.key.split("-");
+        const isSelected = availModalBlocks.some(b => b.start_time === start && b.end_time === end);
+        return `<button type="button" class="avail-preset-btn ${isSelected ? "selected" : ""}" data-preset="${p.key}">${p.label}<br><span style="font-weight:400; font-size:0.72rem;">${p.sub}</span></button>`;
+      }).join("");
+      document.querySelectorAll(".avail-preset-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const [start, end] = btn.dataset.preset.split("-");
+          const idx = availModalBlocks.findIndex(b => b.start_time === start && b.end_time === end);
+          if (idx >= 0) availModalBlocks.splice(idx, 1);
+          else availModalBlocks.push({ start_time: start, end_time: end });
+          renderAvailModalContent();
         });
       });
-      updateBsetLiveSummary();
+
+      const presetKeys = new Set(AVAIL_PRESETS.map(p => p.key));
+      const customBlocks = availModalBlocks.filter(b => !presetKeys.has(`${b.start_time}-${b.end_time}`));
+      document.getElementById("avail-custom-blocks-list").innerHTML = customBlocks.map((b, i) => `
+        <div class="avail-custom-block-row" data-custom-idx="${i}">
+          <input type="time" class="avail-custom-start" value="${b.start_time}" />
+          <span class="hint">hingga</span>
+          <input type="time" class="avail-custom-end" value="${b.end_time}" />
+          <button type="button" class="secondary avail-custom-remove" style="padding:0.3rem 0.5rem; color:var(--warn);">✕</button>
+        </div>
+      `).join("");
+      document.querySelectorAll(".avail-custom-block-row").forEach(row => {
+        const i = parseInt(row.dataset.customIdx, 10);
+        row.querySelector(".avail-custom-start").addEventListener("change", (e) => { customBlocks[i].start_time = e.target.value; syncCustomBlocksIntoModal(customBlocks, presetKeys); });
+        row.querySelector(".avail-custom-end").addEventListener("change", (e) => { customBlocks[i].end_time = e.target.value; syncCustomBlocksIntoModal(customBlocks, presetKeys); });
+        row.querySelector(".avail-custom-remove").addEventListener("click", () => { customBlocks.splice(i, 1); syncCustomBlocksIntoModal(customBlocks, presetKeys); renderAvailModalContent(); });
+      });
     }
+    function syncCustomBlocksIntoModal(customBlocks, presetKeys) {
+      availModalBlocks = availModalBlocks.filter(b => presetKeys.has(`${b.start_time}-${b.end_time}`)).concat(customBlocks);
+    }
+
+    document.getElementById("avail-add-custom-btn")?.addEventListener("click", () => {
+      availModalBlocks.push({ start_time: "09:00", end_time: "17:00" });
+      renderAvailModalContent();
+    });
+
+    document.getElementById("avail-clear-date-btn")?.addEventListener("click", async () => {
+      const link = currentLink();
+      await supabase.from("availability_dates").delete().eq("booking_link_id", link.id).eq("specific_date", availModalDateKey);
+      availDatesCache.delete(availModalDateKey);
+      renderAvailCalendar();
+      document.getElementById("avail-date-modal").style.display = "none";
+      showToast("Tarikh dikosongkan.", "success");
+    });
+
+    document.getElementById("avail-save-date-btn")?.addEventListener("click", async () => {
+      const link = currentLink();
+      const btn = document.getElementById("avail-save-date-btn");
+      btn.disabled = true;
+      await supabase.from("availability_dates").delete().eq("booking_link_id", link.id).eq("specific_date", availModalDateKey);
+      if (availModalBlocks.length > 0) {
+        await supabase.from("availability_dates").insert(
+          availModalBlocks.map(b => ({ owner_id: user.id, booking_link_id: link.id, specific_date: availModalDateKey, start_time: b.start_time, end_time: b.end_time }))
+        );
+        availDatesCache.set(availModalDateKey, availModalBlocks);
+      } else {
+        availDatesCache.delete(availModalDateKey);
+      }
+      btn.disabled = false;
+      renderAvailCalendar();
+      document.getElementById("avail-date-modal").style.display = "none";
+      showToast(`Waktu available untuk ${availModalDateKey} disimpan.`, "success");
+    });
+
+    document.getElementById("avail-copy-week-btn")?.addEventListener("click", async () => {
+      const link = currentLink();
+      if (!link) return;
+      const todayKey = new Date().toISOString().slice(0, 10);
+      const weekEntries = Array.from(availDatesCache.entries()).filter(([dateKey]) => {
+        const diffDays = (new Date(dateKey) - new Date(todayKey)) / (1000 * 60 * 60 * 24);
+        return diffDays >= 0 && diffDays < 7;
+      });
+      if (weekEntries.length === 0) {
+        showToast("Tiada waktu available minggu ni untuk disalin.", "error");
+        return;
+      }
+      const btn = document.getElementById("avail-copy-week-btn");
+      btn.disabled = true;
+      btn.textContent = "Menyalin...";
+      const rowsToInsert = [];
+      for (const [dateKey, blocks] of weekEntries) {
+        for (let week = 1; week <= 4; week++) {
+          const futureDate = new Date(new Date(dateKey).getTime() + week * 7 * 24 * 60 * 60 * 1000);
+          const futureDateKey = futureDate.toISOString().slice(0, 10);
+          for (const b of blocks) {
+            rowsToInsert.push({ owner_id: user.id, booking_link_id: link.id, specific_date: futureDateKey, start_time: b.start_time, end_time: b.end_time });
+          }
+        }
+      }
+      await supabase.from("availability_dates").insert(rowsToInsert);
+      btn.disabled = false;
+      btn.textContent = "📋 Salin Minggu Ni ke 4 Minggu Depan";
+      showToast(`Waktu available disalin ke 4 minggu depan!`, "success");
+      loadAvailabilityForCalendar();
+    });
 
     // Reads back the person's own settings as a plain-language sentence —
     // turns a wall of dropdowns/fields into something that actually confirms
@@ -2503,11 +2694,10 @@
         ? "belum ditetapkan"
         : Number(depositRaw) === 0 ? "percuma" : `RM${Number(depositRaw).toFixed(0)}`;
 
-      const activeDays = Array.from(document.querySelectorAll(".avail-active:checked")).map(cb => DAY_LABELS[cb.dataset.day]);
+      const upcomingDatesCount = availDatesCache.size;
       let daysText;
-      if (activeDays.length === 0) daysText = `<strong>belum tetapkan hari available</strong>`;
-      else if (activeDays.length === 7) daysText = `<strong>setiap hari</strong>`;
-      else daysText = `<strong>${activeDays.join(", ")}</strong>`;
+      if (upcomingDatesCount === 0) daysText = `<strong>belum tetapkan tarikh available</strong> (lihat tab "Waktu Available")`;
+      else daysText = `<strong>${upcomingDatesCount} tarikh</strong> akan datang`;
 
       el.innerHTML = `Customer akan book slot <strong>${duration}</strong>, pada ${daysText}, dengan deposit <strong>${depositText}</strong>.`;
 
@@ -2560,12 +2750,8 @@
         document.getElementById("embed-code").value = "";
       }
 
-      if (link) {
-        const { data: avail } = await supabase.from("availability").select("day_of_week, start_time, end_time").eq("booking_link_id", link.id);
-        renderAvailabilityGrid(avail || []);
-      } else {
-        renderAvailabilityGrid([]);
-      }
+      loadAvailabilityForCalendar();
+      updateBsetLiveSummary();
 
       loadBookingQuestions();
       loadEventTypes();
@@ -2640,6 +2826,7 @@
             <div class="etype-card-name">${escapeHtml(t.name)}</div>
             <div class="etype-card-meta">${t.duration_minutes} minit · ${priceLabel}${t.capacity > 1 ? ` · kapasiti ${t.capacity}` : ""}</div>
           </div>
+          <button type="button" class="secondary" data-et-edit-id="${t.id}" style="padding:0.3rem 0.6rem; flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg></button>
           <button type="button" class="secondary" data-et-id="${t.id}" style="color:var(--warn); padding:0.3rem 0.6rem; flex-shrink:0;">✕</button>
         </div>
       `;
@@ -2650,7 +2837,38 @@
           loadEventTypes();
         });
       });
+      list.querySelectorAll("[data-et-edit-id]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const t = types.find(t => t.id === btn.dataset.etEditId);
+          if (t) startEditingEventType(t);
+        });
+      });
     }
+
+    let editingEventTypeId = null;
+    function startEditingEventType(t) {
+      editingEventTypeId = t.id;
+      document.getElementById("et-name").value = t.name;
+      document.getElementById("et-duration").value = t.duration_minutes;
+      document.getElementById("et-deposit").value = t.deposit_amount != null ? t.deposit_amount : "";
+      document.getElementById("et-capacity").value = t.capacity || 1;
+      document.getElementById("et-description").value = t.description || "";
+      document.getElementById("add-event-type-btn").textContent = `✓ Kemaskini "${t.name}"`;
+      document.getElementById("et-cancel-edit-btn").style.display = "block";
+      document.getElementById("et-name").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    function stopEditingEventType() {
+      editingEventTypeId = null;
+      document.getElementById("et-name").value = "";
+      document.getElementById("et-duration").value = "60";
+      prefillEventTypeDeposit();
+      document.getElementById("et-capacity").value = "1";
+      document.getElementById("et-description").value = "";
+      if (document.getElementById("et-poster-file")) document.getElementById("et-poster-file").value = "";
+      document.getElementById("add-event-type-btn").textContent = "+ Tambah Jenis Perkhidmatan";
+      document.getElementById("et-cancel-edit-btn").style.display = "none";
+    }
+    document.getElementById("et-cancel-edit-btn")?.addEventListener("click", stopEditingEventType);
 
     // Resizes+re-encodes an image client-side before upload, keeping the free
     // Supabase Storage tier (1GB total, shared across all Pro owners) usable —
@@ -2713,28 +2931,31 @@
         } catch (err) {
           showToast("Gagal upload poster: " + err.message, "error");
           btn.disabled = false;
-          btn.textContent = "+ Tambah Jenis Perkhidmatan";
+          btn.textContent = editingEventTypeId ? `✓ Kemaskini` : "+ Tambah Jenis Perkhidmatan";
           return;
         }
       }
-      btn.textContent = "+ Tambah Jenis Perkhidmatan";
+      btn.textContent = editingEventTypeId ? "Menyimpan..." : "+ Tambah Jenis Perkhidmatan";
 
-      const { data: existing } = await supabase.from("event_types").select("id").eq("booking_link_id", currentLinkId);
-      const { error } = await supabase.from("event_types").insert({
-        owner_id: user.id, booking_link_id: currentLinkId, name, duration_minutes: duration, deposit_amount: deposit, capacity, sort_order: (existing?.length || 0),
-        description, poster_url: posterUrl,
-      });
+      let error;
+      if (editingEventTypeId) {
+        const updatePayload = { name, duration_minutes: duration, deposit_amount: deposit, capacity, description };
+        if (posterUrl) updatePayload.poster_url = posterUrl;
+        ({ error } = await supabase.from("event_types").update(updatePayload).eq("id", editingEventTypeId));
+      } else {
+        const { data: existing } = await supabase.from("event_types").select("id").eq("booking_link_id", currentLinkId);
+        ({ error } = await supabase.from("event_types").insert({
+          owner_id: user.id, booking_link_id: currentLinkId, name, duration_minutes: duration, deposit_amount: deposit, capacity, sort_order: (existing?.length || 0),
+          description, poster_url: posterUrl,
+        }));
+      }
       btn.disabled = false;
       if (error) { showToast(error.message, "error"); return; }
 
-      document.getElementById("et-name").value = "";
-      document.getElementById("et-duration").value = "60";
-      prefillEventTypeDeposit();
-      document.getElementById("et-capacity").value = "1";
-      document.getElementById("et-description").value = "";
-      if (document.getElementById("et-poster-file")) document.getElementById("et-poster-file").value = "";
+      const wasEditing = !!editingEventTypeId;
+      stopEditingEventType();
       loadEventTypes();
-      showToast(`Jenis perkhidmatan "${name}" ditambah. Customer boleh pilih ni semasa booking lepas ni.`, "success");
+      showToast(wasEditing ? `Jenis perkhidmatan "${name}" dikemaskini.` : `Jenis perkhidmatan "${name}" ditambah. Customer boleh pilih ni semasa booking lepas ni.`, "success");
     });
 
     // Pre-fills the new-event-type deposit field from the current link's default —
@@ -2824,20 +3045,6 @@
         btn.disabled = false;
         btn.textContent = "Simpan Tetapan Booking";
         return;
-      }
-
-      const grid = document.getElementById("availability-grid");
-      const newRows = [];
-      grid.querySelectorAll(".avail-active:checked").forEach(cb => {
-        const day = cb.dataset.day;
-        const start = grid.querySelector(`.avail-start[data-day="${day}"]`).value;
-        const end = grid.querySelector(`.avail-end[data-day="${day}"]`).value;
-        newRows.push({ owner_id: user.id, booking_link_id: currentLinkId, day_of_week: parseInt(day, 10), start_time: start, end_time: end });
-      });
-
-      await supabase.from("availability").delete().eq("booking_link_id", currentLinkId);
-      if (newRows.length > 0) {
-        await supabase.from("availability").insert(newRows);
       }
 
       btn.disabled = false;
@@ -3770,7 +3977,7 @@
       { page: "home", selector: '.bento-tile[data-page="booking-settings"]', title: "Mula Dari Sini: Booking", text: "Booking adalah feature UTAMA sistem ni — customer book slot sendiri, deposit & reminder jalan automatik lepas tu. Jom setup dulu." },
       { page: "booking-settings", selector: "#p-booking-slug", title: "Link Booking Anda", text: "Pilih nama link (contoh: kedai-anda) — ni yang anda akan kongsi dengan customer supaya mereka boleh book slot terus. Lepas simpan, link ni juga terus terpapar di Home untuk senang copy/share." },
       { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai — WAJIB DIISI!", text: "Ni PALING PENTING — kalau tak diisi, booking customer akan GAGAL. Auto-apply setiap booking baharu. Nak booking PERCUMA (contoh konsultasi)? Taip 0 — sistem sekarang faham 0 tu sengaja, bukan tak diisi." },
-      { page: "booking-settings", selector: "#availability-grid", title: "Waktu Available", text: "Tandakan hari & jam anda free. Customer cuma nampak slot yang anda dah set di sini — tiada lagi tanya \"awak free bila\"." },
+      { page: "booking-settings", selector: "#avail-cal-grid", title: "Waktu Available", text: "Klik tarikh untuk tetapkan jam anda free. Customer cuma nampak slot yang anda dah set — tiada lagi tanya \"awak free bila\"." },
       { page: "booking-settings", selector: "#event-types-list", title: "Lebih Dari Satu Jenis Servis?", text: "Contoh: \"Collection Kek — 10 minit\" vs \"Kelas Baking — 2 jam, RM100\". Setiap jenis ada tempoh/harga/kapasiti sendiri (kapasiti >1 untuk group class). Kosongkan kalau semua booking anda sama." },
       { page: "booking-settings", selector: "#new-question-input", title: "Soalan Tambahan (Optional)", text: "Tanya customer sesuatu semasa booking, contoh \"Apa jenis kek?\" — jawapan terus nampak dalam Senarai Booking anda." },
       { page: "booking-settings", selector: "#save-booking-btn", title: "Simpan & Dapatkan Link", text: "Lepas simpan, link booking dan QR code printable akan muncul di atas — boleh terus kongsi atau print letak kaunter." },
@@ -3977,10 +4184,26 @@
 
       currentLinkId = inserted.id;
 
+      // Every owner now gets at least one event type by default — even a
+      // "simple, one service" owner — so the booking flow always has a
+      // duration/deposit to carve slots against, and adding a second type
+      // later (multi-service owners) is just adding another row, not a
+      // structural change.
+      await supabase.from("event_types").insert({
+        owner_id: user.id, booking_link_id: inserted.id, name: serviceName || "Servis Utama",
+        duration_minutes: 60, deposit_amount: deposit, capacity: 1, sort_order: 0,
+      });
+
       if (availPreset !== "later") {
         const days = availPreset === "everyday" ? [0, 1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5];
-        const rows = days.map(d => ({ owner_id: user.id, booking_link_id: inserted.id, day_of_week: d, start_time: "09:00", end_time: "18:00" }));
-        await supabase.from("availability").insert(rows);
+        const rows = [];
+        for (let d = 0; d < 60; d++) {
+          const date = new Date(Date.now() + d * 24 * 60 * 60 * 1000);
+          if (days.includes(date.getDay())) {
+            rows.push({ owner_id: user.id, booking_link_id: inserted.id, specific_date: date.toISOString().slice(0, 10), start_time: "09:00", end_time: "18:00" });
+          }
+        }
+        await supabase.from("availability_dates").insert(rows);
       }
 
       const bookingUrl = `${window.location.origin}/book.html?slug=${finalSlug}`;
@@ -4041,7 +4264,7 @@
         { page: "booking-settings", selector: "#p-booking-slug", title: "Slug", text: "Nama unik untuk link awam anda. Tukar ni akan tukar URL booking anda." },
         { page: "booking-settings", selector: "#p-slot-duration", title: "Tempoh Slot", text: "Berapa lama setiap booking mengambil masa." },
         { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai", text: "WAJIB diisi, booking customer akan gagal kalau kosong. Taip 0 kalau nak booking percuma." },
-        { page: "booking-settings", selector: "#availability-grid", title: "Waktu Available", text: "Set hari dan jam anda bukak dalam grid mingguan." },
+        { page: "booking-settings", selector: "#avail-cal-grid", title: "Waktu Available", text: "Klik tarikh dalam kalendar untuk set jam anda bukak." },
         { page: "booking-settings", selector: "#bset-tabs", title: "Tab Tetapan", text: "Klik tab untuk tukar antara Asas, Jenis Perkhidmatan, Soalan Tambahan, dan Embed code." },
         { page: "booking-settings", selector: "#event-types-list", title: "Jenis Perkhidmatan", text: "Kalau anda ada servis berbeza, set tempoh, harga, dan kapasiti sendiri untuk setiap satu di sini." },
         { page: "booking-settings", selector: "#new-question-input", title: "Soalan Tambahan", text: "Tanya customer soalan khusus semasa booking. Jawapan terus nampak dalam Senarai Booking." },

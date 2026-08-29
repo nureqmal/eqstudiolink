@@ -759,6 +759,12 @@
               <button type="submit" style="margin-top:1.25rem;">Simpan Profil</button>
             </form>
           </div>
+
+          <div class="card">
+            <div class="section-title"><h2 style="margin:0; font-size:1rem;">Panduan Setup</h2></div>
+            <p class="hint">Nak lalui semula panduan setup pertama (pilih jenis bisnes, tetapan asas)? Ni berguna kalau anda skip dulu atau nak semak semula.</p>
+            <button type="button" class="secondary" id="restart-wizard-btn" style="margin-top:0.5rem;">↻ Mula Semula Wizard</button>
+          </div>
         </div>
 
         <div class="db-page" id="page-tetapan-reminder">
@@ -3852,6 +3858,7 @@
     }
 
     document.getElementById("wizard-skip-btn")?.addEventListener("click", () => closeWizard(true));
+    document.getElementById("restart-wizard-btn")?.addEventListener("click", () => openOnboardingWizard());
 
     document.getElementById("wizard-back-btn")?.addEventListener("click", () => {
       if (wizardStepIdx > 1) { wizardStepIdx--; renderWizardStep(); }

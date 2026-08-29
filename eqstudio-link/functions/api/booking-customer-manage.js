@@ -47,11 +47,10 @@ export async function onRequestGet(context) {
       return json({ booking: { ...booking, current_slot_label: currentSlotLabel }, business: { name: bizName }, slots_by_date: {} });
     }
 
-    const availability = await sbAdmin(env, `/availability?booking_link_id=eq.${booking.booking_link_id}&select=day_of_week,start_time,end_time`);
+    const durationMs = (booking.duration_minutes || link.slot_duration_minutes || 60) * 60 * 1000;
     const now = new Date();
     const earliestAllowed = new Date(now.getTime() + (link.booking_min_notice_hours || 0) * 60 * 60 * 1000);
     const rangeEnd = new Date(now.getTime() + daysAhead * 24 * 60 * 60 * 1000);
-    const durationMs = (link.slot_duration_minutes || 60) * 60 * 1000;
     const bufferMs = (link.buffer_minutes || 0) * 60 * 1000;
 
     const existing = await sbAdmin(
@@ -68,21 +67,33 @@ export async function onRequestGet(context) {
       return blockedRanges.some(([bStart, bEnd]) => slotStartMs < bEnd && slotEndMs > bStart);
     }
 
-    const availByDay = new Map();
+    const rangeEndDateKey = (() => {
+      const p = myDateParts(rangeEnd);
+      return `${p.year}-${String(p.month + 1).padStart(2, "0")}-${String(p.date).padStart(2, "0")}`;
+    })();
+    const todayDateKey = (() => {
+      const p = myDateParts(now);
+      return `${p.year}-${String(p.month + 1).padStart(2, "0")}-${String(p.date).padStart(2, "0")}`;
+    })();
+    const availability = await sbAdmin(
+      env,
+      `/availability_dates?booking_link_id=eq.${booking.booking_link_id}&specific_date=gte.${todayDateKey}&specific_date=lte.${rangeEndDateKey}&select=specific_date,start_time,end_time`
+    );
+    const availByDate = new Map();
     for (const a of availability) {
-      if (!availByDay.has(a.day_of_week)) availByDay.set(a.day_of_week, []);
-      availByDay.get(a.day_of_week).push(a);
+      if (!availByDate.has(a.specific_date)) availByDate.set(a.specific_date, []);
+      availByDate.get(a.specific_date).push(a);
     }
 
     const slotsByDate = {};
 
     for (let d = 0; d <= daysAhead; d++) {
       const cursor = new Date(now.getTime() + d * 24 * 60 * 60 * 1000);
-      const { year, month, date, day } = myDateParts(cursor);
-      const dayRanges = availByDay.get(day);
+      const { year, month, date } = myDateParts(cursor);
+      const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
+      const dayRanges = availByDate.get(dateKey);
       if (!dayRanges) continue;
 
-      const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
       const daySlots = [];
 
       for (const range of dayRanges) {

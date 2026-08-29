@@ -937,12 +937,6 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .booking-slug-row input { border: none; background: transparent; border-radius: 0; padding-left: 0; }
 .booking-slug-row input:focus { outline: none; box-shadow: none; }
 
-.availability-grid { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
-.avail-day-row { display: flex; align-items: center; gap: 0.7rem; padding: 0.4rem 0; }
-.avail-day-toggle { display: flex; align-items: center; gap: 0.4rem; width: 90px; flex-shrink: 0; cursor: pointer; font-size: 0.85rem; }
-.avail-day-toggle input { width: auto; }
-.avail-day-row input[type="time"] { width: auto; padding: 0.4rem 0.5rem; font-size: 0.82rem; }
-.avail-day-row input[type="time"]:disabled { opacity: 0.4; }
 
 /* ── Public booking page ──────────────────────────────────────────── */
 .book-date-row { display: block; }
@@ -1719,3 +1713,14 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .avail-preset-btn.selected { background: var(--stamp); border-color: var(--stamp); color: #fff; }
 .avail-custom-block-row { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem; }
 .avail-custom-block-row input[type="time"] { flex: 1; }
+
+/* ── Home hub: multi-link booking-link rows (Pro can have up to 3) ── */
+.home-link-item { padding: 0.7rem 0; border-bottom: 1px solid var(--paper-line); }
+.home-link-item:last-child { border-bottom: none; padding-bottom: 0; }
+.home-link-item-label { font-size: 0.78rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 0.3rem; }
+.home-link-item-row { display: flex; align-items: center; gap: 0.5rem; }
+.home-link-item-icon-btn {
+  background: var(--paper); border: 1px solid var(--paper-line); border-radius: 8px; width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); flex-shrink: 0; padding: 0;
+}
+.home-link-item-icon-btn:hover { border-color: var(--stamp); transform: none; box-shadow: none; }

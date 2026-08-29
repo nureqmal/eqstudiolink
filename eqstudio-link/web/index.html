@@ -27,7 +27,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=6" />
+<link rel="stylesheet" href="/assets/style.css?v=7" />
 </head>
 <body>
 
@@ -853,7 +853,7 @@
       ms: [
         { keywords: ["booking", "book slot", "tempahan", "jadual temujanji"], q: "Macam mana booking online berfungsi?", a: "Anda dapat satu link peribadi (eqstudio.link/book.html?slug=...), customer buka, pilih slot kosong, isi nama & emel, submit. Tiada perlu WhatsApp/call untuk confirm." },
         { keywords: ["deposit", "berapa deposit", "auto deposit"], q: "Bila deposit diminta?", a: "Serta-merta lepas booking confirm, sistem terus hantar emel deposit request, tak payah tunggu cron esok." },
-        { keywords: ["waktu available", "set jadual", "availability"], q: "Macam mana set waktu available saya?", a: "Dalam tab Booking, Tetapan Booking, tandakan hari & waktu anda free. Customer cuma nampak slot yang anda dah set." },
+        { keywords: ["waktu available", "set jadual", "availability"], q: "Macam mana set waktu available saya?", a: "Dalam Tetapan Booking, tab Waktu Available, klik tarikh dalam kalendar untuk tetapkan jam anda free hari tu. Customer cuma nampak slot yang anda dah set." },
         { keywords: ["soalan tambahan", "custom question", "tanya customer"], q: "Boleh tanya customer soalan tambahan semasa booking?", a: "Boleh, tambah \"Soalan Tambahan\" dalam Tetapan Booking (contoh: \"Apa jenis kek?\"). Muncul dalam borang booking, jawapan terus nampak dalam dashboard anda." },
         { keywords: ["buffer", "rehat", "gap antara"], q: "Ada buffer time antara booking?", a: "Ada, set 0-30 minit rehat automatic antara setiap booking dalam Tetapan Booking, elak clash." },
         { keywords: ["reschedule sendiri", "cancel sendiri", "tukar tempahan"], q: "Customer boleh reschedule/cancel sendiri?", a: "Boleh, setiap emel booking ada butang \"Reschedule / Batal Tempahan\". Anda auto dapat emel notification setiap kali mereka buat perubahan." },
@@ -881,7 +881,7 @@
       en: [
         { keywords: ["booking", "book slot", "appointment", "schedule"], q: "How does online booking actually work?", a: "You get a personal link (eqstudio.link/book.html?slug=...), customers open it, pick an open slot, fill in name and email, submit. No WhatsApp or calls needed to confirm." },
         { keywords: ["deposit", "how much deposit", "auto deposit"], q: "When is the deposit requested?", a: "Right after a booking is confirmed, the system emails a deposit request immediately, no waiting for the next day's cron run." },
-        { keywords: ["available hours", "set schedule", "availability"], q: "How do I set my available hours?", a: "In the Booking tab, Booking Settings, mark the days and hours you're free. Customers only see the slots you've set." },
+        { keywords: ["available hours", "set schedule", "availability"], q: "How do I set my available hours?", a: "In Booking Settings, the Waktu Available tab, click a date on the calendar to set the hours you are free that day. Customers only see the slots you have set." },
         { keywords: ["extra questions", "custom question", "ask customer"], q: "Can I ask customers extra questions during booking?", a: "Yes, add \"Additional Questions\" in Booking Settings (e.g. \"What kind of cake?\"). It shows up in the booking form, and answers land straight in your dashboard." },
         { keywords: ["buffer", "break", "gap between"], q: "Is there buffer time between bookings?", a: "Yes, set 0-30 minutes of automatic breathing room between bookings in Booking Settings, avoids clashes." },
         { keywords: ["reschedule myself", "cancel myself", "change booking"], q: "Can customers reschedule or cancel on their own?", a: "Yes, every booking email has a \"Reschedule / Cancel\" button built in. You get an automatic email notification whenever they make a change." },
@@ -1233,22 +1233,20 @@
     }
 
     function renderExploreSettings() {
-      const days = EX("day_names");
-      const active = [false, true, true, true, true, true, false];
       const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=6&data=${encodeURIComponent("https://eqstudio.link/book.html?slug=kedai-cik-along")}`;
+      const weekdayInitials = EX("day_names").map(d => d[0]);
+      const sampleDensities = ["none", "full", "full", "some", "full", "some", "none", "full", "full", "none", "some", "full"];
       return `
         <div class="card" style="margin-bottom:1rem;">
           <label>${EX("your_link_label")}</label>
           <div class="booking-slug-row"><span class="booking-slug-prefix">eqstudio.link/book.html?slug=</span><input type="text" value="kedai-cik-along" disabled /></div>
           <label style="margin-top:1rem; display:block;">${EX("avail_hours_label")}</label>
-          <div class="availability-grid">
-            ${days.map((d, i) => `
-              <div class="avail-day-row">
-                <label class="avail-day-toggle"><input type="checkbox" ${active[i] ? "checked" : ""} disabled /><span>${d}</span></label>
-                ${active[i] ? `<input type="time" value="09:00" disabled /><span class="hint">${EX("until_label")}</span><input type="time" value="18:00" disabled />` : ""}
-              </div>
-            `).join("")}
+          <div class="avail-cal-weekdays">${weekdayInitials.map(l => `<span>${l}</span>`).join("")}</div>
+          <div class="avail-cal-grid">
+            ${[...Array(3)].map(() => `<div class="avail-cal-day empty"></div>`).join("")}
+            ${sampleDensities.map((d, i) => `<div class="avail-cal-day density-${d}" style="cursor:default;"><span>${i + 1}</span><span class="dot"></span></div>`).join("")}
           </div>
+          <p class="hint" style="margin-top:0.5rem; text-align:center;">${EX("avail_hours_label")}</p>
         </div>
         <div class="card" style="margin-bottom:1rem;">
           <label style="margin-bottom:0.6rem; display:block;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> ${EX("event_types_label")}</label>

@@ -1641,3 +1641,39 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .notif-item-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.15rem; }
 .notif-item-message { font-size: 0.8rem; color: var(--ink-soft); }
 .notif-item-time { font-size: 0.72rem; color: var(--ink-soft); margin-top: 0.3rem; }
+
+/* ── Tetapan Booking: tab system + live summary + smarter Event Types cards ── */
+.bset-tabs { display: flex; gap: 0.4rem; overflow-x: auto; margin-bottom: 1rem; padding-bottom: 0.2rem; }
+.bset-tab {
+  display: flex; align-items: center; gap: 0.4rem; padding: 0.55rem 0.9rem; border-radius: 999px;
+  border: 1.5px solid var(--paper-line); background: var(--surface); color: var(--ink-soft);
+  font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.15s;
+}
+.bset-tab:hover { border-color: var(--stamp); transform: none; box-shadow: none; }
+.bset-tab.active { background: var(--stamp); border-color: var(--stamp); color: #fff; }
+.bset-tab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); flex-shrink: 0; }
+.bset-panel { display: none; }
+.bset-panel.active { display: block; animation: tile-fade-in 0.25s ease both; }
+
+.bset-summary {
+  background: linear-gradient(160deg, var(--stamp-soft) 0%, var(--surface) 100%);
+  border: 1px solid var(--stamp-soft); border-radius: var(--radius-lg); padding: 1rem 1.2rem; margin-bottom: 1rem;
+}
+.bset-summary-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--stamp); font-weight: 700; margin-bottom: 0.4rem; }
+.bset-summary-text { font-size: 0.92rem; line-height: 1.6; color: var(--ink); }
+.bset-summary-text strong { color: var(--stamp); }
+
+.bset-tip {
+  display: flex; gap: 0.5rem; align-items: flex-start; background: var(--pending-bg); border-radius: 8px;
+  padding: 0.6rem 0.8rem; margin-top: 0.5rem; font-size: 0.8rem; color: #92400E; animation: tile-fade-in 0.2s ease both;
+}
+.bset-tip svg { flex-shrink: 0; margin-top: 0.1rem; }
+
+.etype-card {
+  display: flex; gap: 0.8rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--paper-line);
+  border-radius: 12px; padding: 0.8rem; margin-bottom: 0.6rem;
+}
+.etype-card-thumb { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: var(--paper); }
+.etype-card-body { flex: 1; min-width: 0; }
+.etype-card-name { font-weight: 700; font-size: 0.92rem; }
+.etype-card-meta { font-size: 0.78rem; color: var(--ink-soft); margin-top: 0.15rem; }

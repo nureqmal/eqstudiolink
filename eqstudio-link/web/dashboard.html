@@ -10,7 +10,7 @@
 <title>Dashboard — eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=4" />
+<link rel="stylesheet" href="/assets/style.css?v=5" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -286,64 +286,68 @@
             <p class="hint" id="link-switcher-upsell" style="display:none; margin-top:0.6rem;">Setiap link ada calendar & tetapan sendiri sepenuhnya. <a href="/billing.html">Upgrade ke Pro</a> untuk sehingga 3 link.</p>
           </div>
 
-          <div class="card">
-            <div class="section-title"><h2 style="margin:0;" data-i18n="dash_booking_settings_title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg> Booking Settings</h2></div>
-            <p class="hint" data-i18n="dash_booking_settings_desc">Customers book their own slot from your personal link, no WhatsApp or calls needed to confirm a date. Once a booking is confirmed, deposit and reminder run automatically.</p>
-
-            <label for="p-booking-slug">Slug</label>
-            <div class="booking-slug-row">
-              <span class="booking-slug-prefix">eqstudio.link/book.html?slug=</span>
-              <input type="text" id="p-booking-slug" placeholder="kak-aina-bakery" />
-            </div>
-            <p class="hint" id="booking-slug-status" style="margin-top:0.3rem;"></p>
-
-            <div id="booking-qr-wrap" style="display:none; margin-top:1rem;">
-              <div class="booking-qr-card" id="booking-qr-card">
-                <img id="booking-qr-img" alt="QR kod link booking" />
-                <p class="booking-qr-caption"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Scan untuk Book Slot</p>
-              </div>
-              <div class="row" style="margin-top:0.6rem;">
-                <a id="booking-qr-download" download="qr-booking.png" class="secondary" style="flex:1; text-align:center; text-decoration:none; display:inline-block;">⬇ Muat Turun</a>
-                <button type="button" class="secondary" id="booking-qr-print" style="flex:1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Cetak</button>
-              </div>
-              <p class="hint" style="margin-top:0.4rem;">Print & letak sebelah QR DuitNow di kaunter — customer scan untuk terus book slot.</p>
-            </div>
-
-            <label for="p-slot-duration" style="margin-top:1rem; display:block;">Tempoh Setiap Slot</label>
-            <select id="p-slot-duration">
-              <option value="30">30 minit</option>
-              <option value="60" selected>1 jam</option>
-              <option value="90">1 jam 30 minit</option>
-              <option value="120">2 jam</option>
-            </select>
-
-            <label for="p-default-deposit">Deposit Lalai (RM)</label>
-            <input type="number" id="p-default-deposit" step="0.01" min="0" placeholder="cth: 50 (atau 0 untuk percuma)" />
-            <p class="hint" style="margin-top:0.3rem;">Auto-apply setiap booking baru — boleh edit lepas tu ikut customer.</p>
-
-            <label for="p-link-description" style="margin-top:1rem; display:block;">Description Servis (opsyenal — customer nampak bila klik "Lihat Lagi")</label>
-            <textarea id="p-link-description" rows="2" placeholder="cth: Kami sediakan kek custom untuk majlis, siap dalam 3-5 hari bekerja."></textarea>
-            <div id="p-link-poster-wrap" style="display:none; margin-top:0.6rem;">
-              <label for="p-link-poster-file">Poster / Gambar Servis (opsyenal, maks 2MB)</label>
-              <input type="file" id="p-link-poster-file" accept="image/*" />
-              <img id="p-link-poster-preview" style="max-width:120px; border-radius:8px; margin-top:0.5rem; display:none;" alt="" />
-            </div>
-            <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.6rem;">📌 Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk buka feature ni.</p>
-
-            <label style="margin-top:1rem; display:block;">Waktu Available</label>
-            <div id="availability-grid" class="availability-grid"></div>
-
-            <button type="button" id="save-booking-btn" style="margin-top:1.25rem;">Simpan Tetapan Booking</button>
+          <div class="bset-tabs" id="bset-tabs">
+            <button type="button" class="bset-tab active" data-bset-tab="asas"><span class="bset-tab-dot"></span> 🔧 Asas</button>
+            <button type="button" class="bset-tab" data-bset-tab="jenis">🎯 Jenis Perkhidmatan</button>
+            <button type="button" class="bset-tab" data-bset-tab="soalan">❓ Soalan Tambahan</button>
+            <button type="button" class="bset-tab" data-bset-tab="embed">🔗 Embed</button>
           </div>
 
-          <button type="button" id="advanced-settings-toggle" class="secondary" style="margin-top:1rem; width:100%; display:flex; align-items:center; justify-content:center; gap:0.4rem;">
-            <svg id="advanced-toggle-chevron" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.2s;"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            Tetapan Advanced (buffer, notis cancel, jenis servis, soalan, embed)
-          </button>
+          <div class="bset-panel active" id="bset-panel-asas">
+            <div class="bset-summary">
+              <div class="bset-summary-label">Ringkasan Langsung</div>
+              <div class="bset-summary-text" id="bset-live-summary">Isi tetapan di bawah untuk lihat ringkasan...</div>
+            </div>
 
-          <div id="advanced-settings-wrap" style="display:none;">
-            <div class="card" style="margin-top:1rem;">
-              <div class="row">
+            <div class="card">
+              <div class="section-title"><h2 style="margin:0;" data-i18n="dash_booking_settings_title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg> Booking Settings</h2></div>
+              <p class="hint" data-i18n="dash_booking_settings_desc">Customers book their own slot from your personal link, no WhatsApp or calls needed to confirm a date. Once a booking is confirmed, deposit and reminder run automatically.</p>
+
+              <label for="p-booking-slug">Slug</label>
+              <div class="booking-slug-row">
+                <span class="booking-slug-prefix">eqstudio.link/book.html?slug=</span>
+                <input type="text" id="p-booking-slug" placeholder="kak-aina-bakery" />
+              </div>
+              <p class="hint" id="booking-slug-status" style="margin-top:0.3rem;"></p>
+
+              <div id="booking-qr-wrap" style="display:none; margin-top:1rem;">
+                <div class="booking-qr-card" id="booking-qr-card">
+                  <img id="booking-qr-img" alt="QR kod link booking" />
+                  <p class="booking-qr-caption"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Scan untuk Book Slot</p>
+                </div>
+                <div class="row" style="margin-top:0.6rem;">
+                  <a id="booking-qr-download" download="qr-booking.png" class="secondary" style="flex:1; text-align:center; text-decoration:none; display:inline-block;">⬇ Muat Turun</a>
+                  <button type="button" class="secondary" id="booking-qr-print" style="flex:1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Cetak</button>
+                </div>
+                <p class="hint" style="margin-top:0.4rem;">Print & letak sebelah QR DuitNow di kaunter — customer scan untuk terus book slot.</p>
+              </div>
+
+              <label for="p-slot-duration" style="margin-top:1rem; display:block;">Tempoh Setiap Slot</label>
+              <select id="p-slot-duration">
+                <option value="30">30 minit</option>
+                <option value="60" selected>1 jam</option>
+                <option value="90">1 jam 30 minit</option>
+                <option value="120">2 jam</option>
+              </select>
+
+              <label for="p-default-deposit">Deposit Lalai (RM)</label>
+              <input type="number" id="p-default-deposit" step="0.01" min="0" placeholder="cth: 50 (atau 0 untuk percuma)" />
+              <p class="hint" style="margin-top:0.3rem;">Auto-apply setiap booking baru — boleh edit lepas tu ikut customer.</p>
+              <div id="bset-deposit-tip"></div>
+
+              <label for="p-link-description" style="margin-top:1rem; display:block;">Description Servis (opsyenal — customer nampak bila klik "Lihat Lagi")</label>
+              <textarea id="p-link-description" rows="2" placeholder="cth: Kami sediakan kek custom untuk majlis, siap dalam 3-5 hari bekerja."></textarea>
+              <div id="p-link-poster-wrap" style="display:none; margin-top:0.6rem;">
+                <label for="p-link-poster-file">Poster / Gambar Servis (opsyenal, maks 2MB)</label>
+                <input type="file" id="p-link-poster-file" accept="image/*" />
+                <img id="p-link-poster-preview" style="max-width:120px; border-radius:8px; margin-top:0.5rem; display:none;" alt="" />
+              </div>
+              <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.6rem;">📌 Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk buka feature ni.</p>
+
+              <label style="margin-top:1rem; display:block;">Waktu Available</label>
+              <div id="availability-grid" class="availability-grid"></div>
+
+              <div class="row" style="margin-top:1rem;">
                 <div>
                   <label for="p-min-notice">Notis Minimum Booking</label>
                   <select id="p-min-notice">
@@ -371,10 +375,13 @@
                 <option value="24">24 jam sebelum</option>
                 <option value="48">48 jam sebelum</option>
               </select>
-              <p class="hint" style="margin-top:0.3rem;">Lepas had ni, customer tak boleh self-cancel — kena hubungi anda terus. Klik "Simpan Tetapan Booking" di atas untuk simpan tetapan ni sekali.</p>
-            </div>
 
-            <div class="card" style="margin-top:1rem;">
+              <button type="button" id="save-booking-btn" style="margin-top:1.25rem;">Simpan Tetapan Booking</button>
+            </div>
+          </div>
+
+          <div class="bset-panel" id="bset-panel-jenis">
+            <div class="card">
               <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Jenis Perkhidmatan (Event Types)</h2></div>
               <p class="hint">Tetapkan servis berbeza dengan tempoh, harga & kapasiti tersendiri. Kosongkan untuk guna satu tetapan sahaja.</p>
               <div id="event-types-list" style="margin-top:0.8rem;"></div>
@@ -410,8 +417,10 @@
                 <p class="hint" id="et-poster-locked" style="display:none; margin-top:0.6rem;">📌 Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk buka feature ni.</p>
               </div>
             </div>
+          </div>
 
-            <div class="card" style="margin-top:1rem;">
+          <div class="bset-panel" id="bset-panel-soalan">
+            <div class="card">
               <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg> Soalan Tambahan (Intake Questions)</h2></div>
               <p class="hint">Tanya customer soalan khusus semasa booking (contoh: "Apa jenis kek?", "Saiz?"). Muncul selepas mereka pilih slot.</p>
               <div id="booking-questions-list" style="margin-top:0.8rem;"></div>
@@ -420,8 +429,10 @@
                 <button type="button" id="add-question-btn" class="secondary">+ Tambah</button>
               </div>
             </div>
+          </div>
 
-            <div class="card" style="margin-top:1rem;">
+          <div class="bset-panel" id="bset-panel-embed">
+            <div class="card">
               <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> Embed Dalam Website Anda</h2></div>
               <p class="hint">Copy code ni, tampal terus dalam HTML website anda sendiri — booking widget akan muncul terus di situ.</p>
               <textarea id="embed-code" rows="3" readonly style="font-family:var(--font-mono); font-size:0.8rem;" onclick="this.select()"></textarea>
@@ -1055,6 +1066,15 @@
         });
       }
     }
+
+    // ── Tetapan Booking tab system ──
+    function switchBsetTab(tabId) {
+      document.querySelectorAll(".bset-tab").forEach(t => t.classList.toggle("active", t.dataset.bsetTab === tabId));
+      document.querySelectorAll(".bset-panel").forEach(p => p.classList.toggle("active", p.id === "bset-panel-" + tabId));
+    }
+    document.querySelectorAll(".bset-tab").forEach(tab => {
+      tab.addEventListener("click", () => switchBsetTab(tab.dataset.bsetTab));
+    });
 
     document.querySelectorAll(".bento-tile[data-page]").forEach(tile => {
       tile.addEventListener("click", () => goToPage(tile.dataset.page));
@@ -2465,9 +2485,43 @@
           const disabled = !e.target.checked;
           grid.querySelector(`.avail-start[data-day="${day}"]`).disabled = disabled;
           grid.querySelector(`.avail-end[data-day="${day}"]`).disabled = disabled;
+          updateBsetLiveSummary();
         });
       });
+      updateBsetLiveSummary();
     }
+
+    // Reads back the person's own settings as a plain-language sentence —
+    // turns a wall of dropdowns/fields into something that actually confirms
+    // "yes, this is what I meant" before they even hit Save.
+    function updateBsetLiveSummary() {
+      const el = document.getElementById("bset-live-summary");
+      if (!el) return;
+      const duration = document.getElementById("p-slot-duration")?.selectedOptions[0]?.textContent || "1 jam";
+      const depositRaw = document.getElementById("p-default-deposit")?.value;
+      const depositText = depositRaw === "" || depositRaw == null
+        ? "belum ditetapkan"
+        : Number(depositRaw) === 0 ? "percuma" : `RM${Number(depositRaw).toFixed(0)}`;
+
+      const activeDays = Array.from(document.querySelectorAll(".avail-active:checked")).map(cb => DAY_LABELS[cb.dataset.day]);
+      let daysText;
+      if (activeDays.length === 0) daysText = `<strong>belum tetapkan hari available</strong>`;
+      else if (activeDays.length === 7) daysText = `<strong>setiap hari</strong>`;
+      else daysText = `<strong>${activeDays.join(", ")}</strong>`;
+
+      el.innerHTML = `Customer akan book slot <strong>${duration}</strong>, pada ${daysText}, dengan deposit <strong>${depositText}</strong>.`;
+
+      const tipEl = document.getElementById("bset-deposit-tip");
+      if (tipEl) {
+        tipEl.innerHTML = (depositRaw === "0")
+          ? `<div class="bset-tip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Deposit percuma sesuai untuk konsultasi awal — tapi pastikan servis utama tetap ada deposit untuk kurangkan no-show.</span></div>`
+          : "";
+      }
+    }
+    ["p-slot-duration", "p-default-deposit"].forEach(id => {
+      document.getElementById(id)?.addEventListener("input", updateBsetLiveSummary);
+      document.getElementById(id)?.addEventListener("change", updateBsetLiveSummary);
+    });
 
     async function loadSettingsForCurrentLink() {
       const link = currentLink();
@@ -2574,18 +2628,22 @@
     function renderEventTypesList(types) {
       const list = document.getElementById("event-types-list");
       if (types.length === 0) {
-        list.innerHTML = `<p class="hint">Tiada servis ditambah.</p>`;
+        list.innerHTML = `<p class="hint">Tiada servis ditambah — guna borang di bawah untuk tambah yang pertama.</p>`;
         return;
       }
-      list.innerHTML = types.map(t => `
-        <div class="row" style="align-items:center; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--paper-line);">
-          <div>
-            <strong>${escapeHtml(t.name)}</strong>
-            <span class="hint" style="font-size:0.8rem;"> — ${t.duration_minutes} minit, ${t.deposit_amount === 0 ? "Percuma" : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> deposit belum diset')}${t.capacity > 1 ? `, kapasiti ${t.capacity}` : ""}</span>
+      list.innerHTML = types.map(t => {
+        const priceLabel = t.deposit_amount === 0 ? "Percuma" : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "deposit belum diset");
+        return `
+        <div class="etype-card">
+          ${t.poster_url ? `<img src="${escapeHtml(t.poster_url)}" class="etype-card-thumb" alt="" />` : `<div class="etype-card-thumb" style="display:flex; align-items:center; justify-content:center; color:var(--ink-soft);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>`}
+          <div class="etype-card-body">
+            <div class="etype-card-name">${escapeHtml(t.name)}</div>
+            <div class="etype-card-meta">${t.duration_minutes} minit · ${priceLabel}${t.capacity > 1 ? ` · kapasiti ${t.capacity}` : ""}</div>
           </div>
-          <button type="button" class="secondary" data-et-id="${t.id}" style="color:var(--warn); padding:0.3rem 0.6rem;">✕</button>
+          <button type="button" class="secondary" data-et-id="${t.id}" style="color:var(--warn); padding:0.3rem 0.6rem; flex-shrink:0;">✕</button>
         </div>
-      `).join("");
+      `;
+      }).join("");
       list.querySelectorAll("[data-et-id]").forEach(btn => {
         btn.addEventListener("click", async () => {
           await supabase.from("event_types").delete().eq("id", btn.dataset.etId);
@@ -2790,14 +2848,6 @@
       console.error("loadBookingLinksAndSettings failed:", err);
       showToast("Gagal muatkan tetapan booking. Cuba refresh page.", "error");
     });
-    });
-
-    document.getElementById("advanced-settings-toggle")?.addEventListener("click", () => {
-      const wrap = document.getElementById("advanced-settings-wrap");
-      const chevron = document.getElementById("advanced-toggle-chevron");
-      const isOpen = wrap.style.display !== "none";
-      wrap.style.display = isOpen ? "none" : "block";
-      chevron.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
     });
 
     loadBookingLinksAndSettings().catch(err => {
@@ -3743,10 +3793,11 @@
       document.getElementById("tour-next-btn").textContent = tourStepIndex === activeTourSteps.length - 1 ? "Selesai" : "Seterusnya →";
       panel.style.display = "block";
 
-      // If this step's target lives inside the collapsed Advanced section, open it first
-      const advancedWrap = document.getElementById("advanced-settings-wrap");
-      if (advancedWrap && advancedWrap.style.display === "none" && advancedWrap.querySelector(step.selector)) {
-        document.getElementById("advanced-settings-toggle")?.click();
+      // If this step's target lives inside a Tetapan Booking tab that isn't
+      // currently active, switch to that tab first so the element is visible.
+      const targetPanel = document.querySelector(step.selector)?.closest(".bset-panel");
+      if (targetPanel && !targetPanel.classList.contains("active")) {
+        switchBsetTab(targetPanel.id.replace("bset-panel-", ""));
       }
 
       if (currentGlowEl) { currentGlowEl.classList.remove("tour-glow"); currentGlowEl = null; }
@@ -3991,7 +4042,7 @@
         { page: "booking-settings", selector: "#p-slot-duration", title: "Tempoh Slot", text: "Berapa lama setiap booking mengambil masa." },
         { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai", text: "WAJIB diisi, booking customer akan gagal kalau kosong. Taip 0 kalau nak booking percuma." },
         { page: "booking-settings", selector: "#availability-grid", title: "Waktu Available", text: "Set hari dan jam anda bukak dalam grid mingguan." },
-        { page: "booking-settings", selector: "#advanced-settings-toggle", title: "Tetapan Advanced", text: "Klik untuk expand buffer time, notis cancel, jenis perkhidmatan, soalan tambahan, dan embed code." },
+        { page: "booking-settings", selector: "#bset-tabs", title: "Tab Tetapan", text: "Klik tab untuk tukar antara Asas, Jenis Perkhidmatan, Soalan Tambahan, dan Embed code." },
         { page: "booking-settings", selector: "#event-types-list", title: "Jenis Perkhidmatan", text: "Kalau anda ada servis berbeza, set tempoh, harga, dan kapasiti sendiri untuk setiap satu di sini." },
         { page: "booking-settings", selector: "#new-question-input", title: "Soalan Tambahan", text: "Tanya customer soalan khusus semasa booking. Jawapan terus nampak dalam Senarai Booking." },
         { page: "booking-settings", selector: "#save-booking-btn", title: "Simpan", text: "Jangan lupa klik ni lepas buat perubahan." },

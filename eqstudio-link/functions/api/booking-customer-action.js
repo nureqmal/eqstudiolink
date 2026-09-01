@@ -4,6 +4,8 @@
 //
 // Required env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY, RESEND_FROM_EMAIL
 
+import { sendPushToOwner } from "./_send-push-to-owner.js";
+
 async function sbAdmin(env, path, options = {}) {
   const res = await fetch(`${env.SUPABASE_URL}/rest/v1${path}`, {
     ...options,
@@ -99,6 +101,13 @@ export async function onRequestPost(context) {
         }),
       }).catch(() => {});
 
+      await sendPushToOwner(env, booking.owner_id, {
+        title: "Booking dibatalkan",
+        body: `${booking.customer_name} batalkan tempahan mereka`,
+        url: "/dashboard.html?page=booking-list",
+        tag: "booking_cancelled",
+      });
+
       return json({ success: true });
     }
 
@@ -155,6 +164,13 @@ export async function onRequestPost(context) {
           link_url: "/dashboard.html?page=booking-list",
         }),
       }).catch(() => {});
+
+      await sendPushToOwner(env, booking.owner_id, {
+        title: "Booking ditukar",
+        body: `${booking.customer_name} tukar ke ${newLabel}`,
+        url: "/dashboard.html?page=booking-list",
+        tag: "booking_rescheduled",
+      });
 
       return json({ success: true, new_slot_label: newLabel });
     }

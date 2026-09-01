@@ -5,6 +5,8 @@
 // Required env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY, RESEND_FROM_EMAIL,
 //   PUBLIC_SITE_URL, and (optional but recommended) WORKER_CRON_URL + MANUAL_TRIGGER_KEY for instant reminder.
 
+import { sendPushToOwner } from "./_send-push-to-owner.js";
+
 async function sbAdmin(env, path, options = {}) {
   const res = await fetch(`${env.SUPABASE_URL}/rest/v1${path}`, {
     ...options,
@@ -205,6 +207,13 @@ export async function onRequestPost(context) {
         link_url: "/dashboard.html?page=booking-list",
       }),
     }).catch(() => {}); // best-effort — the booking itself already succeeded regardless
+
+    await sendPushToOwner(env, link.owner_id, {
+      title: "Booking baharu diterima",
+      body: `${name.trim()} — ${dateLabel}, ${slotLabel}`,
+      url: "/dashboard.html?page=booking-list",
+      tag: "new_booking",
+    });
 
     return json({ success: true, booking_id: booking.id, date_label: dateLabel, slot_label: slotLabel });
   } catch (err) {

@@ -1,0 +1,14 @@
+{
+  "name": "eqstudio.link — Booking & Client Manager",
+  "short_name": "eqstudio.link",
+  "description": "Booking & Client Manager untuk perniagaan solo Malaysia.",
+  "start_url": "/dashboard.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4A098F",
+  "icons": [
+    { "src": "/assets/logo/logo-64.png", "sizes": "64x64", "type": "image/png" },
+    { "src": "/assets/logo/logo-128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "/assets/logo/logo-256.png", "sizes": "256x256", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

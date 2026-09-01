@@ -295,6 +295,19 @@
               message: `${replyAuthorName} balas: "${data.thread.title}"`,
               link_url: `/forum.html?thread=${id}`,
             }).then(() => {}, () => {}); // best-effort — reply itself already succeeded regardless
+
+            const { data: { session } } = await supabase.auth.getSession();
+            fetch("/api/trigger-push", {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+              body: JSON.stringify({
+                ownerId: threadOwnerId,
+                title: "Balasan baharu di forum",
+                body: `${replyAuthorName} balas: "${data.thread.title}"`,
+                url: `/forum.html?thread=${id}`,
+                tag: "forum_reply",
+              }),
+            }).catch(() => {}); // best-effort — never block the reply flow
           }
 
           renderThreadDetail(id);

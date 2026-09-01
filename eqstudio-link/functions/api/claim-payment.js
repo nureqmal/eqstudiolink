@@ -42,13 +42,13 @@ export async function onRequestPost(context) {
     const user = await getUserFromToken(env, token);
     if (!user) return json({ error: "Unauthorized" }, 401);
 
-    const { tier, amount } = await request.json();
+    const { tier, amount, wantsFoundingMember } = await request.json();
 
     const now = new Date().toISOString();
     await sbAdmin(env, `/profiles?id=eq.${user.id}`, {
       method: "PATCH",
       prefer: "return=minimal",
-      body: JSON.stringify({ payment_claimed_at: now }),
+      body: JSON.stringify({ payment_claimed_at: now, wants_founding_member: !!wantsFoundingMember }),
     });
 
     if (env.RESEND_API_KEY && env.FOUNDER_NOTIFY_EMAIL) {
@@ -62,7 +62,7 @@ export async function onRequestPost(context) {
             from: env.RESEND_FROM_EMAIL,
             to: env.FOUNDER_NOTIFY_EMAIL,
             subject: `💰 Bayaran Dituntut — ${businessName}`,
-            html: `<p><strong>${escapeHtml(businessName)}</strong> (${escapeHtml(user.email)}) tuntut dah bayar RM${escapeHtml(amount)} untuk pelan ${escapeHtml(tier)}.</p><p>Sila semak akaun GXBank, lepas confirm, pergi ke <a href="${env.PUBLIC_SITE_URL || "https://eqstudio.link"}/admin.html">Admin Panel</a> untuk upgrade akaun mereka.</p>`,
+            html: `<p><strong>${escapeHtml(businessName)}</strong> (${escapeHtml(user.email)}) tuntut dah bayar RM${escapeHtml(amount)} untuk pelan ${escapeHtml(tier)}.${wantsFoundingMember ? ' <strong>Mereka pilih Founding Member rate.</strong>' : ''}</p><p>Sila semak akaun GXBank, lepas confirm, pergi ke <a href="${env.PUBLIC_SITE_URL || "https://eqstudio.link"}/admin.html">Admin Panel</a> untuk upgrade akaun mereka.</p>`,
           }),
         });
       } catch { /* notification is best-effort — the claim itself already succeeded */ }

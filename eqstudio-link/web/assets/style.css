@@ -1789,3 +1789,28 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .poster-upload-success.show { display: flex; }
 .poster-upload-success svg { animation: poster-check-pop 0.4s cubic-bezier(.2,1.4,.4,1) both; }
 @keyframes poster-check-pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+/* ── Founding Member offer — distinct but on-brand (stronger stamp accent) ── */
+.founding-member-toggle {
+  border: 1.5px solid var(--stamp-soft); background: linear-gradient(160deg, var(--stamp-soft) 0%, var(--surface) 130%);
+}
+.founding-member-toggle:has(#wants-founding-member:checked) {
+  border-color: var(--stamp); box-shadow: 0 0 0 3px var(--stamp-soft);
+}
+#founding-slots-badge { background: var(--stamp); color: #fff; }
+.founding-hero-badge {
+  display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.04em; color: #fff; background: var(--stamp);
+  padding: 0.25rem 0.65rem; border-radius: 999px; margin-bottom: 0.8rem;
+}
+.founding-offer-section {
+  border: 2px solid var(--stamp-soft); border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, var(--stamp-soft) 0%, var(--surface) 160%);
+  padding: 2rem 1.5rem; text-align: center; max-width: 720px; margin: 2rem auto;
+}
+.founding-counter {
+  display: inline-flex; align-items: center; gap: 0.5rem; background: var(--surface);
+  border: 1px solid var(--stamp-soft); border-radius: 999px; padding: 0.5rem 1.1rem;
+  font-weight: 700; color: var(--stamp); margin: 1rem 0;
+}
+.founding-counter-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: logo-pulse 1.8s ease-in-out infinite; }

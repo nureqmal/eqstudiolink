@@ -59,6 +59,64 @@ async function sendPaymentRejectedEmail(env, ownerId) {
   } catch { /* best-effort — the flag clear already succeeded regardless */ }
 }
 
+async function sendFoundingMemberEmail(env, ownerId) {
+  if (!env.RESEND_API_KEY) return;
+  try {
+    const userRes = await fetch(`${env.SUPABASE_URL}/auth/v1/admin/users/${ownerId}`, {
+      headers: { apikey: env.SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}` },
+    });
+    const userData = await userRes.json();
+    if (!userData.email) return;
+    const profRes = await sbAdmin(env, `/profiles?id=eq.${ownerId}&select=business_name`);
+    const bizName = profRes[0]?.business_name || "";
+    const site = env.PUBLIC_SITE_URL || "https://eqstudio.link";
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: env.RESEND_FROM_EMAIL,
+        to: userData.email,
+        subject: "🎉 Anda Founding Member eqstudio.link",
+        html: `<p>Salam${bizName ? " " + escapeHtml(bizName) : ""},</p><p>Tahniah, anda adalah salah seorang daripada 50 Founding Member pertama eqstudio.link. Kadar RM15 sebulan (atau RM150 setahun) anda kini <strong>dikunci selama-lamanya</strong>, walaupun harga standard kami berubah kemudian.</p><p>Terima kasih kerana mempercayai kami dari peringkat awal.</p><p><a href="${site}/dashboard.html">Pergi ke Dashboard →</a></p>`,
+      }),
+    });
+  } catch { /* best-effort — the actual grant already succeeded regardless */ }
+}
+
+// Called from any admin action that transitions an owner to active for the
+// first time. Only actually grants Founding Member status if they stated
+// that intent at claim time (wants_founding_member) AND a slot is still
+// available — checked atomically via the RPC function (migration_fasa46),
+// which fully serializes concurrent grant attempts so the 50-slot cap can
+// never be exceeded regardless of how many verifications happen at once.
+async function tryGrantFoundingMember(env, ownerId, wasFirstActivation) {
+  if (!wasFirstActivation) return;
+  try {
+    const profRes = await sbAdmin(env, `/profiles?id=eq.${ownerId}&select=wants_founding_member,is_founding_member`, { prefer: "return=representation" });
+    const prof = profRes[0];
+    if (!prof || !prof.wants_founding_member || prof.is_founding_member) return;
+
+    const res = await fetch(`${env.SUPABASE_URL}/rest/v1/rpc/grant_founding_member_slot`, {
+      method: "POST",
+      headers: {
+        apikey: env.SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ p_owner_id: ownerId }),
+    });
+    const granted = await res.json();
+    if (granted === true) {
+      await logAuditAction(env, "founding_member_granted", ownerId, "Slot Founding Member diberikan (RM15/RM150 dikunci)");
+      await sendFoundingMemberEmail(env, ownerId);
+    }
+  } catch (err) {
+    // Never let a founding-member-grant failure block the actual payment
+    // verification itself — that already succeeded by the time this runs.
+    console.error("tryGrantFoundingMember failed:", err.message);
+  }
+}
+
 async function sbAdmin(env, path, options = {}) {
   const res = await fetch(`${env.SUPABASE_URL}/rest/v1${path}`, {
     ...options,
@@ -133,8 +191,9 @@ export async function onRequestPost(context) {
 
     if (action === "extend_subscription") {
       const extendDays = parseInt(days, 10) || 30;
-      const profRes = await sbAdmin(env, `/profiles?id=eq.${owner_id}&select=subscription_end_date,payment_claimed_at`, { prefer: "return=representation" });
+      const profRes = await sbAdmin(env, `/profiles?id=eq.${owner_id}&select=subscription_end_date,payment_claimed_at,subscription_status`, { prefer: "return=representation" });
       const wasClaimPending = !!profRes[0]?.payment_claimed_at;
+      const wasFirstActivation = profRes[0]?.subscription_status !== "active";
       const current = profRes[0]?.subscription_end_date ? new Date(profRes[0].subscription_end_date) : new Date();
       const base = current > new Date() ? current : new Date();
       const newEnd = new Date(base.getTime() + extendDays * 24 * 60 * 60 * 1000);
@@ -142,6 +201,7 @@ export async function onRequestPost(context) {
         method: "PATCH",
         body: JSON.stringify({ subscription_status: "active", subscription_end_date: newEnd.toISOString(), payment_claimed_at: null }),
       });
+      await tryGrantFoundingMember(env, owner_id, wasFirstActivation);
       if (wasClaimPending) await sendPaymentConfirmedEmail(env, owner_id, newEnd.toISOString());
       await logAuditAction(env, "extend_subscription", owner_id, `+${extendDays} hari, tamat baharu ${newEnd.toISOString().slice(0, 10)}`);
       return json({ success: true, new_end_date: newEnd.toISOString() });
@@ -151,14 +211,17 @@ export async function onRequestPost(context) {
       if (!VALID_STATUSES.includes(status)) return json({ error: `status mesti salah satu: ${VALID_STATUSES.join(", ")}` }, 400);
       const payload = { subscription_status: status };
       let wasClaimPending = false;
+      let wasFirstActivation = false;
       let currentEndDate = null;
       if (status === "active") {
-        const profRes = await sbAdmin(env, `/profiles?id=eq.${owner_id}&select=payment_claimed_at,subscription_end_date`, { prefer: "return=representation" });
+        const profRes = await sbAdmin(env, `/profiles?id=eq.${owner_id}&select=payment_claimed_at,subscription_end_date,subscription_status`, { prefer: "return=representation" });
         wasClaimPending = !!profRes[0]?.payment_claimed_at;
+        wasFirstActivation = profRes[0]?.subscription_status !== "active";
         currentEndDate = profRes[0]?.subscription_end_date;
         payload.payment_claimed_at = null;
       }
       await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify(payload) });
+      if (status === "active") await tryGrantFoundingMember(env, owner_id, wasFirstActivation);
       if (wasClaimPending) await sendPaymentConfirmedEmail(env, owner_id, currentEndDate);
       await logAuditAction(env, "set_subscription_status", owner_id, `status ditukar ke ${status}`);
       return json({ success: true, subscription_status: status });
@@ -241,6 +304,8 @@ export async function onRequestPost(context) {
       }
 
       await sbAdmin(env, `/profiles?id=eq.${owner_id}`, { method: "PATCH", body: JSON.stringify(payload) });
+      const wasFirstActivation = currentStatus !== "active";
+      await tryGrantFoundingMember(env, owner_id, wasFirstActivation);
       if (wasClaimPending) await sendPaymentConfirmedEmail(env, owner_id, payload.subscription_end_date || currentEnd?.toISOString());
       await logAuditAction(env, "change_tier", owner_id, `tier ditukar ke ${tier}`);
       return json({ success: true, tier, subscription_status: payload.subscription_status || currentStatus });

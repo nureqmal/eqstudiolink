@@ -10,7 +10,7 @@
 <title>Pembayaran — eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=10" />
+<link rel="stylesheet" href="/assets/style.css?v=11" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -63,6 +63,19 @@
             <div class="plan-option-title">Pro</div>
             <p class="hint" style="margin:0.2rem 0 0;">Sehingga 3 link booking — untuk bisnes/venture berasingan</p>
           </div>
+        </label>
+      </div>
+
+      <div class="card founding-member-toggle" id="founding-member-toggle" style="display:none; margin-top:1rem;">
+        <label style="display:flex; align-items:flex-start; gap:0.6rem; cursor:pointer;">
+          <input type="checkbox" id="wants-founding-member" style="width:auto; margin-top:0.2rem;" />
+          <span>
+            <span style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+              <strong>Jadi Founding Member</strong>
+              <span class="plan-badge" id="founding-slots-badge">Menyemak baki slot...</span>
+            </span>
+            <p class="hint" style="margin:0.3rem 0 0;">RM15/bulan atau RM150/tahun, dikunci selama-lamanya untuk 50 perniagaan pertama yang membayar. Harga anda tidak akan naik walaupun harga standard berubah kemudian.</p>
+          </span>
         </label>
       </div>
 
@@ -154,7 +167,7 @@
     // manual bank-transfer billing (no proration complexity to worry about).
     const { data: profile } = await supabase
       .from("profiles")
-      .select("subscription_status, subscription_end_date, tier, subscription_plan")
+      .select("subscription_status, subscription_end_date, tier, subscription_plan, is_founding_member, founding_member_locked_price_monthly, founding_member_locked_price_yearly")
       .eq("id", session.user.id)
       .single();
 
@@ -165,11 +178,26 @@
       document.getElementById("status-sub").textContent = `Akses anda masih aktif (pelan ${profile.tier === "pro" ? "Pro" : "Starter"}). Nak bayar awal atau upgrade pelan? Boleh terus di bawah.`;
     }
 
+    // Existing Founding Members always see their own locked price, regardless
+    // of whatever the current standard price is — this is what actually makes
+    // "locked forever" true, not just at the moment they were granted the flag.
+    const isExistingFoundingMember = !!profile?.is_founding_member;
+    if (isExistingFoundingMember) {
+      document.getElementById("tier-starter").checked = true;
+      document.getElementById("tier-pro").disabled = true;
+      document.querySelector('label[for="tier-pro"]').style.opacity = "0.5";
+      const banner = document.createElement("p");
+      banner.className = "hint";
+      banner.style.cssText = "text-align:center; margin-top:0.6rem; color:var(--stamp); font-weight:600;";
+      banner.textContent = "🎉 Anda Founding Member — harga anda dikunci selama-lamanya, tak kira apa harga standard semasa.";
+      document.getElementById("plan-selector-card").prepend(banner);
+    }
+
     // Pre-select the plan/tier they last chose, if known, and update button label live
     if (profile?.subscription_plan === "yearly") {
       document.getElementById("plan-yearly").checked = true;
     }
-    if (profile?.tier === "pro") {
+    if (profile?.tier === "pro" && !isExistingFoundingMember) {
       document.getElementById("tier-pro").checked = true;
     }
 
@@ -177,6 +205,45 @@
       starter: { monthly: 19, yearly: 190, save: 38 },
       pro: { monthly: 39, yearly: 390, save: 78 },
     };
+    const FOUNDING_PRICING = { monthly: 15, yearly: 150, save: 30 };
+
+    let foundingSlotsAvailable = false;
+    async function loadFoundingMemberStatus() {
+      try {
+        const res = await fetch("/api/founding-member-count");
+        const data = await res.json();
+        foundingSlotsAvailable = !!data.available;
+        document.getElementById("founding-slots-badge").textContent = foundingSlotsAvailable
+          ? `${data.remaining}/${data.cap} slot berbaki`
+          : "Slot habis";
+      } catch {
+        foundingSlotsAvailable = false;
+      }
+      updateFoundingToggleVisibility();
+    }
+    function updateFoundingToggleVisibility() {
+      const tier = document.querySelector('input[name="tier"]:checked').value;
+      const toggle = document.getElementById("founding-member-toggle");
+      const show = !isExistingFoundingMember && tier === "starter" && foundingSlotsAvailable;
+      toggle.style.display = show ? "block" : "none";
+      if (!show) document.getElementById("wants-founding-member").checked = false;
+      updatePrices();
+    }
+    function isFoundingSelected() {
+      if (isExistingFoundingMember) return true;
+      return document.querySelector('input[name="tier"]:checked').value === "starter"
+        && document.getElementById("wants-founding-member").checked;
+    }
+    function getFoundingPricing() {
+      if (isExistingFoundingMember) {
+        return {
+          monthly: profile.founding_member_locked_price_monthly ?? FOUNDING_PRICING.monthly,
+          yearly: profile.founding_member_locked_price_yearly ?? FOUNDING_PRICING.yearly,
+          save: FOUNDING_PRICING.save,
+        };
+      }
+      return FOUNDING_PRICING;
+    }
 
     const TIER_FEATURES = {
       starter: [
@@ -215,7 +282,7 @@
 
     function updatePrices() {
       const tier = document.querySelector('input[name="tier"]:checked').value;
-      const p = TIER_PRICING[tier];
+      const p = isFoundingSelected() ? getFoundingPricing() : TIER_PRICING[tier];
       document.getElementById("price-monthly").innerHTML = `RM${p.monthly}<span>/bulan</span>`;
       document.getElementById("price-yearly").innerHTML = `RM${p.yearly}<span>/tahun</span>`;
       document.getElementById("price-save-badge").textContent = `Jimat RM${p.save}`;
@@ -223,16 +290,18 @@
       updatePayBtnLabel();
       updateValueChecklist();
     }
-    document.querySelectorAll('input[name="tier"]').forEach(el => el.addEventListener("change", updatePrices));
+    document.querySelectorAll('input[name="tier"]').forEach(el => el.addEventListener("change", updateFoundingToggleVisibility));
+    document.getElementById("wants-founding-member")?.addEventListener("change", updatePrices);
 
     function updatePayBtnLabel() {
       const plan = document.querySelector('input[name="plan"]:checked').value;
       const tier = document.querySelector('input[name="tier"]:checked').value;
-      const price = TIER_PRICING[tier][plan];
+      const price = (isFoundingSelected() ? getFoundingPricing() : TIER_PRICING[tier])[plan];
       document.getElementById("pay-btn").textContent = `Jana Bil & Bayar (RM${price}${plan === "yearly" ? "/tahun" : "/bulan"})`;
     }
     document.querySelectorAll('input[name="plan"]').forEach(el => el.addEventListener("change", updatePayBtnLabel));
     updatePrices();
+    loadFoundingMemberStatus();
 
     // Show "pending verification" state if they already claimed a payment
     const { data: claimProfile } = await supabase.from("profiles").select("payment_claimed_at").eq("id", session.user.id).single();
@@ -251,7 +320,7 @@
     document.getElementById("pay-btn").addEventListener("click", () => {
       const plan = document.querySelector('input[name="plan"]:checked').value;
       const tier = document.querySelector('input[name="tier"]:checked').value;
-      const price = TIER_PRICING[tier][plan];
+      const price = (isFoundingSelected() ? getFoundingPricing() : TIER_PRICING[tier])[plan];
       document.getElementById("transfer-amount").textContent = `RM${price.toFixed(2)}`;
       document.getElementById("transfer-ref").textContent = refCode();
       document.getElementById("plan-selector-card").style.display = "none";
@@ -281,14 +350,15 @@
       const btn = document.getElementById("claim-paid-btn");
       const plan = document.querySelector('input[name="plan"]:checked').value;
       const tier = document.querySelector('input[name="tier"]:checked').value;
-      const price = TIER_PRICING[tier][plan];
+      const wantsFounding = isFoundingSelected();
+      const price = (wantsFounding ? FOUNDING_PRICING : TIER_PRICING[tier])[plan];
       btn.disabled = true;
       btn.textContent = "Menghantar...";
       try {
         const res = await fetch("/api/claim-payment", {
           method: "POST",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
-          body: JSON.stringify({ tier, amount: price }),
+          body: JSON.stringify({ tier, amount: price, wantsFoundingMember: wantsFounding }),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Gagal hantar tuntutan.");

@@ -7,10 +7,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png" />
-<title>Dashboard — eqstudio.link</title>
+<title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=7" />
+<link rel="stylesheet" href="/assets/style.css?v=10" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -35,7 +35,7 @@
         <span id="notif-unread-badge" class="notif-unread-badge" style="display:none;"></span>
       </button>
       <div class="db-sidebar-footer">
-        <div class="db-biz-name" id="business-name-side">—</div>
+        <div class="db-biz-name" id="business-name-side">-</div>
         <a href="/billing.html" id="tier-badge" class="tier-badge" style="display:none;"></a>
         <button class="secondary" id="restart-tour-btn" style="width:100%; margin-bottom:0.5rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan Guna Sistem</button>
         <button class="secondary theme-toggle-btn" id="theme-toggle-btn" style="width:100%; margin-bottom:0.5rem;">
@@ -79,7 +79,7 @@
           <div class="home-hero" style="display:flex; justify-content:space-between; align-items:flex-end; gap:0.6rem; flex-wrap:wrap;">
             <div>
               <p class="hint" id="home-greeting">Selamat kembali</p>
-              <h1 class="home-biz-name" id="home-biz-name">—</h1>
+              <h1 class="home-biz-name" id="home-biz-name">-</h1>
             </div>
             <button type="button" id="quick-add-open-btn" style="width:auto; white-space:nowrap;">+ Tambah Pelanggan Pantas</button>
           </div>
@@ -88,27 +88,27 @@
             <div class="home-stat-box" data-accent="coral">
               <div class="home-stat-icon-chip" data-accent="coral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
               <div class="home-stat-value" id="hs-upcoming">0</div>
-              <div class="home-stat-label" data-i18n="dash_stat_upcoming">Booking Akan Datang</div>
+              <div class="home-stat-label">Booking Akan Datang</div>
             </div>
             <div class="home-stat-box" data-accent="sun">
               <div class="home-stat-icon-chip" data-accent="sun"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg></div>
               <div class="home-stat-value" id="hs-outstanding">RM0</div>
-              <div class="home-stat-label" data-i18n="dash_stat_outstanding">Belum Diterima</div>
+              <div class="home-stat-label">Belum Diterima</div>
             </div>
             <div class="home-stat-box home-stat-box-hero" data-accent="sage">
               <div class="home-stat-icon-chip" data-accent="sage"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
               <div class="home-stat-value" id="hs-income-month">RM0</div>
-              <div class="home-stat-label" data-i18n="dash_stat_income_month">Income Bulan Ini</div>
+              <div class="home-stat-label">Income Bulan Ini</div>
             </div>
             <div class="home-stat-box" data-accent="lilac">
               <div class="home-stat-icon-chip" data-accent="lilac"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
               <div class="home-stat-value" id="hs-customers">0</div>
-              <div class="home-stat-label" data-i18n="dash_stat_customers">Jumlah Pelanggan</div>
+              <div class="home-stat-label">Jumlah Pelanggan</div>
             </div>
             <div class="home-stat-box" data-accent="coral">
               <div class="home-stat-icon-chip" data-accent="coral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
               <div class="home-stat-value" id="hs-completed-month">0</div>
-              <div class="home-stat-label" data-i18n="dash_stat_completed">Selesai Bulan Ini</div>
+              <div class="home-stat-label">Selesai Bulan Ini</div>
             </div>
           </div>
 
@@ -164,8 +164,8 @@
               <div class="bento-tile-top">
                 <div class="bento-tile-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
                 <div>
-                  <div class="bento-tile-label" data-i18n="dash_nav_booking_list">Senarai Booking</div>
-                  <div class="bento-tile-stat" id="home-stat-booking">—</div>
+                  <div class="bento-tile-label">Senarai Booking</div>
+                  <div class="bento-tile-stat" id="home-stat-booking">-</div>
                   <div class="hint" id="home-streak" style="font-size:0.72rem; margin-top:0.2rem;"></div>
                 </div>
               </div>
@@ -176,46 +176,46 @@
 
             <button type="button" class="bento-tile" data-page="pelanggan-list" data-cat="sage">
               <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-              <div class="bento-tile-label" data-i18n="dash_nav_customer_list">Senarai Pelanggan</div>
-              <div class="bento-tile-stat" id="home-stat-pelanggan">—</div>
+              <div class="bento-tile-label">Senarai Pelanggan</div>
+              <div class="bento-tile-stat" id="home-stat-pelanggan">-</div>
             </button>
 
             <button type="button" class="bento-tile" data-page="laporan" data-cat="sun">
               <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
-              <div class="bento-tile-label" data-i18n="dash_nav_reports">Laporan</div>
+              <div class="bento-tile-label">Laporan</div>
               <div class="bento-sparkline" id="home-sparkline"></div>
-              <div class="bento-tile-stat" id="home-stat-laporan">—</div>
+              <div class="bento-tile-stat" id="home-stat-laporan">-</div>
             </button>
 
             <button type="button" class="bento-tile" data-page="pelanggan-add" data-cat="sage">
               <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></div>
-              <div class="bento-tile-label" data-i18n="dash_nav_add_customer">Tambah Pelanggan</div>
+              <div class="bento-tile-label">Tambah Pelanggan</div>
               <div class="bento-tile-stat">Manual / CSV</div>
             </button>
 
             <button type="button" class="bento-tile" data-page="kalendar" data-cat="sun">
               <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
-              <div class="bento-tile-label" data-i18n="dash_nav_calendar">Kalendar</div>
-              <div class="bento-tile-stat" id="home-stat-kalendar">—</div>
+              <div class="bento-tile-label">Kalendar</div>
+              <div class="bento-tile-stat" id="home-stat-kalendar">-</div>
             </button>
 
             <button type="button" class="bento-tile bento-small" data-page="booking-settings" data-cat="coral">
               <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg></div>
-              <div class="bento-tile-label" data-i18n="dash_nav_booking_settings">Tetapan Booking</div>
+              <div class="bento-tile-label">Tetapan Booking</div>
             </button>
 
             <button type="button" class="bento-tile bento-small" data-page="tetapan-profil" data-cat="lilac">
               <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg></div>
-              <div class="bento-tile-label" data-i18n="dash_nav_profile">Profil Perniagaan</div>
+              <div class="bento-tile-label">Profil Perniagaan</div>
             </button>
 
             <button type="button" class="bento-tile bento-small" data-page="tetapan-reminder" data-cat="lilac">
               <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></div>
-              <div class="bento-tile-label" data-i18n="dash_nav_reminders">Jadual Reminder</div>
+              <div class="bento-tile-label">Jadual Reminder</div>
             </button>
             <a href="/forum.html" target="_blank" class="bento-tile bento-small" data-cat="coral">
               <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></div>
-              <div class="bento-tile-label" data-i18n="dash_nav_forum">Forum & Bantuan</div>
+              <div class="bento-tile-label">Forum & Bantuan</div>
               <div class="bento-tile-stat">Diskusi & pengumuman</div>
             </a>
           </div>
@@ -223,13 +223,13 @@
 
         <div class="db-page" id="page-booking-list">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="booking-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="booking-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
 
           <div class="card">
             <div class="section-title">
-              <h2 style="margin:0;" data-i18n="dash_page_booking_list_title">Booking List</h2>
+              <h2 style="margin:0;">Booking List</h2>
               <span class="hint" id="booking-list-count"></span>
             </div>
             <div class="db-search-row" style="gap:0.5rem; flex-wrap:wrap;">
@@ -261,17 +261,17 @@
 
         <div class="db-page" id="page-booking-settings">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="booking-settings" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="booking-settings" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
 
           <div class="card" id="link-switcher-card" style="margin-bottom:1rem;">
-            <label style="margin-bottom:0.5rem; display:block;" data-i18n="dash_link_label">Booking Link</label>
+            <label style="margin-bottom:0.5rem; display:block;">Booking Link</label>
             <div id="link-switcher-chips" class="chip-row"></div>
             <div id="add-link-row" style="display:none; margin-top:0.8rem;">
               <div class="row">
-                <input type="text" id="new-link-slug" placeholder="slug (cth: kelas-piano)" style="flex:1;" />
-                <input type="text" id="new-link-label" placeholder="Label (cth: Kelas Piano)" style="flex:1;" />
+                <input type="text" id="new-link-slug" style="flex:1;" /><button type="button" class="info-icon-btn" data-info="Contoh: kelas-piano">i</button>
+                <input type="text" id="new-link-label" style="flex:1;" /><button type="button" class="info-icon-btn" data-info="Contoh: Kelas Piano">i</button>
                 <button type="button" id="confirm-new-link-btn" class="secondary">Tambah</button>
               </div>
             </div>
@@ -294,13 +294,13 @@
             </div>
 
             <div class="card">
-              <div class="section-title"><h2 style="margin:0;" data-i18n="dash_booking_settings_title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg> Booking Settings</h2></div>
-              <p class="hint" data-i18n="dash_booking_settings_desc">Customers book their own slot from your personal link, no WhatsApp or calls needed to confirm a date. Once a booking is confirmed, deposit and reminder run automatically.</p>
+              <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg> Booking Settings</h2></div>
+              <p class="hint">Customers book their own slot from your personal link, no WhatsApp or calls needed to confirm a date. Once a booking is confirmed, deposit and reminder run automatically.</p>
 
-              <label for="p-booking-slug">Slug</label>
+              <label for="p-booking-slug">Slug<button type="button" class="info-icon-btn" data-info="Contoh: kak-aina-bakery">i</button></label>
               <div class="booking-slug-row">
                 <span class="booking-slug-prefix">eqstudio.link/book.html?slug=</span>
-                <input type="text" id="p-booking-slug" placeholder="kak-aina-bakery" />
+                <input type="text" id="p-booking-slug" />
               </div>
               <p class="hint" id="booking-slug-status" style="margin-top:0.3rem;"></p>
 
@@ -313,7 +313,7 @@
                   <a id="booking-qr-download" download="qr-booking.png" class="secondary" style="flex:1; text-align:center; text-decoration:none; display:inline-block;">⬇ Muat Turun</a>
                   <button type="button" class="secondary" id="booking-qr-print" style="flex:1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Cetak</button>
                 </div>
-                <p class="hint" style="margin-top:0.4rem;">Print & letak sebelah QR DuitNow di kaunter — customer scan untuk terus book slot.</p>
+                <p class="hint" style="margin-top:0.4rem;">Cetak dan letakkan bersebelahan QR DuitNow di kaunter. Pelanggan boleh mengimbas untuk terus menempah slot.</p>
               </div>
 
               <label for="p-slot-duration" style="margin-top:1rem; display:block;">Tempoh Setiap Slot</label>
@@ -324,19 +324,34 @@
                 <option value="120">2 jam</option>
               </select>
 
-              <label for="p-default-deposit">Deposit Lalai (RM)</label>
-              <input type="number" id="p-default-deposit" step="0.01" min="0" placeholder="cth: 50 (atau 0 untuk percuma)" />
-              <p class="hint" style="margin-top:0.3rem;">Auto-apply setiap booking baru — boleh edit lepas tu ikut customer.</p>
+              <label for="p-default-deposit">Deposit Lalai (RM)<button type="button" class="info-icon-btn" data-info="Contoh: 50 (atau 0 untuk percuma)">i</button></label>
+              <input type="number" id="p-default-deposit" step="0.01" min="0" />
+              <p class="hint" style="margin-top:0.3rem;">Diguna pakai secara automatik untuk setiap tempahan baharu. Boleh disunting kemudian mengikut pelanggan.</p>
               <div id="bset-deposit-tip"></div>
 
-              <label for="p-link-description" style="margin-top:1rem; display:block;">Description Servis (opsyenal — customer nampak bila klik "Lihat Lagi")</label>
-              <textarea id="p-link-description" rows="2" placeholder="cth: Kami sediakan kek custom untuk majlis, siap dalam 3-5 hari bekerja."></textarea>
-              <div id="p-link-poster-wrap" style="display:none; margin-top:0.6rem;">
-                <label for="p-link-poster-file">Poster / Gambar Servis (opsyenal, maks 2MB)</label>
-                <input type="file" id="p-link-poster-file" accept="image/*" />
-                <img id="p-link-poster-preview" style="max-width:120px; border-radius:8px; margin-top:0.5rem; display:none;" alt="" />
+              <div class="optional-section">
+                <span class="optional-section-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg> Pilihan</span>
+
+                <label for="p-link-description-rte" style="display:block;">Deskripsi Perkhidmatan<button type="button" class="info-icon-btn" data-info="Pelanggan akan melihatnya apabila klik Lihat Lagi. Contoh: Kami sediakan kek custom untuk majlis, siap dalam 3 hingga 5 hari bekerja.">i</button></label>
+                <div class="rte-toolbar">
+                  <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal"><b>B</b></button>
+                  <button type="button" class="rte-btn" data-rte-cmd="italic" title="Condong"><i>I</i></button>
+                  <button type="button" class="rte-btn" data-rte-cmd="underline" title="Garis Bawah"><u>U</u></button>
+                </div>
+                <div id="p-link-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis deskripsi perkhidmatan anda di sini..."></div>
+
+                <div id="p-link-poster-wrap" style="display:none; margin-top:0.8rem;">
+                  <label for="p-link-poster-file" style="display:block;">Poster / Gambar Perkhidmatan (maksimum 2MB)</label>
+                  <div class="poster-upload-zone" id="p-link-poster-zone">
+                    <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                    <p class="hint" style="margin:0;">Klik atau seret gambar ke sini</p>
+                    <input type="file" id="p-link-poster-file" accept="image/*" />
+                  </div>
+                  <img id="p-link-poster-preview" style="max-width:120px; border-radius:8px; margin-top:0.5rem; display:none;" alt="" />
+                  <div class="poster-upload-success" id="p-link-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
+                </div>
+                <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.6rem;">📌 Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk membuka ciri ini.</p>
               </div>
-              <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.6rem;">📌 Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk buka feature ni.</p>
 
               <div class="row" style="margin-top:1rem;">
                 <div>
@@ -374,7 +389,7 @@
           <div class="bset-panel" id="bset-panel-waktu">
             <div class="card">
               <div class="section-title"><h2 style="margin:0;">📅 Waktu Available</h2></div>
-              <p class="hint">Klik tarikh untuk tetapkan waktu anda available pada hari tu. Customer cuma nampak slot dari tarikh yang anda dah set — takde tarikh, takde slot.</p>
+              <p class="hint">Klik tarikh untuk menetapkan waktu anda tersedia pada hari tersebut. Pelanggan hanya dapat melihat slot daripada tarikh yang telah anda tetapkan. Sekiranya tiada tarikh ditetapkan, tiada slot akan dipaparkan.</p>
 
               <div class="avail-cal-header">
                 <button type="button" class="avail-cal-nav-btn" id="avail-cal-prev">‹</button>
@@ -391,20 +406,20 @@
               </div>
 
               <button type="button" class="secondary" id="avail-copy-week-btn" style="width:100%; margin-top:0.8rem;">📋 Salin Minggu Ni ke 4 Minggu Depan</button>
-              <p class="hint" style="margin-top:0.4rem; text-align:center;">Berguna kalau jadual anda konsisten setiap minggu — kalau tak konsisten (macam salon), set tiap minggu je ikut apa yang betul-betul available.</p>
+              <p class="hint" style="margin-top:0.4rem; text-align:center;">Berguna sekiranya jadual anda konsisten setiap minggu. Sekiranya tidak konsisten seperti salon, tetapkan setiap minggu mengikut waktu yang benar-benar tersedia.</p>
             </div>
           </div>
 
           <div class="bset-panel" id="bset-panel-jenis">
             <div class="card">
               <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Jenis Perkhidmatan (Event Types)</h2></div>
-              <p class="hint">Setiap servis ada tempoh, harga & kapasiti sendiri. Owner baharu automatik dapat satu dari setup awal — tambah jenis kedua kalau anda ada servis berbeza (contoh Hair & Facial untuk salon).</p>
+              <p class="hint">Setiap perkhidmatan mempunyai tempoh, harga, dan kapasiti tersendiri. Pemilik baharu akan menerima satu secara automatik daripada persediaan awal. Tambah jenis kedua sekiranya anda mempunyai perkhidmatan berbeza, contohnya Hair dan Facial untuk salon.</p>
               <div id="event-types-list" style="margin-top:0.8rem;"></div>
               <div class="card" style="background:var(--paper); margin-top:0.8rem;">
                 <div class="row">
                   <div>
-                    <label for="et-name">Nama</label>
-                    <input type="text" id="et-name" placeholder="cth: Kelas Baking" />
+                    <label for="et-name">Nama<button type="button" class="info-icon-btn" data-info="Contoh: Kelas Baking">i</button></label>
+                    <input type="text" id="et-name" />
                   </div>
                   <div>
                     <label for="et-duration">Tempoh (minit)</label>
@@ -413,8 +428,8 @@
                 </div>
                 <div class="row" style="margin-top:0.6rem;">
                   <div>
-                    <label for="et-deposit">Deposit (RM) — 0 untuk percuma</label>
-                    <input type="number" id="et-deposit" step="0.01" min="0" placeholder="cth: 100" />
+                    <label for="et-deposit">Deposit (RM), taip 0 untuk percuma<button type="button" class="info-icon-btn" data-info="Contoh: 100">i</button></label>
+                    <input type="number" id="et-deposit" step="0.01" min="0" />
                   </div>
                   <div>
                     <label for="et-capacity">Kapasiti (1 = individu)</label>
@@ -423,14 +438,28 @@
                 </div>
                 <button type="button" id="add-event-type-btn" class="secondary" style="margin-top:0.8rem; width:100%;">+ Tambah Jenis Perkhidmatan</button>
                 <button type="button" id="et-cancel-edit-btn" class="secondary" style="margin-top:0.4rem; width:100%; display:none;">Batal Edit</button>
-                <label for="et-description" style="margin-top:0.8rem;">Description (opsyenal — customer nampak bila klik "Lihat Lagi")</label>
-                <textarea id="et-description" rows="2" placeholder="cth: Kek 3-tier custom design, termasuk konsultasi rasa & topping."></textarea>
-                <div id="et-poster-wrap" style="display:none; margin-top:0.6rem;">
-                  <label for="et-poster-file">Poster / Gambar Servis (opsyenal, maks 2MB)</label>
-                  <input type="file" id="et-poster-file" accept="image/*" />
-                  <p class="hint" id="et-poster-status" style="margin-top:0.3rem;"></p>
+                <div class="optional-section">
+                  <span class="optional-section-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg> Pilihan</span>
+
+                  <label for="et-description-rte" style="display:block;">Deskripsi<button type="button" class="info-icon-btn" data-info="Pelanggan akan melihatnya apabila klik Lihat Lagi. Contoh: Kek 3 tapak custom design, termasuk konsultasi rasa dan topping.">i</button></label>
+                  <div class="rte-toolbar">
+                    <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal"><b>B</b></button>
+                    <button type="button" class="rte-btn" data-rte-cmd="italic" title="Condong"><i>I</i></button>
+                    <button type="button" class="rte-btn" data-rte-cmd="underline" title="Garis Bawah"><u>U</u></button>
+                  </div>
+                  <div id="et-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis deskripsi perkhidmatan ini di sini..."></div>
+
+                  <div id="et-poster-wrap" style="display:none; margin-top:0.8rem;">
+                    <label for="et-poster-file" style="display:block;">Poster / Gambar Perkhidmatan (maksimum 2MB)</label>
+                    <div class="poster-upload-zone" id="et-poster-zone">
+                      <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                      <p class="hint" style="margin:0;">Klik atau seret gambar ke sini</p>
+                      <input type="file" id="et-poster-file" accept="image/*" />
+                    </div>
+                    <div class="poster-upload-success" id="et-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
+                  </div>
+                  <p class="hint" id="et-poster-locked" style="display:none; margin-top:0.6rem;">📌 Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk membuka ciri ini.</p>
                 </div>
-                <p class="hint" id="et-poster-locked" style="display:none; margin-top:0.6rem;">📌 Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk buka feature ni.</p>
               </div>
             </div>
           </div>
@@ -441,7 +470,7 @@
               <p class="hint">Tanya customer soalan khusus semasa booking (contoh: "Apa jenis kek?", "Saiz?"). Muncul selepas mereka pilih slot.</p>
               <div id="booking-questions-list" style="margin-top:0.8rem;"></div>
               <div class="row" style="margin-top:0.8rem;">
-                <input type="text" id="new-question-input" placeholder="cth: Apa jenis perkhidmatan yang anda perlukan?" style="flex:1;" />
+                <input type="text" id="new-question-input" style="flex:1;" /><button type="button" class="info-icon-btn" data-info="Contoh: Apa jenis perkhidmatan yang anda perlukan?">i</button>
                 <button type="button" id="add-question-btn" class="secondary">+ Tambah</button>
               </div>
             </div>
@@ -450,7 +479,7 @@
           <div class="bset-panel" id="bset-panel-embed">
             <div class="card">
               <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> Embed Dalam Website Anda</h2></div>
-              <p class="hint">Copy code ni, tampal terus dalam HTML website anda sendiri — booking widget akan muncul terus di situ.</p>
+              <p class="hint">Salin kod ini dan tampalkan terus dalam HTML laman web anda sendiri. Widget tempahan akan dipaparkan terus di situ.</p>
               <textarea id="embed-code" rows="3" readonly style="font-family:var(--font-mono); font-size:0.8rem;" onclick="this.select()"></textarea>
               <button type="button" class="secondary" id="copy-embed-btn" style="margin-top:0.6rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy Code</button>
             </div>
@@ -459,13 +488,13 @@
 
         <div class="db-page" id="page-pelanggan-add">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="pelanggan-add" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="pelanggan-add" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
 
           <div class="card" style="margin-bottom:1.5rem;">
-            <h2 style="margin:0 0 0.3rem; font-size:1.15rem;" data-i18n="dash_page_pelanggan_add_title">+ Add Customer</h2>
-            <p class="hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Reminder disemak & dihantar automatik <strong>sekali sehari (~9 pagi waktu Malaysia)</strong> — bukan serta-merta lepas anda tambah pelanggan.</p>
+            <h2 style="margin:0 0 0.3rem; font-size:1.15rem;">+ Add Customer</h2>
+            <p class="hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Peringatan disemak dan dihantar secara automatik <strong>sekali sehari (kira-kira 9 pagi waktu Malaysia)</strong>, bukan serta-merta selepas anda menambah pelanggan.</p>
             <div id="add-customer-wrap" style="display:block; margin-top:1rem;">
               <div class="add-cust-grid">
                 <form id="customer-form">
@@ -475,8 +504,8 @@
                       <input type="text" id="c-name" required />
                     </div>
                     <div>
-                      <label for="c-email">Emel Customer</label>
-                      <input type="email" id="c-email" required placeholder="untuk hantar reminder" />
+                      <label for="c-email">Emel Pelanggan<button type="button" class="info-icon-btn" data-info="Diperlukan untuk menghantar peringatan bayaran">i</button></label>
+                      <input type="email" id="c-email" required />
                     </div>
                   </div>
                   <div class="row">
@@ -495,11 +524,11 @@
                       </div>
                     </div>
                   </div>
-                  <label for="c-phone">Nombor Telefon (optional — untuk reminder WhatsApp)</label>
-                  <input type="text" id="c-phone" placeholder="cth: 012-345 6789" />
-                  <label for="c-notes">Catatan (optional)</label>
+                  <label for="c-phone">Nombor Telefon (pilihan, untuk peringatan WhatsApp)<button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789">i</button></label>
+                  <input type="text" id="c-phone" />
+                  <label for="c-notes">Catatan (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: deposit kek hari lahir, 2kg">i</button></label>
                   <div class="note-tpl-row" id="c-note-tpl-row"></div>
-                  <textarea id="c-notes" rows="2" placeholder="cth: deposit kek birthday, 2kg"></textarea>
+                  <textarea id="c-notes" rows="2"></textarea>
                   <button type="button" class="secondary note-save-tpl-btn" id="c-save-tpl-btn">+ Simpan sebagai template</button>
 
                   <label style="display:flex; align-items:center; gap:0.5rem; margin-top:1rem; cursor:pointer;">
@@ -525,8 +554,8 @@
                     <div class="mini-receipt-biz" id="mr-biz">Perniagaan Anda</div>
                     <div class="mini-receipt-name" id="mr-name">Nama Pelanggan</div>
                     <div class="mini-receipt-line"><span>Jumlah</span><b id="mr-amount">RM 0.00</b></div>
-                    <div class="mini-receipt-line"><span>Due</span><b id="mr-due">—</b></div>
-                    <div class="mini-receipt-line"><span>Telefon</span><b id="mr-phone">—</b></div>
+                    <div class="mini-receipt-line"><span>Due</span><b id="mr-due">-</b></div>
+                    <div class="mini-receipt-line"><span>Telefon</span><b id="mr-phone">-</b></div>
                     <span class="badge belum_bayar" style="margin-top:0.6rem; display:inline-block;">Belum Bayar</span>
                     <p class="hint" id="mr-recurring" style="margin-top:0.6rem; display:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg> Berulang</p>
                   </div>
@@ -551,8 +580,8 @@
 
         <div class="db-page" id="page-pelanggan-list">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="pelanggan-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="pelanggan-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
 
           <p class="hint" id="schedule-badge" style="margin-bottom:0.8rem;"></p>
@@ -578,7 +607,7 @@
 
           <div class="card" id="customer-list-card">
             <div class="section-title">
-              <h2 style="margin:0;" data-i18n="dash_page_pelanggan_list_title">Customer List</h2>
+              <h2 style="margin:0;">Customer List</h2>
               <span class="hint" id="list-count"></span>
             </div>
             <div class="db-search-row" style="gap:0.5rem; flex-wrap:wrap;">
@@ -622,20 +651,20 @@
 
         <div class="db-page" id="page-laporan">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="laporan" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="laporan" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
 
           <div class="db-stats" id="report-stats">
             <div class="db-stat-card home-stat-box-hero">
-              <div class="num mono home-stat-value" id="rpt-income-month">–</div><div class="label" data-i18n="dash_rpt_income_month">Income This Month (Paid)</div>
+              <div class="num mono home-stat-value" id="rpt-income-month">–</div><div class="label">Income This Month (Paid)</div>
               <div class="hint" id="rpt-momentum" style="margin-top:0.3rem; font-size:0.78rem;"></div>
             </div>
             <div class="db-stat-card">
-              <div class="num mono" id="rpt-outstanding">–</div><div class="label" data-i18n="dash_rpt_outstanding">Total Outstanding</div>
+              <div class="num mono" id="rpt-outstanding">–</div><div class="label">Total Outstanding</div>
             </div>
             <div class="db-stat-card">
-              <div class="num mono" id="rpt-total-lifetime">–</div><div class="label" data-i18n="dash_rpt_lifetime">Total Received (All Time)</div>
+              <div class="num mono" id="rpt-total-lifetime">–</div><div class="label">Total Received (All Time)</div>
             </div>
           </div>
 
@@ -677,26 +706,26 @@
 
           <div class="card" style="margin-top:1.5rem;">
             <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Unjuran Cash-Flow (6 Minggu)</h2></div>
-            <p class="hint">Anggaran income akan datang dari customer belum bayar, ikut tarikh due — andaian semua bayar tepat masa.</p>
+            <p class="hint">Anggaran pendapatan akan datang daripada pelanggan yang belum membayar, mengikut tarikh cukup tempoh, dengan andaian semua membayar tepat pada masanya.</p>
             <div class="report-bar-chart" id="cashflow-chart"></div>
             <p class="hint" id="cashflow-empty" style="display:none;">Tiada customer belum bayar lagi.</p>
           </div>
 
           <div class="card" style="margin-top:1.5rem;">
             <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Customer Berisiko</h2></div>
-            <p class="hint">Dinilai berdasarkan rekod bayaran lepas customer ni dengan perniagaan anda.</p>
+            <p class="hint">Dinilai berdasarkan rekod bayaran lepas pelanggan ini dengan perniagaan anda.</p>
             <table>
               <thead><tr><th>Nama</th><th>RM</th><th>Risiko</th><th>Sebab</th></tr></thead>
               <tbody id="risk-tbody"></tbody>
             </table>
-            <p class="hint" id="risk-empty" style="display:none;">Tiada customer berisiko tinggi/sederhana buat masa ni.</p>
+            <p class="hint" id="risk-empty" style="display:none;">Tiada pelanggan berisiko tinggi atau sederhana pada masa ini.</p>
           </div>
         </div>
 
         <div class="db-page" id="page-kalendar">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="kalendar" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="kalendar" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
           <div class="card">
             <div class="section-title">
@@ -710,41 +739,41 @@
           </div>
           <div class="card" style="margin-top:1.5rem;">
             <div class="section-title"><h2 style="margin:0;" id="cal-day-title">Pilih tarikh</h2></div>
-            <div id="cal-day-list"><p class="hint">Klik tarikh dalam kalendar untuk lihat pelanggan due hari tu.</p></div>
+            <div id="cal-day-list"><p class="hint">Klik tarikh dalam kalendar untuk melihat pelanggan yang cukup tempoh pada hari tersebut.</p></div>
           </div>
         </div>
 
         <div class="db-page" id="page-tetapan-profil">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="tetapan-profil" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="tetapan-profil" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
 
           <div class="card">
-            <div class="section-title"><h2 style="margin:0;" data-i18n="dash_page_tetapan_profil_title">Business Profile</h2></div>
+            <div class="section-title"><h2 style="margin:0;">Business Profile</h2></div>
             <p class="hint">Dipaparkan dalam emel dan invois yang pelanggan terima.</p>
             <p class="hint" style="margin-top:-0.5rem;">Semua field wajib diisi, kecuali logo & QR code (optional).</p>
             <form id="profile-form">
-              <label for="p-business-name">Nama Perniagaan</label>
-              <input type="text" id="p-business-name" placeholder="cth: Kek Rumah Kak Yong" required />
+              <label for="p-business-name">Nama Perniagaan<button type="button" class="info-icon-btn" data-info="Contoh: Kek Rumah Kak Yong">i</button></label>
+              <input type="text" id="p-business-name" required />
 
               <div class="row">
                 <div>
-                  <label for="p-phone">Nombor Telefon</label>
-                  <input type="text" id="p-phone" placeholder="cth: 012-345 6789" required />
+                  <label for="p-phone">Nombor Telefon<button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789">i</button></label>
+                  <input type="text" id="p-phone" required />
                 </div>
                 <div>
-                  <label for="p-email">Emel Contact (untuk customer reply)</label>
-                  <input type="email" id="p-email" placeholder="cth: hello@bisnesawak.com" required />
+                  <label for="p-email">Emel Perhubungan (untuk pelanggan membalas)<button type="button" class="info-icon-btn" data-info="Contoh: hello@bisnesanda.com">i</button></label>
+                  <input type="email" id="p-email" required />
                 </div>
               </div>
 
-              <label for="p-address">Alamat (optional)</label>
-              <input type="text" id="p-address" placeholder="cth: Kajang, Selangor" />
+              <label for="p-address">Alamat (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: Kajang, Selangor">i</button></label>
+              <input type="text" id="p-address" />
 
-              <label for="p-ssm">No. Pendaftaran Perniagaan / SSM (optional)</label>
-              <input type="text" id="p-ssm" placeholder="cth: 202301012345 (JR/SA/PT)" />
-              <p class="hint" style="margin-top:0.3rem;">Dipaparkan dalam invois PDF & emel — buat dokumen anda nampak rasmi/sah di sisi undang-undang.</p>
+              <label for="p-ssm">Nombor Pendaftaran Perniagaan / SSM (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: 202301012345 (JR/SA/PT)">i</button></label>
+              <input type="text" id="p-ssm" />
+              <p class="hint" style="margin-top:0.3rem;">Dipaparkan dalam invois PDF dan emel untuk menjadikan dokumen anda kelihatan rasmi dan sah di sisi undang-undang.</p>
 
               <label for="p-logo-file">Logo</label>
               <div id="logo-preview-wrap" style="display:none; margin-bottom:0.5rem;">
@@ -760,28 +789,28 @@
               </div>
 
               <p class="hint" style="margin-top:1.2rem; padding-top:1rem; border-top:1px solid var(--paper-line);">
-                <strong>Cara Bayar Alternatif</strong> — kalau diisi, customer boleh pilih bank transfer manual sebagai alternatif kepada bayar online dalam emel reminder.
+                <strong>Cara Bayar Alternatif</strong>. Sekiranya diisi, pelanggan boleh memilih pindahan bank secara manual sebagai alternatif kepada pembayaran dalam talian dalam emel peringatan.
               </p>
               <div class="row">
                 <div>
-                  <label for="p-bank-name">Nama Bank</label>
-                  <input type="text" id="p-bank-name" placeholder="cth: Maybank" required />
+                  <label for="p-bank-name">Nama Bank<button type="button" class="info-icon-btn" data-info="Contoh: Maybank">i</button></label>
+                  <input type="text" id="p-bank-name" required />
                 </div>
                 <div>
-                  <label for="p-bank-account">Nombor Akaun</label>
-                  <input type="text" id="p-bank-account" placeholder="cth: 1234567890" required />
+                  <label for="p-bank-account">Nombor Akaun<button type="button" class="info-icon-btn" data-info="Contoh: 1234567890">i</button></label>
+                  <input type="text" id="p-bank-account" required />
                 </div>
               </div>
-              <label for="p-bank-holder">Nama Pemegang Akaun</label>
-              <input type="text" id="p-bank-holder" placeholder="cth: Nama Penuh / Nama Bisnes" required />
+              <label for="p-bank-holder">Nama Pemegang Akaun<button type="button" class="info-icon-btn" data-info="Contoh: Nama Penuh atau Nama Perniagaan">i</button></label>
+              <input type="text" id="p-bank-holder" required />
               <label for="p-qr-file">🇲🇾 QR DuitNow</label>
-              <p class="hint" style="margin-top:-0.2rem; margin-bottom:0.5rem;">Upload QR DuitNow perniagaan anda (dapat dari app bank/e-wallet anda) — serasi dengan <strong>semua bank & e-wallet</strong> (Touch 'n Go, Boost, GrabPay, dll), customer scan sekali je.</p>
+              <p class="hint" style="margin-top:-0.2rem; margin-bottom:0.5rem;">Muat naik kod QR DuitNow perniagaan anda, boleh diperoleh daripada aplikasi bank atau e-dompet anda. Serasi dengan <strong>semua bank dan e-dompet</strong> (Touch n Go, Boost, GrabPay, dan lain-lain). Pelanggan hanya perlu mengimbas sekali.</p>
               <div id="qr-preview-wrap" style="display:none; margin-bottom:0.5rem;">
                 <img id="qr-preview" style="max-height:120px; border-radius:8px; border:1px solid var(--paper-line);" />
               </div>
               <input type="file" id="p-qr-file" accept="image/png,image/jpeg,image/webp" />
               <input type="hidden" id="p-qr" />
-              <p class="hint" style="margin-top:0.3rem;">Upload terus gambar QR code — tak payah cari link dari mana-mana.</p>
+              <p class="hint" style="margin-top:0.3rem;">Muat naik terus gambar kod QR. Anda tidak perlu mencari pautan dari mana-mana sumber lain.</p>
 
               <button type="submit" style="margin-top:1.25rem;">Simpan Profil</button>
             </form>
@@ -789,21 +818,21 @@
 
           <div class="card">
             <div class="section-title"><h2 style="margin:0; font-size:1rem;">Panduan Setup</h2></div>
-            <p class="hint">Nak lalui semula panduan setup pertama (pilih jenis bisnes, tetapan asas)? Ni berguna kalau anda skip dulu atau nak semak semula.</p>
+            <p class="hint">Ingin melalui semula panduan persediaan awal (pemilihan jenis perniagaan, tetapan asas)? Ini berguna sekiranya anda telah melangkau langkah tersebut sebelum ini atau ingin menyemak semula.</p>
             <button type="button" class="secondary" id="restart-wizard-btn" style="margin-top:0.5rem;">↻ Mula Semula Wizard</button>
           </div>
         </div>
 
         <div class="db-page" id="page-tetapan-reminder">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn" data-i18n="dash_back_home">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="tetapan-reminder" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="dash_guide_btn">Panduan</span></button>
+            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="tetapan-reminder" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
 
           <div class="card">
-            <div class="section-title"><h2 style="margin:0;" data-i18n="dash_page_tetapan_reminder_title">Reminder Schedule</h2></div>
+            <div class="section-title"><h2 style="margin:0;">Reminder Schedule</h2></div>
             <p class="hint">Klik hari bila sistem patut hantar reminder emel, relatif kepada tarikh due.</p>
-            <p class="hint" style="margin-top:-0.5rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Sistem check jadual ni <strong>sekali sehari (~9 pagi)</strong>, bukan real-time.</p>
+            <p class="hint" style="margin-top:-0.5rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Sistem menyemak jadual ini <strong>sekali sehari (kira-kira 9 pagi)</strong>, bukan secara masa nyata.</p>
             <div class="chip-row" id="chip-row"></div>
             <p class="schedule-summary" id="schedule-summary"></p>
             <div class="row" style="margin-top:1rem;">
@@ -839,8 +868,8 @@
       <p class="hint">Pilih slot baru (dari waktu available anda):</p>
       <div class="book-date-row" id="reschedule-date-row"></div>
       <div class="book-slot-grid" id="reschedule-slot-grid" style="margin-top:0.8rem;"></div>
-      <label for="reschedule-reason" style="margin-top:1rem;">Sebab (optional — dihantar ke customer)</label>
-      <textarea id="reschedule-reason" rows="2" placeholder="cth: slot asal clash dengan appointment lain"></textarea>
+      <label for="reschedule-reason" style="margin-top:1rem;">Sebab (pilihan, akan dihantar kepada pelanggan)<button type="button" class="info-icon-btn" data-info="Contoh: slot asal bertindih dengan temujanji lain">i</button></label>
+      <textarea id="reschedule-reason" rows="2"></textarea>
       <div class="row" style="margin-top:1.25rem;">
         <button type="button" class="secondary" id="reschedule-cancel-btn" style="flex:1;">Batal</button>
         <button type="button" id="reschedule-save-btn" style="flex:1;" disabled>Pilih Slot Dulu</button>
@@ -896,56 +925,47 @@
   <div class="modal-overlay" id="wizard-modal" style="display:none;">
     <div class="modal-box" style="max-width:460px;">
       <div style="text-align:right; margin-bottom:0.3rem;">
-        <button type="button" id="wizard-skip-btn" class="secondary" style="padding:0.25rem 0.6rem; font-size:0.75rem; width:auto;" data-i18n="wiz_skip">Skip for now</button>
+        <button type="button" id="wizard-skip-btn" class="secondary" style="padding:0.25rem 0.6rem; font-size:0.75rem; width:auto;">Langkau Buat Masa Ini</button>
       </div>
       <p class="hint" id="wizard-progress" style="text-align:center; margin:0 0 1rem;"></p>
 
-      <div id="wizard-step-0">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wiz_lang_title">Choose your language</h2>
-        <p class="hint" style="text-align:center; margin-bottom:1.2rem;" data-i18n="wiz_lang_sub">You can switch anytime from the topbar.</p>
-        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:0.6rem;">
-          <button type="button" class="secondary wizard-lang-btn" data-wizard-lang="en" style="padding:1rem 0.5rem;">English</button>
-          <button type="button" class="secondary wizard-lang-btn" data-wizard-lang="ms" style="padding:1rem 0.5rem;">Bahasa Melayu</button>
-        </div>
-      </div>
-
       <div id="wizard-step-1" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wiz_persona_title">What do you do?</h2>
-        <p class="hint" style="text-align:center; margin-bottom:1.2rem;" data-i18n="wiz_persona_sub">This just helps us tailor the setup.</p>
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">Apakah bidang perniagaan anda?</h2>
+        <p class="hint" style="text-align:center; margin-bottom:1.2rem;">Ini membantu kami menyesuaikan persediaan untuk anda.</p>
         <div id="wizard-persona-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:0.6rem;"></div>
       </div>
 
       <div id="wizard-step-2" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wiz_service_title">What do you want customers to book?</h2>
-        <label for="wizard-service-name" data-i18n="wiz_service_label">Service name</label>
-        <input type="text" id="wizard-service-name" data-i18n-placeholder="wiz_service_placeholder" placeholder="e.g. Cake Consultation" />
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">Apakah perkhidmatan yang ingin ditempah oleh pelanggan anda?</h2>
+        <label for="wizard-service-name">Nama Perkhidmatan<button type="button" class="info-icon-btn" data-info="Contohnya: Konsultasi Kek">i</button></label>
+        <input type="text" id="wizard-service-name" />
       </div>
 
       <div id="wizard-step-3" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wiz_avail_title">When are you available?</h2>
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">Bilakah anda tersedia?</h2>
         <div id="wizard-availability-options" style="display:flex; flex-direction:column; gap:0.6rem;"></div>
-        <p class="hint" style="margin-top:0.8rem;" data-i18n="wiz_avail_note">You can fine-tune exact hours later in Booking Settings.</p>
+        <p class="hint" style="margin-top:0.8rem;">Anda boleh menyesuaikan waktu yang tepat kemudian dalam Tetapan Tempahan.</p>
       </div>
 
       <div id="wizard-step-4" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wiz_deposit_title">How much is your deposit?</h2>
-        <label for="wizard-deposit" data-i18n="wiz_deposit_label">Deposit (RM), 0 for free</label>
-        <input type="number" id="wizard-deposit" step="0.01" min="0" data-i18n-placeholder="wiz_deposit_placeholder" placeholder="e.g. 50" />
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">Berapakah jumlah deposit anda?</h2>
+        <label for="wizard-deposit">Deposit (RM), taip 0 sekiranya percuma<button type="button" class="info-icon-btn" data-info="Contohnya: 50">i</button></label>
+        <input type="number" id="wizard-deposit" step="0.01" min="0" />
       </div>
 
       <div id="wizard-step-5" style="display:none; text-align:center;">
         <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎉</div>
-        <h2 style="margin-top:0; font-size:1.2rem;" data-i18n="wiz_done_title">Your booking page is ready!</h2>
+        <h2 style="margin-top:0; font-size:1.2rem;">Halaman tempahan anda telah sedia!</h2>
         <p class="hint" id="wizard-final-link" style="word-break:break-all; margin-bottom:1rem;"></p>
-        <button type="button" id="wizard-copy-link-btn" class="secondary" style="width:100%; margin-bottom:0.5rem;" data-i18n="wiz_copy_link">Copy Link</button>
-        <a href="#" id="wizard-open-link-btn" target="_blank" class="btn" style="width:100%; display:block; text-align:center;" data-i18n="wiz_open_link">Open Booking Page</a>
+        <button type="button" id="wizard-copy-link-btn" class="secondary" style="width:100%; margin-bottom:0.5rem;">Salin Pautan</button>
+        <a href="#" id="wizard-open-link-btn" target="_blank" class="btn" style="width:100%; display:block; text-align:center;">Buka Halaman Tempahan</a>
       </div>
 
       <p class="error" id="wizard-error" style="display:none; margin-top:0.8rem;"></p>
 
       <div class="row" style="margin-top:1.4rem; gap:0.5rem;" id="wizard-nav-row">
-        <button type="button" class="secondary" id="wizard-back-btn" style="flex:1;" data-i18n="wiz_back">Back</button>
-        <button type="button" id="wizard-next-btn" style="flex:1;" data-i18n="wiz_next">Next</button>
+        <button type="button" class="secondary" id="wizard-back-btn" style="flex:1;">Kembali</button>
+        <button type="button" id="wizard-next-btn" style="flex:1;">Seterusnya</button>
       </div>
     </div>
   </div>
@@ -1024,7 +1044,6 @@
     import { supabase } from "/assets/supabase-client.js";
     import { showToast } from "/assets/toast.js";
     import { loadNotices } from "/assets/notices.js";
-    import { applyLanguage, getCurrentLang } from "/assets/i18n-ui.js";
 
     function flashButtonSuccess(btn, originalText) {
       if (!btn) return;
@@ -1077,7 +1096,6 @@
     applyThemeUI();
     document.getElementById("logout-btn-mobile")?.addEventListener("click", logout);
 
-    applyLanguage(getCurrentLang());
 
     // ── Navigation (pure hub — Home tile grid + Home back button on every other page) ──
     function goToPage(id) {
@@ -1143,8 +1161,8 @@
         void amountEl.offsetWidth;
         amountEl.classList.add("flash");
       }
-      document.getElementById("mr-due").textContent = due || "—";
-      document.getElementById("mr-phone").textContent = phone || "—";
+      document.getElementById("mr-due").textContent = due || "-";
+      document.getElementById("mr-phone").textContent = phone || "-";
       document.getElementById("mr-recurring").style.display = recurring ? "block" : "none";
     }
     ["c-name", "c-amount", "c-due", "c-phone"].forEach(id => {
@@ -1212,7 +1230,7 @@
 
           const previewRows = validRows.slice(0, 8);
           document.getElementById("csv-preview").innerHTML = `
-            <p class="hint">${validRows.length} pelanggan sah dijumpai${invalidCount ? ` (${invalidCount} baris diabaikan — data tak lengkap)` : ""}. Semak dulu sebelum import:</p>
+            <p class="hint">${validRows.length} pelanggan sah dijumpai${invalidCount ? ` (${invalidCount} baris diabaikan kerana data tidak lengkap)` : ""}. Sila semak sebelum mengimport:</p>
             <table style="margin-top:0.5rem;">
               <thead><tr><th>Nama</th><th>Emel</th><th>RM</th><th>Due</th></tr></thead>
               <tbody>
@@ -1494,7 +1512,7 @@
     } else if (isPastDue) {
       const banner = document.createElement("div");
       banner.className = "trial-strip past-due-strip";
-      banner.innerHTML = `<span>⚠️ Langganan anda tamat — booking baharu tetap diterima, tapi sesetengah fungsi disekat.</span><a href="/billing.html">Bayar sekarang →</a>`;
+      banner.innerHTML = `<span>⚠️ Langganan anda telah tamat. Tempahan baharu tetap diterima, tetapi sesetengah fungsi disekat.</span><a href="/billing.html">Bayar sekarang</a>`;
       document.getElementById("banner-slot").appendChild(banner);
     } else if (profile?.subscription_status === "trialing") {
       const daysLeft = Math.ceil((new Date(profile.subscription_end_date) - new Date()) / (1000 * 60 * 60 * 24));
@@ -1513,7 +1531,7 @@
     // owners out entirely and gave them no reason to come back and pay).
     function blockIfPastDue() {
       if (!isPastDue) return false;
-      showToast("Langganan anda tamat. Sila bayar untuk teruskan guna feature ni.", "error");
+      showToast("Langganan anda tamat. Sila bayar untuk terus menggunakan ciri ini.", "error");
       return true;
     }
 
@@ -1661,7 +1679,7 @@
         quickBtn.disabled = true;
         if (c.status !== "dah_bayar") {
           await supabase.from("customers").update({ status: "dah_bayar", paid_at: new Date().toISOString() }).eq("id", c.id);
-          showToast(`${c.name} ditanda sebagai dah bayar.`, "success");
+          showToast(`${c.name} telah ditanda sebagai sudah membayar.`, "success");
         } else {
           await supabase.from("customers").update({ status: "belum_bayar", paid_at: null }).eq("id", c.id);
           showToast(`${c.name} ditanda semula sebagai belum bayar.`, "success");
@@ -1883,7 +1901,7 @@
           momentumEl.style.color = "var(--ink-soft)";
         }
       } else if (incomeThisMonth > 0) {
-        momentumEl.textContent = "Bulan pertama ada income — tahniah!";
+        momentumEl.textContent = "Bulan pertama mempunyai pendapatan, tahniah!";
         momentumEl.style.color = "var(--ok)";
       } else {
         momentumEl.textContent = "";
@@ -1906,7 +1924,7 @@
         if (bookingsThisWeek.length > 0) parts.push(`<strong>${bookingsThisWeek.length}</strong> booking baru`);
         if (incomeThisWeek > 0) parts.push(`<strong>RM${incomeThisWeek.toFixed(0)}</strong> masuk`);
         if (repeatThisWeek > 0) parts.push(`<strong>${repeatThisWeek}</strong> customer datang balik`);
-        document.getElementById("weekly-narrative-text").innerHTML = `Minggu ni: ${parts.join(", ")}.`;
+        document.getElementById("weekly-narrative-text").innerHTML = `Minggu ini: ${parts.join(", ")}.`;
         narrativeCard.style.display = "block";
       } else {
         narrativeCard.style.display = "none";
@@ -2050,14 +2068,14 @@
 
         if (!hist) {
           level = isOverdue ? "medium" : "low";
-          reason = isOverdue ? "Tertunggak sekarang — tiada rekod bayaran sebelum ni" : "Tiada rekod bayaran sebelum ni lagi";
+          reason = isOverdue ? "Tertunggak sekarang, tiada rekod bayaran sebelum ini" : "Tiada rekod bayaran sebelum ini lagi";
         } else {
           const lateRate = hist.late / hist.total;
           let base = lateRate >= 0.5 ? "high" : lateRate > 0 ? "medium" : "low";
           if (isOverdue && base === "low") base = "medium";
           else if (isOverdue && base === "medium") base = "high";
           level = base;
-          reason = `${hist.late} dari ${hist.total} bayaran lepas lewat (${Math.round(lateRate * 100)}%)${isOverdue ? " — tertunggak sekarang" : ""}`;
+          reason = `${hist.late} daripada ${hist.total} bayaran lepas adalah lewat (${Math.round(lateRate * 100)}%)${isOverdue ? ", tertunggak sekarang" : ""}`;
         }
         return { ...c, riskLevel: level, riskReason: reason };
       });
@@ -2113,7 +2131,7 @@
       const todayStr = new Date().toISOString().slice(0, 10);
       const overdue = allCustomers.filter(c => c.status === "belum_bayar" && c.due_date < todayStr);
       if (overdue.length === 0) {
-        showToast("Tiada customer overdue buat masa ni.", "success");
+        showToast("Tiada pelanggan tertunggak pada masa ini.", "success");
         return;
       }
       if (!confirm(`Hantar reminder ke ${overdue.length} customer yang overdue?`)) return;
@@ -2143,6 +2161,52 @@
       div.textContent = str ?? "";
       return div.innerHTML;
     }
+
+    // Whitelist-based sanitizer for the description rich-text editors — only
+    // allows basic formatting tags (bold/italic/underline/line-break), strips
+    // every attribute (no style=, onclick=, etc.) and unwraps anything else
+    // into plain text. Applied on save AND again on render (book.html) as
+    // defense in depth, since this content is shown to the owner's own
+    // customers on a public page.
+    function sanitizeRichText(html) {
+      const allowed = new Set(["B", "STRONG", "I", "EM", "U", "BR"]);
+      const container = document.createElement("div");
+      container.innerHTML = html || "";
+      (function clean(node) {
+        [...node.childNodes].forEach(child => {
+          if (child.nodeType === 1) {
+            if (!allowed.has(child.tagName)) {
+              child.replaceWith(document.createTextNode(child.textContent));
+            } else {
+              [...child.attributes].forEach(attr => child.removeAttribute(attr.name));
+              clean(child);
+            }
+          }
+        });
+      })(container);
+      return container.innerHTML;
+    }
+
+    // Rich-text toolbar wiring — shared logic for both description editors
+    document.execCommand("defaultParagraphSeparator", false, "br");
+    document.querySelectorAll(".rte-toolbar").forEach(toolbar => {
+      const editor = toolbar.nextElementSibling;
+      toolbar.querySelectorAll(".rte-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          editor.focus();
+          document.execCommand(btn.dataset.rteCmd, false, null);
+          updateRteButtonStates(toolbar);
+        });
+      });
+      editor.addEventListener("keyup", () => updateRteButtonStates(toolbar));
+      editor.addEventListener("mouseup", () => updateRteButtonStates(toolbar));
+    });
+    function updateRteButtonStates(toolbar) {
+      toolbar.querySelectorAll(".rte-btn").forEach(btn => {
+        btn.classList.toggle("active", document.queryCommandState(btn.dataset.rteCmd));
+      });
+    }
+
 
     // slot_datetime is stored as UTC (timestamptz). Raw string-slicing it (e.g.
     // slot_datetime.slice(0,10)) stays in UTC and mis-dates any booking between
@@ -2262,7 +2326,7 @@
     const OFFSET_LABEL = { 7: "H-7", 5: "H-5", 3: "H-3", 2: "H-2", 1: "H-1", 0: "Hari-Ini", "-1": "H+1", "-3": "H+3" };
 
     async function openHistoryModal(c) {
-      document.getElementById("history-title").textContent = `Riwayat Emel — ${c.name}`;
+      document.getElementById("history-title").textContent = `Riwayat Emel bagi ${c.name}`;
       document.getElementById("history-list").innerHTML = `<p class="hint">Memuatkan...</p>`;
       historyModal.style.display = "flex";
 
@@ -2286,7 +2350,7 @@
           <span class="badge reminder_dihantar">${OFFSET_LABEL[r.days_offset] ?? r.days_offset}</span>
           <span class="hint mono">${new Date(r.sent_at).toLocaleString("ms-MY")}</span>
         </div>
-      `).join("") + `<p class="hint" style="margin-top:0.8rem;">✓ Setiap baris = emel berjaya dihantar melalui Resend pada masa tu.</p>`;
+      `).join("") + `<p class="hint" style="margin-top:0.8rem;">✓ Setiap baris mewakili emel yang berjaya dihantar melalui Resend pada masa tersebut.</p>`;
     }
 
     document.getElementById("customer-form")?.addEventListener("submit", async (e) => {
@@ -2334,7 +2398,7 @@
           });
           const result = await res.json();
           if (result.sent) {
-            showToast(`Reminder terus dihantar ke ${payload.name} (due date dah tiba).`, "success");
+            showToast(`Peringatan telah dihantar terus kepada ${payload.name} kerana tarikh cukup tempoh telah tiba.`, "success");
             loadCustomers();
           }
           // Silently do nothing on "not_in_schedule"/"not_configured"/errors — customer
@@ -2374,13 +2438,13 @@
     function renderSummary() {
       const summaryEl = document.getElementById("schedule-summary");
       if (selectedOffsets.size === 0) {
-        summaryEl.innerHTML = `<span style="color:var(--warn);">⚠ Tiada hari dipilih — reminder <b>tidak akan dihantar</b> langsung.</span>`;
+        summaryEl.innerHTML = `<span style="color:var(--warn);">⚠ Tiada hari dipilih. Peringatan <b>tidak akan dihantar</b> langsung.</span>`;
         return;
       }
       const sorted = [...selectedOffsets].sort((a, b) => b - a);
       const labels = sorted.map(o => SCHEDULE_OPTIONS.find(s => s.offset === o)?.label || o).join(", ");
       if (!selectedOffsets.has(0)) {
-        summaryEl.innerHTML = `<span style="color:var(--warn);">⚠ "Hari-Ini" tidak dipilih — customer <b>tidak akan diberitahu pada tarikh due sebenar</b>.</span> Reminder akan dihantar pada: <b>${labels}</b>`;
+        summaryEl.innerHTML = `<span style="color:var(--warn);">⚠ "Hari Ini" tidak dipilih. Pelanggan <b>tidak akan diberitahu pada tarikh cukup tempoh sebenar</b>.</span> Peringatan akan dihantar pada: <b>${labels}</b>`;
         return;
       }
       summaryEl.innerHTML = `Reminder akan dihantar pada: <b>${labels}</b>`;
@@ -2390,10 +2454,10 @@
       const badge = document.getElementById("schedule-badge");
       if (!badge) return;
       if (selectedOffsets.size === 0) {
-        badge.innerHTML = `⚠ Jadual reminder <b>kosong</b> — <a href="#" data-goto="tetapan-reminder">betulkan</a>`;
+        badge.innerHTML = `⚠ Jadual peringatan <b>kosong</b>. <a href="#" data-goto="tetapan-reminder">Sila betulkan</a>`;
         badge.style.color = "var(--warn)";
       } else if (!selectedOffsets.has(0)) {
-        badge.innerHTML = `⚠ "Hari-Ini" tak aktif dalam jadual — <a href="#" data-goto="tetapan-reminder">semak</a>`;
+        badge.innerHTML = `⚠ "Hari Ini" tidak aktif dalam jadual. <a href="#" data-goto="tetapan-reminder">Sila semak</a>`;
         badge.style.color = "var(--warn)";
       } else {
         const sorted = [...selectedOffsets].sort((a, b) => b - a);
@@ -2465,7 +2529,7 @@
     function renderLinkSwitcher(isPro) {
       const chipRow = document.getElementById("link-switcher-chips");
       if (allBookingLinks.length === 0) {
-        chipRow.innerHTML = `<p class="hint">Belum ada link booking — isi tetapan di bawah untuk cipta link pertama anda.</p>`;
+        chipRow.innerHTML = `<p class="hint">Belum ada pautan tempahan. Isi tetapan di bawah untuk mencipta pautan pertama anda.</p>`;
       } else {
         chipRow.innerHTML = allBookingLinks.map(l => `
           <button type="button" class="chip ${l.id === currentLinkId ? "selected" : ""}" data-link-id="${l.id}">${escapeHtml(l.label || l.slug || "Link")}</button>
@@ -2495,13 +2559,13 @@
       if (!slug || !label) { showToast("Slug & label diperlukan.", "error"); return; }
 
       const { data: inserted, error } = await supabase.from("booking_links").insert({ owner_id: user.id, slug, label, is_primary: allBookingLinks.length === 0 }).select().single();
-      if (error) { showToast(error.message.includes("duplicate") ? "Slug ni dah digunakan." : error.message, "error"); return; }
+      if (error) { showToast(error.message.includes("duplicate") ? "Slug ini telah digunakan." : error.message, "error"); return; }
 
       document.getElementById("new-link-slug").value = "";
       document.getElementById("new-link-label").value = "";
       document.getElementById("add-link-row").style.display = "none";
       currentLinkId = inserted.id;
-      showToast("Link baharu dicipta — sila setkan deposit & availability sendiri.", "success");
+      showToast("Pautan baharu telah dicipta. Sila tetapkan deposit dan waktu tersedia anda sendiri.", "success");
       loadBookingLinksAndSettings().catch(err => {
       console.error("loadBookingLinksAndSettings failed:", err);
       showToast("Gagal muatkan tetapan booking. Cuba refresh page.", "error");
@@ -2669,7 +2733,7 @@
         return diffDays >= 0 && diffDays < 7;
       });
       if (weekEntries.length === 0) {
-        showToast("Tiada waktu available minggu ni untuk disalin.", "error");
+        showToast("Tiada waktu tersedia pada minggu ini untuk disalin.", "error");
         return;
       }
       const btn = document.getElementById("avail-copy-week-btn");
@@ -2714,7 +2778,7 @@
       const tipEl = document.getElementById("bset-deposit-tip");
       if (tipEl) {
         tipEl.innerHTML = (depositRaw === "0")
-          ? `<div class="bset-tip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Deposit percuma sesuai untuk konsultasi awal — tapi pastikan servis utama tetap ada deposit untuk kurangkan no-show.</span></div>`
+          ? `<div class="bset-tip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Deposit percuma sesuai untuk konsultasi awal. Pastikan perkhidmatan utama tetap mempunyai deposit untuk mengurangkan ketidakhadiran.</span></div>`
           : "";
       }
     }
@@ -2732,7 +2796,7 @@
       document.getElementById("p-buffer").value = link?.buffer_minutes ?? 0;
       document.getElementById("p-cancel-notice").value = link?.cancellation_notice_hours ?? 0;
       document.getElementById("p-default-deposit").value = link?.default_deposit_amount != null ? link.default_deposit_amount : "";
-      document.getElementById("p-link-description").value = link?.description || "";
+      document.getElementById("p-link-description-rte").innerHTML = sanitizeRichText(link?.description || "");
       const posterPreview = document.getElementById("p-link-poster-preview");
       if (posterPreview) {
         posterPreview.src = link?.poster_url || "";
@@ -2740,7 +2804,7 @@
       }
 
       if (link?.slug && link.default_deposit_amount == null) {
-        document.getElementById("booking-slug-status").innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <strong>Link ni TIDAK berfungsi</strong> — Deposit Lalai belum diisi. Booking customer akan gagal sehingga anda isi & simpan semula.`;
+        document.getElementById("booking-slug-status").innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <strong>Pautan ini TIDAK berfungsi</strong>. Deposit Lalai belum diisi. Tempahan pelanggan akan gagal sehingga anda mengisi dan menyimpan semula.`;
         document.getElementById("booking-slug-status").style.color = "var(--warn)";
         document.getElementById("booking-qr-wrap").style.display = "none";
         document.getElementById("embed-code").value = "";
@@ -2811,7 +2875,7 @@
       await supabase.from("booking_questions").insert({ owner_id: user.id, booking_link_id: currentLinkId, question_text: text, sort_order: (existing?.length || 0) });
       input.value = "";
       loadBookingQuestions();
-      showToast("Soalan tambahan ditambah. Customer akan nampak dalam borang booking lepas ni.", "success");
+      showToast("Soalan tambahan telah ditambah. Pelanggan akan melihatnya dalam borang tempahan selepas ini.", "success");
     });
 
     // ── Event Types (scoped to the currently selected link) ──
@@ -2824,7 +2888,7 @@
     function renderEventTypesList(types) {
       const list = document.getElementById("event-types-list");
       if (types.length === 0) {
-        list.innerHTML = `<p class="hint">Tiada servis ditambah — guna borang di bawah untuk tambah yang pertama.</p>`;
+        list.innerHTML = `<p class="hint">Tiada perkhidmatan ditambah. Gunakan borang di bawah untuk menambah yang pertama.</p>`;
         return;
       }
       list.innerHTML = types.map(t => {
@@ -2862,7 +2926,7 @@
       document.getElementById("et-duration").value = t.duration_minutes;
       document.getElementById("et-deposit").value = t.deposit_amount != null ? t.deposit_amount : "";
       document.getElementById("et-capacity").value = t.capacity || 1;
-      document.getElementById("et-description").value = t.description || "";
+      document.getElementById("et-description-rte").innerHTML = sanitizeRichText(t.description || "");
       document.getElementById("add-event-type-btn").textContent = `✓ Kemaskini "${t.name}"`;
       document.getElementById("et-cancel-edit-btn").style.display = "block";
       document.getElementById("et-name").scrollIntoView({ behavior: "smooth", block: "center" });
@@ -2873,7 +2937,7 @@
       document.getElementById("et-duration").value = "60";
       prefillEventTypeDeposit();
       document.getElementById("et-capacity").value = "1";
-      document.getElementById("et-description").value = "";
+      document.getElementById("et-description-rte").innerHTML = "";
       if (document.getElementById("et-poster-file")) document.getElementById("et-poster-file").value = "";
       document.getElementById("add-event-type-btn").textContent = "+ Tambah Jenis Perkhidmatan";
       document.getElementById("et-cancel-edit-btn").style.display = "none";
@@ -2914,7 +2978,7 @@
       const duration = parseInt(document.getElementById("et-duration").value, 10);
       const depositRaw = document.getElementById("et-deposit").value.trim();
       const capacity = parseInt(document.getElementById("et-capacity").value, 10) || 1;
-      const description = document.getElementById("et-description").value.trim() || null;
+      const description = sanitizeRichText(document.getElementById("et-description-rte").innerHTML.trim()) || null;
       const posterFile = currentUserIsPro ? document.getElementById("et-poster-file").files[0] : null;
 
       if (!name || !duration) { showToast("Nama & tempoh diperlukan.", "error"); return; }
@@ -2931,6 +2995,8 @@
       let posterUrl = null;
       if (posterFile) {
         btn.textContent = "Memuat naik poster...";
+        document.getElementById("et-poster-zone")?.classList.add("uploading");
+        document.getElementById("et-poster-success")?.classList.remove("show");
         try {
           const compressed = await compressImageFile(posterFile);
           const path = `${user.id}/${Date.now()}.jpg`;
@@ -2938,7 +3004,10 @@
           if (uploadError) throw uploadError;
           const { data: urlData } = supabase.storage.from("posters").getPublicUrl(path);
           posterUrl = urlData.publicUrl;
+          document.getElementById("et-poster-zone")?.classList.remove("uploading");
+          document.getElementById("et-poster-success")?.classList.add("show");
         } catch (err) {
+          document.getElementById("et-poster-zone")?.classList.remove("uploading");
           showToast("Gagal upload poster: " + err.message, "error");
           btn.disabled = false;
           btn.textContent = editingEventTypeId ? `✓ Kemaskini` : "+ Tambah Jenis Perkhidmatan";
@@ -2965,7 +3034,7 @@
       const wasEditing = !!editingEventTypeId;
       stopEditingEventType();
       loadEventTypes();
-      showToast(wasEditing ? `Jenis perkhidmatan "${name}" dikemaskini.` : `Jenis perkhidmatan "${name}" ditambah. Customer boleh pilih ni semasa booking lepas ni.`, "success");
+      showToast(wasEditing ? `Jenis perkhidmatan "${name}" dikemaskini.` : `Jenis perkhidmatan "${name}" ditambah. Pelanggan boleh memilihnya semasa membuat tempahan selepas ini.`, "success");
     });
 
     // Pre-fills the new-event-type deposit field from the current link's default —
@@ -3000,7 +3069,7 @@
       btn.disabled = true;
       btn.textContent = "Menyimpan...";
 
-      const description = document.getElementById("p-link-description").value.trim() || null;
+      const description = sanitizeRichText(document.getElementById("p-link-description-rte").innerHTML.trim()) || null;
       const linkPosterFile = currentUserIsPro ? document.getElementById("p-link-poster-file")?.files[0] : null;
       let posterUrl = undefined; // undefined = don't touch existing value unless a new file was picked
 
@@ -3012,6 +3081,8 @@
           return;
         }
         btn.textContent = "Memuat naik poster...";
+        document.getElementById("p-link-poster-zone")?.classList.add("uploading");
+        document.getElementById("p-link-poster-success")?.classList.remove("show");
         try {
           const compressed = await compressImageFile(linkPosterFile);
           const path = `${user.id}/link-${Date.now()}.jpg`;
@@ -3019,7 +3090,10 @@
           if (uploadError) throw uploadError;
           const { data: urlData } = supabase.storage.from("posters").getPublicUrl(path);
           posterUrl = urlData.publicUrl;
+          document.getElementById("p-link-poster-zone")?.classList.remove("uploading");
+          document.getElementById("p-link-poster-success")?.classList.add("show");
         } catch (err) {
+          document.getElementById("p-link-poster-zone")?.classList.remove("uploading");
           showToast("Gagal upload poster: " + err.message, "error");
           btn.disabled = false;
           btn.textContent = "Simpan Tetapan Booking";
@@ -3051,7 +3125,7 @@
       }
 
       if (linkErr) {
-        showToast(linkErr.message.includes("duplicate") ? "Slug ni dah digunakan. Cuba nama lain." : linkErr.message, "error");
+        showToast(linkErr.message.includes("duplicate") ? "Slug ini telah digunakan. Sila cuba nama lain." : linkErr.message, "error");
         btn.disabled = false;
         btn.textContent = "Simpan Tetapan Booking";
         return;
@@ -3260,7 +3334,7 @@
           if (result.sent === false) {
             showToast(`Reminder untuk ${target.name} akan dihantar dalam sweep seterusnya (dalam 2 jam).`, "success");
           } else {
-            showToast(`Reminder dihantar ke ${target.name}. Emel dah keluar!`, "success");
+            showToast(`Peringatan telah dihantar kepada ${target.name}. Emel telah dihantar.`, "success");
           }
         } catch {
           showToast("Gagal hantar reminder. Cuba lagi sekejap.", "error");
@@ -3292,7 +3366,7 @@
       body.innerHTML = recent.map(b => {
         const cust = customerByBookingCustomerId.get(b.customer_id);
         const isPaid = cust?.status === "dah_bayar";
-        const amount = cust?.amount != null ? `RM ${Number(cust.amount).toFixed(2)}` : "—";
+        const amount = cust?.amount != null ? `RM ${Number(cust.amount).toFixed(2)}` : "-";
         return `
           <tr>
             <td>${escapeHtml(b.customer_name)}</td>
@@ -3456,7 +3530,7 @@
 
     async function cancelBooking(b) {
       if (!confirm(`Batalkan booking ${b.customer_name}?`)) return;
-      const reason = prompt("Sebab batalkan (optional — dihantar ke customer):", "") || "";
+      const reason = prompt("Sebab pembatalan (pilihan, akan dihantar kepada pelanggan):", "") || "";
 
       const { error } = await supabase.from("bookings").update({ status: "cancelled" }).eq("id", b.id);
       if (error) { showToast(error.message, "error"); return; }
@@ -3508,7 +3582,7 @@
 
       if (!b.booking_link_id) {
         document.getElementById("reschedule-loading").style.display = "none";
-        document.getElementById("reschedule-error").textContent = "Booking lama ni tiada link berkaitan — reschedule dari dashboard tak tersedia untuk rekod ni.";
+        document.getElementById("reschedule-error").textContent = "Tempahan lama ini tiada pautan berkaitan. Penjadualan semula daripada papan pemuka tidak tersedia untuk rekod ini.";
         document.getElementById("reschedule-error").style.display = "block";
         return;
       }
@@ -3580,7 +3654,7 @@
         if (rescheduleBooking.event_type_id) conflictQuery = conflictQuery.eq("event_type_id", rescheduleBooking.event_type_id);
         const { count } = await conflictQuery;
         if ((count || 0) >= capacity) {
-          document.getElementById("reschedule-error").textContent = "Slot ni dah ada booking lain. Pilih masa berbeza.";
+          document.getElementById("reschedule-error").textContent = "Slot ini telah mempunyai tempahan lain. Sila pilih masa yang berbeza.";
           document.getElementById("reschedule-error").style.display = "block";
           btn.disabled = false;
           btn.textContent = "Simpan & Maklum Customer";
@@ -3630,14 +3704,14 @@
       }
       localStorage.setItem("eqstudio_schedule_saved", "1");
       renderSetupChecklist(allCustomers.length);
-      showToast("Jadual reminder disimpan. Reminder akan hantar ikut jadual baharu ni lepas ni.", "success");
+      showToast("Jadual peringatan disimpan. Peringatan akan dihantar mengikut jadual baharu ini selepas ini.", "success");
       flashButtonSuccess(e.target, "Simpan Jadual");
     });
 
     document.getElementById("reset-schedule-btn")?.addEventListener("click", () => {
       selectedOffsets = new Set(DEFAULT_SCHEDULE);
       renderChips();
-      showToast('Jadual direset ke default (H-3, H-1, Hari-Ini) — klik "Simpan Jadual" untuk sahkan.', "success");
+      showToast('Jadual telah direset kepada tetapan asal (H-3, H-1, Hari Ini). Klik "Simpan Jadual" untuk mengesahkan.', "success");
     });
 
     document.getElementById("export-csv-btn")?.addEventListener("click", () => {
@@ -3966,12 +4040,12 @@
       if (!text) { showToast("Taip catatan dulu sebelum simpan sebagai template.", "error"); return; }
       const allLabels = [...DEFAULT_NOTE_TEMPLATES, ...customNoteTemplates.map(t => t.label)];
       if (allLabels.some(l => l.toLowerCase() === text.toLowerCase())) {
-        showToast("Template ni dah wujud.", "error");
+        showToast("Templat ini telah wujud.", "error");
         return;
       }
       const { error } = await supabase.from("note_templates").insert({ owner_id: user.id, label: text });
       if (error) { showToast(error.message, "error"); return; }
-      showToast(`Template "${text}" disimpan. Boleh guna terus lepas ni.`, "success");
+      showToast(`Templat "${text}" disimpan. Boleh digunakan terus selepas ini.`, "success");
       await loadNoteTemplates();
     }
 
@@ -3981,19 +4055,19 @@
 
     // ── Guided tour (Lapisan 1: spotlight, fokus Home + Booking) ──
     const TOUR_STEPS = [
-      { page: "home", selector: ".home-hero", title: "Selamat Datang!", text: "Ni Home anda — semua feature diakses dari sini. Setiap kotak (tile) bawa anda ke satu fungsi khusus. Jom kita jalan-jalan sekejap." },
-      { page: "home", selector: ".home-stat-grid", title: "Ringkasan Pantas", text: "5 nombor penting sekali imbas — booking akan datang, belum diterima, income bulan ini, jumlah pelanggan, dan booking selesai bulan ini." },
-      { page: "home", selector: "#home-trend-chart", title: "Tren Booking", text: "Chart ni tunjuk trend booking 14 hari terkini — senang nampak momentum bisnes anda tanpa perlu buka Laporan." },
-      { page: "home", selector: '.bento-tile[data-page="booking-settings"]', title: "Mula Dari Sini: Booking", text: "Booking adalah feature UTAMA sistem ni — customer book slot sendiri, deposit & reminder jalan automatik lepas tu. Jom setup dulu." },
-      { page: "booking-settings", selector: "#p-booking-slug", title: "Link Booking Anda", text: "Pilih nama link (contoh: kedai-anda) — ni yang anda akan kongsi dengan customer supaya mereka boleh book slot terus. Lepas simpan, link ni juga terus terpapar di Home untuk senang copy/share." },
-      { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai — WAJIB DIISI!", text: "Ni PALING PENTING — kalau tak diisi, booking customer akan GAGAL. Auto-apply setiap booking baharu. Nak booking PERCUMA (contoh konsultasi)? Taip 0 — sistem sekarang faham 0 tu sengaja, bukan tak diisi." },
-      { page: "booking-settings", selector: "#avail-cal-grid", title: "Waktu Available", text: "Klik tarikh untuk tetapkan jam anda free. Customer cuma nampak slot yang anda dah set — tiada lagi tanya \"awak free bila\"." },
-      { page: "booking-settings", selector: "#event-types-list", title: "Lebih Dari Satu Jenis Servis?", text: "Contoh: \"Collection Kek — 10 minit\" vs \"Kelas Baking — 2 jam, RM100\". Setiap jenis ada tempoh/harga/kapasiti sendiri (kapasiti >1 untuk group class). Kosongkan kalau semua booking anda sama." },
-      { page: "booking-settings", selector: "#new-question-input", title: "Soalan Tambahan (Optional)", text: "Tanya customer sesuatu semasa booking, contoh \"Apa jenis kek?\" — jawapan terus nampak dalam Senarai Booking anda." },
-      { page: "booking-settings", selector: "#save-booking-btn", title: "Simpan & Dapatkan Link", text: "Lepas simpan, link booking dan QR code printable akan muncul di atas — boleh terus kongsi atau print letak kaunter." },
-      { page: "booking-list", selector: "#booking-list", title: "Senarai Booking Anda", text: "Setiap booking yang customer buat akan muncul di sini — dengan status, jawapan soalan tambahan (jika ada), dan butang Reschedule/Batal." },
-      { page: "home", selector: ".bento-grid", title: "Menu Lain", text: "Pelanggan, Laporan, Kalendar, dan Tetapan — explore ikut keperluan anda. Setiap page ada butang \"Panduan\" untuk penjelasan detail bila anda perlukan." },
-      { page: "home", selector: "#restart-tour-btn", title: "Sesat? Klik Sini Bila-Bila", text: "Tour ni boleh dibuka semula bila-bila dari sini (atau butang di mobile) — dan setiap page pun ada butang Panduan sendiri. Nak run lebih dari satu bisnes? Ada pelan Pro untuk sehingga 3 link booking — check Billing. Selamat mencuba!" },
+      { page: "home", selector: ".home-hero", title: "Selamat Datang!", text: "Ini adalah Laman Utama anda. Semua ciri boleh diakses dari sini. Setiap kotak membawa anda ke satu fungsi khusus. Jom kita lihat sekejap." },
+      { page: "home", selector: ".home-stat-grid", title: "Ringkasan Pantas", text: "5 nombor penting sekali imbas: tempahan akan datang, belum diterima, pendapatan bulan ini, jumlah pelanggan, dan tempahan selesai bulan ini." },
+      { page: "home", selector: "#home-trend-chart", title: "Tren Tempahan", text: "Carta ini menunjukkan trend tempahan 14 hari terkini. Anda dapat melihat momentum perniagaan anda dengan mudah tanpa perlu membuka Laporan." },
+      { page: "home", selector: '.bento-tile[data-page="booking-settings"]', title: "Mula Dari Sini: Tempahan", text: "Tempahan adalah ciri UTAMA sistem ini. Pelanggan menempah slot sendiri, deposit dan peringatan akan berjalan secara automatik selepas itu. Jom sediakan tetapan terlebih dahulu." },
+      { page: "booking-settings", selector: "#p-booking-slug", title: "Pautan Tempahan Anda", text: "Pilih nama pautan (contoh: kedai-anda). Inilah yang akan anda kongsikan dengan pelanggan supaya mereka boleh menempah slot terus. Selepas disimpan, pautan ini turut dipaparkan di Laman Utama untuk memudahkan anda menyalin atau berkongsi." },
+      { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai. WAJIB DIISI", text: "Ini PALING PENTING. Sekiranya tidak diisi, tempahan pelanggan akan GAGAL. Akan diguna pakai secara automatik untuk setiap tempahan baharu. Untuk tempahan PERCUMA seperti konsultasi, taip 0. Sistem kini memahami bahawa 0 adalah nilai yang sengaja ditetapkan, bukan medan yang tidak diisi." },
+      { page: "booking-settings", selector: "#avail-cal-grid", title: "Waktu Tersedia", text: "Klik tarikh untuk menetapkan waktu anda tersedia. Pelanggan hanya dapat melihat slot yang telah anda tetapkan, tanpa perlu lagi bertanya waktu kelapangan anda." },
+      { page: "booking-settings", selector: "#event-types-list", title: "Lebih Dari Satu Jenis Perkhidmatan?", text: "Contoh: Kutipan Kek (10 minit) berbanding Kelas Baking (2 jam, RM100). Setiap jenis mempunyai tempoh, harga, dan kapasiti tersendiri (kapasiti melebihi 1 untuk kelas berkumpulan). Kosongkan sekiranya semua tempahan anda adalah sama." },
+      { page: "booking-settings", selector: "#new-question-input", title: "Soalan Tambahan (Pilihan)", text: "Tanya pelanggan sesuatu semasa membuat tempahan, contohnya Apa jenis kek yang dikehendaki? Jawapan akan terus dipaparkan dalam Senarai Tempahan anda." },
+      { page: "booking-settings", selector: "#save-booking-btn", title: "Simpan dan Dapatkan Pautan", text: "Selepas disimpan, pautan tempahan dan kod QR yang boleh dicetak akan dipaparkan di atas. Anda boleh terus berkongsi atau mencetaknya untuk diletakkan di kaunter." },
+      { page: "booking-list", selector: "#booking-list", title: "Senarai Tempahan Anda", text: "Setiap tempahan yang dibuat oleh pelanggan akan dipaparkan di sini, lengkap dengan status, jawapan soalan tambahan jika ada, serta butang Jadual Semula dan Batal." },
+      { page: "home", selector: ".bento-grid", title: "Menu Lain", text: "Pelanggan, Laporan, Kalendar, dan Tetapan boleh diterokai mengikut keperluan anda. Setiap halaman mempunyai butang Panduan untuk penjelasan lanjut apabila diperlukan." },
+      { page: "home", selector: "#restart-tour-btn", title: "Sesat? Klik Sini Bila-Bila Masa", text: "Panduan ini boleh dibuka semula pada bila-bila masa dari sini, atau melalui butang pada peranti mudah alih. Setiap halaman turut mempunyai butang Panduan tersendiri. Ingin menjalankan lebih daripada satu perniagaan? Terdapat pelan Pro untuk sehingga tiga pautan tempahan, sila semak Bil. Selamat mencuba!" },
     ];
     let tourStepIndex = 0;
     let currentGlowEl = null;
@@ -4062,7 +4136,7 @@
     let wizardStepIdx = 0;
 
     function openOnboardingWizard() {
-      wizardStepIdx = 0;
+      wizardStepIdx = 1;
       wizardPersona = null;
       renderWizardPersonaGrid();
       renderWizardAvailabilityOptions();
@@ -4071,9 +4145,8 @@
     }
 
     function renderWizardPersonaGrid() {
-      const lang = getCurrentLang();
       document.getElementById("wizard-persona-grid").innerHTML = WIZARD_PERSONAS.map(p => `
-        <button type="button" class="secondary wizard-persona-btn" data-persona="${p.en}" style="padding:0.8rem 0.5rem;">${lang === "ms" ? p.ms : p.en}</button>
+        <button type="button" class="secondary wizard-persona-btn" data-persona="${p.en}" style="padding:0.8rem 0.5rem;">${p.ms}</button>
       `).join("");
       document.getElementById("wizard-persona-grid").querySelectorAll(".wizard-persona-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -4086,34 +4159,21 @@
     }
 
     function renderWizardAvailabilityOptions() {
-      const lang = getCurrentLang();
-      const opts = lang === "ms"
-        ? [["everyday", "Setiap hari, 9 pagi hingga 6 petang", true], ["weekdays", "Hari bekerja je, 9 pagi hingga 6 petang", false], ["later", "Saya set sendiri lepas ni", false]]
-        : [["everyday", "Every day, 9am to 6pm", true], ["weekdays", "Weekdays only, 9am to 6pm", false], ["later", "I'll set this myself later", false]];
+      const opts = [["everyday", "Setiap hari, 9 pagi hingga 6 petang", true], ["weekdays", "Hari bekerja sahaja, 9 pagi hingga 6 petang", false], ["later", "Saya akan tetapkan sendiri kemudian", false]];
       document.getElementById("wizard-availability-options").innerHTML = opts.map(([val, label, checked]) => `
         <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;"><input type="radio" name="wizard-avail" value="${val}" ${checked ? "checked" : ""} style="width:auto;" /> ${label}</label>
       `).join("");
     }
 
-    document.querySelectorAll("[data-wizard-lang]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        applyLanguage(btn.dataset.wizardLang);
-        renderWizardPersonaGrid();
-        renderWizardAvailabilityOptions();
-        wizardStepIdx = 1;
-        renderWizardStep();
-      });
-    });
-
     function renderWizardStep() {
-      for (let i = 0; i <= 5; i++) {
+      for (let i = 1; i <= 5; i++) {
         const el = document.getElementById(`wizard-step-${i}`);
         if (el) el.style.display = i === wizardStepIdx ? "block" : "none";
       }
-      document.getElementById("wizard-progress").textContent = (wizardStepIdx >= 1 && wizardStepIdx <= 4) ? `${getCurrentLang() === "ms" ? "Langkah" : "Step"} ${wizardStepIdx} ${getCurrentLang() === "ms" ? "dari" : "of"} 4` : "";
+      document.getElementById("wizard-progress").textContent = (wizardStepIdx >= 1 && wizardStepIdx <= 4) ? `Langkah ${wizardStepIdx} daripada 4` : "";
       document.getElementById("wizard-back-btn").style.visibility = wizardStepIdx <= 1 ? "hidden" : "visible";
-      document.getElementById("wizard-nav-row").style.display = (wizardStepIdx === 0 || wizardStepIdx === 5) ? "none" : "flex";
-      document.getElementById("wizard-next-btn").textContent = wizardStepIdx === 4 ? (getCurrentLang() === "ms" ? "Selesai" : "Finish") : (getCurrentLang() === "ms" ? "Seterusnya" : "Next");
+      document.getElementById("wizard-nav-row").style.display = wizardStepIdx === 5 ? "none" : "flex";
+      document.getElementById("wizard-next-btn").textContent = wizardStepIdx === 4 ? "Selesai" : "Seterusnya";
       document.getElementById("wizard-error").style.display = "none";
     }
 
@@ -4128,7 +4188,7 @@
     document.getElementById("wizard-skip-btn")?.addEventListener("click", () => closeWizard(true));
     document.getElementById("restart-wizard-btn")?.addEventListener("click", () => {
       if (allBookingLinks.length > 0) {
-        const proceed = confirm(`Anda dah ada ${allBookingLinks.length} link booking sedia ada. Wizard ni akan CIPTA link, jenis perkhidmatan & waktu available BAHARU (bukan edit yang sedia ada) — mungkin jadi duplicate kalau anda cuma nak semak semula panduan. Teruskan?`);
+        const proceed = confirm(`Anda telah mempunyai ${allBookingLinks.length} pautan tempahan sedia ada. Panduan ini akan mencipta pautan, jenis perkhidmatan, dan waktu tersedia yang BAHARU, bukan menyunting yang sedia ada. Ini mungkin menyebabkan pertindanan data sekiranya anda hanya ingin menyemak semula panduan. Adakah anda ingin meneruskan?`);
         if (!proceed) return;
       }
       openOnboardingWizard();
@@ -4140,16 +4200,15 @@
 
     document.getElementById("wizard-next-btn")?.addEventListener("click", async () => {
       const errorEl = document.getElementById("wizard-error");
-      const isMs = getCurrentLang() === "ms";
       errorEl.style.display = "none";
 
       if (wizardStepIdx === 1 && !wizardPersona) {
-        errorEl.textContent = isMs ? "Sila pilih satu untuk teruskan." : "Please pick one to continue.";
+        errorEl.textContent = "Sila pilih satu untuk meneruskan.";
         errorEl.style.display = "block";
         return;
       }
       if (wizardStepIdx === 2 && !document.getElementById("wizard-service-name").value.trim()) {
-        errorEl.textContent = isMs ? "Sila masukkan nama servis." : "Please enter a service name.";
+        errorEl.textContent = "Sila masukkan nama perkhidmatan.";
         errorEl.style.display = "block";
         return;
       }
@@ -4157,17 +4216,17 @@
       if (wizardStepIdx === 4) {
         const btn = document.getElementById("wizard-next-btn");
         btn.disabled = true;
-        btn.textContent = isMs ? "Sedang setup..." : "Setting up...";
+        btn.textContent = "Sedang menyediakan...";
         try {
           await finishWizardSetup();
           wizardStepIdx = 5;
           renderWizardStep();
         } catch (err) {
-          errorEl.textContent = err.message || (isMs ? "Ada masalah berlaku. Sila cuba lagi." : "Something went wrong. Please try again.");
+          errorEl.textContent = err.message || "Berlaku masalah. Sila cuba semula.";
           errorEl.style.display = "block";
         }
         btn.disabled = false;
-        btn.textContent = isMs ? "Selesai" : "Finish";
+        btn.textContent = "Selesai";
         return;
       }
 
@@ -4273,22 +4332,22 @@
     // ── Per-page contextual guide (Lapisan 2) ──
     const PAGE_GUIDES = {
       "booking-list": [
-        { page: "booking-list", selector: "#booking-list", title: "Semua Booking Anda", text: "Setiap booking yang customer buat melalui link anda muncul di sini, disusun ikut masa akan datang. Ada badge \"HARI INI\" untuk booking hari tu, dan butang Reschedule/Batal pada setiap row." },
+        { page: "booking-list", selector: "#booking-list", title: "Semua Tempahan Anda", text: "Setiap tempahan yang dibuat oleh pelanggan melalui pautan anda akan dipaparkan di sini, disusun mengikut masa akan datang. Terdapat lencana HARI INI untuk tempahan pada hari tersebut, serta butang Jadual Semula dan Batal pada setiap baris." },
       ],
       "booking-settings": [
         { page: "booking-settings", selector: "#link-switcher-chips", title: "Link Switcher", text: "Kalau anda pelan Pro dengan lebih dari satu link booking, tukar link yang sedang diedit di sini." },
-        { page: "booking-settings", selector: "#p-booking-slug", title: "Slug", text: "Nama unik untuk link awam anda. Tukar ni akan tukar URL booking anda." },
+        { page: "booking-settings", selector: "#p-booking-slug", title: "Slug", text: "Nama unik untuk pautan awam anda. Menukar ini akan menukar URL tempahan anda." },
         { page: "booking-settings", selector: "#p-slot-duration", title: "Tempoh Slot", text: "Berapa lama setiap booking mengambil masa." },
-        { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai", text: "WAJIB diisi, booking customer akan gagal kalau kosong. Taip 0 kalau nak booking percuma." },
+        { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai", text: "WAJIB diisi. Tempahan pelanggan akan gagal sekiranya medan ini kosong. Taip 0 sekiranya tempahan adalah percuma." },
         { page: "booking-settings", selector: "#avail-cal-grid", title: "Waktu Available", text: "Klik tarikh dalam kalendar untuk set jam anda bukak." },
         { page: "booking-settings", selector: "#bset-tabs", title: "Tab Tetapan", text: "Klik tab untuk tukar antara Asas, Jenis Perkhidmatan, Soalan Tambahan, dan Embed code." },
         { page: "booking-settings", selector: "#event-types-list", title: "Jenis Perkhidmatan", text: "Kalau anda ada servis berbeza, set tempoh, harga, dan kapasiti sendiri untuk setiap satu di sini." },
         { page: "booking-settings", selector: "#new-question-input", title: "Soalan Tambahan", text: "Tanya customer soalan khusus semasa booking. Jawapan terus nampak dalam Senarai Booking." },
-        { page: "booking-settings", selector: "#save-booking-btn", title: "Simpan", text: "Jangan lupa klik ni lepas buat perubahan." },
+        { page: "booking-settings", selector: "#save-booking-btn", title: "Simpan", text: "Jangan lupa klik butang ini selepas membuat perubahan." },
       ],
       "pelanggan-add": [
         { page: "pelanggan-add", selector: "#customer-form", title: "Borang Manual", text: "Tambah pelanggan untuk order yang bukan dari booking online." },
-        { page: "pelanggan-add", selector: "#c-recurring", title: "Bayaran Berulang", text: "Tandakan ni kalau customer bayar secara berkala (contoh kelas tuisyen bulanan)." },
+        { page: "pelanggan-add", selector: "#c-recurring", title: "Bayaran Berulang", text: "Tandakan ini sekiranya pelanggan membayar secara berkala (contoh kelas tuisyen bulanan)." },
         { page: "pelanggan-add", selector: "#mr-biz", title: "Preview Resit", text: "Update live semasa anda taip, tunjuk macam mana resit customer akan nampak." },
       ],
       "pelanggan-list": [
@@ -4307,13 +4366,52 @@
         { page: "tetapan-profil", selector: "#p-business-name", title: "Nama Bisnes", text: "Dipaparkan dalam setiap emel reminder yang customer anda terima." },
         { page: "tetapan-profil", selector: "#p-logo-file", title: "Logo", text: "Naik gambar logo bisnes anda, akan muncul dalam emel." },
         { page: "tetapan-profil", selector: "#p-color", title: "Warna Jenama", text: "Customize warna utama yang muncul dalam emel dan portal customer." },
-        { page: "tetapan-profil", selector: "#p-bank-name", title: "Bank & QR DuitNow", text: "Isi maklumat ni supaya customer boleh bayar terus melalui bank transfer atau QR." },
+        { page: "tetapan-profil", selector: "#p-bank-name", title: "Bank dan QR DuitNow", text: "Isi maklumat ini supaya pelanggan boleh membayar terus melalui pindahan bank atau kod QR." },
       ],
       "tetapan-reminder": [
         { page: "tetapan-reminder", selector: "#chip-row", title: "Pilih Hari Reminder", text: "Klik hari bila sistem patut hantar reminder deposit, relatif kepada tarikh due (contoh: H-3, H-1, Hari-Ini)." },
         { page: "tetapan-reminder", selector: "#save-schedule-btn", title: "Simpan Jadual", text: "Pelan Starter disemak sekali sehari. Pelan Pro disemak setiap 2 jam, jadi reminder sampai lebih pantas." },
       ],
     };
+
+    // ── Info icon tooltips — replaces input placeholders app-wide. Works via
+    // tap (mobile) and hover (desktop) using one shared floating element,
+    // repositioned per-click instead of one tooltip div per field.
+    const globalTooltip = document.getElementById("global-info-tooltip");
+    function showInfoTooltip(btn) {
+      globalTooltip.textContent = btn.dataset.info;
+      globalTooltip.style.display = "block";
+      const rect = btn.getBoundingClientRect();
+      const tipRect = globalTooltip.getBoundingClientRect();
+      let left = rect.left + rect.width / 2 - tipRect.width / 2;
+      left = Math.max(8, Math.min(left, window.innerWidth - tipRect.width - 8));
+      let top = rect.top - tipRect.height - 8;
+      if (top < 8) top = rect.bottom + 8;
+      globalTooltip.style.left = `${left}px`;
+      globalTooltip.style.top = `${top}px`;
+    }
+    function hideInfoTooltip() {
+      globalTooltip.style.display = "none";
+    }
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".info-icon-btn");
+      if (btn) {
+        e.preventDefault();
+        e.stopPropagation();
+        showInfoTooltip(btn);
+      } else if (!e.target.closest("#global-info-tooltip")) {
+        hideInfoTooltip();
+      }
+    });
+    document.addEventListener("mouseover", (e) => {
+      const btn = e.target.closest(".info-icon-btn");
+      if (btn) showInfoTooltip(btn);
+    });
+    document.addEventListener("mouseout", (e) => {
+      if (e.target.closest(".info-icon-btn")) hideInfoTooltip();
+    });
   </script>
+
+  <div class="info-tooltip" id="global-info-tooltip"></div>
 </body>
 </html>

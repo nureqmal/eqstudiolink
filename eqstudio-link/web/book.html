@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=7" />
+<link rel="stylesheet" href="/assets/style.css?v=10" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -79,6 +79,27 @@
       const div = document.createElement("div");
       div.textContent = str ?? "";
       return div.innerHTML;
+    }
+
+    // Same whitelist-based sanitizer as dashboard.html — defense in depth,
+    // since this renders the owner's description on their PUBLIC booking page.
+    function sanitizeRichText(html) {
+      const allowed = new Set(["B", "STRONG", "I", "EM", "U", "BR"]);
+      const container = document.createElement("div");
+      container.innerHTML = html || "";
+      (function clean(node) {
+        [...node.childNodes].forEach(child => {
+          if (child.nodeType === 1) {
+            if (!allowed.has(child.tagName)) {
+              child.replaceWith(document.createTextNode(child.textContent));
+            } else {
+              [...child.attributes].forEach(attr => child.removeAttribute(attr.name));
+              clean(child);
+            }
+          }
+        });
+      })(container);
+      return container.innerHTML;
     }
 
     function dateLabel(dateKey) {
@@ -216,7 +237,7 @@
       document.getElementById("service-detail-title").textContent = t.name;
       document.getElementById("service-detail-poster").style.display = t.poster_url ? "block" : "none";
       document.getElementById("service-detail-poster").src = t.poster_url || "";
-      document.getElementById("service-detail-description").textContent = t.description || "";
+      document.getElementById("service-detail-description").innerHTML = sanitizeRichText(t.description || "");
       document.getElementById("service-detail-modal").style.display = "flex";
     }
     document.getElementById("service-detail-close-btn")?.addEventListener("click", () => {

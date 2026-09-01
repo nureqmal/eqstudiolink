@@ -27,7 +27,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=11" />
+<link rel="stylesheet" href="/assets/style.css?v=12" />
 </head>
 <body>
 
@@ -81,21 +81,13 @@
     </div>
   </section>
 
-  <section class="lp-section" style="padding-top:0;">
-    <div class="founding-offer-section">
-      <span class="founding-hero-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg> Tawaran Terhad</span>
-      <h2 style="margin:0 0 0.6rem;">Jadi Founding Member</h2>
-      <p class="lead" style="margin:0 auto 0.8rem; max-width:52ch;">RM15 sebulan, dikunci selama-lamanya, untuk 50 perniagaan pertama yang <strong>membayar</strong> (bukan 50 pertama daftar akaun). Harga anda tidak akan naik walaupun harga standard berubah kemudian.</p>
-      <div class="founding-counter" id="founding-landing-counter">
-        <span class="founding-counter-dot"></span>
-        <span id="founding-landing-counter-text">Menyemak baki slot...</span>
-      </div>
-      <div>
-        <a href="/login.html" class="btn btn-lg" id="founding-cta-btn">Jadi Founding Member →</a>
-      </div>
-      <p class="hint" style="margin-top:0.8rem;">Daftar percuma dulu, harga terkunci diberikan sebaik bayaran pertama anda disahkan.</p>
-    </div>
-  </section>
+  <div class="founding-banner-strip" id="founding-banner-strip">
+    <span class="founding-banner-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg> Founding Member</span>
+    <span>RM15/bulan dikunci selama-lamanya</span>
+    <span class="founding-banner-dot">•</span>
+    <span id="founding-banner-counter-text">Menyemak baki slot...</span>
+    <a href="/login.html" id="founding-cta-btn">Jadi Founding Member →</a>
+  </div>
 
   <section class="lp-section" id="demo">
     <div class="lp-sim-cta">
@@ -341,7 +333,7 @@
       try {
         const res = await fetch("/api/founding-member-count");
         const data = await res.json();
-        const textEl = document.getElementById("founding-landing-counter-text");
+        const textEl = document.getElementById("founding-banner-counter-text");
         const ctaBtn = document.getElementById("founding-cta-btn");
         if (data.available) {
           textEl.textContent = `${data.remaining}/${data.cap} slot berbaki`;
@@ -349,7 +341,7 @@
           textEl.textContent = "Semua 50 slot telah diambil";
           ctaBtn.textContent = "Lihat Pelan Standard";
           ctaBtn.href = "#harga";
-          document.querySelector(".founding-hero-badge").textContent = "Tawaran Telah Tamat";
+          document.querySelector(".founding-banner-badge").textContent = "Tawaran Telah Tamat";
         }
       } catch { /* leave the default "Menyemak baki slot..." text if this fails */ }
     }

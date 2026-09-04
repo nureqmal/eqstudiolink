@@ -103,6 +103,10 @@ export const UI_STRINGS = {
     faq_a18: "Yes. Open any customer's profile to see everything they've booked, what's paid vs pending, and their upcoming appointments, all in one view, not spread across separate records.",
     faq_q19: "Can I suggest features, and see what's coming?",
     faq_a19: "Post a suggestion in the forum, other owners can vote on it, and we tag it Planned, In Progress, or Shipped as we build it. Check the public <a href=\"/roadmap.html\">Roadmap</a> anytime to see what's next.",
+    faq_q20: "Why doesn't my customer see how to pay?",
+    faq_a20: "This almost always means Business Profile isn't filled in yet. Add your bank name, account number, and DuitNow QR there first, that's what shows customers how to pay their deposit.",
+    faq_q21: "Should I test it myself before sharing my link?",
+    faq_a21: "Good idea. Book a slot using a different email (not your account email) to see exactly what your customers see, from picking a slot to the payment instructions.",
 
     dash_stat_upcoming: "Upcoming Bookings",
     dash_stat_outstanding: "Outstanding",
@@ -276,6 +280,10 @@ export const UI_STRINGS = {
     faq_a18: "Boleh. Buka profil mana-mana customer untuk nampak semua yang dia dah book, mana dah bayar dan mana belum, dan booking akan datang, semua dalam satu view, bukan bertaburan dalam rekod berasingan.",
     faq_q19: "Boleh cadangkan feature, dan nampak apa yang akan datang?",
     faq_a19: "Post cadangan dalam forum, owner lain boleh vote, dan kami tag Planned, In Progress, atau Shipped bila kami bina. Semak <a href=\"/roadmap.html\">Roadmap</a> awam bila-bila untuk nampak apa yang akan datang.",
+    faq_q20: "Kenapa customer saya tak nampak cara bayar?",
+    faq_a20: "Ini hampir selalu bermaksud Profil Perniagaan belum diisi lagi. Tambah nama bank, nombor akaun, dan QR DuitNow di situ dahulu, itulah yang tunjukkan kepada customer cara membayar deposit mereka.",
+    faq_q21: "Patut saya test sendiri sebelum share link saya?",
+    faq_a21: "Idea yang baik. Buat booking guna emel lain (bukan emel akaun anda) untuk lihat betul-betul apa yang customer anda nampak, dari pilih slot hinggalah arahan bayaran.",
 
     dash_stat_upcoming: "Booking Akan Datang",
     dash_stat_outstanding: "Belum Diterima",

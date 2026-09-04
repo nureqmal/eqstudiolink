@@ -66,8 +66,8 @@ function buildAiskrimComelDataset() {
     {
       id: "demo-bk-4", owner_id: ownerId, booking_link_id: linkId, event_type_id: et2,
       customer_name: "Mohd Hafiz", customer_email: "hafiz.demo@example.com", customer_phone: "012-778 9900",
-      slot_datetime: isoDateTime(daysFromNow(-10)), duration_minutes: 180,
-      status: "completed", deposit_amount: 200, deposit_paid: true,
+      slot_datetime: isoDateTime(new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 5), 14, 0, 0)), duration_minutes: 180,
+      status: "confirmed", deposit_amount: 200, deposit_paid: true,
       custom_answers: { "Berapa jumlah tetamu dijangka?": "75 orang", "Lokasi event (nyatakan kawasan)?": "Sekolah, Petaling Jaya", "Ada requirement perisa khas/alahan?": "Tiada" },
       created_at: isoDateTime(daysFromNow(-15)),
     },
@@ -76,18 +76,21 @@ function buildAiskrimComelDataset() {
   const customers = bookings.map((b, i) => ({
     id: `demo-cust-${i + 1}`, owner_id: ownerId, name: b.customer_name, email: b.customer_email, phone: b.customer_phone,
     amount: b.deposit_amount, status: b.deposit_paid ? "dah_bayar" : "belum_bayar",
+    paid_at: b.deposit_paid ? isoDateTime(new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 3))) : null,
     due_date: isoDate(daysFromNow(3)), notes: "", is_recurring: false, created_at: b.created_at,
   }));
 
   return {
     user: { id: ownerId, email: "demo-aiskrim@eqstudio.link" },
-    profile: {
-      id: ownerId, business_name: "Aiskrim Comel", phone: "012-345 6789", email: "aiskrimcomel@example.com",
-      address: "Shah Alam, Selangor", bank_name: "Maybank", bank_account: "1623 0045 9912", bank_holder: "Aiskrim Comel Enterprise",
-      ssm_number: "202301234567", tier: "pro", subscription_status: "active", subscription_end_date: isoDate(daysFromNow(300)),
+    profiles: [{
+      id: ownerId, business_name: "Aiskrim Comel", contact_phone: "012-345 6789", contact_email: "aiskrimcomel@example.com",
+      business_address: "Shah Alam, Selangor", logo_url: null, brand_color: null,
+      bank_name: "Maybank", bank_account_number: "1623 0045 9912", bank_account_holder: "Aiskrim Comel Enterprise",
+      qr_code_url: null, ssm_number: "202301234567", tier: "pro", subscription_status: "active", subscription_end_date: isoDate(daysFromNow(300)),
+      is_suspended: false, booking_slug: "aiskrim-comel", default_deposit_amount: 100,
       is_founding_member: true, founding_member_locked_price_monthly: 15, founding_member_locked_price_yearly: 150,
-      payment_claimed_at: null, is_suspended: false, forum_banned: false, alt_payment_note: "",
-    },
+      payment_claimed_at: null, forum_banned: false, alt_payment_note: "",
+    }],
     booking_links: [{
       id: linkId, owner_id: ownerId, slug: "aiskrim-comel", label: "Aiskrim Comel", is_primary: true,
       default_deposit_amount: 100, slot_duration_minutes: 120, booking_min_notice_hours: 24, buffer_minutes: 15,

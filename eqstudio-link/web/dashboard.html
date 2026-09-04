@@ -966,8 +966,16 @@
         <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎉</div>
         <h2 style="margin-top:0; font-size:1.2rem;">Halaman tempahan anda telah sedia!</h2>
         <p class="hint" id="wizard-final-link" style="word-break:break-all; margin-bottom:1rem;"></p>
-        <button type="button" id="wizard-copy-link-btn" class="secondary" style="width:100%; margin-bottom:0.5rem;">Salin Pautan</button>
-        <a href="#" id="wizard-open-link-btn" target="_blank" class="btn" style="width:100%; display:block; text-align:center;">Buka Halaman Tempahan</a>
+        <button type="button" id="wizard-copy-link-btn" class="secondary" style="width:100%; margin-bottom:1rem;">Salin Pautan</button>
+
+        <div class="bset-tip" style="text-align:left; margin-bottom:1rem;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span><strong>Satu langkah penting sebelum share:</strong> isi Profil Perniagaan (bank/QR DuitNow) supaya pelanggan anda dapat lihat cara membayar deposit selepas mereka menempah.</span>
+        </div>
+        <button type="button" id="wizard-goto-profile-btn" style="width:100%; margin-bottom:1rem;">Isi Profil Perniagaan Sekarang →</button>
+
+        <a href="#" id="wizard-open-link-btn" target="_blank" class="btn" style="width:100%; display:block; text-align:center; background:transparent; color:var(--ink); border:1.5px solid var(--paper-line); box-shadow:none;">Buka Halaman Tempahan</a>
+        <p class="hint" style="margin-top:0.5rem;">Cadangan: tempah menggunakan emel lain (bukan emel akaun anda) untuk merasai pengalaman sebenar pelanggan, sebelum berkongsi pautan ini secara meluas.</p>
       </div>
 
       <p class="error" id="wizard-error" style="display:none; margin-top:0.8rem;"></p>
@@ -4373,7 +4381,7 @@
       document.getElementById("wizard-final-link").textContent = bookingUrl;
       document.getElementById("wizard-open-link-btn").href = bookingUrl;
       document.getElementById("wizard-copy-link-btn").onclick = () => {
-        navigator.clipboard.writeText(bookingUrl).then(() => showToast("Link copied!", "success"));
+        navigator.clipboard.writeText(bookingUrl).then(() => showToast("Pautan disalin!", "success"));
       };
 
       loadBookingLinksAndSettings().catch(err => {
@@ -4383,6 +4391,10 @@
     }
 
     document.getElementById("wizard-open-link-btn")?.addEventListener("click", () => closeWizard(true));
+    document.getElementById("wizard-goto-profile-btn")?.addEventListener("click", () => {
+      closeWizard(true);
+      goToPage("tetapan-profil");
+    });
 
     function startTour() {
       isMainTour = true;

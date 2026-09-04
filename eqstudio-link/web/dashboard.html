@@ -1058,7 +1058,6 @@
   </div>
 
   <script type="module">
-    import { supabase } from "/assets/supabase-client.js";
     import { showToast } from "/assets/toast.js";
     import { loadNotices } from "/assets/notices.js";
 
@@ -1073,6 +1072,22 @@
       }, 1200);
     }
     import Papa from "https://esm.sh/papaparse@5";
+
+    // ── Demo Mode: dashboard.html?demo=<niche>&key=<secret> loads a fully
+    // pre-populated fake business for screenshots/videos, with zero real
+    // Supabase calls — see /assets/demo-mock-client.js for how this works.
+    // Every line below this point is completely unchanged whether `supabase`
+    // ends up being the real client or the demo mock, since both expose the
+    // exact same .auth/.from()/.storage shape.
+    const _urlParams = new URLSearchParams(window.location.search);
+    const isDemoMode = _urlParams.get("demo") && _urlParams.get("key") === "eqstudio-demo-2026";
+    let supabase;
+    if (isDemoMode) {
+      const { createMockSupabaseClient } = await import("/assets/demo-mock-client.js");
+      supabase = createMockSupabaseClient(_urlParams.get("demo"));
+    } else {
+      ({ supabase } = await import("/assets/supabase-client.js"));
+    }
 
     const { data: sessionData } = await supabase.auth.getSession();
     if (!sessionData.session) {

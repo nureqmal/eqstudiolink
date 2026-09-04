@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Demo Mode | eqstudio.link</title>
+<link rel="icon" type="image/x-icon" href="/assets/logo/favicon.ico" />
+<link rel="stylesheet" href="/assets/style.css?v=12" />
+</head>
+<body>
+  <div class="lp-nav">
+    <a href="/" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" style="height:28px;" /></a>
+  </div>
+
+  <div style="max-width:720px; margin:3rem auto; padding:0 1.5rem;">
+    <h1 style="margin-bottom:0.3rem;">Demo Mode</h1>
+    <p class="hint" style="margin-bottom:2rem;">Halaman peribadi untuk buat video/screenshot promosi. Setiap kad bawa anda ke dashboard yang sudah lengkap diisi dengan data contoh, tiada Supabase disentuh langsung.</p>
+
+    <div id="demo-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:1rem;"></div>
+  </div>
+
+  <script type="module">
+    const DEMO_KEY = "eqstudio-demo-2026";
+    const NICHES = [
+      { slug: "aiskrim", label: "Aiskrim Comel", desc: "Katering aiskrim untuk event & majlis", emoji: "🍦" },
+      // Tambah niche baharu di sini bila dataset baharu ditambah ke demo-mock-client.js
+    ];
+
+    document.getElementById("demo-grid").innerHTML = NICHES.map(n => `
+      <a href="/dashboard.html?demo=${n.slug}&key=${DEMO_KEY}" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <div style="font-size:2rem; margin-bottom:0.4rem;">${n.emoji}</div>
+        <strong>${n.label}</strong>
+        <p class="hint" style="margin:0.3rem 0 0;">${n.desc}</p>
+      </a>
+    `).join("");
+  </script>
+</body>
+</html>

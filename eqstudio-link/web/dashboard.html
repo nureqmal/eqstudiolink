@@ -820,6 +820,12 @@
             <button type="button" class="secondary" id="enable-push-btn" style="margin-top:0.5rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg> <span id="enable-push-text">Hidupkan Notifikasi Telefon</span></button>
             <p class="hint" id="push-status-text" style="margin-top:0.4rem; display:none;"></p>
           </div>
+
+          <div class="card">
+            <div class="section-title"><h2 style="margin:0; font-size:1rem;">Setup Pantas</h2></div>
+            <p class="hint">Tutup checklist Setup Pantas di Home tanpa sengaja? Boleh buka semula di sini.</p>
+            <button type="button" class="secondary" id="reopen-setup-checklist-btn" style="margin-top:0.5rem;">↻ Buka Semula Setup Pantas</button>
+          </div>
         </div>
 
         <div class="db-page" id="page-tetapan-reminder">
@@ -1480,12 +1486,13 @@
     function renderSetupChecklist(customerCount) {
       if (localStorage.getItem("eqstudio_setup_dismissed") === "1") return;
 
-      const step1Done = !!profile?.business_name;
+      const step1Done = !!profile?.business_name && !!profile?.bank_name && !!profile?.bank_account_number && !!profile?.qr_code_url;
       const step2Done = allBookingLinks.some(l => l.slug && l.default_deposit_amount != null);
       const step3Done = localStorage.getItem("eqstudio_schedule_saved") === "1";
       const step4Done = customerCount > 0;
+      const step5Done = localStorage.getItem("eqstudio_test_booking_done") === "1";
 
-      if (step1Done && step2Done && step3Done && step4Done) {
+      if (step1Done && step2Done && step3Done && step4Done && step5Done) {
         localStorage.setItem("eqstudio_setup_dismissed", "1");
         return;
       }
@@ -1498,6 +1505,14 @@
           ${!done ? `<a href="#" data-goto="${linkPage}">→ pergi</a>` : ""}
         </div>`;
 
+      const primarySlug = allBookingLinks.find(l => l.is_primary)?.slug || allBookingLinks[0]?.slug;
+      const testItem = (done) => `
+        <div class="setup-item ${done ? "done" : ""}">
+          <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+          <span class="setup-label">Test booking sendiri guna emel lain (rasa pengalaman pelanggan)</span>
+          ${!done ? (primarySlug ? `<a href="#" id="setup-test-booking-link">→ pergi</a>` : `<span class="hint" style="font-size:0.75rem;">(siapkan Setup Booking dulu)</span>`) : ""}
+        </div>`;
+
       slot.innerHTML = `
         <div class="card" style="margin-bottom:1.5rem;">
           <div class="section-title">
@@ -1505,10 +1520,11 @@
             <button class="secondary" id="dismiss-setup" style="padding:0.3rem 0.7rem; font-size:0.8rem;">Tutup</button>
           </div>
           <div class="setup-checklist">
-            ${item(step1Done, "Isi Profil Perniagaan (nama, contact)", "tetapan-profil")}
+            ${item(step1Done, "Isi Profil Perniagaan (nama, contact, bank & QR DuitNow)", "tetapan-profil")}
             ${item(step2Done, "Setup Booking (link, waktu available & deposit lalai)", "booking-settings")}
             ${item(step3Done, "Semak & simpan Jadual Reminder", "tetapan-reminder")}
             ${item(step4Done, "Tambah pelanggan pertama (atau kongsi link booking)", "pelanggan-add")}
+            ${testItem(step5Done)}
           </div>
         </div>`;
 
@@ -1522,6 +1538,13 @@
           e.preventDefault();
           goToPage(a.dataset.goto);
         });
+      });
+
+      document.getElementById("setup-test-booking-link")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.open(`${window.location.origin}/book.html?slug=${primarySlug}`, "_blank");
+        localStorage.setItem("eqstudio_test_booking_done", "1");
+        renderSetupChecklist(customerCount);
       });
     }
 
@@ -4212,6 +4235,13 @@
         if (!proceed) return;
       }
       openOnboardingWizard();
+    });
+
+    document.getElementById("reopen-setup-checklist-btn")?.addEventListener("click", () => {
+      localStorage.removeItem("eqstudio_setup_dismissed");
+      goToPage("home");
+      renderSetupChecklist(allCustomers.length);
+      showToast("Setup Pantas dibuka semula di Home.", "success");
     });
 
     // ── Push notification opt-in — Web Push, works even when the dashboard

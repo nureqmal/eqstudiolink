@@ -122,8 +122,109 @@ function buildAiskrimComelDataset() {
   };
 }
 
+function buildLensaKreatifDataset() {
+  const ownerId = "demo-lensa-uid";
+  const linkId = "demo-link-lensa";
+  const et1 = "demo-et-potret", et2 = "demo-et-praperkahwinan", et3 = "demo-et-majlis";
+
+  // Availability: Thu/Fri/Sat/Sun (photographers skew toward weekend + Friday events)
+  const availability_dates = [];
+  for (let i = 0; i < 28; i++) {
+    const day = daysFromNow(i);
+    const dow = day.getDay();
+    if (dow === 4 || dow === 5 || dow === 6 || dow === 0) {
+      availability_dates.push({ id: `avail-lensa-${i}`, owner_id: ownerId, booking_link_id: linkId, specific_date: isoDate(day), start_time: "09:00:00", end_time: "19:00:00" });
+    }
+  }
+
+  const upcomingSat = nextWeekday(new Date(), 6);
+  const bookings = [
+    {
+      id: "demo-lbk-1", owner_id: ownerId, booking_link_id: linkId, event_type_id: et2,
+      customer_name: "Amirul & Farah", customer_email: "amirulfarah.demo@example.com", customer_phone: "013-556 7788",
+      slot_datetime: isoDateTime(new Date(upcomingSat.getTime() + 15 * 3600 * 1000)), duration_minutes: 240,
+      status: "confirmed", deposit_amount: 250, deposit_paid: false,
+      custom_answers: { "Lokasi photoshoot yang dikehendaki?": "Pantai Klebang, Melaka", "Tema/konsep yang diinginkan?": "Rustic pastel, outdoor golden hour", "Bilangan pasangan/keluarga terlibat?": "2 orang sahaja" },
+      created_at: isoDateTime(daysFromNow(-3)),
+    },
+    {
+      id: "demo-lbk-2", owner_id: ownerId, booking_link_id: linkId, event_type_id: et1,
+      customer_name: "Keluarga Zulkifli", customer_email: "zulkifli.demo@example.com", customer_phone: "019-223 4455",
+      slot_datetime: isoDateTime(new Date(daysFromNow(6).setHours(10, 0, 0, 0))), duration_minutes: 90,
+      status: "confirmed", deposit_amount: 100, deposit_paid: true,
+      custom_answers: { "Lokasi photoshoot yang dikehendaki?": "Studio Lensa Kreatif", "Tema/konsep yang diinginkan?": "Potret keluarga formal, backdrop putih", "Bilangan pasangan/keluarga terlibat?": "5 orang (ibu bapa + 3 anak)" },
+      created_at: isoDateTime(daysFromNow(-7)),
+    },
+    {
+      id: "demo-lbk-3", owner_id: ownerId, booking_link_id: linkId, event_type_id: et3,
+      customer_name: "Hotel Impiana (Majlis Korporat)", customer_email: "events.impiana.demo@example.com", customer_phone: "017-889 0011",
+      slot_datetime: isoDateTime(new Date(daysFromNow(18).setHours(9, 0, 0, 0))), duration_minutes: 480,
+      status: "confirmed", deposit_amount: 400, deposit_paid: false,
+      custom_answers: { "Lokasi photoshoot yang dikehendaki?": "Hotel Impiana, Kuala Lumpur", "Tema/konsep yang diinginkan?": "Liputan penuh majlis, gaya dokumentari", "Bilangan pasangan/keluarga terlibat?": "Anggaran 200 tetamu" },
+      created_at: isoDateTime(daysFromNow(-1)),
+    },
+    {
+      id: "demo-lbk-4", owner_id: ownerId, booking_link_id: linkId, event_type_id: et2,
+      customer_name: "Hafiy & Alia", customer_email: "hafiyalia.demo@example.com", customer_phone: "012-990 1122",
+      slot_datetime: isoDateTime(new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 4), 16, 0, 0)), duration_minutes: 240,
+      status: "confirmed", deposit_amount: 250, deposit_paid: true,
+      custom_answers: { "Lokasi photoshoot yang dikehendaki?": "Taman Botani, Putrajaya", "Tema/konsep yang diinginkan?": "Traditional songket, formal", "Bilangan pasangan/keluarga terlibat?": "2 orang sahaja" },
+      created_at: isoDateTime(daysFromNow(-12)),
+    },
+  ];
+
+  const customers = bookings.map((b, i) => ({
+    id: `demo-lcust-${i + 1}`, owner_id: ownerId, name: b.customer_name, email: b.customer_email, phone: b.customer_phone,
+    amount: b.deposit_amount, status: b.deposit_paid ? "dah_bayar" : "belum_bayar",
+    paid_at: b.deposit_paid ? isoDateTime(new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 2))) : null,
+    due_date: isoDate(daysFromNow(3)), notes: "", is_recurring: false, created_at: b.created_at,
+  }));
+
+  return {
+    user: { id: ownerId, email: "demo-lensa@eqstudio.link" },
+    profiles: [{
+      id: ownerId, business_name: "Lensa Kreatif Studio", contact_phone: "013-778 9900", contact_email: "lensakreatif@example.com",
+      business_address: "Petaling Jaya, Selangor", logo_url: null, brand_color: null,
+      bank_name: "CIMB Bank", bank_account_number: "7008 1122 3344", bank_account_holder: "Lensa Kreatif Studio",
+      qr_code_url: null, ssm_number: "202401987654", tier: "starter", subscription_status: "active", subscription_end_date: isoDate(daysFromNow(300)),
+      is_suspended: false, booking_slug: "lensa-kreatif", default_deposit_amount: 150,
+      is_founding_member: true, founding_member_locked_price_monthly: 15, founding_member_locked_price_yearly: 150,
+      payment_claimed_at: null, forum_banned: false, alt_payment_note: "",
+    }],
+    booking_links: [{
+      id: linkId, owner_id: ownerId, slug: "lensa-kreatif", label: "Lensa Kreatif Studio", is_primary: true,
+      default_deposit_amount: 150, slot_duration_minutes: 90, booking_min_notice_hours: 48, buffer_minutes: 30,
+      cancel_notice_hours: 48, description: "Fotografi profesional untuk potret keluarga, pra-perkahwinan, dan majlis korporat. Gaya semulajadi dengan sentuhan editorial.",
+      poster_url: null, created_at: isoDateTime(daysFromNow(-90)),
+    }],
+    event_types: [
+      { id: et1, owner_id: ownerId, booking_link_id: linkId, name: "Sesi Potret Keluarga", duration_minutes: 90, deposit_amount: 100, capacity: 1, sort_order: 0, description: "Sesi potret keluarga atau individu di studio atau lokasi pilihan anda. Termasuk 15 gambar edit penuh.", poster_url: null },
+      { id: et2, owner_id: ownerId, booking_link_id: linkId, name: "Pra-Perkahwinan", duration_minutes: 240, deposit_amount: 250, capacity: 1, sort_order: 1, description: "Sesi pra-perkahwinan 2 lokasi, termasuk pertukaran pakaian dan 40 gambar edit penuh.", poster_url: null },
+      { id: et3, owner_id: ownerId, booking_link_id: linkId, name: "Liputan Majlis (Full Day)", duration_minutes: 480, deposit_amount: 400, capacity: 1, sort_order: 2, description: "Liputan penuh majlis perkahwinan atau korporat sehari, termasuk 2 jurugambar dan album digital.", poster_url: null },
+    ],
+    availability_dates,
+    booking_questions: [
+      { id: "demo-lq1", owner_id: ownerId, booking_link_id: linkId, question_text: "Lokasi photoshoot yang dikehendaki?", sort_order: 0 },
+      { id: "demo-lq2", owner_id: ownerId, booking_link_id: linkId, question_text: "Tema/konsep yang diinginkan?", sort_order: 1 },
+      { id: "demo-lq3", owner_id: ownerId, booking_link_id: linkId, question_text: "Bilangan pasangan/keluarga terlibat?", sort_order: 2 },
+    ],
+    bookings,
+    customers,
+    notifications: [
+      { id: "demo-lnotif-1", owner_id: ownerId, type: "new_booking", title: "Booking baharu diterima", message: "Hotel Impiana — Liputan Majlis (Full Day)", link_url: "/dashboard.html?page=booking-list", is_read: false, created_at: isoDateTime(daysFromNow(-1)) },
+      { id: "demo-lnotif-2", owner_id: ownerId, type: "new_booking", title: "Booking baharu diterima", message: "Amirul & Farah — Pra-Perkahwinan", link_url: "/dashboard.html?page=booking-list", is_read: true, created_at: isoDateTime(daysFromNow(-3)) },
+    ],
+    reminder_settings: [{ id: "demo-lrs-1", owner_id: ownerId, days_before: [3, 1, 0] }],
+    note_templates: [
+      { id: "demo-lnt-1", owner_id: ownerId, text: "Deposit diterima, baki dibayar semasa penghantaran gambar akhir." },
+    ],
+    reminders_log: [],
+  };
+}
+
 const DEMO_DATASETS = {
   aiskrim: buildAiskrimComelDataset(),
+  fotografi: buildLensaKreatifDataset(),
 };
 
 // ── Generic mock query builder — mimics the chainable Supabase JS SDK API

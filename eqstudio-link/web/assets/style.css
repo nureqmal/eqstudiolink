@@ -123,11 +123,17 @@ a { color: var(--stamp); }
 label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin: var(--space-4) 0 var(--space-2); }
 input, textarea, select {
   width: 100%; padding: var(--space-3) var(--space-4); border: 1px solid var(--paper-line);
-  border-radius: 8px; font-family: var(--font-body); font-size: 0.95rem;
+  border-radius: 8px; font-family: var(--font-body); font-size: 1rem;
   background: var(--paper); color: var(--ink);
 }
 input:focus, textarea:focus, select:focus {
   outline: 2px solid var(--stamp); outline-offset: 1px; border-color: var(--stamp);
+}
+/* Global keyboard-navigation focus ring — visible only for :focus-visible
+   (Tab key), not mouse clicks, so it never looks "messy" on click but always
+   shows clearly for anyone navigating by keyboard. */
+button:focus-visible, a:focus-visible, [tabindex]:focus-visible, .rte-editor:focus-visible {
+  outline: 2px solid var(--stamp); outline-offset: 2px;
 }
 input[type="number"], .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
@@ -716,7 +722,7 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
   }
   .kebab-menu::before {
     content: ""; display: block; width: 36px; height: 4px; background: var(--paper-line);
-    border-radius: 99px; margin: 0.3rem auto 0.6rem;
+    border-radius: 999px; margin: 0.3rem auto 0.6rem;
   }
   .kebab-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
   .kebab-menu-item { padding: 0.9rem 1rem; font-size: 0.96rem; }
@@ -1724,7 +1730,10 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .home-link-item-row { display: flex; align-items: center; gap: 0.5rem; }
 .home-link-item-icon-btn {
   background: var(--paper); border: 1px solid var(--paper-line); border-radius: 8px; width: 34px; height: 34px;
-  display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); flex-shrink: 0; padding: 0;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink); flex-shrink: 0; padding: 0; position: relative;
+}
+.home-link-item-icon-btn::after {
+  content: ""; position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; transform: translate(-50%, -50%);
 }
 .home-link-item-icon-btn:hover { border-color: var(--stamp); transform: none; box-shadow: none; }
 
@@ -1733,7 +1742,10 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px;
   border-radius: 50%; background: var(--paper-line); color: var(--ink-soft); border: none; cursor: pointer;
   font-size: 0.68rem; font-weight: 700; font-family: var(--font-body); flex-shrink: 0; padding: 0;
-  margin-left: 0.35rem; vertical-align: middle; transition: background 0.15s, color 0.15s;
+  margin-left: 0.35rem; vertical-align: middle; transition: background 0.15s, color 0.15s; position: relative;
+}
+.info-icon-btn::after {
+  content: ""; position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%);
 }
 .info-icon-btn:hover, .info-icon-btn:focus { background: var(--stamp); color: #fff; transform: none; box-shadow: none; }
 .info-tooltip {
@@ -1760,13 +1772,16 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .rte-btn {
   width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
   border: 1px solid var(--paper-line); border-radius: 6px; background: var(--surface); color: var(--ink);
-  cursor: pointer; font-size: 0.82rem; font-weight: 700; padding: 0; transition: all 0.15s;
+  cursor: pointer; font-size: 0.82rem; font-weight: 700; padding: 0; transition: all 0.15s; position: relative;
+}
+.rte-btn::after {
+  content: ""; position: absolute; top: 50%; left: 50%; width: 36px; height: 36px; transform: translate(-50%, -50%);
 }
 .rte-btn:hover { border-color: var(--stamp); transform: none; box-shadow: none; }
 .rte-btn.active { background: var(--stamp); border-color: var(--stamp); color: #fff; }
 .rte-editor {
   width: 100%; min-height: 4.5rem; border: 1px solid var(--paper-line); border-radius: 8px;
-  padding: 0.6rem 0.75rem; font-family: var(--font-body); font-size: 0.95rem; background: var(--surface);
+  padding: 0.6rem 0.75rem; font-family: var(--font-body); font-size: 1rem; background: var(--surface);
   color: var(--ink); line-height: 1.5;
 }
 .rte-editor:focus { outline: none; border-color: var(--stamp); }

@@ -358,6 +358,47 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .lp-sim-cta-icon { font-size: 2.75rem; margin-bottom: 0.5rem; }
 .lp-sim-cta .lead { max-width: 42ch; margin-left: auto; margin-right: auto; }
 
+/* ── Spotlight variant: this is THE card we want visitors to click ── */
+.lp-sim-cta-spotlight { border: none; padding: 3.5rem 2rem 3rem; overflow: visible; }
+.lp-sim-cta-spotlight::before { background: none; }
+.lp-sim-cta-spotlight::after {
+  content: ""; position: absolute; inset: -3px; border-radius: inherit; z-index: -2;
+  background: conic-gradient(var(--stamp), var(--accent-coral), var(--accent-sun), var(--accent-lilac), var(--stamp));
+  animation: lp-sim-border-spin 5s linear infinite;
+}
+.lp-sim-cta-spotlight { background: var(--surface); }
+.lp-sim-cta-spotlight { box-shadow: 0 20px 50px rgba(74,9,143,0.15); }
+@keyframes lp-sim-border-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .lp-sim-cta-spotlight::after { animation: none; } }
+
+.lp-sim-badge {
+  position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
+  background: var(--accent-sage); color: #fff; font-size: 0.72rem; font-weight: 700;
+  padding: 0.35rem 1rem; border-radius: 999px; box-shadow: 0 4px 14px rgba(13,148,136,0.35); z-index: 2;
+}
+
+.lp-sim-icon-pulse {
+  width: 68px; height: 68px; border-radius: 50%; background: var(--stamp); color: #fff;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 0.9rem; position: relative;
+}
+.lp-sim-icon-pulse svg { position: relative; z-index: 1; margin-left: 3px; }
+.lp-sim-icon-pulse::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--stamp);
+  animation: lp-sim-pulse-ring 2.2s ease-out infinite;
+}
+@keyframes lp-sim-pulse-ring {
+  0% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(2); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .lp-sim-icon-pulse::before { animation: none; } }
+
+.lp-sim-btn-glow { animation: lp-sim-btn-glow-pulse 2.4s ease-in-out infinite; }
+@keyframes lp-sim-btn-glow-pulse {
+  0%, 100% { box-shadow: 0 6px 16px rgba(74,9,143,0.35); }
+  50% { box-shadow: 0 6px 30px rgba(74,9,143,0.55), 0 0 0 10px rgba(74,9,143,0.08); }
+}
+@media (prefers-reduced-motion: reduce) { .lp-sim-btn-glow { animation: none; } }
+
 /* ── Simulation modal (full guided journey) ──────────────────────── */
 .lp-sim-overlay {
   display: none; position: fixed; inset: 0; background: rgba(42,33,24,0.55); z-index: 300;

@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=28" />
+<link rel="stylesheet" href="/assets/style.css?v=29" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -21,12 +21,6 @@
 </script>
 </head>
 <body>
-
-  <div id="dashboard-loading-overlay">
-    <img src="/assets/logo/logo-64.png" alt="eqstudio.link" class="loading-logo" />
-    <div class="loading-spinner"></div>
-    <p class="loading-tip" id="loading-tip-text"></p>
-  </div>
 
   <div class="db-shell">
 
@@ -133,6 +127,13 @@
           <div class="card" style="margin-bottom:1.5rem;">
             <div class="section-title"><h2 style="margin:0; font-size:0.95rem;">Tren Booking (14 Hari)</h2></div>
             <div id="home-trend-chart" style="margin-top:0.6rem;"></div>
+            <div class="dashboard-tip-widget" id="dashboard-tip-widget">
+              <span class="dashboard-tip-icon">💡</span>
+              <p class="dashboard-tip-text" id="dashboard-tip-text"></p>
+              <button type="button" class="dashboard-tip-next" id="dashboard-tip-next" aria-label="Tip seterusnya" title="Tip seterusnya">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
           </div>
 
           <div class="card tile-enter" id="home-next-action-card" style="margin-bottom:1.5rem; display:none; border-left:4px solid var(--stamp);">
@@ -1071,41 +1072,6 @@
     import { showToast } from "/assets/toast.js";
     import { loadNotices } from "/assets/notices.js";
 
-    // ── Loading screen tips (shuffled, rotate while data loads) ──
-    const LOADING_TIPS = [
-      "💡 Isi bank & QR DuitNow di Profil Perniagaan supaya pelanggan boleh bayar deposit.",
-      "💡 Cuba booking sendiri guna emel lain untuk rasa pengalaman sebenar pelanggan anda.",
-      "💡 Hidupkan Notifikasi Telefon supaya anda tahu serta-merta bila ada booking baharu.",
-      "💡 Guna preset waktu pantas (Pagi/Tengahari/Petang/Malam) untuk set availability lebih laju.",
-      "💡 \"Salin ke 4 Minggu Depan\" boleh gandakan waktu available anda sekali klik.",
-      "💡 Ada lebih dari satu jenis perkhidmatan? Tambah di tab Jenis Perkhidmatan.",
-      "💡 Semak Jadual Peringatan supaya emel reminder dihantar pada masa yang sesuai.",
-      "💡 Boleh kongsi booking link terus di WhatsApp, Instagram, atau cetak sebagai QR.",
-      "💡 Customer Berisiko di Laporan tunjuk siapa yang perlu anda beri perhatian lebih.",
-      "💡 Buka Forum untuk tanya soalan atau cadangkan feature baharu.",
-    ];
-    (function shuffleAndRotateLoadingTips() {
-      const el = document.getElementById("loading-tip-text");
-      if (!el) return;
-      const shuffled = [...LOADING_TIPS].sort(() => Math.random() - 0.5);
-      let i = 0;
-      el.textContent = shuffled[0];
-      const timer = setInterval(() => {
-        i = (i + 1) % shuffled.length;
-        el.style.animation = "none";
-        el.offsetHeight; // force reflow to restart animation
-        el.style.animation = "";
-        el.textContent = shuffled[i];
-      }, 2500);
-      window.__loadingTipTimer = timer;
-      // Safety net: never trap the user on this screen forever if something
-      // errors before the normal hide-on-profile-loaded checkpoint fires.
-      setTimeout(() => {
-        const overlay = document.getElementById("dashboard-loading-overlay");
-        if (overlay) { overlay.classList.add("hidden"); clearInterval(timer); setTimeout(() => overlay.remove(), 500); }
-      }, 8000);
-    })();
-
     function flashButtonSuccess(btn, originalText) {
       if (!btn) return;
       const prevText = btn.textContent;
@@ -1357,15 +1323,6 @@
     document.getElementById("business-name-side").textContent = bizLabel;
     document.getElementById("mr-biz").textContent = bizLabel;
     document.getElementById("home-biz-name").textContent = bizLabel;
-
-    // Core profile data has arrived — hide the loading overlay.
-    (function hideLoadingOverlay() {
-      const overlay = document.getElementById("dashboard-loading-overlay");
-      if (!overlay) return;
-      overlay.classList.add("hidden");
-      clearInterval(window.__loadingTipTimer);
-      setTimeout(() => overlay.remove(), 500);
-    })();
 
     function renderTierBadge(el) {
       if (!el || !profile) return;
@@ -3508,6 +3465,157 @@
         `;
       }).join("");
     }
+
+    // ── Dashboard tips: 100 pieces of content (strategy, customer handling,
+    // business philosophy, how-to-use-each-page, payment/reschedule flow,
+    // general knowledge). [Bracket text] becomes a clickable link to that
+    // page via DASHBOARD_TIP_LINKS below. Shown as a small "side" widget
+    // attached to the Tren Booking card — one random tip per page load,
+    // plus a manual next-arrow for anyone who wants to browse more.
+    const DASHBOARD_TIP_LINKS = {
+      "Kalendar": { page: "kalendar" },
+      "Tetapan Booking": { page: "booking-settings" },
+      "Laporan": { page: "laporan" },
+      "Senarai Pelanggan": { page: "pelanggan-list" },
+      "Senarai Booking": { page: "booking-list" },
+      "Profil Perniagaan": { page: "tetapan-profil" },
+      "Tetapan Reminder": { page: "tetapan-reminder" },
+      "Forum": { href: "/forum.html" },
+    };
+    const DASHBOARD_TIPS = [
+      // Strategi Dapat Lebih Booking
+      "Kongsi booking link di bio Instagram/TikTok, bukan setakat WhatsApp Status. Orang boleh book terus tanpa perlu tanya dulu.",
+      "Cetak QR code booking link untuk kaunter fizikal. Pelanggan walk-in pun boleh book untuk lain kali.",
+      "Deposit yang jelas dari awal kurangkan no-show. Pelanggan yang dah bayar lebih komited untuk datang.",
+      "Letak booking link dalam signature emel anda supaya setiap emel jadi peluang untuk terima tempahan.",
+      "Customer yang dah pernah book sebelum ni lebih mudah book semula. Follow up mereka secara berkala.",
+      "Poster/gambar servis yang menarik pada [Tetapan Booking] boleh tingkatkan kadar tempahan.",
+      "Tunjukkan waktu available yang cukup banyak. Slot kosong yang terhad buat pelanggan rasa perlu cepat.",
+      "Deskripsi servis yang jelas kurangkan soalan berulang daripada pelanggan baharu.",
+      "Reminder emel bukan setakat untuk pelanggan sedia ada. Ia juga bina kepercayaan untuk booking seterusnya.",
+      "Testimoni pelanggan berpuas hati adalah promosi paling berkesan. Minta izin untuk kongsikan pengalaman mereka.",
+      "Booking link yang sama boleh dikongsi di banyak platform serentak. Tak perlu link berasingan untuk setiap satu.",
+      "Founding Member atau harga promosi awal boleh tarik pelanggan pertama dengan lebih pantas.",
+      "Semak [Laporan] secara berkala untuk kenal pasti waktu paling ramai tempahan, dan fokus promosi pada waktu tu.",
+      "Pelanggan lebih selesa book bila mereka nampak proses bayaran jelas dari awal, bukan tertanya-tanya kemudian.",
+      "Kongsi link terus dalam grup WhatsApp komuniti setempat, bukan setakat status peribadi.",
+      "Jenis perkhidmatan yang pelbagai di [Tetapan Booking] buka peluang untuk pelanggan pilih sesuai bajet mereka.",
+      "Consistency dalam waktu available (bukan berubah-ubah setiap minggu) buat pelanggan lebih senang merancang.",
+      // Cara Handle Customer
+      "Reply pantas tak semestinya perlu manual. Sistem dah automatik hantar confirmation dan reminder untuk anda.",
+      "Customer yang selalu lewat bayar? Semak [Laporan] untuk kenal pasti Customer Berisiko awal-awal.",
+      "Catatan pada profil pelanggan di [Senarai Pelanggan] membantu anda ingat keperluan khas mereka.",
+      "Pelanggan yang batalkan lebih dari sekali patut diberi perhatian lebih semasa booking seterusnya.",
+      "Soalan Tambahan di [Tetapan Booking] elakkan anda perlu tanya berulang kali perkara sama pada setiap pelanggan.",
+      "Customer tetap (recurring) di [Senarai Pelanggan] boleh ditanda supaya tarikh cukup tempoh dijana automatik.",
+      "Notifikasi telefon pastikan anda tak terlepas bila pelanggan reschedule atau batal pada saat akhir.",
+      "Balas dengan tenang walaupun pelanggan tergesa-gesa. Sistem yang jelas bantu kurangkan salah faham.",
+      "Pelanggan yang bertanya banyak sebelum book biasanya lebih serius, bukan setakat tanya-tanya kosong.",
+      "Rekod pembayaran yang kemas di [Senarai Pelanggan] elakkan pertikaian tentang status bayaran yang sukar disahkan.",
+      "Kad Customer Berisiko bukan untuk hukum pelanggan, tapi untuk anda lebih bersedia semasa berurusan dengan mereka.",
+      "Pelanggan baharu perlukan sedikit lebih penjelasan berbanding pelanggan lama. Sesuaikan nada mesej anda.",
+      "Jangan anggap semua status belum bayar sebagai masalah. Kadang-kadang mereka cuma terlupa, bukan mengelak.",
+      "Emel peringatan yang sopan dan konsisten lebih berkesan daripada mesej mengejar berulang kali.",
+      "Simpan sejarah tempahan lama pelanggan sebagai rujukan bila mereka book semula untuk servis serupa.",
+      "Pelanggan yang reschedule sendiri melalui link biasanya lebih puas hati berbanding perlu hubungi anda terus.",
+      "Perkenalkan diri dan servis anda dengan jelas dalam deskripsi, supaya pelanggan baharu rasa lebih yakin sebelum book.",
+      // Falsafah Bisnes
+      "Sistem yang jelas buat pelanggan lebih percaya berbanding proses manual yang tak konsisten.",
+      "Automasi bukan untuk gantikan sentuhan peribadi anda. Ia bebaskan masa anda untuk fokus pada kerja sebenar.",
+      "Perniagaan kecil yang kelihatan profesional selalunya menang berbanding yang lebih besar tapi tak teratur.",
+      "Setiap tempahan yang lancar adalah peluang untuk pelanggan datang semula dan cadangkan anda kepada orang lain.",
+      "Kepercayaan dibina melalui konsistensi, bukan setakat kualiti produk atau servis sahaja.",
+      "Masa yang anda jimatkan daripada urusan manual adalah masa yang boleh digunakan untuk berkembang.",
+      "Sistem yang baik patut buat kerja anda nampak lebih senang, bukan lebih rumit.",
+      "Pelanggan yang berpuas hati dengan proses booking selalunya lebih toleran kalau ada kesilapan kecil kemudian.",
+      "Perniagaan yang bergantung pada ingatan sahaja mudah buat silap. Sistem yang direkod dengan baik kurangkan risiko itu.",
+      "Harga yang jelas dari awal elakkan salah faham yang boleh rosakkan hubungan dengan pelanggan.",
+      "Sikap profesional bukan tentang formal berlebihan, tapi tentang boleh dipercayai setiap masa.",
+      "Perniagaan yang berkembang selalunya yang paling konsisten, bukan yang paling cepat pada mulanya.",
+      "Setiap butiran kecil (deposit, reminder, konfirmasi) membentuk keseluruhan pengalaman pelanggan anda.",
+      "Jangan takut nampak kecil. Sistem yang teratur buat perniagaan kecil kelihatan sama profesional dengan yang besar.",
+      "Pelanggan tak semestinya ingat produk anda, tapi mereka ingat macam mana perasaan mereka semasa berurusan dengan anda.",
+      "Bisnes yang bertahan lama biasanya yang paling senang untuk pelanggan berurusan dengannya, bukan yang paling murah.",
+      // Cara Guna Dashboard
+      "[Tetapan Booking] boleh ada lebih dari satu jenis servis dengan harga berbeza.",
+      "[Kalendar] guna warna berbeza untuk tunjuk tahap kepenuhan slot anda.",
+      "[Forum] bukan setakat untuk tanya. Anda boleh cadangkan feature dan owner lain boleh vote.",
+      "[Senarai Booking] boleh ditapis ikut status untuk anda fokus pada tempahan yang perlu tindakan.",
+      "[Senarai Pelanggan] simpan sejarah pembayaran setiap pelanggan di satu tempat.",
+      "[Laporan] tunjukkan unjuran cash-flow 6 minggu akan datang berdasarkan pembayaran belum diterima.",
+      "Home page tunjuk ringkasan sekali imbas, tanpa perlu buka setiap page berasingan.",
+      "Icon i kecil di sebelah label memberikan penjelasan ringkas tentang fungsi setiap tetapan.",
+      "Notification bell di sidebar simpan rekod semua aktiviti terkini tempahan anda.",
+      "[Profil Perniagaan] adalah tempat isi maklumat bank dan QR DuitNow untuk terima bayaran.",
+      "Wizard Setup boleh dibuka semula bila-bila masa jika anda terlepas mana-mana langkah awal.",
+      "[Kalendar] modal tetapkan waktu ada 4 preset pantas: Pagi, Tengahari, Petang, dan Malam.",
+      "Salin ke 4 Minggu Depan pada [Kalendar] gandakan waktu available anda dalam sekali klik.",
+      "Tab Embed dalam [Tetapan Booking] bagi anda kod untuk letak widget tempahan terus di laman web sendiri.",
+      "Setiap booking link boleh ada slug tersendiri yang mudah diingati dan dikongsi.",
+      "[Tetapan Reminder] tentukan berapa hari sebelum tarikh cukup tempoh emel peringatan dihantar.",
+      "Menu Lompat ke Page di sidebar bantu anda navigate lebih pantas tanpa scroll cari.",
+      // Flow Bayaran/Reschedule/Settings
+      "Bila customer reschedule sendiri, sistem automatik kemas kini kalendar anda. Tiada perlu edit manual.",
+      "[Tetapan Booking] tentukan berapa lambat customer boleh batalkan sendiri sebelum perlu hubungi anda terus.",
+      "Set Waktu Jeda dalam [Tetapan Booking] untuk elak rasa tergesa-gesa antara pelanggan.",
+      "Notis Minimum Booking elakkan pelanggan menempah slot yang terlalu hampir dengan waktu sekarang.",
+      "Deposit diminta automatik sebaik tempahan disahkan, tanpa anda perlu hantar mesej manual.",
+      "Emel arahan bayaran termasuk QR DuitNow yang anda muat naik di [Profil Perniagaan].",
+      "Status pembayaran di [Senarai Pelanggan] kemas kini secara manual selepas anda sahkan bayaran diterima.",
+      "Tarikh cukup tempoh tentukan bila peringatan emel dihantar mengikut [Tetapan Reminder] anda.",
+      "Pelanggan yang reschedule tak perlu tempah baharu. Mereka pilih slot lain terus dari link sama.",
+      "Deposit lalai di [Tetapan Booking] jadi asas, tapi setiap Jenis Perkhidmatan boleh ada deposit berlainan.",
+      "Bil langganan dibayar secara manual melalui pindahan bank di halaman Billing.",
+      "Founding Member yang mengunci harga akan kekal pada kadar sama walau harga standard berubah kemudian.",
+      "Reminder dihantar sekali sehari secara automatik, bukan secara masa nyata sebaik tarikh cukup tempoh sampai.",
+      "Sekiranya langganan tamat tempoh, tempahan baharu tetap diterima, tapi sesetengah fungsi disekat sementara.",
+      "Setiap perubahan pada [Kalendar] terus mempengaruhi slot yang pelanggan nampak di halaman tempahan awam.",
+      "Sistem tak automatik caj kad kredit. Semua bayaran langganan perlu disahkan secara manual oleh anda.",
+      // Pengetahuan Umum
+      "Ramai perniagaan kehilangan pelanggan sebab lambat reply. Sistem book sendiri elakkan risiko ni sepenuhnya.",
+      "Emel reminder automatik terbukti kurangkan kadar lupa bayar berbanding kena tanya manual berulang kali.",
+      "Perniagaan berasaskan tempahan meliputi lebih daripada sekadar salon atau tuisyen. Apa sahaja yang perlukan slot masa boleh guna sistem ni.",
+      "Deposit adalah cara biasa perniagaan pastikan komitmen pelanggan sebelum menyediakan servis.",
+      "Kadar no-show biasanya lebih rendah bila deposit diminta lebih awal.",
+      "Pengalaman tempahan yang lancar selalunya meninggalkan kesan lebih lama berbanding kualiti servis itu sendiri.",
+      "Ramai pelanggan lebih suka book sendiri berbanding perlu berbual dahulu untuk sekadar tanya slot kosong.",
+      "Perniagaan kecil yang guna sistem tempahan berstruktur selalunya kelihatan lebih mapan di mata pelanggan.",
+      "Word-of-mouth masih cara paling berkesan untuk perniagaan berasaskan servis peribadi berkembang.",
+      "Waktu puncak permintaan biasanya berulang setiap minggu atau bulan. Kenal pasti pola ini bantu perancangan anda.",
+      "Pelanggan yang kecewa dengan proses tempahan jarang beritahu terus, tapi mereka tak kembali.",
+      "Sistem yang direkod dengan baik bantu anda buat keputusan perniagaan berdasarkan data, bukan agakan sahaja.",
+      "Perhubungan jangka panjang dengan pelanggan selalunya lebih bernilai daripada tempahan sekali sahaja.",
+      "Perniagaan yang boleh diakses bila-bila masa melalui link capai lebih ramai pelanggan berbanding perlu tunggu waktu bekerja.",
+      "Kepercayaan pelanggan terhadap perniagaan kecil selalunya dibina melalui konsistensi kecil yang berulang, bukan promosi besar.",
+      "Proses yang jelas dari mula hingga akhir kurangkan kebimbangan pelanggan tentang status tempahan mereka.",
+      "Data pelanggan yang tersusun adalah aset perniagaan, walau seberapa kecil skala operasi anda sekarang.",
+    ];
+
+    function renderDashboardTip(index) {
+      const el = document.getElementById("dashboard-tip-text");
+      if (!el) return;
+      const raw = DASHBOARD_TIPS[index];
+      const html = raw.replace(/\[([^\]]+)\]/g, (match, label) => {
+        const link = DASHBOARD_TIP_LINKS[label];
+        if (!link) return label;
+        return link.href
+          ? `<a href="${link.href}" target="_blank" rel="noopener">${label}</a>`
+          : `<a href="#" data-tip-goto="${link.page}">${label}</a>`;
+      });
+      el.style.animation = "none";
+      el.offsetHeight; // force reflow to restart fade-in
+      el.style.animation = "";
+      el.innerHTML = html;
+      el.querySelectorAll("[data-tip-goto]").forEach(a => {
+        a.addEventListener("click", (e) => { e.preventDefault(); goToPage(a.dataset.tipGoto); });
+      });
+    }
+    let dashboardTipIndex = Math.floor(Math.random() * DASHBOARD_TIPS.length);
+    renderDashboardTip(dashboardTipIndex);
+    document.getElementById("dashboard-tip-next")?.addEventListener("click", () => {
+      dashboardTipIndex = (dashboardTipIndex + 1) % DASHBOARD_TIPS.length;
+      renderDashboardTip(dashboardTipIndex);
+    });
 
     function renderHomeTrendChart() {
       const chartEl = document.getElementById("home-trend-chart");

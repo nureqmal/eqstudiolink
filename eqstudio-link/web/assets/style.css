@@ -2010,22 +2010,23 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .home-link-status-badge.inactive .home-link-status-dot { background: var(--ink-soft); }
 @media (prefers-reduced-motion: reduce) { .home-live-dot { animation: none; } }
 
-/* ── Dashboard initial loading overlay with rotating tips (game-loading-screen style) ── */
-#dashboard-loading-overlay {
-  position: fixed; inset: 0; z-index: 9999; background: var(--paper);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
-  padding: 2rem; text-align: center; transition: opacity 0.4s ease;
+/* ── Dashboard tip widget (attached to Tren Booking card) ── */
+.dashboard-tip-widget {
+  display: flex; align-items: flex-start; gap: 0.6rem; margin-top: 1rem; padding-top: 0.9rem;
+  border-top: 1px dashed var(--paper-line);
 }
-#dashboard-loading-overlay.hidden { opacity: 0; pointer-events: none; }
-.loading-logo { height: 40px; }
-.loading-spinner {
-  width: 32px; height: 32px; border: 3px solid var(--paper-line); border-top-color: var(--stamp);
-  border-radius: 50%; animation: loading-spin 0.8s linear infinite;
+.dashboard-tip-icon { font-size: 0.95rem; flex-shrink: 0; line-height: 1.4; }
+.dashboard-tip-text {
+  flex: 1; font-size: 0.8rem; color: var(--ink-soft); line-height: 1.5; margin: 0;
+  animation: dashboard-tip-fade 0.35s ease;
 }
-@keyframes loading-spin { to { transform: rotate(360deg); } }
-.loading-tip {
-  max-width: 380px; color: var(--ink-soft); font-size: 0.88rem; line-height: 1.5; min-height: 2.6em;
-  animation: loading-tip-fade 0.4s ease;
+.dashboard-tip-text a { color: var(--stamp); font-weight: 600; text-decoration: none; }
+.dashboard-tip-text a:hover { text-decoration: underline; }
+@keyframes dashboard-tip-fade { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+.dashboard-tip-next {
+  width: 26px; height: 26px; flex-shrink: 0; padding: 0; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; background: var(--paper); border: 1px solid var(--paper-line); color: var(--ink-soft);
+  cursor: pointer; transition: background 0.15s, color 0.15s;
 }
-@keyframes loading-tip-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-@media (prefers-reduced-motion: reduce) { .loading-spinner { animation: none; } .loading-tip { animation: none; } }
+.dashboard-tip-next:hover { background: var(--stamp); color: #fff; border-color: var(--stamp); }
+@media (prefers-reduced-motion: reduce) { .dashboard-tip-text { animation: none; } }

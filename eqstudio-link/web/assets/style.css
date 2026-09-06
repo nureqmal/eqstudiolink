@@ -1383,6 +1383,9 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   box-shadow: var(--shadow); padding: 0.95rem 0.9rem; transition: transform 0.2s cubic-bezier(.2,.9,.3,1);
 }
 .home-stat-box:hover { transform: translateY(-3px); }
+.home-stat-box[data-accent="coral"] { background: linear-gradient(165deg, var(--surface) 0%, rgba(220,91,74,0.08) 140%); }
+.home-stat-box[data-accent="sun"] { background: linear-gradient(165deg, var(--surface) 0%, rgba(180,83,9,0.08) 140%); }
+.home-stat-box[data-accent="lilac"] { background: linear-gradient(165deg, var(--surface) 0%, rgba(124,58,237,0.08) 140%); }
 .home-stat-icon-chip {
   display: inline-flex; align-items: center; justify-content: center;
   width: 34px; height: 34px; border-radius: 9px; margin-bottom: 0.5rem;

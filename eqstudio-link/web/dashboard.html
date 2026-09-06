@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=25" />
+<link rel="stylesheet" href="/assets/style.css?v=26" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -3225,7 +3225,7 @@
       updateHomeTileStats();
     }
 
-    function animateCountUp(el, targetValue, isMoney) {
+    function animateCountUp(el, targetValue, isMoney, prefix = "") {
       if (!el) return;
       const startValue = 0;
       const duration = 700;
@@ -3234,7 +3234,7 @@
         const progress = Math.min((now - startTime) / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
         const current = startValue + (targetValue - startValue) * eased;
-        el.textContent = isMoney ? current.toFixed(2) : Math.round(current);
+        el.textContent = prefix + (isMoney ? current.toFixed(2) : Math.round(current));
         if (progress < 1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
@@ -3323,8 +3323,8 @@
       }).length;
 
       animateCountUp(document.getElementById("hs-upcoming"), upcoming.length, false);
-      document.getElementById("hs-outstanding").textContent = "RM" + outstanding.toFixed(0);
-      document.getElementById("hs-income-month").textContent = "RM" + incomeThisMonth.toFixed(0);
+      animateCountUp(document.getElementById("hs-outstanding"), outstanding, false, "RM");
+      animateCountUp(document.getElementById("hs-income-month"), incomeThisMonth, false, "RM");
       animateCountUp(document.getElementById("hs-customers"), allCustomers.length, false);
       animateCountUp(document.getElementById("hs-completed-month"), completedThisMonth, false);
 

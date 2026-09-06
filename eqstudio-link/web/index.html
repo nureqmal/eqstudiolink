@@ -27,7 +27,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=19" />
+<link rel="stylesheet" href="/assets/style.css?v=20" />
 </head>
 <body>
 
@@ -145,6 +145,27 @@
         <div class="lp-bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div>
         <h3>Pautan Anda Sendiri</h3>
         <p>Kongsi terus di WhatsApp, Instagram, atau cetak QR untuk kaunter.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section" style="padding-top:1rem; padding-bottom:2rem;">
+    <div class="lp-stat-strip">
+      <div class="lp-stat-item">
+        <div class="lp-stat-number"><span class="lp-count-up" data-target="5">0</span> min</div>
+        <div class="lp-stat-label">Purata masa setup</div>
+      </div>
+      <div class="lp-stat-item">
+        <div class="lp-stat-number">RM<span class="lp-count-up" data-target="0">0</span></div>
+        <div class="lp-stat-label">Kad kredit diperlukan</div>
+      </div>
+      <div class="lp-stat-item">
+        <div class="lp-stat-number"><span class="lp-count-up" data-target="14">0</span> hari</div>
+        <div class="lp-stat-label">Percubaan percuma</div>
+      </div>
+      <div class="lp-stat-item">
+        <div class="lp-stat-number"><span class="lp-count-up" data-target="24">0</span>/7</div>
+        <div class="lp-stat-label">Automasi berjalan</div>
       </div>
     </div>
   </section>
@@ -550,22 +571,22 @@
       }, { threshold: 0 }).observe(heroCta);
     }
 
-    // Reveal-on-scroll — reusable, staggered cascade effect. Covers every
-    // major section so scrolling down always shows something animating in.
+    // Reveal-on-scroll — bouncy spring entrance (scale+rotate+slide) with
+    // staggered cascade, for a genuinely lively "something's moving" feel.
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     function setupScrollReveal(elements, options = {}) {
       if (!("IntersectionObserver" in window) || prefersReducedMotion) return;
-      const { stagger = 70, distance = 18 } = options;
+      const { stagger = 70, distance = 24, rotate = 3, scale = 0.92 } = options;
       elements.forEach((el, i) => {
         el.style.opacity = "0";
-        el.style.transform = `translateY(${distance}px)`;
-        el.style.transition = `opacity 0.5s ease ${(i % 6) * stagger}ms, transform 0.5s ease ${(i % 6) * stagger}ms`;
+        el.style.transform = `translateY(${distance}px) scale(${scale}) rotate(${i % 2 === 0 ? -rotate : rotate}deg)`;
+        el.style.transition = `opacity 0.5s ease ${(i % 6) * stagger}ms, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${(i % 6) * stagger}ms`;
       });
       const obs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
+            entry.target.style.transform = "translateY(0) scale(1) rotate(0deg)";
             obs.unobserve(entry.target);
           }
         });
@@ -574,13 +595,55 @@
     }
     window.setupScrollReveal = setupScrollReveal;
 
+    // Animated count-up for the stat strip numbers, triggered on scroll-in.
+    function animateCountUp(el, target, duration = 1200) {
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const countUpEls = document.querySelectorAll(".lp-count-up");
+    if ("IntersectionObserver" in window && countUpEls.length && !prefersReducedMotion) {
+      const countObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCountUp(entry.target, Number(entry.target.dataset.target));
+            countObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      countUpEls.forEach(el => countObs.observe(el));
+    } else {
+      countUpEls.forEach(el => { el.textContent = el.dataset.target; });
+    }
+
+    // 3D tilt-on-hover for bento cards — premium, interactive feel. Desktop
+    // only (mousemove doesn't fire meaningfully on touch devices anyway).
+    document.querySelectorAll(".lp-bento-card").forEach(card => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const rotateX = (0.5 - py) * 14;
+        const rotateY = (px - 0.5) * 14;
+        card.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    });
+
     setupScrollReveal(document.querySelectorAll(".lp-step-item"), { stagger: 120 });
     setupScrollReveal(document.querySelectorAll(".lp-faq details"), { stagger: 50 });
     setupScrollReveal(document.querySelectorAll(".lp-bento-card"), { stagger: 90 });
     setupScrollReveal(document.querySelectorAll(".lp-compare-col"), { stagger: 150 });
     setupScrollReveal(document.querySelectorAll(".lp-price-card"), { stagger: 120 });
-    setupScrollReveal(document.querySelectorAll(".lp-sim-cta"), { distance: 24 });
-    setupScrollReveal(document.querySelectorAll(".lp-cta-band"), { distance: 24 });
+    setupScrollReveal(document.querySelectorAll(".lp-sim-cta"), { distance: 24, rotate: 0, scale: 1 });
+    setupScrollReveal(document.querySelectorAll(".lp-cta-band"), { distance: 24, rotate: 0, scale: 1 });
 
     // ── Full guided simulation ("game") — 10-step deep dive ──────────
     const SIM_STEP_COUNT = 10;

@@ -1896,3 +1896,9 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .lp-section-dark .lp-step-label { color: #F2F2F5; }
 .lp-section-dark .lp-step-icon { background: rgba(182,137,230,0.18); color: #b689e6; }
 .lp-section-dark .lp-step-arrow { color: rgba(242,242,245,0.3); }
+
+/* ── Animated count-up stat strip ── */
+.lp-stat-strip { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; text-align: center; max-width: 720px; margin: 0 auto; }
+@media (min-width: 700px) { .lp-stat-strip { grid-template-columns: repeat(4, 1fr); } }
+.lp-stat-number { font-family: var(--font-mono); font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; color: var(--stamp); }
+.lp-stat-label { color: var(--ink-soft); font-size: 0.82rem; margin-top: 0.2rem; }

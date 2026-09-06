@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=31" />
+<link rel="stylesheet" href="/assets/style.css?v=32" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -36,6 +36,11 @@
     </div>
     <div id="book-testimonial-section"></div>
     <div id="book-social-section"></div>
+    <div id="book-map-section"></div>
+  </div>
+
+  <div class="book-sticky-cta" id="book-sticky-cta">
+    <button type="button" id="book-sticky-cta-btn">Book Sekarang</button>
   </div>
 
   <div class="modal-overlay" id="service-detail-modal" style="display:none;">
@@ -45,6 +50,19 @@
       <p class="hint" id="service-detail-description" style="white-space:pre-wrap;"></p>
       <button type="button" class="secondary" id="service-detail-close-btn" style="width:100%; margin-top:1rem;">Tutup</button>
     </div>
+  </div>
+
+  <div class="book-lightbox" id="book-lightbox" style="display:none;">
+    <button type="button" class="book-lightbox-close" id="book-lightbox-close-btn" aria-label="Tutup">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <button type="button" class="book-lightbox-nav book-lightbox-prev" id="book-lightbox-prev-btn" aria-label="Gambar sebelum">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <img id="book-lightbox-img" src="" alt="" />
+    <button type="button" class="book-lightbox-nav book-lightbox-next" id="book-lightbox-next-btn" aria-label="Gambar seterusnya">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
   </div>
 
   <script type="module">
@@ -200,13 +218,43 @@
         aboutEl.innerHTML = "";
       }
 
-      // ── Gallery: bento-style grid, hidden entirely if no photos.
+      // ── Gallery: bento-style grid with overflow "+N" indicator, click to
+      // open lightbox, staggered animated entrance. Hidden if no photos.
       const galleryEl = document.getElementById("book-gallery-section");
       if (gallery && gallery.length > 0) {
+        const MAX_VISIBLE = 6;
+        const visible = gallery.slice(0, MAX_VISIBLE);
+        const overflowCount = gallery.length - MAX_VISIBLE;
         galleryEl.innerHTML = `
           <div class="book-gallery-grid">
-            ${gallery.map(g => `<div class="book-gallery-item"><img src="${escapeHtml(g.image_url)}" alt="" loading="lazy" /></div>`).join("")}
+            ${visible.map((g, i) => `
+              <div class="book-gallery-item" data-lightbox-index="${i}" tabindex="0" role="button" aria-label="Lihat gambar penuh">
+                <img src="${escapeHtml(g.image_url)}" alt="" loading="lazy" />
+                ${i === MAX_VISIBLE - 1 && overflowCount > 0 ? `<div class="book-gallery-overflow">+${overflowCount}</div>` : ""}
+              </div>
+            `).join("")}
           </div>`;
+        window.__bookGalleryImages = gallery.map(g => g.image_url);
+        galleryEl.querySelectorAll("[data-lightbox-index]").forEach(el => {
+          el.addEventListener("click", () => openGalleryLightbox(Number(el.dataset.lightboxIndex)));
+          el.addEventListener("keypress", (e) => { if (e.key === "Enter") openGalleryLightbox(Number(el.dataset.lightboxIndex)); });
+        });
+        if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          const items = galleryEl.querySelectorAll(".book-gallery-item");
+          items.forEach((el, i) => {
+            el.style.opacity = "0"; el.style.transform = "scale(0.9)";
+            el.style.transition = `opacity 0.4s ease ${(i % 6) * 60}ms, transform 0.4s ease ${(i % 6) * 60}ms`;
+          });
+          const galObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = "1"; entry.target.style.transform = "scale(1)";
+                galObs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.15 });
+          items.forEach(el => galObs.observe(el));
+        }
       } else {
         galleryEl.innerHTML = "";
       }
@@ -247,6 +295,19 @@
           </div>`;
       } else {
         socialEl.innerHTML = "";
+      }
+
+      // ── Map: real embedded map (query-based, no API key needed) using
+      // business_address. Hidden entirely if the owner hasn't set an address.
+      const mapEl = document.getElementById("book-map-section");
+      if (biz.business_address && biz.business_address.trim()) {
+        const query = encodeURIComponent(biz.business_address);
+        mapEl.innerHTML = `
+          <div class="book-map-frame">
+            <iframe src="https://www.google.com/maps?q=${query}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokasi"></iframe>
+          </div>`;
+      } else {
+        mapEl.innerHTML = "";
       }
     }
 
@@ -558,6 +619,50 @@
     }
 
     loadAvailability();
+
+    // Sticky "Book Sekarang" — appears once the actual booking widget
+    // scrolls out of view, so it's always reachable from the profile sections.
+    const bookStickyCta = document.getElementById("book-sticky-cta");
+    const bookContentEl = document.getElementById("book-content");
+    if ("IntersectionObserver" in window && bookStickyCta && bookContentEl) {
+      new IntersectionObserver(([entry]) => {
+        bookStickyCta.classList.toggle("visible", !entry.isIntersecting);
+      }, { threshold: 0 }).observe(bookContentEl);
+    }
+    document.getElementById("book-sticky-cta-btn")?.addEventListener("click", () => {
+      bookContentEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // ── Gallery lightbox ──
+    let lightboxIndex = 0;
+    function openGalleryLightbox(index) {
+      lightboxIndex = index;
+      updateLightboxImage();
+      document.getElementById("book-lightbox").style.display = "flex";
+    }
+    function updateLightboxImage() {
+      const images = window.__bookGalleryImages || [];
+      document.getElementById("book-lightbox-img").src = images[lightboxIndex] || "";
+    }
+    function closeLightbox() { document.getElementById("book-lightbox").style.display = "none"; }
+    document.getElementById("book-lightbox-close-btn")?.addEventListener("click", closeLightbox);
+    document.getElementById("book-lightbox")?.addEventListener("click", (e) => { if (e.target.id === "book-lightbox") closeLightbox(); });
+    document.getElementById("book-lightbox-prev-btn")?.addEventListener("click", () => {
+      const images = window.__bookGalleryImages || [];
+      lightboxIndex = (lightboxIndex - 1 + images.length) % images.length;
+      updateLightboxImage();
+    });
+    document.getElementById("book-lightbox-next-btn")?.addEventListener("click", () => {
+      const images = window.__bookGalleryImages || [];
+      lightboxIndex = (lightboxIndex + 1) % images.length;
+      updateLightboxImage();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (document.getElementById("book-lightbox")?.style.display !== "flex") return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") document.getElementById("book-lightbox-prev-btn")?.click();
+      if (e.key === "ArrowRight") document.getElementById("book-lightbox-next-btn")?.click();
+    });
   </script>
 </body>
 </html>

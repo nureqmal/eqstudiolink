@@ -2073,3 +2073,41 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   background: var(--surface); border: 1px solid var(--paper-line); color: var(--ink); transition: transform 0.15s, background 0.15s, color 0.15s;
 }
 .book-social-icon:hover { transform: translateY(-2px); background: var(--stamp); color: #fff; border-color: var(--stamp); }
+
+/* ── book.html sticky "Book Sekarang" button (appears once the actual
+   booking widget scrolls out of view) ── */
+.book-sticky-cta {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(6px);
+  border-top: 1px solid var(--paper-line); padding: 0.7rem 1rem;
+  box-shadow: 0 -4px 16px rgba(16,16,20,0.1);
+  transform: translateY(100%); transition: transform 0.25s ease;
+}
+[data-theme="dark"] .book-sticky-cta { background: rgba(22,22,26,0.96); }
+.book-sticky-cta.visible { display: block; transform: translateY(0); }
+
+/* ── book.html real embedded map ── */
+.book-map-frame { border-radius: var(--radius-lg); overflow: hidden; margin-top: 1.5rem; border: 1px solid var(--paper-line); }
+.book-map-frame iframe { width: 100%; height: 220px; border: none; display: block; }
+
+/* ── book.html Gallery overflow badge + Lightbox ── */
+.book-gallery-item { position: relative; cursor: pointer; }
+.book-gallery-overflow {
+  position: absolute; inset: 0; background: rgba(16,16,20,0.55); color: #fff; font-weight: 700; font-size: 1.3rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.book-lightbox {
+  position: fixed; inset: 0; z-index: 400; background: rgba(10,10,12,0.92);
+  align-items: center; justify-content: center; padding: 1rem;
+}
+.book-lightbox img { max-width: 100%; max-height: 85vh; border-radius: 8px; object-fit: contain; }
+.book-lightbox-close {
+  position: absolute; top: 1rem; right: 1rem; width: 40px; height: 40px; border-radius: 50%; padding: 0;
+  background: rgba(255,255,255,0.12); color: #fff; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.book-lightbox-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; padding: 0;
+  background: rgba(255,255,255,0.12); color: #fff; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.book-lightbox-prev { left: 0.7rem; }
+.book-lightbox-next { right: 0.7rem; }

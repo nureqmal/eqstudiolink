@@ -197,41 +197,28 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 }
 .hero-gradient-mesh {
   position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-  background: radial-gradient(ellipse 900px 500px at 50% -10%, var(--stamp-soft) 0%, transparent 65%);
 }
-[data-theme="dark"] .hero-gradient-mesh {
-  background: radial-gradient(ellipse 900px 500px at 50% -10%, rgba(182,137,230,0.15) 0%, transparent 65%);
+.hero-corner-ray {
+  position: absolute; top: -30%; right: -20%; width: 75%; height: 160%;
+  background: conic-gradient(from 210deg at 50% 50%, var(--accent-coral), var(--accent-sun), var(--accent-lilac), var(--stamp), var(--accent-coral));
+  opacity: 0.55; filter: blur(8px);
+  clip-path: polygon(55% 0%, 100% 0%, 100% 100%, 15% 100%);
+  animation: hero-ray-shift 20s linear infinite;
 }
-.hero-orb {
-  position: absolute; border-radius: 50%; filter: blur(50px); opacity: 0.45;
-  background: radial-gradient(circle, var(--stamp) 0%, transparent 70%);
-}
-.hero-orb-1 { width: 500px; height: 500px; top: -100px; right: -80px; animation: hero-orb-drift-1 14s ease-in-out infinite; }
-.hero-orb-2 {
-  width: 420px; height: 420px; bottom: -140px; left: -60px; opacity: 0.35;
-  background: radial-gradient(circle, var(--accent-lilac) 0%, transparent 70%);
-  animation: hero-orb-drift-2 18s ease-in-out infinite;
-}
-@keyframes hero-orb-drift-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-70px, 50px) scale(1.15); }
-}
-@keyframes hero-orb-drift-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(60px, -45px) scale(1.1); }
-}
+@keyframes hero-ray-shift { from { filter: blur(8px) hue-rotate(0deg); } to { filter: blur(8px) hue-rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .hero-corner-ray { animation: none; } }
+@media (max-width: 700px) { .hero-corner-ray { top: -15%; right: -35%; width: 90%; opacity: 0.4; } }
 .hero-spotlight {
   position: absolute; inset: 0;
-  background: radial-gradient(circle 420px at var(--mx, 50%) var(--my, 30%), rgba(74,9,143,0.22) 0%, transparent 70%);
+  background: radial-gradient(circle 420px at var(--mx, 50%) var(--my, 30%), rgba(74,9,143,0.18) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
 [data-theme="dark"] .hero-spotlight {
-  background: radial-gradient(circle 420px at var(--mx, 50%) var(--my, 30%), rgba(182,137,230,0.30) 0%, transparent 70%);
+  background: radial-gradient(circle 420px at var(--mx, 50%) var(--my, 30%), rgba(182,137,230,0.25) 0%, transparent 70%);
 }
 .hero-spotlight.active { opacity: 1; }
 @media (max-width: 900px) { .hero-spotlight { display: none; } }
-@media (prefers-reduced-motion: reduce) { .hero-orb { animation: none; } }
 .lp-hero > *:not(.hero-gradient-mesh) { position: relative; z-index: 1; }
 .lp-eyebrow {
   display: inline-block; font-family: var(--font-mono); font-size: 0.78rem;
@@ -1835,3 +1822,62 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 /* ── Trust badges in closing CTA band ── */
 .lp-trust-badges { display: flex; justify-content: center; gap: 1.2rem; margin-top: 1.2rem; flex-wrap: wrap; }
 .lp-trust-badges span { font-size: 0.82rem; opacity: 0.85; }
+
+/* ── Bento-grid feature showcase (Stripe-inspired: mixed card sizes, corner gradient accents) ── */
+.lp-bento-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 640px) { .lp-bento-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .lp-bento-grid { grid-template-columns: repeat(4, 1fr); } }
+.lp-bento-card {
+  position: relative; background: var(--surface); border: 1px solid var(--paper-line); border-radius: var(--radius-lg);
+  padding: 1.5rem; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.lp-bento-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(16,16,20,0.1); }
+@media (min-width: 980px) { .lp-bento-large { grid-column: span 2; } }
+.lp-bento-corner {
+  position: absolute; top: -40%; right: -30%; width: 70%; height: 90%; opacity: 0.35; filter: blur(4px);
+  border-radius: 40%; pointer-events: none;
+}
+.lp-bento-card[data-accent="stamp"] .lp-bento-corner { background: radial-gradient(circle, var(--stamp) 0%, transparent 70%); }
+.lp-bento-card[data-accent="coral"] .lp-bento-corner { background: radial-gradient(circle, var(--accent-coral) 0%, transparent 70%); }
+.lp-bento-card[data-accent="sage"] .lp-bento-corner { background: radial-gradient(circle, var(--accent-sage) 0%, transparent 70%); }
+.lp-bento-card[data-accent="lilac"] .lp-bento-corner { background: radial-gradient(circle, var(--accent-lilac) 0%, transparent 70%); }
+.lp-bento-card[data-accent="sun"] .lp-bento-corner { background: radial-gradient(circle, var(--accent-sun) 0%, transparent 70%); }
+.lp-bento-icon {
+  position: relative; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 0.9rem; color: #fff;
+}
+.lp-bento-card[data-accent="stamp"] .lp-bento-icon { background: var(--stamp); }
+.lp-bento-card[data-accent="coral"] .lp-bento-icon { background: var(--accent-coral); }
+.lp-bento-card[data-accent="sage"] .lp-bento-icon { background: var(--accent-sage); }
+.lp-bento-card[data-accent="lilac"] .lp-bento-icon { background: var(--accent-lilac); }
+.lp-bento-card[data-accent="sun"] .lp-bento-icon { background: var(--accent-sun); }
+.lp-bento-card h3 { position: relative; font-size: 1.05rem; margin: 0 0 0.4rem; }
+.lp-bento-card p { position: relative; color: var(--ink-soft); font-size: 0.88rem; margin: 0; }
+.lp-bento-mockup { position: relative; margin-top: 1rem; }
+.lp-mini-cal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 140px; }
+.lp-mini-cal-day { aspect-ratio: 1; border-radius: 6px; background: var(--paper); border: 1px solid var(--paper-line); }
+.lp-mini-cal-day.some { background: var(--pending-bg); border-color: transparent; }
+.lp-mini-cal-day.full { background: var(--ok-bg); border-color: transparent; }
+.lp-mini-bars { display: flex; align-items: flex-end; gap: 6px; height: 60px; }
+.lp-mini-bars span { flex: 1; background: linear-gradient(180deg, var(--accent-lilac), var(--stamp)); border-radius: 4px 4px 0 0; }
+
+/* ── Landing page "Dari Forum Kami" horizontal-scroll carousel ── */
+.lp-forum-scroll {
+  display: flex; gap: 1rem; overflow-x: auto; padding: 0.5rem 0.2rem 1rem; scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+.lp-forum-card {
+  scroll-snap-align: start; flex: 0 0 260px; background: var(--surface); border: 1px solid var(--paper-line);
+  border-radius: var(--radius-lg); padding: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.lp-forum-card-author { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--ink-soft); }
+.lp-forum-card-avatar {
+  width: 26px; height: 26px; border-radius: 50%; background: var(--stamp-soft); color: var(--stamp);
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem; flex-shrink: 0;
+}
+.lp-forum-card-title { font-weight: 700; font-size: 0.95rem; line-height: 1.3; }
+.lp-forum-card-excerpt { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+.lp-forum-founder-badge {
+  display: inline-flex; align-items: center; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  background: var(--stamp); color: #fff; padding: 0.1rem 0.4rem; border-radius: 999px; width: fit-content;
+}

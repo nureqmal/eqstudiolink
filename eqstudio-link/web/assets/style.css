@@ -242,18 +242,24 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 /* Signature element: a digital "resit" stub, the object these owners already
    keep by hand — now automated. Perforated edge via repeating radial mask. */
 .lp-receipt {
-  background: var(--surface); border-radius: 6px; padding: 1.6rem 1.5rem 1.4rem;
-  box-shadow: var(--shadow); font-family: var(--font-mono); font-size: 0.88rem;
+  background: rgba(255,255,255,0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.5); border-radius: 22px; padding: 1.8rem 1.6rem;
+  box-shadow: 0 25px 60px rgba(74,9,143,0.18), inset 0 1px 0 rgba(255,255,255,0.6);
+  font-family: var(--font-mono); font-size: 0.88rem;
   color: var(--ink); position: relative; max-width: 320px; margin: 0 auto;
-  transform: rotate(-1.5deg);
-  transition: transform 0.15s ease-out, box-shadow 0.2s;
+  transform: perspective(900px) rotateX(4deg) rotateY(-5deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   will-change: transform;
 }
-.lp-receipt::after {
-  content: ""; position: absolute; left: -1px; right: -1px; bottom: -1px; height: 10px;
-  background: radial-gradient(circle at 8px 0, transparent 6px, var(--surface) 6.5px) 0 0 / 16px 10px repeat-x;
+.lp-receipt:hover {
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateY(-6px);
+  box-shadow: 0 30px 70px rgba(74,9,143,0.24), inset 0 1px 0 rgba(255,255,255,0.6);
 }
-.lp-receipt .r-head { text-align: center; border-bottom: 1px dashed var(--paper-line); padding-bottom: 0.7rem; margin-bottom: 0.7rem; }
+[data-theme="dark"] .lp-receipt {
+  background: rgba(30,26,38,0.55); border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.lp-receipt .r-head { text-align: center; border-bottom: 1px dashed rgba(74,9,143,0.2); padding-bottom: 0.7rem; margin-bottom: 0.7rem; }
 .lp-receipt .r-head .name { font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); }
 .lp-receipt .r-name-input {
   font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); text-align: center;
@@ -277,7 +283,7 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
   0% { opacity: 0; transform: rotate(-4deg) scale(1.8); }
   100% { opacity: 1; transform: rotate(-4deg) scale(1); }
 }
-@media (prefers-reduced-motion: reduce) { .lp-receipt .r-stamp { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .lp-receipt .r-stamp { animation: none; } .lp-receipt { transition: none; } }
 
 .lp-section { max-width: 1080px; margin: 0 auto; padding: 3.5rem 1.5rem; }
 .lp-section h2 { font-size: 1.7rem; margin-bottom: 0.4rem; }

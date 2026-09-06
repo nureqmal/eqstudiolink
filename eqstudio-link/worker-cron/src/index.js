@@ -192,11 +192,13 @@ async function sendEmail(env, { to, replyTo, subject, html, attachment }) {
     const detail = await res.text();
     throw new Error(`Resend send failed (${res.status}): ${detail.slice(0, 400)}`);
   }
+  const data = await res.json().catch(() => ({}));
+  return data.id || null; // Resend's email id, used later to match webhook delivery events
 }
 
 // Records every send attempt (success or failure) so failures are visible in the
 // admin dashboard instead of only showing up in `wrangler tail`.
-async function logEmailAttempt(env, { ownerId, recipient, subject, emailType, status, errorMessage }) {
+async function logEmailAttempt(env, { ownerId, recipient, subject, emailType, status, errorMessage, resendEmailId }) {
   try {
     await sb(env, "/email_send_log", {
       method: "POST",
@@ -208,6 +210,7 @@ async function logEmailAttempt(env, { ownerId, recipient, subject, emailType, st
         email_type: emailType,
         status,
         error_message: errorMessage ? String(errorMessage).slice(0, 1000) : null,
+        resend_email_id: resendEmailId || null,
       }),
     });
   } catch (logErr) {
@@ -451,14 +454,15 @@ async function sendReminderEmail(env, customer, daysOffset, profile, payUrl) {
   const pdfBase64 = await generateInvoicePdfBase64(customer, profile);
 
   try {
-    await sendEmail(env, {
+    const resendEmailId = await sendEmail(env, {
       to: customer.contact_email,
       replyTo: profile?.contact_email || undefined,
       subject,
       html,
       attachment: { filename: `invois-${customer.name.replace(/[^a-z0-9]/gi, "-")}.pdf`, contentBase64: pdfBase64 },
     });
-    await logEmailAttempt(env, { ownerId: customer.owner_id, recipient: customer.contact_email, subject, emailType: "reminder", status: "sent" });
+    await logEmailAttempt(env, { ownerId: customer.owner_id, recipient: customer.contact_email, subject, emailType: "reminder", status: "sent", resendEmailId });
+    return resendEmailId;
   } catch (err) {
     await logEmailAttempt(env, { ownerId: customer.owner_id, recipient: customer.contact_email, subject, emailType: "reminder", status: "failed", errorMessage: err.message });
     throw new Error(`Resend failed for customer ${customer.id}: ${err.message}`);
@@ -537,12 +541,12 @@ async function runReminderSweep(env, { proOnly = false } = {}) {
 async function processReminderMessage(env, msg) {
   const { customer: c, offset, profile } = msg;
 
-  await sendReminderEmail(env, c, offset, profile);
+  const resendEmailId = await sendReminderEmail(env, c, offset, profile);
 
   await sb(env, "/reminders_log", {
     method: "POST",
     prefer: "return=minimal",
-    body: JSON.stringify({ customer_id: c.id, owner_id: c.owner_id, days_offset: offset }),
+    body: JSON.stringify({ customer_id: c.id, owner_id: c.owner_id, days_offset: offset, resend_email_id: resendEmailId }),
   });
 
   if (c.status === "belum_bayar") {

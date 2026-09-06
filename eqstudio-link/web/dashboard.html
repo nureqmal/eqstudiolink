@@ -2393,7 +2393,7 @@
 
       const { data, error } = await supabase
         .from("reminders_log")
-        .select("days_offset, sent_at")
+        .select("days_offset, sent_at, delivery_status")
         .eq("customer_id", c.id)
         .order("sent_at", { ascending: false });
 
@@ -2406,12 +2406,26 @@
         listEl.innerHTML = `<p class="hint">Tiada reminder dihantar.</p>`;
         return;
       }
-      listEl.innerHTML = data.map(r => `
+      const STATUS_DISPLAY = {
+        sent: { label: "Dihantar", color: "var(--ink-soft)" },
+        delivered: { label: "Sampai", color: "var(--accent-sage)" },
+        delivery_delayed: { label: "Tertunda", color: "var(--accent-sun)" },
+        bounced: { label: "Bounce (Emel Salah)", color: "var(--accent-coral)" },
+        complained: { label: "Ditanda Spam", color: "var(--accent-coral)" },
+        opened: { label: "Dibuka", color: "var(--accent-sage)" },
+      };
+      listEl.innerHTML = data.map(r => {
+        const status = STATUS_DISPLAY[r.delivery_status] || STATUS_DISPLAY.sent;
+        return `
         <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid var(--paper-line);">
-          <span class="badge reminder_dihantar">${OFFSET_LABEL[r.days_offset] ?? r.days_offset}</span>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span class="badge reminder_dihantar">${OFFSET_LABEL[r.days_offset] ?? r.days_offset}</span>
+            <span style="font-size:0.78rem; font-weight:600; color:${status.color};">${status.label}</span>
+          </div>
           <span class="hint mono">${new Date(r.sent_at).toLocaleString("ms-MY")}</span>
         </div>
-      `).join("") + `<p class="hint" style="margin-top:0.8rem;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Setiap baris mewakili emel yang berjaya dihantar melalui Resend pada masa tersebut.</p>`;
+      `;
+      }).join("") + `<p class="hint" style="margin-top:0.8rem;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> "Sampai" bermaksud emel telah tiba di peti masuk customer, disahkan oleh Resend. "Dihantar" sahaja bermaksud masih menunggu pengesahan.</p>`;
     }
 
     document.getElementById("customer-form")?.addEventListener("submit", async (e) => {

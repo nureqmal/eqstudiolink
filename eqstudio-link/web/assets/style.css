@@ -359,22 +359,18 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .lp-sim-cta .lead { max-width: 42ch; margin-left: auto; margin-right: auto; }
 
 /* ── Spotlight variant: this is THE card we want visitors to click ── */
-.lp-sim-cta-spotlight { border: none; padding: 3.5rem 2rem 3rem; overflow: visible; }
-.lp-sim-cta-spotlight::before { background: none; }
-.lp-sim-cta-spotlight::after {
-  content: ""; position: absolute; inset: -3px; border-radius: inherit; z-index: -2;
-  background: conic-gradient(var(--stamp), var(--accent-coral), var(--accent-sun), var(--accent-lilac), var(--stamp));
-  animation: lp-sim-border-spin 5s linear infinite;
+.lp-sim-cta-spotlight {
+  border: 3px solid transparent; padding: 2.6rem 2rem 3rem;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(120deg, var(--stamp), var(--accent-coral), var(--accent-sun), var(--accent-lilac)) border-box;
+  box-shadow: 0 20px 50px rgba(74,9,143,0.15);
 }
-.lp-sim-cta-spotlight { background: var(--surface); }
-.lp-sim-cta-spotlight { box-shadow: 0 20px 50px rgba(74,9,143,0.15); }
-@keyframes lp-sim-border-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .lp-sim-cta-spotlight::after { animation: none; } }
+.lp-sim-cta-spotlight::before { background: none; }
 
 .lp-sim-badge {
-  position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
-  background: var(--accent-sage); color: #fff; font-size: 0.72rem; font-weight: 700;
-  padding: 0.35rem 1rem; border-radius: 999px; box-shadow: 0 4px 14px rgba(13,148,136,0.35); z-index: 2;
+  display: inline-block; background: var(--accent-sage); color: #fff; font-size: 0.72rem; font-weight: 700;
+  padding: 0.35rem 1rem; border-radius: 999px; box-shadow: 0 4px 14px rgba(13,148,136,0.35); margin-bottom: 1rem;
 }
 
 .lp-sim-icon-pulse {

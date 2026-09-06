@@ -317,7 +317,7 @@
                 <p class="hint" style="margin-top:0.4rem;">Cetak dan letakkan bersebelahan QR DuitNow di kaunter. Pelanggan boleh mengimbas untuk terus menempah slot.</p>
               </div>
 
-              <label for="p-slot-duration" style="margin-top:1rem; display:block;">Tempoh Setiap Slot</label>
+              <label for="p-slot-duration" style="margin-top:1rem; display:block;">Tempoh Setiap Slot<button type="button" class="info-icon-btn" data-info="Tempoh lalai setiap slot booking. Jenis Perkhidmatan individu boleh menetapkan tempoh berlainan yang mengatasi nilai ini.">i</button></label>
               <select id="p-slot-duration">
                 <option value="30">30 minit</option>
                 <option value="60" selected>1 jam</option>
@@ -342,7 +342,7 @@
                 <div id="p-link-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis deskripsi perkhidmatan anda di sini..."></div>
 
                 <div id="p-link-poster-wrap" style="display:none; margin-top:0.8rem;">
-                  <label for="p-link-poster-file" style="display:block;">Poster / Gambar Perkhidmatan (maksimum 2MB)</label>
+                  <label for="p-link-poster-file" style="display:block;">Poster / Gambar Perkhidmatan (maksimum 2MB)<button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 untuk paparan terbaik pada halaman tempahan.">i</button></label>
                   <div class="poster-upload-zone" id="p-link-poster-zone">
                     <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                     <p class="hint" style="margin:0;">Klik atau seret gambar ke sini</p>
@@ -356,7 +356,7 @@
 
               <div class="row" style="margin-top:1rem;">
                 <div>
-                  <label for="p-min-notice">Notis Minimum Booking</label>
+                  <label for="p-min-notice">Notis Minimum Booking<button type="button" class="info-icon-btn" data-info="Tempoh minimum sebelum slot yang pelanggan masih boleh menempah. Contohnya 24 jam bermaksud slot esok pada jam yang sama tidak lagi boleh ditempah selepas sekarang.">i</button></label>
                   <select id="p-min-notice">
                     <option value="0">Tiada had</option>
                     <option value="6">6 jam</option>
@@ -365,7 +365,7 @@
                   </select>
                 </div>
                 <div>
-                  <label for="p-buffer">Waktu Jeda</label>
+                  <label for="p-buffer">Waktu Jeda<button type="button" class="info-icon-btn" data-info="Jarak masa automatik antara dua tempahan berturutan, supaya anda ada ruang untuk bersedia atau berehat sebelum tempahan seterusnya.">i</button></label>
                   <select id="p-buffer">
                     <option value="0" selected>Tiada</option>
                     <option value="5">5 minit</option>
@@ -375,7 +375,7 @@
                   </select>
                 </div>
               </div>
-              <label for="p-cancel-notice" style="margin-top:1rem; display:block;">Notis Minimum Cancel (Customer)</label>
+              <label for="p-cancel-notice" style="margin-top:1rem; display:block;">Notis Minimum Cancel (Customer)<button type="button" class="info-icon-btn" data-info="Tempoh minimum sebelum slot yang pelanggan masih boleh membatalkan sendiri. Selepas had ini, mereka perlu hubungi anda terus untuk membatalkan.">i</button></label>
               <select id="p-cancel-notice">
                 <option value="0" selected>Tiada had (customer boleh cancel bila-bila)</option>
                 <option value="6">6 jam sebelum</option>
@@ -421,7 +421,7 @@
                     <input type="text" id="et-name" />
                   </div>
                   <div>
-                    <label for="et-duration">Tempoh (minit)</label>
+                    <label for="et-duration">Tempoh (minit)<button type="button" class="info-icon-btn" data-info="Tempoh perkhidmatan ini sahaja, mengatasi tempoh lalai di tab Asas.">i</button></label>
                     <input type="number" id="et-duration" value="60" min="5" />
                   </div>
                 </div>
@@ -431,7 +431,7 @@
                     <input type="number" id="et-deposit" step="0.01" min="0" />
                   </div>
                   <div>
-                    <label for="et-capacity">Kapasiti (1 = individu)</label>
+                    <label for="et-capacity">Kapasiti (1 = individu)<button type="button" class="info-icon-btn" data-info="Bilangan pelanggan yang boleh menempah slot masa yang sama, contohnya untuk kelas berkumpulan.">i</button></label>
                     <input type="number" id="et-capacity" value="1" min="1" />
                   </div>
                 </div>
@@ -449,7 +449,7 @@
                   <div id="et-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis deskripsi perkhidmatan ini di sini..."></div>
 
                   <div id="et-poster-wrap" style="display:none; margin-top:0.8rem;">
-                    <label for="et-poster-file" style="display:block;">Poster / Gambar Perkhidmatan (maksimum 2MB)</label>
+                    <label for="et-poster-file" style="display:block;">Poster / Gambar Perkhidmatan (maksimum 2MB)<button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 untuk paparan terbaik pada halaman tempahan.">i</button></label>
                     <div class="poster-upload-zone" id="et-poster-zone">
                       <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                       <p class="hint" style="margin:0;">Klik atau seret gambar ke sini</p>
@@ -496,7 +496,7 @@
                 <form id="customer-form">
                   <div class="row">
                     <div>
-                      <label for="c-name">Nama Customer</label>
+                      <label for="c-name">Nama Customer<button type="button" class="info-icon-btn" data-info="Nama penuh atau nama panggilan pelanggan.">i</button></label>
                       <input type="text" id="c-name" required />
                     </div>
                     <div>
@@ -506,11 +506,11 @@
                   </div>
                   <div class="row">
                     <div>
-                      <label for="c-amount">Jumlah Bayaran (RM)</label>
+                      <label for="c-amount">Jumlah Bayaran (RM)<button type="button" class="info-icon-btn" data-info="Jumlah deposit atau bayaran penuh yang perlu dijelaskan pelanggan ini.">i</button></label>
                       <input type="number" id="c-amount" step="0.01" min="0" required />
                     </div>
                     <div>
-                      <label for="c-due">Tarikh Cukup Tempoh</label>
+                      <label for="c-due">Tarikh Cukup Tempoh<button type="button" class="info-icon-btn" data-info="Tarikh akhir bayaran perlu diselesaikan. Peringatan akan dihantar berdasarkan tarikh ini.">i</button></label>
                       <input type="date" id="c-due" required />
                       <div class="due-quickpick">
                         <button type="button" class="qp-btn" data-days="0">Hari Ini</button>
@@ -532,7 +532,7 @@
                     <span style="font-size:0.9rem; color:var(--ink);">Bayaran berulang (repeat customer)</span>
                   </label>
                   <div id="recurring-interval-wrap" style="display:none; margin-top:0.5rem;">
-                    <label for="c-recurring-days">Ulang setiap berapa hari?</label>
+                    <label for="c-recurring-days">Ulang setiap berapa hari?<button type="button" class="info-icon-btn" data-info="Untuk pelanggan tetap, contohnya kelas tuisyen bulanan. Sistem akan cadangkan tarikh cukup tempoh seterusnya secara automatik.">i</button></label>
                     <select id="c-recurring-days">
                       <option value="7">7 hari</option>
                       <option value="14">14 hari</option>
@@ -769,14 +769,14 @@
               <input type="text" id="p-ssm" />
               <p class="hint" style="margin-top:0.3rem;">Dipaparkan dalam invois PDF dan emel untuk menjadikan dokumen anda kelihatan rasmi dan sah di sisi undang-undang.</p>
 
-              <label for="p-logo-file">Logo</label>
+              <label for="p-logo-file">Logo<button type="button" class="info-icon-btn" data-info="Logo perniagaan anda, dipaparkan pada emel dan invois. Disyorkan format PNG dengan latar belakang lutsinar.">i</button></label>
               <div id="logo-preview-wrap" style="display:none; margin-bottom:0.5rem;">
                 <img id="logo-preview" style="max-height:60px; max-width:180px; border-radius:8px; border:1px solid var(--paper-line);" />
               </div>
               <input type="file" id="p-logo-file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
               <input type="hidden" id="p-logo" />
 
-              <label for="p-color">Warna Jenama (dipakai dalam emel reminder)</label>
+              <label for="p-color">Warna Jenama (dipakai dalam emel reminder)<button type="button" class="info-icon-btn" data-info="Digunakan pada butang dan aksen dalam emel peringatan yang pelanggan terima.">i</button></label>
               <div class="color-swatch-row">
                 <input type="color" id="p-color" value="#C97A2B" />
                 <span class="hex-label" id="p-color-hex">#C97A2B</span>
@@ -797,7 +797,7 @@
               </div>
               <label for="p-bank-holder">Nama Pemegang Akaun<button type="button" class="info-icon-btn" data-info="Contoh: Nama Penuh atau Nama Perniagaan">i</button></label>
               <input type="text" id="p-bank-holder" required />
-              <label for="p-qr-file">🇲🇾 QR DuitNow</label>
+              <label for="p-qr-file">🇲🇾 QR DuitNow<button type="button" class="info-icon-btn" data-info="Muat naik gambar kod QR DuitNow perniagaan anda daripada aplikasi bank atau e-dompet. Ini dipaparkan kepada pelanggan untuk membayar deposit.">i</button></label>
               <p class="hint" style="margin-top:-0.2rem; margin-bottom:0.5rem;">Muat naik kod QR DuitNow perniagaan anda, boleh diperoleh daripada aplikasi bank atau e-dompet anda. Serasi dengan <strong>semua bank dan e-dompet</strong> (Touch n Go, Boost, GrabPay, dan lain-lain). Pelanggan hanya perlu mengimbas sekali.</p>
               <div id="qr-preview-wrap" style="display:none; margin-bottom:0.5rem;">
                 <img id="qr-preview" style="max-height:120px; border-radius:8px; border:1px solid var(--paper-line);" />
@@ -909,13 +909,13 @@
     <div class="modal-box" style="max-width:400px;">
       <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tambah Pelanggan Pantas</h2></div>
       <form id="quick-add-form">
-        <label for="qa-name">Nama</label>
+        <label for="qa-name">Nama<button type="button" class="info-icon-btn" data-info="Nama penuh atau nama panggilan pelanggan.">i</button></label>
         <input type="text" id="qa-name" required />
-        <label for="qa-email">Emel</label>
+        <label for="qa-email">Emel<button type="button" class="info-icon-btn" data-info="Emel pelanggan, digunakan untuk menghantar peringatan bayaran.">i</button></label>
         <input type="email" id="qa-email" required />
-        <label for="qa-amount">Jumlah (RM)</label>
+        <label for="qa-amount">Jumlah (RM)<button type="button" class="info-icon-btn" data-info="Jumlah deposit atau bayaran penuh yang perlu dijelaskan pelanggan ini.">i</button></label>
         <input type="number" id="qa-amount" step="0.01" min="0" required />
-        <label for="qa-due">Tarikh Cukup Tempoh</label>
+        <label for="qa-due">Tarikh Cukup Tempoh<button type="button" class="info-icon-btn" data-info="Tarikh akhir bayaran perlu diselesaikan. Peringatan akan dihantar berdasarkan tarikh ini.">i</button></label>
         <input type="date" id="qa-due" required />
         <button type="submit" style="width:100%; margin-top:1rem;">Tambah</button>
         <p class="error" id="qa-error" style="display:none;"></p>
@@ -1016,23 +1016,23 @@
       <div id="edit-status-bar" class="edit-status-bar"></div>
       <form id="edit-form">
         <input type="hidden" id="e-id" />
-        <label for="e-name">Nama Customer</label>
+        <label for="e-name">Nama Customer<button type="button" class="info-icon-btn" data-info="Nama penuh atau nama panggilan pelanggan.">i</button></label>
         <input type="text" id="e-name" required />
-        <label for="e-email">Emel Customer</label>
+        <label for="e-email">Emel Customer<button type="button" class="info-icon-btn" data-info="Emel pelanggan, digunakan untuk menghantar peringatan bayaran.">i</button></label>
         <input type="email" id="e-email" required />
         <div class="row">
           <div>
-            <label for="e-amount">Jumlah (RM)</label>
+            <label for="e-amount">Jumlah (RM)<button type="button" class="info-icon-btn" data-info="Jumlah deposit atau bayaran penuh yang perlu dijelaskan pelanggan ini.">i</button></label>
             <input type="number" id="e-amount" step="0.01" min="0" required />
           </div>
           <div>
-            <label for="e-due">Tarikh Cukup Tempoh</label>
+            <label for="e-due">Tarikh Cukup Tempoh<button type="button" class="info-icon-btn" data-info="Tarikh akhir bayaran perlu diselesaikan. Peringatan akan dihantar berdasarkan tarikh ini.">i</button></label>
             <input type="date" id="e-due" required />
           </div>
         </div>
-        <label for="e-phone">Nombor Telefon</label>
+        <label for="e-phone">Nombor Telefon<button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789. Untuk anda hubungi pelanggan secara manual via WhatsApp.">i</button></label>
         <input type="text" id="e-phone" />
-        <label for="e-notes">Catatan</label>
+        <label for="e-notes">Catatan<button type="button" class="info-icon-btn" data-info="Nota peribadi tentang pelanggan ini, tidak dipaparkan kepada pelanggan.">i</button></label>
         <div class="note-tpl-row" id="e-note-tpl-row"></div>
         <textarea id="e-notes" rows="2"></textarea>
         <div class="row" style="margin-top:1.25rem;">

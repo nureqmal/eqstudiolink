@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=32" />
+<link rel="stylesheet" href="/assets/style.css?v=33" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -26,17 +26,23 @@
 </head>
 <body>
   <div class="book-page-wrap">
-    <div id="book-hero-section"></div>
-    <div id="book-about-section"></div>
-    <div id="book-gallery-section"></div>
-    <div class="wrap-narrow" style="padding-top:0;">
-      <div id="book-content">
-        <div class="sim-spinner-wrap"><img src="/assets/logo/logo-64.png" class="logo-loader" alt="" /><p class="hint">Memuatkan...</p></div>
+    <div class="book-layout-grid">
+      <div class="book-side-col">
+        <div id="book-hero-section"></div>
+        <div class="wrap-narrow" style="padding:0; max-width:none;">
+          <div id="book-content">
+            <div class="sim-spinner-wrap"><img src="/assets/logo/logo-64.png" class="logo-loader" alt="" /><p class="hint">Memuatkan...</p></div>
+          </div>
+        </div>
+        <div id="book-social-section"></div>
+        <div id="book-map-section"></div>
+      </div>
+      <div class="book-main-col">
+        <div id="book-about-section"></div>
+        <div id="book-gallery-section"></div>
+        <div id="book-testimonial-section"></div>
       </div>
     </div>
-    <div id="book-testimonial-section"></div>
-    <div id="book-social-section"></div>
-    <div id="book-map-section"></div>
   </div>
 
   <div class="book-sticky-cta" id="book-sticky-cta">

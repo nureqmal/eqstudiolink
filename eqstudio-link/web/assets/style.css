@@ -202,6 +202,36 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 [data-theme="dark"] .hero-gradient-mesh {
   background: radial-gradient(ellipse 900px 500px at 50% -10%, rgba(182,137,230,0.15) 0%, transparent 65%);
 }
+.hero-orb {
+  position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.25;
+  background: radial-gradient(circle, var(--stamp) 0%, transparent 70%);
+}
+.hero-orb-1 { width: 380px; height: 380px; top: -80px; right: -60px; animation: hero-orb-drift-1 18s ease-in-out infinite; }
+.hero-orb-2 {
+  width: 300px; height: 300px; bottom: -100px; left: -40px; opacity: 0.18;
+  background: radial-gradient(circle, var(--accent-lilac) 0%, transparent 70%);
+  animation: hero-orb-drift-2 24s ease-in-out infinite;
+}
+@keyframes hero-orb-drift-1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-30px, 25px); }
+}
+@keyframes hero-orb-drift-2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(25px, -20px); }
+}
+.hero-spotlight {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle 280px at var(--mx, 50%) var(--my, 30%), rgba(74,9,143,0.10) 0%, transparent 70%);
+  transition: background-position 0.15s ease-out; opacity: 0;
+  transition: opacity 0.4s ease;
+}
+[data-theme="dark"] .hero-spotlight {
+  background: radial-gradient(circle 280px at var(--mx, 50%) var(--my, 30%), rgba(182,137,230,0.14) 0%, transparent 70%);
+}
+.hero-spotlight.active { opacity: 1; }
+@media (max-width: 900px) { .hero-spotlight { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-orb { animation: none; } }
 .lp-hero > *:not(.hero-gradient-mesh) { position: relative; z-index: 1; }
 .lp-eyebrow {
   display: inline-block; font-family: var(--font-mono); font-size: 0.78rem;
@@ -1787,20 +1817,6 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   color: var(--stamp); font-weight: 700; text-decoration: none; white-space: nowrap;
 }
 .founding-banner-strip a:hover { text-decoration: underline; }
-
-/* ── Landing page dashboard preview mockup (browser-frame style) ── */
-.lp-mockup-frame {
-  max-width: 760px; margin: 0 auto; border-radius: var(--radius-lg); overflow: hidden;
-  box-shadow: 0 20px 50px rgba(16,16,20,0.12); border: 1px solid var(--paper-line);
-}
-.lp-mockup-titlebar {
-  background: var(--paper); padding: 0.7rem 1rem; display: flex; gap: 0.4rem; border-bottom: 1px solid var(--paper-line);
-}
-.lp-mockup-titlebar span { width: 10px; height: 10px; border-radius: 50%; background: var(--paper-line); }
-.lp-mockup-body { background: var(--surface); padding: 1.5rem; }
-.lp-mockup-stats { grid-template-columns: repeat(2, 1fr) !important; }
-@media (min-width: 560px) { .lp-mockup-stats { grid-template-columns: repeat(4, 1fr) !important; } }
-.lp-mockup-stats .home-stat-value { word-break: break-word; }
 
 /* ── Landing page 3-step icon strip ── */
 .lp-steps-row { display: flex; align-items: center; justify-content: center; gap: 1.5rem; max-width: 720px; margin: 0 auto; }

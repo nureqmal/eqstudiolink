@@ -27,7 +27,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=15" />
+<link rel="stylesheet" href="/assets/style.css?v=16" />
 </head>
 <body>
 
@@ -48,11 +48,15 @@
   </div>
 
   <section class="lp-hero">
-    <div class="hero-gradient-mesh" aria-hidden="true"></div>
+    <div class="hero-gradient-mesh" id="hero-gradient-mesh" aria-hidden="true">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-spotlight" id="hero-spotlight"></div>
+    </div>
     <div>
       <span class="lp-eyebrow" data-i18n="hero_eyebrow">Business OS Paling Senang untuk Solo Service Business Malaysia</span>
       <h1 data-i18n="hero_h1">Book. Bayar. Reminder. Repeat. Semua dalam satu sistem.</h1>
-      <p class="sub" data-i18n="hero_sub">Untuk home baker, tutor, photographer, dan fitness coach. Satu link, tiada lagi ulang-alik.</p>
+      <p class="sub" data-i18n="hero_sub">Untuk sebarang bisnes yang berasaskan tempahan. Satu link, tiada lagi ulang-alik.</p>
       <div class="cta-row">
         <a href="/login.html" class="btn btn-lg" data-i18n="hero_cta_primary">Mula Percuma</a>
         <a href="/ciri-ciri.html" class="btn secondary btn-lg" data-i18n="hero_cta_secondary">Tengok Butiran Lanjut</a>
@@ -84,38 +88,6 @@
     <span id="founding-banner-counter-text">Menyemak baki slot...</span>
     <a href="/login.html" id="founding-cta-btn">Jadi Founding Member →</a>
   </div>
-
-  <section class="lp-section" style="padding-top:2rem; padding-bottom:1rem;">
-    <h2 style="text-align:center; margin-bottom:0.3rem;" data-i18n="dashpreview_h2">Ini yang anda akan nampak</h2>
-    <p class="lead" style="text-align:center; margin-bottom:1.5rem;" data-i18n="dashpreview_sub">Sebaik sahaja booking masuk.</p>
-    <div class="lp-mockup-frame">
-      <div class="lp-mockup-titlebar"><span></span><span></span><span></span></div>
-      <div class="lp-mockup-body">
-        <div class="home-stat-grid lp-mockup-stats" style="margin-bottom:0;">
-          <div class="home-stat-box" data-accent="coral">
-            <div class="home-stat-icon-chip" data-accent="coral"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
-            <div class="home-stat-value">4</div>
-            <div class="home-stat-label" data-i18n="dashpreview_upcoming">Akan Datang</div>
-          </div>
-          <div class="home-stat-box" data-accent="sun">
-            <div class="home-stat-icon-chip" data-accent="sun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg></div>
-            <div class="home-stat-value">RM320</div>
-            <div class="home-stat-label" data-i18n="dashpreview_outstanding">Belum Terima</div>
-          </div>
-          <div class="home-stat-box home-stat-box-hero" data-accent="sage">
-            <div class="home-stat-icon-chip" data-accent="sage"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
-            <div class="home-stat-value">RM1,240</div>
-            <div class="home-stat-label" data-i18n="dashpreview_income">Bulan Ini</div>
-          </div>
-          <div class="home-stat-box" data-accent="lilac">
-            <div class="home-stat-icon-chip" data-accent="lilac"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-            <div class="home-stat-value">18</div>
-            <div class="home-stat-label" data-i18n="dashpreview_customers">Pelanggan</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section class="lp-section" id="demo">
     <div class="lp-sim-cta">
@@ -407,6 +379,26 @@
       } catch { /* leave the default "Menyemak baki slot..." text if this fails */ }
     }
     loadFoundingMemberCounter();
+
+    // Interactive hero spotlight — follows the mouse for a modern, subtle
+    // "aurora glow" effect. Desktop only (hidden on touch devices via CSS,
+    // since there's no cursor to track there); ambient orbs still animate
+    // on their own everywhere, so mobile still feels alive without this.
+    const heroSection = document.querySelector(".lp-hero");
+    const heroSpotlight = document.getElementById("hero-spotlight");
+    if (heroSection && heroSpotlight) {
+      heroSection.addEventListener("mousemove", (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        heroSpotlight.style.setProperty("--mx", `${x}%`);
+        heroSpotlight.style.setProperty("--my", `${y}%`);
+        heroSpotlight.classList.add("active");
+      });
+      heroSection.addEventListener("mouseleave", () => {
+        heroSpotlight.classList.remove("active");
+      });
+    }
 
     // Hero: mini interactive booking widget — pick a date, pick a slot, see the
     // automatic downstream flow (deposit reminder) confirmed instantly.

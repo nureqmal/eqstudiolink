@@ -2009,3 +2009,23 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .home-link-status-badge.active .home-link-status-dot { background: var(--accent-sage); }
 .home-link-status-badge.inactive .home-link-status-dot { background: var(--ink-soft); }
 @media (prefers-reduced-motion: reduce) { .home-live-dot { animation: none; } }
+
+/* ── Dashboard initial loading overlay with rotating tips (game-loading-screen style) ── */
+#dashboard-loading-overlay {
+  position: fixed; inset: 0; z-index: 9999; background: var(--paper);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
+  padding: 2rem; text-align: center; transition: opacity 0.4s ease;
+}
+#dashboard-loading-overlay.hidden { opacity: 0; pointer-events: none; }
+.loading-logo { height: 40px; }
+.loading-spinner {
+  width: 32px; height: 32px; border: 3px solid var(--paper-line); border-top-color: var(--stamp);
+  border-radius: 50%; animation: loading-spin 0.8s linear infinite;
+}
+@keyframes loading-spin { to { transform: rotate(360deg); } }
+.loading-tip {
+  max-width: 380px; color: var(--ink-soft); font-size: 0.88rem; line-height: 1.5; min-height: 2.6em;
+  animation: loading-tip-fade 0.4s ease;
+}
+@keyframes loading-tip-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .loading-spinner { animation: none; } .loading-tip { animation: none; } }

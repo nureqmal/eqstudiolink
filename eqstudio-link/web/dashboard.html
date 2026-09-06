@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=27" />
+<link rel="stylesheet" href="/assets/style.css?v=28" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -21,6 +21,12 @@
 </script>
 </head>
 <body>
+
+  <div id="dashboard-loading-overlay">
+    <img src="/assets/logo/logo-64.png" alt="eqstudio.link" class="loading-logo" />
+    <div class="loading-spinner"></div>
+    <p class="loading-tip" id="loading-tip-text"></p>
+  </div>
 
   <div class="db-shell">
 
@@ -1065,6 +1071,41 @@
     import { showToast } from "/assets/toast.js";
     import { loadNotices } from "/assets/notices.js";
 
+    // ── Loading screen tips (shuffled, rotate while data loads) ──
+    const LOADING_TIPS = [
+      "💡 Isi bank & QR DuitNow di Profil Perniagaan supaya pelanggan boleh bayar deposit.",
+      "💡 Cuba booking sendiri guna emel lain untuk rasa pengalaman sebenar pelanggan anda.",
+      "💡 Hidupkan Notifikasi Telefon supaya anda tahu serta-merta bila ada booking baharu.",
+      "💡 Guna preset waktu pantas (Pagi/Tengahari/Petang/Malam) untuk set availability lebih laju.",
+      "💡 \"Salin ke 4 Minggu Depan\" boleh gandakan waktu available anda sekali klik.",
+      "💡 Ada lebih dari satu jenis perkhidmatan? Tambah di tab Jenis Perkhidmatan.",
+      "💡 Semak Jadual Peringatan supaya emel reminder dihantar pada masa yang sesuai.",
+      "💡 Boleh kongsi booking link terus di WhatsApp, Instagram, atau cetak sebagai QR.",
+      "💡 Customer Berisiko di Laporan tunjuk siapa yang perlu anda beri perhatian lebih.",
+      "💡 Buka Forum untuk tanya soalan atau cadangkan feature baharu.",
+    ];
+    (function shuffleAndRotateLoadingTips() {
+      const el = document.getElementById("loading-tip-text");
+      if (!el) return;
+      const shuffled = [...LOADING_TIPS].sort(() => Math.random() - 0.5);
+      let i = 0;
+      el.textContent = shuffled[0];
+      const timer = setInterval(() => {
+        i = (i + 1) % shuffled.length;
+        el.style.animation = "none";
+        el.offsetHeight; // force reflow to restart animation
+        el.style.animation = "";
+        el.textContent = shuffled[i];
+      }, 2500);
+      window.__loadingTipTimer = timer;
+      // Safety net: never trap the user on this screen forever if something
+      // errors before the normal hide-on-profile-loaded checkpoint fires.
+      setTimeout(() => {
+        const overlay = document.getElementById("dashboard-loading-overlay");
+        if (overlay) { overlay.classList.add("hidden"); clearInterval(timer); setTimeout(() => overlay.remove(), 500); }
+      }, 8000);
+    })();
+
     function flashButtonSuccess(btn, originalText) {
       if (!btn) return;
       const prevText = btn.textContent;
@@ -1316,6 +1357,15 @@
     document.getElementById("business-name-side").textContent = bizLabel;
     document.getElementById("mr-biz").textContent = bizLabel;
     document.getElementById("home-biz-name").textContent = bizLabel;
+
+    // Core profile data has arrived — hide the loading overlay.
+    (function hideLoadingOverlay() {
+      const overlay = document.getElementById("dashboard-loading-overlay");
+      if (!overlay) return;
+      overlay.classList.add("hidden");
+      clearInterval(window.__loadingTipTimer);
+      setTimeout(() => overlay.remove(), 500);
+    })();
 
     function renderTierBadge(el) {
       if (!el || !profile) return;

@@ -550,13 +550,16 @@
       }, { threshold: 0 }).observe(heroCta);
     }
 
-    // Gentle reveal-on-scroll for step cards and FAQ items
-    const revealTargets = document.querySelectorAll(".lp-step, .lp-faq details");
-    if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      revealTargets.forEach(el => {
+    // Reveal-on-scroll — reusable, staggered cascade effect. Covers every
+    // major section so scrolling down always shows something animating in.
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function setupScrollReveal(elements, options = {}) {
+      if (!("IntersectionObserver" in window) || prefersReducedMotion) return;
+      const { stagger = 70, distance = 18 } = options;
+      elements.forEach((el, i) => {
         el.style.opacity = "0";
-        el.style.transform = "translateY(10px)";
-        el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+        el.style.transform = `translateY(${distance}px)`;
+        el.style.transition = `opacity 0.5s ease ${(i % 6) * stagger}ms, transform 0.5s ease ${(i % 6) * stagger}ms`;
       });
       const obs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -566,9 +569,18 @@
             obs.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.15 });
-      revealTargets.forEach(el => obs.observe(el));
+      }, { threshold: 0.12 });
+      elements.forEach(el => obs.observe(el));
     }
+    window.setupScrollReveal = setupScrollReveal;
+
+    setupScrollReveal(document.querySelectorAll(".lp-step-item"), { stagger: 120 });
+    setupScrollReveal(document.querySelectorAll(".lp-faq details"), { stagger: 50 });
+    setupScrollReveal(document.querySelectorAll(".lp-bento-card"), { stagger: 90 });
+    setupScrollReveal(document.querySelectorAll(".lp-compare-col"), { stagger: 150 });
+    setupScrollReveal(document.querySelectorAll(".lp-price-card"), { stagger: 120 });
+    setupScrollReveal(document.querySelectorAll(".lp-sim-cta"), { distance: 24 });
+    setupScrollReveal(document.querySelectorAll(".lp-cta-band"), { distance: 24 });
 
     // ── Full guided simulation ("game") — 10-step deep dive ──────────
     const SIM_STEP_COUNT = 10;
@@ -1505,6 +1517,7 @@
               <div class="lp-forum-card-excerpt">${excerpt}</div>
             </div>`;
         }).join("");
+        window.setupScrollReveal?.(scrollEl.querySelectorAll(".lp-forum-card"), { stagger: 60 });
       } catch (err) {
         scrollEl.innerHTML = `<p class="hint" style="padding:1rem;">Tidak dapat memuatkan perbualan buat masa ini.</p>`;
       }

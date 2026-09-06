@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=26" />
+<link rel="stylesheet" href="/assets/style.css?v=27" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -84,6 +84,16 @@
               <h1 class="home-biz-name" id="home-biz-name">-</h1>
             </div>
             <button type="button" id="quick-add-open-btn" style="width:auto; white-space:nowrap;">+ Tambah Pelanggan Pantas</button>
+          </div>
+
+          <div class="home-status-strip">
+            <span class="home-live-badge">
+              <span class="home-live-dot"></span> LIVE
+            </span>
+            <span class="hint" id="home-live-datetime"></span>
+            <span class="home-link-status-badge" id="home-link-status-badge">
+              <span class="home-link-status-dot"></span> <span id="home-link-status-text">Menyemak...</span>
+            </span>
           </div>
 
           <div class="home-stat-grid" id="home-stat-grid">
@@ -1619,6 +1629,7 @@
       document.getElementById("business-name-side").textContent = payload.business_name || "Perniagaan Anda";
       profile.business_name = payload.business_name;
       renderSetupChecklist(allCustomers.length);
+      updateHomeLinkStatusBadge();
       showToast("Profil perniagaan disimpan.", "success");
       flashButtonSuccess(e.target.querySelector('button[type="submit"]'), "Simpan Profil");
       if (submitBtn) submitBtn.disabled = false;
@@ -2558,6 +2569,7 @@
       renderLinkSwitcher(isPro);
       await loadSettingsForCurrentLink();
       renderSetupChecklist(allCustomers.length);
+      updateHomeLinkStatusBadge();
 
       if (!onboardingChecked) {
         onboardingChecked = true;
@@ -3240,6 +3252,32 @@
       requestAnimationFrame(step);
     }
 
+    // ── Home "Live" status strip: ticking clock + booking link active check ──
+    function updateHomeLiveClock() {
+      const el = document.getElementById("home-live-datetime");
+      if (!el) return;
+      const now = new Date();
+      const dateLabel = now.toLocaleDateString("ms-MY", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+      const timeLabel = now.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+      el.textContent = `${dateLabel}, ${timeLabel}`;
+    }
+    updateHomeLiveClock();
+    setInterval(updateHomeLiveClock, 1000);
+
+    function updateHomeLinkStatusBadge() {
+      const badge = document.getElementById("home-link-status-badge");
+      const text = document.getElementById("home-link-status-text");
+      if (!badge || !text) return;
+      const hasActiveLink = allBookingLinks.some(l => !!l.slug);
+      if (hasActiveLink) {
+        badge.className = "home-link-status-badge active";
+        text.textContent = "Booking Link Aktif";
+      } else {
+        badge.className = "home-link-status-badge inactive";
+        text.textContent = "Belum Ada Booking Link";
+      }
+    }
+
     function updateHomeTileStats() {
       const bookingEl = document.getElementById("home-stat-booking");
       const pelangganEl = document.getElementById("home-stat-pelanggan");
@@ -3764,6 +3802,7 @@
       }
       localStorage.setItem("eqstudio_schedule_saved", "1");
       renderSetupChecklist(allCustomers.length);
+      updateHomeLinkStatusBadge();
       showToast("Jadual peringatan disimpan. Peringatan akan dihantar mengikut jadual baharu ini selepas ini.", "success");
       flashButtonSuccess(e.target, "Simpan Jadual");
     });
@@ -4258,6 +4297,7 @@
       localStorage.removeItem("eqstudio_setup_dismissed");
       goToPage("home");
       renderSetupChecklist(allCustomers.length);
+      updateHomeLinkStatusBadge();
       showToast("Setup Pantas dibuka semula di Home.", "success");
     });
 

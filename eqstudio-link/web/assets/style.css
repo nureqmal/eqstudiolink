@@ -1987,3 +1987,25 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   background: linear-gradient(135deg, var(--stamp-soft) 0%, var(--surface) 55%);
   border: 1px solid rgba(74,9,143,0.15);
 }
+
+/* ── Home "Live" status strip: platform live indicator + booking link status ── */
+.home-status-strip { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
+.home-live-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(13,148,136,0.1); color: var(--accent-sage);
+  font-weight: 700; font-size: 0.72rem; letter-spacing: 0.04em; padding: 0.3rem 0.7rem; border-radius: 999px;
+}
+.home-live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-sage); animation: home-live-pulse 1.6s ease-in-out infinite; }
+@keyframes home-live-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(13,148,136,0.5); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 5px rgba(13,148,136,0); }
+}
+.home-link-status-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.7rem;
+  border-radius: 999px; background: var(--paper);
+}
+.home-link-status-badge.active { color: var(--accent-sage); }
+.home-link-status-badge.inactive { color: var(--ink-soft); }
+.home-link-status-dot { width: 7px; height: 7px; border-radius: 50%; }
+.home-link-status-badge.active .home-link-status-dot { background: var(--accent-sage); }
+.home-link-status-badge.inactive .home-link-status-dot { background: var(--ink-soft); }
+@media (prefers-reduced-motion: reduce) { .home-live-dot { animation: none; } }

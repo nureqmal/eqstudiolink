@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=18" />
+<link rel="stylesheet" href="/assets/style.css?v=25" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -1514,7 +1514,7 @@
         </div>`;
 
       slot.innerHTML = `
-        <div class="card" style="margin-bottom:1.5rem;">
+        <div class="card setup-checklist-card" style="margin-bottom:1.5rem;">
           <div class="section-title">
             <h2 style="margin:0; font-size:1.05rem;">Setup Pantas</h2>
             <button class="secondary" id="dismiss-setup" style="padding:0.3rem 0.7rem; font-size:0.8rem;">Tutup</button>
@@ -3453,6 +3453,9 @@
       const firstLabel = days[0].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
       const lastLabel = days[days.length - 1].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
 
+      const lastX = points[points.length - 1].split(",")[0];
+      const lastY = points[points.length - 1].split(",")[1];
+
       chartEl.innerHTML = `
         <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:110px; display:block;" preserveAspectRatio="none">
           <defs>
@@ -3461,14 +3464,28 @@
               <stop offset="100%" style="stop-color:var(--stamp); stop-opacity:0"/>
             </linearGradient>
           </defs>
-          <path d="${areaPath}" style="fill:url(#homeTrendFill); stroke:none;" />
-          <path d="${linePath}" style="fill:none; stroke:var(--stamp); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;" />
+          <path d="${areaPath}" style="fill:url(#homeTrendFill); stroke:none; opacity:0; animation:trend-fade-in 0.6s ease 0.5s forwards;" />
+          <path d="${linePath}" id="home-trend-line-path" style="fill:none; stroke:var(--stamp); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;" />
+          <circle cx="${lastX}" cy="${lastY}" r="8" style="fill:var(--stamp); opacity:0.25; animation:trend-today-pulse 2s ease-out infinite;" />
+          <circle cx="${lastX}" cy="${lastY}" r="3.5" style="fill:var(--stamp);" />
         </svg>
         <div class="row" style="justify-content:space-between; margin-top:0.3rem;">
           <span class="hint" style="font-size:0.72rem;">${firstLabel}</span>
           <span class="hint" style="font-size:0.72rem;">${lastLabel}</span>
         </div>
       `;
+
+      // One-time "draw itself in" animation for the line — feels alive on
+      // first render without looping forever afterward.
+      const linePathEl = document.getElementById("home-trend-line-path");
+      if (linePathEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const len = linePathEl.getTotalLength();
+        linePathEl.style.strokeDasharray = len;
+        linePathEl.style.strokeDashoffset = len;
+        linePathEl.getBoundingClientRect(); // force reflow before transition
+        linePathEl.style.transition = "stroke-dashoffset 1s ease";
+        linePathEl.style.strokeDashoffset = "0";
+      }
     }
 
     function fmtBookingDateTime(iso) {

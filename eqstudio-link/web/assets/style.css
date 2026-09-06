@@ -1006,7 +1006,11 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 /* ── Dashboard Home (tile launcher) ──────────────────────────────── */
 .home-hero { margin-bottom: 1.75rem; }
 .home-hero .hint { margin: 0 0 0.2rem; }
-.home-biz-name { font-family: var(--font-display); font-size: 1.8rem; margin: 0; }
+.home-biz-name {
+  font-family: var(--font-display); font-size: 1.8rem; margin: 0;
+  background: linear-gradient(90deg, var(--ink) 40%, var(--stamp));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+}
 
 .home-tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 @media (max-width: 900px) { .home-tile-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -1964,3 +1968,19 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   to { transform: translateX(-50%); }
 }
 @media (prefers-reduced-motion: reduce) { .lp-marquee-track { animation: none; } }
+
+/* ── Home trend chart: subtle "today" pulse + one-time area fade-in ── */
+@keyframes trend-fade-in { to { opacity: 1; } }
+@keyframes trend-today-pulse {
+  0% { r: 3.5; opacity: 0.5; }
+  100% { r: 12; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #home-trend-chart circle[style*="trend-today-pulse"] { animation: none; }
+}
+
+/* ── Setup Pantas card: subtle warm tint so it doesn't blend into other flat-white cards ── */
+.setup-checklist-card {
+  background: linear-gradient(135deg, var(--stamp-soft) 0%, var(--surface) 55%);
+  border: 1px solid rgba(74,9,143,0.15);
+}

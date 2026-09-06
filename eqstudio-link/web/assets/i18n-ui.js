@@ -391,7 +391,7 @@ export const UI_STRINGS = {
 };
 
 export function getCurrentLang() {
-  return localStorage.getItem("eqstudio_ui_lang") || "en";
+  return localStorage.getItem("eqstudio_ui_lang") || "ms";
 }
 
 export function applyLanguage(lang) {

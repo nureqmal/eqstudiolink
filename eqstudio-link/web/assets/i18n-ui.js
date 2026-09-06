@@ -19,7 +19,8 @@ export const UI_STRINGS = {
     nav_cta: "Start Free",
 
     hero_eyebrow: "The Easiest Business OS for Malaysian Solo Service Businesses",
-    hero_h1: "Book. Pay. Remind. Repeat. All in one system.",
+    hero_h1_a: "Book. Pay. Remind. Repeat.",
+    hero_h1_b: "All in one system.",
     hero_sub: "For any business that runs on bookings. One link, zero back-and-forth.",
     hero_cta_primary: "Start Free",
     hero_cta_secondary: "See Full Details",
@@ -200,7 +201,8 @@ export const UI_STRINGS = {
     nav_cta: "Mula Percuma",
 
     hero_eyebrow: "Business OS Paling Senang untuk Solo Service Business Malaysia",
-    hero_h1: "Book. Bayar. Reminder. Repeat. Semua dalam satu sistem.",
+    hero_h1_a: "Book. Bayar. Reminder. Repeat.",
+    hero_h1_b: "Semua dalam satu sistem.",
     hero_sub: "Untuk sebarang bisnes yang berasaskan tempahan. Satu link, tiada lagi ulang-alik.",
     hero_cta_primary: "Mula Percuma",
     hero_cta_secondary: "Tengok Butiran Lanjut",

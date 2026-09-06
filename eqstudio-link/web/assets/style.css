@@ -229,6 +229,11 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .lp-hero h1 {
   font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.08; margin: 0 0 1.1rem;
 }
+.hero-h1-accent {
+  background: linear-gradient(90deg, var(--accent-coral), var(--accent-sun), var(--stamp));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+}
+.h2-accent { color: var(--stamp); }
 .lp-hero .sub { color: var(--ink-soft); font-size: 1.08rem; max-width: 46ch; margin-bottom: 1.6rem; }
 .lp-hero .cta-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .lp-hero .trust { font-size: 0.85rem; color: var(--ink-soft); margin-top: 1rem; }
@@ -1881,3 +1886,13 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   display: inline-flex; align-items: center; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
   background: var(--stamp); color: #fff; padding: 0.1rem 0.4rem; border-radius: 999px; width: fit-content;
 }
+
+/* ── Dark contrast section break (Stripe-style rhythm) ── */
+.lp-section-dark {
+  background: #16161A; box-shadow: 0 0 0 100vmax #16161A; clip-path: inset(0 -100vmax);
+  color: #F2F2F5; margin-top: 3.5rem; margin-bottom: 3.5rem;
+}
+.lp-section-dark h2 { color: #fff; }
+.lp-section-dark .lp-step-label { color: #F2F2F5; }
+.lp-section-dark .lp-step-icon { background: rgba(182,137,230,0.18); color: #b689e6; }
+.lp-section-dark .lp-step-arrow { color: rgba(242,242,245,0.3); }

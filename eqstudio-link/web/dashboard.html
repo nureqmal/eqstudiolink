@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=30" />
+<link rel="stylesheet" href="/assets/style.css?v=35" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -848,6 +848,19 @@
           <p class="hint" style="margin-bottom:1rem;">Jadikan halaman tempahan awam anda lebih daripada setakat borang, ala-ala laman web peribadi.</p>
 
           <div class="card">
+            <div class="section-title"><h2 style="margin:0;">Hero Halaman Tempahan<button type="button" class="info-icon-btn" data-info="Gambar besar dan tagline yang muncul di bahagian paling atas halaman tempahan awam anda, kesan pertama yang pelanggan nampak.">i</button></h2></div>
+            <label for="ws-cover-file" style="display:block;">Gambar Cover<button type="button" class="info-icon-btn" data-info="Gambar impak besar untuk bahagian atas halaman tempahan. Jika tiada, sistem akan guna gambar pertama dari Galeri, atau warna jenama anda sebagai gantian.">i</button></label>
+            <div class="ws-cover-preview" id="ws-cover-preview" style="display:none;"><img id="ws-cover-preview-img" alt="" /></div>
+            <input type="file" id="ws-cover-file" accept="image/*" style="display:none;" />
+            <button type="button" id="ws-cover-upload-btn" class="secondary">Muat Naik Gambar Cover</button>
+            <label for="ws-tagline" style="margin-top:0.8rem; display:block;">Tagline<button type="button" class="info-icon-btn" data-info="Frasa pendek dan padat, contoh: 'Kami prihatin tentang kesihatan anda.' Berbeza dari Cerita Bisnes yang lebih panjang.">i</button></label>
+            <input type="text" id="ws-tagline" placeholder="Contoh: Kami prihatin tentang kesihatan anda." maxlength="80" />
+            <label for="ws-since-year" style="margin-top:0.8rem; display:block;">Beroperasi Sejak Tahun<button type="button" class="info-icon-btn" data-info="Optional. Dipaparkan sebagai badge kepercayaan ringkas, contoh 'Sejak 2018'.">i</button></label>
+            <input type="number" id="ws-since-year" placeholder="Contoh: 2018" min="1900" max="2099" style="max-width:160px;" />
+            <button type="button" id="ws-hero-save-btn" style="margin-top:1rem;">Simpan Hero</button>
+          </div>
+
+          <div class="card">
             <div class="section-title"><h2 style="margin:0;">Cerita Bisnes<button type="button" class="info-icon-btn" data-info="Cerita ringkas tentang bisnes anda, dipaparkan di halaman tempahan awam. Optional, kalau kosong, bahagian ini tidak akan dipaparkan langsung.">i</button></h2></div>
             <div class="rte-toolbar" style="margin-bottom:0.4rem;">
               <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal" aria-label="Teks tebal">B</button>
@@ -1379,7 +1392,7 @@
     // ── Profile (business name, contact info, brand color, subscription) ──
     const { data: profile } = await supabase
       .from("profiles")
-      .select("business_name, contact_phone, contact_email, business_address, logo_url, brand_color, bank_name, bank_account_number, bank_account_holder, qr_code_url, ssm_number, subscription_status, subscription_end_date, is_suspended, booking_slug, default_deposit_amount, tier, about_text, instagram_url, tiktok_url, facebook_url, whatsapp_number, maps_url")
+      .select("business_name, contact_phone, contact_email, business_address, logo_url, brand_color, bank_name, bank_account_number, bank_account_holder, qr_code_url, ssm_number, subscription_status, subscription_end_date, is_suspended, booking_slug, default_deposit_amount, tier, about_text, instagram_url, tiktok_url, facebook_url, whatsapp_number, maps_url, cover_photo_url, tagline, since_year")
       .eq("id", user.id)
       .single();
 
@@ -1387,6 +1400,58 @@
     document.getElementById("business-name-side").textContent = bizLabel;
     document.getElementById("mr-biz").textContent = bizLabel;
     document.getElementById("home-biz-name").textContent = bizLabel;
+
+    // ── Website Saya: populate Hero fields (cover photo, tagline, since year) ──
+    if (document.getElementById("ws-tagline")) {
+      document.getElementById("ws-tagline").value = profile?.tagline || "";
+      document.getElementById("ws-since-year").value = profile?.since_year || "";
+      if (profile?.cover_photo_url) {
+        document.getElementById("ws-cover-preview-img").src = profile.cover_photo_url;
+        document.getElementById("ws-cover-preview").style.display = "block";
+      }
+    }
+    let wsCoverPhotoUrl = profile?.cover_photo_url || null;
+    document.getElementById("ws-cover-upload-btn")?.addEventListener("click", () => {
+      if (blockIfPastDue()) return;
+      document.getElementById("ws-cover-file").click();
+    });
+    document.getElementById("ws-cover-file")?.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (file.size > 3 * 1024 * 1024) { showToast("Saiz gambar maksimum 3MB.", "error"); e.target.value = ""; return; }
+      const btn = document.getElementById("ws-cover-upload-btn");
+      btn.disabled = true;
+      btn.textContent = "Memuat naik...";
+      try {
+        const compressed = await compressImageFile(file, 1600, 0.85);
+        const path = `${user.id}/cover-${Date.now()}.jpg`;
+        const { error: uploadError } = await supabase.storage.from("gallery").upload(path, compressed, { contentType: "image/jpeg" });
+        if (uploadError) throw uploadError;
+        const { data: urlData } = supabase.storage.from("gallery").getPublicUrl(path);
+        wsCoverPhotoUrl = urlData.publicUrl;
+        document.getElementById("ws-cover-preview-img").src = wsCoverPhotoUrl;
+        document.getElementById("ws-cover-preview").style.display = "block";
+        showToast("Gambar cover dimuat naik. Jangan lupa tekan Simpan Hero.", "success");
+      } catch (err) {
+        showToast("Gagal muat naik: " + err.message, "error");
+      }
+      btn.disabled = false;
+      btn.textContent = "Muat Naik Gambar Cover";
+      e.target.value = "";
+    });
+    document.getElementById("ws-hero-save-btn")?.addEventListener("click", async () => {
+      if (blockIfPastDue()) return;
+      const btn = document.getElementById("ws-hero-save-btn");
+      const payload = {
+        cover_photo_url: wsCoverPhotoUrl,
+        tagline: document.getElementById("ws-tagline").value.trim() || null,
+        since_year: document.getElementById("ws-since-year").value ? Number(document.getElementById("ws-since-year").value) : null,
+      };
+      const { error } = await supabase.from("profiles").update(payload).eq("id", user.id);
+      if (error) { showToast("Gagal simpan: " + error.message, "error"); return; }
+      flashButtonSuccess(btn, "Simpan Hero");
+      showToast("Hero halaman tempahan disimpan.", "success");
+    });
 
     // ── Website Saya: populate About text + Social & Lokasi fields ──
     if (document.getElementById("ws-about-editor")) {

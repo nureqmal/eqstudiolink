@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=41" />
+<link rel="stylesheet" href="/assets/style.css?v=42" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -1158,6 +1158,9 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
         <h3 id="chat-widget-title">Mesej</h3>
+        <button type="button" class="chat-widget-back-btn" id="chat-widget-manage-faq-btn" aria-label="Urus Jawapan Pantas" title="Urus Jawapan Pantas">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
         <button type="button" class="chat-widget-close-btn" id="chat-widget-close-btn" aria-label="Tutup">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
@@ -1169,10 +1172,21 @@
     </div>
 
     <div class="chat-widget-thread-view" id="chat-widget-thread-view" style="display:none;">
+      <div id="chat-widget-booking-card"></div>
       <div class="cw-messages" id="chat-widget-messages"></div>
+      <div class="chat-faq-chips" id="chat-widget-faq-chips"></div>
       <form id="chat-widget-send-form" class="cw-send-row">
         <input type="text" id="chat-widget-input" placeholder="Taip mesej..." autocomplete="off" />
         <button type="submit" aria-label="Hantar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
+      </form>
+    </div>
+
+    <div class="chat-widget-manage-view" id="chat-widget-manage-view" style="display:none;">
+      <div id="chat-widget-manage-list"></div>
+      <form id="chat-widget-manage-form" class="chat-manage-form">
+        <input type="text" id="chat-manage-label" placeholder="Label (contoh: Cara Reschedule)" required maxlength="40" />
+        <textarea id="chat-manage-answer" placeholder="Jawapan penuh yang akan dihantar..." rows="2" required></textarea>
+        <button type="submit">+ Tambah Jawapan Pantas</button>
       </form>
     </div>
   </div>
@@ -2786,10 +2800,12 @@
       chatActiveConversation = { customerId, customerName };
       document.getElementById("chat-widget-title").textContent = customerName;
       document.getElementById("chat-widget-back-btn").style.display = "flex";
+      document.getElementById("chat-widget-manage-faq-btn").style.display = "none";
       document.getElementById("chat-widget-list-view").style.display = "none";
       document.getElementById("chat-widget-thread-view").style.display = "flex";
       const messagesEl = document.getElementById("chat-widget-messages");
       messagesEl.innerHTML = `<p class="hint" style="padding:1rem;">Memuatkan...</p>`;
+      document.getElementById("chat-widget-booking-card").innerHTML = "";
 
       const { data, error } = await supabase
         .from("chat_messages")
@@ -2808,16 +2824,106 @@
         await supabase.from("chat_messages").update({ read_by_owner: true }).in("id", unreadIds);
         loadChatConversations(); // refresh badge/list counts
       }
+
+      loadBookingCard(customerId);
+      loadFaqChips();
+    }
+
+    async function loadBookingCard(customerId) {
+      const cardEl = document.getElementById("chat-widget-booking-card");
+      const { data, error } = await supabase
+        .from("bookings")
+        .select("slot_datetime, duration_minutes, status")
+        .eq("customer_id", customerId)
+        .order("slot_datetime", { ascending: false })
+        .limit(1);
+      if (error || !data || data.length === 0) { cardEl.innerHTML = ""; return; }
+      const b = data[0];
+      const dateLabel = new Date(b.slot_datetime).toLocaleString("ms-MY", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+      const statusLabel = b.status === "cancelled" ? "Dibatalkan" : "Disahkan";
+      cardEl.innerHTML = `
+        <div class="chat-booking-card">
+          <div class="chat-booking-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+          <div class="chat-booking-card-info">
+            <div class="chat-booking-card-title">Booking Terkini · ${statusLabel}</div>
+            <div class="chat-booking-card-detail">${dateLabel} · ${b.duration_minutes} minit</div>
+          </div>
+        </div>`;
+    }
+
+    let chatFaqTemplatesCache = null;
+    async function loadFaqChips() {
+      const chipsEl = document.getElementById("chat-widget-faq-chips");
+      if (chatFaqTemplatesCache === null) {
+        const { data } = await supabase.from("chat_faq_templates").select("id, label, answer_text").eq("owner_id", user.id).order("sort_order", { ascending: true });
+        chatFaqTemplatesCache = data || [];
+      }
+      if (chatFaqTemplatesCache.length === 0) { chipsEl.innerHTML = ""; return; }
+      chipsEl.innerHTML = chatFaqTemplatesCache.map(t => `<button type="button" class="chat-faq-chip" data-faq-answer="${escapeHtml(t.answer_text)}">${escapeHtml(t.label)}</button>`).join("");
+      chipsEl.querySelectorAll("[data-faq-answer]").forEach(chip => {
+        chip.addEventListener("click", () => {
+          document.getElementById("chat-widget-input").value = chip.dataset.faqAnswer;
+          document.getElementById("chat-widget-send-form").requestSubmit();
+        });
+      });
     }
 
     function backToConversationList() {
       chatActiveConversation = null;
       document.getElementById("chat-widget-back-btn").style.display = "none";
+      document.getElementById("chat-widget-manage-faq-btn").style.display = "flex";
       document.getElementById("chat-widget-title").textContent = "Mesej";
       document.getElementById("chat-widget-thread-view").style.display = "none";
+      document.getElementById("chat-widget-manage-view").style.display = "none";
       document.getElementById("chat-widget-list-view").style.display = "block";
       loadChatConversations();
     }
+
+    async function renderFaqManageList() {
+      const listEl = document.getElementById("chat-widget-manage-list");
+      const { data, error } = await supabase.from("chat_faq_templates").select("id, label, answer_text").eq("owner_id", user.id).order("sort_order", { ascending: true });
+      if (error) { listEl.innerHTML = `<p class="error" style="padding:1rem;">${error.message}</p>`; return; }
+      chatFaqTemplatesCache = data;
+      listEl.innerHTML = data.length > 0
+        ? data.map(t => `
+          <div class="chat-manage-row">
+            <div class="chat-manage-row-text">
+              <strong>${escapeHtml(t.label)}</strong>
+              <p class="hint" style="margin:0.1rem 0 0; font-size:0.74rem;">${escapeHtml(t.answer_text.slice(0, 70))}</p>
+            </div>
+            <button type="button" class="chat-manage-delete-btn" data-manage-delete-id="${t.id}" aria-label="Padam">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>`).join("")
+        : `<p class="hint" style="padding:1rem; text-align:center;">Belum ada jawapan pantas. Tambah satu di bawah.</p>`;
+      listEl.querySelectorAll("[data-manage-delete-id]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          await supabase.from("chat_faq_templates").delete().eq("id", btn.dataset.manageDeleteId);
+          renderFaqManageList();
+        });
+      });
+    }
+
+    document.getElementById("chat-widget-manage-faq-btn")?.addEventListener("click", () => {
+      document.getElementById("chat-widget-title").textContent = "Urus Jawapan Pantas";
+      document.getElementById("chat-widget-back-btn").style.display = "flex";
+      document.getElementById("chat-widget-manage-faq-btn").style.display = "none";
+      document.getElementById("chat-widget-list-view").style.display = "none";
+      document.getElementById("chat-widget-manage-view").style.display = "block";
+      renderFaqManageList();
+    });
+    document.getElementById("chat-widget-back-btn")?.addEventListener("click", backToConversationList);
+    document.getElementById("chat-widget-manage-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const label = document.getElementById("chat-manage-label").value.trim();
+      const answer = document.getElementById("chat-manage-answer").value.trim();
+      if (!label || !answer) return;
+      const { error } = await supabase.from("chat_faq_templates").insert({ owner_id: user.id, label, answer_text: answer });
+      if (error) { showToast("Gagal tambah: " + error.message, "error"); return; }
+      document.getElementById("chat-manage-label").value = "";
+      document.getElementById("chat-manage-answer").value = "";
+      renderFaqManageList();
+    });
 
     document.getElementById("chat-widget-launcher")?.addEventListener("click", () => {
       chatWidgetOpen = !chatWidgetOpen;
@@ -2828,7 +2934,6 @@
       chatWidgetOpen = false;
       document.getElementById("chat-widget-panel").classList.remove("open");
     });
-    document.getElementById("chat-widget-back-btn")?.addEventListener("click", backToConversationList);
 
     document.getElementById("chat-widget-send-form")?.addEventListener("submit", async (e) => {
       e.preventDefault();

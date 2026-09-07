@@ -2118,3 +2118,6 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 }
 .book-lightbox-prev { left: 0.7rem; }
 .book-lightbox-next { right: 0.7rem; }
+
+/* ── book.html email-check notice under the booking form ── */
+.book-email-notice { display: flex; align-items: flex-start; gap: 0.4rem; margin-top: 0.8rem; }

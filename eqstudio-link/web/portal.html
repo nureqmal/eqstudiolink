@@ -10,7 +10,7 @@
 <title>Status Bayaran</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=41" />
+<link rel="stylesheet" href="/assets/style.css?v=43" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -27,7 +27,9 @@
 
     <div class="card portal-chat-card" id="portal-chat-card" style="display:none; margin-top:1rem;">
       <div class="section-title"><h2 style="margin:0; font-size:1rem;" id="portal-chat-title">Chat</h2></div>
+      <div id="portal-chat-booking-card"></div>
       <div class="cw-messages" id="portal-chat-messages"><p class="hint">Memuatkan...</p></div>
+      <div class="chat-faq-chips" id="portal-chat-faq-chips"></div>
       <form id="portal-chat-form" class="cw-send-row">
         <input type="text" id="portal-chat-input" placeholder="Taip mesej..." autocomplete="off" />
         <button type="submit" aria-label="Hantar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
@@ -145,6 +147,48 @@
       } catch { /* silent — next poll will retry */ }
     }
 
+    // Fixed set of quick-tap questions for customers — same across every
+    // business since these are about the PLATFORM's process, not business-
+    // specific (owner-side answers ARE editable, via chat_faq_templates).
+    const CUSTOMER_FAQ_QUESTIONS = [
+      "Saya nak reschedule, macam mana?",
+      "Saya nak batal booking",
+      "Bila saya akan dapat reminder?",
+      "Deposit saya belum nampak status update",
+      "Berapa lama tempoh servis ni?",
+    ];
+
+    async function loadPortalBookingCard() {
+      const cardEl = document.getElementById("portal-chat-booking-card");
+      try {
+        const res = await fetch(`/api/chat-customer-booking-detail?token=${encodeURIComponent(token)}`);
+        const data = await res.json();
+        if (!res.ok || !data.booking) { cardEl.innerHTML = ""; return; }
+        const b = data.booking;
+        const dateLabel = new Date(b.slot_datetime).toLocaleString("ms-MY", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+        const statusLabel = b.status === "cancelled" ? "Dibatalkan" : "Disahkan";
+        cardEl.innerHTML = `
+          <div class="chat-booking-card">
+            <div class="chat-booking-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+            <div class="chat-booking-card-info">
+              <div class="chat-booking-card-title">Booking Terkini · ${statusLabel}</div>
+              <div class="chat-booking-card-detail">${dateLabel} · ${b.duration_minutes} minit</div>
+            </div>
+          </div>`;
+      } catch { cardEl.innerHTML = ""; }
+    }
+
+    function renderPortalFaqChips() {
+      const chipsEl = document.getElementById("portal-chat-faq-chips");
+      chipsEl.innerHTML = CUSTOMER_FAQ_QUESTIONS.map(q => `<button type="button" class="chat-faq-chip" data-faq-question="${escapeHtml(q)}">${escapeHtml(q)}</button>`).join("");
+      chipsEl.querySelectorAll("[data-faq-question]").forEach(chip => {
+        chip.addEventListener("click", () => {
+          document.getElementById("portal-chat-input").value = chip.dataset.faqQuestion;
+          document.getElementById("portal-chat-form").requestSubmit();
+        });
+      });
+    }
+
     function initChatWidget(business, customer, T) {
       const chatCard = document.getElementById("portal-chat-card");
       chatCard.style.display = "block";
@@ -155,6 +199,8 @@
         chatCard.insertAdjacentHTML("beforeend", `<a href="${wa}" class="portal-chat-wa-alt">${T.waBtn}</a>`);
       }
 
+      loadPortalBookingCard();
+      renderPortalFaqChips();
       pollChatMessages(true);
       setInterval(() => pollChatMessages(false), 3000);
     }

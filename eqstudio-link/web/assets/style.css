@@ -2313,3 +2313,9 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .chat-manage-form { padding: 0.8rem 1.1rem; border-top: 1px solid color-mix(in srgb, var(--paper-line) 60%, transparent); flex-shrink: 0; }
 .chat-manage-form input, .chat-manage-form textarea { margin-bottom: 0.5rem; font-size: 0.82rem; }
 .chat-manage-form button { width: 100%; font-size: 0.82rem; padding: 0.5rem 1rem; }
+
+/* ── Portal.html: booking card / FAQ chips breakout from the .card default
+   padding, so they sit full-width within the chat card instead of getting
+   double-padded ── */
+#portal-chat-booking-card .chat-booking-card { margin: 0 -1px; }
+#portal-chat-faq-chips.chat-faq-chips { margin: 0.6rem -1px 0; padding-left: 1px; padding-right: 1px; }

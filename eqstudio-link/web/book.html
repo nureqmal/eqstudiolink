@@ -365,7 +365,7 @@
     function renderTypePicker() {
       const content = document.getElementById("book-content");
       const types = availabilityData.event_types || [];
-      content.innerHTML = renderLangSwitcher() + renderBizHeader() + renderStepIndicator(1) + `
+      content.innerHTML = renderLangSwitcher() + renderStepIndicator(1) + `
         <p class="hint" style="text-align:center; margin-bottom:1rem;">${T().pickType}</p>
         <div class="card">
           ${types.map(t => `
@@ -481,7 +481,7 @@
       const hasTypes = (availabilityData.event_types || []).length > 0;
 
       if (dateKeys.length === 0) {
-        content.innerHTML = renderLangSwitcher() + renderBizHeader() +
+        content.innerHTML = renderLangSwitcher() +
           `<div class="card"><p class="hint" style="text-align:center;">${T().noSlots}</p></div>`;
         wireLangSwitcher();
         return;
@@ -489,7 +489,7 @@
 
       if (!selectedDate) selectedDate = dateKeys[0];
 
-      content.innerHTML = renderLangSwitcher() + renderBizHeader() + renderStepIndicator(selectedSlot ? 3 : 2) + renderSummaryCard() + `
+      content.innerHTML = renderLangSwitcher() + renderStepIndicator(selectedSlot ? 3 : 2) + renderSummaryCard() + `
         ${hasTypes ? `<button type="button" class="secondary" id="change-type-btn" style="margin-bottom:0.8rem;">${T().changeType}</button>` : ""}
         ${!hasTypes && (availabilityData.link_description || availabilityData.link_poster_url) ? `<button type="button" class="event-type-viewmore" id="link-viewmore-btn" style="margin-bottom:0.8rem; display:block;">${T().viewMore}</button>` : ""}
         <p class="hint" style="margin-bottom:0.8rem;">${T().pickSlot}</p>

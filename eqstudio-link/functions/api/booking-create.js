@@ -27,17 +27,18 @@ function escapeHtml(str) {
 
 // Note: zh/ta are AI-generated translations — recommend native-speaker review before go-live.
 const BOOKING_I18N = {
-  ms: { title: "Tempahan Disahkan! ✅", greet: (n, b) => `Salam ${n}, tempahan anda dengan <strong>${b}</strong> telah disahkan:`, footer: "Kami akan hantar reminder deposit berasingan sekejap lagi.", manageLink: "Reschedule / Batal Tempahan", subject: "Tempahan Disahkan" },
-  en: { title: "Booking Confirmed! ✅", greet: (n, b) => `Hi ${n}, your booking with <strong>${b}</strong> has been confirmed:`, footer: "We'll send a separate deposit reminder shortly.", manageLink: "Reschedule / Cancel Booking", subject: "Booking Confirmed" },
-  zh: { title: "预订已确认！✅", greet: (n, b) => `您好 ${n}，您与 <strong>${b}</strong> 的预订已确认：`, footer: "我们稍后将发送单独的押金提醒。", manageLink: "更改时间 / 取消预订", subject: "预订已确认" },
-  ta: { title: "முன்பதிவு உறுதி செய்யப்பட்டது! ✅", greet: (n, b) => `வணக்கம் ${n}, <strong>${b}</strong> உடனான உங்கள் முன்பதிவு உறுதி செய்யப்பட்டது:`, footer: "வைப்புத்தொகை நினைவூட்டலை தனியாக விரைவில் அனுப்புவோம்.", manageLink: "மறு திட்டமிடல் / முன்பதிவை ரத்து செய்யவும்", subject: "முன்பதிவு உறுதி செய்யப்பட்டது" },
+  ms: { title: "Tempahan Disahkan! ✅", greet: (n, b) => `Salam ${n}, tempahan anda dengan <strong>${b}</strong> telah disahkan:`, footer: "Kami akan hantar reminder deposit berasingan sekejap lagi.", manageLink: "Reschedule / Batal Tempahan", subject: "Tempahan Disahkan", chatLink: "💬 Ada Soalan? Chat Dengan Kami", chatNote: "Anda boleh chat terus dengan perniagaan ini bila-bila masa guna butang di atas." },
+  en: { title: "Booking Confirmed! ✅", greet: (n, b) => `Hi ${n}, your booking with <strong>${b}</strong> has been confirmed:`, footer: "We'll send a separate deposit reminder shortly.", manageLink: "Reschedule / Cancel Booking", subject: "Booking Confirmed", chatLink: "💬 Have a Question? Chat With Us", chatNote: "You can chat directly with this business anytime using the button above." },
+  zh: { title: "预订已确认！✅", greet: (n, b) => `您好 ${n}，您与 <strong>${b}</strong> 的预订已确认：`, footer: "我们稍后将发送单独的押金提醒。", manageLink: "更改时间 / 取消预订", subject: "预订已确认", chatLink: "💬 有疑问？与我们聊聊", chatNote: "您可以随时使用上方按钮直接与商家聊天。" },
+  ta: { title: "முன்பதிவு உறுதி செய்யப்பட்டது! ✅", greet: (n, b) => `வணக்கம் ${n}, <strong>${b}</strong> உடனான உங்கள் முன்பதிவு உறுதி செய்யப்பட்டது:`, footer: "வைப்புத்தொகை நினைவூட்டலை தனியாக விரைவில் அனுப்புவோம்.", manageLink: "மறு திட்டமிடல் / முன்பதிவை ரத்து செய்யவும்", subject: "முன்பதிவு உறுதி செய்யப்பட்டது", chatLink: "💬 கேள்வி உள்ளதா? எங்களுடன் அரட்டையடிக்கவும்", chatNote: "மேலே உள்ள பொத்தானைப் பயன்படுத்தி எந்த நேரத்திலும் இந்த வணிகத்துடன் நேரடியாக அரட்டையடிக்கலாம்." },
 };
 
-async function sendConfirmationEmails(env, { profile, bizName, booking, slotLabel, dateLabel, lang }) {
+async function sendConfirmationEmails(env, { profile, bizName, booking, customer, slotLabel, dateLabel, lang }) {
   if (!env.RESEND_API_KEY) return;
   const brandColor = profile.brand_color || "#4F46E5";
   const site = env.PUBLIC_SITE_URL || "https://eqstudio.link";
   const manageUrl = `${site}/manage-booking.html?token=${booking.manage_token}`;
+  const portalUrl = `${site}/portal.html?token=${customer.portal_token}`;
   const T = BOOKING_I18N[lang] || BOOKING_I18N.ms;
 
   const customerHtml = `
@@ -48,7 +49,9 @@ async function sendConfirmationEmails(env, { profile, bizName, booking, slotLabe
         <p style="font-size:14px; color:#6B6B75; margin:0 0 16px;">${T.greet(escapeHtml(booking.customer_name), escapeHtml(bizName))}</p>
         <p style="font-size:14px; margin:0 0 4px;">📅 ${dateLabel}, ${slotLabel}</p>
         <p style="font-size:12px; color:#9A9AA5; margin:16px 0 12px;">${T.footer}</p>
-        <a href="${manageUrl}" style="display:block; text-align:center; background:#ffffff; color:${brandColor}; text-decoration:none; font-weight:600; font-size:13px; padding:10px 18px; border-radius:8px; border:1.5px solid ${brandColor};">${T.manageLink}</a>
+        <a href="${manageUrl}" style="display:block; text-align:center; background:#ffffff; color:${brandColor}; text-decoration:none; font-weight:600; font-size:13px; padding:10px 18px; border-radius:8px; border:1.5px solid ${brandColor}; margin-bottom:8px;">${T.manageLink}</a>
+        <a href="${portalUrl}" style="display:block; text-align:center; background:${brandColor}; color:#ffffff; text-decoration:none; font-weight:600; font-size:13px; padding:10px 18px; border-radius:8px;">${T.chatLink}</a>
+        <p style="font-size:11px; color:#9A9AA5; margin:10px 0 0; text-align:center;">${T.chatNote}</p>
       </div>
     </div>`;
 
@@ -194,7 +197,7 @@ export async function onRequestPost(context) {
     const dateLabel = myParts.toLocaleDateString("ms-MY", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
     const slotLabel = `${String(myParts.getUTCHours()).padStart(2, "0")}:${String(myParts.getUTCMinutes()).padStart(2, "0")}`;
 
-    await sendConfirmationEmails(env, { profile, bizName, booking, slotLabel, dateLabel, lang });
+    await sendConfirmationEmails(env, { profile, bizName, booking, customer, slotLabel, dateLabel, lang });
 
     await sbAdmin(env, "/notifications", {
       method: "POST",

@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=36" />
+<link rel="stylesheet" href="/assets/style.css?v=37" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -298,6 +298,22 @@
               </div>
             `).join("")}
           </div>`;
+        if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          const cards = testimonialEl.querySelectorAll(".book-testimonial-card");
+          cards.forEach((el, i) => {
+            el.style.opacity = "0"; el.style.transform = "translateY(10px)";
+            el.style.transition = `opacity 0.4s ease ${i * 80}ms, transform 0.4s ease ${i * 80}ms`;
+          });
+          const testObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = "1"; entry.target.style.transform = "translateY(0)";
+                testObs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.15 });
+          cards.forEach(el => testObs.observe(el));
+        }
       } else {
         testimonialEl.innerHTML = "";
       }
@@ -385,18 +401,21 @@
     function renderTypePicker() {
       const content = document.getElementById("book-content");
       const types = availabilityData.event_types || [];
+      const countClass = types.length === 1 ? "count-1" : types.length === 2 ? "count-2" : "count-many";
       content.innerHTML = renderLangSwitcher() + renderStepIndicator(1) + `
         <p class="hint" style="text-align:center; margin-bottom:1rem;">${T().pickType}</p>
-        <div class="card">
-          ${types.map(t => `
-            <div class="event-type-row" data-select-type="${t.id}">
-              ${t.poster_url ? `<img src="${escapeHtml(t.poster_url)}" class="event-type-thumb" alt="" />` : ""}
-              <div style="flex:1; min-width:0;">
+        <div class="event-type-grid ${countClass}">
+          ${types.map((t, i) => `
+            <div class="event-type-card" data-select-type="${t.id}" data-reveal-index="${i}">
+              <div class="event-type-card-image" style="${t.poster_url ? `background-image:url('${escapeHtml(t.poster_url)}');` : `background:linear-gradient(135deg, var(--stamp-soft), var(--surface));`}"></div>
+              <div class="event-type-card-body">
                 <strong>${escapeHtml(t.name)}</strong>
                 <div class="hint" style="font-size:0.8rem;">${t.duration_minutes} minit${t.capacity > 1 ? ` · sehingga ${t.capacity} orang` : ""}</div>
-                ${(t.description || t.poster_url) ? `<button type="button" class="event-type-viewmore" data-viewmore-id="${t.id}">${T().viewMore}</button>` : ""}
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+                  ${(t.description || t.poster_url) ? `<button type="button" class="event-type-viewmore" data-viewmore-id="${t.id}">${T().viewMore}</button>` : "<span></span>"}
+                  <span class="mono" style="font-weight:700; color:var(--stamp); white-space:nowrap;">${t.deposit_amount === 0 ? T().free : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "")}</span>
+                </div>
               </div>
-              <span class="mono" style="font-weight:600; color:var(--stamp); white-space:nowrap;">${t.deposit_amount === 0 ? T().free : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "")}</span>
             </div>
           `).join("")}
         </div>
@@ -420,6 +439,24 @@
           openServiceDetailModal(t);
         });
       });
+      // Gentle fade+scale entrance — subtle, not bouncy, matching the calmer
+      // premium aesthetic (unlike the marketing site's playful animations).
+      if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const cards = document.querySelectorAll(".event-type-card");
+        cards.forEach((el, i) => {
+          el.style.opacity = "0"; el.style.transform = "translateY(10px)";
+          el.style.transition = `opacity 0.4s ease ${i * 70}ms, transform 0.4s ease ${i * 70}ms`;
+        });
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1"; entry.target.style.transform = "translateY(0)";
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        cards.forEach(el => obs.observe(el));
+      }
     }
 
     function openServiceDetailModal(t) {

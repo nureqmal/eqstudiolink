@@ -1202,16 +1202,20 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 /* ── Per-page contextual guide button ─────────────────────────────── */
 .guide-btn { font-weight: 600; }
 
-/* ── Event type picker (booking page) ─────────────────────────────── */
-.event-type-row {
-  display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 0.7rem;
-  background: var(--surface); border: 1px solid var(--paper-line); border-radius: 10px;
-  padding: 0.9rem 1.1rem; margin-bottom: 0.6rem; cursor: pointer; text-align: left; font-family: inherit;
-  -webkit-tap-highlight-color: transparent;
+/* ── Event type picker (booking page) — image-forward adaptive card grid ── */
+.event-type-grid { display: grid; grid-template-columns: 1fr; gap: 0.9rem; }
+.event-type-grid.count-2 { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 480px) {
+  .event-type-grid.count-many { grid-template-columns: repeat(2, 1fr); }
 }
-.event-type-row:hover { border-color: var(--stamp); transform: translateY(-1px); }
-.event-type-row:last-child { margin-bottom: 0; }
-.event-type-thumb { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+.event-type-card {
+  background: var(--surface); border: 1px solid var(--paper-line); border-radius: var(--radius-lg);
+  overflow: hidden; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.event-type-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(16,16,20,0.1); }
+.event-type-card-image { width: 100%; aspect-ratio: 4/3; background-size: cover; background-position: center; }
+.event-type-grid.count-1 .event-type-card-image { aspect-ratio: 16/9; }
+.event-type-card-body { padding: 0.9rem 1rem; text-align: left; }
 .event-type-viewmore {
   background: none; border: none; color: var(--stamp); font-size: 0.78rem; font-weight: 600;
   padding: 0.15rem 0; cursor: pointer; text-decoration: underline; width: auto;

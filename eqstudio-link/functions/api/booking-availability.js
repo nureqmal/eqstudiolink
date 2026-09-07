@@ -37,13 +37,14 @@ export async function onRequestGet(context) {
     const link = links[0];
     if (!link) return json({ error: "Link booking tidak dijumpai." }, 404);
 
-    const profiles = await sbAdmin(env, `/profiles?id=eq.${link.owner_id}&select=business_name,logo_url,brand_color,about_text,instagram_url,tiktok_url,facebook_url,whatsapp_number,maps_url,business_address`);
+    const profiles = await sbAdmin(env, `/profiles?id=eq.${link.owner_id}&select=business_name,logo_url,brand_color,about_text,instagram_url,tiktok_url,facebook_url,whatsapp_number,maps_url,business_address,cover_photo_url,tagline,since_year`);
     const profile = profiles[0] || {};
     const business = {
       name: link.label || profile.business_name, logo_url: profile.logo_url, brand_color: profile.brand_color,
       about_text: profile.about_text || null, instagram_url: profile.instagram_url || null, tiktok_url: profile.tiktok_url || null,
       facebook_url: profile.facebook_url || null, whatsapp_number: profile.whatsapp_number || null, maps_url: profile.maps_url || null,
-      business_address: profile.business_address || null,
+      business_address: profile.business_address || null, cover_photo_url: profile.cover_photo_url || null,
+      tagline: profile.tagline || null, since_year: profile.since_year || null,
     };
     const gallery = await sbAdmin(env, `/gallery_images?owner_id=eq.${link.owner_id}&select=image_url&order=sort_order.asc`);
     const testimonials = await sbAdmin(env, `/testimonials?owner_id=eq.${link.owner_id}&select=customer_name,quote_text&order=sort_order.asc`);
@@ -52,7 +53,7 @@ export async function onRequestGet(context) {
     const questions = await sbAdmin(env, `/booking_questions?booking_link_id=eq.${link.id}&select=id,question_text&order=sort_order.asc`);
 
     if (eventTypes.length > 0 && !requestedTypeId) {
-      return json({ business, gallery, testimonials, event_types: eventTypes, slots_by_date: null, questions, link_description: link.description, link_poster_url: link.poster_url });
+      return json({ business, gallery, testimonials, event_types: eventTypes, slots_by_date: null, questions, link_description: link.description, link_poster_url: link.poster_url, cancel_notice_hours: link.cancel_notice_hours });
     }
 
     let durationMinutes = link.slot_duration_minutes || 60;
@@ -118,7 +119,7 @@ export async function onRequestGet(context) {
       `/availability_dates?booking_link_id=eq.${link.id}&specific_date=gte.${todayDateKey}&specific_date=lte.${rangeEndDateKey}&select=specific_date,start_time,end_time`
     );
     if (availability.length === 0) {
-      return json({ business, gallery, testimonials, event_types: eventTypes, slots_by_date: {}, questions, slot_duration_minutes: durationMinutes, capacity, deposit_amount: depositAmount, link_description: link.description, link_poster_url: link.poster_url });
+      return json({ business, gallery, testimonials, event_types: eventTypes, slots_by_date: {}, questions, slot_duration_minutes: durationMinutes, capacity, deposit_amount: depositAmount, link_description: link.description, link_poster_url: link.poster_url, cancel_notice_hours: link.cancel_notice_hours });
     }
 
     const availByDate = new Map();
@@ -156,7 +157,7 @@ export async function onRequestGet(context) {
       if (daySlots.length > 0) slotsByDate[dateKey] = daySlots;
     }
 
-    return json({ business, gallery, testimonials, event_types: eventTypes, slot_duration_minutes: durationMinutes, capacity, slots_by_date: slotsByDate, questions, deposit_amount: depositAmount, link_description: link.description, link_poster_url: link.poster_url });
+    return json({ business, gallery, testimonials, event_types: eventTypes, slot_duration_minutes: durationMinutes, capacity, slots_by_date: slotsByDate, questions, deposit_amount: depositAmount, link_description: link.description, link_poster_url: link.poster_url, cancel_notice_hours: link.cancel_notice_hours });
   } catch (err) {
     return json({ error: err.message }, 500);
   }

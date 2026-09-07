@@ -2041,9 +2041,22 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   .book-side-col { order: 2; position: sticky; top: 1.5rem; }
 }
 
-.book-hero { text-align: center; margin-bottom: 1.8rem; }
-.book-hero-logo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin-bottom: 0.8rem; box-shadow: 0 8px 20px rgba(16,16,20,0.12); }
-.book-hero-name { font-size: clamp(1.5rem, 5vw, 2.1rem); line-height: 1.15; margin: 0; }
+.book-hero {
+  position: relative; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.8rem;
+  background-size: cover; background-position: center; min-height: 240px; display: flex; align-items: flex-end;
+}
+.book-hero.has-image::before {
+  content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.65) 100%);
+}
+.book-hero-overlay { position: relative; z-index: 1; padding: 1.6rem 1.4rem; width: 100%; color: #fff; }
+.book-hero-logo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; margin-bottom: 0.7rem; border: 2px solid rgba(255,255,255,0.8); box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
+.book-hero-name { font-size: clamp(1.5rem, 5vw, 2.2rem); line-height: 1.15; margin: 0; font-weight: 700; }
+.book-hero-tagline { margin: 0.4rem 0 0; font-size: 1rem; opacity: 0.92; max-width: 42ch; }
+.book-hero-badge {
+  display: inline-block; margin-top: 0.7rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.03em;
+  padding: 0.3rem 0.7rem; border-radius: 999px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px);
+}
+.book-hero:not(.has-image) .book-hero-badge { background: rgba(255,255,255,0.25); }
 
 .book-about-card { margin-bottom: 1.5rem; }
 .book-about-text { margin: 0; line-height: 1.6; color: var(--ink-soft); white-space: pre-wrap; }
@@ -2125,3 +2138,16 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 /* ── Dashboard: cover photo preview ── */
 .ws-cover-preview { margin-bottom: 0.6rem; border-radius: 10px; overflow: hidden; max-width: 320px; aspect-ratio: 16/9; }
 .ws-cover-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ── book.html Hero share button ── */
+.book-hero-share-btn {
+  position: absolute; top: 1rem; right: 1rem; z-index: 2; width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); color: #fff; border: none; padding: 0;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.book-hero-share-btn:hover { background: rgba(255,255,255,0.32); }
+
+/* ── book.html policy disclosure card (deposit/cancellation) ── */
+.book-policy-card { background: var(--stamp-soft); border-radius: 10px; padding: 0.8rem 1rem; }
+.book-policy-card p { margin: 0; font-size: 0.82rem; color: var(--ink); display: flex; align-items: flex-start; gap: 0.4rem; }
+.book-policy-card p + p { margin-top: 0.4rem; }

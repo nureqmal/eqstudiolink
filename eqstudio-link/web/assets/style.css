@@ -2162,3 +2162,10 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .chat-bubble-row.from-customer-view-self .chat-bubble { background: var(--stamp); color: #fff; border-bottom-right-radius: 4px; }
 .chat-bubble-row.from-customer-view-owner { align-self: flex-start; align-items: flex-start; }
 .chat-bubble-row.from-customer-view-owner .chat-bubble { background: var(--paper); color: var(--ink); border-bottom-left-radius: 4px; }
+
+/* ── Portal.html: small secondary WhatsApp alternative link, below the chat widget ── */
+.portal-chat-wa-alt {
+  display: block; text-align: center; margin-top: 0.7rem; font-size: 0.76rem; color: var(--ink-soft);
+  text-decoration: underline;
+}
+.portal-chat-wa-alt:hover { color: var(--stamp); }

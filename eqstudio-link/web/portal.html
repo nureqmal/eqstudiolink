@@ -10,7 +10,7 @@
 <title>Status Bayaran</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=39" />
+<link rel="stylesheet" href="/assets/style.css?v=41" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -27,8 +27,8 @@
 
     <div class="card portal-chat-card" id="portal-chat-card" style="display:none; margin-top:1rem;">
       <div class="section-title"><h2 style="margin:0; font-size:1rem;" id="portal-chat-title">Chat</h2></div>
-      <div class="chat-messages" id="portal-chat-messages"><p class="hint">Memuatkan...</p></div>
-      <form id="portal-chat-form" class="chat-send-row">
+      <div class="cw-messages" id="portal-chat-messages"><p class="hint">Memuatkan...</p></div>
+      <form id="portal-chat-form" class="cw-send-row">
         <input type="text" id="portal-chat-input" placeholder="Taip mesej..." autocomplete="off" />
         <button type="submit" aria-label="Hantar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
       </form>
@@ -120,9 +120,9 @@
     function renderPortalChatBubble(m) {
       const isOwner = m.sender_type === "owner";
       return `
-        <div class="chat-bubble-row ${isOwner ? "from-customer-view-owner" : "from-customer-view-self"}">
-          <div class="chat-bubble">${escapeHtml(m.message_text)}</div>
-          <div class="chat-bubble-time">${new Date(m.created_at).toLocaleString("ms-MY", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</div>
+        <div class="cw-bubble-row ${isOwner ? "from-customer-view-owner" : "from-customer-view-self"}">
+          <div class="cw-bubble">${escapeHtml(m.message_text)}</div>
+          <div class="cw-bubble-time">${new Date(m.created_at).toLocaleString("ms-MY", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</div>
         </div>`;
     }
 

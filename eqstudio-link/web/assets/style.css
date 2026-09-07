@@ -2156,13 +2156,6 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .book-policy-card p { margin: 0; font-size: 0.82rem; color: var(--ink); display: flex; align-items: flex-start; gap: 0.4rem; }
 .book-policy-card p + p { margin-top: 0.4rem; }
 
-/* ── Portal.html: chat bubbles from customer's perspective (their own
-   messages on the right, owner's replies on the left) ── */
-.chat-bubble-row.from-customer-view-self { align-self: flex-end; align-items: flex-end; }
-.chat-bubble-row.from-customer-view-self .chat-bubble { background: var(--stamp); color: #fff; border-bottom-right-radius: 4px; }
-.chat-bubble-row.from-customer-view-owner { align-self: flex-start; align-items: flex-start; }
-.chat-bubble-row.from-customer-view-owner .chat-bubble { background: var(--paper); color: var(--ink); border-bottom-left-radius: 4px; }
-
 /* ── Portal.html: small secondary WhatsApp alternative link, below the chat widget ── */
 .portal-chat-wa-alt {
   display: block; text-align: center; margin-top: 0.7rem; font-size: 0.76rem; color: var(--ink-soft);
@@ -2170,58 +2163,134 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 }
 .portal-chat-wa-alt:hover { color: var(--stamp); }
 
-/* ── Global chat widget (LinkedIn-style floating panel) ── */
+/* ── Global chat widget (LinkedIn-style, glassmorphism + gradient accent) ── */
 .chat-widget-launcher {
-  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 500; width: 56px; height: 56px; border-radius: 50%;
-  background: var(--stamp); color: #fff; border: none; display: flex; align-items: center; justify-content: center;
-  cursor: pointer; box-shadow: 0 8px 24px rgba(74,9,143,0.35); transition: transform 0.2s ease;
+  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 500; width: 58px; height: 58px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--stamp), var(--accent-lilac)); color: #fff; border: none; padding: 0;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  box-shadow: 0 10px 28px rgba(74,9,143,0.4); transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.chat-widget-launcher:hover { transform: scale(1.06); }
+.chat-widget-launcher:hover { transform: scale(1.07) translateY(-2px); box-shadow: 0 14px 34px rgba(74,9,143,0.48); }
+.chat-widget-launcher.has-unread { animation: chat-launcher-pulse 2s ease-in-out infinite; }
+@keyframes chat-launcher-pulse {
+  0%, 100% { box-shadow: 0 10px 28px rgba(74,9,143,0.4), 0 0 0 0 rgba(74,9,143,0.35); }
+  50% { box-shadow: 0 10px 28px rgba(74,9,143,0.4), 0 0 0 9px rgba(74,9,143,0); }
+}
 .chat-widget-badge {
-  position: absolute; top: -2px; right: -2px; min-width: 20px; height: 20px; border-radius: 999px;
+  position: absolute; top: -3px; right: -3px; min-width: 21px; height: 21px; border-radius: 999px;
   background: var(--accent-coral); color: #fff; font-size: 0.68rem; font-weight: 700; display: flex;
-  align-items: center; justify-content: center; padding: 0 5px; border: 2px solid var(--paper);
+  align-items: center; justify-content: center; padding: 0 5px; border: 2.5px solid var(--paper);
 }
 
 .chat-widget-panel {
-  position: fixed; bottom: 5.5rem; right: 1.5rem; z-index: 500; width: 340px; max-width: calc(100vw - 2rem);
-  height: 480px; max-height: calc(100vh - 8rem); background: var(--surface); border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(16,16,20,0.22); display: flex; flex-direction: column; overflow: hidden;
-  opacity: 0; transform: translateY(16px) scale(0.97); pointer-events: none; transition: opacity 0.22s ease, transform 0.22s ease;
+  position: fixed; bottom: 5.6rem; right: 1.5rem; z-index: 500; width: 350px; max-width: calc(100vw - 1.5rem);
+  height: 500px; max-height: calc(100vh - 8rem); border-radius: 20px; display: flex; flex-direction: column;
+  overflow: hidden; opacity: 0; transform: translateY(18px) scale(0.96); pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid color-mix(in srgb, var(--stamp) 18%, transparent);
+  box-shadow: 0 24px 60px rgba(16,16,20,0.28), 0 0 0 1px rgba(255,255,255,0.06) inset;
 }
 .chat-widget-panel.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 @media (max-width: 480px) {
-  .chat-widget-panel { right: 0.75rem; left: 0.75rem; width: auto; bottom: 5.2rem; }
+  .chat-widget-panel { right: 0.6rem; left: 0.6rem; width: auto; bottom: 5.3rem; max-height: calc(100vh - 7.5rem); }
   .chat-widget-launcher { right: 1rem; bottom: 1rem; }
 }
 
-.chat-widget-header { padding: 0.9rem 1rem; border-bottom: 1px solid var(--paper-line); flex-shrink: 0; }
+.chat-widget-header {
+  padding: 1rem 1.1rem; border-bottom: 1px solid color-mix(in srgb, var(--paper-line) 70%, transparent); flex-shrink: 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--stamp) 6%, transparent), transparent);
+}
 .chat-widget-header-row { display: flex; align-items: center; gap: 0.5rem; }
-.chat-widget-header-row h3 { flex: 1; margin: 0; font-size: 1rem; }
+.chat-widget-header-row h3 { flex: 1; margin: 0; font-size: 1.02rem; font-weight: 700; color: var(--ink); }
 .chat-widget-back-btn, .chat-widget-close-btn {
   width: 30px; height: 30px; border-radius: 50%; padding: 0; border: none; background: transparent;
   color: var(--ink-soft); display: flex; align-items: center; justify-content: center; cursor: pointer;
+  flex-shrink: 0; box-shadow: none;
 }
-.chat-widget-back-btn:hover, .chat-widget-close-btn:hover { background: var(--paper); color: var(--ink); }
+.chat-widget-back-btn:hover, .chat-widget-close-btn:hover { background: color-mix(in srgb, var(--stamp) 12%, transparent); color: var(--stamp); transform: none; box-shadow: none; }
 
 .chat-widget-list-view { flex: 1; overflow-y: auto; }
 .chat-conv-row {
-  display: flex; align-items: center; gap: 0.7rem; width: 100%; padding: 0.7rem 1rem; background: none;
-  border: none; border-bottom: 1px solid var(--paper-line); cursor: pointer; text-align: left; font-family: inherit;
-  position: relative;
+  display: flex; align-items: center; gap: 0.7rem; width: 100%; padding: 0.75rem 1.1rem;
+  background: transparent; color: var(--ink); border: none; border-radius: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--paper-line) 60%, transparent);
+  cursor: pointer; text-align: left; font-family: inherit; position: relative; box-shadow: none;
+  transition: background 0.15s ease;
 }
-.chat-conv-row:hover { background: var(--paper); }
+.chat-conv-row:hover { background: color-mix(in srgb, var(--stamp) 6%, transparent); transform: none; box-shadow: none; }
 .chat-conv-row.unread .chat-conv-name, .chat-conv-row.unread .chat-conv-preview { font-weight: 700; color: var(--ink); }
 .chat-avatar {
-  width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 0.95rem; flex-shrink: 0;
+  width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.95rem; flex-shrink: 0; box-shadow: 0 0 0 2px var(--surface), 0 0 0 3.5px var(--stamp-soft);
 }
 .chat-conv-info { flex: 1; min-width: 0; }
 .chat-conv-name-row { display: flex; justify-content: space-between; align-items: baseline; gap: 0.4rem; }
-.chat-conv-name { font-size: 0.88rem; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chat-conv-name { font-size: 0.88rem; font-weight: 500; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chat-conv-time { font-size: 0.68rem; color: var(--ink-soft); flex-shrink: 0; }
 .chat-conv-preview { font-size: 0.78rem; color: var(--ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 0.1rem; }
-.chat-conv-unread-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--stamp); flex-shrink: 0; }
+.chat-conv-unread-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--stamp); flex-shrink: 0; box-shadow: 0 0 0 3px color-mix(in srgb, var(--stamp) 20%, transparent); }
 
-.chat-widget-thread-view { flex: 1; display: flex; flex-direction: column; min-height: 0; padding: 0.7rem 1rem 0.8rem; }
-.chat-widget-thread-view .chat-messages { flex: 1; overflow-y: auto; max-height: none; }
+.chat-widget-thread-view { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.chat-widget-thread-view .cw-messages { flex: 1; overflow-y: auto; max-height: none; padding: 0.8rem 1.1rem; }
+.chat-widget-thread-view .cw-send-row { padding: 0.7rem 1.1rem 0.9rem; margin-top: 0; flex-shrink: 0; }
+
+/* ── cw- namespace: chat widget message bubbles (owner<->customer chat).
+   Deliberately separate from .chat-bubble/.chat-messages which belong to
+   the existing admin Support Chat feature — same-looking names caused a
+   style collision before this redesign. ── */
+.cw-messages { display: flex; flex-direction: column; gap: 0.5rem; }
+.cw-bubble-row { display: flex; flex-direction: column; max-width: 78%; }
+.cw-bubble-row.from-owner, .cw-bubble-row.from-customer-view-self { align-self: flex-end; align-items: flex-end; }
+.cw-bubble-row.from-customer, .cw-bubble-row.from-customer-view-owner { align-self: flex-start; align-items: flex-start; }
+.cw-bubble {
+  padding: 0.55rem 0.85rem; border-radius: 15px; font-size: 0.87rem; line-height: 1.42;
+  white-space: pre-wrap; word-break: break-word;
+}
+.cw-bubble-row.from-owner .cw-bubble, .cw-bubble-row.from-customer-view-self .cw-bubble {
+  background: linear-gradient(135deg, var(--stamp), color-mix(in srgb, var(--stamp) 75%, var(--accent-lilac)));
+  color: #fff; border-bottom-right-radius: 4px;
+}
+.cw-bubble-row.from-customer .cw-bubble, .cw-bubble-row.from-customer-view-owner .cw-bubble {
+  background: color-mix(in srgb, var(--paper) 90%, var(--stamp) 4%); color: var(--ink); border-bottom-left-radius: 4px;
+}
+.cw-bubble-time { font-size: 0.64rem; color: var(--ink-soft); margin-top: 0.2rem; padding: 0 0.2rem; }
+.cw-send-row { display: flex; gap: 0.5rem; }
+.cw-send-row input {
+  flex: 1; margin: 0; border-radius: 999px; background: color-mix(in srgb, var(--paper) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--paper-line) 70%, transparent);
+}
+.cw-send-row button {
+  width: 40px; height: 40px; flex-shrink: 0; padding: 0; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; background: linear-gradient(135deg, var(--stamp), var(--accent-lilac)); color: #fff;
+  box-shadow: 0 4px 12px rgba(74,9,143,0.3);
+}
+.cw-send-row button:hover { transform: scale(1.06); box-shadow: 0 6px 16px rgba(74,9,143,0.4); }
+
+/* ── Booking summary card — sticky at top of thread, auto-fetched (Shopee-style) ── */
+.chat-booking-card {
+  margin: 0.8rem 1.1rem 0; padding: 0.7rem 0.85rem; border-radius: 12px; flex-shrink: 0;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--stamp) 10%, var(--surface)), color-mix(in srgb, var(--accent-lilac) 8%, var(--surface)));
+  border: 1px solid color-mix(in srgb, var(--stamp) 20%, transparent);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.chat-booking-card-icon {
+  width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  background: var(--stamp); color: #fff;
+}
+.chat-booking-card-info { flex: 1; min-width: 0; }
+.chat-booking-card-title { font-size: 0.78rem; font-weight: 700; color: var(--ink); }
+.chat-booking-card-detail { font-size: 0.72rem; color: var(--ink-soft); margin-top: 0.1rem; }
+
+/* ── FAQ quick-reply chips ── */
+.chat-faq-chips { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.6rem 1.1rem 0; flex-shrink: 0; }
+.chat-faq-chip {
+  flex-shrink: 0; padding: 0.4rem 0.75rem; border-radius: 999px; font-size: 0.72rem; font-weight: 600;
+  background: color-mix(in srgb, var(--stamp) 9%, transparent); color: var(--stamp);
+  border: 1px solid color-mix(in srgb, var(--stamp) 22%, transparent); cursor: pointer; white-space: nowrap;
+  box-shadow: none; transition: background 0.15s ease;
+}
+.chat-faq-chip:hover { background: color-mix(in srgb, var(--stamp) 16%, transparent); transform: none; box-shadow: none; }
+
+

@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=40" />
+<link rel="stylesheet" href="/assets/style.css?v=41" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -1169,8 +1169,8 @@
     </div>
 
     <div class="chat-widget-thread-view" id="chat-widget-thread-view" style="display:none;">
-      <div class="chat-messages" id="chat-widget-messages"></div>
-      <form id="chat-widget-send-form" class="chat-send-row">
+      <div class="cw-messages" id="chat-widget-messages"></div>
+      <form id="chat-widget-send-form" class="cw-send-row">
         <input type="text" id="chat-widget-input" placeholder="Taip mesej..." autocomplete="off" />
         <button type="submit" aria-label="Hantar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
       </form>
@@ -2776,9 +2776,9 @@
     function renderChatMessage(m) {
       const isOwner = m.sender_type === "owner";
       return `
-        <div class="chat-bubble-row ${isOwner ? "from-owner" : "from-customer"}">
-          <div class="chat-bubble">${escapeHtml(m.message_text)}</div>
-          <div class="chat-bubble-time">${new Date(m.created_at).toLocaleString("ms-MY", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</div>
+        <div class="cw-bubble-row ${isOwner ? "from-owner" : "from-customer"}">
+          <div class="cw-bubble">${escapeHtml(m.message_text)}</div>
+          <div class="cw-bubble-time">${new Date(m.created_at).toLocaleString("ms-MY", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</div>
         </div>`;
     }
 

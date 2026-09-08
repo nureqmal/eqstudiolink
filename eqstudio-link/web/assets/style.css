@@ -2317,5 +2317,23 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 /* ── Portal.html: booking card / FAQ chips breakout from the .card default
    padding, so they sit full-width within the chat card instead of getting
    double-padded ── */
-#portal-chat-booking-card .chat-booking-card { margin: 0 -1px; }
-#portal-chat-faq-chips.chat-faq-chips { margin: 0.6rem -1px 0; padding-left: 1px; padding-right: 1px; }
+
+
+/* ── Portal.html: widen the chat card specifically — the default .card
+   padding (28px) stacked with .wrap-narrow (20px) left barely 60% of
+   phone screen width for chat bubbles. Chat needs more room than a
+   typical text/form card. ── */
+.portal-chat-card { padding: 1rem 0.9rem; }
+@media (min-width: 480px) { .wrap-narrow.portal-wrap-wide { max-width: 480px; } }
+
+/* ── Chat widget: default FAQ library section (technical/process answers) ── */
+.chat-manage-library-heading {
+  padding: 0.6rem 1.1rem 0.3rem; font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--ink-soft);
+}
+.chat-manage-add-btn {
+  flex-shrink: 0; padding: 0.35rem 0.7rem; font-size: 0.72rem; font-weight: 600; border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-sage) 12%, transparent); color: var(--accent-sage);
+  border: 1px solid color-mix(in srgb, var(--accent-sage) 25%, transparent); box-shadow: none;
+}
+.chat-manage-add-btn:hover { background: color-mix(in srgb, var(--accent-sage) 20%, transparent); transform: none; box-shadow: none; }

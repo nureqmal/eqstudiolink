@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=43" />
+<link rel="stylesheet" href="/assets/style.css?v=44" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -2879,12 +2879,39 @@
       loadChatConversations();
     }
 
+    // Default library — technical/process answers relevant to every owner
+    // (reschedule, cancel, deposit status), not business-specific. Owner
+    // taps "+ Tambah" to copy one into their own editable templates.
+    const DEFAULT_FAQ_LIBRARY = [
+      { label: "Cara Reschedule", answer: "Untuk reschedule, buka emel pengesahan tempahan anda dan tekan butang Reschedule/Batal Tempahan. Pilih tarikh dan slot baharu, sistem akan kemas kini secara automatik." },
+      { label: "Cara Batal Booking", answer: "Untuk batal tempahan, buka emel pengesahan dan tekan butang Reschedule/Batal Tempahan, kemudian pilih Batal. Sila lakukan lebih awal supaya slot boleh diambil pelanggan lain." },
+      { label: "Bila Reminder Dihantar", answer: "Emel peringatan dihantar automatik mengikut jadual yang ditetapkan sebelum tarikh tempahan anda. Sila semak folder spam jika tidak nampak dalam inbox." },
+      { label: "Status Deposit Belum Update", answer: "Terima kasih maklumkan. Saya akan semak dan sahkan pembayaran deposit anda sekarang, status akan dikemas kini sebentar lagi." },
+      { label: "Berapa Lama Tempoh Servis", answer: "Tempoh servis berbeza mengikut jenis perkhidmatan yang dipilih. Sila rujuk maklumat pada halaman tempahan untuk tempoh tepat setiap servis." },
+    ];
+
     async function renderFaqManageList() {
       const listEl = document.getElementById("chat-widget-manage-list");
       const { data, error } = await supabase.from("chat_faq_templates").select("id, label, answer_text").eq("owner_id", user.id).order("sort_order", { ascending: true });
       if (error) { listEl.innerHTML = `<p class="error" style="padding:1rem;">${error.message}</p>`; return; }
       chatFaqTemplatesCache = data;
-      listEl.innerHTML = data.length > 0
+
+      const existingLabels = new Set(data.map(t => t.label));
+      const availableLibrary = DEFAULT_FAQ_LIBRARY.filter(l => !existingLabels.has(l.label));
+      const libraryHtml = availableLibrary.length > 0 ? `
+        <div class="chat-manage-library-heading">Perpustakaan Cadangan</div>
+        ${availableLibrary.map(l => `
+          <div class="chat-manage-row">
+            <div class="chat-manage-row-text">
+              <strong>${escapeHtml(l.label)}</strong>
+              <p class="hint" style="margin:0.1rem 0 0; font-size:0.74rem;">${escapeHtml(l.answer.slice(0, 70))}</p>
+            </div>
+            <button type="button" class="chat-manage-add-btn" data-library-label="${escapeHtml(l.label)}" data-library-answer="${escapeHtml(l.answer)}">+ Tambah</button>
+          </div>`).join("")}
+        <div class="chat-manage-library-heading">Jawapan Pantas Anda</div>
+      ` : (data.length > 0 ? `<div class="chat-manage-library-heading">Jawapan Pantas Anda</div>` : "");
+
+      listEl.innerHTML = libraryHtml + (data.length > 0
         ? data.map(t => `
           <div class="chat-manage-row">
             <div class="chat-manage-row-text">
@@ -2895,7 +2922,14 @@
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
           </div>`).join("")
-        : `<p class="hint" style="padding:1rem; text-align:center;">Belum ada jawapan pantas. Tambah satu di bawah.</p>`;
+        : (availableLibrary.length === 0 ? `<p class="hint" style="padding:1rem; text-align:center;">Belum ada jawapan pantas. Tambah satu di bawah.</p>` : ""));
+
+      listEl.querySelectorAll("[data-library-label]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          await supabase.from("chat_faq_templates").insert({ owner_id: user.id, label: btn.dataset.libraryLabel, answer_text: btn.dataset.libraryAnswer });
+          renderFaqManageList();
+        });
+      });
       listEl.querySelectorAll("[data-manage-delete-id]").forEach(btn => {
         btn.addEventListener("click", async () => {
           await supabase.from("chat_faq_templates").delete().eq("id", btn.dataset.manageDeleteId);

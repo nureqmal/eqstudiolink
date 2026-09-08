@@ -42,34 +42,73 @@ async function sendConfirmationEmails(env, { profile, bizName, booking, customer
   const T = BOOKING_I18N[lang] || BOOKING_I18N.ms;
 
   const customerHtml = `
-    <div style="font-family:Helvetica,Arial,sans-serif; max-width:440px; margin:0 auto; background:#FAFAFA; border-radius:10px; overflow:hidden; border:1px solid #E4E4E9;">
-      <div style="height:5px; background:${brandColor};"></div>
-      <div style="padding:24px 28px;">
-        <p style="font-size:16px; font-weight:600; margin:0 0 8px;">${T.title}</p>
-        <p style="font-size:14px; color:#6B6B75; margin:0 0 16px;">${T.greet(escapeHtml(booking.customer_name), escapeHtml(bizName))}</p>
-        <p style="font-size:14px; margin:0 0 4px;">📅 ${dateLabel}, ${slotLabel}</p>
-        <p style="font-size:12px; color:#9A9AA5; margin:16px 0 12px;">${T.footer}</p>
-        <a href="${manageUrl}" style="display:block; text-align:center; background:#ffffff; color:${brandColor}; text-decoration:none; font-weight:600; font-size:13px; padding:10px 18px; border-radius:8px; border:1.5px solid ${brandColor}; margin-bottom:8px;">${T.manageLink}</a>
-        <a href="${portalUrl}" style="display:block; text-align:center; background:${brandColor}; color:#ffffff; text-decoration:none; font-weight:600; font-size:13px; padding:10px 18px; border-radius:8px;">${T.chatLink}</a>
-        <p style="font-size:11px; color:#9A9AA5; margin:10px 0 0; text-align:center;">${T.chatNote}</p>
-      </div>
-    </div>`;
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EDEDF2; padding:32px 16px; border-collapse:collapse;">
+      <tr><td align="center">
+      <table role="presentation" width="100%" style="max-width:440px; background:#ffffff; border-radius:14px; overflow:hidden; border-collapse:collapse;" cellpadding="0" cellspacing="0">
+        <tr><td style="background-color:${brandColor}; background-image:linear-gradient(135deg, ${brandColor}, ${brandColor}); padding:28px 28px 24px; text-align:center;">
+          <div style="width:40px; height:40px; border-radius:10px; background:rgba(255,255,255,0.18); display:inline-block; line-height:40px; text-align:center; margin-bottom:10px;"><span style="font-size:18px;">📅</span></div>
+          <div style="color:#ffffff; font-size:19px; font-weight:700; font-family:Helvetica,Arial,sans-serif;">${T.title.replace(/\s*✅\s*/g, "")}</div>
+          <div style="color:rgba(255,255,255,0.75); font-size:13px; margin-top:4px; font-family:Helvetica,Arial,sans-serif;">${escapeHtml(bizName)}</div>
+        </td></tr>
+        <tr><td style="padding:26px 28px 8px;">
+          <p style="margin:0 0 18px; font-size:14px; color:#3A3A42; font-family:Helvetica,Arial,sans-serif; line-height:1.6;">${T.greet(escapeHtml(booking.customer_name), escapeHtml(bizName))}</p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFC; border:1px solid #ECECF0; border-radius:10px; border-collapse:collapse;">
+            <tr><td style="padding:14px 16px;">
+              <div style="font-size:11px; color:#9A9AA5; text-transform:uppercase; letter-spacing:0.04em;">Tarikh &amp; Masa</div>
+              <div style="font-size:14px; color:#1B1B22; font-weight:600; font-family:'SF Mono',Consolas,monospace; margin-top:2px;">${dateLabel}, ${slotLabel}</div>
+            </td></tr>
+          </table>
+        </td></tr>
+        <tr><td style="padding:20px 28px 28px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+            <tr><td style="padding-bottom:8px;">
+              <a href="${manageUrl}" style="display:block; text-align:center; background:#ffffff; color:${brandColor}; text-decoration:none; font-weight:700; font-size:13px; padding:11px 18px; border-radius:9px; border:1.5px solid ${brandColor}; font-family:Helvetica,Arial,sans-serif;">${T.manageLink}</a>
+            </td></tr>
+            <tr><td>
+              <a href="${portalUrl}" style="display:block; text-align:center; background:${brandColor}; color:#ffffff; text-decoration:none; font-weight:700; font-size:13px; padding:11px 18px; border-radius:9px; font-family:Helvetica,Arial,sans-serif;">${T.chatLink}</a>
+            </td></tr>
+          </table>
+          <p style="font-size:11px; color:#9A9AA5; margin:10px 0 0; text-align:center; font-family:Helvetica,Arial,sans-serif;">${T.chatNote}</p>
+        </td></tr>
+        <tr><td style="padding:18px 28px; background:#FAFAFC; border-top:1px solid #ECECF0; text-align:center;">
+          <div style="font-size:11px; color:#B0B0B8; font-family:Helvetica,Arial,sans-serif;">${T.footer}</div>
+        </td></tr>
+      </table>
+      </td></tr>
+    </table>`;
 
   const ownerHtml = `
-    <div style="font-family:Helvetica,Arial,sans-serif; max-width:440px; margin:0 auto; background:#FAFAFA; border-radius:10px; overflow:hidden; border:1px solid #E4E4E9;">
-      <div style="height:5px; background:${brandColor};"></div>
-      <div style="padding:24px 28px;">
-        <p style="font-size:16px; font-weight:600; margin:0 0 8px;">Tempahan Baru! 🎉</p>
-        <p style="font-size:14px; margin:0 0 4px;"><strong>${escapeHtml(booking.customer_name)}</strong> — ${escapeHtml(booking.customer_email)}${booking.customer_phone ? " — " + escapeHtml(booking.customer_phone) : ""}</p>
-        <p style="font-size:14px; margin:0 0 4px;">📅 ${dateLabel}, ${slotLabel}</p>
-        ${booking.customer_notes ? `<p style="font-size:13px; color:#6B6B75; margin:8px 0 0;"><em>${escapeHtml(booking.customer_notes)}</em></p>` : ""}
-        ${booking.custom_answers && Object.keys(booking.custom_answers).length ? `
-        <div style="margin-top:10px; padding-top:10px; border-top:1px dashed #E4E4E9;">
-          ${Object.entries(booking.custom_answers).map(([q, a]) => `<p style="font-size:13px; color:#6B6B75; margin:0 0 4px;"><strong>${escapeHtml(q)}:</strong> ${escapeHtml(a)}</p>`).join("")}
-        </div>` : ""}
-        <p style="font-size:12px; color:#9A9AA5; margin:14px 0 0;">Satu lagi customer percaya bisnes anda. Teruskan usaha!</p>
-      </div>
-    </div>`;
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EDEDF2; padding:32px 16px; border-collapse:collapse;">
+      <tr><td align="center">
+      <table role="presentation" width="100%" style="max-width:440px; background:#ffffff; border-radius:14px; overflow:hidden; border-collapse:collapse;" cellpadding="0" cellspacing="0">
+        <tr><td style="background-color:${brandColor}; background-image:linear-gradient(135deg, ${brandColor}, ${brandColor}); padding:28px 28px 24px; text-align:center;">
+          <div style="width:40px; height:40px; border-radius:10px; background:rgba(255,255,255,0.18); display:inline-block; line-height:40px; text-align:center; margin-bottom:10px;"><span style="font-size:18px;">🎉</span></div>
+          <div style="color:#ffffff; font-size:19px; font-weight:700; font-family:Helvetica,Arial,sans-serif;">Tempahan Baharu!</div>
+        </td></tr>
+        <tr><td style="padding:26px 28px 8px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFC; border:1px solid #ECECF0; border-radius:10px; border-collapse:collapse;">
+            <tr><td style="padding:14px 16px; border-bottom:1px solid #ECECF0;">
+              <div style="font-size:11px; color:#9A9AA5; text-transform:uppercase; letter-spacing:0.04em;">Pelanggan</div>
+              <div style="font-size:14px; color:#1B1B22; font-weight:600; margin-top:2px;">${escapeHtml(booking.customer_name)}</div>
+              <div style="font-size:12px; color:#6B6B75; margin-top:2px;">${escapeHtml(booking.customer_email)}${booking.customer_phone ? " · " + escapeHtml(booking.customer_phone) : ""}</div>
+            </td></tr>
+            <tr><td style="padding:14px 16px;">
+              <div style="font-size:11px; color:#9A9AA5; text-transform:uppercase; letter-spacing:0.04em;">Tarikh &amp; Masa</div>
+              <div style="font-size:14px; color:#1B1B22; font-weight:600; font-family:'SF Mono',Consolas,monospace; margin-top:2px;">${dateLabel}, ${slotLabel}</div>
+            </td></tr>
+          </table>
+          ${booking.customer_notes ? `<p style="font-size:13px; color:#6B6B75; margin:14px 0 0; font-family:Helvetica,Arial,sans-serif;"><em>${escapeHtml(booking.customer_notes)}</em></p>` : ""}
+          ${booking.custom_answers && Object.keys(booking.custom_answers).length ? `
+          <div style="margin-top:14px; padding-top:14px; border-top:1px dashed #ECECF0;">
+            ${Object.entries(booking.custom_answers).map(([q, a]) => `<p style="font-size:13px; color:#6B6B75; margin:0 0 4px; font-family:Helvetica,Arial,sans-serif;"><strong style="color:#3A3A42;">${escapeHtml(q)}:</strong> ${escapeHtml(a)}</p>`).join("")}
+          </div>` : ""}
+        </td></tr>
+        <tr><td style="padding:18px 28px 28px;">
+          <p style="font-size:12px; color:#9A9AA5; margin:0; text-align:center; font-family:Helvetica,Arial,sans-serif;">Satu lagi customer percaya bisnes anda. Teruskan usaha!</p>
+        </td></tr>
+      </table>
+      </td></tr>
+    </table>`;
 
   const sends = [
     fetch("https://api.resend.com/emails", {

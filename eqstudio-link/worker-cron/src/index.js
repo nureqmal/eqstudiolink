@@ -10,19 +10,23 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 // reminder, digest, receipt) so they all feel like the same product, not four
 // different templates. Callers supply the body rows (as <tr> HTML) and a
 // footer line; the branded top bar + logo/name header + card frame stay fixed.
-function emailShell({ brandColor, logoBlock, bodyHtml, footerText }) {
+function emailShell({ brandColor, logoBlock, bodyHtml, footerText, iconEmoji, headerTitle, headerSubtitle }) {
   return `
 <!doctype html>
 <html>
-<body style="margin:0; padding:0; background:#F1EADA; font-family:Helvetica,Arial,sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F1EADA; padding:32px 16px;">
+<body style="margin:0; padding:0; background:#EDEDF2; font-family:Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EDEDF2; padding:32px 16px;">
     <tr><td align="center">
-      <table role="presentation" width="100%" style="max-width:480px; background:#FBF7EF; border-radius:10px; overflow:hidden; border:1px solid #E8DFCB;" cellpadding="0" cellspacing="0">
-        <tr><td style="height:5px; background:${brandColor}; line-height:5px; font-size:0;">&nbsp;</td></tr>
-        <tr><td style="padding:28px 32px 8px;">${logoBlock}</td></tr>
+      <table role="presentation" width="100%" style="max-width:440px; background:#ffffff; border-radius:14px; overflow:hidden; border-collapse:collapse;" cellpadding="0" cellspacing="0">
+        <tr><td style="background-color:${brandColor}; background-image:linear-gradient(135deg, ${brandColor}, ${brandColor}); padding:28px 28px 24px; text-align:center;">
+          ${iconEmoji ? `<div style="width:40px; height:40px; border-radius:10px; background:rgba(255,255,255,0.18); display:inline-block; line-height:40px; text-align:center; margin-bottom:10px;"><span style="font-size:18px;">${iconEmoji}</span></div>` : ""}
+          ${logoBlock}
+          ${headerTitle ? `<div style="color:#ffffff; font-size:19px; font-weight:700; font-family:Helvetica,Arial,sans-serif; margin-top:4px;">${headerTitle}</div>` : ""}
+          ${headerSubtitle ? `<div style="color:rgba(255,255,255,0.75); font-size:13px; margin-top:4px; font-family:Helvetica,Arial,sans-serif;">${headerSubtitle}</div>` : ""}
+        </td></tr>
         ${bodyHtml}
-        <tr><td style="padding:24px 32px 28px;">
-          <p style="color:#9AA8A2; font-size:11px; margin:0; text-align:center;">${footerText}</p>
+        <tr><td style="padding:18px 28px; background:#FAFAFC; border-top:1px solid #ECECF0; text-align:center;">
+          <p style="color:#B0B0B8; font-size:11px; margin:0;">${footerText}</p>
         </td></tr>
       </table>
     </td></tr>
@@ -33,8 +37,39 @@ function emailShell({ brandColor, logoBlock, bodyHtml, footerText }) {
 
 function buildLogoBlock(bizName, logoUrl) {
   return logoUrl
-    ? `<img src="${escapeHtml(logoUrl)}" alt="${escapeHtml(bizName)}" style="max-height:48px; max-width:200px; display:block; margin:0 auto 12px;" />`
-    : `<div style="font-family:Georgia,serif; font-size:20px; font-weight:600; color:#1F3A34; text-align:center; margin-bottom:12px;">${escapeHtml(bizName)}</div>`;
+    ? `<img src="${escapeHtml(logoUrl)}" alt="${escapeHtml(bizName)}" style="max-height:36px; max-width:180px; display:block; margin:0 auto; border-radius:6px;" />`
+    : "";
+}
+
+// Info card row — label:value pair inside a bordered card block, replacing
+// long paragraph text with structured, scannable data (Clean SaaS Receipt style).
+function infoCardRow(label, value, { mono = false, isLast = false } = {}) {
+  return `<tr><td style="padding:14px 16px; ${isLast ? "" : "border-bottom:1px solid #ECECF0;"}">
+    <div style="font-size:11px; color:#9A9AA5; font-family:Helvetica,Arial,sans-serif; text-transform:uppercase; letter-spacing:0.04em;">${label}</div>
+    <div style="font-size:14px; color:#1B1B22; font-weight:600; font-family:${mono ? "'SF Mono',Consolas,monospace" : "Helvetica,Arial,sans-serif"}; margin-top:2px;">${value}</div>
+  </td></tr>`;
+}
+
+function infoCard(rowsHtml) {
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFC; border:1px solid #ECECF0; border-radius:10px; border-collapse:collapse;">${rowsHtml}</table>`;
+}
+
+// Status badge pill — green (confirmed/paid), orange (pending/overdue), red (cancelled/rejected)
+function statusBadge(label, tone) {
+  const colors = {
+    green: { bg: "#DCFCE7", fg: "#15803D" },
+    orange: { bg: "#FEF3C7", fg: "#B45309" },
+    red: { bg: "#FEE2E2", fg: "#DC2626" },
+    purple: { bg: "#F3E8FF", fg: "#7C3AED" },
+  }[tone] || { bg: "#F3E8FF", fg: "#7C3AED" };
+  return `<span style="display:inline-block; background:${colors.bg}; color:${colors.fg}; font-size:12px; font-weight:700; padding:3px 10px; border-radius:999px; font-family:Helvetica,Arial,sans-serif;">${label}</span>`;
+}
+
+// Primary/secondary CTA buttons
+function emailButton(label, url, variant = "primary", brandColor = "#4A098F") {
+  return variant === "primary"
+    ? `<a href="${url}" style="display:block; text-align:center; background:${brandColor}; color:#ffffff; text-decoration:none; font-weight:700; font-size:13px; padding:11px 18px; border-radius:9px; font-family:Helvetica,Arial,sans-serif;">${label}</a>`
+    : `<a href="${url}" style="display:block; text-align:center; background:#ffffff; color:${brandColor}; text-decoration:none; font-weight:700; font-size:13px; padding:11px 18px; border-radius:9px; border:1.5px solid ${brandColor}; font-family:Helvetica,Arial,sans-serif;">${label}</a>`;
 }
 
 // A "+ Tambah ke Kalendar" link — no attachment/MIME complexity, works in one
@@ -84,7 +119,7 @@ const I18N = {
     subjectOverdue: "Bayaran telah tertunggak",
     apptSubject: (biz) => `Peringatan: Appointment anda esok dengan ${biz}`,
     apptGreeting: (n) => `Salam ${n},`,
-    apptBody: (biz, time) => `Sekadar peringatan mesra — anda ada appointment dengan <strong>${biz}</strong> esok, pukul <strong>${time}</strong>.`,
+    apptBody: (biz) => `Sekadar peringatan mesra, anda ada appointment dengan <strong>${biz}</strong> esok.`,
     apptFooter: "Kami tak sabar nak jumpa anda!",
   },
   en: {
@@ -111,7 +146,7 @@ const I18N = {
     subjectOverdue: "Payment is overdue",
     apptSubject: (biz) => `Reminder: Your appointment tomorrow with ${biz}`,
     apptGreeting: (n) => `Hi ${n},`,
-    apptBody: (biz, time) => `Just a friendly reminder — you have an appointment with <strong>${biz}</strong> tomorrow at <strong>${time}</strong>.`,
+    apptBody: (biz) => `Just a friendly reminder, you have an appointment with <strong>${biz}</strong> tomorrow.`,
     apptFooter: "We look forward to seeing you!",
   },
   zh: {
@@ -138,7 +173,7 @@ const I18N = {
     subjectOverdue: "付款已逾期",
     apptSubject: (biz) => `提醒：您明天与 ${biz} 的预约`,
     apptGreeting: (n) => `${n}，您好，`,
-    apptBody: (biz, time) => `友情提醒 — 您明天 <strong>${time}</strong> 与 <strong>${biz}</strong> 有预约。`,
+    apptBody: (biz) => `友情提醒，您明天与 <strong>${biz}</strong> 有预约。`,
     apptFooter: "我们期待与您见面！",
   },
   ta: {
@@ -165,7 +200,7 @@ const I18N = {
     subjectOverdue: "கட்டணம் தாமதமானது",
     apptSubject: (biz) => `நினைவூட்டல்: நாளை ${biz} உடன் உங்கள் சந்திப்பு`,
     apptGreeting: (n) => `வணக்கம் ${n},`,
-    apptBody: (biz, time) => `நட்பான நினைவூட்டல் — நாளை <strong>${time}</strong> மணிக்கு <strong>${biz}</strong> உடன் உங்களுக்கு சந்திப்பு உள்ளது.`,
+    apptBody: (biz) => `நட்பான நினைவூட்டல், நாளை <strong>${biz}</strong> உடன் உங்களுக்கு சந்திப்பு உள்ளது.`,
     apptFooter: "உங்களை சந்திக்க காத்திருக்கிறோம்!",
   },
 };
@@ -383,65 +418,56 @@ async function sendReminderEmail(env, customer, daysOffset, profile, payUrl) {
     dueDateISO: customer.due_date,
   });
 
+  const urgencyBadgeTone = daysOffset > 0 ? "purple" : daysOffset === 0 ? "orange" : "red";
+
   const bodyHtml = `
-        <tr><td style="padding:8px 32px 0;">
-          <p style="color:#1F3A34; font-size:15px; line-height:1.6; margin:0 0 4px;">${T.greeting(escapeHtml(customer.name))}</p>
-          <p style="color:#1F3A34; font-size:15px; line-height:1.6; margin:0 0 4px;">${headline}</p>
-          <p style="color:#4A6259; font-size:13px; line-height:1.6; margin:0 0 20px;">${subtext}</p>
+        <tr><td style="padding:26px 28px 8px; text-align:center;">
+          <p style="color:#3A3A42; font-size:14px; line-height:1.6; margin:0 0 2px;">${T.greeting(escapeHtml(customer.name))}</p>
+          <div style="font-size:11px; color:#9A9AA5; text-transform:uppercase; letter-spacing:0.06em; margin:14px 0 4px;">${T.amount}</div>
+          <div style="font-size:38px; font-weight:800; color:#1B1B22; font-family:'SF Mono',Consolas,monospace; letter-spacing:-0.02em;">RM ${amount}</div>
+          <div style="margin-top:10px;">${statusBadge(T.tagLabel, urgencyBadgeTone)}</div>
         </td></tr>
-        <tr><td style="padding:0 32px;">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff; border:1px solid #E8DFCB; border-left:3px solid ${brandColor}; border-radius:8px;">
-            <tr>
-              <td style="padding:16px 20px; border-bottom:1px dashed #E8DFCB; font-family:monospace; font-size:14px; color:#4A6259;">${T.amount}</td>
-              <td style="padding:16px 20px; border-bottom:1px dashed #E8DFCB; font-family:monospace; font-size:14px; color:#1F3A34; text-align:right; font-weight:600;">RM ${amount}</td>
-            </tr>
-            <tr>
-              <td style="padding:16px 20px; font-family:monospace; font-size:14px; color:#4A6259;">${T.due}</td>
-              <td style="padding:16px 20px; font-family:monospace; font-size:14px; color:#1F3A34; text-align:right; font-weight:600;">${customer.due_date}</td>
-            </tr>
-          </table>
+        <tr><td style="padding:18px 28px 0;">
+          ${infoCard(infoCardRow(T.due, escapeHtml(customer.due_date), { mono: true, isLast: true }))}
         </td></tr>
-        <tr><td style="padding:16px 32px 0;">
+        <tr><td style="padding:16px 28px 0;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>${timelineHtml}</tr></table>
         </td></tr>
         ${customer.notes ? `
-        <tr><td style="padding:14px 32px 0;">
-          <p style="color:#4A6259; font-size:13px; line-height:1.6; margin:0;"><em>${escapeHtml(customer.notes)}</em></p>
+        <tr><td style="padding:14px 28px 0;">
+          <p style="color:#6B6B75; font-size:13px; line-height:1.6; margin:0;"><em>${escapeHtml(customer.notes)}</em></p>
         </td></tr>` : ""}
-        <tr><td style="padding:20px 32px 4px;">
-          <span style="display:inline-block; border:2px solid ${urgencyColor}; color:${urgencyColor}; border-radius:6px; padding:4px 12px; font-size:12px; font-weight:700; letter-spacing:0.05em;">${T.tagLabel}</span>
-        </td></tr>
-        <tr><td style="padding:8px 32px 0;">
-          <a href="${calendarLink}" style="display:block; text-align:center; background:#ffffff; color:#4A6259; text-decoration:none; font-weight:600; font-size:12px; padding:9px 20px; border-radius:8px; border:1px dashed #C9BFA9; font-family:Helvetica,Arial,sans-serif;">${T.calBtn}</a>
+        <tr><td style="padding:20px 28px 0;">
+          <a href="${calendarLink}" style="display:block; text-align:center; background:#ffffff; color:#6B6B75; text-decoration:none; font-weight:600; font-size:12px; padding:9px 20px; border-radius:9px; border:1px dashed #D0D0D6; font-family:Helvetica,Arial,sans-serif;">${T.calBtn}</a>
         </td></tr>
         ${ownerWaLink ? `
-        <tr><td style="padding:8px 32px 0;">
-          <a href="${ownerWaLink}" style="display:block; text-align:center; background:#ffffff; color:${brandColor}; text-decoration:none; font-weight:700; font-size:13px; padding:11px 20px; border-radius:8px; border:1.5px solid ${brandColor}; font-family:Helvetica,Arial,sans-serif;">${T.waBtn}</a>
+        <tr><td style="padding:8px 28px 0;">
+          ${emailButton(T.waBtn, ownerWaLink, "secondary", brandColor)}
         </td></tr>` : ""}
         ${(profile?.bank_name && profile?.bank_account_number) || profile?.qr_code_url ? `
-        <tr><td style="padding:20px 32px 0;">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FBF7EF; border:1px dashed #E8DFCB; border-radius:8px;">
-            <tr><td style="padding:14px 18px; text-align:center;">
-              <p style="color:#4A6259; font-size:11px; margin:0 0 8px; text-transform:uppercase; letter-spacing:0.05em; text-align:left;">${T.bankLabel}</p>
+        <tr><td style="padding:20px 28px 0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFC; border:1px solid #ECECF0; border-radius:10px;">
+            <tr><td style="padding:16px 18px; text-align:center;">
+              <p style="color:#9A9AA5; font-size:11px; margin:0 0 8px; text-transform:uppercase; letter-spacing:0.05em; text-align:left;">${T.bankLabel}</p>
               ${profile?.bank_name && profile?.bank_account_number ? `
-              <p style="color:#1F3A34; font-size:13px; line-height:1.7; margin:0; text-align:left;">
+              <p style="color:#1B1B22; font-size:13px; line-height:1.7; margin:0; text-align:left;">
                 ${escapeHtml(profile.bank_name)}${profile.bank_account_holder ? " — " + escapeHtml(profile.bank_account_holder) : ""}<br/>
-                <strong style="font-family:monospace; font-size:14px;">${escapeHtml(profile.bank_account_number)}</strong>
+                <strong style="font-family:'SF Mono',Consolas,monospace; font-size:14px;">${escapeHtml(profile.bank_account_number)}</strong>
               </p>` : ""}
               ${profile?.qr_code_url ? `
-              <p style="color:#4A6259; font-size:10px; margin:${profile.bank_name ? "14px" : "0"} 0 6px; text-transform:uppercase; letter-spacing:0.05em;">${T.qrLabel}</p>
-              <img src="${escapeHtml(profile.qr_code_url)}" alt="QR DuitNow" style="max-width:140px; display:block; margin:0 auto;" />
-              <p style="color:#9AA8A2; font-size:10px; margin:6px 0 0;">${T.qrNote}</p>` : ""}
+              <p style="color:#9A9AA5; font-size:10px; margin:${profile.bank_name ? "14px" : "0"} 0 6px; text-transform:uppercase; letter-spacing:0.05em;">${T.qrLabel}</p>
+              <img src="${escapeHtml(profile.qr_code_url)}" alt="QR DuitNow" style="max-width:140px; display:block; margin:0 auto; border-radius:8px;" />
+              <p style="color:#B0B0B8; font-size:10px; margin:6px 0 0;">${T.qrNote}</p>` : ""}
             </td></tr>
           </table>
         </td></tr>` : ""}
         ${contactLines.length ? `
-        <tr><td style="padding:24px 32px 4px; border-top:1px solid #E8DFCB; margin-top:20px;">
-          <p style="color:#4A6259; font-size:12px; margin:16px 0 6px; text-transform:uppercase; letter-spacing:0.05em;">${T.waBtn}</p>
-          <p style="color:#1F3A34; font-size:13px; line-height:1.9; margin:0;">${contactLines.join("<br/>")}</p>
+        <tr><td style="padding:24px 28px 4px; border-top:1px solid #ECECF0; margin-top:20px;">
+          <p style="color:#9A9AA5; font-size:12px; margin:16px 0 6px; text-transform:uppercase; letter-spacing:0.05em;">${T.waBtn}</p>
+          <p style="color:#3A3A42; font-size:13px; line-height:1.9; margin:0;">${contactLines.join("<br/>")}</p>
         </td></tr>` : ""}
-        <tr><td style="padding:8px 32px 0;">
-          <a href="${env.PUBLIC_SITE_URL || "https://eqstudio.link"}/portal.html?token=${customer.portal_token}" style="display:block; text-align:center; color:#9AA8A2; font-size:11px; text-decoration:underline;">${T.viewStatus}</a>
+        <tr><td style="padding:8px 28px 0;">
+          <a href="${env.PUBLIC_SITE_URL || "https://eqstudio.link"}/portal.html?token=${customer.portal_token}" style="display:block; text-align:center; color:#B0B0B8; font-size:11px; text-decoration:underline;">${T.viewStatus}</a>
         </td></tr>`;
 
   const html = emailShell({
@@ -449,6 +475,8 @@ async function sendReminderEmail(env, customer, daysOffset, profile, payUrl) {
     logoBlock,
     bodyHtml,
     footerText: T.footer(escapeHtml(bizName)),
+    iconEmoji: "⏰",
+    headerTitle: bizName,
   });
 
   const pdfBase64 = await generateInvoicePdfBase64(customer, profile);
@@ -626,21 +654,31 @@ async function sendBillingReminderEmail(env, ownerId, email, daysLeft, plan, pro
     ? `Langganan eqstudio.link tamat dalam ${daysLeft} hari — sila bayar`
     : `Langganan eqstudio.link telah tamat — sila bayar untuk sambung akses`;
 
+  const daysLeftBadgeTone = daysLeft > 3 ? "purple" : daysLeft > 0 ? "orange" : "red";
+  const daysLeftBadgeLabel = daysLeft > 0 ? `${daysLeft} hari lagi` : "Tamat tempoh";
+
   const bodyHtml = `
-        <tr><td style="padding:8px 32px 24px; text-align:center;">
-          <p style="color:#1F3A34; font-size:15px; line-height:1.6; margin:0 0 12px;">
-            ${daysLeft > 0 ? `Langganan eqstudio.link anda akan tamat dalam <strong>${daysLeft} hari</strong>.` : "Langganan eqstudio.link anda telah <strong>tamat</strong>."}
+        <tr><td style="padding:26px 28px 8px; text-align:center;">
+          <p style="color:#3A3A42; font-size:14px; line-height:1.6; margin:0 0 12px;">
+            ${daysLeft > 0 ? `Langganan anda akan tamat dalam <strong>${daysLeft} hari</strong>.` : "Langganan anda telah <strong>tamat</strong>."}
           </p>
-          <p style="color:#4A6259; font-size:13px; line-height:1.6; margin:0 0 16px;">
-            Sila transfer RM${pricing.amountRM.toFixed(2)} (pelan ${plan === "yearly" ? "tahunan" : "bulanan"}) ke akaun GXBank kami untuk sambung akses.
-          </p>
-          <img src="${site}/assets/payment/duitnow-qr.jpeg" alt="QR DuitNow eqstudio.link" style="max-width:180px; width:100%; border-radius:12px; margin-bottom:16px;" />
-          <table role="presentation" style="width:100%; max-width:320px; margin:0 auto 16px; text-align:left; font-size:13px; color:#1F3A34; border-collapse:collapse;">
-            <tr><td style="padding:6px 0; border-bottom:1px solid #E4E4E9;">Akaun (GXBank)</td><td style="padding:6px 0; border-bottom:1px solid #E4E4E9; text-align:right; font-weight:700;">8188-018660-6</td></tr>
-            <tr><td style="padding:6px 0; border-bottom:1px solid #E4E4E9;">Jumlah</td><td style="padding:6px 0; border-bottom:1px solid #E4E4E9; text-align:right; font-weight:700;">RM${pricing.amountRM.toFixed(2)}</td></tr>
-            <tr><td style="padding:6px 0;">Reference</td><td style="padding:6px 0; text-align:right; font-weight:700;">${ref}</td></tr>
-          </table>
-          <a href="${site}/billing.html" style="display:inline-block; background:${brandColor}; color:#ffffff; text-decoration:none; font-weight:700; font-size:14px; padding:12px 28px; border-radius:8px; font-family:Helvetica,Arial,sans-serif;">Pergi ke Billing</a>
+          <div style="margin-bottom:14px;">${statusBadge(daysLeftBadgeLabel, daysLeftBadgeTone)}</div>
+          <div style="font-size:11px; color:#9A9AA5; text-transform:uppercase; letter-spacing:0.06em; margin:10px 0 4px;">Jumlah Perlu Dibayar</div>
+          <div style="font-size:38px; font-weight:800; color:#1B1B22; font-family:'SF Mono',Consolas,monospace; letter-spacing:-0.02em;">RM ${pricing.amountRM.toFixed(2)}</div>
+          <p style="color:#6B6B75; font-size:12px; margin:6px 0 0;">Pelan ${plan === "yearly" ? "tahunan" : "bulanan"}</p>
+        </td></tr>
+        <tr><td style="padding:20px 28px 0; text-align:center;">
+          <img src="${site}/assets/payment/duitnow-qr.jpeg" alt="QR DuitNow eqstudio.link" style="max-width:170px; width:100%; border-radius:10px;" />
+        </td></tr>
+        <tr><td style="padding:16px 28px 0;">
+          ${infoCard(
+            infoCardRow("Akaun (GXBank)", "8188-018660-6", { mono: true }) +
+            infoCardRow("Jumlah", `RM ${pricing.amountRM.toFixed(2)}`, { mono: true }) +
+            infoCardRow("Reference", ref, { mono: true, isLast: true })
+          )}
+        </td></tr>
+        <tr><td style="padding:20px 28px 28px;">
+          ${emailButton("Pergi ke Billing", `${site}/billing.html`, "primary", brandColor)}
         </td></tr>`;
 
   const html = emailShell({
@@ -648,6 +686,8 @@ async function sendBillingReminderEmail(env, ownerId, email, daysLeft, plan, pro
     logoBlock: buildLogoBlock(bizName, profile?.logo_url),
     bodyHtml,
     footerText: "eqstudio.link — automasi reminder bayaran untuk perniagaan anda",
+    iconEmoji: "💳",
+    headerTitle: "Peringatan Langganan",
   });
 
   try {
@@ -751,26 +791,26 @@ async function sendDigestEmail(env, ownerId, ownerEmail, stats, profile) {
   const site = env.PUBLIC_SITE_URL || "https://eqstudio.link";
 
   const statCard = (num, label, color) => `
-    <td style="width:33%; text-align:center; padding:14px 4px; background:#ffffff; border:1px solid #E8DFCB; border-radius:8px;">
-      <div style="font-family:monospace; font-size:22px; font-weight:700; color:${color};">${num}</div>
-      <div style="font-size:10px; color:#4A6259; margin-top:2px;">${label}</div>
+    <td style="width:33%; text-align:center; padding:14px 4px; background:#FAFAFC; border:1px solid #ECECF0; border-radius:10px;">
+      <div style="font-family:'SF Mono',Consolas,monospace; font-size:22px; font-weight:800; color:${color};">${num}</div>
+      <div style="font-size:10px; color:#6B6B75; margin-top:2px;">${label}</div>
     </td>`;
 
   const bodyHtml = `
-        <tr><td style="padding:8px 32px 4px;">
-          <p style="color:#1F3A34; font-size:14px; line-height:1.6; margin:0 0 16px; text-align:center;">Ringkasan hari ini untuk perniagaan anda:</p>
+        <tr><td style="padding:26px 28px 4px;">
+          <p style="color:#3A3A42; font-size:14px; line-height:1.6; margin:0 0 16px; text-align:center;">Ringkasan hari ini untuk perniagaan anda:</p>
         </td></tr>
-        <tr><td style="padding:0 32px;">
+        <tr><td style="padding:0 28px;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="8">
             <tr>
-              ${statCard(stats.due, "Due Hari Ini", "#E8834E")}
-              ${statCard(stats.reminded, "Reminder Dihantar", "#4CAF7D")}
-              ${statCard(stats.overdue, "Tertunggak", "#E85D5D")}
+              ${statCard(stats.due, "Due Hari Ini", "#B45309")}
+              ${statCard(stats.reminded, "Reminder Dihantar", "#15803D")}
+              ${statCard(stats.overdue, "Tertunggak", "#DC2626")}
             </tr>
           </table>
         </td></tr>
-        <tr><td style="padding:24px 32px 4px; text-align:center;">
-          <a href="${site}/dashboard.html" style="display:inline-block; background:${brandColor}; color:#ffffff; text-decoration:none; font-weight:700; font-size:13px; padding:11px 24px; border-radius:8px; font-family:Helvetica,Arial,sans-serif;">Semak Dashboard →</a>
+        <tr><td style="padding:22px 28px 28px;">
+          ${emailButton("Semak Dashboard →", `${site}/dashboard.html`, "primary", brandColor)}
         </td></tr>`;
 
   const html = emailShell({
@@ -778,6 +818,8 @@ async function sendDigestEmail(env, ownerId, ownerEmail, stats, profile) {
     logoBlock: buildLogoBlock(bizName, profile?.logo_url),
     bodyHtml,
     footerText: "Ringkasan automatik ini dihantar sekali sehari — eqstudio.link",
+    iconEmoji: "📊",
+    headerTitle: "Ringkasan Harian",
   });
 
   try {
@@ -872,14 +914,21 @@ async function runAppointmentReminderSweep(env) {
       const timeLabel = `${String(myParts.getUTCHours()).padStart(2, "0")}:${String(myParts.getUTCMinutes()).padStart(2, "0")}`;
 
       const bodyHtml = `
-        <tr><td style="padding:8px 32px 24px; text-align:center;">
-          <div style="font-size:32px; margin-bottom:8px;">📅</div>
-          <p style="color:#1F3A34; font-size:15px; margin:0 0 6px;">${T.apptGreeting(escapeHtml(b.customer_name))}</p>
-          <p style="color:#1F3A34; font-size:15px; line-height:1.6; margin:0 0 12px;">${T.apptBody(escapeHtml(bizName), timeLabel)}</p>
-          <p style="color:#4A6259; font-size:12px; margin:0;">${T.apptFooter}</p>
+        <tr><td style="padding:26px 28px 8px; text-align:center;">
+          <p style="color:#3A3A42; font-size:14px; margin:0 0 4px;">${T.apptGreeting(escapeHtml(b.customer_name))}</p>
+          <p style="color:#3A3A42; font-size:14px; line-height:1.6; margin:0 0 16px;">${T.apptBody(escapeHtml(bizName))}</p>
+        </td></tr>
+        <tr><td style="padding:0 28px;">
+          ${infoCard(infoCardRow("Waktu Temu Janji", timeLabel, { mono: true, isLast: true }))}
+        </td></tr>
+        <tr><td style="padding:16px 28px 28px; text-align:center;">
+          <p style="color:#9A9AA5; font-size:12px; margin:0;">${T.apptFooter}</p>
         </td></tr>`;
 
-      const html = emailShell({ brandColor, logoBlock: buildLogoBlock(bizName, profile.logo_url), bodyHtml, footerText: T.footer(escapeHtml(bizName)) });
+      const html = emailShell({
+        brandColor, logoBlock: buildLogoBlock(bizName, profile.logo_url), bodyHtml, footerText: T.footer(escapeHtml(bizName)),
+        iconEmoji: "📅", headerTitle: T.apptSubject(bizName),
+      });
       const subject = T.apptSubject(bizName);
 
       await sendEmail(env, { to: b.customer_email, subject, html });

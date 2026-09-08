@@ -24,13 +24,23 @@ function escapeHtml(str) {
   return String(str ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-async function notifyOwner(env, { ownerEmail, bizName, brandColor, subject, bodyHtml }) {
+async function notifyOwner(env, { ownerEmail, bizName, brandColor, subject, bodyHtml, iconEmoji, headerTitle }) {
   if (!env.RESEND_API_KEY || !ownerEmail) return;
   const html = `
-    <div style="font-family:Helvetica,Arial,sans-serif; max-width:440px; margin:0 auto; background:#FBF7EF; border-radius:10px; overflow:hidden; border:1px solid #E8DFCB;">
-      <div style="height:5px; background:${brandColor};"></div>
-      <div style="padding:24px 28px;">${bodyHtml}</div>
-    </div>`;
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EDEDF2; padding:32px 16px; border-collapse:collapse;">
+      <tr><td align="center">
+      <table role="presentation" width="100%" style="max-width:440px; background:#ffffff; border-radius:14px; overflow:hidden; border-collapse:collapse;" cellpadding="0" cellspacing="0">
+        <tr><td style="background-color:${brandColor}; background-image:linear-gradient(135deg, ${brandColor}, ${brandColor}); padding:28px 28px 24px; text-align:center;">
+          <div style="width:40px; height:40px; border-radius:10px; background:rgba(255,255,255,0.18); display:inline-block; line-height:40px; text-align:center; margin-bottom:10px;"><span style="font-size:18px;">${iconEmoji || "🔔"}</span></div>
+          <div style="color:#ffffff; font-size:19px; font-weight:700; font-family:Helvetica,Arial,sans-serif;">${headerTitle || bizName}</div>
+        </td></tr>
+        <tr><td style="padding:26px 28px 8px;">${bodyHtml}</td></tr>
+        <tr><td style="padding:18px 28px; background:#FAFAFC; border-top:1px solid #ECECF0; text-align:center;">
+          <div style="font-size:11px; color:#B0B0B8; font-family:Helvetica,Arial,sans-serif;">Dihantar melalui eqstudio.link</div>
+        </td></tr>
+      </table>
+      </td></tr>
+    </table>`;
   await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
@@ -86,7 +96,10 @@ export async function onRequestPost(context) {
       await notifyOwner(env, {
         ownerEmail: profile.contact_email, bizName, brandColor,
         subject: `Tempahan Dibatalkan Customer — ${escapeHtml(booking.customer_name)}`,
-        bodyHtml: `<p style="font-size:15px; margin:0 0 8px;"><strong>${escapeHtml(booking.customer_name)}</strong> telah batalkan tempahan mereka.</p>${reason ? `<p style="font-size:13px; color:#4A6259;"><em>Sebab: ${escapeHtml(reason)}</em></p>` : ""}`,
+        iconEmoji: "❌", headerTitle: "Tempahan Dibatalkan",
+        bodyHtml: `
+          <p style="font-size:14px; color:#3A3A42; margin:0 0 14px; font-family:Helvetica,Arial,sans-serif; line-height:1.6;"><strong>${escapeHtml(booking.customer_name)}</strong> telah batalkan tempahan mereka sendiri.</p>
+          ${reason ? `<p style="font-size:13px; color:#6B6B75; margin:0; font-family:Helvetica,Arial,sans-serif;"><em>Sebab: ${escapeHtml(reason)}</em></p>` : ""}`,
       });
 
       await sbAdmin(env, "/notifications", {
@@ -147,10 +160,19 @@ export async function onRequestPost(context) {
       await notifyOwner(env, {
         ownerEmail: profile.contact_email, bizName, brandColor,
         subject: `Tempahan Ditukar Customer — ${escapeHtml(booking.customer_name)}`,
+        iconEmoji: "🔄", headerTitle: "Tempahan Ditukar",
         bodyHtml: `
-          <p style="font-size:15px; margin:0 0 8px;"><strong>${escapeHtml(booking.customer_name)}</strong> telah tukar tempahan mereka:</p>
-          <p style="font-size:14px; text-decoration:line-through; color:#9AA8A2; margin:0;">${escapeHtml(oldLabel)}</p>
-          <p style="font-size:14px; font-weight:600; margin:0 0 8px;">→ ${escapeHtml(newLabel)}</p>`,
+          <p style="font-size:14px; color:#3A3A42; margin:0 0 16px; font-family:Helvetica,Arial,sans-serif; line-height:1.6;"><strong>${escapeHtml(booking.customer_name)}</strong> telah tukar tempahan mereka sendiri:</p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFC; border:1px solid #ECECF0; border-radius:10px; border-collapse:collapse;">
+            <tr><td style="padding:14px 16px; border-bottom:1px solid #ECECF0;">
+              <div style="font-size:11px; color:#9A9AA5; text-transform:uppercase; letter-spacing:0.04em;">Slot Lama</div>
+              <div style="font-size:13px; color:#B0B0B8; text-decoration:line-through; font-family:'SF Mono',Consolas,monospace; margin-top:2px;">${escapeHtml(oldLabel)}</div>
+            </td></tr>
+            <tr><td style="padding:14px 16px;">
+              <div style="font-size:11px; color:#9A9AA5; text-transform:uppercase; letter-spacing:0.04em;">Slot Baharu</div>
+              <div style="font-size:14px; color:#1B1B22; font-weight:700; font-family:'SF Mono',Consolas,monospace; margin-top:2px;">${escapeHtml(newLabel)}</div>
+            </td></tr>
+          </table>`,
       });
 
       await sbAdmin(env, "/notifications", {

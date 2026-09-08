@@ -32,10 +32,10 @@ function escapeHtml(str) {
 
 // Note: zh/ta are AI-generated translations — recommend native-speaker review before go-live.
 const THANK_YOU_I18N = {
-  ms: { title: (n) => `Terima kasih, ${n}!`, msg: (a) => `Bayaran <strong>RM ${a}</strong> anda telah kami terima.`, footer: "Kami hargai kepercayaan anda — sehingga urusan seterusnya! 🙏", subject: "Terima kasih — bayaran anda telah diterima", sentBy: (b) => `Dihantar oleh ${b} melalui eqstudio.link` },
-  en: { title: (n) => `Thank you, ${n}!`, msg: (a) => `We've received your payment of <strong>RM ${a}</strong>.`, footer: "We appreciate your trust — see you next time! 🙏", subject: "Thank you — your payment has been received", sentBy: (b) => `Sent by ${b} via eqstudio.link` },
-  zh: { title: (n) => `谢谢您，${n}！`, msg: (a) => `我们已收到您的 <strong>RM ${a}</strong> 付款。`, footer: "感谢您的信任 — 下次再见！🙏", subject: "谢谢 — 您的付款已收到", sentBy: (b) => `由 ${b} 通过 eqstudio.link 发送` },
-  ta: { title: (n) => `நன்றி, ${n}!`, msg: (a) => `உங்கள் <strong>RM ${a}</strong> கட்டணத்தை நாங்கள் பெற்றுள்ளோம்.`, footer: "உங்கள் நம்பிக்கைக்கு நன்றி — அடுத்த முறை சந்திப்போம்! 🙏", subject: "நன்றி — உங்கள் கட்டணம் பெறப்பட்டது", sentBy: (b) => `${b} ஆல் eqstudio.link வழியாக அனுப்பப்பட்டது` },
+  ms: { title: (n) => `Terima kasih, ${n}!`, msg: () => `Bayaran anda telah kami terima.`, footer: "Kami hargai kepercayaan anda, sehingga urusan seterusnya! 🙏", subject: "Terima kasih, bayaran anda telah diterima", sentBy: (b) => `Dihantar oleh ${b} melalui eqstudio.link` },
+  en: { title: (n) => `Thank you, ${n}!`, msg: () => `We've received your payment.`, footer: "We appreciate your trust, see you next time! 🙏", subject: "Thank you, your payment has been received", sentBy: (b) => `Sent by ${b} via eqstudio.link` },
+  zh: { title: (n) => `谢谢您，${n}！`, msg: () => `我们已收到您的付款。`, footer: "感谢您的信任，下次再见！🙏", subject: "谢谢，您的付款已收到", sentBy: (b) => `由 ${b} 通过 eqstudio.link 发送` },
+  ta: { title: (n) => `நன்றி, ${n}!`, msg: () => `உங்கள் கட்டணத்தை நாங்கள் பெற்றுள்ளோம்.`, footer: "உங்கள் நம்பிக்கைக்கு நன்றி, அடுத்த முறை சந்திப்போம்! 🙏", subject: "நன்றி, உங்கள் கட்டணம் பெறப்பட்டது", sentBy: (b) => `${b} ஆல் eqstudio.link வழியாக அனுப்பப்பட்டது` },
 };
 
 async function sendEmail(env, { to, replyTo, subject, html }) {
@@ -94,20 +94,22 @@ export async function onRequestPost(context) {
     const amount = Number(customer.amount).toFixed(2);
 
     const html = `
-<!doctype html><html><body style="margin:0; padding:0; background:#F1EADA; font-family:Helvetica,Arial,sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F1EADA; padding:32px 16px;">
+<!doctype html><html><body style="margin:0; padding:0; background:#EDEDF2; font-family:Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EDEDF2; padding:32px 16px;">
     <tr><td align="center">
-      <table role="presentation" width="100%" style="max-width:480px; background:#FBF7EF; border-radius:10px; overflow:hidden; border:1px solid #E8DFCB;" cellpadding="0" cellspacing="0">
-        <tr><td style="height:5px; background:${brandColor}; line-height:5px; font-size:0;">&nbsp;</td></tr>
-        <tr><td style="padding:28px 32px 8px;">${logoBlock}</td></tr>
-        <tr><td style="padding:8px 32px 24px; text-align:center;">
-          <div style="font-size:32px; margin-bottom:8px;">✅</div>
-          <p style="color:#1F3A34; font-size:16px; line-height:1.6; margin:0 0 6px; font-weight:600;">${T.title(escapeHtml(customer.name))}</p>
-          <p style="color:#4A6259; font-size:14px; line-height:1.6; margin:0 0 12px;">${T.msg(amount)}</p>
-          <p style="color:#4A6259; font-size:12px; line-height:1.6; margin:0;">${T.footer}</p>
+      <table role="presentation" width="100%" style="max-width:440px; background:#ffffff; border-radius:14px; overflow:hidden; border-collapse:collapse;" cellpadding="0" cellspacing="0">
+        <tr><td style="background-color:${brandColor}; background-image:linear-gradient(135deg, ${brandColor}, ${brandColor}); padding:32px 28px; text-align:center;">
+          <div style="width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.2); display:inline-block; line-height:44px; text-align:center; margin-bottom:12px;"><span style="font-size:20px;">✓</span></div>
+          ${profile.logo_url ? `<img src="${escapeHtml(profile.logo_url)}" alt="${escapeHtml(bizName)}" style="max-height:30px; display:block; margin:0 auto 8px;" />` : ""}
+          <div style="color:#ffffff; font-size:19px; font-weight:700; font-family:Helvetica,Arial,sans-serif;">${T.title(escapeHtml(customer.name))}</div>
         </td></tr>
-        <tr><td style="padding:24px 32px 28px;">
-          <p style="color:#9AA8A2; font-size:11px; margin:0; text-align:center;">${T.sentBy(escapeHtml(bizName))}</p>
+        <tr><td style="padding:32px 28px 8px; text-align:center;">
+          <div style="font-size:12px; color:#9A9AA5; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px;">${T.msg()}</div>
+          <div style="font-size:42px; font-weight:800; color:#1B1B22; font-family:'SF Mono',Consolas,monospace; letter-spacing:-0.02em;">RM ${amount}</div>
+          <p style="color:#6B6B75; font-size:13px; margin:16px 0 0; line-height:1.6;">${T.footer}</p>
+        </td></tr>
+        <tr><td style="padding:18px 28px; background:#FAFAFC; border-top:1px solid #ECECF0; text-align:center;">
+          <div style="font-size:11px; color:#B0B0B8;">${T.sentBy(escapeHtml(bizName))}</div>
         </td></tr>
       </table>
     </td></tr>

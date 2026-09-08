@@ -18,6 +18,10 @@
 
 const THROTTLE_MINUTES = 30;
 
+function escapeHtml(str) {
+  return String(str ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
 async function sbAdmin(env, path, options = {}) {
   const res = await fetch(`${env.SUPABASE_URL}/rest/v1${path}`, {
     ...options,
@@ -59,9 +63,30 @@ export async function onRequestPost(context) {
     if (minutesSince < THROTTLE_MINUTES) return json({ skipped: "throttled" });
   }
 
-  const profiles = await sbAdmin(env, `/profiles?id=eq.${customer.owner_id}&select=business_name`);
+  const profiles = await sbAdmin(env, `/profiles?id=eq.${customer.owner_id}&select=business_name,brand_color`);
   const bizName = profiles[0]?.business_name || "Perniagaan";
+  const brandColor = profiles[0]?.brand_color || "#4A098F";
   const portalUrl = `${env.PUBLIC_SITE_URL || "https://eqstudio.link"}/portal.html?token=${customer.portal_token}`;
+
+  const html = `
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EDEDF2; padding:32px 16px; border-collapse:collapse;">
+      <tr><td align="center">
+      <table role="presentation" width="100%" style="max-width:440px; background:#ffffff; border-radius:14px; overflow:hidden; border-collapse:collapse;" cellpadding="0" cellspacing="0">
+        <tr><td style="background-color:${brandColor}; background-image:linear-gradient(135deg, ${brandColor}, ${brandColor}); padding:28px 28px 24px; text-align:center;">
+          <div style="width:40px; height:40px; border-radius:10px; background:rgba(255,255,255,0.18); display:inline-block; line-height:40px; text-align:center; margin-bottom:10px;"><span style="font-size:18px;">💬</span></div>
+          <div style="color:#ffffff; font-size:19px; font-weight:700; font-family:Helvetica,Arial,sans-serif;">Mesej Baharu</div>
+          <div style="color:rgba(255,255,255,0.75); font-size:13px; margin-top:4px; font-family:Helvetica,Arial,sans-serif;">${escapeHtml(bizName)}</div>
+        </td></tr>
+        <tr><td style="padding:26px 28px 28px; text-align:center;">
+          <p style="font-size:14px; color:#3A3A42; margin:0 0 18px; font-family:Helvetica,Arial,sans-serif; line-height:1.6;">Salam ${escapeHtml(customer.name)}, ${escapeHtml(bizName)} telah hantar mesej baharu kepada anda.</p>
+          <a href="${portalUrl}" style="display:block; text-align:center; background:${brandColor}; color:#ffffff; text-decoration:none; font-weight:700; font-size:13px; padding:11px 18px; border-radius:9px; font-family:Helvetica,Arial,sans-serif;">Semak &amp; Balas Mesej</a>
+        </td></tr>
+        <tr><td style="padding:18px 28px; background:#FAFAFC; border-top:1px solid #ECECF0; text-align:center;">
+          <div style="font-size:11px; color:#B0B0B8; font-family:Helvetica,Arial,sans-serif;">Dihantar melalui eqstudio.link</div>
+        </td></tr>
+      </table>
+      </td></tr>
+    </table>`;
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -70,7 +95,7 @@ export async function onRequestPost(context) {
       from: env.RESEND_FROM_EMAIL,
       to: customer.contact_email,
       subject: `Mesej baharu daripada ${bizName}`,
-      html: `<p>Salam ${customer.name},</p><p>${bizName} telah hantar mesej baharu kepada anda. Sila semak dan balas di sini:</p><p><a href="${portalUrl}">${portalUrl}</a></p>`,
+      html,
     }),
   });
   if (!res.ok) {

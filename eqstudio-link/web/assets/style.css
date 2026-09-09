@@ -2337,3 +2337,20 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   border: 1px solid color-mix(in srgb, var(--accent-sage) 25%, transparent); box-shadow: none;
 }
 .chat-manage-add-btn:hover { background: color-mix(in srgb, var(--accent-sage) 20%, transparent); transform: none; box-shadow: none; }
+
+/* ── Website Saya: Galeri grid + Testimoni list (mobile-first) — REBUILT,
+   was missing from the live repo entirely (lost in a previous push). ── */
+.ws-gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+@media (min-width: 640px) { .ws-gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+.ws-gallery-item { position: relative; aspect-ratio: 1; border-radius: 10px; overflow: hidden; border: 1px solid var(--paper-line); }
+.ws-gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ws-gallery-remove {
+  position: absolute; top: 6px; right: 6px; width: 26px; height: 26px; border-radius: 50%; padding: 0;
+  background: rgba(22,22,26,0.65); color: #fff; border: none; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: none;
+}
+.ws-gallery-remove:hover { background: rgba(220,91,74,0.85); transform: none; box-shadow: none; }
+.ws-testimonial-row {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8rem;
+  padding: 0.8rem 0; border-bottom: 1px solid var(--paper-line);
+}

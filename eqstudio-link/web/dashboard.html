@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=44" />
+<link rel="stylesheet" href="/assets/style.css?v=45" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -2790,7 +2790,7 @@
     function renderChatMessage(m) {
       const isOwner = m.sender_type === "owner";
       return `
-        <div class="cw-bubble-row ${isOwner ? "from-owner" : "from-customer"}">
+        <div class="cw-bubble-row ${isOwner ? "from-owner" : "from-customer"}" data-message-id="${m.id}">
           <div class="cw-bubble">${escapeHtml(m.message_text)}</div>
           <div class="cw-bubble-time">${new Date(m.created_at).toLocaleString("ms-MY", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</div>
         </div>`;
@@ -2976,15 +2976,21 @@
       if (!text || !chatActiveConversation) return;
       input.value = "";
       input.disabled = true;
-      const { error } = await supabase.from("chat_messages").insert({
+      const { data, error } = await supabase.from("chat_messages").insert({
         customer_id: chatActiveConversation.customerId,
         owner_id: user.id,
         sender_type: "owner",
         message_text: text,
-      });
+      }).select().single();
       input.disabled = false;
       input.focus();
       if (error) { showToast("Gagal hantar: " + error.message, "error"); return; }
+      // Render immediately — don't wait for the Realtime echo, which can lag.
+      const el = document.getElementById("chat-widget-messages");
+      const emptyState = el.querySelector(".hint");
+      if (emptyState) el.innerHTML = "";
+      el.insertAdjacentHTML("beforeend", renderChatMessage(data));
+      el.scrollTop = el.scrollHeight;
       fetch("/api/chat-notify-customer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -3000,6 +3006,7 @@
         const msg = payload.new;
         if (chatActiveConversation && chatActiveConversation.customerId === msg.customer_id) {
           const el = document.getElementById("chat-widget-messages");
+          if (el.querySelector(`[data-message-id="${msg.id}"]`)) return; // already rendered optimistically
           const emptyState = el.querySelector(".hint");
           if (emptyState) el.innerHTML = "";
           el.insertAdjacentHTML("beforeend", renderChatMessage(msg));

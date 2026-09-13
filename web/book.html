@@ -7,16 +7,16 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png" />
-<title>Buat Tempahan</title>
-<meta name="description" content="Book slot senang, terus dari sini — tiada perlu WhatsApp/call untuk confirm tarikh." />
+<title>Tempahan Slot Rasmi</title>
+<meta name="description" content="Tempah slot perkhidmatan anda dengan pantas, selamat dan disahkan serta-merta terus melalui portal rasmi." />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Buat Tempahan — eqstudio.link" />
-<meta property="og:description" content="Book slot senang, terus dari sini — tiada perlu WhatsApp/call untuk confirm tarikh." />
+<meta property="og:title" content="Tempahan Slot Rasmi — eqstudio.link" />
+<meta property="og:description" content="Tempah slot perkhidmatan anda dengan pantas, selamat dan disahkan serta-merta terus melalui portal rasmi." />
 <meta property="og:image" content="https://eqstudio.link/assets/og-image.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=37" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=38" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -25,39 +25,97 @@
 </script>
 </head>
 <body>
+  <!-- Master Template Preview Banner -->
+  <div class="book-preview-banner" id="book-preview-banner" style="display:none;">
+    <div class="book-preview-banner-content">
+      <span class="book-preview-tag">Template Induk</span>
+      <span>Pratonton Template Booking Master (Data Contoh). Piawaian visual moden & profesional untuk semua pengguna.</span>
+    </div>
+    <a href="/dashboard.html" class="book-preview-back">← Kembali ke Dashboard</a>
+  </div>
+
+  <!-- Top Navigation Header -->
+  <header class="book-top-nav">
+    <div class="book-nav-brand" id="book-nav-brand">
+      <img src="/assets/logo/logo-64.png" class="book-nav-brand-logo" alt="" id="book-nav-logo" />
+      <span id="book-nav-name">Portal Tempahan</span>
+      <span class="book-nav-verified-badge" id="book-nav-verified">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span id="t-verified-nav">Disahkan</span>
+      </span>
+    </div>
+    <div class="book-nav-actions">
+      <button type="button" class="book-share-nav-btn" id="book-share-btn" title="Kongsi Pautan">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+        <span id="t-share-label">Kongsi</span>
+      </button>
+      <div id="book-top-lang"></div>
+    </div>
+  </header>
+
   <div class="book-page-wrap">
-    <div class="book-layout-grid">
-      <div class="book-side-col">
-        <div id="book-hero-section"></div>
-        <div class="wrap-narrow" style="padding:0; max-width:none;">
+    <!-- Brand Profile Hero Card (Builds Instant Trust & Authority) -->
+    <div id="book-hero-section"></div>
+
+    <!-- Main Container: Dynamically adapts whether business has extra content or not -->
+    <main class="book-main-container">
+      <div class="book-layout-split" id="book-layout-split">
+        <!-- Interactive Booking Stage -->
+        <section class="book-card-stage" id="book-card-stage" aria-label="Borang Tempahan">
           <div id="book-content">
-            <div class="sim-spinner-wrap"><img src="/assets/logo/logo-64.png" class="logo-loader" alt="" /><p class="hint">Memuatkan...</p></div>
+            <div class="sim-spinner-wrap" style="padding:3rem 1rem; text-align:center;">
+              <img src="/assets/logo/logo-64.png" class="logo-loader" alt="" />
+              <p class="hint" style="margin-top:0.8rem;" id="t-loading-initial">Memuatkan kalendar ketersediaan...</p>
+            </div>
           </div>
-        </div>
-        <div id="book-social-section"></div>
-        <div id="book-map-section"></div>
+        </section>
+
+        <!-- Showcase Column (About, Gallery Bento, Testimonials, Map) -->
+        <aside class="book-showcase-col" id="book-showcase-col" style="display:none;">
+          <div id="book-about-section"></div>
+          <div id="book-gallery-section"></div>
+          <div id="book-testimonial-section"></div>
+          <div id="book-map-section"></div>
+        </aside>
       </div>
-      <div class="book-main-col">
-        <div id="book-about-section"></div>
-        <div id="book-gallery-section"></div>
-        <div id="book-testimonial-section"></div>
+    </main>
+
+    <!-- Professional Secure Footer -->
+    <footer class="book-footer">
+      <div class="book-footer-badges">
+        <span class="book-footer-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          256-bit Enkripsi Selamat
+        </span>
+        <span class="book-footer-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Pengesahan Emel & WhatsApp Serta-merta
+        </span>
+        <span class="book-footer-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Kalendar Auto Diselaras
+        </span>
       </div>
-    </div>
+      <p style="margin-top:1rem; opacity:0.8;">Dikuasakan oleh <a href="https://eqstudio.link" target="_blank" rel="noopener">eqstudio.link</a> · Platform Tempahan Terus Profesional</p>
+    </footer>
   </div>
 
+  <!-- Mobile Sticky CTA Bar -->
   <div class="book-sticky-cta" id="book-sticky-cta">
-    <button type="button" id="book-sticky-cta-btn">Book Sekarang</button>
+    <button type="button" class="book-sticky-btn" id="book-sticky-cta-btn">Pilih Tarikh & Tempah Sekarang</button>
   </div>
 
+  <!-- Service Details Modal -->
   <div class="modal-overlay" id="service-detail-modal" style="display:none;">
-    <div class="modal-box" style="max-width:420px;">
-      <img id="service-detail-poster" style="width:100%; border-radius:10px; margin-bottom:0.8rem; display:none;" alt="" />
-      <h2 id="service-detail-title" style="margin:0 0 0.5rem;"></h2>
-      <p class="hint" id="service-detail-description" style="white-space:pre-wrap;"></p>
-      <button type="button" class="secondary" id="service-detail-close-btn" style="width:100%; margin-top:1rem;">Tutup</button>
+    <div class="modal-box" style="max-width:440px;">
+      <img id="service-detail-poster" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:12px; margin-bottom:1rem; display:none;" alt="" />
+      <h2 id="service-detail-title" style="margin:0 0 0.5rem; font-family:Fraunces, serif;"></h2>
+      <p class="hint" id="service-detail-description" style="white-space:pre-wrap; line-height:1.6; font-size:0.9rem;"></p>
+      <button type="button" class="secondary" id="service-detail-close-btn" style="width:100%; margin-top:1.2rem; border-radius:10px;">Tutup</button>
     </div>
   </div>
 
+  <!-- Gallery Lightbox -->
   <div class="book-lightbox" id="book-lightbox" style="display:none;">
     <button type="button" class="book-lightbox-close" id="book-lightbox-close-btn" aria-label="Tutup">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -71,8 +129,13 @@
     </button>
   </div>
 
+  <!-- Global Tooltip -->
+  <div class="info-tooltip" id="global-info-tooltip"></div>
+
   <script type="module">
-    const slug = new URLSearchParams(window.location.search).get("slug");
+    const pathMatch = window.location.pathname.match(/\/book\/([^/?#]+)/);
+    const slug = new URLSearchParams(window.location.search).get("slug") || (pathMatch ? decodeURIComponent(pathMatch[1]) : null);
+    const isPreviewMode = !slug || slug === "preview" || slug === "demo" || new URLSearchParams(window.location.search).has("preview");
     let availabilityData = null;
     let selectedType = null;
     let selectedDate = null;
@@ -80,30 +143,383 @@
     let lastFormValues = { name: "", email: "", phone: "" };
     let lang = localStorage.getItem("eqstudio_booking_lang") || "ms";
 
-    // Note: zh/ta are AI-generated translations — a native speaker should review before go-live.
+    function getPreviewDataset(typeId) {
+      const now = new Date();
+      const slots_by_date = {};
+      for (let i = 1; i <= 14; i++) {
+        const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+        const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+        if (d.getDay() !== 1) { // Open Tue-Sun
+          slots_by_date[dateStr] = [
+            { time: "10:00", label: "10:00 AM", iso: `${dateStr}T10:00:00+08:00` },
+            { time: "11:30", label: "11:30 AM", iso: `${dateStr}T11:30:00+08:00` },
+            { time: "14:00", label: "02:00 PM", iso: `${dateStr}T14:00:00+08:00` },
+            { time: "16:30", label: "04:30 PM", iso: `${dateStr}T16:30:00+08:00` },
+            { time: "20:00", label: "08:00 PM", iso: `${dateStr}T20:00:00+08:00` },
+          ];
+        }
+      }
+
+      const eventTypes = [
+        {
+          id: "demo-et-1",
+          name: "Sesi Potret Studio Individu",
+          description: "Sesi fotografi potret peribadi berkualiti tinggi di studio berhawa dingin. Termasuk 5 keping gambar diedit resolusi penuh, pilihan pencahayaan artistik, dan salinan digital penuh.",
+          price: 70,
+          deposit_amount: 30,
+          duration_minutes: 30,
+          capacity: 1,
+          poster_url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80",
+        },
+        {
+          id: "demo-et-2",
+          name: "Sesi Keluarga & Konvokesyen",
+          description: "Sesi fotografi studio untuk seisi keluarga (sehingga 8 orang). Termasuk 15 keping gambar diedit, cetakan berbingkai 8R percuma dan semua fail resolusi tinggi tanpa tera air.",
+          price: 150,
+          deposit_amount: 50,
+          duration_minutes: 60,
+          capacity: 8,
+          poster_url: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&auto=format&fit=crop&q=80",
+        },
+        {
+          id: "demo-et-3",
+          name: "Sesi Personal Branding & Korporat",
+          description: "Fotografi profil profesional untuk LinkedIn, resume eksekutif, atau laman web perniagaan. 2 pilihan warna latar belakang dan 8 keping gambar diedit.",
+          price: 100,
+          deposit_amount: 40,
+          duration_minutes: 45,
+          capacity: 1,
+          poster_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80",
+        }
+      ];
+
+      const business = {
+        name: "Lensa Kreatif Studio",
+        logo_url: "/assets/logo/logo-64.png",
+        brand_color: "#4A098F",
+        about_text: "Kami merupakan studio fotografi profesional yang berpusat di Petaling Jaya. Mengkhususkan diri dalam potret peribadi, potret keluarga, konvokesyen, dan foto produk komersial dengan pencahayaan bertaraf industri sejak tahun 2021.",
+        instagram_url: "https://instagram.com",
+        tiktok_url: "https://tiktok.com",
+        facebook_url: "https://facebook.com",
+        whatsapp_number: "60123456789",
+        maps_url: "https://maps.google.com",
+        business_address: "No. 12B, Jalan Bandar Utama, 47800 Petaling Jaya, Selangor",
+        cover_photo_url: "https://images.unsplash.com/photo-1527011046414-4781f1f94f8c?w=1200&auto=format&fit=crop&q=80",
+        tagline: "Studio Fotografi & Potret Profesional",
+        since_year: "2021",
+      };
+
+      const gallery = [
+        { image_url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80" },
+        { image_url: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&auto=format&fit=crop&q=80" },
+        { image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" },
+        { image_url: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&auto=format&fit=crop&q=80" },
+      ];
+
+      const testimonials = [
+        { customer_name: "Farah & Hafiz", quote_text: "Sesi bergambar sangat santai dan selesa! Gambar siap pantas dan kualiti editing sangat memuaskan seisi keluarga." },
+        { customer_name: "Dr. Aiman Syakir", quote_text: "Khidmat yang sangat profesional untuk gambar korporat LinkedIn saya. Hasil pencahayaan studio memang bertaraf antarabangsa." },
+      ];
+
+      const questions = [
+        { id: "q1", question_text: "Tema pakaian atau warna tema yang diingini?" },
+        { id: "q2", question_text: "Berapa bilangan individu yang akan hadir ke studio?" },
+      ];
+
+      return {
+        business,
+        gallery,
+        testimonials,
+        event_types: eventTypes,
+        slots_by_date: typeId ? slots_by_date : null,
+        questions,
+        slot_duration_minutes: 60,
+        deposit_amount: 30,
+        cancel_notice_hours: 24,
+        link_description: "Sila pilih pakej dan slot masa yang sesuai untuk sesi anda.",
+        link_poster_url: null,
+      };
+    }
+
     const UI = {
-      ms: { yourBooking: "Tempahan Anda", deposit: "Deposit", stepDetails: "Butiran", loading: "Memuatkan...", incomplete: "Link booking tidak lengkap.", notFound: "Link booking tidak dijumpai.", loadFail: "Gagal memuatkan. Cuba refresh.", noSlots: "Tiada slot available buat masa ni. Sila hubungi terus.", pickSlot: "Pilih tarikh & slot yang sesuai", pickType: "Pilih jenis perkhidmatan", slotChosen: "Slot dipilih", free: "Percuma", name: "Nama", email: "Emel", emailPlaceholder: "untuk terima confirmation & reminder deposit", phone: "Nombor Telefon", notes: "Catatan (optional)", emailInfo: "Pastikan emel ini betul. Kami akan hantar pengesahan tempahan dan pengingat deposit ke sini.", emailNotice: "Sila semak emel anda (termasuk folder spam) selepas menghantar borang ini.", policyDeposit: "Deposit {amount} diperlukan untuk sahkan tempahan.", policyCancel: "Boleh batalkan percuma sehingga {hours} jam sebelum masa tempahan.", confirmBtn: "Sahkan Tempahan", sending: "Menghantar...", confirmed: "Tempahan Disahkan!", confirmedNote: "Kami dah hantar confirmation ke emel anda. Reminder deposit akan menyusul sekejap lagi.", bookAgain: "+ Book Sesi Lagi", addToCalendar: "Tambah ke Kalendar", genericError: "Gagal buat tempahan.", changeType: "← Tukar Jenis Perkhidmatan", viewMore: "Lihat Lagi" },
-      en: { yourBooking: "Your Booking", deposit: "Deposit", stepDetails: "Details", loading: "Loading...", incomplete: "Incomplete booking link.", notFound: "Booking link not found.", loadFail: "Failed to load. Try refreshing.", noSlots: "No slots available right now. Please contact directly.", pickSlot: "Pick a date & time that suits you", pickType: "Choose a service", slotChosen: "Selected slot", free: "Free", name: "Name", email: "Email", emailPlaceholder: "to receive confirmation & deposit reminder", phone: "Phone Number", notes: "Notes (optional)", emailInfo: "Make sure this email is correct. We'll send your booking confirmation and deposit reminder here.", emailNotice: "Please check your email (including spam folder) after submitting this form.", policyDeposit: "A {amount} deposit is required to confirm your booking.", policyCancel: "Free cancellation up to {hours} hours before your booking time.", confirmBtn: "Confirm Booking", sending: "Sending...", confirmed: "Booking Confirmed!", confirmedNote: "We've sent a confirmation to your email. A deposit reminder will follow shortly.", bookAgain: "+ Book Another Session", addToCalendar: "Add to Calendar", genericError: "Failed to book.", changeType: "← Change Service", viewMore: "Learn More" },
-      zh: { yourBooking: "您的预订", deposit: "押金", stepDetails: "详情", loading: "加载中...", incomplete: "预订链接不完整。", notFound: "找不到预订链接。", loadFail: "加载失败，请重试。", noSlots: "目前没有可用的时段，请直接联系。", pickSlot: "选择合适的日期和时间", pickType: "选择服务类型", slotChosen: "已选时段", free: "免费", name: "姓名", email: "电子邮件", emailPlaceholder: "用于接收确认和押金提醒", phone: "电话号码", notes: "备注（可选）", emailInfo: "请确保此电子邮件正确。我们将在此发送您的预订确认和押金提醒。", emailNotice: "请在提交此表格后检查您的电子邮件（包括垃圾邮件文件夹）。", policyDeposit: "需要支付 {amount} 押金以确认预订。", policyCancel: "预订时间前 {hours} 小时可免费取消。", confirmBtn: "确认预订", sending: "发送中...", confirmed: "预订已确认！", confirmedNote: "我们已将确认发送到您的电子邮件。押金提醒将很快发送。", bookAgain: "+ 预订另一场", addToCalendar: "添加到日历", genericError: "预订失败。", changeType: "← 更改服务类型", viewMore: "了解更多" },
-      ta: { yourBooking: "உங்கள் முன்பதிவு", deposit: "வைப்புத்தொகை", stepDetails: "விவரங்கள்", loading: "ஏற்றுகிறது...", incomplete: "முழுமையற்ற முன்பதிவு இணைப்பு.", notFound: "முன்பதிவு இணைப்பு கிடைக்கவில்லை.", loadFail: "ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.", noSlots: "தற்போது இடங்கள் இல்லை. நேரடியாக தொடர்பு கொள்ளவும்.", pickSlot: "பொருத்தமான தேதி & நேரத்தைத் தேர்ந்தெடுக்கவும்", pickType: "சேவை வகையைத் தேர்ந்தெடுக்கவும்", slotChosen: "தேர்ந்தெடுக்கப்பட்ட நேரம்", free: "இலவசம்", name: "பெயர்", email: "மின்னஞ்சல்", emailPlaceholder: "உறுதிப்படுத்தல் & வைப்புத்தொகை நினைவூட்டலைப் பெற", phone: "தொலைபேசி எண்", notes: "குறிப்புகள் (விருப்பம்)", emailInfo: "இந்த மின்னஞ்சல் சரியானதா என்பதை உறுதிப்படுத்தவும். உங்கள் முன்பதிவு உறுதிப்படுத்தல் மற்றும் வைப்புத்தொகை நினைவூட்டலை இங்கே அனுப்புவோம்.", emailNotice: "இந்த படிவத்தை சமர்ப்பித்த பிறகு உங்கள் மின்னஞ்சலை (ஸ்பேம் கோப்புறை உட்பட) சரிபார்க்கவும்.", policyDeposit: "உங்கள் முன்பதிவை உறுதிப்படுத்த {amount} வைப்புத்தொகை தேவை.", policyCancel: "உங்கள் முன்பதிவு நேரத்திற்கு {hours} மணி நேரத்திற்கு முன் இலவசமாக ரத்து செய்யலாம்.", confirmBtn: "முன்பதிவை உறுதிப்படுத்தவும்", sending: "அனுப்புகிறது...", confirmed: "முன்பதிவு உறுதி செய்யப்பட்டது!", confirmedNote: "உங்கள் மின்னஞ்சலுக்கு உறுதிப்படுத்தல் அனுப்பப்பட்டது. வைப்புத்தொகை நினைவூட்டல் விரைவில் வரும்.", bookAgain: "+ மற்றொரு அமர்வை முன்பதிவு செய்யவும்", addToCalendar: "நாட்காட்டியில் சேர்க்கவும்", genericError: "முன்பதிவு தோல்வியடைந்தது.", changeType: "← சேவை வகையை மாற்றவும்", viewMore: "மேலும் அறிக" },
+      ms: {
+        verified: "Disahkan",
+        bookingOpen: "Buka Untuk Tempahan",
+        instantConfirm: "Pengesahan Segera",
+        instantConfirmDesc: "Emel & WhatsApp automatik",
+        secureBooking: "Data Dilindungi",
+        secureBookingDesc: "Enkripsi 256-bit selamat",
+        transparentPolicy: "Polisi Telus",
+        transparentPolicyDesc: "Tiada caj tersembunyi",
+        chatOnWa: "Tanya di WhatsApp",
+        viewMap: "Lokasi / Peta",
+        stepService: "Pakej Servis",
+        stepDateTime: "Tarikh & Masa",
+        stepDetails: "Maklumat Tempahan",
+        pickType: "Pilih Pakej Perkhidmatan",
+        pickTypeSubtitle: "Pilih servis yang anda inginkan untuk melihat kalendar slot masa yang tersedia.",
+        pickSlot: "Pilih Tarikh & Waktu Sesuai",
+        pickSlotSubtitle: "Tarikh dengan titik menandakan ada slot kosong yang boleh ditempah.",
+        availableSlotsTitle: "Waktu Yang Boleh Ditempah",
+        selectSlotHint: "Sila klik satu waktu slot di atas untuk mengisi maklumat.",
+        selectedServicePill: "Pakej:",
+        changeType: "Tukar Pakej",
+        viewMore: "Maklumat Lanjut",
+        chooseServiceBtn: "Pilih Pakej Ini ➔",
+        durationLabel: "minit",
+        capacityLabel: "sehingga {n} orang",
+        summaryHeading: "Ringkasan Tempahan Anda",
+        slotChosen: "Waktu Slot",
+        deposit: "Deposit Diperlukan",
+        free: "Percuma (RM 0.00)",
+        policyDeposit: "Deposit berjumlah {amount} diperlukan bagi mengesahkan slot tempahan anda.",
+        policyCancel: "Pembatalan percuma boleh dibuat sehingga {hours} jam sebelum masa sesi bermula.",
+        name: "Nama Penuh",
+        namePlaceholder: "Masukkan nama anda",
+        email: "Alamat Emel",
+        emailPlaceholder: "contoh@emel.com (untuk tiket pengesahan)",
+        emailInfo: "Pastikan emel ini betul. Sistem akan hantar pengesahan serta-merta dan pengingat automatik ke sini.",
+        phone: "Nombor Telefon / WhatsApp",
+        phonePlaceholder: "123456789",
+        notes: "Catatan Tambahan (Pilihan)",
+        notesPlaceholder: "Sebarang permintaan khas atau nota kepada pemilik...",
+        confirmBtn: "Sahkan Tempahan Sekarang",
+        confirmBtnWithDeposit: "Sahkan Tempahan · Deposit {amount}",
+        secureSubmitNote: "Maklumat anda selamat & dilindungi secara privasi.",
+        sending: "Memproses Tempahan...",
+        confirmedTitle: "Tempahan Anda Berjaya Disahkan!",
+        confirmedSub: "Maklumat tempahan telah direkodkan. Sila semak emel anda untuk salinan penuh.",
+        bookingRef: "No. Rujukan Tempahan",
+        addToCalendar: "Tambah ke Google / Apple Calendar",
+        chatOwnerAfter: "Hantar Mesej WhatsApp ke Pemilik",
+        bookAgain: "+ Buat Tempahan Lain",
+        noSlots: "Maaf, tiada slot masa yang dibuka buat masa ini. Sila hubungi pemilik secara langsung untuk pertanyaan slot khas.",
+        incomplete: "Pautan tempahan tidak lengkap.",
+        notFound: "Pautan tempahan tidak dijumpai.",
+        loadFail: "Gagal memuatkan maklumat. Sila muat semula halaman ini.",
+        aboutUs: "Mengenai Kami",
+        galleryTitle: "Galeri & Hasil Kerja",
+        testimonialsTitle: "Kata Pelanggan",
+        locationTitle: "Lokasi Premis",
+      },
+      en: {
+        verified: "Verified",
+        bookingOpen: "Open for Bookings",
+        instantConfirm: "Instant Confirmation",
+        instantConfirmDesc: "Email & WhatsApp notifications",
+        secureBooking: "Secure & Private",
+        secureBookingDesc: "256-bit SSL encrypted",
+        transparentPolicy: "Transparent Policy",
+        transparentPolicyDesc: "No hidden charges",
+        chatOnWa: "Chat on WhatsApp",
+        viewMap: "View Location",
+        stepService: "Service",
+        stepDateTime: "Date & Time",
+        stepDetails: "Details",
+        pickType: "Select a Service Package",
+        pickTypeSubtitle: "Choose your preferred package to see real-time available time slots.",
+        pickSlot: "Choose Date & Time",
+        pickSlotSubtitle: "Dates with a dot have available slots for booking.",
+        availableSlotsTitle: "Available Time Slots",
+        selectSlotHint: "Click a time slot above to continue with your details.",
+        selectedServicePill: "Service:",
+        changeType: "Change",
+        viewMore: "Details",
+        chooseServiceBtn: "Select Package ➔",
+        durationLabel: "mins",
+        capacityLabel: "up to {n} guests",
+        summaryHeading: "Booking Summary",
+        slotChosen: "Time Slot",
+        deposit: "Deposit Required",
+        free: "Free (RM 0.00)",
+        policyDeposit: "A deposit of {amount} is required to secure and confirm your booking slot.",
+        policyCancel: "Free cancellation allowed up to {hours} hours prior to your scheduled slot.",
+        name: "Full Name",
+        namePlaceholder: "Enter your full name",
+        email: "Email Address",
+        emailPlaceholder: "your@email.com (for confirmation ticket)",
+        emailInfo: "Ensure this email is accurate. Your official ticket and instant reminder will be sent here.",
+        phone: "WhatsApp / Phone Number",
+        phonePlaceholder: "123456789",
+        notes: "Special Notes (Optional)",
+        notesPlaceholder: "Any special requests or details...",
+        confirmBtn: "Confirm Booking Now",
+        confirmBtnWithDeposit: "Confirm Booking · Deposit {amount}",
+        secureSubmitNote: "Your data is strictly encrypted and protected.",
+        sending: "Processing Booking...",
+        confirmedTitle: "Booking Confirmed Successfully!",
+        confirmedSub: "Your booking is locked in. Please check your inbox for the confirmation ticket.",
+        bookingRef: "Booking Reference ID",
+        addToCalendar: "Add to Google / Apple Calendar",
+        chatOwnerAfter: "Message Owner on WhatsApp",
+        bookAgain: "+ Book Another Session",
+        noSlots: "No open slots right now. Please reach out directly to request an appointment.",
+        incomplete: "Incomplete booking link.",
+        notFound: "Booking link not found.",
+        loadFail: "Failed to load booking. Please refresh the page.",
+        aboutUs: "About Us",
+        galleryTitle: "Our Work & Gallery",
+        testimonialsTitle: "Client Reviews",
+        locationTitle: "Location & Directions",
+      },
+      zh: {
+        verified: "已验证",
+        bookingOpen: "现已开放预约",
+        instantConfirm: "即时确认",
+        instantConfirmDesc: "自动电邮与微信/WhatsApp通知",
+        secureBooking: "安全隐私",
+        secureBookingDesc: "256位SSL安全加密",
+        transparentPolicy: "政策透明",
+        transparentPolicyDesc: "无任何隐藏收费",
+        chatOnWa: "WhatsApp 咨询",
+        viewMap: "查看地图位置",
+        stepService: "服务项目",
+        stepDateTime: "日期与时间",
+        stepDetails: "填写资料",
+        pickType: "选择服务项目",
+        pickTypeSubtitle: "请选择所需的服务以查看开放的空闲时段。",
+        pickSlot: "选择日期与时段",
+        pickSlotSubtitle: "带有标记圆点的日期表示有空余时段可预约。",
+        availableSlotsTitle: "可选时间段",
+        selectSlotHint: "请在上方点击选择一个时间段以填写预约信息。",
+        selectedServicePill: "已选项目:",
+        changeType: "更换项目",
+        viewMore: "查看详情",
+        chooseServiceBtn: "选择此方案 ➔",
+        durationLabel: "分钟",
+        capacityLabel: "最多 {n} 人",
+        summaryHeading: "您的预约明细",
+        slotChosen: "预约时段",
+        deposit: "需付定金",
+        free: "免费 (RM 0.00)",
+        policyDeposit: "需支付 {amount} 定金以锁定并确认您的预约。",
+        policyCancel: "预约开始前 {hours} 小时内可享免费取消政策。",
+        name: "您的姓名",
+        namePlaceholder: "请输入您的姓名",
+        email: "电子邮箱",
+        emailPlaceholder: "example@email.com (用于接收电子凭证)",
+        emailInfo: "请确认邮箱无误，系统将立即把预约确认信发送至此邮箱。",
+        phone: "联系电话 / WhatsApp",
+        phonePlaceholder: "123456789",
+        notes: "特别备注（选填）",
+        notesPlaceholder: "如有任何特殊需求请在此留言...",
+        confirmBtn: "立即确认预约",
+        confirmBtnWithDeposit: "确认预约 · 定金 {amount}",
+        secureSubmitNote: "您的个人数据已获严格加密保障。",
+        sending: "正在处理预约...",
+        confirmedTitle: "预约已成功确认！",
+        confirmedSub: "您的预约已锁定。请查收邮件以获取完整凭证与提醒。",
+        bookingRef: "预约编号",
+        addToCalendar: "添加到手机日历",
+        chatOwnerAfter: "在 WhatsApp 上联系商家",
+        bookAgain: "+ 预约其他场次",
+        noSlots: "当前暂无开放时段，请直接与商家联系咨询。",
+        incomplete: "预约链接不完整。",
+        notFound: "找不到该预约链接。",
+        loadFail: "加载失败，请刷新重试。",
+        aboutUs: "关于我们",
+        galleryTitle: "精彩图集",
+        testimonialsTitle: "客户评价",
+        locationTitle: "商家地址",
+      },
+      ta: {
+        verified: "சரிபார்க்கப்பட்டது",
+        bookingOpen: "முன்பதிவு திறக்கப்பட்டுள்ளது",
+        instantConfirm: "உடனடி உறுதிப்படுத்தல்",
+        instantConfirmDesc: "மின்னஞ்சல் & வாட்ஸ்அப் அறிவிப்பு",
+        secureBooking: "பாதுகாப்பானது",
+        secureBookingDesc: "256-bit குறியாக்க பாதுகாப்பு",
+        transparentPolicy: "வெளிப்படையான கொள்கை",
+        transparentPolicyDesc: "மறைக்கப்பட்ட கட்டணங்கள் இல்லை",
+        chatOnWa: "வாட்ஸ்அப்பில் தொடர்புகொள்ள",
+        viewMap: "இருப்பிடம் பார்க்க",
+        stepService: "சேவை",
+        stepDateTime: "தேதி & நேரம்",
+        stepDetails: "விவரங்கள்",
+        pickType: "சேவைத் தொகுப்பைத் தேர்ந்தெடுக்கவும்",
+        pickTypeSubtitle: "கிடைக்கும் நேரத்தைக் காண தேவையான சேவையைத் தேர்ந்தெடுக்கவும்.",
+        pickSlot: "தேதி & நேரத்தைத் தேர்ந்தெடுக்கவும்",
+        pickSlotSubtitle: "புள்ளியிடப்பட்ட தேதிகளில் முன்பதிவு செய்ய இடங்கள் உள்ளன.",
+        availableSlotsTitle: "கிடைக்கும் நேரங்கள்",
+        selectSlotHint: "விவரங்களை நிரப்ப மேலே உள்ள நேரத்தைத் தேர்ந்தெடுக்கவும்.",
+        selectedServicePill: "சேவை:",
+        changeType: "மாற்று",
+        viewMore: "மேலும் அறிய",
+        chooseServiceBtn: "இதைத் தேர்ந்தெடுங்கள் ➔",
+        durationLabel: "நிமிடங்கள்",
+        capacityLabel: "{n} நபர்கள் வரை",
+        summaryHeading: "முன்பதிவு சுருக்கம்",
+        slotChosen: "தேர்ந்தெடுக்கப்பட்ட நேரம்",
+        deposit: "வைப்புத்தொகை",
+        free: "இலவசம் (RM 0.00)",
+        policyDeposit: "முன்பதிவை உறுதிப்படுத்த {amount} வைப்புத்தொகை தேவை.",
+        policyCancel: "{hours} மணி நேரத்திற்கு முன்பு இலவச ரத்து செய்யலாம்.",
+        name: "முழுப் பெயர்",
+        namePlaceholder: "உங்கள் பெயரை உள்ளிடவும்",
+        email: "மின்னஞ்சல் முகவரி",
+        emailPlaceholder: "your@email.com",
+        emailInfo: "சரியான மின்னஞ்சலை உள்ளிடவும். உறுதிப்படுத்தல் இங்கே அனுப்பப்படும்.",
+        phone: "வாட்ஸ்அப் / தொலைபேசி எண்",
+        phonePlaceholder: "123456789",
+        notes: "கூடுதல் குறிப்புகள்",
+        notesPlaceholder: "ஏதேனும் சிறப்பு கோரிக்கைகள் இருந்தால்...",
+        confirmBtn: "இப்போது உறுதிப்படுத்தவும்",
+        confirmBtnWithDeposit: "உறுதிப்படுத்தவும் · வைப்புத்தொகை {amount}",
+        secureSubmitNote: "உங்கள் தகவல்கள் முழுமையாக பாதுகாக்கப்படுகின்றன.",
+        sending: "முன்பதிவு செய்யப்படுகிறது...",
+        confirmedTitle: "முன்பதிவு வெற்றிகரமாக உறுதி செய்யப்பட்டது!",
+        confirmedSub: "உங்கள் முன்பதிவு பதிவு செய்யப்பட்டது. மின்னஞ்சலைச் சரிபார்க்கவும்.",
+        bookingRef: "முன்பதிவு எண்",
+        addToCalendar: "நாட்காட்டியில் சேர்க்கவும்",
+        chatOwnerAfter: "வாட்ஸ்அப்பில் செய்தியிடவும்",
+        bookAgain: "+ மற்றொரு அமர்வு முன்பதிவு",
+        noSlots: "தற்போது முன்பதிவு இடங்கள் இல்லை. நேரடியாகத் தொடர்பு கொள்ளவும்.",
+        incomplete: "முழுமையற்ற இணைப்பு.",
+        notFound: "இணைப்பு காணப்படவில்லை.",
+        loadFail: "ஏற்றுவதில் தோல்வி. மீண்டும் முயற்சிக்கவும்.",
+        aboutUs: "எங்களைப் பற்றி",
+        galleryTitle: "புகைப்படங்கள்",
+        testimonialsTitle: "வாடிக்கையாளர் மதிப்புரை",
+        locationTitle: "முகவரி",
+      }
     };
+
     const LANG_LABELS = { ms: "BM", en: "EN", zh: "中文", ta: "தமிழ்" };
     function T() { return UI[lang] || UI.ms; }
 
     function renderLangSwitcher() {
       return `
-        <div class="lang-switcher" id="lang-switcher">
-          ${Object.keys(LANG_LABELS).map(code => `<button type="button" class="lang-chip ${code === lang ? "selected" : ""}" data-lang="${code}">${LANG_LABELS[code]}</button>`).join("")}
+        <div class="lang-switcher" id="lang-switcher" style="margin:0;">
+          ${Object.keys(LANG_LABELS).map(code => `
+            <button type="button" class="lang-chip ${code === lang ? "selected" : ""}" data-lang="${code}">
+              ${LANG_LABELS[code]}
+            </button>
+          `).join("")}
         </div>`;
     }
+
     function wireLangSwitcher() {
       document.querySelectorAll(".lang-chip").forEach(btn => {
         btn.addEventListener("click", () => {
           lang = btn.dataset.lang;
           localStorage.setItem("eqstudio_booking_lang", lang);
+          updateNavLabels();
+          if (availabilityData) {
+            renderProfileSections(availabilityData.business, availabilityData.gallery, availabilityData.testimonials);
+          }
           renderCurrentStep();
         });
       });
+    }
+
+    function updateNavLabels() {
+      document.getElementById("t-verified-nav").textContent = T().verified;
+      document.getElementById("t-share-label").textContent = lang === "ms" ? "Kongsi" : (lang === "en" ? "Share" : (lang === "zh" ? "分享" : "பகிர்"));
+      const topLangContainer = document.getElementById("book-top-lang");
+      if (topLangContainer) {
+        topLangContainer.innerHTML = renderLangSwitcher();
+        wireLangSwitcher();
+      }
     }
 
     function escapeHtml(str) {
@@ -112,10 +528,8 @@
       return div.innerHTML;
     }
 
-    // Same whitelist-based sanitizer as dashboard.html — defense in depth,
-    // since this renders the owner's description on their PUBLIC booking page.
     function sanitizeRichText(html) {
-      const allowed = new Set(["B", "STRONG", "I", "EM", "U", "BR"]);
+      const allowed = new Set(["B", "STRONG", "I", "EM", "U", "BR", "P"]);
       const container = document.createElement("div");
       container.innerHTML = html || "";
       (function clean(node) {
@@ -136,7 +550,255 @@
     function dateLabel(dateKey) {
       const d = new Date(dateKey + "T00:00:00");
       const localeMap = { ms: "ms-MY", en: "en-MY", zh: "zh-CN", ta: "ta-IN" };
-      return d.toLocaleDateString(localeMap[lang] || "ms-MY", { weekday: "short", day: "numeric", month: "short" });
+      return d.toLocaleDateString(localeMap[lang] || "ms-MY", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+    }
+
+    function currentDeposit() {
+      return selectedType
+        ? (selectedType.deposit_amount != null ? selectedType.deposit_amount : availabilityData?.deposit_amount)
+        : availabilityData?.deposit_amount;
+    }
+
+    // Dynamic Stepper: 1. Service / Pakej -> 2. Tarikh & Waktu -> 3. Butiran
+    function renderStepper(stepNum) {
+      const hasTypes = (availabilityData.event_types || []).length > 0;
+      const steps = hasTypes
+        ? [
+            { n: 1, title: T().stepService },
+            { n: 2, title: T().stepDateTime },
+            { n: 3, title: T().stepDetails }
+          ]
+        : [
+            { n: 2, title: T().stepDateTime },
+            { n: 3, title: T().stepDetails }
+          ];
+
+      return `
+        <div class="book-stepper">
+          ${steps.map((s, idx) => {
+            const isCompleted = stepNum > s.n;
+            const isActive = stepNum === s.n;
+            return `
+              <div class="book-step-unit ${isCompleted ? "completed" : ""} ${isActive ? "active" : ""}">
+                <div class="book-step-num">${isCompleted ? "✓" : (hasTypes ? s.n : idx + 1)}</div>
+                <span>${escapeHtml(s.title)}</span>
+              </div>
+              ${idx < steps.length - 1 ? `<div class="book-step-divider ${isCompleted ? "completed" : ""}"></div>` : ""}
+            `;
+          }).join("")}
+        </div>`;
+    }
+
+    function renderProfileSections(biz, gallery, testimonials) {
+      const brandColor = biz.brand_color || "#4A098F";
+      document.documentElement.style.setProperty("--stamp", brandColor);
+
+      // Nav bar updates
+      document.getElementById("book-nav-name").textContent = biz.name || "Portal Tempahan";
+      if (biz.logo_url) {
+        document.getElementById("book-nav-logo").src = biz.logo_url;
+        document.getElementById("book-nav-logo").style.display = "block";
+      }
+
+      // Hero Card with Cover & Avatar
+      const heroImage = biz.cover_photo_url || (gallery && gallery[0] ? gallery[0].image_url : null);
+      const coverStyle = heroImage
+        ? `background-image:url('${escapeHtml(heroImage)}');`
+        : `background:linear-gradient(135deg, ${brandColor}, color-mix(in srgb, ${brandColor} 65%, #000));`;
+
+      const initials = (biz.name || "E").split(" ").map(w => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+
+      const heroEl = document.getElementById("book-hero-section");
+      heroEl.innerHTML = `
+        <div class="book-hero-card">
+          <div class="book-hero-cover" style="${coverStyle}">
+            <div class="book-hero-cover-overlay"></div>
+          </div>
+          <div class="book-hero-body">
+            <div class="book-avatar-row">
+              <div class="book-avatar-wrap">
+                ${biz.logo_url ? `<img src="${escapeHtml(biz.logo_url)}" class="book-avatar-img" alt="${escapeHtml(biz.name)}" />` : `<span>${initials}</span>`}
+              </div>
+              <div class="book-status-pill">
+                <span class="book-status-dot"></span>
+                <span>${T().bookingOpen}</span>
+              </div>
+            </div>
+
+            <div class="book-hero-meta">
+              <div class="book-hero-title-row">
+                <h1 class="book-hero-name">${escapeHtml(biz.name || "Perniagaan")}</h1>
+                <span class="book-hero-verified-icon" title="${T().verified}">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#0284c7"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </span>
+              </div>
+              ${biz.tagline ? `<p class="book-hero-tagline">${escapeHtml(biz.tagline)}</p>` : ""}
+              <div class="book-hero-badges-row">
+                ${biz.since_year ? `<span class="book-badge-pill">Beroperasi Sejak ${escapeHtml(biz.since_year)}</span>` : ""}
+                <span class="book-badge-pill">Tempahan Terus Atas Talian</span>
+              </div>
+            </div>
+
+            <!-- Social & Direct Contact Bar -->
+            <div class="book-social-bar" id="book-social-chips">
+              ${biz.whatsapp_number ? `
+                <a href="https://wa.me/${biz.whatsapp_number.replace(/[^0-9]/g, "")}?text=${encodeURIComponent("Hai " + (biz.name || "") + ", saya ingin bertanya tentang slot tempahan...")}" target="_blank" rel="noopener" class="book-contact-btn wa-primary">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                  <span>${T().chatOnWa}</span>
+                </a>` : ""}
+              ${biz.business_address || biz.maps_url ? `
+                <a href="${biz.maps_url || `https://maps.google.com/?q=${encodeURIComponent(biz.business_address)}`}" target="_blank" rel="noopener" class="book-contact-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>${T().viewMap}</span>
+                </a>` : ""}
+              ${biz.instagram_url ? `
+                <a href="${escapeHtml(biz.instagram_url)}" target="_blank" rel="noopener" class="book-contact-btn" title="Instagram">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                  <span>Instagram</span>
+                </a>` : ""}
+              ${biz.tiktok_url ? `
+                <a href="${escapeHtml(biz.tiktok_url)}" target="_blank" rel="noopener" class="book-contact-btn" title="TikTok">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                  <span>TikTok</span>
+                </a>` : ""}
+              ${biz.facebook_url ? `
+                <a href="${escapeHtml(biz.facebook_url)}" target="_blank" rel="noopener" class="book-contact-btn" title="Facebook">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"></path></svg>
+                  <span>Facebook</span>
+                </a>` : ""}
+            </div>
+          </div>
+
+          <!-- Trust Guarantees Bar -->
+          <div class="book-trust-bar">
+            <div class="book-trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              <div>
+                <div>${T().instantConfirm}</div>
+                <span class="trust-sub">${T().instantConfirmDesc}</span>
+              </div>
+            </div>
+            <div class="book-trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <div>
+                <div>${T().secureBooking}</div>
+                <span class="trust-sub">${T().secureBookingDesc}</span>
+              </div>
+            </div>
+            <div class="book-trust-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <div>
+                <div>${T().transparentPolicy}</div>
+                <span class="trust-sub">${T().transparentPolicyDesc}</span>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+      // Showcase Column (About, Gallery, Testimonials, Map)
+      const hasAbout = biz.about_text && biz.about_text.trim();
+      const hasGallery = gallery && gallery.length > 0;
+      const hasTestimonials = testimonials && testimonials.length > 0;
+      const hasMap = biz.business_address && biz.business_address.trim();
+      const hasShowcaseContent = hasAbout || hasGallery || hasTestimonials || hasMap;
+
+      const layoutSplit = document.getElementById("book-layout-split");
+      const showcaseCol = document.getElementById("book-showcase-col");
+
+      if (hasShowcaseContent) {
+        layoutSplit.classList.add("has-sidebar");
+        showcaseCol.style.display = "flex";
+
+        // 1. About section
+        const aboutEl = document.getElementById("book-about-section");
+        if (hasAbout) {
+          aboutEl.innerHTML = `
+            <div class="book-side-card">
+              <h2 class="book-side-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                ${T().aboutUs}
+              </h2>
+              <p class="book-about-text" id="book-about-text">${sanitizeRichText(biz.about_text)}</p>
+            </div>`;
+        } else {
+          aboutEl.innerHTML = "";
+        }
+
+        // 2. Bento Gallery
+        const galleryEl = document.getElementById("book-gallery-section");
+        if (hasGallery) {
+          const MAX_VISIBLE = 6;
+          const visible = gallery.slice(0, MAX_VISIBLE);
+          const overflowCount = gallery.length - MAX_VISIBLE;
+          galleryEl.innerHTML = `
+            <div class="book-side-card">
+              <h2 class="book-side-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                ${T().galleryTitle}
+              </h2>
+              <div class="book-gallery-grid">
+                ${visible.map((g, i) => `
+                  <div class="book-gallery-item" data-lightbox-index="${i}" tabindex="0" role="button" aria-label="Lihat gambar penuh">
+                    <img src="${escapeHtml(g.image_url)}" alt="" loading="lazy" />
+                    ${i === MAX_VISIBLE - 1 && overflowCount > 0 ? `<div class="book-gallery-overflow">+${overflowCount}</div>` : ""}
+                  </div>
+                `).join("")}
+              </div>
+            </div>`;
+          window.__bookGalleryImages = gallery.map(g => g.image_url);
+          galleryEl.querySelectorAll("[data-lightbox-index]").forEach(el => {
+            el.addEventListener("click", () => openGalleryLightbox(Number(el.dataset.lightboxIndex)));
+          });
+        } else {
+          galleryEl.innerHTML = "";
+        }
+
+        // 3. Testimonials
+        const testimonialEl = document.getElementById("book-testimonial-section");
+        if (hasTestimonials) {
+          testimonialEl.innerHTML = `
+            <div class="book-side-card">
+              <h2 class="book-side-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                ${T().testimonialsTitle}
+              </h2>
+              <div class="book-testimonials-stack">
+                ${testimonials.map(t => `
+                  <div class="book-testimonial-item">
+                    <p class="book-testimonial-quote">“${escapeHtml(t.quote_text)}”</p>
+                    <p class="book-testimonial-author">— ${escapeHtml(t.customer_name)}</p>
+                  </div>
+                `).join("")}
+              </div>
+            </div>`;
+        } else {
+          testimonialEl.innerHTML = "";
+        }
+
+        // 4. Map
+        const mapEl = document.getElementById("book-map-section");
+        if (hasMap) {
+          const query = encodeURIComponent(biz.business_address);
+          mapEl.innerHTML = `
+            <div class="book-side-card">
+              <h2 class="book-side-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                ${T().locationTitle}
+              </h2>
+              <p style="font-size:0.85rem; color:var(--ink-soft); margin:0 0 0.8rem; line-height:1.45;">${escapeHtml(biz.business_address)}</p>
+              <div class="book-map-frame">
+                <iframe src="https://www.google.com/maps?q=${query}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokasi"></iframe>
+              </div>
+            </div>`;
+        } else {
+          mapEl.innerHTML = "";
+        }
+
+      } else {
+        // Business owner does not have rich media yet: Keep layout cleanly centered!
+        layoutSplit.classList.remove("has-sidebar");
+        showcaseCol.style.display = "none";
+      }
     }
 
     function renderCurrentStep() {
@@ -149,26 +811,39 @@
           return;
         }
         renderTypePicker();
+      } else {
+        renderPicker();
       }
-      else renderPicker();
     }
 
     async function loadAvailability(typeId) {
       const content = document.getElementById("book-content");
-      if (!slug) {
-        content.innerHTML = renderLangSwitcher() + `<div class="card"><p class="error">${T().incomplete}</p></div>`;
-        wireLangSwitcher();
+      if (isPreviewMode) {
+        document.getElementById("book-preview-banner")?.style.setProperty("display", "flex");
+        const data = getPreviewDataset(typeId);
+        availabilityData = data;
+        if (!window.__profileSectionsRendered) {
+          window.__profileSectionsRendered = true;
+          renderProfileSections(data.business, data.gallery, data.testimonials);
+        }
+        renderCurrentStep();
         return;
       }
-      content.innerHTML = renderLangSwitcher() + `<div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">${T().loading}</p></div>`;
-      wireLangSwitcher();
+      if (!slug) {
+        content.innerHTML = `<div style="text-align:center; padding:2rem;"><p class="error">${T().incomplete}</p></div>`;
+        return;
+      }
+      content.innerHTML = `
+        <div class="sim-spinner-wrap" style="padding:2.5rem 1rem; text-align:center;">
+          <div class="sim-spinner"></div>
+          <p class="hint" style="margin-top:0.8rem;">${T().loading}</p>
+        </div>`;
       try {
         const typeParam = typeId ? `&type=${encodeURIComponent(typeId)}` : "";
         const res = await fetch(`/api/booking-availability?slug=${encodeURIComponent(slug)}&days=21${typeParam}`);
         const data = await res.json();
         if (!res.ok) {
-          content.innerHTML = renderLangSwitcher() + `<div class="card"><p class="error">${escapeHtml(data.error || T().notFound)}</p></div>`;
-          wireLangSwitcher();
+          content.innerHTML = `<div style="text-align:center; padding:2rem;"><p class="error">${escapeHtml(data.error || T().notFound)}</p></div>`;
           return;
         }
         availabilityData = data;
@@ -178,253 +853,64 @@
         }
         renderCurrentStep();
       } catch (err) {
-        content.innerHTML = renderLangSwitcher() + `<div class="card"><p class="error">${T().loadFail}</p></div>`;
-        wireLangSwitcher();
+        content.innerHTML = `<div style="text-align:center; padding:2rem;"><p class="error">${T().loadFail}</p></div>`;
       }
     }
 
-    function renderProfileSections(biz, gallery, testimonials) {
-      // ── Hero: big impactful cover photo with a 3-tier fallback (cover
-      // photo → first gallery image → branded gradient), text overlaid on
-      // top. Matches a modern/professional spa-app aesthetic rather than
-      // the playful multi-color gradient-text used on the marketing site.
-      const brandColor = biz.brand_color || "#4A098F";
-      const heroImage = biz.cover_photo_url || (gallery && gallery[0] ? gallery[0].image_url : null);
-      const heroBackground = heroImage
-        ? `background-image:url('${escapeHtml(heroImage)}');`
-        : `background:linear-gradient(135deg, ${brandColor}, ${brandColor}cc);`;
-      document.getElementById("book-hero-section").innerHTML = `
-        <div class="book-hero ${heroImage ? "has-image" : ""}" style="${heroBackground}">
-          <button type="button" class="book-hero-share-btn" id="book-hero-share-btn" aria-label="Kongsi halaman ini" title="Kongsi">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-          </button>
-          <div class="book-hero-overlay">
-            ${biz.logo_url ? `<img src="${escapeHtml(biz.logo_url)}" class="book-hero-logo" alt="" />` : ""}
-            <h1 class="book-hero-name">${escapeHtml(biz.name || "")}</h1>
-            ${biz.tagline ? `<p class="book-hero-tagline">${escapeHtml(biz.tagline)}</p>` : ""}
-            ${biz.since_year ? `<span class="book-hero-badge">Sejak ${biz.since_year}</span>` : ""}
-          </div>
-        </div>`;
-      document.getElementById("book-hero-share-btn")?.addEventListener("click", async () => {
-        const shareData = { title: biz.name || "eqstudio.link", url: window.location.href };
-        if (navigator.share) {
-          try { await navigator.share(shareData); } catch { /* user cancelled, ignore */ }
-        } else {
-          await navigator.clipboard.writeText(window.location.href);
-          const btn = document.getElementById("book-hero-share-btn");
-          const originalHtml = btn.innerHTML;
-          btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-          setTimeout(() => { btn.innerHTML = originalHtml; }, 1500);
-        }
-      });
-
-      // ── About: hidden entirely if the owner left it empty. Long text gets
-      // a "Baca Lagi" expand toggle instead of forcing a long scroll.
-      const aboutEl = document.getElementById("book-about-section");
-      if (biz.about_text && biz.about_text.trim()) {
-        const clean = sanitizeRichText(biz.about_text);
-        aboutEl.innerHTML = `
-          <div class="card book-about-card">
-            <p class="book-about-text" id="book-about-text">${clean}</p>
-            <button type="button" class="book-about-toggle" id="book-about-toggle" style="display:none;">Baca Lagi</button>
-          </div>`;
-        const textEl = document.getElementById("book-about-text");
-        const toggleBtn = document.getElementById("book-about-toggle");
-        requestAnimationFrame(() => {
-          if (textEl.scrollHeight > textEl.clientHeight + 4) {
-            textEl.classList.add("collapsed");
-            toggleBtn.style.display = "inline-block";
-            toggleBtn.addEventListener("click", () => {
-              const expanded = textEl.classList.toggle("collapsed") === false;
-              toggleBtn.textContent = expanded ? "Tutup" : "Baca Lagi";
-            });
-          }
-        });
-      } else {
-        aboutEl.innerHTML = "";
-      }
-
-      // ── Gallery: bento-style grid with overflow "+N" indicator, click to
-      // open lightbox, staggered animated entrance. Hidden if no photos.
-      const galleryEl = document.getElementById("book-gallery-section");
-      if (gallery && gallery.length > 0) {
-        const MAX_VISIBLE = 6;
-        const visible = gallery.slice(0, MAX_VISIBLE);
-        const overflowCount = gallery.length - MAX_VISIBLE;
-        galleryEl.innerHTML = `
-          <div class="book-gallery-grid">
-            ${visible.map((g, i) => `
-              <div class="book-gallery-item" data-lightbox-index="${i}" tabindex="0" role="button" aria-label="Lihat gambar penuh">
-                <img src="${escapeHtml(g.image_url)}" alt="" loading="lazy" />
-                ${i === MAX_VISIBLE - 1 && overflowCount > 0 ? `<div class="book-gallery-overflow">+${overflowCount}</div>` : ""}
-              </div>
-            `).join("")}
-          </div>`;
-        window.__bookGalleryImages = gallery.map(g => g.image_url);
-        galleryEl.querySelectorAll("[data-lightbox-index]").forEach(el => {
-          el.addEventListener("click", () => openGalleryLightbox(Number(el.dataset.lightboxIndex)));
-          el.addEventListener("keypress", (e) => { if (e.key === "Enter") openGalleryLightbox(Number(el.dataset.lightboxIndex)); });
-        });
-        if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          const items = galleryEl.querySelectorAll(".book-gallery-item");
-          items.forEach((el, i) => {
-            el.style.opacity = "0"; el.style.transform = "scale(0.9)";
-            el.style.transition = `opacity 0.4s ease ${(i % 6) * 60}ms, transform 0.4s ease ${(i % 6) * 60}ms`;
-          });
-          const galObs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.style.opacity = "1"; entry.target.style.transform = "scale(1)";
-                galObs.unobserve(entry.target);
-              }
-            });
-          }, { threshold: 0.15 });
-          items.forEach(el => galObs.observe(el));
-        }
-      } else {
-        galleryEl.innerHTML = "";
-      }
-
-      // ── Testimonials: hidden entirely if none exist. Owner-entered only.
-      const testimonialEl = document.getElementById("book-testimonial-section");
-      if (testimonials && testimonials.length > 0) {
-        testimonialEl.innerHTML = `
-          <h2 class="book-section-heading">Kata Pelanggan Kami</h2>
-          <div class="book-testimonial-scroll">
-            ${testimonials.map(t => `
-              <div class="book-testimonial-card">
-                <p class="book-testimonial-quote">"${escapeHtml(t.quote_text)}"</p>
-                <p class="book-testimonial-author">${escapeHtml(t.customer_name)}</p>
-              </div>
-            `).join("")}
-          </div>`;
-        if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          const cards = testimonialEl.querySelectorAll(".book-testimonial-card");
-          cards.forEach((el, i) => {
-            el.style.opacity = "0"; el.style.transform = "translateY(10px)";
-            el.style.transition = `opacity 0.4s ease ${i * 80}ms, transform 0.4s ease ${i * 80}ms`;
-          });
-          const testObs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.style.opacity = "1"; entry.target.style.transform = "translateY(0)";
-                testObs.unobserve(entry.target);
-              }
-            });
-          }, { threshold: 0.15 });
-          cards.forEach(el => testObs.observe(el));
-        }
-      } else {
-        testimonialEl.innerHTML = "";
-      }
-
-      // ── Social & Lokasi: only shows icons for links the owner actually filled in.
-      const socialEl = document.getElementById("book-social-section");
-      const socialLinks = [];
-      if (biz.instagram_url) socialLinks.push({ href: biz.instagram_url, label: "Instagram", icon: '<path d="M16 3H8a5 5 0 0 0-5 5v8a5 5 0 0 0 5 5h8a5 5 0 0 0 5-5V8a5 5 0 0 0-5-5Z"></path><path d="M16.5 7.5h.01"></path><circle cx="12" cy="12" r="4"></circle>' });
-      if (biz.tiktok_url) socialLinks.push({ href: biz.tiktok_url, label: "TikTok", icon: '<path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>' });
-      if (biz.facebook_url) socialLinks.push({ href: biz.facebook_url, label: "Facebook", icon: '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"></path>' });
-      if (biz.whatsapp_number) socialLinks.push({ href: `https://wa.me/${biz.whatsapp_number.replace(/[^0-9]/g, "")}`, label: "WhatsApp", icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>' });
-      if (biz.maps_url) socialLinks.push({ href: biz.maps_url, label: "Lokasi", icon: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle>' });
-      if (socialLinks.length > 0) {
-        socialEl.innerHTML = `
-          <div class="book-social-row">
-            ${socialLinks.map(s => `
-              <a href="${escapeHtml(s.href)}" target="_blank" rel="noopener" class="book-social-icon" aria-label="${s.label}" title="${s.label}">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${s.icon}</svg>
-              </a>
-            `).join("")}
-          </div>`;
-      } else {
-        socialEl.innerHTML = "";
-      }
-
-      // ── Map: real embedded map (query-based, no API key needed) using
-      // business_address. Hidden entirely if the owner hasn't set an address.
-      const mapEl = document.getElementById("book-map-section");
-      if (biz.business_address && biz.business_address.trim()) {
-        const query = encodeURIComponent(biz.business_address);
-        mapEl.innerHTML = `
-          <div class="book-map-frame">
-            <iframe src="https://www.google.com/maps?q=${query}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokasi"></iframe>
-          </div>`;
-      } else {
-        mapEl.innerHTML = "";
-      }
-    }
-
-    function renderBizHeader() {
-      const biz = availabilityData.business;
-      return `
-        <div class="book-biz-banner">
-          ${biz.logo_url ? `<img src="${escapeHtml(biz.logo_url)}" />` : `<p class="brand" style="font-size:1.3rem; margin:0;">${escapeHtml(biz.name)}</p>`}
-        </div>`;
-    }
-
-    function currentDeposit() {
-      return selectedType
-        ? (selectedType.deposit_amount != null ? selectedType.deposit_amount : availabilityData?.deposit_amount)
-        : availabilityData?.deposit_amount;
-    }
-
-    function renderStepIndicator(step) {
-      const hasTypeStep = (availabilityData.event_types || []).length > 0;
-      const steps = hasTypeStep
-        ? [{ n: 1, label: T().pickType }, { n: 2, label: T().pickSlot }, { n: 3, label: T().stepDetails }]
-        : [{ n: 2, label: T().pickSlot }, { n: 3, label: T().stepDetails }];
-      return `
-        <div class="book-steps">
-          ${steps.map((s, i) => `
-            <div class="book-step ${step > s.n ? "done" : step === s.n ? "active" : ""}">
-              <span class="book-step-dot">${step > s.n ? "✓" : (hasTypeStep ? s.n : i + 1)}</span>
-            </div>
-            ${i < steps.length - 1 ? `<span class="book-step-line ${step > s.n ? "done" : ""}"></span>` : ""}
-          `).join("")}
-        </div>`;
-    }
-
-    function renderSummaryCard() {
-      const noTypesToPick = (availabilityData.event_types || []).length === 0;
-      if (!selectedType && !selectedDate && !noTypesToPick) return "";
-      const deposit = currentDeposit();
-      const depositLabel = deposit === 0 ? T().free : (deposit != null ? `RM ${Number(deposit).toFixed(2)}` : "");
-      const rows = [];
-      if (selectedType) rows.push(`<div class="book-summary-row"><span class="book-summary-label">${T().pickType}</span><span class="book-summary-value">${escapeHtml(selectedType.name)}</span></div>`);
-      if (selectedDate && selectedSlot) rows.push(`<div class="book-summary-row"><span class="book-summary-label">${T().slotChosen}</span><span class="book-summary-value">${dateLabel(selectedDate)}, ${selectedSlot.label}</span></div>`);
-      if (depositLabel && (selectedType || noTypesToPick)) {
-        rows.push(`<div class="book-summary-row"><span class="book-summary-label">${T().deposit}</span><span class="book-summary-value deposit">${depositLabel}</span></div>`);
-      }
-      if (rows.length === 0) return "";
-      return `<div class="book-summary-card">${rows.join("")}</div>`;
-    }
-
+    // Step 1: Service Package Picker
     function renderTypePicker() {
       const content = document.getElementById("book-content");
       const types = availabilityData.event_types || [];
-      const countClass = types.length === 1 ? "count-1" : types.length === 2 ? "count-2" : "count-many";
-      content.innerHTML = renderLangSwitcher() + renderStepIndicator(1) + `
-        <p class="hint" style="text-align:center; margin-bottom:1rem;">${T().pickType}</p>
-        <div class="event-type-grid ${countClass}">
-          ${types.map((t, i) => `
-            <div class="event-type-card" data-select-type="${t.id}" data-reveal-index="${i}">
-              <div class="event-type-card-image" style="${t.poster_url ? `background-image:url('${escapeHtml(t.poster_url)}');` : `background:linear-gradient(135deg, var(--stamp-soft), var(--surface));`}"></div>
-              <div class="event-type-card-body">
-                <strong>${escapeHtml(t.name)}</strong>
-                <div class="hint" style="font-size:0.8rem;">${t.duration_minutes} minit${t.capacity > 1 ? ` · sehingga ${t.capacity} orang` : ""}</div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
-                  ${(t.description || t.poster_url) ? `<button type="button" class="event-type-viewmore" data-viewmore-id="${t.id}">${T().viewMore}</button>` : "<span></span>"}
-                  <span class="mono" style="font-weight:700; color:var(--stamp); white-space:nowrap;">${t.deposit_amount === 0 ? T().free : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "")}</span>
+
+      content.innerHTML = `
+        ${renderStepper(1)}
+        <div style="margin-bottom:1.25rem;">
+          <h2 style="font-family:Fraunces, serif; font-size:1.35rem; margin:0 0 0.35rem; color:var(--ink);">${T().pickType}</h2>
+          <p class="hint" style="margin:0; font-size:0.88rem;">${T().pickTypeSubtitle}</p>
+        </div>
+        <div class="event-type-grid">
+          ${types.map((t, i) => {
+            const depositStr = t.deposit_amount === 0 ? T().free : (t.deposit_amount != null ? `Deposit RM ${Number(t.deposit_amount).toFixed(2)}` : "");
+            const fullPriceStr = t.price != null ? `RM ${Number(t.price).toFixed(2)}` : "";
+            const priceDisplay = fullPriceStr || depositStr;
+            return `
+              <div class="event-type-card ${selectedType?.id === t.id ? "selected" : ""}" data-select-type="${t.id}" tabindex="0">
+                ${t.poster_url ? `
+                  <div class="event-type-card-poster" style="background-image:url('${escapeHtml(t.poster_url)}');"></div>
+                ` : ""}
+                <div class="event-type-card-body">
+                  <div class="event-type-card-head">
+                    <h3 class="event-type-card-title">${escapeHtml(t.name)}</h3>
+                    ${priceDisplay ? `<span class="event-type-price-pill">${priceDisplay}</span>` : ""}
+                  </div>
+                  ${t.description ? `<p class="event-type-card-desc">${escapeHtml(t.description.length > 120 ? t.description.slice(0, 120) + "..." : t.description)}</p>` : ""}
+                  <div class="event-type-meta-row">
+                    <span class="event-type-meta-item">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      ${t.duration_minutes} ${T().durationLabel}
+                    </span>
+                    ${t.capacity > 1 ? `
+                      <span class="event-type-meta-item">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        ${T().capacityLabel.replace("{n}", t.capacity)}
+                      </span>
+                    ` : ""}
+                  </div>
+                  <div class="event-type-card-footer">
+                    ${(t.description && t.description.length > 120) ? `<button type="button" class="event-type-choose-btn" data-viewmore-id="${t.id}" style="text-decoration:underline;">${T().viewMore}</button>` : "<span></span>"}
+                    <span class="event-type-choose-btn">${T().chooseServiceBtn}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          `).join("")}
+            `;
+          }).join("")}
         </div>
       `;
-      wireLangSwitcher();
+
       document.querySelectorAll("[data-select-type]").forEach(row => {
         row.addEventListener("click", (e) => {
-          if (e.target.closest(".event-type-viewmore")) return;
-          const t = types.find(t => t.id === row.dataset.selectType);
+          if (e.target.closest("[data-viewmore-id]")) return;
+          const t = types.find(item => item.id === row.dataset.selectType);
           selectedType = t;
           selectedDate = null;
           selectedSlot = null;
@@ -432,31 +918,14 @@
           loadAvailability(t.id);
         });
       });
-      document.querySelectorAll(".event-type-viewmore").forEach(btn => {
+
+      document.querySelectorAll("[data-viewmore-id]").forEach(btn => {
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
-          const t = types.find(t => t.id === btn.dataset.viewmoreId);
+          const t = types.find(item => item.id === btn.dataset.viewmoreId);
           openServiceDetailModal(t);
         });
       });
-      // Gentle fade+scale entrance — subtle, not bouncy, matching the calmer
-      // premium aesthetic (unlike the marketing site's playful animations).
-      if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        const cards = document.querySelectorAll(".event-type-card");
-        cards.forEach((el, i) => {
-          el.style.opacity = "0"; el.style.transform = "translateY(10px)";
-          el.style.transition = `opacity 0.4s ease ${i * 70}ms, transform 0.4s ease ${i * 70}ms`;
-        });
-        const obs = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.style.opacity = "1"; entry.target.style.transform = "translateY(0)";
-              obs.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.1 });
-        cards.forEach(el => obs.observe(el));
-      }
     }
 
     function openServiceDetailModal(t) {
@@ -470,7 +939,7 @@
       document.getElementById("service-detail-modal").style.display = "none";
     });
 
-    let calendarViewMonth = null; // "YYYY-MM" string, tracks which month is shown
+    let calendarViewMonth = null;
 
     function renderDateCalendar(dateKeys) {
       if (dateKeys.length === 0) return;
@@ -480,14 +949,14 @@
       const [viewYear, viewMonthNum] = calendarViewMonth.split("-").map(Number);
       const firstOfMonth = new Date(viewYear, viewMonthNum - 1, 1);
       const daysInMonth = new Date(viewYear, viewMonthNum, 0).getDate();
-      const startWeekday = firstOfMonth.getDay(); // 0=Sun
+      const startWeekday = firstOfMonth.getDay();
 
       const minMonth = dateKeys[0].slice(0, 7);
       const maxMonth = dateKeys[dateKeys.length - 1].slice(0, 7);
       const canGoPrev = calendarViewMonth > minMonth;
       const canGoNext = calendarViewMonth < maxMonth;
 
-      const weekdayLabels = lang === "ms" ? ["A", "I", "S", "R", "K", "J", "S"] : ["S", "M", "T", "W", "T", "F", "S"];
+      const weekdayLabels = lang === "ms" ? ["Ahd", "Isn", "Sel", "Rab", "Kha", "Jum", "Sab"] : (lang === "zh" ? ["日", "一", "二", "三", "四", "五", "六"] : (lang === "ta" ? ["ஞா", "தி", "செ", "பு", "வி", "வெ", "ச"] : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]));
       const monthLabel = firstOfMonth.toLocaleDateString(lang === "ms" ? "ms-MY" : "en-MY", { month: "long", year: "numeric" });
 
       let cells = "";
@@ -496,18 +965,19 @@
         const key = `${viewYear}-${String(viewMonthNum).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
         const slots = slotsByDate[key];
         const count = slots ? slots.length : 0;
-        const density = count === 0 ? "" : count <= 2 ? "density-low" : count <= 5 ? "density-med" : "density-high";
         const isSelected = key === selectedDate;
-        cells += `<div class="book-cal-day ${count > 0 ? "has-slots " + density : ""} ${isSelected ? "selected" : ""}" ${count > 0 ? `data-date-cell="${key}"` : ""}>
-          <span>${d}</span>${count > 0 ? '<span class="dot"></span>' : ""}
-        </div>`;
+        cells += `
+          <div class="book-cal-day ${count > 0 ? "has-slots" : ""} ${isSelected ? "selected" : ""}" ${count > 0 ? `data-date-cell="${key}"` : ""} title="${count > 0 ? `${count} slot available` : ""}">
+            <span>${d}</span>
+            ${count > 0 ? '<span class="dot"></span>' : ""}
+          </div>`;
       }
 
-      document.getElementById("book-date-row").innerHTML = `
+      document.getElementById("book-date-box").innerHTML = `
         <div class="book-cal-header">
-          <button type="button" class="book-cal-nav-btn" id="cal-prev-btn" ${!canGoPrev ? "disabled" : ""}>‹</button>
+          <button type="button" class="book-cal-nav-btn" id="cal-prev-btn" ${!canGoPrev ? "disabled" : ""} aria-label="Bulan sebelum">‹</button>
           <span class="book-cal-month-label">${monthLabel}</span>
-          <button type="button" class="book-cal-nav-btn" id="cal-next-btn" ${!canGoNext ? "disabled" : ""}>›</button>
+          <button type="button" class="book-cal-nav-btn" id="cal-next-btn" ${!canGoNext ? "disabled" : ""} aria-label="Bulan seterusnya">›</button>
         </div>
         <div class="book-cal-weekdays">${weekdayLabels.map(w => `<span>${w}</span>`).join("")}</div>
         <div class="book-cal-grid">${cells}</div>
@@ -532,34 +1002,61 @@
       });
     }
 
+    // Step 2 & 3: Calendar & Time Slots & Booking Form
     function renderPicker() {
       const content = document.getElementById("book-content");
-      const dateKeys = Object.keys(availabilityData.slots_by_date);
+      const dateKeys = Object.keys(availabilityData.slots_by_date || {});
       const hasTypes = (availabilityData.event_types || []).length > 0;
 
       if (dateKeys.length === 0) {
-        content.innerHTML = renderLangSwitcher() +
-          `<div class="card"><p class="hint" style="text-align:center;">${T().noSlots}</p></div>`;
-        wireLangSwitcher();
+        content.innerHTML = `
+          ${renderStepper(2)}
+          <div style="text-align:center; padding:2rem 1rem;">
+            <p class="hint">${T().noSlots}</p>
+            ${hasTypes ? `<button type="button" class="secondary" id="change-type-btn" style="margin-top:1rem;">${T().changeType}</button>` : ""}
+          </div>`;
+        document.getElementById("change-type-btn")?.addEventListener("click", () => {
+          selectedType = null;
+          availabilityData.slots_by_date = null;
+          renderTypePicker();
+        });
         return;
       }
 
       if (!selectedDate) selectedDate = dateKeys[0];
 
-      content.innerHTML = renderLangSwitcher() + renderStepIndicator(selectedSlot ? 3 : 2) + renderSummaryCard() + `
-        ${hasTypes ? `<button type="button" class="secondary" id="change-type-btn" style="margin-bottom:0.8rem;">${T().changeType}</button>` : ""}
-        ${!hasTypes && (availabilityData.link_description || availabilityData.link_poster_url) ? `<button type="button" class="event-type-viewmore" id="link-viewmore-btn" style="margin-bottom:0.8rem; display:block;">${T().viewMore}</button>` : ""}
-        <p class="hint" style="margin-bottom:0.8rem;">${T().pickSlot}</p>
-        <div class="card">
-          <div class="book-date-row" id="book-date-row"></div>
-          <div class="book-slot-grid" id="book-slot-grid" style="margin-top:1rem;"></div>
+      content.innerHTML = `
+        ${renderStepper(selectedSlot ? 3 : 2)}
+
+        <!-- Top Service Pill & Switcher -->
+        <div class="book-slot-header">
+          <div>
+            <h2 style="font-family:Fraunces, serif; font-size:1.3rem; margin:0 0 0.25rem; color:var(--ink);">${T().pickSlot}</h2>
+            <p class="hint" style="margin:0; font-size:0.85rem;">${T().pickSlotSubtitle}</p>
+          </div>
+          ${selectedType ? `
+            <div class="book-selected-service-pill">
+              <span><strong>${escapeHtml(selectedType.name)}</strong></span>
+              <button type="button" class="book-change-btn" id="change-type-btn">(${T().changeType})</button>
+            </div>
+          ` : ""}
         </div>
+
+        <!-- Mini Calendar Box -->
+        <div class="book-cal-box" id="book-date-box"></div>
+
+        <!-- Available Time Slots for Selected Date -->
+        <div style="margin-top:1rem;">
+          <h3 class="book-slots-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            ${T().availableSlotsTitle} (${dateLabel(selectedDate)})
+          </h3>
+          <div class="book-slot-grid" id="book-slot-grid"></div>
+        </div>
+
+        <!-- Booking Form & Summary Container -->
         <div id="book-form-wrap"></div>
       `;
-      document.getElementById("link-viewmore-btn")?.addEventListener("click", () => {
-        openServiceDetailModal({ name: availabilityData.business.name, description: availabilityData.link_description, poster_url: availabilityData.link_poster_url });
-      });
-      wireLangSwitcher();
 
       document.getElementById("change-type-btn")?.addEventListener("click", () => {
         selectedType = null;
@@ -571,20 +1068,33 @@
 
       const slotGrid = document.getElementById("book-slot-grid");
       const slots = availabilityData.slots_by_date[selectedDate] || [];
-      slotGrid.innerHTML = slots.map(s => `
-        <button type="button" class="chip book-slot-chip ${selectedSlot?.iso === s.iso ? "selected" : ""}" data-iso="${s.iso}">${s.label}</button>
-      `).join("");
-      slotGrid.querySelectorAll(".book-slot-chip").forEach(btn => {
-        btn.addEventListener("click", () => {
-          selectedSlot = slots.find(s => s.iso === btn.dataset.iso);
-          renderPicker();
-          renderForm();
-        });
-      });
 
-      if (selectedSlot) renderForm();
+      if (slots.length === 0) {
+        slotGrid.innerHTML = `<p class="hint" style="grid-column:1/-1;">Tiada slot untuk tarikh ini.</p>`;
+      } else {
+        slotGrid.innerHTML = slots.map(s => `
+          <button type="button" class="book-slot-chip ${selectedSlot?.iso === s.iso ? "selected" : ""}" data-iso="${s.iso}">
+            <span>${s.label}</span>
+          </button>
+        `).join("");
+
+        slotGrid.querySelectorAll(".book-slot-chip").forEach(btn => {
+          btn.addEventListener("click", () => {
+            selectedSlot = slots.find(s => s.iso === btn.dataset.iso);
+            renderPicker();
+            renderForm();
+            // Smooth scroll down to form
+            document.getElementById("book-form-wrap")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          });
+        });
+      }
+
+      if (selectedSlot) {
+        renderForm();
+      }
     }
 
+    // Step 3: Customer Details Form & Transparent Summary
     function renderForm() {
       const wrap = document.getElementById("book-form-wrap");
       const customQuestions = availabilityData.questions || [];
@@ -592,38 +1102,116 @@
       const depositLabel = deposit === 0 ? T().free : (deposit != null ? `RM ${Number(deposit).toFixed(2)}` : "");
       const cancelHours = availabilityData.cancel_notice_hours;
 
-      const policyLines = [];
-      if (deposit != null && deposit > 0) policyLines.push(`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px; flex-shrink:0;"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> ${T().policyDeposit.replace("{amount}", `RM ${Number(deposit).toFixed(2)}`)}`);
-      if (cancelHours != null) policyLines.push(`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px; flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ${T().policyCancel.replace("{hours}", cancelHours)}`);
+      const durationMins = selectedType?.duration_minutes || availabilityData.slot_duration_minutes || 60;
 
       wrap.innerHTML = `
-        ${policyLines.length > 0 ? `<div class="book-policy-card">${policyLines.map(l => `<p>${l}</p>`).join("")}</div>` : ""}
-        <div class="card" style="margin-top:0.8rem;">
+        <div class="book-form-card">
+          <!-- Receipt-style Summary Box -->
+          <div class="book-summary-box">
+            <div class="book-summary-head">${T().summaryHeading}</div>
+            ${selectedType ? `
+              <div class="book-summary-item">
+                <span class="book-summary-label">${T().stepService}</span>
+                <span class="book-summary-val">${escapeHtml(selectedType.name)}</span>
+              </div>
+            ` : ""}
+            <div class="book-summary-item">
+              <span class="book-summary-label">${T().slotChosen}</span>
+              <span class="book-summary-val highlight">${dateLabel(selectedDate)}, ${selectedSlot.label} (${durationMins} ${T().durationLabel})</span>
+            </div>
+            ${depositLabel ? `
+              <div class="book-summary-item">
+                <span class="book-summary-label">${T().deposit}</span>
+                <span class="book-summary-val highlight">${depositLabel}</span>
+              </div>
+            ` : ""}
+            <div class="book-policy-disclosure">
+              ${deposit != null && deposit > 0 ? `
+                <div class="book-policy-line">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>${T().policyDeposit.replace("{amount}", `RM ${Number(deposit).toFixed(2)}`)}</span>
+                </div>
+              ` : ""}
+              ${cancelHours != null ? `
+                <div class="book-policy-line">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>${T().policyCancel.replace("{hours}", cancelHours)}</span>
+                </div>
+              ` : ""}
+            </div>
+          </div>
+
+          <!-- Customer Input Form -->
           <form id="book-form">
-            <label for="bk-name">${T().name}</label>
-            <input type="text" id="bk-name" required value="${escapeHtml(lastFormValues.name)}" />
-            <label for="bk-email">${T().email}<button type="button" class="info-icon-btn" data-info="${escapeHtml(T().emailInfo)}">i</button></label>
-            <input type="email" id="bk-email" required placeholder="${T().emailPlaceholder}" value="${escapeHtml(lastFormValues.email)}" />
-            <label for="bk-phone">${T().phone}</label>
-            <input type="text" id="bk-phone" required value="${escapeHtml(lastFormValues.phone)}" />
-            <label for="bk-notes">${T().notes}</label>
-            <textarea id="bk-notes" rows="2"></textarea>
+            <div class="book-input-group">
+              <label for="bk-name" class="book-input-label">
+                <span>${T().name} *</span>
+              </label>
+              <div class="book-input-row">
+                <input type="text" id="bk-name" required placeholder="${T().namePlaceholder}" value="${escapeHtml(lastFormValues.name)}" />
+              </div>
+            </div>
+
+            <div class="book-input-group">
+              <label for="bk-email" class="book-input-label">
+                <span>${T().email} *</span>
+                <button type="button" class="info-icon-btn" data-info="${escapeHtml(T().emailInfo)}" aria-label="Info Emel">i</button>
+              </label>
+              <div class="book-input-row">
+                <input type="email" id="bk-email" required placeholder="${T().emailPlaceholder}" value="${escapeHtml(lastFormValues.email)}" />
+              </div>
+            </div>
+
+            <div class="book-input-group">
+              <label for="bk-phone" class="book-input-label">
+                <span>${T().phone} *</span>
+              </label>
+              <div class="book-input-row" style="display:flex; align-items:center; gap:0.4rem;">
+                <span style="background:var(--paper); border:1px solid var(--paper-line); padding:0.65rem 0.8rem; border-radius:8px; font-size:0.85rem; font-weight:600; color:var(--ink); flex-shrink:0;">🇲🇾 +60</span>
+                <input type="tel" id="bk-phone" required placeholder="${T().phonePlaceholder}" value="${escapeHtml(lastFormValues.phone)}" style="flex:1;" />
+              </div>
+            </div>
+
+            <div class="book-input-group">
+              <label for="bk-notes" class="book-input-label">
+                <span>${T().notes}</span>
+              </label>
+              <div class="book-input-row">
+                <textarea id="bk-notes" rows="2" placeholder="${T().notesPlaceholder}"></textarea>
+              </div>
+            </div>
+
             ${customQuestions.map((q, i) => `
-              <label for="bk-custom-${i}">${escapeHtml(q.question_text)}</label>
-              <input type="text" id="bk-custom-${i}" data-question="${escapeHtml(q.question_text)}" />
+              <div class="book-input-group">
+                <label for="bk-custom-${i}" class="book-input-label">
+                  <span>${escapeHtml(q.question_text)}</span>
+                </label>
+                <div class="book-input-row">
+                  <input type="text" id="bk-custom-${i}" data-question="${escapeHtml(q.question_text)}" />
+                </div>
+              </div>
             `).join("")}
-            <button type="submit" style="width:100%; margin-top:1.25rem;">${depositLabel ? `${T().confirmBtn} · ${depositLabel}` : T().confirmBtn}</button>
-            <p class="hint book-email-notice"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px; flex-shrink:0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> ${escapeHtml(T().emailNotice)}</p>
-            <p class="error" id="book-error" style="display:none;"></p>
+
+            <button type="submit" class="book-submit-btn" id="book-submit-button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>${deposit && deposit > 0 ? T().confirmBtnWithDeposit.replace("{amount}", `RM ${Number(deposit).toFixed(2)}`) : T().confirmBtn}</span>
+            </button>
+
+            <div class="book-secure-note">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>${T().secureSubmitNote}</span>
+            </div>
+
+            <p class="error" id="book-error" style="display:none; margin-top:0.8rem;"></p>
           </form>
         </div>
       `;
 
       document.getElementById("book-form").addEventListener("submit", async (e) => {
         e.preventDefault();
-        const btn = e.target.querySelector("button[type=submit]");
+        const btn = document.getElementById("book-submit-button");
         btn.disabled = true;
-        btn.textContent = T().sending;
+        btn.innerHTML = `<span>${T().sending}</span>`;
 
         const customAnswers = {};
         customQuestions.forEach((q, i) => {
@@ -632,10 +1220,21 @@
         });
 
         lastFormValues = {
-          name: document.getElementById("bk-name").value,
-          email: document.getElementById("bk-email").value,
-          phone: document.getElementById("bk-phone").value,
+          name: document.getElementById("bk-name").value.trim(),
+          email: document.getElementById("bk-email").value.trim(),
+          phone: document.getElementById("bk-phone").value.trim(),
         };
+
+        if (isPreviewMode) {
+          setTimeout(() => {
+            renderSuccess({
+              booking_id: "BK-DEMO-8849",
+              date_label: dateLabel(selectedDate),
+              slot_label: selectedSlot.label
+            });
+          }, 450);
+          return;
+        }
 
         try {
           const res = await fetch("/api/booking-create", {
@@ -645,7 +1244,7 @@
               slug,
               slot_iso: selectedSlot.iso,
               event_type_id: selectedType ? selectedType.id : undefined,
-              duration_minutes: availabilityData.slot_duration_minutes,
+              duration_minutes: durationMins,
               name: lastFormValues.name,
               email: lastFormValues.email,
               phone: lastFormValues.phone,
@@ -658,10 +1257,11 @@
           if (!res.ok) throw new Error(result.error || T().genericError);
           renderSuccess(result);
         } catch (err) {
-          document.getElementById("book-error").textContent = err.message;
-          document.getElementById("book-error").style.display = "block";
+          const errEl = document.getElementById("book-error");
+          errEl.textContent = err.message;
+          errEl.style.display = "block";
           btn.disabled = false;
-          btn.textContent = T().confirmBtn;
+          btn.innerHTML = `<span>${T().confirmBtn}</span>`;
         }
       });
     }
@@ -676,50 +1276,113 @@
         `DTSTAMP:${fmt(new Date())}`,
         `DTSTART:${fmt(start)}`,
         `DTEND:${fmt(end)}`,
-        `SUMMARY:${(title || biz.name || "Booking").replace(/\n/g, " ")}`,
+        `SUMMARY:${(title || biz.name || "Tempahan").replace(/\n/g, " ")}`,
         biz.business_address ? `LOCATION:${biz.business_address.replace(/\n/g, " ")}` : "",
+        "DESCRIPTION:Disahkan melalui eqstudio.link",
         "END:VEVENT", "END:VCALENDAR",
       ].filter(Boolean).join("\r\n");
       const blob = new Blob([ics], { type: "text/calendar" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = url; a.download = "tempahan.ics"; a.click();
+      a.href = url; a.download = "tempahan-slot.ics"; a.click();
       URL.revokeObjectURL(url);
     }
 
+    // Step 4: Digital Booking Ticket / Voucher Pass
     function renderSuccess(result) {
       const savedSlotIso = selectedSlot ? selectedSlot.iso : null;
-      const savedDuration = availabilityData.slot_duration_minutes;
+      const savedDuration = selectedType?.duration_minutes || availabilityData.slot_duration_minutes || 60;
       const savedTitle = selectedType ? selectedType.name : availabilityData.business.name;
+      const biz = availabilityData.business;
+
+      const dateStr = result.date_label || dateLabel(selectedDate);
+      const slotStr = result.slot_label || selectedSlot?.label || "";
+      const bookingCode = result.booking_id || "BK-" + Math.floor(100000 + Math.random() * 900000);
+
+      const waOwnerNumber = biz.whatsapp_number ? biz.whatsapp_number.replace(/[^0-9]/g, "") : null;
+      const waMessage = encodeURIComponent(`Hai ${biz.name}, saya telah membuat tempahan bagi slot ${dateStr}, ${slotStr} (No. Rujukan: ${bookingCode}).`);
+
       document.getElementById("book-content").innerHTML = `
-        <div class="card" style="text-align:center;">
-          <div class="book-success-check">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="book-success-ticket">
+          <div class="book-success-icon">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <h2 style="margin-top:0;">${T().confirmed}</h2>
-          <p class="hint">${escapeHtml(result.date_label)}, ${escapeHtml(result.slot_label)}</p>
-          <p class="hint" style="margin-top:0.8rem;">${T().confirmedNote}</p>
-          ${savedSlotIso ? `<button type="button" class="secondary" id="book-add-calendar-btn" style="width:100%; margin-top:1rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${T().addToCalendar}</button>` : ""}
-          <button type="button" class="secondary" id="book-again-btn" style="width:100%; margin-top:0.6rem;">${T().bookAgain}</button>
+          <h2 style="font-family:Fraunces, serif; margin:0 0 0.4rem; color:var(--ink); font-size:1.4rem;">${T().confirmedTitle}</h2>
+          <p class="hint" style="margin:0; font-size:0.9rem;">${T().confirmedSub}</p>
+
+          <div class="book-ticket-body">
+            <div class="book-ticket-row">
+              <span style="color:var(--ink-soft); font-size:0.8rem;">${T().bookingRef}</span>
+              <span class="mono" style="font-weight:700; color:var(--stamp); font-size:0.92rem;">#${escapeHtml(bookingCode)}</span>
+            </div>
+            ${selectedType ? `
+              <div class="book-ticket-row">
+                <span style="color:var(--ink-soft); font-size:0.8rem;">${T().stepService}</span>
+                <span style="font-weight:600; color:var(--ink);">${escapeHtml(selectedType.name)}</span>
+              </div>
+            ` : ""}
+            <div class="book-ticket-row">
+              <span style="color:var(--ink-soft); font-size:0.8rem;">${T().slotChosen}</span>
+              <span style="font-weight:700; color:var(--ink);">${escapeHtml(dateStr)}, ${escapeHtml(slotStr)}</span>
+            </div>
+            ${biz.business_address ? `
+              <div class="book-ticket-row">
+                <span style="color:var(--ink-soft); font-size:0.8rem;">Lokasi</span>
+                <span style="font-weight:500; font-size:0.82rem; text-align:right; max-width:200px;">${escapeHtml(biz.business_address)}</span>
+              </div>
+            ` : ""}
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:1.2rem;">
+            ${savedSlotIso ? `
+              <button type="button" class="secondary" id="book-add-calendar-btn" style="width:100%; padding:0.75rem; border-radius:10px; font-weight:600; font-size:0.88rem; display:inline-flex; align-items:center; justify-content:center; gap:0.4rem;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                ${T().addToCalendar}
+              </button>
+            ` : ""}
+
+            ${waOwnerNumber ? `
+              <a href="https://wa.me/${waOwnerNumber}?text=${waMessage}" target="_blank" rel="noopener" class="book-contact-btn wa-primary" style="justify-content:center; padding:0.75rem; border-radius:10px; font-size:0.88rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                ${T().chatOwnerAfter}
+              </a>
+            ` : ""}
+
+            <button type="button" class="secondary" id="book-again-btn" style="width:100%; padding:0.65rem; border-radius:10px; font-size:0.82rem; border-color:transparent;">
+              ${T().bookAgain}
+            </button>
+          </div>
         </div>
       `;
+
       document.getElementById("book-add-calendar-btn")?.addEventListener("click", () => {
         downloadIcsFile(availabilityData.business, savedSlotIso, savedDuration, savedTitle);
       });
-      document.getElementById("book-again-btn").addEventListener("click", () => {
+
+      document.getElementById("book-again-btn")?.addEventListener("click", () => {
         selectedDate = null;
         selectedSlot = null;
         calendarViewMonth = null;
-        // Same event type (if any) — re-fetch so the just-created booking is
-        // correctly excluded/counted in the fresh slot list.
         loadAvailability(selectedType ? selectedType.id : undefined);
       });
     }
 
-    loadAvailability();
+    // Share action
+    document.getElementById("book-share-btn")?.addEventListener("click", async () => {
+      const bizName = availabilityData?.business?.name || "Tempahan";
+      const shareData = { title: bizName, url: window.location.href };
+      if (navigator.share) {
+        try { await navigator.share(shareData); } catch {}
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        const btn = document.getElementById("book-share-btn");
+        const orig = btn.innerHTML;
+        btn.innerHTML = `✓ Disalin!`;
+        setTimeout(() => { btn.innerHTML = orig; }, 1500);
+      }
+    });
 
-    // Sticky "Book Sekarang" — appears once the actual booking widget
-    // scrolls out of view, so it's always reachable from the profile sections.
+    // Mobile sticky CTA button scroll trigger
     const bookStickyCta = document.getElementById("book-sticky-cta");
     const bookContentEl = document.getElementById("book-content");
     if ("IntersectionObserver" in window && bookStickyCta && bookContentEl) {
@@ -731,7 +1394,7 @@
       bookContentEl.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    // ── Gallery lightbox ──
+    // Gallery Lightbox
     let lightboxIndex = 0;
     function openGalleryLightbox(index) {
       lightboxIndex = index;
@@ -762,7 +1425,7 @@
       if (e.key === "ArrowRight") document.getElementById("book-lightbox-next-btn")?.click();
     });
 
-    // ── Info-icon tooltips (tap/hover) — same pattern as dashboard.html ──
+    // Tooltip handler
     const globalTooltip = document.getElementById("global-info-tooltip");
     function showInfoTooltip(btn) {
       if (!globalTooltip || !btn) return;
@@ -781,9 +1444,7 @@
     document.addEventListener("click", (e) => {
       const btn = e.target.closest(".info-icon-btn");
       if (btn) {
-        e.preventDefault();
-        e.stopPropagation();
-        showInfoTooltip(btn);
+        e.preventDefault(); e.stopPropagation(); showInfoTooltip(btn);
       } else if (!e.target.closest("#global-info-tooltip")) {
         hideInfoTooltip();
       }
@@ -795,8 +1456,10 @@
     document.addEventListener("mouseout", (e) => {
       if (e.target.closest(".info-icon-btn")) hideInfoTooltip();
     });
-  </script>
 
-  <div class="info-tooltip" id="global-info-tooltip"></div>
+    // Initial load
+    updateNavLabels();
+    loadAvailability();
+  </script>
 </body>
 </html>

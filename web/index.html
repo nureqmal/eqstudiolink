@@ -1,0 +1,1629 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/x-icon" href="/assets/logo/favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png" />
+<title>eqstudio.link: Booking & Client Manager untuk Business Owner Solo</title>
+<meta name="description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Booking online, invois, dan pengurusan pelanggan untuk usahawan solo Malaysia. Percuba 14 hari, RM19/bulan." />
+<link rel="canonical" href="https://eqstudio.link/" />
+
+<!-- Open Graph (Facebook, WhatsApp, LinkedIn preview cards) -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://eqstudio.link/" />
+<meta property="og:title" content="eqstudio.link: Booking & Client Manager untuk Business Owner Solo" />
+<meta property="og:description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Percuba 14 hari, RM19/bulan." />
+<meta property="og:image" content="https://eqstudio.link/assets/og-image.png" />
+<meta property="og:locale" content="ms_MY" />
+
+<!-- Twitter/X Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="eqstudio.link: Booking & Client Manager untuk Business Owner Solo" />
+<meta name="twitter:description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Percuba 14 hari, RM19/bulan." />
+<meta name="twitter:image" content="https://eqstudio.link/assets/og-image.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=25" />
+</head>
+<body>
+
+  <nav class="lp-nav">
+    <a href="/" class="brand" style="text-decoration:none;"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
+    <div class="lp-nav-links">
+      <div class="lang-toggle">
+        <button type="button" class="lang-toggle-btn active" data-lang-toggle="en">EN</button>
+        <button type="button" class="lang-toggle-btn" data-lang-toggle="ms">BM</button>
+      </div>
+      <a href="/login.html" class="plain" data-i18n="nav_login">Log Masuk</a>
+      <a href="/login.html" class="btn" data-i18n="nav_cta">Mula Percuma</a>
+    </div>
+  </nav>
+
+  <div class="wrap" style="padding-top:0.8rem; padding-bottom:0;">
+    <div id="notice-container"></div>
+  </div>
+
+  <section class="lp-hero">
+    <div class="hero-gradient-mesh" id="hero-gradient-mesh" aria-hidden="true">
+      <div class="hero-corner-ray"></div>
+      <div class="hero-spotlight" id="hero-spotlight"></div>
+    </div>
+    <div>
+      <span class="lp-eyebrow" data-i18n="hero_eyebrow">Business OS Paling Senang untuk Solo Service Business Malaysia</span>
+      <h1><span data-i18n="hero_h1_a">Book. Bayar. Reminder. Repeat.</span> <span class="hero-h1-accent" data-i18n="hero_h1_b">Semua dalam satu sistem.</span></h1>
+      <p class="sub" data-i18n="hero_sub">Untuk sebarang bisnes yang berasaskan tempahan. Satu link, tiada lagi ulang-alik.</p>
+      <div class="cta-row">
+        <a href="/login.html" class="btn btn-lg" data-i18n="hero_cta_primary">Mula Percuma</a>
+        <a href="/ciri-ciri.html" class="btn secondary btn-lg" data-i18n="hero_cta_secondary">Tengok Butiran Lanjut</a>
+        <span class="hint" data-i18n="hero_trial_note">Trial 14 hari, tak perlu kad</span>
+      </div>
+      <p class="hint" style="margin-top:0.6rem; display:flex; align-items:center; gap:0.4rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span data-i18n="hero_setup_time">Setup berpandu, kebanyakan owner siap dalam bawah 5 minit</span>
+      </p>
+    </div>
+
+    <div>
+      <div class="lp-receipt lp-booking-hero" id="hero-booking-card">
+        <div class="r-head">
+          <div style="font-family:var(--font-display); font-weight:600; font-size:1.05rem;">Perniagaan Anda</div>
+        </div>
+        <p class="hint" style="margin:0.7rem 0 0.6rem;">👇 Cuba pilih slot, macam customer anda akan buat:</p>
+        <div class="hero-date-chips" id="hero-date-chips"></div>
+        <div class="hero-slot-chips" id="hero-slot-chips" style="margin-top:0.5rem;"></div>
+        <div class="hero-booking-result" id="hero-booking-result" style="display:none;"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-marquee-wrap" aria-hidden="true">
+    <div class="lp-marquee-track">
+      <span>Salon</span><span class="lp-marquee-dot">•</span>
+      <span>Tutor</span><span class="lp-marquee-dot">•</span>
+      <span>Fotografi</span><span class="lp-marquee-dot">•</span>
+      <span>Katering</span><span class="lp-marquee-dot">•</span>
+      <span>Fitness Coach</span><span class="lp-marquee-dot">•</span>
+      <span>Klinik Kecantikan</span><span class="lp-marquee-dot">•</span>
+      <span>Sewaan Kereta</span><span class="lp-marquee-dot">•</span>
+      <span>Studio Yoga</span><span class="lp-marquee-dot">•</span>
+      <span>Bengkel Kereta</span><span class="lp-marquee-dot">•</span>
+      <span>Home Baker</span><span class="lp-marquee-dot">•</span>
+      <!-- Duplicate set for seamless infinite loop -->
+      <span>Salon</span><span class="lp-marquee-dot">•</span>
+      <span>Tutor</span><span class="lp-marquee-dot">•</span>
+      <span>Fotografi</span><span class="lp-marquee-dot">•</span>
+      <span>Katering</span><span class="lp-marquee-dot">•</span>
+      <span>Fitness Coach</span><span class="lp-marquee-dot">•</span>
+      <span>Klinik Kecantikan</span><span class="lp-marquee-dot">•</span>
+      <span>Sewaan Kereta</span><span class="lp-marquee-dot">•</span>
+      <span>Studio Yoga</span><span class="lp-marquee-dot">•</span>
+      <span>Bengkel Kereta</span><span class="lp-marquee-dot">•</span>
+      <span>Home Baker</span><span class="lp-marquee-dot">•</span>
+    </div>
+  </div>
+
+  <div class="founding-banner-strip" id="founding-banner-strip">
+    <span class="founding-banner-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg> Founding Member</span>
+    <span>RM15/bulan dikunci selama-lamanya</span>
+    <span class="founding-banner-dot">•</span>
+    <span id="founding-banner-counter-text">Menyemak baki slot...</span>
+    <a href="/login.html" id="founding-cta-btn">Jadi Founding Member →</a>
+  </div>
+
+  <section class="lp-section">
+    <h2 style="text-align:center; margin-bottom:0.3rem;">Semua yang <span class="h2-accent">bisnes anda</span> perlukan</h2>
+    <p class="lead" style="text-align:center; margin-bottom:2rem;">Dalam satu sistem, bukan bertaburan aplikasi.</p>
+    <div class="lp-bento-grid">
+      <div class="lp-bento-card lp-bento-large" data-accent="stamp">
+        <div class="lp-bento-corner"></div>
+        <div class="lp-bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+        <h3>Kalendar Yang Sentiasa Kemas Kini</h3>
+        <p>Pelanggan pilih tarikh dari slot yang anda tetapkan. Tiada dua booking bertindih, tiada lagi tanya "awak free bila".</p>
+        <div class="lp-bento-mockup">
+          <div class="lp-mini-cal">
+            <span class="lp-mini-cal-day full"></span><span class="lp-mini-cal-day"></span><span class="lp-mini-cal-day some"></span>
+            <span class="lp-mini-cal-day"></span><span class="lp-mini-cal-day full"></span><span class="lp-mini-cal-day some"></span>
+            <span class="lp-mini-cal-day"></span><span class="lp-mini-cal-day full"></span><span class="lp-mini-cal-day"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lp-bento-card" data-accent="coral">
+        <div class="lp-bento-corner"></div>
+        <div class="lp-bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div>
+        <h3>Notifikasi Terus ke Telefon</h3>
+        <p>Booking baharu? Tahu serta-merta, walau dashboard tak dibuka.</p>
+      </div>
+
+      <div class="lp-bento-card" data-accent="sage">
+        <div class="lp-bento-corner"></div>
+        <div class="lp-bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+        <h3>Deposit Diminta Automatik</h3>
+        <p>Sebaik booking disahkan, arahan bayaran terus dihantar. Tiada lagi anda perlu kejar.</p>
+      </div>
+
+      <div class="lp-bento-card lp-bento-large" data-accent="lilac">
+        <div class="lp-bento-corner"></div>
+        <div class="lp-bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
+        <h3>Laporan Yang Sebenar-Benarnya Berguna</h3>
+        <p>Pendapatan bulan ini, siapa belum bayar, ramalan cash-flow 6 minggu akan datang. Semua sekali imbas.</p>
+        <div class="lp-bento-mockup">
+          <div class="lp-mini-bars">
+            <span style="height:35%"></span><span style="height:55%"></span><span style="height:40%"></span>
+            <span style="height:70%"></span><span style="height:50%"></span><span style="height:85%"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lp-bento-card" data-accent="sun">
+        <div class="lp-bento-corner"></div>
+        <div class="lp-bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+        <h3>Pelbagai Jenis Servis</h3>
+        <p>Setiap servis, tempoh dan harga sendiri. Sesuai untuk salon, tuisyen, katering, apa sahaja.</p>
+      </div>
+
+      <div class="lp-bento-card" data-accent="stamp">
+        <div class="lp-bento-corner"></div>
+        <div class="lp-bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div>
+        <h3>Pautan Anda Sendiri</h3>
+        <p>Kongsi terus di WhatsApp, Instagram, atau cetak QR untuk kaunter.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section" style="padding-top:1rem; padding-bottom:2rem;">
+    <div class="lp-stat-strip">
+      <div class="lp-stat-item">
+        <div class="lp-stat-number"><span class="lp-count-up" data-target="5">0</span> min</div>
+        <div class="lp-stat-label">Purata masa setup</div>
+      </div>
+      <div class="lp-stat-item">
+        <div class="lp-stat-number">RM<span class="lp-count-up" data-target="0">0</span></div>
+        <div class="lp-stat-label">Kad kredit diperlukan</div>
+      </div>
+      <div class="lp-stat-item">
+        <div class="lp-stat-number"><span class="lp-count-up" data-target="14">0</span> hari</div>
+        <div class="lp-stat-label">Percubaan percuma</div>
+      </div>
+      <div class="lp-stat-item">
+        <div class="lp-stat-number"><span class="lp-count-up" data-target="24">0</span>/7</div>
+        <div class="lp-stat-label">Automasi berjalan</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section" id="demo">
+    <div class="lp-sim-cta lp-sim-cta-spotlight">
+      <span class="lp-sim-badge">Tanpa Pendaftaran</span>
+      <div class="lp-sim-cta-icon lp-sim-icon-pulse">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+      </div>
+      <h2 style="margin-bottom:0.4rem;">Cuba Rasa Sistem Ni Sendiri</h2>
+      <p class="lead" style="margin-bottom:1.5rem;">Journey lengkap 10 langkah, dari customer book slot sendiri, sampai nampak <strong>emel deposit & reminder sebenar</strong> yang dihantar automatic. Macam main game, tak payah daftar.</p>
+      <button type="button" class="btn btn-lg lp-sim-btn-glow" id="open-sim-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Cuba Simulasi Sekarang!</button>
+      <p style="margin-top:1rem;">
+        <button type="button" class="secondary" id="open-explore-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> Jelajah Dashboard Kami</button>
+      </p>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <h2 data-i18n="compare_h2">Cara Lama vs eqstudio.link</h2>
+    <p class="lead" data-i18n="compare_lead">Bukan ganti cara anda buat bisnes. Cuma ambil alih bahagian yang paling senang tercicir.</p>
+    <div class="lp-compare">
+      <div class="lp-compare-col old">
+        <h3 data-i18n="compare_old_title">Cara Lama (WhatsApp / Buku Nota)</h3>
+        <ul class="lp-compare-list">
+          <li><span data-i18n="compare_old_1">Lambat reply, hilang customer</span></li>
+          <li><span data-i18n="compare_old_2">Scroll chat lama cari siapa belum bayar</span></li>
+          <li><span data-i18n="compare_old_3">Terlupa follow up</span></li>
+          <li><span data-i18n="compare_old_4">Segan asyik tanya bila nak bayar</span></li>
+        </ul>
+      </div>
+      <div class="lp-compare-col new">
+        <h3 data-i18n="compare_new_title">Dengan eqstudio.link</h3>
+        <ul class="lp-compare-list">
+          <li><span data-i18n="compare_new_1">Book sendiri, bila-bila masa</span></li>
+          <li><span data-i18n="compare_new_2">Deposit diminta automatik</span></li>
+          <li><span data-i18n="compare_new_3">Semua dalam satu dashboard</span></li>
+          <li><span data-i18n="compare_new_4">Sistem yang kejar, bukan anda</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section lp-section-dark">
+    <h2 style="text-align:center; margin-bottom:2rem;" data-i18n="steps_h2">Tiga langkah. Itu sahaja.</h2>
+    <div class="lp-steps-row">
+      <div class="lp-step-item">
+        <div class="lp-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg></div>
+        <div class="lp-step-label" data-i18n="steps_1">Setup, 5 minit</div>
+      </div>
+      <div class="lp-step-arrow">→</div>
+      <div class="lp-step-item">
+        <div class="lp-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div>
+        <div class="lp-step-label" data-i18n="steps_2">Kongsi link anda</div>
+      </div>
+      <div class="lp-step-arrow">→</div>
+      <div class="lp-step-item">
+        <div class="lp-step-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div>
+        <div class="lp-step-label" data-i18n="steps_3">Booking terus masuk</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section">
+    <h2 style="text-align:center; margin-bottom:0.3rem;">Dari Forum Kami</h2>
+    <p class="lead" style="text-align:center; margin-bottom:1.5rem;">Perbualan sebenar sesama business owner.</p>
+    <div class="lp-forum-scroll" id="lp-forum-scroll">
+      <p class="hint" style="padding:1rem;">Memuatkan perbualan terkini...</p>
+    </div>
+    <p style="text-align:center; margin-top:1rem;">
+      <a href="/forum.html" class="secondary btn" style="text-decoration:none;">Lawat Forum Penuh →</a>
+    </p>
+  </section>
+
+  <section class="lp-section" id="harga">
+    <h2 data-i18n="pricing_h2">Harga</h2>
+    <p class="lead" data-i18n="pricing_lead">Pilih pelan yang sesuai. Ambil tahunan, jimat 2 bulan.</p>
+
+    <div class="lp-price-toggle">
+      <button type="button" class="lp-toggle-btn" id="price-toggle-monthly" data-i18n="pricing_monthly">Bulanan</button>
+      <button type="button" class="lp-toggle-btn active" id="price-toggle-yearly" data-i18n-html="pricing_yearly">Yearly <span class="plan-badge">Save 2 Months</span></button>
+    </div>
+
+    <div class="lp-price-grid">
+      <div class="lp-price-card" id="price-card">
+        <div class="lp-price-ribbon" id="price-ribbon" data-i18n="pricing_recommended">Disyorkan</div>
+        <p class="hint" style="text-transform:uppercase; font-size:0.75rem; font-weight:700; letter-spacing:0.04em; color:var(--stamp); margin:0 0 0.3rem;" data-i18n="pricing_starter">Starter</p>
+        <p style="font-weight:600; margin:0 0 0.8rem; font-size:1.05rem;" data-i18n="pricing_starter_outcome">Uruskan bisnes anda.</p>
+        <div class="amount" id="price-amount">RM190<span>/year</span></div>
+        <p class="hint" id="price-sub">= RM15.83/month, save 2 months, after 14-day trial</p>
+        <ul>
+          <li data-i18n="pricing_starter_feat1">1 link booking, plus embed website</li>
+          <li data-i18n="pricing_starter_feat2">Jenis perkhidmatan tanpa had (tempoh, harga, kapasiti berbeza)</li>
+          <li data-i18n="pricing_starter_feat3">Deposit dan reminder automatic, disemak sekali sehari</li>
+          <li data-i18n="pricing_starter_feat4">Reschedule dan cancel self serve</li>
+          <li data-i18n="pricing_starter_feat5">Multi bahasa (BM/EN/中文/தமிழ்) untuk customer</li>
+          <li data-i18n="pricing_starter_feat6">Cash flow forecast dan risk scoring</li>
+          <li data-i18n="pricing_starter_feat7">Emel ringkasan bulanan</li>
+        </ul>
+        <a href="/login.html" class="btn" style="width:100%;" data-i18n="pricing_cta">Mula Percuma</a>
+      </div>
+
+      <div class="lp-price-card" id="pro-price-card">
+        <p class="hint" style="text-transform:uppercase; font-size:0.75rem; font-weight:700; letter-spacing:0.04em; color:var(--stamp); margin:0 0 0.3rem;" data-i18n="pricing_pro">Pro</p>
+        <p style="font-weight:600; margin:0 0 0.8rem; font-size:1.05rem;" data-i18n="pricing_pro_outcome">Kembangkan bisnes anda.</p>
+        <div class="amount" id="pro-price-amount">RM390<span>/year</span></div>
+        <p class="hint" id="pro-price-sub">= RM32.50/month</p>
+        <ul>
+          <li data-i18n="pricing_pro_feat1">Semua dalam Starter</li>
+          <li data-i18n="pricing_pro_feat2">Sehingga 3 link booking, setiap satu independen sepenuhnya</li>
+          <li data-i18n="pricing_pro_feat3">Reminder disemak setiap 2 jam, bukan sekali sehari</li>
+          <li data-i18n="pricing_pro_feat4">Emel ringkasan mingguan, bukan bulanan</li>
+          <li data-i18n="pricing_pro_feat5">Badge Pro pada post forum anda</li>
+        </ul>
+        <a href="/login.html" class="btn secondary" style="width:100%;" data-i18n="pricing_cta">Mula Percuma</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section lp-faq" id="faq">
+    <h2 data-i18n="faq_h2">Soalan Lazim</h2>
+    <details open>
+      <summary data-i18n="faq_q1">Macam mana booking online sebenarnya berfungsi?</summary>
+      <p data-i18n="faq_a1">Anda dapat satu link peribadi (eqstudio.link/book.html?slug=...). Customer buka link tu, pilih tarikh dan slot kosong, isi maklumat, submit. Tak payah lagi WhatsApp bolak balik untuk confirm tarikh. Boleh embed terus dalam website sendiri, atau print QR code untuk letak kaunter.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q2">Bila deposit diminta, dan macam mana customer bayar?</summary>
+      <p data-i18n-html="faq_a2">Right after a booking is confirmed, the system emails a deposit request automatically.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q3">Boleh tanya customer soalan tambahan semasa booking?</summary>
+      <p data-i18n="faq_a3">Boleh. Tambah "Soalan Tambahan" dalam Tetapan Booking, contoh "Apa jenis kek?" atau "Saiz?". Nanti muncul dalam borang booking lepas customer pilih slot, dan jawapan terus masuk dashboard anda.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q4">Boleh set waktu available dan buffer time?</summary>
+      <p data-i18n="faq_a4">Boleh. Set hari dan jam operasi dalam Tetapan Booking, ada grid mingguan, senang klik je. Ada juga "Buffer Time" (0 hingga 30 minit) kalau nak rehat automatic antara setiap booking.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q5">Customer boleh reschedule atau cancel sendiri?</summary>
+      <p data-i18n="faq_a5">Setiap emel confirmation booking ada butang "Reschedule / Cancel" terus. Customer pilih slot baru dari waktu available sebenar, atau cancel dengan sebab. Anda automatic dapat emel notification setiap kali ada perubahan.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q6">Ada invois rasmi?</summary>
+      <p data-i18n="faq_a6">Ada. Setiap emel reminder auto lampir invois PDF, dan anda boleh muat turun bila-bila dari dashboard tanpa tunggu reminder cycle.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q7">Customer boleh semak status bayaran sendiri?</summary>
+      <p data-i18n="faq_a7">Setiap emel ada link peribadi untuk customer semak status dah bayar atau belum, dan boleh settle terus. Tak perlu daftar akaun.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q8">Boleh ada lebih dari satu jenis servis dengan harga berbeza?</summary>
+      <p data-i18n="faq_a8">Tambah "Jenis Perkhidmatan" (Event Types) dalam Tetapan Booking, contoh "Collection Kek, 10 minit" berbanding "Kelas Baking, 2 jam, RM100". Customer pilih jenis dulu semasa booking. Group class pun boleh, set kapasiti lebih dari 1 (contoh kelas Zumba, ramai orang book slot yang sama).</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q9">Boleh buat booking percuma, macam konsultasi RM0?</summary>
+      <p data-i18n="faq_a9">Taip 0 dalam field Deposit Lalai, atau set per jenis perkhidmatan. Sistem tak hantar emel "sila bayar" untuk booking percuma.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q10">Boleh run lebih dari satu bisnes dalam satu akaun?</summary>
+      <p data-i18n-html="faq_a10">That's what the Pro plan is for.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q11">Ada laporan atau analytics?</summary>
+      <p data-i18n-html="faq_a11">The dashboard's Reports page shows income trends and risk scoring.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q12">Customer boleh guna bahasa lain?</summary>
+      <p data-i18n="faq_a12">Customer pilih bahasa sendiri masa booking, Bahasa Melayu, English, 中文, atau தமிழ். Emel dan portal mereka terus ikut bahasa yang dipilih.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q13">Macam mana bayaran berulang untuk repeat customer?</summary>
+      <p data-i18n="faq_a13">Tandakan "Bayaran Berulang" bila tambah pelanggan, pilih interval (7, 14, 30, atau 60 hari). Sistem auto generate cycle baru bila customer dah bayar, anda tak perlu tambah manual setiap kali.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q14">Selamat ke data customer saya?</summary>
+      <p data-i18n-html="faq_a14">Every account can only see its own customer data. (Rujuk <a href="/privacy-policy.html">Dasar Privasi</a> kami.)</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q15">Perlu kad kredit untuk trial 14 hari?</summary>
+      <p data-i18n="faq_a15">Tak perlu. Daftar dengan emel je, cuba dulu sebelum komited.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q16">Boleh cancel langganan bila-bila?</summary>
+      <p data-i18n="faq_a16">Boleh, tiada kontrak jangka masa. Cancel terus dari dashboard bila-bila anda nak berhenti.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q17">Berapa cepat sebenarnya boleh mula guna?</summary>
+      <p data-i18n="faq_a17">Setup berpandu bawa anda pilih jenis bisnes, nama servis pertama, waktu operasi, dan deposit, lepas tu terus bagi link booking siap pakai. Kebanyakan owner siap dalam bawah 5 minit.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q18">Boleh nampak sejarah penuh satu customer dalam satu tempat?</summary>
+      <p data-i18n="faq_a18">Boleh. Buka profil mana-mana customer untuk nampak semua yang dia dah book, mana dah bayar dan mana belum, dan booking akan datang, semua dalam satu view, bukan bertaburan dalam rekod berasingan.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q19">Boleh cadangkan feature, dan nampak apa yang akan datang?</summary>
+      <p data-i18n-html="faq_a19">Post a suggestion in the forum, other owners can vote on it.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q20">Kenapa customer saya tak nampak cara bayar?</summary>
+      <p data-i18n="faq_a20">Ini hampir selalu bermaksud Profil Perniagaan belum diisi lagi. Tambah nama bank, nombor akaun, dan QR DuitNow di situ dahulu, itulah yang tunjukkan kepada customer cara membayar deposit mereka.</p>
+    </details>
+    <details>
+      <summary data-i18n="faq_q21">Patut saya test sendiri sebelum share link saya?</summary>
+      <p data-i18n="faq_a21">Idea yang baik. Buat booking guna emel lain (bukan emel akaun anda) untuk lihat betul-betul apa yang customer anda nampak, dari pilih slot hinggalah arahan bayaran.</p>
+    </details>
+  </section>
+
+
+  <section class="lp-cta-band">
+    <h2>Biar Customer Book Sendiri, Bukan Anda Kejar Bayaran</h2>
+    <p>Booking, deposit, reminder, semua automatic. Percuba 14 hari, percuma.</p>
+    <a href="/login.html" class="btn btn-lg">Mula Percuma</a>
+    <div class="lp-trust-badges">
+      <span>🇲🇾 Dibina di Malaysia</span>
+      <span>🔒 Tiada kad kredit</span>
+      <span>⚡ 5 minit setup</span>
+    </div>
+  </section>
+
+  <div class="lp-sticky-cta" id="sticky-cta">
+    <a href="/login.html" class="btn">Mula Percuma, dari RM19/bulan</a>
+  </div>
+
+  <div class="lp-sim-overlay" id="sim-overlay">
+    <div class="lp-sim-modal">
+      <div class="lp-sim-header">
+        <div class="lp-sim-dots" id="sim-dots"></div>
+        <button type="button" class="lp-sim-close" id="sim-close-btn" aria-label="Tutup">✕</button>
+      </div>
+      <div class="lp-sim-body" id="sim-body"></div>
+      <div class="lp-sim-footer">
+        <button type="button" class="secondary" id="sim-back-btn" data-i18n="sim_back">← Back</button>
+        <span class="hint" id="sim-step-label"></span>
+        <button type="button" class="btn" id="sim-next-btn" data-i18n="sim_next">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-sim-overlay" id="explore-overlay">
+    <div class="lp-sim-modal lp-explore-modal">
+      <div class="lp-sim-header">
+        <p style="margin:0; font-weight:600; font-size:0.95rem;">🔍 Jelajah Dashboard: Data Contoh</p>
+        <button type="button" class="lp-sim-close" id="explore-close-btn" aria-label="Tutup">✕</button>
+      </div>
+      <div class="lp-explore-tabs" id="explore-tabs">
+        <button type="button" class="lp-explore-tab active" data-tab="home" data-i18n="exp_tab_home">🏠 Home</button>
+        <button type="button" class="lp-explore-tab" data-tab="booking" data-i18n="exp_tab_booking">📅 Booking</button>
+        <button type="button" class="lp-explore-tab" data-tab="laporan" data-i18n="exp_tab_laporan">📊 Reports</button>
+        <button type="button" class="lp-explore-tab" data-tab="settings" data-i18n="exp_tab_settings">⚙️ Booking Settings</button>
+      </div>
+      <div class="lp-sim-body" id="explore-body"></div>
+    </div>
+  </div>
+
+  <button type="button" class="chat-bubble-btn" id="chat-bubble-btn">
+    💬<span class="chat-dot" id="chat-dot" style="display:none;"></span>
+  </button>
+
+  <div class="chat-panel" id="chat-panel">
+    <div class="chat-panel-header">
+      <div>
+        <div class="title" data-i18n="chat_title">Tanya Kami 🤖</div>
+        <div class="sub" data-i18n="chat_sub">Bot FAQ, jawab automatic</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:0.4rem;">
+        <button type="button" class="chat-panel-close" id="chat-reset-btn" title="Reset conversation">↻</button>
+        <button type="button" class="chat-panel-close" id="chat-panel-close">✕</button>
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-quick-faq" id="chat-quick-faq"></div>
+    <form class="chat-input-row" id="chat-input-form">
+      <input type="text" id="chat-input" data-i18n-placeholder="chat_input_placeholder" placeholder="Type your question..." autocomplete="off" />
+      <button type="submit">➤</button>
+    </form>
+  </div>
+
+  <footer class="lp-footer">
+    eqstudio.link, dibina untuk business owner solo di Malaysia.
+    <div class="pdpa-badge"><a href="/privacy-policy.html" style="color:inherit; text-decoration:none;">🔒 Data anda dilindungi mengikut Akta Perlindungan Data Peribadi (PDPA) Malaysia</a></div>
+    <p class="hint" style="margin-top:0.8rem; font-size:0.75rem;">
+      <a href="/forum.html" style="color:inherit;">Forum</a> · <a href="/contact.html" style="color:inherit;">Hubungi Kami</a> · <a href="/privacy-policy.html" style="color:inherit;">Dasar Privasi</a> · <a href="/terms.html" style="color:inherit;">Terma Perkhidmatan</a>
+    </p>
+  </footer>
+
+  <script>
+    // Founding Member offer — real database count, no hardcoded numbers.
+    // If the offer is no longer available (50 slots taken), the section
+    // switches to a clear closed-state message rather than silently
+    // vanishing, so visitors aren't confused by a missing CTA.
+    async function loadFoundingMemberCounter() {
+      try {
+        const res = await fetch("/api/founding-member-count");
+        const data = await res.json();
+        const textEl = document.getElementById("founding-banner-counter-text");
+        const ctaBtn = document.getElementById("founding-cta-btn");
+        if (textEl && ctaBtn) {
+          if (data.available) {
+            textEl.textContent = `${data.remaining}/${data.cap} slot berbaki`;
+          } else {
+            textEl.textContent = "Semua 50 slot telah diambil";
+            ctaBtn.textContent = "Lihat Pelan Standard";
+            ctaBtn.href = "#harga";
+            const badge = document.querySelector(".founding-banner-badge");
+            if (badge) badge.textContent = "Tawaran Telah Tamat";
+          }
+        }
+      } catch { /* leave the default "Menyemak baki slot..." text if this fails */ }
+    }
+    loadFoundingMemberCounter();
+
+    // Interactive hero spotlight — follows the mouse for a modern, subtle
+    // "aurora glow" effect. Desktop only (hidden on touch devices via CSS,
+    // since there's no cursor to track there); ambient orbs still animate
+    // on their own everywhere, so mobile still feels alive without this.
+    const heroSection = document.querySelector(".lp-hero");
+    const heroSpotlight = document.getElementById("hero-spotlight");
+    if (heroSection && heroSpotlight) {
+      heroSection.addEventListener("mousemove", (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        heroSpotlight.style.setProperty("--mx", `${x}%`);
+        heroSpotlight.style.setProperty("--my", `${y}%`);
+        heroSpotlight.classList.add("active");
+      });
+      heroSection.addEventListener("mouseleave", () => {
+        heroSpotlight.classList.remove("active");
+      });
+    }
+
+    // Hero: mini interactive booking widget — pick a date, pick a slot, see the
+    // automatic downstream flow (deposit reminder) confirmed instantly.
+    const HERO_DATES = ["Esok", "Lusa", "Sabtu"];
+    const HERO_SLOTS = ["10:00", "12:00", "2:30 PM"];
+    let heroSelectedDate = 0;
+
+    function renderHeroChips() {
+      const dateWrap = document.getElementById("hero-date-chips");
+      dateWrap.innerHTML = HERO_DATES.map((d, i) => `<button type="button" class="chip hero-chip ${i === heroSelectedDate ? "selected" : ""}" data-date="${i}">${d}</button>`).join("");
+      dateWrap.querySelectorAll(".hero-chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          heroSelectedDate = parseInt(btn.dataset.date, 10);
+          document.getElementById("hero-booking-result").style.display = "none";
+          document.getElementById("hero-slot-chips").style.display = "flex";
+          renderHeroChips();
+        });
+      });
+
+      const slotWrap = document.getElementById("hero-slot-chips");
+      slotWrap.innerHTML = HERO_SLOTS.map(s => `<button type="button" class="chip hero-chip" data-slot="${s}">${s}</button>`).join("");
+      slotWrap.querySelectorAll("[data-slot]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.getElementById("hero-slot-chips").style.display = "none";
+          const result = document.getElementById("hero-booking-result");
+          result.style.display = "block";
+          result.style.animation = "none";
+          void result.offsetWidth;
+          result.style.animation = "stamp-in 0.5s cubic-bezier(.2,1.4,.4,1) both";
+          result.innerHTML = `
+            <div style="text-align:center; padding-top:0.4rem;">
+              <div style="font-size:1.6rem;">✅</div>
+              <p style="font-weight:600; margin:0.3rem 0 0.2rem;">Tempahan Disahkan: ${HERO_DATES[heroSelectedDate]}, ${btn.dataset.slot}</p>
+              <p class="hint" style="margin:0;">Deposit RM50 auto diminta dan reminder dihantar, tanpa anda buat apa-apa.</p>
+            </div>`;
+        });
+      });
+    }
+    renderHeroChips();
+
+    // Sticky nav gets a soft shadow once the page scrolls
+    const nav = document.querySelector(".lp-nav");
+    if (nav) {
+      window.addEventListener("scroll", () => {
+        nav.style.boxShadow = window.scrollY > 8 ? "0 1px 0 rgba(31,58,52,0.08)" : "none";
+      });
+      nav.style.position = "sticky";
+      nav.style.top = "0";
+      nav.style.background = "rgba(251, 247, 239, 0.92)";
+      nav.style.backdropFilter = "blur(4px)";
+      nav.style.transition = "box-shadow 0.2s";
+      nav.style.zIndex = "10";
+    }
+
+    // Card tilts gently toward the cursor (desktop only, respects reduced motion)
+    const receipt = document.getElementById("hero-booking-card") || document.getElementById("hero-receipt");
+    if (receipt && window.matchMedia("(hover: hover)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const heroSection = document.querySelector(".lp-hero");
+      if (heroSection) {
+        heroSection.addEventListener("mousemove", (e) => {
+          const rect = receipt.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dx = (e.clientX - cx) / rect.width;
+          const dy = (e.clientY - cy) / rect.height;
+          const rotateY = Math.max(-8, Math.min(8, dx * 10));
+          const rotateX = Math.max(-8, Math.min(8, -dy * 10));
+          receipt.style.transform = `rotate(-1.5deg) perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        heroSection.addEventListener("mouseleave", () => {
+          receipt.style.transform = "rotate(-1.5deg)";
+        });
+      }
+    }
+
+    // Sticky mobile CTA appears once the hero's own CTA scrolls out of view
+    const stickyCta = document.getElementById("sticky-cta");
+    const heroCta = document.querySelector(".lp-hero .cta-row");
+    if ("IntersectionObserver" in window && stickyCta && heroCta) {
+      new IntersectionObserver(([entry]) => {
+        stickyCta.classList.toggle("visible", !entry.isIntersecting);
+      }, { threshold: 0 }).observe(heroCta);
+    }
+
+    // Reveal-on-scroll — bouncy spring entrance (scale+rotate+slide) with
+    // staggered cascade, for a genuinely lively "something's moving" feel.
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function setupScrollReveal(elements, options = {}) {
+      if (!("IntersectionObserver" in window) || prefersReducedMotion) return;
+      const { stagger = 70, distance = 24, rotate = 3, scale = 0.92 } = options;
+      elements.forEach((el, i) => {
+        el.style.opacity = "0";
+        el.style.transform = `translateY(${distance}px) scale(${scale}) rotate(${i % 2 === 0 ? -rotate : rotate}deg)`;
+        el.style.transition = `opacity 0.5s ease ${(i % 6) * stagger}ms, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${(i % 6) * stagger}ms`;
+      });
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0) scale(1) rotate(0deg)";
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      elements.forEach(el => obs.observe(el));
+    }
+    window.setupScrollReveal = setupScrollReveal;
+
+    // Animated count-up for the stat strip numbers, triggered on scroll-in.
+    function animateCountUp(el, target, duration = 1200) {
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const countUpEls = document.querySelectorAll(".lp-count-up");
+    if ("IntersectionObserver" in window && countUpEls.length && !prefersReducedMotion) {
+      const countObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCountUp(entry.target, Number(entry.target.dataset.target));
+            countObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      countUpEls.forEach(el => countObs.observe(el));
+    } else {
+      countUpEls.forEach(el => { el.textContent = el.dataset.target; });
+    }
+
+    // 3D tilt-on-hover for bento cards — premium, interactive feel. Desktop
+    // only (mousemove doesn't fire meaningfully on touch devices anyway).
+    document.querySelectorAll(".lp-bento-card").forEach(card => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const rotateX = (0.5 - py) * 14;
+        const rotateY = (px - 0.5) * 14;
+        card.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    });
+
+    setupScrollReveal(document.querySelectorAll(".lp-step-item"), { stagger: 120 });
+    setupScrollReveal(document.querySelectorAll(".lp-faq details"), { stagger: 50 });
+    setupScrollReveal(document.querySelectorAll(".lp-bento-card"), { stagger: 90 });
+    setupScrollReveal(document.querySelectorAll(".lp-compare-col"), { stagger: 150 });
+    setupScrollReveal(document.querySelectorAll(".lp-price-card"), { stagger: 120 });
+    setupScrollReveal(document.querySelectorAll(".lp-sim-cta"), { distance: 24, rotate: 0, scale: 1 });
+    setupScrollReveal(document.querySelectorAll(".lp-cta-band"), { distance: 24, rotate: 0, scale: 1 });
+
+    // ── Full guided simulation ("game") — 10-step deep dive ──────────
+    const SIM_STEP_COUNT = 10;
+    let simStep = 0;
+    let simCustomer = { name: "Aina", amount: 120 };
+
+    const SIM_STRINGS = {
+      ms: {
+        step_label: (n, total) => `Langkah ${n} / ${total}`,
+        next_default: "Seterusnya →",
+        s1_title: "1. Customer Book Slot Sendiri",
+        s1_narrative: "Customer buka link peribadi anda, pilih tarikh dan masa, tak payah tanya \"awak free tak\" dulu dalam WhatsApp.",
+        name_label: "Nama Pelanggan",
+        deposit_label: "Deposit (RM)",
+        pick_hint: "Pilih tarikh & slot untuk teruskan:",
+        date_names: ["Esok", "Lusa", "Sabtu"],
+        customer_fallback: "Pelanggan",
+        s2_title: "2. Sistem Auto-Cipta Deposit Request",
+        s2_narrative: "Booking confirm, sistem terus cipta rekod pelanggan & deposit request. Tiada anda perlu buat apa-apa.",
+        confirming_booking: (slot) => `Booking ${slot} disahkan...`,
+        s3_title: "3. Emel Deposit Auto-Hantar",
+        s3_narrative: "Ni <strong>persis</strong> apa pelanggan anda nampak, dihantar serta merta lepas booking, branded, dengan bayar online, WhatsApp, bank transfer, invois PDF, <strong>dan</strong> boleh terus tambah ke kalendar sendiri.",
+        click_view_status: "Klik 'Lihat Status Bayaran' dalam emel ↑",
+        s4_title: "4. Portal Pelanggan: Tanpa Login",
+        s4_narrative: "Pelanggan boleh semak status dan bayar bila-bila, dari link peribadi dalam emel, <strong>tak payah daftar akaun langsung</strong>.",
+        click_pay_now: "Klik 'Bayar Sekarang' dalam portal ↑",
+        s5_title: "5. Memproses Bayaran",
+        verifying: "Mengesahkan bayaran...",
+        s6_title: "6. Emel Terima Kasih Auto-Hantar",
+        s6_narrative: "Sistem terus hantar confirmation, pelanggan anda rasa dilayan professional, tanpa anda angkat jari.",
+        s7_title: "7. Booking Muncul Terus Dalam Dashboard",
+        s7_narrative: "Tak payah anda tanya \"dah bayar ke belum\", booking dan status deposit terus terpapar dalam tab Booking anda.",
+        deposit_paid_badge: "Deposit Dah Bayar",
+        s8_title: "8. Pelanggan Berulang? Sistem Handle Automatik",
+        s8_narrative: (name) => `Kalau ${name} ni order bulanan (contoh kelas tuisyen atau langganan), tandakan "Berulang", sistem sedia cycle seterusnya sendiri.`,
+        recurring_active: "🔁 Berulang: Aktif (Setiap 30 hari)",
+        this_cycle: "Cycle Ini",
+        paid_badge: "Dah Bayar",
+        auto_generated: "Auto-Dijana",
+        due_label: (date) => `Due ${date}`,
+        recurring_hint: "Tak payah anda tambah manual setiap bulan, reminder untuk cycle baru pun jalan automatic.",
+        s9_title: "9. Laporan & Analytics",
+        s9_narrative: "Income bulanan, siapa belum bayar, dan top pelanggan, semua auto kira, tak payah Excel manual.",
+        top_customer_label: "Top Pelanggan",
+        month_names: ["Jun", "Jul", "Ogos"],
+        s10_title: "10. Selesai! 🎉",
+        s10_narrative: "Booking online, deposit, invois, reminder, portal tanpa login, pelanggan berulang, dan laporan lengkap: satu sistem, tak payah banyak tool berlainan.",
+        income_month_label: "Income Bulan Ini",
+        reminders_pending_label: "Reminder Belum Selesai",
+        start_free_cta: "Mula Percuma Sekarang →",
+        pay_now: (amount) => `Bayar Sekarang, RM ${amount}`,
+        whatsapp_question: "Ada Soalan? WhatsApp Kami",
+        bank_transfer_label: "Atau bank transfer terus",
+        scan_qr: "🇲🇾 Scan QR DuitNow",
+        bank_compat: "Serasi semua bank & e-wallet (TnG, Boost, GrabPay, dll)",
+        biz_name_generic: "Bisnes Anda",
+        thanks_greeting: (name) => `Terima kasih, ${name}!`,
+        payment_received: (amount) => `Bayaran RM ${amount} anda telah kami terima.`,
+        auto_sent_note: "Dihantar automatic selepas bayaran diterima, bukan anda perlu buat manual.",
+        reminder_greeting: (name) => `Salam ${name},`,
+        reminder_headline: "Sekadar peringatan mesra, bayaran anda due tidak lama lagi.",
+        amount_label: "Jumlah",
+        due_date_label: "Tarikh Due",
+        stage_names: ["Peringatan Awal", "Hari-Ini", "Tertunggak"],
+        add_calendar: "📅 Tambah ke Kalendar",
+        added_to_calendar: "✓ Ditambah ke Google Calendar",
+        calendar_event: (amount) => `Bayaran Bisnes Anda: RM ${amount}<br/>20 Ogos 2026, sepanjang hari`,
+        attachment_label: "📎 invois",
+        view_status_cta: "🔗 Lihat Status Bayaran →",
+        no_login_needed: "(tiada login perlu)",
+        status_label: "Status",
+        status_unpaid: "Belum Bayar",
+      },
+      en: {
+        step_label: (n, total) => `Step ${n} / ${total}`,
+        next_default: "Next →",
+        s1_title: "1. Customer Books Their Own Slot",
+        s1_narrative: "The customer opens your personal link, picks a date and time, no need to ask \"are you free?\" over WhatsApp first.",
+        name_label: "Customer Name",
+        deposit_label: "Deposit (RM)",
+        pick_hint: "Pick a date and slot to continue:",
+        date_names: ["Tomorrow", "Day After", "Saturday"],
+        customer_fallback: "Customer",
+        s2_title: "2. System Auto-Creates the Deposit Request",
+        s2_narrative: "Booking confirmed, the system immediately creates a customer record and deposit request. You don't lift a finger.",
+        confirming_booking: (slot) => `Confirming booking for ${slot}...`,
+        s3_title: "3. Deposit Email Sent Automatically",
+        s3_narrative: "This is <strong>exactly</strong> what your customer sees, sent the moment a booking's confirmed, branded, with online payment, WhatsApp, bank transfer, PDF invoice, <strong>and</strong> a one-click add to their own calendar.",
+        click_view_status: "Click 'View Payment Status' in the email above ↑",
+        s4_title: "4. Customer Portal: No Login Needed",
+        s4_narrative: "Customers can check status and pay anytime, from the personal link in their email, <strong>no account required at all</strong>.",
+        click_pay_now: "Click 'Pay Now' in the portal above ↑",
+        s5_title: "5. Processing Payment",
+        verifying: "Verifying payment...",
+        s6_title: "6. Thank-You Email Sent Automatically",
+        s6_narrative: "The system sends a confirmation instantly, your customer feels taken care of professionally, without you lifting a finger.",
+        s7_title: "7. Booking Shows Up in Your Dashboard Immediately",
+        s7_narrative: "No need for you to ask \"have they paid yet\", the booking and deposit status appear right in your Booking tab.",
+        deposit_paid_badge: "Deposit Paid",
+        s8_title: "8. Repeat Customer? The System Handles It",
+        s8_narrative: (name) => `If ${name} orders monthly (like a tuition class or subscription), mark it "Recurring", and the system prepares the next cycle on its own.`,
+        recurring_active: "🔁 Recurring: Active (Every 30 days)",
+        this_cycle: "This Cycle",
+        paid_badge: "Paid",
+        auto_generated: "Auto-Generated",
+        due_label: (date) => `Due ${date}`,
+        recurring_hint: "No need to add it manually every month, the reminder for the new cycle runs automatically too.",
+        s9_title: "9. Reports & Analytics",
+        s9_narrative: "Monthly income, who hasn't paid, and top customers, all calculated automatically, no manual spreadsheets.",
+        top_customer_label: "Top Customers",
+        month_names: ["Jun", "Jul", "Aug"],
+        s10_title: "10. Done! 🎉",
+        s10_narrative: "Online booking, deposit, invoice, reminder, no-login portal, repeat customers, and full reporting: one system, not a pile of different tools.",
+        income_month_label: "Income This Month",
+        reminders_pending_label: "Reminders Pending",
+        start_free_cta: "Start Free Now →",
+        pay_now: (amount) => `Pay Now, RM ${amount}`,
+        whatsapp_question: "Got a Question? WhatsApp Us",
+        bank_transfer_label: "Or bank transfer directly",
+        scan_qr: "🇲🇾 Scan DuitNow QR",
+        bank_compat: "Works with every bank & e-wallet (TnG, Boost, GrabPay, and more)",
+        biz_name_generic: "Your Business",
+        thanks_greeting: (name) => `Thank you, ${name}!`,
+        payment_received: (amount) => `We've received your payment of RM ${amount}.`,
+        auto_sent_note: "Sent automatically once payment is received, nothing for you to do manually.",
+        reminder_greeting: (name) => `Hi ${name},`,
+        reminder_headline: "Just a friendly reminder, your payment is due soon.",
+        amount_label: "Amount",
+        due_date_label: "Due Date",
+        stage_names: ["Early Reminder", "Due Today", "Overdue"],
+        add_calendar: "📅 Add to Calendar",
+        added_to_calendar: "✓ Added to Google Calendar",
+        calendar_event: (amount) => `Payment for Your Business: RM ${amount}<br/>Aug 20, 2026, all day`,
+        attachment_label: "📎 invoice",
+        view_status_cta: "🔗 View Payment Status →",
+        no_login_needed: "(no login needed)",
+        status_label: "Status",
+        status_unpaid: "Unpaid",
+      },
+    };
+    function ST(key) { return SIM_STRINGS[window.getCurrentLang ? window.getCurrentLang() : "en"][key]; }
+
+    function escapeSim(str) {
+      const div = document.createElement("div");
+      div.textContent = str ?? "";
+      return div.innerHTML;
+    }
+
+    function paymentOptionsBlock() {
+      const amount = Number(simCustomer.amount).toFixed(2);
+      return `
+        <button type="button" class="cta-pay" onclick="window.__simGoToPortal()">${ST("pay_now")(amount)}</button>
+        <button type="button" class="cta-wa">${ST("whatsapp_question")}</button>
+        <div class="bank-box">
+          <div class="label">${ST("bank_transfer_label")}</div>
+          <div class="acc">Maybank: 1234567890</div>
+          <div class="hint" style="margin-top:0.5rem; font-size:0.68rem; text-transform:uppercase;">${ST("scan_qr")}</div>
+          <div class="hint" style="font-size:0.68rem;">${ST("bank_compat")}</div>
+        </div>`;
+    }
+
+    function emailMock({ thankyou = false, stage = 1 } = {}) {
+      const amount = Number(simCustomer.amount).toFixed(2);
+      const stages = ST("stage_names");
+      if (thankyou) {
+        return `
+          <div class="sim-email-mock thankyou">
+            <div class="bar"></div>
+            <div class="body">
+              <div class="biz">${ST("biz_name_generic")}</div>
+              <div class="checkmark">✅</div>
+              <p class="salam" style="text-align:center; font-weight:600;">${ST("thanks_greeting")(escapeSim(simCustomer.name))}</p>
+              <p class="headline" style="text-align:center;">${ST("payment_received")(amount)}</p>
+              <p class="footer-txt">${ST("auto_sent_note")}</p>
+            </div>
+          </div>`;
+      }
+      return `
+        <div class="sim-email-mock">
+          <div class="bar"></div>
+          <div class="body">
+            <div class="biz">${ST("biz_name_generic")}</div>
+            <p class="salam">${ST("reminder_greeting")(escapeSim(simCustomer.name))}</p>
+            <p class="headline">${ST("reminder_headline")}</p>
+            <div class="amount-card">
+              <div class="line"><span>${ST("amount_label")}</span><b>RM ${amount}</b></div>
+              <div class="line"><span>${ST("due_date_label")}</span><b>2026-08-20</b></div>
+            </div>
+            <div class="timeline">
+              ${stages.map((s, i) => `<div class="stage ${i === stage ? "active" : ""}"><div class="dot2"></div><span>${s}</span></div>`).join("")}
+            </div>
+            ${paymentOptionsBlock()}
+            <button type="button" class="cta-wa" style="border-style:dashed; background:transparent;" onclick="window.__simToggleCal()">${ST("add_calendar")}</button>
+            <div class="sim-cal-preview" id="sim-cal-preview">
+              <div class="cal-title"><span class="check">✓</span> ${ST("added_to_calendar")}</div>
+              <div>${ST("calendar_event")(amount)}</div>
+            </div>
+            <div class="attachment" style="margin-top:0.7rem;">${ST("attachment_label")}-${escapeSim(simCustomer.name).toLowerCase()}.pdf</div>
+            <button type="button" class="cta-wa" style="margin-top:0.6rem;" onclick="window.__simGoToPortal()">${ST("view_status_cta")}</button>
+          </div>
+        </div>`;
+    }
+
+    function portalMock() {
+      const amount = Number(simCustomer.amount).toFixed(2);
+      return `
+        <div class="sim-portal-mock">
+          <div class="browser-bar">
+            <span class="dot3"></span><span class="dot3"></span><span class="dot3"></span>
+            <span class="url">eqstudio.link/portal.html?token=•••• ${ST("no_login_needed")}</span>
+          </div>
+          <div class="body">
+            <div style="text-align:center; font-family:var(--font-display); font-weight:600; margin-bottom:0.8rem;">${ST("biz_name_generic")}</div>
+            <p style="font-size:0.85rem; margin:0 0 0.6rem;">${ST("reminder_greeting")(escapeSim(simCustomer.name))}</p>
+            <div class="amount-card">
+              <div class="line"><span>${ST("amount_label")}</span><b>RM ${amount}</b></div>
+              <div class="line"><span>${ST("status_label")}</span><b style="color:var(--warn);">${ST("status_unpaid")}</b></div>
+            </div>
+            <div style="margin-top:0.9rem;">${paymentOptionsBlock()}</div>
+          </div>
+        </div>`;
+    }
+
+    function renderSimStep() {
+      const body = document.getElementById("sim-body");
+      const backBtn = document.getElementById("sim-back-btn");
+      const nextBtn = document.getElementById("sim-next-btn");
+      const stepLabel = document.getElementById("sim-step-label");
+
+      backBtn.style.visibility = simStep === 0 ? "hidden" : "visible";
+      nextBtn.style.display = "inline-block";
+      nextBtn.disabled = false;
+      nextBtn.textContent = ST("next_default");
+      stepLabel.textContent = ST("step_label")(simStep + 1, SIM_STEP_COUNT);
+
+      if (simStep === 0) {
+        body.innerHTML = `
+          <h3>${ST("s1_title")}</h3>
+          <p class="sim-narrative">${ST("s1_narrative")}</p>
+          <div class="sim-dashboard-mini">
+            <label for="sim-name">${ST("name_label")}</label>
+            <input type="text" id="sim-name" value="${escapeSim(simCustomer.name)}" maxlength="18" />
+            <label for="sim-amount" style="margin-top:0.7rem;">${ST("deposit_label")}</label>
+            <input type="number" id="sim-amount" value="${simCustomer.amount}" min="1" />
+          </div>
+          <p class="hint" style="margin-top:0.8rem;">${ST("pick_hint")}</p>
+          <div class="hero-date-chips" id="sim-date-chips"></div>
+          <div class="hero-slot-chips" id="sim-slot-chips" style="margin-top:0.5rem;"></div>
+        `;
+        nextBtn.style.display = "none";
+
+        const SIM_DATES = ST("date_names");
+        const SIM_SLOTS = ["10:00", "12:00", "2:30 PM"];
+        let simSelectedDate = 0;
+
+        function renderSimBookingChips() {
+          const dateWrap = document.getElementById("sim-date-chips");
+          dateWrap.innerHTML = SIM_DATES.map((d, i) => `<button type="button" class="chip hero-chip ${i === simSelectedDate ? "selected" : ""}" data-date="${i}">${d}</button>`).join("");
+          dateWrap.querySelectorAll(".hero-chip").forEach(btn => {
+            btn.addEventListener("click", () => { simSelectedDate = parseInt(btn.dataset.date, 10); renderSimBookingChips(); });
+          });
+          const slotWrap = document.getElementById("sim-slot-chips");
+          slotWrap.innerHTML = SIM_SLOTS.map(s => `<button type="button" class="chip hero-chip" data-slot="${s}">${s}</button>`).join("");
+          slotWrap.querySelectorAll("[data-slot]").forEach(btn => {
+            btn.addEventListener("click", () => {
+              const nameInput = document.getElementById("sim-name");
+              const amountInput = document.getElementById("sim-amount");
+              simCustomer.name = nameInput.value.trim() || ST("customer_fallback");
+              simCustomer.amount = parseFloat(amountInput.value) || 1;
+              simCustomer.slotLabel = `${SIM_DATES[simSelectedDate]}, ${btn.dataset.slot}`;
+              simStep = 1;
+              renderSimStep();
+            });
+          });
+        }
+        renderSimBookingChips();
+      }
+
+      else if (simStep === 1) {
+        body.innerHTML = `
+          <h3>${ST("s2_title")}</h3>
+          <p class="sim-narrative">${ST("s2_narrative")}</p>
+          <div class="sim-spinner-wrap"><img src="/assets/logo/logo-64.png" class="logo-loader" alt="" /><p class="hint">${ST("confirming_booking")(escapeSim(simCustomer.slotLabel || ""))}</p></div>
+        `;
+        nextBtn.style.display = "none";
+        backBtn.style.visibility = "hidden";
+        setTimeout(() => { simStep = 2; renderSimStep(); }, 1400);
+      }
+
+      else if (simStep === 2) {
+        body.innerHTML = `
+          <h3>${ST("s3_title")}</h3>
+          <p class="sim-narrative">${ST("s3_narrative")}</p>
+          ${emailMock({ stage: 1 })}
+        `;
+        nextBtn.textContent = ST("click_view_status");
+        nextBtn.disabled = true;
+        window.__simGoToPortal = () => { simStep = 3; renderSimStep(); };
+        window.__simToggleCal = () => document.getElementById("sim-cal-preview")?.classList.toggle("open");
+      }
+
+      else if (simStep === 3) {
+        body.innerHTML = `
+          <h3>${ST("s4_title")}</h3>
+          <p class="sim-narrative">${ST("s4_narrative")}</p>
+          ${portalMock()}
+        `;
+        nextBtn.textContent = ST("click_pay_now");
+        nextBtn.disabled = true;
+        window.__simGoToPortal = () => { simStep = 4; renderSimStep(); };
+      }
+
+      else if (simStep === 4) {
+        body.innerHTML = `
+          <h3>${ST("s5_title")}</h3>
+          <div class="sim-spinner-wrap"><img src="/assets/logo/logo-64.png" class="logo-loader" alt="" /><p class="hint">${ST("verifying")}</p></div>
+        `;
+        nextBtn.style.display = "none";
+        backBtn.style.visibility = "hidden";
+        setTimeout(() => { simStep = 5; renderSimStep(); }, 1200);
+      }
+
+      else if (simStep === 5) {
+        body.innerHTML = `
+          <h3>${ST("s6_title")}</h3>
+          <p class="sim-narrative">${ST("s6_narrative")}</p>
+          ${emailMock({ thankyou: true })}
+        `;
+      }
+
+      else if (simStep === 6) {
+        body.innerHTML = `
+          <h3>${ST("s7_title")}</h3>
+          <p class="sim-narrative">${ST("s7_narrative")}</p>
+          <div class="sim-dashboard-mini">
+            <div class="row-line"><span>${escapeSim(simCustomer.name)}, ${escapeSim(simCustomer.slotLabel || "")}</span><span class="badge dah_bayar">${ST("deposit_paid_badge")}</span></div>
+          </div>
+        `;
+      }
+
+      else if (simStep === 7) {
+        const nextDue = "19 September 2026";
+        body.innerHTML = `
+          <h3>${ST("s8_title")}</h3>
+          <p class="sim-narrative">${ST("s8_narrative")(escapeSim(simCustomer.name))}</p>
+          <div class="sim-recur-toggle">${ST("recurring_active")}</div>
+          <div class="sim-recur-flow">
+            <div class="card-mini">
+              <div class="lbl">${ST("this_cycle")}</div>
+              <div class="name">${escapeSim(simCustomer.name)}</div>
+              <span class="badge dah_bayar">${ST("paid_badge")}</span>
+            </div>
+            <div class="arrow">→</div>
+            <div class="card-mini">
+              <div class="lbl">${ST("auto_generated")}</div>
+              <div class="name">${escapeSim(simCustomer.name)}</div>
+              <span class="badge belum_bayar">${ST("due_label")(nextDue)}</span>
+            </div>
+          </div>
+          <p class="hint">${ST("recurring_hint")}</p>
+        `;
+      }
+
+      else if (simStep === 8) {
+        const amount = Number(simCustomer.amount);
+        const months = ST("month_names");
+        body.innerHTML = `
+          <h3>${ST("s9_title")}</h3>
+          <p class="sim-narrative">${ST("s9_narrative")}</p>
+          <div class="sim-bar-chart">
+            <div class="bar-col"><div class="bar-val">RM280</div><div class="bar" style="height:55%; background:#E8DFCB;"></div><div class="bar-lbl">${months[0]}</div></div>
+            <div class="bar-col"><div class="bar-val">RM340</div><div class="bar" style="height:68%; background:#E8DFCB;"></div><div class="bar-lbl">${months[1]}</div></div>
+            <div class="bar-col"><div class="bar-val">RM${amount.toFixed(0)}</div><div class="bar" style="height:${Math.min(100, amount / 4)}%;"></div><div class="bar-lbl">${months[2]}</div></div>
+          </div>
+          <div class="sim-dashboard-mini" style="margin-top:0.8rem;">
+            <div style="font-size:0.7rem; text-transform:uppercase; color:var(--ink-soft); margin-bottom:0.4rem;">${ST("top_customer_label")}</div>
+            <div class="sim-top-cust-row"><span>${escapeSim(simCustomer.name)}</span><span class="mono">RM ${amount.toFixed(2)}</span></div>
+            <div class="sim-top-cust-row"><span>Farah</span><span class="mono">RM 340.00</span></div>
+            <div class="sim-top-cust-row"><span>Danial</span><span class="mono">RM 280.00</span></div>
+          </div>
+        `;
+      }
+
+      else if (simStep === 9) {
+        body.innerHTML = `
+          <h3>${ST("s10_title")}</h3>
+          <p class="sim-narrative">${ST("s10_narrative")}</p>
+          <div class="sim-final-stats">
+            <div class="stat-box"><div class="num">RM ${Number(simCustomer.amount).toFixed(2)}</div><div class="lbl">${ST("income_month_label")}</div></div>
+            <div class="stat-box"><div class="num">0</div><div class="lbl">${ST("reminders_pending_label")}</div></div>
+          </div>
+          <a href="/login.html" class="btn" style="width:100%; text-align:center; display:block; margin-top:0.5rem;">${ST("start_free_cta")}</a>
+        `;
+        nextBtn.style.display = "none";
+      }
+
+      const dotsEl = document.getElementById("sim-dots");
+      dotsEl.innerHTML = "";
+      for (let i = 0; i < SIM_STEP_COUNT; i++) {
+        const d = document.createElement("span");
+        d.className = "dot" + (i === simStep ? " active" : i < simStep ? " done" : "");
+        dotsEl.appendChild(d);
+      }
+    }
+
+    function openSim() {
+      simStep = 0;
+      simCustomer = { name: "Aina", amount: 120, slotLabel: "" };
+      document.getElementById("sim-overlay").classList.add("open");
+      renderSimStep();
+    }
+    function closeSim() {
+      document.getElementById("sim-overlay").classList.remove("open");
+    }
+
+    document.getElementById("open-sim-btn").addEventListener("click", openSim);
+    document.getElementById("sim-close-btn").addEventListener("click", closeSim);
+    document.getElementById("sim-overlay").addEventListener("click", (e) => {
+      if (e.target.id === "sim-overlay") closeSim();
+    });
+
+    document.getElementById("sim-back-btn").addEventListener("click", () => {
+      const backMap = { 2: 0, 3: 2, 5: 3, 6: 5, 7: 6, 8: 7, 9: 8 };
+      if (backMap[simStep] !== undefined) { simStep = backMap[simStep]; renderSimStep(); }
+    });
+
+    document.getElementById("sim-next-btn").addEventListener("click", () => {
+      if ([5, 6, 7, 8].includes(simStep)) {
+        simStep += 1;
+        renderSimStep();
+      }
+    });
+
+    // ── Chat widget: FAQ bot (rich examples + follow-up + reset) ────────
+    const FAQ_DATA = {
+      ms: [
+        { keywords: ["booking", "book slot", "tempahan", "jadual temujanji"], q: "Macam mana booking online berfungsi?", a: "Anda dapat satu link peribadi (eqstudio.link/book.html?slug=...), customer buka, pilih slot kosong, isi nama & emel, submit. Tiada perlu WhatsApp/call untuk confirm." },
+        { keywords: ["deposit", "berapa deposit", "auto deposit"], q: "Bila deposit diminta?", a: "Serta-merta lepas booking confirm, sistem terus hantar emel deposit request, tak payah tunggu cron esok." },
+        { keywords: ["waktu available", "set jadual", "availability"], q: "Macam mana set waktu available saya?", a: "Dalam Tetapan Booking, tab Waktu Available, klik tarikh dalam kalendar untuk tetapkan jam anda free hari tu. Customer cuma nampak slot yang anda dah set." },
+        { keywords: ["soalan tambahan", "custom question", "tanya customer"], q: "Boleh tanya customer soalan tambahan semasa booking?", a: "Boleh, tambah \"Soalan Tambahan\" dalam Tetapan Booking (contoh: \"Apa jenis kek?\"). Muncul dalam borang booking, jawapan terus nampak dalam dashboard anda." },
+        { keywords: ["buffer", "rehat", "gap antara"], q: "Ada buffer time antara booking?", a: "Ada, set 0-30 minit rehat automatic antara setiap booking dalam Tetapan Booking, elak clash." },
+        { keywords: ["reschedule sendiri", "cancel sendiri", "tukar tempahan"], q: "Customer boleh reschedule/cancel sendiri?", a: "Boleh, setiap emel booking ada butang \"Reschedule / Batal Tempahan\". Anda auto dapat emel notification setiap kali mereka buat perubahan." },
+        { keywords: ["bahasa", "language", "mandarin", "tamil", "cina", "b.melayu"], q: "Boleh guna bahasa lain untuk customer?", a: "Boleh, customer pilih bahasa sendiri semasa booking (BM/English/中文/தமிழ்). Emel & portal mereka terus dalam bahasa tu." },
+        { keywords: ["risiko", "risk", "lewat bayar", "cash flow", "cashflow"], q: "Boleh tahu customer mana yang berisiko lewat bayar?", a: "Boleh, Laporan ada \"Customer Berisiko\" (skor Tinggi/Sederhana berdasarkan sejarah bayaran) dan unjuran cash flow 6 minggu akan datang." },
+        { keywords: ["jenis perkhidmatan", "event type", "servis berbeza", "harga berbeza", "group class", "kapasiti"], q: "Boleh ada jenis perkhidmatan berbeza (harga/tempoh lain)?", a: "Boleh, tambah \"Jenis Perkhidmatan\" dalam Tetapan Booking, setiap satu ada tempoh/deposit/kapasiti sendiri. Kapasiti lebih 1 bermaksud group class (ramai orang book slot sama)." },
+        { keywords: ["percuma", "free", "rm0", "konsultasi percuma"], q: "Boleh buat booking percuma?", a: "Boleh, taip 0 dalam Deposit Lalai. Sistem tak akan hantar emel \"sila bayar\" untuk booking RM0." },
+        { keywords: ["pro", "multiple link", "banyak bisnes", "dua bisnes", "upgrade"], q: "Boleh run lebih dari satu bisnes?", a: "Boleh dengan pelan Pro (RM39/bulan), dapat sehingga 3 link booking, setiap satu dengan calendar & tetapan sendiri." },
+        { keywords: ["embed", "letak website", "qr code booking", "print qr"], q: "Boleh embed booking dalam website saya?", a: "Boleh, Tetapan Booking bagi code embed (iframe) untuk copy-paste ke website sendiri, plus QR code printable untuk letak di kaunter." },
+        { keywords: ["reminder", "terima", "customer terima", "cara customer", "emel reminder"], q: "Macam mana customer terima reminder?", a: "Melalui emel, dihantar automatic ikut jadual yang anda tetapkan (default: H-3, H-1, hari ini). Boleh customize hari mana-mana ikut suka." },
+        { keywords: ["bayar", "cara bayar", "payment", "bank transfer", "qr"], q: "Macam mana customer sebenarnya bayar?", a: "Terus ke akaun bank anda sendiri, emel reminder tunjuk nombor akaun dan QR DuitNow yang anda isi dalam Profil Perniagaan, customer transfer terus, dan anda tanda Dah Bayar bila terima." },
+        { keywords: ["invois", "invoice", "resit", "pdf"], q: "Ada invois rasmi ke?", a: "Ada, setiap emel reminder auto lampir invois PDF, dan anda boleh muat turun bila-bila dari dashboard." },
+        { keywords: ["status", "semak status", "portal", "customer semak"], q: "Boleh customer semak status bayaran diorang sendiri?", a: "Boleh, setiap emel ada link peribadi untuk customer semak status dan bayar terus, tanpa perlu daftar akaun." },
+        { keywords: ["laporan", "report", "analytics", "income"], q: "Ada laporan/analytics ke?", a: "Ada, dashboard ada tab Laporan yang tunjuk income bulanan, jumlah belum diterima, dan customer berisiko lewat bayar." },
+        { keywords: ["berulang", "repeat", "recurring", "bulanan"], q: "Customer bayaran berulang macam mana?", a: "Tandakan \"Bayaran Berulang\" bila tambah customer, pilih interval (7/14/30/60 hari), sistem auto generate cycle baru bila dah bayar." },
+        { keywords: ["selamat", "safe", "security", "data"], q: "Selamat ke data customer saya?", a: "Ya. Setiap akaun hanya boleh nampak data customer sendiri, dikuatkuasakan pada peringkat database. Kami tidak kongsi data anda." },
+        { keywords: ["cancel", "berhenti", "batal"], q: "Boleh cancel bila-bila?", a: "Boleh, tiada kontrak jangka masa. Cancel terus dari dashboard bila-bila anda nak berhenti." },
+        { keywords: ["harga", "price", "kad kredit", "trial", "percuma", "berapa"], q: "Berapa harga & perlu kad kredit untuk trial?", a: "RM19/bulan (Starter) atau RM39/bulan (Pro) lepas trial 14 hari percuma. Tak perlu kad kredit, daftar terus dengan emel je." },
+        { keywords: ["berapa ramai", "had", "limit", "bilangan customer"], q: "Berapa ramai customer boleh saya track?", a: "Tiada had bilangan customer dalam mana-mana pelan." },
+        { keywords: ["bila reminder", "masa", "pukul", "jam", "automatik"], q: "Bila reminder sebenarnya dihantar?", a: "Pelan Starter disemak sekali sehari (~9 pagi waktu Malaysia). Pelan Pro disemak setiap 2 jam, jadi reminder sampai lebih pantas. Semua automatic, anda tak perlu buat apa-apa." },
+        { keywords: ["whatsapp", "wasap"], q: "Ada WhatsApp reminder ke?", a: "Setakat ni reminder guna emel. Ada butang WhatsApp dalam dashboard untuk anda hantar manual bila perlu." },
+        { keywords: ["daftar", "sign up", "mula", "macam mana mula"], q: "Macam mana nak mula guna?", a: "Klik \"Mula Percuma\", daftar dengan emel (tak perlu kad kredit). Setup berpandu bawa anda pilih jenis bisnes, servis, availability, dan deposit, terus dapat link booking siap pakai." },
+        { keywords: ["kecil", "usahawan", "sesuai", "sapa guna"], q: "Sesuai untuk siapa?", a: "Business owner solo atau kecil, home baker, tutor, photographer, fitness coach, sesiapa yang track order & bayaran manual guna WhatsApp/buku nota." },
+        { keywords: ["tak nampak bayar", "cara bayar", "customer tak boleh bayar", "bank belum isi"], q: "Kenapa customer saya tak nampak cara bayar?", a: "Ini biasanya sebab Profil Perniagaan belum diisi. Pergi ke Profil Perniagaan, tambah nama bank, nombor akaun, dan QR DuitNow anda dulu." },
+        { keywords: ["test dulu", "cuba sendiri", "sebelum share", "pov customer"], q: "Patut saya test dulu sebelum share link?", a: "Ya, disyorkan. Cuba book guna emel lain (bukan emel akaun anda) untuk rasa pengalaman sebenar customer, dari pilih slot sampai arahan bayaran." },
+      ],
+      en: [
+        { keywords: ["booking", "book slot", "appointment", "schedule"], q: "How does online booking actually work?", a: "You get a personal link (eqstudio.link/book.html?slug=...), customers open it, pick an open slot, fill in name and email, submit. No WhatsApp or calls needed to confirm." },
+        { keywords: ["deposit", "how much deposit", "auto deposit"], q: "When is the deposit requested?", a: "Right after a booking is confirmed, the system emails a deposit request immediately, no waiting for the next day's cron run." },
+        { keywords: ["available hours", "set schedule", "availability"], q: "How do I set my available hours?", a: "In Booking Settings, the Waktu Available tab, click a date on the calendar to set the hours you are free that day. Customers only see the slots you have set." },
+        { keywords: ["extra questions", "custom question", "ask customer"], q: "Can I ask customers extra questions during booking?", a: "Yes, add \"Additional Questions\" in Booking Settings (e.g. \"What kind of cake?\"). It shows up in the booking form, and answers land straight in your dashboard." },
+        { keywords: ["buffer", "break", "gap between"], q: "Is there buffer time between bookings?", a: "Yes, set 0-30 minutes of automatic breathing room between bookings in Booking Settings, avoids clashes." },
+        { keywords: ["reschedule myself", "cancel myself", "change booking"], q: "Can customers reschedule or cancel on their own?", a: "Yes, every booking email has a \"Reschedule / Cancel\" button built in. You get an automatic email notification whenever they make a change." },
+        { keywords: ["language", "mandarin", "tamil", "chinese", "malay"], q: "Can customers use a different language?", a: "Yes, customers pick their own language when booking (Malay/English/中文/தமிழ்). Their emails and portal follow that language." },
+        { keywords: ["risk", "late payment", "cash flow", "cashflow"], q: "Can I tell which customers are at risk of paying late?", a: "Yes, Reports has a \"Risk Customers\" section (High/Medium score based on payment history) and a 6-week cash-flow forecast." },
+        { keywords: ["service type", "event type", "different services", "different pricing", "group class", "capacity"], q: "Can I offer different service types (different pricing/duration)?", a: "Yes, add \"Service Types\" in Booking Settings, each with its own duration, deposit, and capacity. Capacity above 1 means a group class (several people book the same slot)." },
+        { keywords: ["free", "rm0", "free consultation"], q: "Can I run free bookings?", a: "Yes, type 0 into the Default Deposit field. The system won't send a \"please pay\" email for a RM0 booking." },
+        { keywords: ["pro", "multiple link", "many businesses", "two businesses", "upgrade"], q: "Can I run more than one business?", a: "Yes, with the Pro plan (RM39/month), you get up to 3 booking links, each with its own calendar and settings." },
+        { keywords: ["embed", "put on website", "qr code booking", "print qr"], q: "Can I embed booking on my own website?", a: "Yes, Booking Settings gives you embed code (iframe) to copy-paste into your own site, plus a printable QR code for the counter." },
+        { keywords: ["reminder", "receive", "customer receive", "how customer", "reminder email"], q: "How do customers receive reminders?", a: "By email, sent automatically on the schedule you set (default: H-3, H-1, day-of). You can customize any day you like." },
+{ keywords: ["pay", "how to pay", "payment", "bank transfer", "qr"], q: "How do customers actually pay?", a: "Directly to your own bank account, the reminder email shows your account number and DuitNow QR from your Business Profile, the customer transfers directly, and you mark it Paid once received." },
+        { keywords: ["invoice", "receipt", "pdf"], q: "Do I get proper invoices?", a: "Yes, every reminder email auto-attaches a PDF invoice, and you can download one anytime from the dashboard." },
+        { keywords: ["status", "check status", "portal", "customer check"], q: "Can customers check their own payment status?", a: "Yes, every email has a personal link for customers to check their status and pay directly, no account needed." },
+        { keywords: ["reports", "analytics", "income"], q: "Is there reporting or analytics?", a: "Yes, the dashboard has a Reports tab showing monthly income, total outstanding, and customers at risk of paying late." },
+        { keywords: ["recurring", "repeat", "monthly"], q: "How does recurring payment work?", a: "Mark \"Recurring Payment\" when adding a customer, pick an interval (7/14/30/60 days), the system auto-generates the next cycle once paid." },
+        { keywords: ["safe", "security", "data"], q: "Is my customer data safe?", a: "Yes. Every account can only see its own customer data, enforced at the database level. We don't share your data." },
+        { keywords: ["cancel", "stop", "unsubscribe"], q: "Can I cancel anytime?", a: "Yes, there's no lock-in contract. Cancel directly from the dashboard whenever you're ready to stop." },
+        { keywords: ["price", "pricing", "credit card", "trial", "free", "how much"], q: "What's the price, and do I need a card for the trial?", a: "RM19/month (Starter) or RM39/month (Pro) after a free 14-day trial. No credit card needed, just sign up with an email." },
+        { keywords: ["how many", "limit", "customer limit"], q: "How many customers can I track?", a: "There's no customer limit on any plan." },
+        { keywords: ["when reminder", "time", "what time", "automatic"], q: "When are reminders actually sent?", a: "Starter is checked once a day (around 9am Malaysia time). Pro is checked every 2 hours, so reminders go out faster. All automatic, you don't need to do anything." },
+        { keywords: ["whatsapp"], q: "Is there WhatsApp reminders?", a: "Right now reminders run over email. There's a WhatsApp button in the dashboard for sending one manually whenever you need." },
+        { keywords: ["sign up", "get started", "how to start"], q: "How do I get started?", a: "Click \"Start Free\", sign up with an email (no credit card). A guided setup walks you through your business type, service, availability, and deposit, then hands you a ready booking link." },
+        { keywords: ["small", "solo", "suitable", "who uses"], q: "Who is this for?", a: "Solo or small business owners, home bakers, tutors, photographers, fitness coaches, anyone tracking orders and payments manually over WhatsApp or a notebook." },
+        { keywords: ["can't see payment", "how to pay", "customer can't pay", "bank not set up"], q: "Why doesn't my customer see how to pay?", a: "This is usually because Business Profile isn't filled in yet. Go to Business Profile and add your bank name, account number, and DuitNow QR first." },
+        { keywords: ["test first", "try myself", "before sharing", "customer pov"], q: "Should I test it before sharing my link?", a: "Yes, recommended. Book a slot using a different email (not your account email) to see exactly what your customers see, from picking a slot to payment instructions." },
+      ],
+    };
+
+    function faqEscape(str) {
+      const div = document.createElement("div");
+      div.textContent = str ?? "";
+      return div.innerHTML;
+    }
+
+    function addChatBubble(sender, text) {
+      const el = document.createElement("div");
+      el.className = `chat-msg ${sender}`;
+      el.textContent = text;
+      document.getElementById("chat-messages").appendChild(el);
+      document.getElementById("chat-messages").scrollTop = 999999;
+    }
+
+    function showTyping(callback, delay = 600) {
+      const wrap = document.getElementById("chat-messages");
+      const typing = document.createElement("div");
+      typing.className = "chat-typing";
+      typing.innerHTML = "<span></span><span></span><span></span>";
+      wrap.appendChild(typing);
+      wrap.scrollTop = 999999;
+      setTimeout(() => { typing.remove(); callback(); }, delay);
+    }
+
+    function matchFaq(text) {
+      const lower = text.toLowerCase();
+      let best = null, bestScore = 0;
+      for (const entry of FAQ_DATA[window.getCurrentLang()]) {
+        let score = 0;
+        for (const kw of entry.keywords) if (lower.includes(kw)) score++;
+        if (score > bestScore) { bestScore = score; best = entry; }
+      }
+      return bestScore > 0 ? best : null;
+    }
+
+    let askedIndices = new Set();
+
+    function renderSuggestionChips(label, count, excludeAsked) {
+      const wrap = document.getElementById("chat-quick-faq");
+      wrap.innerHTML = "";
+      if (label) {
+        const lbl = document.createElement("div");
+        lbl.className = "hint";
+        lbl.style.cssText = "width:100%; margin-bottom:0.3rem; font-size:0.75rem;";
+        lbl.textContent = label;
+        wrap.appendChild(lbl);
+      }
+      const pool = FAQ_DATA[window.getCurrentLang()]
+        .map((f, i) => ({ f, i }))
+        .filter(x => !excludeAsked || !askedIndices.has(x.i));
+      const chosen = pool.slice(0, count);
+      for (const { f, i } of chosen) {
+        const btn = document.createElement("button");
+        btn.textContent = f.q;
+        btn.addEventListener("click", () => handleUserMessage(f.q));
+        wrap.appendChild(btn);
+      }
+    }
+
+    function handleUserMessage(text) {
+      if (!text.trim()) return;
+      addChatBubble("visitor", text);
+      document.getElementById("chat-quick-faq").innerHTML = "";
+
+      showTyping(() => {
+        const match = matchFaq(text);
+        if (match) {
+          addChatBubble("bot", match.a);
+          const idx = FAQ_DATA[window.getCurrentLang()].indexOf(match);
+          if (idx !== -1) askedIndices.add(idx);
+        } else {
+          addChatBubble("bot", window.getCurrentLang() === "ms" ? "Hmm, saya tak pasti jawapan untuk tu, cuba tanya lain, atau pilih salah satu soalan popular di bawah:" : "Hmm, not sure about that one. Try asking differently, or pick one of the popular questions below:");
+        }
+        renderSuggestionChips(match ? "Soalan lain yang mungkin membantu:" : "Cuba soalan ni:", 4, true);
+      });
+    }
+
+    document.getElementById("chat-input-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const input = document.getElementById("chat-input");
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = "";
+      handleUserMessage(text);
+    });
+
+    function startChatConversation() {
+      document.getElementById("chat-messages").innerHTML = "";
+      askedIndices = new Set();
+      addChatBubble("bot", window.getCurrentLang() === "ms" ? "Hai! Saya bot eqstudio.link. Tanya apa-apa pasal produk ni, sini beberapa contoh soalan popular:" : "Hi! I'm the eqstudio.link bot. Ask me anything about the product, here are some popular questions:");
+      renderSuggestionChips(null, 6, false);
+    }
+
+    document.getElementById("chat-bubble-btn").addEventListener("click", () => {
+      document.getElementById("chat-panel").classList.add("open");
+      if (document.getElementById("chat-messages").children.length === 0) {
+        startChatConversation();
+      }
+    });
+
+    document.getElementById("chat-panel-close").addEventListener("click", () => {
+      document.getElementById("chat-panel").classList.remove("open");
+    });
+
+    document.getElementById("chat-reset-btn").addEventListener("click", () => {
+      startChatConversation();
+    });
+
+    // ── Pricing toggle ──
+    document.getElementById("price-toggle-monthly").addEventListener("click", () => {
+      document.getElementById("price-toggle-monthly").classList.add("active");
+      document.getElementById("price-toggle-yearly").classList.remove("active");
+      const isMs = document.documentElement.getAttribute("lang") === "ms";
+      document.getElementById("price-amount").innerHTML = isMs ? 'RM19<span>/bulan</span>' : 'RM19<span>/month</span>';
+      document.getElementById("price-sub").textContent = isMs ? "Trial 14 hari, tak perlu kad kredit" : "14-day trial, no card needed";
+      document.getElementById("pro-price-amount").innerHTML = isMs ? 'RM39<span>/bulan</span>' : 'RM39<span>/month</span>';
+      document.getElementById("pro-price-sub").textContent = "";
+      document.getElementById("price-ribbon").style.display = "none";
+      document.getElementById("price-card").classList.remove("featured");
+    });
+    document.getElementById("price-toggle-yearly").addEventListener("click", () => {
+      document.getElementById("price-toggle-yearly").classList.add("active");
+      document.getElementById("price-toggle-monthly").classList.remove("active");
+      const isMs = document.documentElement.getAttribute("lang") === "ms";
+      document.getElementById("price-amount").innerHTML = isMs ? 'RM190<span>/tahun</span>' : 'RM190<span>/year</span>';
+      document.getElementById("price-sub").textContent = isMs ? "= RM15.83/bulan, jimat 2 bulan, lepas trial 14 hari" : "= RM15.83/month, save 2 months, after 14-day trial";
+      document.getElementById("pro-price-amount").innerHTML = isMs ? 'RM390<span>/tahun</span>' : 'RM390<span>/year</span>';
+      document.getElementById("pro-price-sub").textContent = isMs ? "= RM32.50/bulan" : "= RM32.50/month";
+      document.getElementById("price-ribbon").style.display = "block";
+      document.getElementById("price-card").classList.add("featured");
+    });
+    document.getElementById("price-card").classList.add("featured");
+    document.getElementById("price-ribbon").style.display = "block";
+
+    // ── Jelajah Dashboard (explore mode — free-roam mockups, not sequential) ──
+    const EXPLORE_STRINGS = {
+      ms: {
+        next_action_label: "Next Action",
+        next_action_text: "Danial Haziq belum bayar RM50.00. Due esok.",
+        send_reminder_btn: "Hantar Reminder",
+        upcoming_bookings: (n) => `${n} booking akan datang`,
+        outstanding_amount: (amt) => `RM ${amt} belum diterima`,
+        tile_booking_list: "Senarai Booking",
+        tile_booking_stat: "4 akan datang",
+        tile_laporan: "Laporan",
+        tile_laporan_stat: "RM320 belum diterima",
+        tile_settings: "Tetapan Booking",
+        tile_settings_stat: "Link, QR & waktu",
+        tile_pelanggan: "Pelanggan",
+        tile_pelanggan_stat: "12 pelanggan",
+        explore_hint: "Cuba klik tile untuk explore lebih lanjut",
+        booking_list_title: "Senarai Booking",
+        booking_list_count: "4 akan datang",
+        question_label: "Apa jenis kek?:",
+        reschedule_btn: "Reschedule",
+        cancel_btn: "Batal",
+        booking_hint: "Reschedule & cancel dua-dua auto-hantar emel notification.",
+        cashflow_title: "Unjuran Cash-Flow",
+        month_names: ["Jun", "Jul", "Ogos"],
+        risk_title: "Customer Berisiko",
+        th_name: "Nama",
+        th_risk: "Risiko",
+        th_reason: "Sebab",
+        risk_high: "Tinggi",
+        risk_medium: "Sederhana",
+        risk_reason1: "3 dari 5 bayaran lepas lewat (60%)",
+        risk_reason2: "Tertunggak sekarang, tiada rekod lain",
+        risk_hint: "Skor dikira automatik dari sejarah bayaran customer dengan anda.",
+        your_link_label: "Link Booking Anda",
+        avail_hours_label: "Waktu Available",
+        day_names: ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"],
+        until_label: "hingga",
+        event_types_label: "Jenis Perkhidmatan (contoh)",
+        cake_service: "Collection Kek",
+        cake_duration: "(10 minit)",
+        free_label: "Percuma",
+        class_service: "Kelas Baking",
+        class_duration: "(2 jam, kapasiti 6)",
+        event_types_hint: "Setiap jenis boleh ada tempoh, harga (RM0 pun boleh), dan kapasiti sendiri, customer pilih jenis dulu semasa booking.",
+        qr_label: "QR Code Booking (printable)",
+        qr_alt: "Contoh QR booking",
+        qr_caption: "Scan untuk Book Slot",
+        qr_hint: "Print & letak sebelah QR DuitNow di kaunter anda.",
+      },
+      en: {
+        next_action_label: "Next Action",
+        next_action_text: "Danial Haziq hasn't paid RM50.00. Due tomorrow.",
+        send_reminder_btn: "Send Reminder",
+        upcoming_bookings: (n) => `${n} upcoming bookings`,
+        outstanding_amount: (amt) => `RM ${amt} outstanding`,
+        tile_booking_list: "Booking List",
+        tile_booking_stat: "4 upcoming",
+        tile_laporan: "Reports",
+        tile_laporan_stat: "RM320 outstanding",
+        tile_settings: "Booking Settings",
+        tile_settings_stat: "Link, QR & hours",
+        tile_pelanggan: "Customers",
+        tile_pelanggan_stat: "12 customers",
+        explore_hint: "Try clicking a tile to explore further",
+        booking_list_title: "Booking List",
+        booking_list_count: "4 upcoming",
+        question_label: "What kind of cake?:",
+        reschedule_btn: "Reschedule",
+        cancel_btn: "Cancel",
+        booking_hint: "Reschedule and cancel both auto-send an email notification.",
+        cashflow_title: "Cash-Flow Forecast",
+        month_names: ["Jun", "Jul", "Aug"],
+        risk_title: "Risk Customers",
+        th_name: "Name",
+        th_risk: "Risk",
+        th_reason: "Reason",
+        risk_high: "High",
+        risk_medium: "Medium",
+        risk_reason1: "3 of the last 5 payments were late (60%)",
+        risk_reason2: "Currently overdue, no other record",
+        risk_hint: "Score is calculated automatically from the customer's payment history with you.",
+        your_link_label: "Your Booking Link",
+        avail_hours_label: "Available Hours",
+        day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        until_label: "until",
+        event_types_label: "Service Types (example)",
+        cake_service: "Cake Collection",
+        cake_duration: "(10 minutes)",
+        free_label: "Free",
+        class_service: "Baking Class",
+        class_duration: "(2 hours, capacity 6)",
+        event_types_hint: "Each type can have its own duration, price (RM0 works too), and capacity, customers pick the type first when booking.",
+        qr_label: "Booking QR Code (printable)",
+        qr_alt: "Example booking QR",
+        qr_caption: "Scan to Book a Slot",
+        qr_hint: "Print it and place it next to your DuitNow QR at the counter.",
+      },
+    };
+    function EX(key) { return EXPLORE_STRINGS[window.getCurrentLang ? window.getCurrentLang() : "en"][key]; }
+
+    function escapeExplore(str) {
+      const div = document.createElement("div");
+      div.textContent = str ?? "";
+      return div.innerHTML;
+    }
+
+    function renderExploreHome() {
+      return `
+        <div class="card" style="margin-bottom:1rem; border-left:3px solid var(--stamp); text-align:left;">
+          <p class="hint" style="text-transform:uppercase; font-size:0.7rem; font-weight:700; letter-spacing:0.03em; color:var(--stamp); margin:0 0 0.5rem;">${EX("next_action_label")}</p>
+          <p style="margin:0 0 0.7rem; font-weight:600; font-size:0.9rem;">${EX("next_action_text")}</p>
+          <button type="button" class="secondary" style="width:auto; padding:0.4rem 0.9rem; font-size:0.82rem;">${EX("send_reminder_btn")}</button>
+        </div>
+        <div class="home-summary-card" style="margin-bottom:1rem;">
+          <div class="home-summary-item"><span class="home-summary-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span><span class="home-summary-text">${EX("upcoming_bookings")("<b>4</b>")}</span></div>
+          <div class="home-summary-divider"></div>
+          <div class="home-summary-item"><span class="home-summary-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg></span><span class="home-summary-text">${EX("outstanding_amount")("<b>320.00</b>")}</span></div>
+        </div>
+        <div class="home-tile-grid" style="grid-template-columns:repeat(2,1fr); gap:0.7rem;">
+          <button type="button" class="home-tile" data-cat="coral" data-goto="booking">
+            <div class="home-tile-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div><div class="home-tile-label">${EX("tile_booking_list")}</div><div class="home-tile-stat">${EX("tile_booking_stat")}</div>
+          </button>
+          <button type="button" class="home-tile" data-cat="sun" data-goto="laporan">
+            <div class="home-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div><div class="home-tile-label">${EX("tile_laporan")}</div><div class="home-tile-stat">${EX("tile_laporan_stat")}</div>
+          </button>
+          <button type="button" class="home-tile" data-cat="lilac" data-goto="settings">
+            <div class="home-tile-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg></div><div class="home-tile-label">${EX("tile_settings")}</div><div class="home-tile-stat">${EX("tile_settings_stat")}</div>
+          </button>
+          <button type="button" class="home-tile" data-cat="sage">
+            <div class="home-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><div class="home-tile-label">${EX("tile_pelanggan")}</div><div class="home-tile-stat">${EX("tile_pelanggan_stat")}</div>
+          </button>
+        </div>
+        <p class="hint" style="text-align:center; margin-top:1rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg> ${EX("explore_hint")}</p>
+      `;
+    }
+
+    function renderExploreBooking() {
+      const rows = [
+        { time: "Isnin, 18 Ogos, 14:00", name: "Aina Batrisyia", email: "aina@email.com", answer: "Coklat Moist, 2kg", today: true },
+        { time: "Selasa, 19 Ogos, 10:30", name: "Farah Amalina", email: "farah@email.com", answer: "Red Velvet, 1.5kg", today: false },
+        { time: "Khamis, 21 Ogos, 16:00", name: "Danial Haziq", email: "danial@email.com", answer: null, today: false },
+      ];
+      return `
+        <div class="card">
+          <div class="section-title"><h3 style="margin:0; font-size:1rem;">${EX("booking_list_title")}</h3><span class="hint">${EX("booking_list_count")}</span></div>
+          ${rows.map(r => `
+            <div class="booking-row ${r.today ? "today-badge" : ""}">
+              <div class="booking-row-main">
+                <div class="booking-row-time">${r.time}</div>
+                <div class="booking-row-name">${escapeExplore(r.name)} <span class="hint">(${escapeExplore(r.email)})</span></div>
+                ${r.answer ? `<div class="hint" style="font-size:0.78rem;"><strong>${EX("question_label")}</strong> ${escapeExplore(r.answer)}</div>` : ""}
+              </div>
+              <div class="booking-row-actions">
+                <button type="button" class="secondary">${EX("reschedule_btn")}</button>
+                <button type="button" class="secondary" style="color:var(--warn);">${EX("cancel_btn")}</button>
+              </div>
+            </div>
+          `).join("")}
+          <p class="hint" style="text-align:center; margin-top:0.8rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> ${EX("booking_hint")}</p>
+        </div>
+      `;
+    }
+
+    function renderExploreLaporan() {
+      const monthNames = EX("month_names");
+      const bars = [
+        { label: monthNames[0], val: 280, h: 55 }, { label: monthNames[1], val: 340, h: 68 }, { label: monthNames[2], val: 420, h: 84 },
+      ];
+      return `
+        <div class="card" style="margin-bottom:1rem;">
+          <h3 style="margin-top:0; font-size:1rem;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> ${EX("cashflow_title")}</h3>
+          <div class="report-bar-chart">
+            ${bars.map(b => `<div class="bar-col"><div class="bar-val mono">RM${b.val}</div><div class="bar" style="height:${b.h}%;"></div><div class="bar-lbl">${b.label}</div></div>`).join("")}
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0; font-size:1rem;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> ${EX("risk_title")}</h3>
+          <table>
+            <thead><tr><th>${EX("th_name")}</th><th>RM</th><th>${EX("th_risk")}</th><th>${EX("th_reason")}</th></tr></thead>
+            <tbody>
+              <tr><td data-label="Name">Zack Rizal</td><td data-label="RM" class="mono">150.00</td><td data-label="Risk"><span class="risk-badge high">${EX("risk_high")}</span></td><td data-label="Reason" class="hint" style="font-size:0.78rem;">${EX("risk_reason1")}</td></tr>
+              <tr><td data-label="Name">Nur Iman</td><td data-label="RM" class="mono">80.00</td><td data-label="Risk"><span class="risk-badge medium">${EX("risk_medium")}</span></td><td data-label="Reason" class="hint" style="font-size:0.78rem;">${EX("risk_reason2")}</td></tr>
+            </tbody>
+          </table>
+          <p class="hint" style="text-align:center; margin-top:0.8rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> ${EX("risk_hint")}</p>
+        </div>
+      `;
+    }
+
+    function renderExploreSettings() {
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=6&data=${encodeURIComponent("https://eqstudio.link/book.html?slug=kedai-cik-along")}`;
+      const weekdayInitials = EX("day_names").map(d => d[0]);
+      const sampleDensities = ["none", "full", "full", "some", "full", "some", "none", "full", "full", "none", "some", "full"];
+      return `
+        <div class="card" style="margin-bottom:1rem;">
+          <label>${EX("your_link_label")}</label>
+          <div class="booking-slug-row"><span class="booking-slug-prefix">eqstudio.link/book.html?slug=</span><input type="text" value="kedai-cik-along" disabled /></div>
+          <label style="margin-top:1rem; display:block;">${EX("avail_hours_label")}</label>
+          <div class="avail-cal-weekdays">${weekdayInitials.map(l => `<span>${l}</span>`).join("")}</div>
+          <div class="avail-cal-grid">
+            ${[...Array(3)].map(() => `<div class="avail-cal-day empty"></div>`).join("")}
+            ${sampleDensities.map((d, i) => `<div class="avail-cal-day density-${d}" style="cursor:default;"><span>${i + 1}</span><span class="dot"></span></div>`).join("")}
+          </div>
+          <p class="hint" style="margin-top:0.5rem; text-align:center;">${EX("avail_hours_label")}</p>
+        </div>
+        <div class="card" style="margin-bottom:1rem;">
+          <label style="margin-bottom:0.6rem; display:block;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> ${EX("event_types_label")}</label>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--paper-line); font-size:0.88rem;">
+            <span><strong>${EX("cake_service")}</strong> <span class="hint">${EX("cake_duration")}</span></span>
+            <span class="mono" style="color:var(--stamp); font-weight:600;">${EX("free_label")}</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; padding:0.6rem 0; font-size:0.88rem;">
+            <span><strong>${EX("class_service")}</strong> <span class="hint">${EX("class_duration")}</span></span>
+            <span class="mono" style="color:var(--stamp); font-weight:600;">RM100.00</span>
+          </div>
+          <p class="hint" style="margin-top:0.6rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> ${EX("event_types_hint")}</p>
+        </div>
+        <div class="card">
+          <label style="margin-bottom:0.6rem; display:block;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> ${EX("qr_label")}</label>
+          <div class="booking-qr-card">
+            <img src="${qrUrl}" alt="${EX("qr_alt")}" />
+            <p class="booking-qr-caption"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> ${EX("qr_caption")}</p>
+          </div>
+          <p class="hint" style="text-align:center; margin-top:0.8rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> ${EX("qr_hint")}</p>
+        </div>
+      `;
+    }
+
+    const EXPLORE_RENDERERS = { home: renderExploreHome, booking: renderExploreBooking, laporan: renderExploreLaporan, settings: renderExploreSettings };
+
+    function renderExploreTab(tab) {
+      document.querySelectorAll(".lp-explore-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
+      const body = document.getElementById("explore-body");
+      body.innerHTML = EXPLORE_RENDERERS[tab]();
+      body.querySelectorAll("[data-goto]").forEach(el => {
+        el.addEventListener("click", () => renderExploreTab(el.dataset.goto));
+      });
+    }
+
+    document.querySelectorAll(".lp-explore-tab").forEach(tab => {
+      tab.addEventListener("click", () => renderExploreTab(tab.dataset.tab));
+    });
+
+    document.getElementById("open-explore-btn").addEventListener("click", () => {
+      document.getElementById("explore-overlay").classList.add("open");
+      renderExploreTab("home");
+    });
+    document.getElementById("explore-close-btn").addEventListener("click", () => {
+      document.getElementById("explore-overlay").classList.remove("open");
+    });
+    document.getElementById("explore-overlay").addEventListener("click", (e) => {
+      if (e.target.id === "explore-overlay") document.getElementById("explore-overlay").classList.remove("open");
+    });
+  </script>
+
+  <script type="module">
+    import { applyLanguage, getCurrentLang } from "/assets/i18n-ui.js";
+    import { loadNotices } from "/assets/notices.js";
+    import { supabase } from "/assets/supabase-client.js";
+    window.getCurrentLang = getCurrentLang;
+    applyLanguage(getCurrentLang());
+    document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.dataset.langToggle));
+    });
+    loadNotices({ containerId: "notice-container", location: "landing" });
+
+    // ── "Dari Forum Kami" — live public threads, no login required ──
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str ?? "";
+      return div.innerHTML;
+    }
+    async function loadForumPreview() {
+      const scrollEl = document.getElementById("lp-forum-scroll");
+      if (!scrollEl) return;
+      try {
+        const { data, error } = await supabase
+          .from("forum_threads")
+          .select("title, message, author_name, is_founder, created_at")
+          .order("created_at", { ascending: false })
+          .limit(8);
+
+        if (error || !data || data.length === 0) {
+          scrollEl.innerHTML = `<p class="hint" style="padding:1rem;">Belum ada perbualan lagi. Jadi yang pertama!</p>`;
+          return;
+        }
+
+        scrollEl.innerHTML = data.map(t => {
+          const authorName = escapeHtml(t.author_name || "Business Owner");
+          const initial = authorName.trim().charAt(0).toUpperCase();
+          const title = escapeHtml(t.title);
+          const rawExcerpt = (t.message || "").slice(0, 110);
+          const excerpt = escapeHtml(rawExcerpt) + (t.message && t.message.length > 110 ? "…" : "");
+          return `
+            <div class="lp-forum-card">
+              <div class="lp-forum-card-author">
+                <span class="lp-forum-card-avatar">${initial}</span>
+                <span>${authorName}</span>
+              </div>
+              ${t.is_founder ? `<span class="lp-forum-founder-badge">Founder</span>` : ""}
+              <div class="lp-forum-card-title">${title}</div>
+              <div class="lp-forum-card-excerpt">${excerpt}</div>
+            </div>`;
+        }).join("");
+        window.setupScrollReveal?.(scrollEl.querySelectorAll(".lp-forum-card"), { stagger: 60 });
+      } catch (err) {
+        scrollEl.innerHTML = `<p class="hint" style="padding:1rem;">Tidak dapat memuatkan perbualan buat masa ini.</p>`;
+      }
+    }
+    loadForumPreview();
+  </script>
+
+</body>
+</html>
+

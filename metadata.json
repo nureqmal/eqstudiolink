@@ -1,0 +1,6 @@
+{
+  "name": "eqstudio.link",
+  "description": "Booking & Client Manager untuk Business Owner Solo",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

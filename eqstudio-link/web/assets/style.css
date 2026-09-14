@@ -19,13 +19,14 @@
   --space-7: 1.75rem;
   --space-8: 3rem;
 
-  --paper: #F7F7F9;
-  --paper-line: #E4E4E9;
-  --ink: #16161A;
-  --ink-soft: #6B6B75;
+  --paper: #FBF7EF;
+  --paper-line: #E5DEC9;
+  --ink: #1B2421;
+  --ink-soft: #63706A;
   --surface: #ffffff;
   --stamp: #4A098F;
   --stamp-soft: #f3ecfa;
+  --stamp-hover: #37066B;
   --ok: #16A34A;
   --ok-bg: #EAF7EF;
   --warn: #DC2626;
@@ -34,8 +35,8 @@
   --pending-text: #B45309;
 
   /* Category tint quartet — cool family, used for bento tile accents/icons */
-  --accent-coral: #DC5B4A;
-  --accent-sage: #0D9488;
+  --accent-coral: #E85A4F;
+  --accent-sage: #4E7C69;
   --accent-sun: #B45309;
   --accent-lilac: #7C3AED;
 
@@ -49,13 +50,14 @@
 }
 
 [data-theme="dark"] {
-  --paper: #0E0E11;
-  --paper-line: #26262C;
-  --ink: #F2F2F5;
-  --ink-soft: #9A9AA5;
-  --surface: #18181C;
+  --paper: #1A1512;
+  --paper-line: #332A22;
+  --ink: #F5F0E6;
+  --ink-soft: #B8AC9A;
+  --surface: #241D18;
   --stamp: #b689e6;
   --stamp-soft: #28163b;
+  --stamp-hover: #c9a3ee;
   --ok: #4ADE80;
   --ok-bg: #133321;
   --warn: #F87171;
@@ -143,7 +145,7 @@ button, .btn {
   font-size: 0.95rem; background: var(--stamp); color: #fff; text-decoration: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s;
 }
-button:hover, .btn:hover { background: #360669; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(74,9,143,0.35); }
+button:hover, .btn:hover { background: var(--stamp-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(74,9,143,0.35); }
 button:active, .btn:active { transform: translateY(0); }
 button.secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--paper-line); border-radius: 999px; }
 button.secondary:hover { background: var(--pending-bg); transform: none; box-shadow: none; }
@@ -979,7 +981,7 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
 .book-date-row { display: block; }
 .book-slot-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .book-date-chip, .book-slot-chip {
-  background: #fff; border: 1px solid var(--paper-line); color: var(--ink); font-size: 0.82rem;
+  background: var(--surface); border: 1px solid var(--paper-line); color: var(--ink); font-size: 0.82rem;
   padding: 0.5rem 0.9rem; border-radius: 999px; cursor: pointer; font-weight: 500;
 }
 .book-date-chip:hover, .book-slot-chip:hover { border-color: var(--stamp); color: var(--stamp); transform: none; box-shadow: none; }
@@ -2203,9 +2205,13 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .book-hero-share-btn:hover { background: rgba(255,255,255,0.32); }
 
 /* ── book.html policy disclosure card (deposit/cancellation) ── */
-.book-policy-card { background: var(--stamp-soft); border-radius: 10px; padding: 0.8rem 1rem; }
-.book-policy-card p { margin: 0; font-size: 0.82rem; color: var(--ink); display: flex; align-items: flex-start; gap: 0.4rem; }
-.book-policy-card p + p { margin-top: 0.4rem; }
+.book-policy-card {
+  background: rgba(251,247,239,0.6); border: 1px dashed var(--paper-line); border-radius: var(--radius);
+  padding: 1.1rem;
+}
+[data-theme="dark"] .book-policy-card { background: rgba(255,255,255,0.03); }
+.book-policy-card p { margin: 0; font-size: 0.85rem; color: var(--ink); display: flex; align-items: flex-start; gap: 0.4rem; }
+.book-policy-card p + p { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed var(--paper-line); }
 
 /* ── Portal.html: small secondary WhatsApp alternative link, below the chat widget ── */
 .portal-chat-wa-alt {

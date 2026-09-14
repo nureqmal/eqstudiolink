@@ -2050,7 +2050,8 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 }
 
 .book-hero {
-  position: relative; border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden;
+  position: relative; border: 1px solid var(--paper-line); border-bottom: none;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden;
   background-size: cover; background-position: center; height: 220px;
 }
 .book-status-badge {

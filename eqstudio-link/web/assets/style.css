@@ -2453,3 +2453,43 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   color: var(--ink-soft); display: flex; align-items: center; justify-content: center; box-shadow: none;
 }
 .book-testimonial-nav button:hover { border-color: var(--stamp); color: var(--stamp); transform: none; box-shadow: none; }
+
+/* ── book.html deep-dive fixes: step label, "Pilih Pakej" heading, social
+   pill labels, trust bar neutral color, sidebar card separation, gallery
+   gap, dashed line in service card, square-ish image aspect, serif heading ── */
+.book-step-label { white-space: nowrap; }
+@media (max-width: 420px) { .book-step-label { display: none; } } /* icon-only on very narrow screens, avoid wrapping */
+
+.book-picktype-heading { font-size: 1.3rem; font-weight: 700; margin: 1.2rem 0 0.3rem; color: var(--ink); }
+.book-picktype-subtext { margin: 0 0 1.2rem; }
+
+.book-social-icon {
+  display: inline-flex; align-items: center; gap: 0.35rem; background: var(--surface); border: 1px solid var(--paper-line);
+  color: var(--ink); font-size: 0.78rem; font-weight: 500; padding: 0.5rem 0.9rem; border-radius: 999px;
+  text-decoration: none; transition: border-color 0.15s, color 0.15s;
+}
+.book-social-icon:hover { border-color: var(--stamp); color: var(--stamp); }
+
+/* #4: trust bar back to neutral (was accidentally lavender via --stamp-soft) */
+.book-trustbar { background: var(--paper) !important; border: 1px solid var(--paper-line); }
+.book-trustbar-item { color: var(--stamp) !important; }
+
+/* #5: clearer separation between sidebar cards */
+#book-about-section, #book-gallery-section, #book-testimonial-section, #book-map-section { margin-bottom: 1.2rem; }
+#book-about-section .card, #book-gallery-section .card, #book-testimonial-section .card, #book-map-section .card {
+  box-shadow: 0 2px 8px rgba(16,16,20,0.05);
+}
+
+/* #6: bigger gallery gap */
+.book-gallery-grid { gap: 1.2rem !important; }
+
+/* #8: dashed line before action row in service cards */
+.event-type-card-actions { border-top: 1px dashed var(--paper-line); padding-top: 0.7rem; margin-top: 0.9rem !important; }
+
+/* #9: square-ish image (closer to reference), reverting the accidental 16:9 change */
+.event-type-card-image { aspect-ratio: 4/3 !important; }
+
+/* #7: serif font for headings, scoped to book.html only (rest of app stays Inter) */
+.book-hero-name, .book-picktype-heading, .book-section-heading, .event-type-card-body strong {
+  font-family: Georgia, 'Times New Roman', serif;
+}

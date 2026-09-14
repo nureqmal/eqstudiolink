@@ -1218,7 +1218,7 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   overflow: hidden; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .event-type-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(16,16,20,0.1); }
-.event-type-card-image { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; }
+.event-type-card-image { width: 100%; aspect-ratio: 4/3; background-size: cover; background-position: center; }
 .event-type-card-body { padding: 0.9rem 1rem; text-align: left; }
 .event-type-viewmore {
   background: none; border: none; color: var(--stamp); font-size: 0.78rem; font-weight: 600;
@@ -2040,7 +2040,7 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 @media (prefers-reduced-motion: reduce) { .dashboard-tip-text { animation: none; } }
 
 /* ── book.html "personal website" sections (mobile-first throughout) ── */
-.book-page-wrap { max-width: 1080px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+.book-page-wrap { max-width: 1080px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
 
 .book-layout-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
 @media (min-width: 900px) {
@@ -2486,8 +2486,6 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 /* #8: dashed line before action row in service cards */
 .event-type-card-actions { border-top: 1px dashed var(--paper-line); padding-top: 0.7rem; margin-top: 0.9rem !important; }
 
-/* #9: square-ish image (closer to reference), reverting the accidental 16:9 change */
-.event-type-card-image { aspect-ratio: 4/3 !important; }
 
 /* #7: serif font for headings, scoped to book.html only (rest of app stays Inter) */
 .book-hero-name, .book-picktype-heading, .book-section-heading, .event-type-card-body strong {

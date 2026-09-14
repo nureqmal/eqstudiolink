@@ -37,14 +37,14 @@ export async function onRequestGet(context) {
     const link = links[0];
     if (!link) return json({ error: "Link booking tidak dijumpai." }, 404);
 
-    const profiles = await sbAdmin(env, `/profiles?id=eq.${link.owner_id}&select=business_name,logo_url,brand_color,about_text,instagram_url,tiktok_url,facebook_url,whatsapp_number,maps_url,business_address,cover_photo_url,tagline,since_year`);
+    const profiles = await sbAdmin(env, `/profiles?id=eq.${link.owner_id}&select=business_name,logo_url,brand_color,about_text,instagram_url,tiktok_url,facebook_url,whatsapp_number,maps_url,business_address,cover_photo_url,tagline,since_year,ssm_number`);
     const profile = profiles[0] || {};
     const business = {
       name: link.label || profile.business_name, logo_url: profile.logo_url, brand_color: profile.brand_color,
       about_text: profile.about_text || null, instagram_url: profile.instagram_url || null, tiktok_url: profile.tiktok_url || null,
       facebook_url: profile.facebook_url || null, whatsapp_number: profile.whatsapp_number || null, maps_url: profile.maps_url || null,
       business_address: profile.business_address || null, cover_photo_url: profile.cover_photo_url || null,
-      tagline: profile.tagline || null, since_year: profile.since_year || null,
+      tagline: profile.tagline || null, since_year: profile.since_year || null, ssm_number: profile.ssm_number || null,
     };
     const gallery = await sbAdmin(env, `/gallery_images?owner_id=eq.${link.owner_id}&select=image_url&order=sort_order.asc`);
     const testimonials = await sbAdmin(env, `/testimonials?owner_id=eq.${link.owner_id}&select=customer_name,quote_text&order=sort_order.asc`);

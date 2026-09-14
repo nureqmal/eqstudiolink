@@ -2053,21 +2053,65 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 }
 
 .book-hero {
-  position: relative; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.8rem;
-  background-size: cover; background-position: center; min-height: 240px; display: flex; align-items: flex-end;
+  position: relative; border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden;
+  background-size: cover; background-position: center; height: 220px;
 }
-.book-hero.has-image::before {
-  content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.65) 100%);
+.book-status-badge {
+  position: absolute; top: 1rem; left: 1rem; z-index: 2; display: inline-flex; align-items: center; gap: 0.35rem;
+  background: rgba(255,255,255,0.92); color: var(--accent-sage); font-size: 0.72rem; font-weight: 700;
+  padding: 0.3rem 0.7rem; border-radius: 999px; backdrop-filter: blur(4px);
 }
-.book-hero-overlay { position: relative; z-index: 1; padding: 1.6rem 1.4rem; width: 100%; color: #fff; }
-.book-hero-logo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; margin-bottom: 0.7rem; border: 2px solid rgba(255,255,255,0.8); box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
-.book-hero-name { font-size: clamp(1.5rem, 5vw, 2.2rem); line-height: 1.15; margin: 0; font-weight: 700; }
-.book-hero-tagline { margin: 0.4rem 0 0; font-size: 1rem; opacity: 0.92; max-width: 42ch; }
-.book-hero-badge {
-  display: inline-block; margin-top: 0.7rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.03em;
-  padding: 0.3rem 0.7rem; border-radius: 999px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px);
+.book-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-sage); animation: book-status-pulse 2s ease-in-out infinite; }
+@keyframes book-status-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+.book-identity-block {
+  position: relative; background: var(--surface); border: 1px solid var(--paper-line); border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg); padding: 3.2rem 1.4rem 1.4rem; margin-bottom: 1.8rem;
 }
-.book-hero:not(.has-image) .book-hero-badge { background: rgba(255,255,255,0.25); }
+.book-hero-logo {
+  position: absolute; top: -32px; left: 1.4rem; width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
+  border: 3px solid var(--surface); box-shadow: 0 4px 14px rgba(0,0,0,0.15); background: var(--surface);
+}
+.book-hero-logo-fallback {
+  display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 700;
+  background: var(--stamp); color: #fff;
+}
+.book-identity-text { margin-bottom: 0.8rem; }
+.book-hero-name { font-size: clamp(1.4rem, 5vw, 1.9rem); line-height: 1.15; margin: 0; font-weight: 700; color: var(--ink); }
+.book-verified-badge {
+  display: inline-flex; align-items: center; gap: 0.2rem; font-size: 0.66rem; font-weight: 700;
+  color: var(--stamp); vertical-align: middle; margin-left: 0.3rem;
+}
+.book-hero-tagline { margin: 0.3rem 0 0; font-size: 0.92rem; color: var(--ink-soft); max-width: 42ch; }
+.book-trust-badges-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+.book-trust-pill {
+  font-size: 0.7rem; font-weight: 600; color: var(--stamp); background: var(--stamp-soft);
+  padding: 0.25rem 0.65rem; border-radius: 999px;
+}
+.book-social-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.book-whatsapp-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem; background: var(--accent-sage); color: #fff;
+  font-size: 0.82rem; font-weight: 700; padding: 0.5rem 0.9rem; border-radius: 999px; text-decoration: none;
+}
+.book-whatsapp-btn:hover { filter: brightness(0.95); }
+
+.book-trustbar {
+  display: grid; grid-template-columns: 1fr; gap: 0.7rem; background: var(--surface); border: 1px solid var(--paper-line);
+  border-radius: var(--radius-lg); padding: 1rem 1.2rem; margin-bottom: 1.8rem;
+}
+@media (min-width: 560px) { .book-trustbar { grid-template-columns: repeat(3, 1fr); } }
+.book-trustbar-item { display: flex; align-items: center; gap: 0.6rem; color: var(--stamp); }
+.book-trustbar-item div { display: flex; flex-direction: column; }
+.book-trustbar-item strong { font-size: 0.8rem; color: var(--ink); }
+.book-trustbar-item span { font-size: 0.7rem; color: var(--ink-soft); }
+
+.book-footer-trustbar {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; padding: 1.5rem 1rem 0.6rem;
+  border-top: 1px solid var(--paper-line); margin-top: 1.5rem;
+}
+.book-footer-trustbar span { display: flex; align-items: center; gap: 0.3rem; font-size: 0.72rem; color: var(--ink-soft); }
+.book-footer-trustbar svg { color: var(--accent-sage); flex-shrink: 0; }
+.book-footer-brand { text-align: center; font-size: 0.72rem; color: var(--ink-soft); padding-bottom: 1.5rem; }
 
 .book-about-card { margin-bottom: 1.5rem; }
 .book-about-text { margin: 0; line-height: 1.6; color: var(--ink-soft); white-space: pre-wrap; }

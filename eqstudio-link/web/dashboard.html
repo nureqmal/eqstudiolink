@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=45" />
+<link rel="stylesheet" href="/assets/style.css?v=46" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -125,8 +125,14 @@
           </div>
 
           <div class="card" style="margin-bottom:1.5rem;">
-            <div class="section-title"><h2 style="margin:0; font-size:0.95rem;">Tren Booking (14 Hari)</h2></div>
-            <div id="home-trend-chart" style="margin-top:0.6rem;"></div>
+            <div class="section-title">
+              <h2 style="margin:0; font-size:0.95rem;">Tren Booking (14 Hari)</h2>
+              <div id="home-trend-summary-badges" class="home-trend-summary-badges"></div>
+            </div>
+            <div id="home-trend-chart-wrap" style="margin-top:0.6rem; position:relative;">
+              <div id="home-trend-chart"></div>
+              <div id="home-trend-tooltip" class="home-trend-tooltip" style="display:none;"></div>
+            </div>
             <div class="dashboard-tip-widget" id="dashboard-tip-widget">
               <span class="dashboard-tip-icon">💡</span>
               <p class="dashboard-tip-text" id="dashboard-tip-text"></p>
@@ -4266,8 +4272,27 @@
       renderDashboardTip(dashboardTipIndex);
     });
 
+    function catmullRomToBezierPath(pts) {
+      if (pts.length < 2) return "";
+      let d = `M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+      for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[i - 1] || pts[i];
+        const p1 = pts[i];
+        const p2 = pts[i + 1];
+        const p3 = pts[i + 2] || p2;
+        const cp1x = p1.x + (p2.x - p0.x) / 6;
+        const cp1y = p1.y + (p2.y - p0.y) / 6;
+        const cp2x = p2.x - (p3.x - p1.x) / 6;
+        const cp2y = p2.y - (p3.y - p1.y) / 6;
+        d += ` C${cp1x.toFixed(1)},${cp1y.toFixed(1)} ${cp2x.toFixed(1)},${cp2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+      }
+      return d;
+    }
+
     function renderHomeTrendChart() {
       const chartEl = document.getElementById("home-trend-chart");
+      const badgesEl = document.getElementById("home-trend-summary-badges");
+      const tooltipEl = document.getElementById("home-trend-tooltip");
       if (!chartEl) return;
 
       const now = new Date();
@@ -4280,29 +4305,42 @@
       }
 
       const totalBookings = days.reduce((sum, d) => sum + d.count, 0);
+      const peakCount = Math.max(...days.map(d => d.count), 0);
+
+      if (badgesEl) {
+        badgesEl.innerHTML = totalBookings > 0
+          ? `<span class="home-trend-badge">${totalBookings} Jumlah</span><span class="home-trend-badge">${peakCount} Puncak/Hari</span>`
+          : "";
+      }
+
       if (totalBookings === 0) {
-        chartEl.innerHTML = `<p class="hint" style="text-align:center; padding:1.5rem 0;">Belum ada booking dalam 14 hari lepas.</p>`;
+        chartEl.innerHTML = `
+          <div class="home-trend-empty">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M7 16l4-4 4 3 5-6" stroke-dasharray="3 3"></path></svg>
+            <p>Belum ada booking dalam 14 hari lepas.<br/>Carta akan terisi sebaik ada tempahan disahkan.</p>
+          </div>`;
+        if (tooltipEl) tooltipEl.style.display = "none";
         return;
       }
 
       const w = 600, h = 130, pad = 8;
       const max = Math.max(...days.map(d => d.count), 1);
-      const points = days.map((d, i) => {
-        const x = pad + (i / (days.length - 1)) * (w - pad * 2);
-        const y = h - pad - (d.count / max) * (h - pad * 2);
-        return `${x.toFixed(1)},${y.toFixed(1)}`;
-      });
-      const linePath = "M" + points.join(" L");
+      const stepX = (w - pad * 2) / (days.length - 1);
+      const points = days.map((d, i) => ({
+        x: pad + i * stepX,
+        y: h - pad - (d.count / max) * (h - pad * 2),
+        count: d.count,
+        date: d.date,
+      }));
+      const linePath = catmullRomToBezierPath(points);
       const areaPath = `${linePath} L${(w - pad).toFixed(1)},${(h - pad).toFixed(1)} L${pad.toFixed(1)},${(h - pad).toFixed(1)} Z`;
 
       const firstLabel = days[0].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
       const lastLabel = days[days.length - 1].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
-
-      const lastX = points[points.length - 1].split(",")[0];
-      const lastY = points[points.length - 1].split(",")[1];
+      const lastPoint = points[points.length - 1];
 
       chartEl.innerHTML = `
-        <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:110px; display:block;" preserveAspectRatio="none">
+        <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:110px; display:block; overflow:visible;" preserveAspectRatio="none" id="home-trend-svg">
           <defs>
             <linearGradient id="homeTrendFill" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" style="stop-color:var(--stamp); stop-opacity:0.28"/>
@@ -4310,9 +4348,12 @@
             </linearGradient>
           </defs>
           <path d="${areaPath}" style="fill:url(#homeTrendFill); stroke:none; opacity:0; animation:trend-fade-in 0.6s ease 0.5s forwards;" />
+          <line id="home-trend-crosshair" x1="0" y1="0" x2="0" y2="${h - pad}" style="stroke:var(--ink-soft); stroke-width:1; stroke-dasharray:3 3; opacity:0;" />
           <path d="${linePath}" id="home-trend-line-path" style="fill:none; stroke:var(--stamp); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;" />
-          <circle cx="${lastX}" cy="${lastY}" r="8" style="fill:var(--stamp); opacity:0.25; animation:trend-today-pulse 2s ease-out infinite;" />
-          <circle cx="${lastX}" cy="${lastY}" r="3.5" style="fill:var(--stamp);" />
+          ${points.map((p, i) => i === points.length - 1 ? "" : `<circle class="home-trend-dot" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3" data-index="${i}" style="fill:var(--surface); stroke:var(--stamp); stroke-width:1.5; opacity:0; animation:trend-dot-in 0.3s ease ${0.5 + i * 0.04}s forwards;"/>`).join("")}
+          <circle cx="${lastPoint.x.toFixed(1)}" cy="${lastPoint.y.toFixed(1)}" r="8" style="fill:var(--stamp); opacity:0.25; animation:trend-today-pulse 2s ease-out infinite;" />
+          <circle class="home-trend-dot" cx="${lastPoint.x.toFixed(1)}" cy="${lastPoint.y.toFixed(1)}" r="3.5" data-index="${points.length - 1}" style="fill:var(--stamp);" />
+          <rect id="home-trend-hitarea" x="0" y="0" width="${w}" height="${h}" fill="transparent" style="cursor:crosshair;" />
         </svg>
         <div class="row" style="justify-content:space-between; margin-top:0.3rem;">
           <span class="hint" style="font-size:0.72rem;">${firstLabel}</span>
@@ -4323,7 +4364,8 @@
       // One-time "draw itself in" animation for the line — feels alive on
       // first render without looping forever afterward.
       const linePathEl = document.getElementById("home-trend-line-path");
-      if (linePathEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (linePathEl && !prefersReduced) {
         const len = linePathEl.getTotalLength();
         linePathEl.style.strokeDasharray = len;
         linePathEl.style.strokeDashoffset = len;
@@ -4331,6 +4373,54 @@
         linePathEl.style.transition = "stroke-dashoffset 1s ease";
         linePathEl.style.strokeDashoffset = "0";
       }
+
+      // Hover/touch crosshair + floating tooltip — works with mouse (desktop)
+      // and touch (mobile, via touchmove/touchstart).
+      const svgEl = document.getElementById("home-trend-svg");
+      const hitArea = document.getElementById("home-trend-hitarea");
+      const crosshairEl = document.getElementById("home-trend-crosshair");
+      const wrapEl = document.getElementById("home-trend-chart-wrap");
+
+      function updateCrosshair(clientX) {
+        const rect = svgEl.getBoundingClientRect();
+        const relX = clientX - rect.left;
+        const svgX = (relX / rect.width) * w;
+        let nearestIndex = Math.round((svgX - pad) / stepX);
+        nearestIndex = Math.max(0, Math.min(points.length - 1, nearestIndex));
+        const p = points[nearestIndex];
+
+        crosshairEl.setAttribute("x1", p.x.toFixed(1));
+        crosshairEl.setAttribute("x2", p.x.toFixed(1));
+        crosshairEl.style.opacity = "1";
+
+        chartEl.querySelectorAll(".home-trend-dot").forEach(dot => {
+          const isActive = Number(dot.dataset.index) === nearestIndex;
+          dot.setAttribute("r", isActive ? "5" : "3");
+        });
+
+        const dateLabel = p.date.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short" });
+        tooltipEl.innerHTML = `<strong>${p.count}</strong> booking<br/><span>${dateLabel}</span>`;
+        tooltipEl.style.display = "block";
+        const wrapRect = wrapEl.getBoundingClientRect();
+        const dotScreenX = rect.left - wrapRect.left + (p.x / w) * rect.width;
+        const dotScreenY = rect.top - wrapRect.top + (p.y / h) * rect.height;
+        let tooltipLeft = dotScreenX - 40;
+        tooltipLeft = Math.max(0, Math.min(tooltipLeft, wrapRect.width - 90));
+        tooltipEl.style.left = `${tooltipLeft}px`;
+        tooltipEl.style.top = `${Math.max(0, dotScreenY - 52)}px`;
+      }
+
+      function hideCrosshair() {
+        crosshairEl.style.opacity = "0";
+        tooltipEl.style.display = "none";
+        chartEl.querySelectorAll(".home-trend-dot").forEach(dot => dot.setAttribute("r", dot.dataset.index == points.length - 1 ? "3.5" : "3"));
+      }
+
+      hitArea.addEventListener("mousemove", (e) => updateCrosshair(e.clientX));
+      hitArea.addEventListener("mouseleave", hideCrosshair);
+      hitArea.addEventListener("touchstart", (e) => { updateCrosshair(e.touches[0].clientX); }, { passive: true });
+      hitArea.addEventListener("touchmove", (e) => { e.preventDefault(); updateCrosshair(e.touches[0].clientX); }, { passive: false });
+      hitArea.addEventListener("touchend", hideCrosshair);
     }
 
     function fmtBookingDateTime(iso) {

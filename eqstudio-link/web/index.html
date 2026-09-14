@@ -27,7 +27,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=24" />
+<link rel="stylesheet" href="/assets/style.css?v=25" />
 </head>
 <body>
 
@@ -1211,9 +1211,9 @@
       const wrap = document.getElementById("chat-quick-faq");
       wrap.innerHTML = "";
       if (label) {
-        const lbl = document.createElement("div");
+        const lbl = document.createElement("span");
         lbl.className = "hint";
-        lbl.style.cssText = "width:100%; margin-bottom:0.3rem; font-size:0.75rem;";
+        lbl.style.cssText = "font-size:0.72rem; white-space:nowrap; align-self:center; opacity:0.85; flex-shrink:0; margin-right:0.2rem;";
         lbl.textContent = label;
         wrap.appendChild(lbl);
       }
@@ -1227,6 +1227,7 @@
         btn.addEventListener("click", () => handleUserMessage(f.q));
         wrap.appendChild(btn);
       }
+      wrap.scrollLeft = 0;
     }
 
     function handleUserMessage(text) {

@@ -1212,18 +1212,13 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .guide-btn { font-weight: 600; }
 
 /* ── Event type picker (booking page) — image-forward adaptive card grid ── */
-.event-type-grid { display: grid; grid-template-columns: 1fr; gap: 0.9rem; }
-.event-type-grid.count-2 { grid-template-columns: repeat(2, 1fr); }
-@media (min-width: 480px) {
-  .event-type-grid.count-many { grid-template-columns: repeat(2, 1fr); }
-}
+.event-type-grid { display: grid; grid-template-columns: 1fr; gap: 1.1rem; }
 .event-type-card {
   background: var(--surface); border: 1px solid var(--paper-line); border-radius: var(--radius-lg);
   overflow: hidden; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .event-type-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(16,16,20,0.1); }
-.event-type-card-image { width: 100%; aspect-ratio: 4/3; background-size: cover; background-position: center; }
-.event-type-grid.count-1 .event-type-card-image { aspect-ratio: 16/9; }
+.event-type-card-image { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; }
 .event-type-card-body { padding: 0.9rem 1rem; text-align: left; }
 .event-type-viewmore {
   background: none; border: none; color: var(--stamp); font-size: 0.78rem; font-weight: 600;
@@ -2059,9 +2054,9 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   background-size: cover; background-position: center; height: 220px;
 }
 .book-status-badge {
-  position: absolute; top: 1rem; left: 1rem; z-index: 2; display: inline-flex; align-items: center; gap: 0.35rem;
-  background: rgba(255,255,255,0.92); color: var(--accent-sage); font-size: 0.72rem; font-weight: 700;
-  padding: 0.3rem 0.7rem; border-radius: 999px; backdrop-filter: blur(4px);
+  position: absolute; top: -14px; right: 1.4rem; z-index: 2; display: inline-flex; align-items: center; gap: 0.35rem;
+  background: var(--surface); color: var(--accent-sage); font-size: 0.72rem; font-weight: 700;
+  padding: 0.3rem 0.7rem; border-radius: 999px; box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 .book-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-sage); animation: book-status-pulse 2s ease-in-out infinite; }
 @keyframes book-status-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -2080,17 +2075,17 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 }
 .book-identity-text { margin-bottom: 0.8rem; }
 .book-hero-name { font-size: clamp(1.4rem, 5vw, 1.9rem); line-height: 1.15; margin: 0; font-weight: 700; color: var(--ink); }
-.book-verified-badge {
-  display: inline-flex; align-items: center; gap: 0.2rem; font-size: 0.66rem; font-weight: 700;
-  color: var(--stamp); vertical-align: middle; margin-left: 0.3rem;
-}
+.book-verified-badge { display: inline-flex; align-items: center; vertical-align: middle; margin-left: 0.3rem; }
 .book-hero-tagline { margin: 0.3rem 0 0; font-size: 0.92rem; color: var(--ink-soft); max-width: 42ch; }
 .book-trust-badges-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
 .book-trust-pill {
   font-size: 0.7rem; font-weight: 600; color: var(--stamp); background: var(--stamp-soft);
   padding: 0.25rem 0.65rem; border-radius: 999px;
 }
-.book-social-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.book-social-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding-top: 0.9rem;
+  border-top: 1px dashed var(--paper-line);
+}
 .book-whatsapp-btn {
   display: inline-flex; align-items: center; gap: 0.4rem; background: var(--accent-sage); color: #fff;
   font-size: 0.82rem; font-weight: 700; padding: 0.5rem 0.9rem; border-radius: 999px; text-decoration: none;
@@ -2098,14 +2093,15 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .book-whatsapp-btn:hover { filter: brightness(0.95); }
 
 .book-trustbar {
-  display: grid; grid-template-columns: 1fr; gap: 0.7rem; background: var(--surface); border: 1px solid var(--paper-line);
-  border-radius: var(--radius-lg); padding: 1rem 1.2rem; margin-bottom: 1.8rem;
+  display: grid; grid-template-columns: 1fr; gap: 0.6rem; background: var(--stamp-soft);
+  border-radius: var(--radius-lg); padding: 0.9rem 1.2rem; margin-bottom: 1.8rem;
 }
 @media (min-width: 560px) { .book-trustbar { grid-template-columns: repeat(3, 1fr); } }
-.book-trustbar-item { display: flex; align-items: center; gap: 0.6rem; color: var(--stamp); }
+.book-trustbar-item { display: flex; align-items: center; gap: 0.5rem; color: var(--stamp); }
+.book-trustbar-item svg { flex-shrink: 0; }
 .book-trustbar-item div { display: flex; flex-direction: column; }
-.book-trustbar-item strong { font-size: 0.8rem; color: var(--ink); }
-.book-trustbar-item span { font-size: 0.7rem; color: var(--ink-soft); }
+.book-trustbar-item strong { font-size: 0.76rem; color: var(--ink); }
+.book-trustbar-item span { font-size: 0.68rem; color: var(--ink-soft); }
 
 .book-footer-trustbar {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; padding: 1.5rem 1rem 0.6rem;
@@ -2133,23 +2129,13 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .book-gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .book-section-heading { font-size: 1.15rem; text-align: center; margin: 0 0 1rem; }
-.book-testimonial-scroll {
-  display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem; margin-bottom: 1.5rem;
-  scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
-}
+.book-testimonial-scroll { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 0; }
 .book-testimonial-card {
-  scroll-snap-align: start; flex: 0 0 240px; background: var(--surface); border: 1px solid var(--paper-line);
+  background: var(--paper); border: 1px solid var(--paper-line);
   border-radius: var(--radius-lg); padding: 1.1rem;
 }
 .book-testimonial-quote { font-size: 0.88rem; line-height: 1.55; margin: 0 0 0.6rem; color: var(--ink); }
 .book-testimonial-author { font-size: 0.8rem; color: var(--ink-soft); margin: 0; font-weight: 600; }
-
-.book-social-row { display: flex; justify-content: center; gap: 0.7rem; margin-top: 1.5rem; flex-wrap: wrap; }
-.book-social-icon {
-  width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  background: var(--surface); border: 1px solid var(--paper-line); color: var(--ink); transition: transform 0.15s, background 0.15s, color 0.15s;
-}
-.book-social-icon:hover { transform: translateY(-2px); background: var(--stamp); color: #fff; border-color: var(--stamp); }
 
 /* ── book.html sticky "Book Sekarang" button (appears once the actual
    booking widget scrolls out of view) ── */
@@ -2452,8 +2438,8 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 
 /* ── Event type card: visible description snippet, price badge, explicit CTA ── */
 .event-type-price-badge {
-  flex-shrink: 0; font-family: var(--font-mono); font-weight: 700; font-size: 0.82rem; color: var(--stamp);
-  background: var(--stamp-soft); padding: 0.2rem 0.6rem; border-radius: 999px; white-space: nowrap;
+  flex-shrink: 0; font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; color: var(--stamp);
+  white-space: nowrap;
 }
 .event-type-desc-snippet { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.5; margin: 0.5rem 0 0; }
 .event-type-card-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 0.7rem; }

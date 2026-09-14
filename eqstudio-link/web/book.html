@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=48" />
+<link rel="stylesheet" href="/assets/style.css?v=49" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -200,16 +200,16 @@
         : `background:linear-gradient(135deg, ${brandColor}, ${brandColor}cc);`;
 
       const socialLinks = [];
+      if (biz.maps_url) socialLinks.push({ href: biz.maps_url, label: "Lokasi", icon: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle>' });
       if (biz.instagram_url) socialLinks.push({ href: biz.instagram_url, label: "Instagram", icon: '<path d="M16 3H8a5 5 0 0 0-5 5v8a5 5 0 0 0 5 5h8a5 5 0 0 0 5-5V8a5 5 0 0 0-5-5Z"></path><path d="M16.5 7.5h.01"></path><circle cx="12" cy="12" r="4"></circle>' });
       if (biz.tiktok_url) socialLinks.push({ href: biz.tiktok_url, label: "TikTok", icon: '<path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>' });
       if (biz.facebook_url) socialLinks.push({ href: biz.facebook_url, label: "Facebook", icon: '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"></path>' });
-      if (biz.maps_url) socialLinks.push({ href: biz.maps_url, label: "Lokasi", icon: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle>' });
       const whatsappHref = biz.whatsapp_number ? `https://wa.me/${biz.whatsapp_number.replace(/[^0-9]/g, "")}` : null;
 
       // Honest verified badge — only shows if the owner has actually
       // provided an SSM registration number. Never a decorative claim.
       const verifiedBadge = biz.ssm_number
-        ? `<span class="book-verified-badge" title="Nombor SSM berdaftar"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> SSM Berdaftar</span>`
+        ? `<span class="book-verified-badge" title="Nombor SSM berdaftar"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#3B82F6"></circle><path d="M8 12l2.5 2.5L16 9" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>`
         : "";
 
       // ── Page header: business identity (small) + share + language
@@ -232,10 +232,9 @@
       wireLangSwitcher();
 
       document.getElementById("book-hero-section").innerHTML = `
-        <div class="book-hero ${heroImage ? "has-image" : ""}" style="${heroBackground}">
-          <span class="book-status-badge"><span class="book-status-dot"></span> Buka Untuk Tempahan</span>
-        </div>
+        <div class="book-hero ${heroImage ? "has-image" : ""}" style="${heroBackground}"></div>
         <div class="book-identity-block">
+          <span class="book-status-badge"><span class="book-status-dot"></span> Buka Untuk Tempahan</span>
           ${biz.logo_url ? `<img src="${escapeHtml(biz.logo_url)}" class="book-hero-logo" alt="" />` : `<div class="book-hero-logo book-hero-logo-fallback">${escapeHtml((biz.name || "?").charAt(0))}</div>`}
           <div class="book-identity-text">
             <h1 class="book-hero-name">${escapeHtml(biz.name || "")} ${verifiedBadge}</h1>
@@ -371,16 +370,7 @@
                 </div>
               `).join("")}
             </div>
-            ${testimonials.length > 1 ? `
-            <div class="book-testimonial-nav">
-              <button type="button" id="book-testimonial-prev" aria-label="Testimoni sebelum"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-              <button type="button" id="book-testimonial-next" aria-label="Testimoni seterusnya"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>` : ""}
           </div>`;
-        const scrollEl = document.getElementById("book-testimonial-scroll");
-        const cardWidth = 260; // matches .book-testimonial-card flex-basis + gap
-        document.getElementById("book-testimonial-prev")?.addEventListener("click", () => scrollEl.scrollBy({ left: -cardWidth, behavior: "smooth" }));
-        document.getElementById("book-testimonial-next")?.addEventListener("click", () => scrollEl.scrollBy({ left: cardWidth, behavior: "smooth" }));
         if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
           const cards = testimonialEl.querySelectorAll(".book-testimonial-card");
           cards.forEach((el, i) => {
@@ -483,7 +473,7 @@
     function renderTypePicker() {
       const content = document.getElementById("book-content");
       const types = availabilityData.event_types || [];
-      const countClass = types.length === 1 ? "count-1" : types.length === 2 ? "count-2" : "count-many";
+      const countClass = "";
       content.innerHTML = renderStepIndicator(1) + `
         <p class="hint" style="text-align:center; margin-bottom:1rem;">${T().pickType}</p>
         <div class="event-type-grid ${countClass}">

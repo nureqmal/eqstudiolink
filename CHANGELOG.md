@@ -27,3 +27,7 @@
 
 - Production: `eqstudio.link`, Supabase project asal
 - Staging: `staging.eqstudio.link`, Supabase project berasingan (setup Sept 2026), kuota Resend **dikongsi** dengan production
+
+## ⚠️ Had diketahui
+
+- **Workers Build untuk `worker-cron` gagal khusus untuk branch `staging`** ("root directory not found"), walaupun struktur fail identikal dengan `main` (yang berjaya). Punca **belum** dikenal pasti — kemungkinan isu cache/config Cloudflare untuk branch baharu. **Kesan**: production worker (dari `main`) **selamat**, tak terjejas. **Tapi**: perubahan pada logic `worker-cron/` (contoh: template emel reminder) **tak** boleh di-test via staging sehingga isu ni dibetulkan — perlu semak kod dengan lebih teliti sebelum push perubahan jenis ni ke `main`.

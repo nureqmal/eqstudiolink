@@ -22,6 +22,16 @@
 - CSS Galeri pernah hilang SEPENUHNYA dari repo (versi lama style.css overwrite versi baharu semasa push) — sentiasa verify fresh clone sebelum bina di atas kod sedia ada.
 - `.book-social-icon` pernah disangka "dead code" dan dibuang, rupanya masih digunakan — sentiasa `grep` penggunaan sebenar sebelum buang apa-apa.
 - Button custom pernah "hilang" (teks putih atas putih) sebab tak reset style global `button {}`.
+- **(Sept 2026) Production book.html pecah** — download ZIP dari Google AI Studio untuk "tukar warna CTA" turut bawa 781 baris perubahan style.css yang tak diminta (Hero book.html tertimpa dengan set class berbeza dari sesi/eksperimen AI Studio sebelumnya). "Check diff" dibuat terlalu cepat/cetek untuk saiz sebegini, jadi terlepas. **Pelajaran**: alat tanpa sistem artifact (macam Google AI Studio) eksport SELURUH state semasa projek, bukan diff untuk satu permintaan sahaja — untuk diff besar (>~50-100 baris), jangan andaikan "check cepat" cukup.
+
+## Keputusan workflow (Sept 2026)
+
+**Google AI Studio digunakan untuk idea/rujukan visual sahaja — BUKAN untuk commit terus ke kod sebenar.** Sebab: ia kuat untuk brainstorm reka bentuk pantas (macam pattern yang berjaya — chatbox redesign, trend chart, rujukan "Lensa Kreatif Studio" book.html — semua diadaptasi manual ke kod sebenar dengan verify), tapi lemah dari segi "clean coding"/scope control (insiden di atas). Workflow:
+- **Idea/rujukan visual/kod contoh** → Google AI Studio, kongsi hasil dengan Claude untuk dinilai
+- **Implementation ke kod sebenar** (kecil atau besar) → Claude sahaja — verify struktur, scope, test sebelum deploy
+- **Diff besar dari sumber luar (>~50-100 baris)** → hantar kepada Claude untuk scan dulu sebelum commit, jangan andaikan "check cepat" cukup untuk manusia bukan-teknikal
+
+Staging environment (staging.eqstudio.link) kekal berguna untuk Claude test perubahan besar sebelum production, walaupun migration penuh ke AI Studio tak diteruskan.
 
 ## Persekitaran
 

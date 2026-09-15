@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=46" />
+<link rel="stylesheet" href="/assets/style.css?v=54" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -766,70 +766,180 @@
             <button type="button" class="secondary guide-btn" data-guide="tetapan-profil" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
 
-          <div class="card">
-            <div class="section-title"><h2 style="margin:0;">Profil Perniagaan</h2></div>
-            <p class="hint">Dipaparkan dalam emel dan invois yang pelanggan terima.</p>
-            <p class="hint" style="margin-top:-0.5rem;">Semua field wajib diisi, kecuali logo & QR code (optional).</p>
+          <div class="card profile-settings-card">
+            <div class="profile-card-header">
+              <div class="profile-header-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <div>
+                <div class="profile-header-title-row">
+                  <h2 style="margin:0; font-size:1.25rem; font-weight:700;">Profil Perniagaan</h2>
+                  <span class="profile-sync-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Auto-sync Invois & Emel</span>
+                </div>
+                <p class="profile-header-desc">Maklumat rasmi ini digunakan untuk menjana dokumen invois PDF, emel peringatan tempahan, dan identiti di laman tempahan anda.</p>
+              </div>
+            </div>
+
             <form id="profile-form">
-              <label for="p-business-name">Nama Perniagaan<button type="button" class="info-icon-btn" data-info="Contoh: Kek Rumah Kak Yong">i</button></label>
-              <input type="text" id="p-business-name" required />
-
-              <div class="row">
-                <div>
-                  <label for="p-phone">Nombor Telefon<button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789">i</button></label>
-                  <input type="text" id="p-phone" required />
+              <div class="profile-section-card">
+                <div class="profile-section-heading">
+                  <span class="profile-section-num">01</span>
+                  <div>
+                    <h3 class="profile-section-title">Maklumat Entiti & Perhubungan</h3>
+                    <p class="profile-section-sub">Nama rasmi dan saluran terus untuk pelanggan berhubung dengan anda.</p>
+                  </div>
                 </div>
-                <div>
-                  <label for="p-email">Emel Perhubungan (untuk pelanggan membalas)<button type="button" class="info-icon-btn" data-info="Contoh: hello@bisnesanda.com">i</button></label>
-                  <input type="email" id="p-email" required />
+
+                <label for="p-business-name">Nama Perniagaan <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: Kek Rumah Kak Yong">i</button></label>
+                <input type="text" id="p-business-name" required placeholder="cth: Kek Rumah Kak Yong" />
+
+                <div class="row" style="margin-top:0.8rem;">
+                  <div>
+                    <label for="p-phone">Nombor Telefon <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789">i</button></label>
+                    <input type="text" id="p-phone" required placeholder="cth: 012-345 6789" />
+                  </div>
+                  <div>
+                    <label for="p-email">Emel Perhubungan (untuk pelanggan membalas) <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: hello@bisnesanda.com">i</button></label>
+                    <input type="email" id="p-email" required placeholder="cth: hello@bisnesanda.com" />
+                  </div>
                 </div>
-              </div>
 
-              <label for="p-address">Alamat (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: Kajang, Selangor">i</button></label>
-              <input type="text" id="p-address" />
-
-              <label for="p-ssm">Nombor Pendaftaran Perniagaan / SSM (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: 202301012345 (JR/SA/PT)">i</button></label>
-              <input type="text" id="p-ssm" />
-              <p class="hint" style="margin-top:0.3rem;">Dipaparkan dalam invois PDF dan emel untuk menjadikan dokumen anda kelihatan rasmi dan sah di sisi undang-undang.</p>
-
-              <label for="p-logo-file">Logo<button type="button" class="info-icon-btn" data-info="Logo perniagaan anda, dipaparkan pada emel dan invois. Disyorkan format PNG dengan latar belakang lutsinar.">i</button></label>
-              <div id="logo-preview-wrap" style="display:none; margin-bottom:0.5rem;">
-                <img id="logo-preview" style="max-height:60px; max-width:180px; border-radius:8px; border:1px solid var(--paper-line);" />
-              </div>
-              <input type="file" id="p-logo-file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
-              <input type="hidden" id="p-logo" />
-
-              <label for="p-color">Warna Jenama (dipakai dalam emel reminder)<button type="button" class="info-icon-btn" data-info="Digunakan pada butang dan aksen dalam emel peringatan yang pelanggan terima.">i</button></label>
-              <div class="color-swatch-row">
-                <input type="color" id="p-color" value="#C97A2B" />
-                <span class="hex-label" id="p-color-hex">#C97A2B</span>
-              </div>
-
-              <p class="hint" style="margin-top:1.2rem; padding-top:1rem; border-top:1px solid var(--paper-line);">
-                <strong>Cara Bayar Alternatif</strong>. Sekiranya diisi, pelanggan boleh memilih pindahan bank secara manual sebagai alternatif kepada pembayaran dalam talian dalam emel peringatan.
-              </p>
-              <div class="row">
-                <div>
-                  <label for="p-bank-name">Nama Bank<button type="button" class="info-icon-btn" data-info="Contoh: Maybank">i</button></label>
-                  <input type="text" id="p-bank-name" required />
+                <div class="row" style="margin-top:0.8rem;">
+                  <div>
+                    <label for="p-address">Alamat / Lokasi (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: Kajang, Selangor">i</button></label>
+                    <input type="text" id="p-address" placeholder="cth: Seksyen 7, Shah Alam, Selangor" />
+                  </div>
+                  <div>
+                    <label for="p-ssm">Nombor Pendaftaran Perniagaan / SSM (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: 202301012345 (JR/SA/PT)">i</button></label>
+                    <input type="text" id="p-ssm" placeholder="cth: 202301012345 (SA0123456-X)" />
+                  </div>
                 </div>
-                <div>
-                  <label for="p-bank-account">Nombor Akaun<button type="button" class="info-icon-btn" data-info="Contoh: 1234567890">i</button></label>
-                  <input type="text" id="p-bank-account" required />
+
+                <div class="profile-ssm-tip">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <span>Nombor pendaftaran SSM akan dipaparkan secara rasmi pada invois PDF dan mengaktifkan lencana <strong>Perniagaan Sah</strong> untuk meningkatkan keyakinan pelanggan.</span>
                 </div>
               </div>
-              <label for="p-bank-holder">Nama Pemegang Akaun<button type="button" class="info-icon-btn" data-info="Contoh: Nama Penuh atau Nama Perniagaan">i</button></label>
-              <input type="text" id="p-bank-holder" required />
-              <label for="p-qr-file">🇲🇾 QR DuitNow<button type="button" class="info-icon-btn" data-info="Muat naik gambar kod QR DuitNow perniagaan anda daripada aplikasi bank atau e-dompet. Ini dipaparkan kepada pelanggan untuk membayar deposit.">i</button></label>
-              <p class="hint" style="margin-top:-0.2rem; margin-bottom:0.5rem;">Muat naik kod QR DuitNow perniagaan anda, boleh diperoleh daripada aplikasi bank atau e-dompet anda. Serasi dengan <strong>semua bank dan e-dompet</strong> (Touch n Go, Boost, GrabPay, dan lain-lain). Pelanggan hanya perlu mengimbas sekali.</p>
-              <div id="qr-preview-wrap" style="display:none; margin-bottom:0.5rem;">
-                <img id="qr-preview" style="max-height:120px; border-radius:8px; border:1px solid var(--paper-line);" />
-              </div>
-              <input type="file" id="p-qr-file" accept="image/png,image/jpeg,image/webp" />
-              <input type="hidden" id="p-qr" />
-              <p class="hint" style="margin-top:0.3rem;">Muat naik terus gambar kod QR. Anda tidak perlu mencari pautan dari mana-mana sumber lain.</p>
 
-              <button type="submit" style="margin-top:1.25rem;">Simpan Profil</button>
+              <div class="profile-section-card">
+                <div class="profile-section-heading">
+                  <span class="profile-section-num">02</span>
+                  <div>
+                    <h3 class="profile-section-title">Identiti Visual & Warna Jenama</h3>
+                    <p class="profile-section-sub">Logo dan warna aksen yang mewakili jenama anda dalam setiap emel dan resit.</p>
+                  </div>
+                </div>
+
+                <div class="row" style="align-items:flex-start;">
+                  <div style="flex:1; min-width:240px;">
+                    <label for="p-logo-file">Logo Perniagaan (pilihan)<button type="button" class="info-icon-btn" data-info="Logo perniagaan anda, dipaparkan pada emel dan invois. Disyorkan format PNG dengan latar belakang lutsinar.">i</button></label>
+                    <div id="logo-preview-wrap" class="profile-preview-card" style="display:none;">
+                      <div class="profile-preview-thumb">
+                        <img id="logo-preview" alt="Logo Perniagaan" />
+                      </div>
+                      <div class="profile-preview-meta">
+                        <span class="profile-preview-status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Logo Semasa Aktif</span>
+                        <span class="profile-preview-tip">Klik zon di bawah untuk menukar logo</span>
+                      </div>
+                    </div>
+                    <div class="profile-upload-dropzone">
+                      <input type="file" id="p-logo-file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
+                      <div class="profile-upload-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                      </div>
+                      <span class="profile-upload-label"><strong>Pilih fail logo</strong> atau seret ke sini</span>
+                      <span class="profile-upload-sub">PNG lutsinar disyorkan, JPG, WebP, SVG (Maks 2MB)</span>
+                    </div>
+                    <input type="hidden" id="p-logo" />
+                  </div>
+
+                  <div style="flex:1; min-width:240px;">
+                    <label for="p-color">Warna Jenama (dipakai dalam emel peringatan)<button type="button" class="info-icon-btn" data-info="Digunakan pada butang dan aksen dalam emel peringatan yang pelanggan terima.">i</button></label>
+                    <div class="profile-color-widget">
+                      <div class="profile-color-top">
+                        <div class="color-swatch-row">
+                          <input type="color" id="p-color" value="#C97A2B" />
+                          <span class="hex-label" id="p-color-hex">#C97A2B</span>
+                        </div>
+                        <div class="profile-brand-preview-pill" id="brand-pill-preview" style="background:#C97A2B; color:#ffffff;">
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                          <span>Pratonton Butang</span>
+                        </div>
+                      </div>
+                      <div class="profile-color-presets">
+                        <span class="profile-presets-label">Pilihan Pantas:</span>
+                        <button type="button" class="profile-swatch-btn" data-color="#C97A2B" style="background:#C97A2B;" title="Amber / Karamel"></button>
+                        <button type="button" class="profile-swatch-btn" data-color="#4A098F" style="background:#4A098F;" title="Ungu Diraja"></button>
+                        <button type="button" class="profile-swatch-btn" data-color="#0D9488" style="background:#0D9488;" title="Teal Moden"></button>
+                        <button type="button" class="profile-swatch-btn" data-color="#1F3A34" style="background:#1F3A34;" title="Forest Green"></button>
+                        <button type="button" class="profile-swatch-btn" data-color="#2563EB" style="background:#2563EB;" title="Biru Klasik"></button>
+                        <button type="button" class="profile-swatch-btn" data-color="#BE123C" style="background:#BE123C;" title="Merah Mawar"></button>
+                        <button type="button" class="profile-swatch-btn" data-color="#18181B" style="background:#18181B;" title="Hitam Elegan"></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-section-card">
+                <div class="profile-section-heading">
+                  <span class="profile-section-num">03</span>
+                  <div>
+                    <h3 class="profile-section-title">Akaun Bank & QR DuitNow (Pilihan)</h3>
+                    <p class="profile-section-sub">Kaedah pembayaran alternatif sekiranya pelanggan memilih pindahan manual atau imbasan QR.</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div>
+                    <label for="p-bank-name">Nama Bank<button type="button" class="info-icon-btn" data-info="Contoh: Maybank">i</button></label>
+                    <input type="text" id="p-bank-name" required placeholder="cth: Maybank / CIMB" />
+                  </div>
+                  <div>
+                    <label for="p-bank-account">Nombor Akaun<button type="button" class="info-icon-btn" data-info="Contoh: 1234567890">i</button></label>
+                    <input type="text" id="p-bank-account" required placeholder="cth: 512345678901" />
+                  </div>
+                </div>
+
+                <label for="p-bank-holder" style="margin-top:0.8rem;">Nama Pemegang Akaun<button type="button" class="info-icon-btn" data-info="Contoh: Nama Penuh atau Nama Perniagaan">i</button></label>
+                <input type="text" id="p-bank-holder" required placeholder="cth: Syarikat Contoh Sdn Bhd" />
+
+                <div style="margin-top:0.9rem;">
+                  <label for="p-qr-file">Kod QR DuitNow<button type="button" class="info-icon-btn" data-info="Muat naik gambar kod QR DuitNow perniagaan anda daripada aplikasi bank atau e-dompet. Ini dipaparkan kepada pelanggan untuk membayar deposit.">i</button></label>
+                  <p class="hint" style="margin-top:-0.2rem; margin-bottom:0.5rem;">Serasi dengan <strong>semua bank & e-dompet Malaysia</strong> (Touch 'n Go, MAE, GrabPay, Boost, dll). Pelanggan hanya perlu imbas terus dari emel peringatan.</p>
+
+                  <div id="qr-preview-wrap" class="profile-preview-card" style="display:none;">
+                    <div class="profile-preview-thumb qr-thumb">
+                      <img id="qr-preview" alt="QR DuitNow" />
+                    </div>
+                    <div class="profile-preview-meta">
+                      <span class="profile-preview-status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Kod QR Sedia Dipakai</span>
+                      <span class="profile-preview-tip">Klik kotak muat naik untuk tukar fail QR</span>
+                    </div>
+                  </div>
+
+                  <div class="profile-upload-dropzone">
+                    <input type="file" id="p-qr-file" accept="image/png,image/jpeg,image/webp" />
+                    <div class="profile-upload-icon-wrap">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <span class="profile-upload-label"><strong>Pilih gambar QR DuitNow</strong> atau seret ke sini</span>
+                    <span class="profile-upload-sub">Format JPG atau PNG daripada tangkap layar aplikasi bank anda</span>
+                  </div>
+                  <input type="hidden" id="p-qr" />
+                </div>
+              </div>
+
+              <div class="profile-form-actions">
+                <button type="submit" class="btn profile-save-btn">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  <span>Simpan Profil Perniagaan</span>
+                </button>
+                <span class="profile-save-hint">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  Perubahan akan diselaraskan serta-merta pada semua invois & emel
+                </span>
+              </div>
             </form>
           </div>
 
@@ -850,81 +960,259 @@
             <button type="button" class="secondary" id="reopen-setup-checklist-btn" style="margin-top:0.5rem;">↻ Buka Semula Setup Pantas</button>
           </div>
 
-          <h2 style="margin:2rem 0 0.2rem; font-size:1.2rem;">Website Saya</h2>
-          <p class="hint" style="margin-bottom:1rem;">Jadikan halaman tempahan awam anda lebih daripada setakat borang, ala-ala laman web peribadi.</p>
-
-          <div class="card">
-            <div class="section-title"><h2 style="margin:0;">Hero Halaman Tempahan<button type="button" class="info-icon-btn" data-info="Gambar besar dan tagline yang muncul di bahagian paling atas halaman tempahan awam anda, kesan pertama yang pelanggan nampak.">i</button></h2></div>
-            <label for="ws-cover-file" style="display:block;">Gambar Cover<button type="button" class="info-icon-btn" data-info="Gambar impak besar untuk bahagian atas halaman tempahan. Jika tiada, sistem akan guna gambar pertama dari Galeri, atau warna jenama anda sebagai gantian.">i</button></label>
-            <div class="ws-cover-preview" id="ws-cover-preview" style="display:none;"><img id="ws-cover-preview-img" alt="" /></div>
-            <input type="file" id="ws-cover-file" accept="image/*" style="display:none;" />
-            <button type="button" id="ws-cover-upload-btn" class="secondary">Muat Naik Gambar Cover</button>
-            <label for="ws-tagline" style="margin-top:0.8rem; display:block;">Tagline<button type="button" class="info-icon-btn" data-info="Frasa pendek dan padat, contoh: 'Kami prihatin tentang kesihatan anda.' Berbeza dari Cerita Bisnes yang lebih panjang.">i</button></label>
-            <input type="text" id="ws-tagline" placeholder="Contoh: Kami prihatin tentang kesihatan anda." maxlength="80" />
-            <label for="ws-since-year" style="margin-top:0.8rem; display:block;">Beroperasi Sejak Tahun<button type="button" class="info-icon-btn" data-info="Optional. Dipaparkan sebagai badge kepercayaan ringkas, contoh 'Sejak 2018'.">i</button></label>
-            <input type="number" id="ws-since-year" placeholder="Contoh: 2018" min="1900" max="2099" style="max-width:160px;" />
-            <button type="button" id="ws-hero-save-btn" style="margin-top:1rem;">Simpan Hero</button>
-          </div>
-
-          <div class="card">
-            <div class="section-title"><h2 style="margin:0;">Cerita Bisnes<button type="button" class="info-icon-btn" data-info="Cerita ringkas tentang bisnes anda, dipaparkan di halaman tempahan awam. Optional, kalau kosong, bahagian ini tidak akan dipaparkan langsung.">i</button></h2></div>
-            <div class="rte-toolbar" style="margin-bottom:0.4rem;">
-              <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal" aria-label="Teks tebal">B</button>
-              <button type="button" class="rte-btn" data-rte-cmd="italic" title="Condong" aria-label="Teks condong"><i>I</i></button>
-              <button type="button" class="rte-btn" data-rte-cmd="underline" title="Garis Bawah" aria-label="Teks garis bawah"><u>U</u></button>
-            </div>
-            <div class="rte-editor" id="ws-about-editor" contenteditable="true" data-placeholder="Contoh: Kami bermula sejak 2020, khusus dalam..."></div>
-            <button type="button" id="ws-about-save-btn" style="margin-top:0.8rem;">Simpan Cerita Bisnes</button>
-          </div>
-
-          <div class="card">
-            <div class="section-title">
-              <h2 style="margin:0;">Galeri<button type="button" class="info-icon-btn" data-info="Gambar kerja/servis anda, dipaparkan sebagai galeri di halaman tempahan awam. Optional, kalau tiada gambar, bahagian ini tidak akan dipaparkan.">i</button></h2>
-              <button type="button" id="ws-gallery-add-btn" style="width:auto;">+ Tambah Gambar</button>
-            </div>
-            <input type="file" id="ws-gallery-file-input" accept="image/*" style="display:none;" />
-            <div id="ws-gallery-grid" class="ws-gallery-grid">
-              <p class="hint">Memuatkan...</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="section-title">
-              <h2 style="margin:0;">Testimoni<button type="button" class="info-icon-btn" data-info="Kata-kata pelanggan sebenar anda sahaja. Jangan reka testimoni, ini akan menjejaskan kepercayaan pelanggan baharu.">i</button></h2>
-              <button type="button" id="ws-testimonial-add-btn" style="width:auto;">+ Tambah Testimoni</button>
-            </div>
-            <div id="ws-testimonial-list">
-              <p class="hint">Memuatkan...</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="section-title"><h2 style="margin:0;">Social &amp; Lokasi<button type="button" class="info-icon-btn" data-info="Link ini dipaparkan sebagai ikon di halaman tempahan awam. Optional, isi mana yang relevan sahaja.">i</button></h2></div>
-            <div class="row">
-              <div>
-                <label for="ws-instagram">Instagram<button type="button" class="info-icon-btn" data-info="Contoh: https://instagram.com/nama_perniagaan">i</button></label>
-                <input type="url" id="ws-instagram" placeholder="https://instagram.com/..." />
+          <div class="card ws-studio-card" id="ws-studio-card">
+            <div class="ws-studio-header">
+              <div class="ws-studio-header-left">
+                <div class="ws-studio-icon-badge">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                </div>
+                <div>
+                  <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+                    <h2 class="ws-studio-title">Website Saya (Microsite &amp; Portal Tempahan)</h2>
+                    <span class="ws-live-status-badge">
+                      <span class="ws-status-live-dot"></span>
+                      <span>Auto-sync ke Laman Awam</span>
+                    </span>
+                  </div>
+                  <p class="ws-studio-desc">Ubah halaman tempahan anda menjadi laman web rasmi perniagaan lengkap dengan gambar muka hadapan (cover), cerita pengenalan bisnes, portfolio galeri hasil kerja, dan ulasan pelanggan.</p>
+                </div>
               </div>
               <div>
-                <label for="ws-tiktok">TikTok<button type="button" class="info-icon-btn" data-info="Contoh: https://tiktok.com/@nama_perniagaan">i</button></label>
-                <input type="url" id="ws-tiktok" placeholder="https://tiktok.com/@..." />
+                <a href="/book.html?preview=1" target="_blank" rel="noopener" class="ws-preview-live-btn" id="ws-preview-live-link">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  <span>Lihat Laman Awam</span>
+                </a>
               </div>
             </div>
-            <div class="row" style="margin-top:0.8rem;">
+
+            <div class="ws-section-card">
+              <div class="ws-section-heading">
+                <span class="ws-section-num">01</span>
+                <div>
+                  <h3 class="ws-section-title">
+                    <span>Hero &amp; Gambar Muka Hadapan</span>
+                    <button type="button" class="info-icon-btn" data-info="Gambar besar dan tagline yang muncul di bahagian paling atas halaman tempahan awam anda, kesan pertama yang pelanggan nampak.">i</button>
+                  </h3>
+                  <p class="ws-section-sub">Gambar impak besar dan tagline yang menyambut pelanggan pertama kali di portal tempahan.</p>
+                </div>
+              </div>
+
               <div>
-                <label for="ws-facebook">Facebook<button type="button" class="info-icon-btn" data-info="Contoh: https://facebook.com/nama_perniagaan">i</button></label>
-                <input type="url" id="ws-facebook" placeholder="https://facebook.com/..." />
+                <label for="ws-cover-file" style="display:block; margin-bottom:0.45rem;">Gambar Cover Halaman<button type="button" class="info-icon-btn" data-info="Gambar impak besar untuk bahagian atas halaman tempahan. Jika tiada, sistem akan guna warna jenama atau gambar pertama galeri sebagai latar belakang.">i</button></label>
+
+                <div class="ws-cover-preview-card" id="ws-cover-preview" style="display:none;">
+                  <img id="ws-cover-preview-img" alt="Cover Halaman Tempahan" />
+                  <div class="ws-cover-preview-overlay">
+                    <span class="ws-cover-status-badge">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      Cover Semasa Aktif
+                    </span>
+                    <button type="button" class="ws-cover-change-btn" id="ws-cover-replace-btn">Tukar Gambar</button>
+                  </div>
+                </div>
+
+                <div class="ws-upload-dropzone" id="ws-cover-dropzone">
+                  <input type="file" id="ws-cover-file" accept="image/*" style="display:none;" />
+                  <div class="ws-upload-icon-wrap">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  </div>
+                  <span class="ws-upload-label"><strong>Pilih gambar cover</strong> atau seret ke sini</span>
+                  <span class="ws-upload-sub">Nisbah 16:9 disyorkan (contoh 1200x675 px), JPG atau PNG (Maks 3MB)</span>
+                </div>
+                <button type="button" id="ws-cover-upload-btn" class="secondary" style="display:none;">Muat Naik Gambar Cover</button>
               </div>
-              <div>
-                <label for="ws-whatsapp">Nombor WhatsApp<button type="button" class="info-icon-btn" data-info="Contoh: 60123456789 (tanpa + atau sengkang). Butang WhatsApp akan muncul di halaman tempahan awam.">i</button></label>
-                <input type="text" id="ws-whatsapp" placeholder="60123456789" />
+
+              <div class="row" style="margin-top:1.1rem; align-items:flex-start;">
+                <div style="flex:2; min-width:240px;">
+                  <label for="ws-tagline">Tagline Utama<button type="button" class="info-icon-btn" data-info="Frasa pendek dan padat, contoh: 'Kami prihatin tentang kesihatan anda.' Berbeza dari Cerita Bisnes yang lebih panjang.">i</button></label>
+                  <div class="ws-tagline-input-wrap">
+                    <input type="text" id="ws-tagline" placeholder="Contoh: Perkhidmatan fotografi perkahwinan teliti & berjiwa seni." maxlength="80" />
+                    <span class="ws-char-count-pill" id="ws-tagline-counter">0/80</span>
+                  </div>
+                </div>
+                <div style="flex:1; min-width:160px;">
+                  <label for="ws-since-year">Beroperasi Sejak<button type="button" class="info-icon-btn" data-info="Pilihan. Dipaparkan sebagai lencana kredibiliti, contoh: 'Beroperasi Sejak 2018'.">i</button></label>
+                  <input type="number" id="ws-since-year" placeholder="Contoh: 2018" min="1900" max="2099" />
+                </div>
+              </div>
+
+              <div class="ws-section-actions">
+                <button type="button" id="ws-hero-save-btn" class="ws-section-save-btn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                  <span>Simpan Hero</span>
+                </button>
+                <span class="ws-section-save-hint">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Dipaparkan serta-merta pada kepala laman awam
+                </span>
               </div>
             </div>
-            <div style="margin-top:0.8rem;">
-              <label for="ws-maps">Link Google Maps<button type="button" class="info-icon-btn" data-info="Salin link 'Share' dari Google Maps lokasi bisnes anda. Berguna untuk pelanggan yang datang secara fizikal.">i</button></label>
-              <input type="url" id="ws-maps" placeholder="https://maps.app.goo.gl/..." />
+
+            <div class="ws-section-card">
+              <div class="ws-section-heading">
+                <span class="ws-section-num">02</span>
+                <div>
+                  <h3 class="ws-section-title">
+                    <span>Cerita Bisnes (About Us)</span>
+                    <button type="button" class="info-icon-btn" data-info="Cerita ringkas tentang bisnes anda, dipaparkan di halaman tempahan awam. Pilihan, jika dibiarkan kosong seksyen ini tidak akan dipaparkan.">i</button>
+                  </h3>
+                  <p class="ws-section-sub">Kongsi latar belakang perkhidmatan, kepakaran, dan nilai yang anda bawa kepada pelanggan.</p>
+                </div>
+              </div>
+
+              <div class="ws-rte-wrap">
+                <div class="ws-rte-toolbar">
+                  <button type="button" class="ws-rte-btn rte-btn" data-rte-cmd="bold" title="Tebal (Bold)" aria-label="Teks tebal">B</button>
+                  <button type="button" class="ws-rte-btn rte-btn" data-rte-cmd="italic" title="Condong (Italic)" aria-label="Teks condong"><i>I</i></button>
+                  <button type="button" class="ws-rte-btn rte-btn" data-rte-cmd="underline" title="Garis Bawah (Underline)" aria-label="Teks garis bawah"><u>U</u></button>
+                  <div class="ws-rte-tip">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    <span>Penceritaan yang jelas membina keyakinan pelanggan</span>
+                  </div>
+                </div>
+                <div class="ws-rte-editor rte-editor" id="ws-about-editor" contenteditable="true" data-placeholder="Contoh: Kami bermula sejak 2020 dengan misi menyediakan servis berkualiti tinggi dan mesra pelanggan. Setiap sesi dijalankan dengan teliti..."></div>
+              </div>
+
+              <div class="ws-section-actions">
+                <button type="button" id="ws-about-save-btn" class="ws-section-save-btn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                  <span>Simpan Cerita Bisnes</span>
+                </button>
+                <span class="ws-section-save-hint">Akan muncul dalam kad tepi bersebelahan borang tempahan</span>
+              </div>
             </div>
-            <button type="button" id="ws-social-save-btn" style="margin-top:1rem;">Simpan Social &amp; Lokasi</button>
+
+            <div class="ws-section-card">
+              <div class="ws-gallery-toolbar">
+                <div class="ws-section-heading" style="margin-bottom:0;">
+                  <span class="ws-section-num">03</span>
+                  <div>
+                    <h3 class="ws-section-title">
+                      <span>Galeri Karya &amp; Portfolio</span>
+                      <button type="button" class="info-icon-btn" data-info="Gambar kerja/servis anda, dipaparkan sebagai galeri bento di halaman tempahan awam. Pilihan, jika tiada gambar bahagian ini tidak akan dipaparkan.">i</button>
+                    </h3>
+                    <p class="ws-section-sub">Tunjukkan bukti visual hasil kerja anda dalam susunan bento interaktif.</p>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:0.6rem;">
+                  <span class="ws-gallery-count-pill" id="ws-gallery-count-badge">Galeri Aktif</span>
+                  <button type="button" id="ws-gallery-add-btn" class="secondary" style="width:auto; display:inline-flex; align-items:center; gap:0.35rem; font-size:0.82rem; padding:0.45rem 0.85rem;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>Tambah Gambar</span>
+                  </button>
+                </div>
+              </div>
+
+              <input type="file" id="ws-gallery-file-input" accept="image/*" style="display:none;" />
+
+              <div class="ws-upload-dropzone ws-gallery-dropzone" id="ws-gallery-dropzone" style="margin-bottom:1rem;">
+                <span class="ws-upload-label"><strong>Muat naik foto portfolio</strong> (klik atau seret fail ke sini)</span>
+                <span class="ws-upload-sub">Format JPG, PNG, WebP (Maksimum 2MB setiap imej)</span>
+              </div>
+
+              <div id="ws-gallery-grid" class="ws-gallery-grid">
+                <p class="hint">Memuatkan...</p>
+              </div>
+            </div>
+
+            <div class="ws-section-card">
+              <div class="ws-gallery-toolbar">
+                <div class="ws-section-heading" style="margin-bottom:0;">
+                  <span class="ws-section-num">04</span>
+                  <div>
+                    <h3 class="ws-section-title">
+                      <span>Testimoni &amp; Ulasan Pelanggan</span>
+                      <button type="button" class="info-icon-btn" data-info="Kata-kata pelanggan sebenar anda sahaja. Jangan reka testimoni, ini akan menjejaskan integriti dan kepercayaan pelanggan baharu.">i</button>
+                    </h3>
+                    <p class="ws-section-sub">Ulasan dan bukti kepuasan pelanggan untuk meningkatkan kadar penukaran tempahan.</p>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:0.6rem;">
+                  <span class="ws-gallery-count-pill" id="ws-testimonial-count-badge">Ulasan</span>
+                  <button type="button" id="ws-testimonial-add-btn" class="secondary" style="width:auto; display:inline-flex; align-items:center; gap:0.35rem; font-size:0.82rem; padding:0.45rem 0.85rem;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>Tambah Testimoni</span>
+                  </button>
+                </div>
+              </div>
+
+              <div id="ws-testimonial-list">
+                <p class="hint">Memuatkan...</p>
+              </div>
+            </div>
+
+            <div class="ws-section-card">
+              <div class="ws-section-heading">
+                <span class="ws-section-num">05</span>
+                <div>
+                  <h3 class="ws-section-title">
+                    <span>Saluran Sosial &amp; Lokasi Rasmi</span>
+                    <button type="button" class="info-icon-btn" data-info="Pautan ini dipaparkan sebagai butang interaktif di halaman tempahan awam anda. Pilihan, isi mana yang relevan sahaja.">i</button>
+                  </h3>
+                  <p class="ws-section-sub">Hubungkan pelanggan dengan saluran media sosial dan peta navigasi lokasi fizikal anda.</p>
+                </div>
+              </div>
+
+              <div class="ws-social-grid">
+                <div class="ws-social-field-card">
+                  <div class="ws-social-field-header">
+                    <span class="ws-social-brand-badge wa">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    </span>
+                    <label for="ws-whatsapp" class="ws-social-label">Nombor WhatsApp Rasmi<button type="button" class="info-icon-btn" data-info="Contoh: 60123456789 (tanpa simbol + atau sengkang). Butang 'Chat di WhatsApp' akan muncul di halaman tempahan.">i</button></label>
+                  </div>
+                  <input type="text" id="ws-whatsapp" placeholder="cth: 60123456789" />
+                </div>
+
+                <div class="ws-social-field-card">
+                  <div class="ws-social-field-header">
+                    <span class="ws-social-brand-badge maps">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </span>
+                    <label for="ws-maps" class="ws-social-label">Pautan Google Maps<button type="button" class="info-icon-btn" data-info="Salin pautan 'Share' dari Google Maps lokasi premis atau studio anda. Peta interaktif akan disematkan di halaman tempahan.">i</button></label>
+                  </div>
+                  <input type="url" id="ws-maps" placeholder="https://maps.app.goo.gl/..." />
+                </div>
+
+                <div class="ws-social-field-card">
+                  <div class="ws-social-field-header">
+                    <span class="ws-social-brand-badge ig">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                    </span>
+                    <label for="ws-instagram" class="ws-social-label">Profil Instagram<button type="button" class="info-icon-btn" data-info="Pautan ke akaun Instagram anda, contoh: https://instagram.com/nama_perniagaan">i</button></label>
+                  </div>
+                  <input type="url" id="ws-instagram" placeholder="https://instagram.com/..." />
+                </div>
+
+                <div class="ws-social-field-card">
+                  <div class="ws-social-field-header">
+                    <span class="ws-social-brand-badge tt">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                    </span>
+                    <label for="ws-tiktok" class="ws-social-label">Profil TikTok<button type="button" class="info-icon-btn" data-info="Pautan ke akaun TikTok anda, contoh: https://tiktok.com/@nama_perniagaan">i</button></label>
+                  </div>
+                  <input type="url" id="ws-tiktok" placeholder="https://tiktok.com/@..." />
+                </div>
+
+                <div class="ws-social-field-card" style="grid-column: 1 / -1;">
+                  <div class="ws-social-field-header">
+                    <span class="ws-social-brand-badge fb">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"></path></svg>
+                    </span>
+                    <label for="ws-facebook" class="ws-social-label">Halaman Facebook<button type="button" class="info-icon-btn" data-info="Pautan ke Facebook Page atau profil bisnes anda.">i</button></label>
+                  </div>
+                  <input type="url" id="ws-facebook" placeholder="https://facebook.com/..." />
+                </div>
+              </div>
+
+              <div class="ws-section-actions">
+                <button type="button" id="ws-social-save-btn" class="ws-section-save-btn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                  <span>Simpan Social &amp; Lokasi</span>
+                </button>
+                <span class="ws-section-save-hint">Semua butang media sosial dan pautan peta akan aktif di portal tempahan</span>
+              </div>
+            </div>
           </div>
         </div>
 

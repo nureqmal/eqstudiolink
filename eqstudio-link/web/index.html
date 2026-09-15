@@ -27,7 +27,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=25" />
+<link rel="stylesheet" href="/assets/style.css?v=47" />
 </head>
 <body>
 
@@ -39,7 +39,7 @@
         <button type="button" class="lang-toggle-btn" data-lang-toggle="ms">BM</button>
       </div>
       <a href="/login.html" class="plain" data-i18n="nav_login">Log Masuk</a>
-      <a href="/login.html" class="btn" data-i18n="nav_cta">Mula Percuma</a>
+      <a href="/login.html" class="btn btn-primary-cta" data-i18n="nav_cta">Mula Percuma</a>
     </div>
   </nav>
 
@@ -57,7 +57,7 @@
       <h1><span data-i18n="hero_h1_a">Book. Bayar. Reminder. Repeat.</span> <span class="hero-h1-accent" data-i18n="hero_h1_b">Semua dalam satu sistem.</span></h1>
       <p class="sub" data-i18n="hero_sub">Untuk sebarang bisnes yang berasaskan tempahan. Satu link, tiada lagi ulang-alik.</p>
       <div class="cta-row">
-        <a href="/login.html" class="btn btn-lg" data-i18n="hero_cta_primary">Mula Percuma</a>
+        <a href="/login.html" class="btn btn-lg btn-primary-cta" data-i18n="hero_cta_primary">Mula Percuma</a>
         <a href="/ciri-ciri.html" class="btn secondary btn-lg" data-i18n="hero_cta_secondary">Tengok Butiran Lanjut</a>
         <span class="hint" data-i18n="hero_trial_note">Trial 14 hari, tak perlu kad</span>
       </div>
@@ -292,7 +292,7 @@
           <li data-i18n="pricing_starter_feat6">Cash flow forecast dan risk scoring</li>
           <li data-i18n="pricing_starter_feat7">Emel ringkasan bulanan</li>
         </ul>
-        <a href="/login.html" class="btn" style="width:100%;" data-i18n="pricing_cta">Mula Percuma</a>
+        <a href="/login.html" class="btn btn-primary-cta" style="width:100%;" data-i18n="pricing_cta">Mula Percuma</a>
       </div>
 
       <div class="lp-price-card" id="pro-price-card">
@@ -404,7 +404,7 @@
   <section class="lp-cta-band">
     <h2>Biar Customer Book Sendiri, Bukan Anda Kejar Bayaran</h2>
     <p>Booking, deposit, reminder, semua automatic. Percuba 14 hari, percuma.</p>
-    <a href="/login.html" class="btn btn-lg">Mula Percuma</a>
+    <a href="/login.html" class="btn btn-lg btn-primary-cta">Mula Percuma</a>
     <div class="lp-trust-badges">
       <span>🇲🇾 Dibina di Malaysia</span>
       <span>🔒 Tiada kad kredit</span>
@@ -413,7 +413,7 @@
   </section>
 
   <div class="lp-sticky-cta" id="sticky-cta">
-    <a href="/login.html" class="btn">Mula Percuma, dari RM19/bulan</a>
+    <a href="/login.html" class="btn btn-primary-cta">Mula Percuma, dari RM19/bulan</a>
   </div>
 
   <div class="lp-sim-overlay" id="sim-overlay">
@@ -489,13 +489,16 @@
         const data = await res.json();
         const textEl = document.getElementById("founding-banner-counter-text");
         const ctaBtn = document.getElementById("founding-cta-btn");
-        if (data.available) {
-          textEl.textContent = `${data.remaining}/${data.cap} slot berbaki`;
-        } else {
-          textEl.textContent = "Semua 50 slot telah diambil";
-          ctaBtn.textContent = "Lihat Pelan Standard";
-          ctaBtn.href = "#harga";
-          document.querySelector(".founding-banner-badge").textContent = "Tawaran Telah Tamat";
+        if (textEl && ctaBtn) {
+          if (data.available) {
+            textEl.textContent = `${data.remaining}/${data.cap} slot berbaki`;
+          } else {
+            textEl.textContent = "Semua 50 slot telah diambil";
+            ctaBtn.textContent = "Lihat Pelan Standard";
+            ctaBtn.href = "#harga";
+            const badge = document.querySelector(".founding-banner-badge");
+            if (badge) badge.textContent = "Tawaran Telah Tamat";
+          }
         }
       } catch { /* leave the default "Menyemak baki slot..." text if this fails */ }
     }
@@ -562,33 +565,37 @@
 
     // Sticky nav gets a soft shadow once the page scrolls
     const nav = document.querySelector(".lp-nav");
-    window.addEventListener("scroll", () => {
-      nav.style.boxShadow = window.scrollY > 8 ? "0 1px 0 rgba(31,58,52,0.08)" : "none";
-    });
-    nav.style.position = "sticky";
-    nav.style.top = "0";
-    nav.style.background = "rgba(251, 247, 239, 0.92)";
-    nav.style.backdropFilter = "blur(4px)";
-    nav.style.transition = "box-shadow 0.2s";
-    nav.style.zIndex = "10";
+    if (nav) {
+      window.addEventListener("scroll", () => {
+        nav.style.boxShadow = window.scrollY > 8 ? "0 1px 0 rgba(31,58,52,0.08)" : "none";
+      });
+      nav.style.position = "sticky";
+      nav.style.top = "0";
+      nav.style.background = "rgba(251, 247, 239, 0.92)";
+      nav.style.backdropFilter = "blur(4px)";
+      nav.style.transition = "box-shadow 0.2s";
+      nav.style.zIndex = "10";
+    }
 
-    // Receipt tilts gently toward the cursor (desktop only, respects reduced motion)
-    const receipt = document.getElementById("hero-receipt");
-    if (window.matchMedia("(hover: hover)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    // Card tilts gently toward the cursor (desktop only, respects reduced motion)
+    const receipt = document.getElementById("hero-booking-card") || document.getElementById("hero-receipt");
+    if (receipt && window.matchMedia("(hover: hover)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       const heroSection = document.querySelector(".lp-hero");
-      heroSection.addEventListener("mousemove", (e) => {
-        const rect = receipt.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const dx = (e.clientX - cx) / rect.width;
-        const dy = (e.clientY - cy) / rect.height;
-        const rotateY = Math.max(-8, Math.min(8, dx * 10));
-        const rotateX = Math.max(-8, Math.min(8, -dy * 10));
-        receipt.style.transform = `rotate(-1.5deg) perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      });
-      heroSection.addEventListener("mouseleave", () => {
-        receipt.style.transform = "rotate(-1.5deg)";
-      });
+      if (heroSection) {
+        heroSection.addEventListener("mousemove", (e) => {
+          const rect = receipt.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dx = (e.clientX - cx) / rect.width;
+          const dy = (e.clientY - cy) / rect.height;
+          const rotateY = Math.max(-8, Math.min(8, dx * 10));
+          const rotateX = Math.max(-8, Math.min(8, -dy * 10));
+          receipt.style.transform = `rotate(-1.5deg) perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        heroSection.addEventListener("mouseleave", () => {
+          receipt.style.transform = "rotate(-1.5deg)";
+        });
+      }
     }
 
     // Sticky mobile CTA appears once the hero's own CTA scrolls out of view
@@ -1211,9 +1218,9 @@
       const wrap = document.getElementById("chat-quick-faq");
       wrap.innerHTML = "";
       if (label) {
-        const lbl = document.createElement("span");
+        const lbl = document.createElement("div");
         lbl.className = "hint";
-        lbl.style.cssText = "font-size:0.72rem; white-space:nowrap; align-self:center; opacity:0.85; flex-shrink:0; margin-right:0.2rem;";
+        lbl.style.cssText = "width:100%; margin-bottom:0.3rem; font-size:0.75rem;";
         lbl.textContent = label;
         wrap.appendChild(lbl);
       }
@@ -1227,7 +1234,6 @@
         btn.addEventListener("click", () => handleUserMessage(f.q));
         wrap.appendChild(btn);
       }
-      wrap.scrollLeft = 0;
     }
 
     function handleUserMessage(text) {

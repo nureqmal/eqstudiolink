@@ -4151,7 +4151,8 @@ body.book-preview-mobile-view .book-layout-split.has-sidebar {
   font-size: 0.82rem; color: var(--ink-soft);
 }
 
-.book-nav-brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+.book-nav-brand { display: flex; align-items: center; gap: 0.55rem; font-weight: 600; color: var(--ink); text-decoration: none; min-width: 0; overflow: hidden; }
+#book-nav-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 .book-nav-brand-logo { width: 26px; height: 26px; border-radius: 6px; object-fit: cover; }
 
@@ -4163,7 +4164,7 @@ body.book-preview-mobile-view .book-layout-split.has-sidebar {
 
 [data-theme="dark"] .book-nav-verified-badge { background: #064e3b; color: #6ee7b7; border-color: #047857; }
 
-.book-nav-actions { display: flex; align-items: center; gap: 0.6rem; }
+.book-nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
 
 .book-share-nav-btn {
   display: inline-flex; align-items: center; gap: 0.35rem; background: var(--surface);

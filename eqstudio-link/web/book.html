@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=57" />
+<link rel="stylesheet" href="/assets/style.css?v=59" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -80,7 +80,6 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
         <span id="t-share-label">Kongsi</span>
       </button>
-      <div id="book-top-lang"></div>
     </div>
   </header>
 
@@ -178,7 +177,7 @@
     let holdTimer = null;
     let holdSeconds = 600;
     let lastFormValues = { name: "", email: "", phone: "" };
-    let lang = localStorage.getItem("eqstudio_booking_lang") || "ms";
+    let lang = "ms"; // Language switcher removed from UI — BM only, no localStorage lookup
 
     function startHoldCountdown() {
       if (holdTimer) clearInterval(holdTimer);
@@ -826,42 +825,11 @@
       }
     };
 
-    const LANG_LABELS = { ms: "BM", en: "EN", zh: "中文", ta: "தமிழ்" };
     function T() { return UI[lang] || UI.ms; }
-
-    function renderLangSwitcher() {
-      return `
-        <div class="lang-switcher" id="lang-switcher" style="margin:0;">
-          ${Object.keys(LANG_LABELS).map(code => `
-            <button type="button" class="lang-chip ${code === lang ? "selected" : ""}" data-lang="${code}">
-              ${LANG_LABELS[code]}
-            </button>
-          `).join("")}
-        </div>`;
-    }
-
-    function wireLangSwitcher() {
-      document.querySelectorAll(".lang-chip").forEach(btn => {
-        btn.addEventListener("click", () => {
-          lang = btn.dataset.lang;
-          localStorage.setItem("eqstudio_booking_lang", lang);
-          updateNavLabels();
-          if (availabilityData) {
-            renderProfileSections(availabilityData.business, availabilityData.gallery, availabilityData.testimonials);
-          }
-          renderCurrentStep();
-        });
-      });
-    }
 
     function updateNavLabels() {
       document.getElementById("t-verified-nav").textContent = T().verified;
-      document.getElementById("t-share-label").textContent = lang === "ms" ? "Kongsi" : (lang === "en" ? "Share" : (lang === "zh" ? "分享" : "பகிர்"));
-      const topLangContainer = document.getElementById("book-top-lang");
-      if (topLangContainer) {
-        topLangContainer.innerHTML = renderLangSwitcher();
-        wireLangSwitcher();
-      }
+      document.getElementById("t-share-label").textContent = "Kongsi";
     }
 
     function escapeHtml(str) {

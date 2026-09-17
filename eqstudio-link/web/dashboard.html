@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=61" />
+<link rel="stylesheet" href="/assets/style.css?v=62" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -4634,6 +4634,7 @@
       await loadSettingsForCurrentLink();
       renderSetupChecklist(allCustomers.length);
       updateHomeLinkStatusBadge();
+      renderDesktopOpsCockpit(); // allBookingLinks just finished loading — refresh Ops Cockpit stats (Active Links, etc.) in case updateHomeTileStats() already ran earlier with an empty array
 
       if (!onboardingChecked) {
         onboardingChecked = true;

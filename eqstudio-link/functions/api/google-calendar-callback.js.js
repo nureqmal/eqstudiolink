@@ -1,15 +1,11 @@
 // functions/api/google-calendar-callback.js
-// ═══ VERSI DEBUG SEMENTARA ═══
-// Papar mesej error PENUH dalam browser kalau gagal, supaya senang debug
-// tanpa perlu gali Cloudflare dashboard logs. GANTI balik dengan versi asal
-// (silent redirect) selepas isu ni selesai — versi debug ni dedah maklumat
-// teknikal yang tak sepatutnya nampak kepada pengguna biasa.
-
-import { encryptToken } from "../lib/token-crypto.js";
+// ═══ VERSI DEBUG #2 — TIADA IMPORT LANGSUNG ═══
+// Semua logic (termasuk encryption) digabung dalam SATU fail ni untuk
+// uji sama ada punca sebenar Error 1101 adalah import path yang salah.
 
 function debugErrorPage(step, err, extra = "") {
   const html = `<!doctype html><html><body style="font-family:monospace; padding:2rem; white-space:pre-wrap;">
-<h2 style="color:red;">DEBUG: Gagal di langkah "${step}"</h2>
+<h2 style="color:red;">DEBUG #2: Gagal di langkah "${step}"</h2>
 <p><strong>Mesej ralat:</strong> ${err?.message || String(err)}</p>
 <p><strong>Stack:</strong></p>
 <pre>${err?.stack || "(tiada stack trace)"}</pre>
@@ -17,6 +13,21 @@ ${extra ? `<p><strong>Maklumat tambahan:</strong></p><pre>${extra}</pre>` : ""}
 <p><a href="/dashboard.html">← Balik ke Dashboard</a></p>
 </body></html>`;
   return new Response(html, { status: 500, headers: { "Content-Type": "text/html" } });
+}
+
+async function encryptTokenInline(env, plaintext) {
+  const rawKey = env.CALENDAR_TOKEN_ENCRYPTION_KEY;
+  if (!rawKey || rawKey.length < 32) {
+    throw new Error(`CALENDAR_TOKEN_ENCRYPTION_KEY tidak sah (panjang: ${rawKey ? rawKey.length : 0})`);
+  }
+  const keyMaterial = new TextEncoder().encode(rawKey.slice(0, 32));
+  const key = await crypto.subtle.importKey("raw", keyMaterial, { name: "AES-GCM" }, false, ["encrypt"]);
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const encoded = new TextEncoder().encode(plaintext);
+  const ciphertext = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, encoded);
+  const ivB64 = btoa(String.fromCharCode(...iv));
+  const ctB64 = btoa(String.fromCharCode(...new Uint8Array(ciphertext)));
+  return `${ivB64}.${ctB64}`;
 }
 
 export async function onRequestGet(context) {
@@ -32,9 +43,7 @@ export async function onRequestGet(context) {
 
     const dashboardUrl = (status) => `${url.origin}/dashboard.html?page=tetapan-profil&calendar=${status}`;
 
-    if (errorParam) {
-      return Response.redirect(dashboardUrl("cancelled"), 302);
-    }
+    if (errorParam) return Response.redirect(dashboardUrl("cancelled"), 302);
     if (!code || !stateRaw) {
       return debugErrorPage("check-params", new Error("code atau state tiada dalam URL"), `code=${code}, state=${stateRaw}`);
     }
@@ -85,7 +94,7 @@ export async function onRequestGet(context) {
     }
 
     step = "encrypt-token";
-    const encryptedRefreshToken = await encryptToken(env, tokenData.refresh_token);
+    const encryptedRefreshToken = await encryptTokenInline(env, tokenData.refresh_token);
 
     step = "compute-expiry";
     const accessTokenExpiresAt = new Date(Date.now() + (tokenData.expires_in || 3600) * 1000).toISOString();

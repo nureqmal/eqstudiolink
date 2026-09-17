@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=65" />
+<link rel="stylesheet" href="/assets/style.css?v=66" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -1436,7 +1436,7 @@
                 <p class="hint" id="push-status-text" style="margin-top:0.4rem; display:none;"></p>
               </div>
 
-              <div class="profile-extra-tile">
+              <div class="profile-extra-tile" id="gcal-extra-tile">
                 <div class="profile-extra-tile-title">Kalendar Peribadi<button type="button" class="info-icon-btn" data-info="Sambungkan Google Calendar peribadi anda supaya tempahan baharu, pertukaran tarikh, dan pembatalan terus dipaparkan di kalendar telefon anda secara automatik.">i</button></div>
                 <div id="gcal-not-connected" style="display:none;">
                   <p class="hint" style="margin:0 0 0.6rem;">Sambungkan Google Calendar untuk lihat tempahan studio terus di kalendar peribadi anda.</p>
@@ -7711,6 +7711,7 @@
         { page: "tetapan-profil", selector: "#p-logo-file", title: "Logo", text: "Naik gambar logo bisnes anda, akan muncul dalam emel." },
         { page: "tetapan-profil", selector: "#p-color", title: "Warna Jenama", text: "Customize warna utama yang muncul dalam emel dan portal customer." },
         { page: "tetapan-profil", selector: "#p-bank-name", title: "Bank dan QR DuitNow", text: "Isi maklumat ini supaya pelanggan boleh membayar terus melalui pindahan bank atau kod QR." },
+        { page: "tetapan-profil", selector: "#gcal-extra-tile", title: "Kalendar Peribadi (Baharu!)", text: "Sambungkan Google Calendar anda — tempahan baharu, tukar tarikh, dan pembatalan akan terus dipaparkan di kalendar telefon anda tanpa perlu buat apa-apa." },
       ],
       "tetapan-reminder": [
         { page: "tetapan-reminder", selector: "#chip-row", title: "Pilih Hari Reminder", text: "Klik hari bila sistem patut hantar reminder deposit, relatif kepada tarikh due (contoh: H-3, H-1, Hari-Ini)." },

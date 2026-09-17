@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=62" />
+<link rel="stylesheet" href="/assets/style.css?v=64" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -1431,6 +1431,21 @@
             <div class="section-title"><h2 style="margin:0; font-size:1rem;">Notifikasi Telefon<button type="button" class="info-icon-btn" data-info="Terima makluman terus ke telefon anda apabila ada tempahan baharu, pertukaran, atau balasan forum, tanpa perlu membuka dashboard.">i</button></h2></div>
             <button type="button" class="secondary" id="enable-push-btn" style="margin-top:0.5rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg> <span id="enable-push-text">Hidupkan Notifikasi Telefon</span></button>
             <p class="hint" id="push-status-text" style="margin-top:0.4rem; display:none;"></p>
+          </div>
+
+          <div class="card">
+            <div class="section-title"><h2 style="margin:0; font-size:1rem;">Kalendar Peribadi<button type="button" class="info-icon-btn" data-info="Sambungkan Google Calendar peribadi anda supaya tempahan baharu, pertukaran tarikh, dan pembatalan terus dipaparkan di kalendar telefon anda secara automatik.">i</button></h2></div>
+            <div id="gcal-not-connected" style="display:none;">
+              <p class="hint" style="margin:0 0 0.6rem;">Sambungkan Google Calendar untuk lihat tempahan studio terus di kalendar peribadi anda.</p>
+              <button type="button" class="secondary" id="gcal-connect-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Sambungkan Google Calendar</button>
+            </div>
+            <div id="gcal-connected" style="display:none;">
+              <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.6rem;">
+                <span class="badge dah_bayar" style="display:inline-flex; align-items:center; gap:0.3rem;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Disambungkan</span>
+              </div>
+              <p class="hint" id="gcal-sync-status" style="margin:0 0 0.6rem;"></p>
+              <button type="button" class="secondary" id="gcal-disconnect-btn" style="color:var(--warn);">Putuskan Sambungan</button>
+            </div>
           </div>
 
           <div class="card">
@@ -7392,6 +7407,72 @@
       } catch { /* leave default button state */ }
     }
     updatePushButtonState();
+
+    // ── Google Calendar Sync ──
+    async function loadCalendarConnectionStatus() {
+      const { data } = await supabase.from("google_calendar_connections").select("connected_at, last_sync_error, last_sync_at").eq("owner_id", user.id).maybeSingle();
+      const notConnectedEl = document.getElementById("gcal-not-connected");
+      const connectedEl = document.getElementById("gcal-connected");
+      if (!notConnectedEl || !connectedEl) return;
+      if (data) {
+        notConnectedEl.style.display = "none";
+        connectedEl.style.display = "block";
+        const statusEl = document.getElementById("gcal-sync-status");
+        if (data.last_sync_error) {
+          statusEl.innerHTML = `<span style="color:var(--warn);">⚠ Ralat sync terakhir: ${escapeHtml(data.last_sync_error)}</span>`;
+        } else if (data.last_sync_at) {
+          statusEl.textContent = `Sync terakhir: ${new Date(data.last_sync_at).toLocaleString("ms-MY")}`;
+        } else {
+          statusEl.textContent = "Belum ada tempahan disegerakkan lagi.";
+        }
+      } else {
+        notConnectedEl.style.display = "block";
+        connectedEl.style.display = "none";
+      }
+    }
+    loadCalendarConnectionStatus();
+
+    document.getElementById("gcal-connect-btn")?.addEventListener("click", async () => {
+      const { data: sessionData } = await supabase.auth.getSession();
+      window.location.href = `/api/google-calendar-auth-start?token=${encodeURIComponent(sessionData.session.access_token)}`;
+    });
+
+    document.getElementById("gcal-disconnect-btn")?.addEventListener("click", async () => {
+      if (!confirm("Putuskan sambungan Google Calendar? Tempahan sedia ada dalam kalendar anda tidak akan dipadam, tetapi tempahan baharu tidak lagi disegerakkan.")) return;
+      const btn = document.getElementById("gcal-disconnect-btn");
+      btn.disabled = true;
+      try {
+        const { data: sessionData } = await supabase.auth.getSession();
+        const res = await fetch("/api/google-calendar-disconnect", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${sessionData.session.access_token}` },
+        });
+        if (!res.ok) throw new Error((await res.json()).error || "Gagal putuskan sambungan.");
+        showToast("Google Calendar diputuskan.", "success");
+        loadCalendarConnectionStatus();
+      } catch (err) {
+        showToast(err.message, "error");
+      }
+      btn.disabled = false;
+    });
+
+    // Papar toast bila owner baru sahaja kembali dari Google OAuth redirect
+    (function handleCalendarRedirectParam() {
+      const calParam = new URLSearchParams(location.search).get("calendar");
+      if (!calParam) return;
+      const messages = {
+        connected: ["Google Calendar berjaya disambungkan!", "success"],
+        error: ["Gagal sambungkan Google Calendar. Sila cuba lagi.", "error"],
+        cancelled: ["Sambungan Google Calendar dibatalkan.", "success"],
+        no_refresh_token: ["Sila putuskan akses eqstudio.link di myaccount.google.com/permissions, kemudian cuba sambung semula.", "error"],
+      };
+      const [msg, type] = messages[calParam] || [];
+      if (msg) showToast(msg, type);
+      // Bersihkan query param supaya toast tak muncul semula bila reload
+      const cleanUrl = new URL(location.href);
+      cleanUrl.searchParams.delete("calendar");
+      history.replaceState({}, "", cleanUrl);
+    })();
 
     document.getElementById("enable-push-btn")?.addEventListener("click", async (e) => {
       const btn = e.currentTarget;

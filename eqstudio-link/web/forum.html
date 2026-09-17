@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=61" />
+<link rel="stylesheet" href="/assets/style.css?v=63" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -1372,16 +1372,16 @@
         id: "deposit-payments",
         icon: "💳",
         title: "Deposit Automatik & Bayaran DuitNow / Kad",
-        desc: "Kunci komitmen pelanggan dengan mengutip deposit secara automatik sebelum slot disahkan.",
+        desc: "Kunci komitmen pelanggan dengan mengutip deposit sebelum slot disahkan, guna QR DuitNow.",
         content: `
-          <p>Masalah pelanggan "no-show" (tidak hadir) boleh dikurangkan sehingga 95% dengan menguatkuasakan deposit tempahan:</p>
+          <p>Masalah pelanggan "no-show" (tidak hadir) boleh dikurangkan dengan menguatkuasakan deposit tempahan:</p>
           <ol style="padding-left:1.3rem; line-height:1.7;">
-            <li><strong>Tetapkan Jumlah Deposit:</strong> Anda boleh menetapkan deposit tetap (cth: RM50) atau peratusan daripada jumlah keseluruhan perkhidmatan.</li>
-            <li><strong>Sambungkan Pembayaran Online (Stripe):</strong> Pelanggan boleh membayar terus menggunakan kad debit/kredit atau FPX online banking. Resit dihantar serta-merta.</li>
-            <li><strong>Pilihan Manual QR DuitNow:</strong> Jika tidak menggunakan gateway, anda boleh meletakkan QR DuitNow premis. Pelanggan memuat naik bukti resit, dan anda sahkan dengan 1 klik dari dashboard atau WhatsApp.</li>
+            <li><strong>Tetapkan Jumlah Deposit:</strong> Di Tetapan Booking, masukkan jumlah deposit tetap (cth: RM50) untuk pakej anda — atau RM0 jika mahu tempahan percuma tanpa deposit.</li>
+            <li><strong>Muat Naik QR DuitNow Anda:</strong> Di Profil Perniagaan, muat naik gambar QR DuitNow premis anda (dari aplikasi bank/e-dompet). Pelanggan akan imbas QR ini untuk membayar.</li>
+            <li><strong>Sahkan Bayaran Secara Manual:</strong> Selepas pelanggan memaklumkan bayaran (WhatsApp/emel), anda sahkan dengan 1 klik dari Senarai Pelanggan — status bertukar kepada "Dah Bayar".</li>
           </ol>
           <div style="margin-top:1rem; padding:0.85rem; background:var(--ok-bg); border-radius:8px; font-size:0.88rem; color:var(--ok);">
-            ✓ <strong>Status Telus:</strong> Slot hanya dianggap 'Disahkan' selepas pembayaran deposit diterima.
+            ✓ <strong>Status Telus:</strong> Semua bayaran disahkan secara manual oleh anda — sistem tidak memproses kad kredit atau FPX secara automatik.
           </div>
         `
       },
@@ -1400,31 +1400,47 @@
         `
       },
       {
-        id: "google-calendar",
-        icon: "📅",
-        title: "Google Calendar Sync: Elak Double-Booking",
-        desc: "Segerakkan slot studio dengan kalendar peribadi telefon anda secara automatik.",
+        id: "event-types-questions",
+        icon: "🗂️",
+        title: "Jenis Perkhidmatan & Soalan Tambahan",
+        desc: "Sediakan beberapa pakej dengan tempoh dan deposit berbeza, serta tanya maklumat khusus semasa tempahan.",
         content: `
-          <p>Pastikan jadual kerja dan kehidupan peribadi anda sentiasa teratur:</p>
+          <p>Kebanyakan studio ada lebih daripada satu jenis perkhidmatan — sistem ini boleh urus semuanya dalam satu pautan:</p>
           <ol style="padding-left:1.3rem; line-height:1.7;">
-            <li>Pergi ke <strong>Dashboard > Tetapan Kalendar</strong>.</li>
-            <li>Sambungkan akaun Google anda. Sistem akan memuatkan jadual tempahan studio terus ke aplikasi Google Calendar di Android/iPhone anda.</li>
-            <li>Apabila anda menambah urusan peribadi di kalendar anda, eqstudio.link secara automatik boleh menutup slot tersebut agar pelanggan tidak membuat tempahan pada waktu berkenaan.</li>
+            <li><strong>Tambah Jenis Perkhidmatan:</strong> Di Tetapan Booking > tab Jenis Perkhidmatan, cipta pakej berasingan (cth: Gunting Rambut 30 minit RM30, Rawatan Kulit Kepala 60 minit RM80) — setiap satu dengan tempoh, deposit, dan kapasiti sendiri.</li>
+            <li><strong>Soalan Intake Tersuai:</strong> Di tab Soalan Intake, tambah soalan khusus (cth: "Alahan kulit?", "Lokasi majlis?"). Jawapan pelanggan terus dipaparkan dalam Senarai Booking anda.</li>
+            <li><strong>Kapasiti Berkumpulan:</strong> Jika perkhidmatan anda untuk kelas atau bengkel, tetapkan kapasiti melebihi 1 supaya beberapa pelanggan boleh menempah slot masa yang sama.</li>
           </ol>
         `
       },
       {
-        id: "promo-vouchers",
-        icon: "🏷️",
-        title: "Baucar & Kod Diskaun Promosi",
-        desc: "Cipta kod promosi bermusim untuk menarik pelanggan baharu atau menghargai pelanggan tetap.",
+        id: "customer-calendar-add",
+        icon: "📅",
+        title: "Pelanggan Boleh Terus Tambah ke Kalendar Mereka",
+        desc: "Selepas tempahan berjaya, pelanggan boleh simpan slot terus ke Google, Outlook atau Apple Calendar sendiri.",
         content: `
-          <p>Strategi mudah meningkatkan tempahan sempena musim cuti sekolah, perayaan atau hari pembukaan:</p>
+          <p>Selepas pelanggan berjaya menempah dan sampai ke skrin pengesahan, mereka akan nampak butang untuk terus menambah tempahan ke kalendar peribadi mereka:</p>
           <ul style="padding-left:1.3rem; line-height:1.7;">
-            <li><strong>Cipta Kod Baucar:</strong> Masukkan kod unik (contoh: <code>RAYA2026</code> atau <code>STUDENT10</code>).</li>
-            <li><strong>Jenis Potongan:</strong> Pilih sama ada diskaun dalam bentuk RM tetap (cth: Potongan RM20) atau peratusan (cth: 15% diskaun).</li>
-            <li><strong>Had Penggunaan & Tempoh:</strong> Tetapkan had jumlah tebusan (cth: Terhad kepada 50 pelanggan pertama) dan tarikh luput automatik.</li>
+            <li><strong>Google Calendar, Outlook, atau Apple:</strong> Satu klik terus buka aplikasi kalendar pilihan pelanggan dengan tarikh, masa, dan butiran tempahan sudah terisi.</li>
+            <li><strong>Kurangkan Pelanggan Lupa:</strong> Ini membantu kurangkan risiko pelanggan terlupa temu janji mereka, tanpa perlu anda hantar peringatan tambahan.</li>
           </ul>
+          <div style="margin-top:1rem; padding:0.85rem; background:var(--stamp-soft); border-radius:8px; font-size:0.88rem;">
+            💡 <strong>Nota:</strong> Ciri ini untuk kalendar peribadi pelanggan sahaja. Sinkron dua-hala ke kalendar peribadi anda sebagai pemilik studio bukan ciri semasa — jika ini berguna untuk anda, kongsikan cadangan di forum!
+          </div>
+        `
+      },
+      {
+        id: "pro-multi-link",
+        icon: "🏢",
+        title: "Multi-Link untuk Perniagaan Berbilang (Pro)",
+        desc: "Uruskan sehingga 3 pautan tempahan berasingan — sesuai untuk cawangan atau jenama berbeza.",
+        content: `
+          <p>Jika anda mengendalikan lebih daripada satu cawangan atau venture perniagaan, pelan Pro membenarkan anda cipta pautan tempahan berasingan:</p>
+          <ol style="padding-left:1.3rem; line-height:1.7;">
+            <li><strong>Cipta Pautan Tambahan:</strong> Di Tetapan Booking, gunakan Link Switcher untuk tambah pautan baharu (sehingga 3 untuk pelan Pro).</li>
+            <li><strong>Tetapan Berasingan Sepenuhnya:</strong> Setiap pautan ada waktu tersedia, jenis perkhidmatan, dan deposit sendiri — tidak berkongsi dengan pautan lain.</li>
+            <li><strong>Label Berbeza:</strong> Beri setiap pautan nama yang jelas (cth: "Cawangan Shah Alam", "Cawangan Cheras") supaya senang dikenal pasti.</li>
+          </ol>
         `
       },
       {

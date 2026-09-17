@@ -6,6 +6,7 @@
 //   PUBLIC_SITE_URL, and (optional but recommended) WORKER_CRON_URL + MANUAL_TRIGGER_KEY for instant reminder.
 
 import { sendPushToOwner } from "./_send-push-to-owner.js";
+import { pushBookingToCalendar } from "../lib/google-calendar-push.js";
 
 async function sbAdmin(env, path, options = {}) {
   const res = await fetch(`${env.SUPABASE_URL}/rest/v1${path}`, {
@@ -237,6 +238,11 @@ export async function onRequestPost(context) {
     const slotLabel = `${String(myParts.getUTCHours()).padStart(2, "0")}:${String(myParts.getUTCMinutes()).padStart(2, "0")}`;
 
     await sendConfirmationEmails(env, { profile, bizName, booking, customer, slotLabel, dateLabel, lang });
+
+    // Push tempahan baharu ke Google Calendar owner (skip senyap kalau owner tak
+    // sambung — lihat pushBookingToCalendar implementation). TAK PERNAH throw,
+    // jadi flow booking di atas sentiasa berjaya tak kira apa berlaku di sini.
+    await pushBookingToCalendar(env, booking, "create");
 
     await sbAdmin(env, "/notifications", {
       method: "POST",

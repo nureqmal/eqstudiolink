@@ -1,8 +1,11 @@
 // Cloudflare Pages Function — POST /api/booking-notify
 // Owner-authenticated (Supabase access token). Body: { booking_id, type: 'reschedule'|'cancel', old_slot_label, new_slot_label, reason }
-// Sends the appropriate notification email to the customer.
+// Sends the appropriate notification email to the customer, and pushes the
+// change to the owner's Google Calendar (if connected).
 //
 // Required env vars: SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY, RESEND_FROM_EMAIL
+
+import { pushBookingToCalendar } from "../lib/google-calendar-push.js";
 
 async function getUserFromToken(env, accessToken) {
   const res = await fetch(`${env.SUPABASE_URL}/auth/v1/user`, {
@@ -36,7 +39,12 @@ export async function onRequestPost(context) {
     const { booking_id, type, old_slot_label, new_slot_label, reason } = await request.json();
     if (!booking_id || !type) return json({ error: "booking_id dan type diperlukan." }, 400);
 
-    const bookings = await sbAdmin(env, `/bookings?id=eq.${booking_id}&owner_id=eq.${user.id}&select=customer_name,customer_email`);
+    // Field tambahan (owner_id, slot_datetime, duration_minutes, google_event_id, dll) ditambah
+    // untuk keperluan pushBookingToCalendar() — tidak berkaitan emel, hanya untuk sync kalendar.
+    const bookings = await sbAdmin(
+      env,
+      `/bookings?id=eq.${booking_id}&owner_id=eq.${user.id}&select=id,owner_id,customer_name,customer_email,customer_phone,customer_notes,slot_datetime,duration_minutes,google_event_id`
+    );
     const booking = bookings[0];
     if (!booking) return json({ error: "Booking tidak dijumpai." }, 404);
 
@@ -105,6 +113,11 @@ export async function onRequestPost(context) {
         body: JSON.stringify({ from: env.RESEND_FROM_EMAIL, to: booking.customer_email, subject, html }),
       });
     }
+
+    // Push perubahan ke Google Calendar owner (skip senyap kalau owner tak sambung —
+    // lihat pushBookingToCalendar implementation). Ini TAK PERNAH throw, jadi flow
+    // notify/email di atas sentiasa selesai dahulu tak kira apa berlaku di sini.
+    await pushBookingToCalendar(env, booking, type === "reschedule" ? "update" : "delete");
 
     return json({ success: true });
   } catch (err) {

@@ -2251,7 +2251,7 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 }
 .chat-widget-back-btn:hover, .chat-widget-close-btn:hover { background: color-mix(in srgb, var(--stamp) 12%, transparent); color: var(--stamp); transform: none; box-shadow: none; }
 
-.chat-widget-list-view { flex: 1; overflow-y: auto; }
+.chat-widget-list-view { flex: 1; overflow-y: auto; display: flex; flex-direction: column; min-height: 0; }
 .chat-conv-row {
   display: flex; align-items: center; gap: 0.7rem; width: 100%; padding: 0.75rem 1.1rem;
   background: transparent; color: var(--ink); border: none; border-radius: 0;
@@ -7740,3 +7740,10 @@ body.book-preview-mobile-view .book-layout-split.has-sidebar {
   box-shadow: 0 2px 8px rgba(74, 9, 143, 0.12);
 }
 .chat-faq-chips::-webkit-scrollbar { display: none; }
+
+/* ── Redundant with Mobile Bottom Dock's Menu button — hide on mobile only.
+   Button hidden, not the wrapper, so the shared #quick-nav-menu-mobile
+   (sibling element, opened by dock-btn-menu) stays fully accessible. ── */
+@media (max-width: 768px) {
+  .topbar-quicknav-btn { display: none; }
+}

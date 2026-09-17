@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=57" />
+<link rel="stylesheet" href="/assets/style.css?v=58" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -54,8 +54,7 @@
       </div>
       <div style="display:flex; gap:0.5rem;">
         <div class="kebab-wrap">
-          <button class="secondary" id="quick-nav-btn-mobile" title="Lompat ke Page" style="padding:0.5rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></button>
-          <div class="kebab-menu" id="quick-nav-menu-mobile"></div>
+          <button class="secondary topbar-quicknav-btn" id="quick-nav-btn-mobile" title="Lompat ke Page" style="padding:0.5rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></button>
         </div>
         <button class="secondary" id="notif-bell-btn-mobile" title="Notifikasi" style="padding:0.5rem 0.7rem; position:relative;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
@@ -1956,6 +1955,11 @@
       <span class="mobile-dock-label">Menu</span>
     </button>
   </nav>
+
+  <!-- Moved out of .db-topbar-mobile (position:sticky ancestor was trapping this
+       menu in a lower stacking context, causing the backdrop to render on top
+       of it and block clicks) — now a body-level sibling like kebabBackdrop. -->
+  <div class="kebab-menu" id="quick-nav-menu-mobile"></div>
 
   <!-- ── Global floating chat widget (LinkedIn-style) ── -->
   <button type="button" class="chat-widget-launcher" id="chat-widget-launcher" aria-label="Buka Chat">

@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=59" />
+<link rel="stylesheet" href="/assets/style.css?v=60" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -202,8 +202,8 @@
     }
 
     function calculateTotals() {
-      const basePrice = Number(selectedType?.price || 0);
       const baseDeposit = Number(currentDeposit() || 0);
+      const basePrice = baseDeposit; // No separate "full price" field exists in the backend (event_types only tracks deposit_amount) — using deposit as the base so displayed totals are correct rather than showing RM0.00
       const addOnsList = availabilityData?.add_ons || [];
       let addOnsTotal = 0;
       selectedAddons.forEach(id => {
@@ -1455,15 +1455,15 @@
 
       // Categorize slots by time of day
       const morningSlots = rawSlots.filter(s => {
-        const hour = parseInt(s.time.split(":")[0], 10);
+        const hour = parseInt(s.label.split(":")[0], 10);
         return hour < 12;
       });
       const afternoonSlots = rawSlots.filter(s => {
-        const hour = parseInt(s.time.split(":")[0], 10);
+        const hour = parseInt(s.label.split(":")[0], 10);
         return hour >= 12 && hour < 18;
       });
       const eveningSlots = rawSlots.filter(s => {
-        const hour = parseInt(s.time.split(":")[0], 10);
+        const hour = parseInt(s.label.split(":")[0], 10);
         return hour >= 18;
       });
 

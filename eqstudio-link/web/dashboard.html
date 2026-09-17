@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=54" />
+<link rel="stylesheet" href="/assets/style.css?v=56" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -96,6 +96,27 @@
             </span>
           </div>
 
+          <!-- ── Mobile Today's Schedule & Agenda Glance (Mobile Only, Desktop 100% Unchanged) ── -->
+          <div class="mobile-today-agenda-card" id="mobile-today-agenda-card">
+            <div class="mobile-agenda-header">
+              <div class="mobile-agenda-title-group">
+                <div class="mobile-agenda-badge-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </div>
+                <div>
+                  <h3 class="mobile-agenda-title">Jadual & Tempahan Terdekat</h3>
+                  <p class="mobile-agenda-sub" id="mobile-agenda-subtitle">Memuatkan jadual...</p>
+                </div>
+              </div>
+              <button type="button" class="mobile-agenda-viewall-btn" id="mobile-agenda-viewall-btn">Lihat Semua →</button>
+            </div>
+            <div class="mobile-agenda-list" id="mobile-agenda-list">
+              <div class="mobile-agenda-empty">
+                <p class="hint">Memeriksa jadual tempahan...</p>
+              </div>
+            </div>
+          </div>
+
           <div class="home-stat-grid" id="home-stat-grid">
             <div class="home-stat-box" data-accent="coral">
               <div class="home-stat-icon-chip" data-accent="coral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
@@ -124,15 +145,287 @@
             </div>
           </div>
 
-          <div class="card" style="margin-bottom:1.5rem;">
-            <div class="section-title">
-              <h2 style="margin:0; font-size:0.95rem;">Tren Booking (14 Hari)</h2>
-              <div id="home-trend-summary-badges" class="home-trend-summary-badges"></div>
+          <!-- ═════════════════════════════════════════════════════════════════════
+               DESKTOP OPERATIONS COMMAND COCKPIT (Desktop Only — Hidden on Mobile)
+               ═════════════════════════════════════════════════════════════════════ -->
+          <div class="desktop-ops-cockpit" id="desktop-ops-cockpit">
+            <!-- 1. Ops Pulse & Telemetry Status Bar -->
+            <div class="desktop-ops-pulse-bar">
+              <div class="ops-pulse-group">
+                <span class="ops-pulse-indicator">
+                  <span class="ops-pulse-dot"></span>
+                  <span class="ops-pulse-label">STUDIO OPS HUD</span>
+                </span>
+                <span class="ops-pulse-divider">|</span>
+                <span class="ops-telemetry-item">
+                  <span class="ops-telemetry-k">Collection Rate:</span>
+                  <span class="ops-telemetry-v" id="desktop-ops-collection-rate">0%</span>
+                </span>
+                <span class="ops-pulse-divider">|</span>
+                <span class="ops-telemetry-item">
+                  <span class="ops-telemetry-k">Avg Ticket:</span>
+                  <span class="ops-telemetry-v" id="desktop-ops-avg-ticket">RM0.00</span>
+                </span>
+                <span class="ops-pulse-divider">|</span>
+                <span class="ops-telemetry-item">
+                  <span class="ops-telemetry-k">Active Links:</span>
+                  <span class="ops-telemetry-v" id="desktop-ops-active-links">0</span>
+                </span>
+              </div>
+              <div class="ops-command-shortcut-tip">
+                <kbd>Ctrl</kbd>+<kbd>K</kbd> <span>Pintas Perintah</span>
+              </div>
             </div>
-            <div id="home-trend-chart-wrap" style="margin-top:0.6rem; position:relative;">
-              <div id="home-trend-chart"></div>
-              <div id="home-trend-tooltip" class="home-trend-tooltip" style="display:none;"></div>
+
+            <!-- 2. Dual-Column Technical Visualizers: Aging Matrix & Booking Heatmap -->
+            <div class="desktop-telemetry-grid">
+              <!-- Aging Receivables Matrix Widget -->
+              <div class="card desktop-telemetry-card">
+                <div class="desktop-telemetry-header">
+                  <div class="desktop-telemetry-title">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>Penuaan Invois & Pendedahan Tunai</span>
+                  </div>
+                  <span class="desktop-telemetry-tag" id="aging-total-unpaid-tag">RM0 Belum Dikutip</span>
+                </div>
+
+                <div class="aging-matrix-distribution">
+                  <div class="aging-matrix-bar" id="aging-progress-bar">
+                    <div class="aging-bar-seg seg-safe" style="width:0%;" title="Normal (< 7 hari)"></div>
+                    <div class="aging-bar-seg seg-warning" style="width:0%;" title="Perhatian (7-14 hari)"></div>
+                    <div class="aging-bar-seg seg-danger" style="width:0%;" title="Lewat (> 14 hari)"></div>
+                  </div>
+                </div>
+
+                <div class="aging-matrix-grid">
+                  <div class="aging-cell seg-safe">
+                    <span class="aging-label">0 - 7 HARI</span>
+                    <span class="aging-val" id="aging-val-safe">RM0</span>
+                    <span class="aging-count" id="aging-cnt-safe">0 pelanggan</span>
+                  </div>
+                  <div class="aging-cell seg-warning">
+                    <span class="aging-label">8 - 14 HARI</span>
+                    <span class="aging-val" id="aging-val-warning">RM0</span>
+                    <span class="aging-count" id="aging-cnt-warning">0 pelanggan</span>
+                  </div>
+                  <div class="aging-cell seg-danger">
+                    <span class="aging-label">> 14 HARI (OVERDUE)</span>
+                    <span class="aging-val" id="aging-val-danger">RM0</span>
+                    <span class="aging-count" id="aging-cnt-danger">0 pelanggan</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Booking Heatmap & Peak Hours Matrix -->
+              <div class="card desktop-telemetry-card">
+                <div class="desktop-telemetry-header">
+                  <div class="desktop-telemetry-title">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span>Kepadatan Slot Mingguan (Heatmap)</span>
+                  </div>
+                  <span class="desktop-telemetry-tag" id="heatmap-total-slots-tag">0 slot tempahan</span>
+                </div>
+
+                <div class="heatmap-container" id="desktop-booking-heatmap">
+                  <!-- Generated via JS: Days (Mon-Sun) vs Time Slots (Pagi, Tengahari, Petang, Malam) -->
+                </div>
+                <div class="heatmap-legend">
+                  <span>Intensiti Slot:</span>
+                  <div class="heatmap-legend-swatches">
+                    <span class="swatch lvl-0" title="Kosong"></span>
+                    <span class="swatch lvl-1" title="1 tempahan"></span>
+                    <span class="swatch lvl-2" title="2 tempahan"></span>
+                    <span class="swatch lvl-3" title="3+ tempahan (Puncak)"></span>
+                  </div>
+                  <span class="hint" style="font-size:0.7rem;">(Puncak: Paling Kerap Ditempah)</span>
+                </div>
+              </div>
             </div>
+
+            <!-- 3. Real-Time Operations Activity Feed / Audit Ticker -->
+            <div class="card desktop-telemetry-card" style="margin-bottom:1.25rem;">
+              <div class="desktop-telemetry-header">
+                <div class="desktop-telemetry-title">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                  <span>Log Audit & Telemetri Aktiviti Masa Nyata</span>
+                </div>
+                <span class="desktop-telemetry-tag live-badge">● AKTIF</span>
+              </div>
+              <div class="desktop-audit-feed" id="desktop-audit-feed">
+                <div class="audit-feed-empty hint">Menyemak log sistem dan aktiviti pelanggan...</div>
+              </div>
+            </div>
+
+            <!-- 4. Direct-Action Desktop Command Panel (Live Inline Configuration Engine) -->
+            <div class="card desktop-direct-action-panel" style="margin-bottom:1.5rem;">
+              <div class="desktop-direct-header">
+                <div class="desktop-direct-title-group">
+                  <span class="desktop-direct-badge">INLINE OPS</span>
+                  <h3 class="desktop-direct-title">Kawalan Operasi Terus (Direct Action Engine)</h3>
+                  <span class="desktop-direct-sub">Kemas kini parameter sistem utama terus dari sini tanpa berpindah halaman</span>
+                </div>
+                <div class="desktop-direct-tabs" id="desktop-direct-tabs" role="tablist">
+                  <button type="button" class="desktop-direct-tab active" data-direct-tab="booking" id="tab-direct-booking">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span>Tetapan Booking</span>
+                  </button>
+                  <button type="button" class="desktop-direct-tab" data-direct-tab="profile" id="tab-direct-profile">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span>Profil & Perbankan</span>
+                  </button>
+                  <button type="button" class="desktop-direct-tab" data-direct-tab="reminder" id="tab-direct-reminder">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+                    <span>Jadual Reminder</span>
+                  </button>
+                  <button type="button" class="desktop-direct-tab" data-direct-tab="faq" id="tab-direct-faq">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <span>Jawapan Pantas (FAQ)</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Tab Content 1: Direct Booking Controls -->
+              <div class="desktop-direct-content active" id="direct-content-booking">
+                <form id="direct-booking-form" class="desktop-direct-form" onsubmit="return false;">
+                  <div class="desktop-direct-grid-4">
+                    <div class="desktop-direct-field">
+                      <label for="direct-b-slug">Slug Link Utama <span class="mono hint" style="font-size:0.7rem;">(/book/slug)</span></label>
+                      <input type="text" id="direct-b-slug" placeholder="nama-bisnes" autocomplete="off" />
+                    </div>
+                    <div class="desktop-direct-field">
+                      <label for="direct-b-deposit">Deposit Lalai (RM) <span class="req">*</span></label>
+                      <input type="number" id="direct-b-deposit" min="0" step="0.5" placeholder="50.00" required />
+                    </div>
+                    <div class="desktop-direct-field">
+                      <label for="direct-b-duration">Tempoh Slot</label>
+                      <select id="direct-b-duration">
+                        <option value="15">15 minit</option>
+                        <option value="30">30 minit</option>
+                        <option value="45">45 minit</option>
+                        <option value="60">1 jam (60 min)</option>
+                        <option value="90">1.5 jam (90 min)</option>
+                        <option value="120">2 jam (120 min)</option>
+                        <option value="180">3 jam (180 min)</option>
+                      </select>
+                    </div>
+                    <div class="desktop-direct-field">
+                      <label for="direct-b-min-notice">Notis Tempahan Min.</label>
+                      <select id="direct-b-min-notice">
+                        <option value="0">Tiada (Boleh book terus)</option>
+                        <option value="2">2 jam sebelum</option>
+                        <option value="6">6 jam sebelum</option>
+                        <option value="12">12 jam sebelum</option>
+                        <option value="24">24 jam (1 hari sebelum)</option>
+                        <option value="48">48 jam (2 hari sebelum)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="desktop-direct-footer">
+                    <span class="desktop-direct-status hint" id="direct-b-status">Menyelaraskan data booking...</span>
+                    <div class="desktop-direct-actions">
+                      <button type="button" class="secondary" id="direct-b-open-full">Buka Tetapan Penuh ↗</button>
+                      <button type="button" class="primary" id="direct-b-save-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Kemas Kini Booking</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Tab Content 2: Direct Business & Banking Profile Controls -->
+              <div class="desktop-direct-content" id="direct-content-profile">
+                <form id="direct-profile-form" class="desktop-direct-form" onsubmit="return false;">
+                  <div class="desktop-direct-grid-4">
+                    <div class="desktop-direct-field">
+                      <label for="direct-p-biz-name">Nama Perniagaan</label>
+                      <input type="text" id="direct-p-biz-name" placeholder="Nama bisnes atau studio" />
+                    </div>
+                    <div class="desktop-direct-field">
+                      <label for="direct-p-phone">No Telefon / WhatsApp</label>
+                      <input type="text" id="direct-p-phone" placeholder="Contoh: 0123456789" />
+                    </div>
+                    <div class="desktop-direct-field">
+                      <label for="direct-p-bank-name">Nama Bank</label>
+                      <input type="text" id="direct-p-bank-name" placeholder="Maybank, CIMB, Bank Islam..." />
+                    </div>
+                    <div class="desktop-direct-field">
+                      <label for="direct-p-bank-acc">No Akaun Bank</label>
+                      <input type="text" id="direct-p-bank-acc" placeholder="Nombor akaun simpanan/semasa" />
+                    </div>
+                  </div>
+                  <div class="desktop-direct-footer">
+                    <span class="desktop-direct-status hint" id="direct-p-status">Data perniagaan bersedia.</span>
+                    <div class="desktop-direct-actions">
+                      <button type="button" class="secondary" id="direct-p-open-full">Profil Lengkap ↗</button>
+                      <button type="button" class="primary" id="direct-p-save-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Simpan Profil &amp; Bank</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Tab Content 3: Direct Reminder Schedule Offset Toggle Engine -->
+              <div class="desktop-direct-content" id="direct-content-reminder">
+                <div class="desktop-direct-reminder-wrap">
+                  <div class="desktop-direct-reminder-intro">
+                    <span class="hint">Togol hari bila sistem menghantar reminder emel automatik kepada pelanggan sebelum & selepas tarikh due:</span>
+                  </div>
+                  <div class="desktop-direct-chips" id="direct-reminder-chips">
+                    <!-- Populated dynamically: H-7, H-5, H-3, H-2, H-1, Hari-Ini, H+1, H+3 -->
+                  </div>
+                  <div class="desktop-direct-footer">
+                    <span class="desktop-direct-status hint" id="direct-reminder-summary">Peringatan: -</span>
+                    <div class="desktop-direct-actions">
+                      <button type="button" class="secondary" id="direct-reminder-reset-btn">↻ Reset Asal</button>
+                      <button type="button" class="primary" id="direct-reminder-save-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Simpan Jadual</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab Content 4: Direct FAQ & Quick Response Templates -->
+              <div class="desktop-direct-content" id="direct-content-faq">
+                <div class="desktop-direct-faq-wrap">
+                  <div class="desktop-direct-faq-grid">
+                    <div class="desktop-direct-faq-form-col">
+                      <p class="hint" style="font-weight:600; font-size:0.75rem; margin:0 0 0.4rem; text-transform:uppercase; letter-spacing:0.04em;">Tambah Template Baru</p>
+                      <div class="desktop-direct-field" style="margin-bottom:0.45rem;">
+                        <input type="text" id="direct-faq-label-input" placeholder="Tajuk Pintas (cth: Nombor Akaun, Lokasi)" />
+                      </div>
+                      <div class="desktop-direct-field" style="margin-bottom:0.55rem;">
+                        <textarea id="direct-faq-answer-input" rows="2" placeholder="Teks jawapan pantas yang dihantar ke pelanggan..."></textarea>
+                      </div>
+                      <button type="button" class="primary" id="direct-faq-add-btn" style="width:100%; font-size:0.8rem; padding:0.4rem 0.8rem;">
+                        <span>+ Tambah Jawapan Pantas</span>
+                      </button>
+                    </div>
+                    <div class="desktop-direct-faq-list-col">
+                      <p class="hint" style="font-weight:600; font-size:0.75rem; margin:0 0 0.4rem; text-transform:uppercase; letter-spacing:0.04em;">Senarai Template Aktif</p>
+                      <div class="desktop-direct-faq-list" id="direct-faq-active-list">
+                        <span class="hint" style="font-size:0.78rem;">Memuatkan template FAQ...</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card home-trend-card" style="margin-bottom:1.5rem;">
+            <div class="section-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+              <h2 style="margin:0; font-size:0.95rem; display:flex; align-items:center; gap:0.45rem;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--stamp);"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+                Tren Booking (14 Hari)
+              </h2>
+              <div id="home-trend-summary-badges" style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;"></div>
+            </div>
+            <div id="home-trend-chart" style="margin-top:0.6rem;"></div>
             <div class="dashboard-tip-widget" id="dashboard-tip-widget">
               <span class="dashboard-tip-icon">💡</span>
               <p class="dashboard-tip-text" id="dashboard-tip-text"></p>
@@ -285,223 +578,410 @@
         </div>
 
         <div class="db-page" id="page-booking-settings">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
             <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="booking-settings" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
-          </div>
-
-          <div class="card" id="link-switcher-card" style="margin-bottom:1rem;">
-            <label style="margin-bottom:0.5rem; display:block;">Pautan Booking</label>
-            <div id="link-switcher-chips" class="chip-row"></div>
-            <div id="add-link-row" style="display:none; margin-top:0.8rem;">
-              <div class="row">
-                <input type="text" id="new-link-slug" style="flex:1;" /><button type="button" class="info-icon-btn" data-info="Contoh: kelas-piano">i</button>
-                <input type="text" id="new-link-label" style="flex:1;" /><button type="button" class="info-icon-btn" data-info="Contoh: Kelas Piano">i</button>
-                <button type="button" id="confirm-new-link-btn" class="secondary">Tambah</button>
-              </div>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+              <a id="bset-preview-live-btn" href="/book.html" target="_blank" class="secondary" style="font-size:0.78rem; padding:0.35rem 0.75rem; text-decoration:none; display:none; align-items:center; gap:0.35rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> <span>Lihat Laman Booking ↗</span></a>
+              <button type="button" class="secondary guide-btn" data-guide="booking-settings" style="font-size:0.78rem; padding:0.35rem 0.75rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
             </div>
-            <button type="button" id="show-add-link-btn" class="secondary" style="display:none; margin-top:0.6rem; width:100%;">+ Tambah Link Booking (Pro)</button>
-            <p class="hint" id="link-switcher-upsell" style="display:none; margin-top:0.6rem;">Setiap link ada calendar & tetapan sendiri sepenuhnya. <a href="/billing.html">Upgrade ke Pro</a> untuk sehingga 3 link.</p>
           </div>
 
-          <div class="bset-tabs" id="bset-tabs">
-            <button type="button" class="bset-tab active" data-bset-tab="asas"><span class="bset-tab-dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg> Asas</button>
-            <button type="button" class="bset-tab" data-bset-tab="waktu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Waktu Available</button>
-            <button type="button" class="bset-tab" data-bset-tab="jenis"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Jenis Perkhidmatan</button>
-            <button type="button" class="bset-tab" data-bset-tab="soalan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Soalan Tambahan</button>
-            <button type="button" class="bset-tab" data-bset-tab="embed"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> Embed</button>
-          </div>
-
-          <div class="bset-panel active" id="bset-panel-asas">
-            <div class="bset-summary">
-              <div class="bset-summary-label">Ringkasan Langsung</div>
-              <div class="bset-summary-text" id="bset-live-summary">Isi tetapan di bawah untuk lihat ringkasan...</div>
-            </div>
-
-            <div class="card">
-              <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg> Tetapan Booking<button type="button" class="info-icon-btn" data-info="Pelanggan menempah slot sendiri terus daripada pautan peribadi anda, tanpa perlu WhatsApp atau panggilan telefon untuk mengesahkan tarikh. Apabila tempahan disahkan, deposit dan peringatan akan berjalan secara automatik.">i</button></h2></div>
-
-              <label for="p-booking-slug">Slug<button type="button" class="info-icon-btn" data-info="Contoh: kak-aina-bakery">i</button></label>
-              <div class="booking-slug-row">
-                <span class="booking-slug-prefix">eqstudio.link/book.html?slug=</span>
-                <input type="text" id="p-booking-slug" />
-              </div>
-              <p class="hint" id="booking-slug-status" style="margin-top:0.3rem;"></p>
-
-              <div id="booking-qr-wrap" style="display:none; margin-top:1rem;">
-                <div class="booking-qr-card" id="booking-qr-card">
-                  <img id="booking-qr-img" alt="QR kod link booking" />
-                  <p class="booking-qr-caption"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Scan untuk Book Slot</p>
+          <!-- Hero Card / Studio Header -->
+          <div class="card bset-hero-card">
+            <div class="bset-header-flex">
+              <div class="bset-header-left">
+                <div class="bset-header-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><circle cx="12" cy="15" r="2"></circle></svg>
                 </div>
-                <div class="row" style="margin-top:0.6rem;">
-                  <a id="booking-qr-download" download="qr-booking.png" class="secondary" style="flex:1; text-align:center; text-decoration:none; display:inline-block;">⬇ Muat Turun</a>
-                  <button type="button" class="secondary" id="booking-qr-print" style="flex:1;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Cetak</button>
-                </div>
-                <p class="hint" style="margin-top:0.4rem;">Cetak dan letakkan bersebelahan QR DuitNow di kaunter. Pelanggan boleh mengimbas untuk terus menempah slot.</p>
-              </div>
-
-              <label for="p-slot-duration" style="margin-top:1rem; display:block;">Tempoh Setiap Slot<button type="button" class="info-icon-btn" data-info="Tempoh lalai setiap slot booking. Jenis Perkhidmatan individu boleh menetapkan tempoh berlainan yang mengatasi nilai ini.">i</button></label>
-              <select id="p-slot-duration">
-                <option value="30">30 minit</option>
-                <option value="60" selected>1 jam</option>
-                <option value="90">1 jam 30 minit</option>
-                <option value="120">2 jam</option>
-              </select>
-
-              <label for="p-default-deposit">Deposit Lalai (RM)<button type="button" class="info-icon-btn" data-info="Contoh: 50 (atau 0 untuk percuma)">i</button></label>
-              <input type="number" id="p-default-deposit" step="0.01" min="0" />
-              <p class="hint" style="margin-top:0.3rem;">Diguna pakai secara automatik untuk setiap tempahan baharu. Boleh disunting kemudian mengikut pelanggan.</p>
-              <div id="bset-deposit-tip"></div>
-
-              <div class="optional-section">
-                <span class="optional-section-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg> Pilihan</span>
-
-                <label for="p-link-description-rte" style="display:block;">Deskripsi Perkhidmatan<button type="button" class="info-icon-btn" data-info="Pelanggan akan melihatnya apabila klik Lihat Lagi. Contoh: Kami sediakan kek custom untuk majlis, siap dalam 3 hingga 5 hari bekerja.">i</button></label>
-                <div class="rte-toolbar">
-                  <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal" aria-label="Teks tebal">B</button>
-                  <button type="button" class="rte-btn" data-rte-cmd="italic" title="Condong" aria-label="Teks condong"><i>I</i></button>
-                  <button type="button" class="rte-btn" data-rte-cmd="underline" title="Garis Bawah" aria-label="Teks garis bawah"><u>U</u></button>
-                </div>
-                <div id="p-link-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis deskripsi perkhidmatan anda di sini..."></div>
-
-                <div id="p-link-poster-wrap" style="display:none; margin-top:0.8rem;">
-                  <label for="p-link-poster-file" style="display:block;">Poster / Gambar Perkhidmatan (maksimum 2MB)<button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 untuk paparan terbaik pada halaman tempahan.">i</button></label>
-                  <div class="poster-upload-zone" id="p-link-poster-zone">
-                    <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                    <p class="hint" style="margin:0;">Klik atau seret gambar ke sini</p>
-                    <input type="file" id="p-link-poster-file" accept="image/*" />
-                  </div>
-                  <img id="p-link-poster-preview" style="max-width:120px; border-radius:8px; margin-top:0.5rem; display:none;" alt="" />
-                  <div class="poster-upload-success" id="p-link-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
-                </div>
-                <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk membuka ciri ini.</p>
-              </div>
-
-              <div class="row" style="margin-top:1rem;">
                 <div>
-                  <label for="p-min-notice">Notis Minimum Booking<button type="button" class="info-icon-btn" data-info="Tempoh minimum sebelum slot yang pelanggan masih boleh menempah. Contohnya 24 jam bermaksud slot esok pada jam yang sama tidak lagi boleh ditempah selepas sekarang.">i</button></label>
-                  <select id="p-min-notice">
-                    <option value="0">Tiada had</option>
-                    <option value="6">6 jam</option>
-                    <option value="24" selected>24 jam</option>
-                    <option value="48">48 jam</option>
+                  <div class="bset-header-title-row">
+                    <h2 class="bset-title">Tetapan Booking</h2>
+                    <span class="bset-live-badge">
+                      <span class="bset-status-dot"></span>
+                      <span>Sistem Tempahan Auto</span>
+                    </span>
+                  </div>
+                  <p class="bset-header-desc">Kawal pautan tempahan awam anda, jadual ketersediaan slot, jenis perkhidmatan, deposit, dan soalan intake pelanggan.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Link Switcher Card -->
+            <div class="bset-link-bar" id="link-switcher-card">
+              <div class="bset-link-header">
+                <div class="bset-link-label">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                  <span>Pautan Booking Aktif</span>
+                </div>
+                <span style="font-size:0.75rem; color:var(--ink-soft);">Pilih pautan untuk disunting</span>
+              </div>
+              <div id="link-switcher-chips" class="chip-row"></div>
+              <div id="add-link-row" style="display:none; margin-top:0.8rem; background:var(--surface); padding:0.8rem; border-radius:10px; border:1px solid var(--paper-line);">
+                <div class="row">
+                  <div style="flex:1;">
+                    <label style="font-size:0.75rem; font-weight:600; margin-bottom:0.25rem;">Slug Link</label>
+                    <input type="text" id="new-link-slug" placeholder="cth: kelas-piano" style="width:100%;" />
+                  </div>
+                  <div style="flex:1;">
+                    <label style="font-size:0.75rem; font-weight:600; margin-bottom:0.25rem;">Label Pautan</label>
+                    <input type="text" id="new-link-label" placeholder="cth: Kelas Piano" style="width:100%;" />
+                  </div>
+                  <div style="display:flex; align-items:flex-end;">
+                    <button type="button" id="confirm-new-link-btn" class="secondary" style="height:40px; padding:0 1.1rem; font-weight:600;">+ Cipta</button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" id="show-add-link-btn" class="secondary" style="display:none; margin-top:0.7rem; width:100%; font-size:0.82rem;">+ Tambah Link Booking (Pro)</button>
+              <p class="hint" id="link-switcher-upsell" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Setiap link ada kalendar & tetapan tersendiri. <a href="/billing.html" style="font-weight:600;">Upgrade ke Pro</a> untuk sehingga 3 pautan tempahan serentak.</p>
+            </div>
+
+            <!-- Segmented Modern Tabs -->
+            <div class="bset-tabs" id="bset-tabs">
+              <button type="button" class="bset-tab active" data-bset-tab="asas"><span class="bset-tab-dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg> Asas &amp; Deposit</button>
+              <button type="button" class="bset-tab" data-bset-tab="waktu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Waktu Available</button>
+              <button type="button" class="bset-tab" data-bset-tab="jenis"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Jenis Perkhidmatan</button>
+              <button type="button" class="bset-tab" data-bset-tab="soalan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg> Soalan Intake</button>
+              <button type="button" class="bset-tab" data-bset-tab="embed"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Embed Code</button>
+            </div>
+          </div>
+
+          <!-- PANEL 1: ASAS -->
+          <div class="bset-panel active" id="bset-panel-asas">
+            <!-- Ringkasan Langsung -->
+            <div class="bset-summary">
+              <div class="bset-summary-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              </div>
+              <div class="bset-summary-content">
+                <div class="bset-summary-label">Ringkasan Konfigurasi Langsung</div>
+                <div class="bset-summary-text" id="bset-live-summary">Isi tetapan di bawah untuk lihat ringkasan tempahan pelanggan...</div>
+              </div>
+            </div>
+
+            <!-- Seksyen 01: Pautan & Kod QR -->
+            <div class="bset-section-card">
+              <div class="bset-section-heading">
+                <span class="bset-section-num">01</span>
+                <div>
+                  <h3 class="bset-section-title">Pautan Awam &amp; Kod QR Tempahan</h3>
+                  <p class="bset-section-sub">Pelanggan menggunakan pautan ini untuk memilih slot waktu dan membayar deposit secara layan diri.</p>
+                </div>
+              </div>
+
+              <label for="p-booking-slug">Slug Pautan Tempahan <button type="button" class="info-icon-btn" data-info="Nama unik untuk pautan awam anda. Contoh: kak-aina-bakery">i</button></label>
+              <div class="bset-slug-wrapper">
+                <span class="bset-slug-prefix">eqstudio.link/book.html?slug=</span>
+                <input type="text" id="p-booking-slug" placeholder="nama-servis-anda" />
+              </div>
+              <div id="booking-slug-status" style="margin-top:0.45rem; font-size:0.82rem;"></div>
+
+              <div id="booking-qr-wrap" style="display:none;">
+                <div class="bset-qr-container">
+                  <div class="bset-qr-frame">
+                    <img id="booking-qr-img" alt="QR kod link booking" />
+                    <span class="bset-qr-caption"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Imbas untuk Tempah Slot</span>
+                  </div>
+                  <div class="row" style="margin-top:0.8rem; width:100%; max-width:320px;">
+                    <a id="booking-qr-download" download="qr-booking.png" class="secondary" style="flex:1; text-align:center; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:0.35rem; font-size:0.82rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Muat Turun</a>
+                    <button type="button" class="secondary" id="booking-qr-print" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:0.35rem; font-size:0.82rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Cetak</button>
+                  </div>
+                  <p class="hint" style="margin-top:0.5rem; text-align:center;">Tip: Cetak dan letakkan di kaunter bersebelahan QR DuitNow supaya pelanggan boleh terus lock tarikh & masa!</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seksyen 02: Slot & Deposit -->
+            <div class="bset-section-card">
+              <div class="bset-section-heading">
+                <span class="bset-section-num">02</span>
+                <div>
+                  <h3 class="bset-section-title">Ketetapan Tempoh &amp; Deposit</h3>
+                  <p class="bset-section-sub">Tentukan masa yang diperuntukkan bagi setiap sesi dan bayaran pendahuluan komitmen pelanggan.</p>
+                </div>
+              </div>
+
+              <div class="bset-grid-2">
+                <div>
+                  <label for="p-slot-duration">Tempoh Setiap Slot <button type="button" class="info-icon-btn" data-info="Tempoh lalai bagi setiap slot booking. Servis di tab 'Jenis Perkhidmatan' boleh menetapkan tempoh tersendiri.">i</button></label>
+                  <select id="p-slot-duration" style="width:100%; margin-top:0.25rem;">
+                    <option value="30">30 minit</option>
+                    <option value="60" selected>1 jam (60 minit)</option>
+                    <option value="90">1 jam 30 minit</option>
+                    <option value="120">2 jam (120 minit)</option>
+                  </select>
+                  <p class="hint" style="margin-top:0.3rem;">Berapa lama pelanggan berada dalam satu sesi temu janji.</p>
+                </div>
+
+                <div>
+                  <label for="p-default-deposit">Deposit Lalai (RM) <span style="color:var(--warn); font-size:0.78rem;">*Wajib</span> <button type="button" class="info-icon-btn" data-info="Contoh: 50 (taip 0 sekiranya tempahan adalah percuma tanpa deposit)">i</button></label>
+                  <input type="number" id="p-default-deposit" step="0.01" min="0" placeholder="cth: 50.00" style="width:100%; margin-top:0.25rem;" />
+                  <p class="hint" style="margin-top:0.3rem;">Taip 0 sekiranya sesi percuma tanpa bayaran deposit.</p>
+                  <div id="bset-deposit-tip"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seksyen 03: Peraturan Notis & Penampan -->
+            <div class="bset-section-card">
+              <div class="bset-section-heading">
+                <span class="bset-section-num">03</span>
+                <div>
+                  <h3 class="bset-section-title">Peraturan Notis &amp; Jeda Masa</h3>
+                  <p class="bset-section-sub">Lindungi jadual kerja anda daripada tempahan saat akhir dan temu janji bertindih.</p>
+                </div>
+              </div>
+
+              <div class="bset-grid-3">
+                <div>
+                  <label for="p-min-notice">Notis Min. Booking <button type="button" class="info-icon-btn" data-info="Tempoh minimum sebelum slot yang pelanggan masih boleh menempah. Contohnya 24 jam bermaksud slot esok pada jam yang sama tidak lagi boleh ditempah selepas sekarang.">i</button></label>
+                  <select id="p-min-notice" style="width:100%; margin-top:0.25rem;">
+                    <option value="0">Tiada had (last minute)</option>
+                    <option value="6">6 jam sebelum</option>
+                    <option value="24" selected>24 jam sebelum</option>
+                    <option value="48">48 jam sebelum</option>
                   </select>
                 </div>
+
                 <div>
-                  <label for="p-buffer">Waktu Jeda<button type="button" class="info-icon-btn" data-info="Jarak masa automatik antara dua tempahan berturutan, supaya anda ada ruang untuk bersedia atau berehat sebelum tempahan seterusnya.">i</button></label>
-                  <select id="p-buffer">
-                    <option value="0" selected>Tiada</option>
+                  <label for="p-buffer">Waktu Jeda (Buffer) <button type="button" class="info-icon-btn" data-info="Jarak masa automatik antara dua tempahan berturutan, supaya anda ada ruang untuk berehat atau mengemas sebelum pelanggan seterusnya tiba.">i</button></label>
+                  <select id="p-buffer" style="width:100%; margin-top:0.25rem;">
+                    <option value="0" selected>Tiada jeda</option>
                     <option value="5">5 minit</option>
                     <option value="10">10 minit</option>
                     <option value="15">15 minit</option>
                     <option value="30">30 minit</option>
                   </select>
                 </div>
-              </div>
-              <label for="p-cancel-notice" style="margin-top:1rem; display:block;">Notis Minimum Cancel (Customer)<button type="button" class="info-icon-btn" data-info="Tempoh minimum sebelum slot yang pelanggan masih boleh membatalkan sendiri. Selepas had ini, mereka perlu hubungi anda terus untuk membatalkan.">i</button></label>
-              <select id="p-cancel-notice">
-                <option value="0" selected>Tiada had (customer boleh cancel bila-bila)</option>
-                <option value="6">6 jam sebelum</option>
-                <option value="24">24 jam sebelum</option>
-                <option value="48">48 jam sebelum</option>
-              </select>
 
-              <button type="button" id="save-booking-btn" style="margin-top:1.25rem;">Simpan Tetapan Booking</button>
+                <div>
+                  <label for="p-cancel-notice">Notis Min. Batal <button type="button" class="info-icon-btn" data-info="Tempoh minimum sebelum slot yang pelanggan masih dibenarkan batalkan sendiri.">i</button></label>
+                  <select id="p-cancel-notice" style="width:100%; margin-top:0.25rem;">
+                    <option value="0" selected>Boleh batal bila-bila</option>
+                    <option value="6">6 jam sebelum</option>
+                    <option value="24">24 jam sebelum</option>
+                    <option value="48">48 jam sebelum</option>
+                  </select>
+                </div>
+              </div>
             </div>
+
+            <!-- Seksyen 04: Deskripsi & Poster (Pilihan) -->
+            <div class="bset-section-card">
+              <div class="bset-section-heading">
+                <span class="bset-section-num">04</span>
+                <div>
+                  <h3 class="bset-section-title">Deskripsi &amp; Poster Perkhidmatan <span class="optional-section-badge" style="margin-left:0.4rem; vertical-align:middle;">Pilihan</span></h3>
+                  <p class="bset-section-sub">Beri maklumat tambahan seperti terma servis, persediaan awal pelanggan, atau gambar poster promosi.</p>
+                </div>
+              </div>
+
+              <label for="p-link-description-rte">Deskripsi Lengkap Servis <button type="button" class="info-icon-btn" data-info="Pelanggan akan melihatnya pada laman tempahan. Contoh: Kami sediakan kek custom untuk majlis, siap dalam 3-5 hari bekerja.">i</button></label>
+              <div class="rte-toolbar" style="margin-top:0.35rem;">
+                <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal" aria-label="Teks tebal">B</button>
+                <button type="button" class="rte-btn" data-rte-cmd="italic" title="Condong" aria-label="Teks condong"><i>I</i></button>
+                <button type="button" class="rte-btn" data-rte-cmd="underline" title="Garis Bawah" aria-label="Teks garis bawah"><u>U</u></button>
+              </div>
+              <div id="p-link-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis deskripsi servis atau syarat tempahan anda di sini..."></div>
+
+              <div id="p-link-poster-wrap" style="display:none; margin-top:1rem;">
+                <label for="p-link-poster-file">Poster / Banner Servis (maksimum 2MB) <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 untuk paparan terbaik pada halaman tempahan.">i</button></label>
+                <div class="poster-upload-zone" id="p-link-poster-zone" style="margin-top:0.35rem;">
+                  <svg class="poster-upload-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                  <p class="hint" style="margin:0; font-weight:500;">Klik atau seret gambar poster ke sini</p>
+                  <input type="file" id="p-link-poster-file" accept="image/*" />
+                </div>
+                <img id="p-link-poster-preview" style="max-width:140px; border-radius:10px; margin-top:0.6rem; display:none; border:1px solid var(--paper-line);" alt="" />
+                <div class="poster-upload-success" id="p-link-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
+              </div>
+              <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.75rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Muat naik poster servis hanya tersedia untuk pelan Pro. <a href="/billing.html" style="font-weight:600;">Upgrade ke Pro</a> untuk membuka ciri ini.</p>
+            </div>
+
+            <button type="button" id="save-booking-btn" style="width:100%; padding:0.85rem; font-size:1rem; font-weight:700; border-radius:12px; display:flex; align-items:center; justify-content:center; gap:0.5rem; box-shadow:0 4px 14px rgba(74,9,143,0.25);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Simpan Tetapan Booking</button>
           </div>
 
+          <!-- PANEL 2: WAKTU AVAILABLE -->
           <div class="bset-panel" id="bset-panel-waktu">
-            <div class="card">
-              <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Waktu Available<button type="button" class="info-icon-btn" data-info="Klik tarikh untuk menetapkan waktu anda tersedia pada hari tersebut. Pelanggan hanya dapat melihat slot daripada tarikh yang telah anda tetapkan. Sekiranya tiada tarikh ditetapkan, tiada slot akan dipaparkan.">i</button></h2></div>
-
-              <div class="avail-cal-header">
-                <button type="button" class="avail-cal-nav-btn" id="avail-cal-prev">‹</button>
-                <span class="avail-cal-month-label" id="avail-cal-month-label"></span>
-                <button type="button" class="avail-cal-nav-btn" id="avail-cal-next">›</button>
-              </div>
-              <div class="avail-cal-weekdays" id="avail-cal-weekdays"></div>
-              <div class="avail-cal-grid" id="avail-cal-grid"></div>
-
-              <div class="avail-cal-legend">
-                <span><span class="avail-cal-dot density-none"></span> Tiada</span>
-                <span><span class="avail-cal-dot density-some"></span> Sebahagian</span>
-                <span><span class="avail-cal-dot density-full"></span> Penuh</span>
+            <div class="card bset-section-card">
+              <div class="bset-section-heading">
+                <div class="bset-header-icon" style="width:40px; height:40px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </div>
+                <div>
+                  <h3 class="bset-section-title">Kalendar Waktu Tersedia (Availability) <button type="button" class="info-icon-btn" data-info="Klik pada mana-mana tarikh untuk menetapkan waktu operasi atau slot buka anda. Pelanggan hanya dapat menempah pada tarikh yang mempunyai slot aktif.">i</button></h3>
+                  <p class="bset-section-sub">Klik mana-mana tarikh kalendar di bawah untuk membuka atau menutup blok waktu operasi anda.</p>
+                </div>
               </div>
 
-              <button type="button" class="secondary" id="avail-copy-week-btn" style="width:100%; margin-top:0.8rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span id="avail-copy-week-text">Salin Minggu Ni ke 4 Minggu Depan</span></button>
-              <p class="hint" style="margin-top:0.4rem; text-align:center;">Berguna sekiranya jadual anda konsisten setiap minggu. Sekiranya tidak konsisten seperti salon, tetapkan setiap minggu mengikut waktu yang benar-benar tersedia.</p>
+              <div class="avail-cal-wrapper">
+                <div class="avail-cal-header">
+                  <button type="button" class="avail-cal-nav-btn" id="avail-cal-prev" aria-label="Bulan sebelumnya">‹</button>
+                  <span class="avail-cal-month-label" id="avail-cal-month-label"></span>
+                  <button type="button" class="avail-cal-nav-btn" id="avail-cal-next" aria-label="Bulan seterusnya">›</button>
+                </div>
+                <div class="avail-cal-weekdays" id="avail-cal-weekdays"></div>
+                <div class="avail-cal-grid" id="avail-cal-grid"></div>
+
+                <div class="avail-cal-legend">
+                  <span><span class="avail-cal-dot density-none"></span> Tiada slot (Tutup)</span>
+                  <span><span class="avail-cal-dot density-some"></span> Sebahagian masa buka</span>
+                  <span><span class="avail-cal-dot density-full"></span> Slot penuh buka</span>
+                </div>
+              </div>
+
+              <div style="margin-top:1.25rem; background:var(--paper); padding:1rem; border-radius:12px; border:1px solid var(--paper-line);">
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
+                  <button type="button" class="secondary" id="avail-copy-week-btn" style="flex:1; min-width:240px; display:inline-flex; align-items:center; justify-content:center; gap:0.45rem; font-weight:600; padding:0.65rem 1rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span id="avail-copy-week-text">Salin Minggu Ni ke 4 Minggu Depan</span></button>
+                </div>
+                <p class="hint" style="margin-top:0.5rem; text-align:center;">Jimatkan masa jika jadual mingguan anda tetap. Hanya klik butang salin untuk mengulangi waktu minggu semasa ke sebulan akan datang.</p>
+              </div>
             </div>
           </div>
 
+          <!-- PANEL 3: JENIS PERKHIDMATAN -->
           <div class="bset-panel" id="bset-panel-jenis">
-            <div class="card">
-              <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Jenis Perkhidmatan (Event Types)<button type="button" class="info-icon-btn" data-info="Setiap perkhidmatan mempunyai tempoh, harga, dan kapasiti tersendiri. Pemilik baharu akan menerima satu secara automatik daripada persediaan awal. Tambah jenis kedua sekiranya anda mempunyai perkhidmatan berbeza, contohnya Hair dan Facial untuk salon.">i</button></h2></div>
-              <div id="event-types-list" style="margin-top:0.8rem;"></div>
-              <div class="card" style="background:var(--paper); margin-top:0.8rem;">
-                <div class="row">
-                  <div>
-                    <label for="et-name">Nama<button type="button" class="info-icon-btn" data-info="Contoh: Kelas Baking">i</button></label>
-                    <input type="text" id="et-name" />
-                  </div>
-                  <div>
-                    <label for="et-duration">Tempoh (minit)<button type="button" class="info-icon-btn" data-info="Tempoh perkhidmatan ini sahaja, mengatasi tempoh lalai di tab Asas.">i</button></label>
-                    <input type="number" id="et-duration" value="60" min="5" />
-                  </div>
+            <div class="card bset-section-card">
+              <div class="bset-section-heading">
+                <div class="bset-header-icon" style="width:40px; height:40px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
                 </div>
-                <div class="row" style="margin-top:0.6rem;">
-                  <div>
-                    <label for="et-deposit">Deposit (RM), taip 0 untuk percuma<button type="button" class="info-icon-btn" data-info="Contoh: 100">i</button></label>
-                    <input type="number" id="et-deposit" step="0.01" min="0" />
-                  </div>
-                  <div>
-                    <label for="et-capacity">Kapasiti (1 = individu)<button type="button" class="info-icon-btn" data-info="Bilangan pelanggan yang boleh menempah slot masa yang sama, contohnya untuk kelas berkumpulan.">i</button></label>
-                    <input type="number" id="et-capacity" value="1" min="1" />
-                  </div>
+                <div>
+                  <h3 class="bset-section-title">Pakej &amp; Jenis Perkhidmatan <button type="button" class="info-icon-btn" data-info="Cipta pakej perkhidmatan dengan tempoh, harga deposit, dan kapasiti tersendiri. Contoh: Gunting Rambut (30 min) vs Rawatan Kulit Kepala (60 min).">i</button></h3>
+                  <p class="bset-section-sub">Pelanggan akan memilih servis mana yang ingin ditempah sebelum memilih tarikh dan masa.</p>
                 </div>
-                <button type="button" id="add-event-type-btn" class="secondary" style="margin-top:0.8rem; width:100%;">+ Tambah Jenis Perkhidmatan</button>
-                <button type="button" id="et-cancel-edit-btn" class="secondary" style="margin-top:0.4rem; width:100%; display:none;">Batal Edit</button>
-                <div class="optional-section">
-                  <span class="optional-section-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg> Pilihan</span>
+              </div>
 
-                  <label for="et-description-rte" style="display:block;">Deskripsi<button type="button" class="info-icon-btn" data-info="Pelanggan akan melihatnya apabila klik Lihat Lagi. Contoh: Kek 3 tapak custom design, termasuk konsultasi rasa dan topping.">i</button></label>
-                  <div class="rte-toolbar">
+              <!-- List of current services -->
+              <div id="event-types-list" style="margin-top:0.8rem;"></div>
+
+              <!-- Form to add/edit service -->
+              <div class="card" style="background:var(--paper); border:1px solid var(--paper-line); border-radius:14px; padding:1.25rem; margin-top:1.25rem;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; border-bottom:1px solid var(--paper-line); padding-bottom:0.6rem;">
+                  <h4 style="margin:0; font-size:0.95rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:0.4rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg> Tambah / Kemaskini Perkhidmatan</h4>
+                  <button type="button" id="et-cancel-edit-btn" class="secondary" style="font-size:0.75rem; padding:0.25rem 0.6rem; display:none;">✕ Batal Kemaskini</button>
+                </div>
+
+                <div class="row">
+                  <div style="flex:1;">
+                    <label for="et-name">Nama Perkhidmatan <button type="button" class="info-icon-btn" data-info="Contoh: Potong &amp; Cuci Rambut, Sesi Fotografi Studio, Kelas Kek 1 Hari">i</button></label>
+                    <input type="text" id="et-name" placeholder="cth: Kelas Asas Fotografi" style="margin-top:0.25rem;" />
+                  </div>
+                  <div style="flex:1;">
+                    <label for="et-duration">Tempoh (Minit) <button type="button" class="info-icon-btn" data-info="Berapa lama sesi servis ini mengambil masa. Mengatasi nilai tempoh di tab Asas.">i</button></label>
+                    <input type="number" id="et-duration" value="60" min="5" style="margin-top:0.25rem;" />
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top:0.8rem;">
+                  <div style="flex:1;">
+                    <label for="et-deposit">Deposit (RM) <span style="font-size:0.75rem; color:var(--ink-soft);">(taip 0 untuk percuma)</span> <button type="button" class="info-icon-btn" data-info="Bayaran komitmen pendahuluan. Contoh: 50.00">i</button></label>
+                    <input type="number" id="et-deposit" step="0.01" min="0" placeholder="cth: 50.00" style="margin-top:0.25rem;" />
+                  </div>
+                  <div style="flex:1;">
+                    <label for="et-capacity">Kapasiti Pelanggan <button type="button" class="info-icon-btn" data-info="Berapa orang boleh book pada satu slot masa yang sama. 1 untuk temu janji individu, lebih dari 1 untuk kelas atau bengkel berkumpulan.">i</button></label>
+                    <input type="number" id="et-capacity" value="1" min="1" style="margin-top:0.25rem;" />
+                  </div>
+                </div>
+
+                <div class="optional-section" style="margin-top:1rem;">
+                  <span class="optional-section-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg> Pilihan Tambahan</span>
+
+                  <label for="et-description-rte" style="display:block; margin-top:0.35rem;">Deskripsi Perkhidmatan <button type="button" class="info-icon-btn" data-info="Penerangan terperinci apa yang termasuk dalam pakej servis ini.">i</button></label>
+                  <div class="rte-toolbar" style="margin-top:0.35rem;">
                     <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal" aria-label="Teks tebal">B</button>
                     <button type="button" class="rte-btn" data-rte-cmd="italic" title="Condong" aria-label="Teks condong"><i>I</i></button>
                     <button type="button" class="rte-btn" data-rte-cmd="underline" title="Garis Bawah" aria-label="Teks garis bawah"><u>U</u></button>
                   </div>
-                  <div id="et-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis deskripsi perkhidmatan ini di sini..."></div>
+                  <div id="et-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis apa yang pelanggan akan peroleh dalam pakej servis ini..."></div>
 
-                  <div id="et-poster-wrap" style="display:none; margin-top:0.8rem;">
-                    <label for="et-poster-file" style="display:block;">Poster / Gambar Perkhidmatan (maksimum 2MB)<button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 untuk paparan terbaik pada halaman tempahan.">i</button></label>
-                    <div class="poster-upload-zone" id="et-poster-zone">
+                  <div id="et-poster-wrap" style="display:none; margin-top:0.9rem;">
+                    <label for="et-poster-file" style="display:block;">Poster / Gambar Pakej (maksimum 2MB) <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3.">i</button></label>
+                    <div class="poster-upload-zone" id="et-poster-zone" style="margin-top:0.35rem;">
                       <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                       <p class="hint" style="margin:0;">Klik atau seret gambar ke sini</p>
                       <input type="file" id="et-poster-file" accept="image/*" />
                     </div>
                     <div class="poster-upload-success" id="et-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
                   </div>
-                  <p class="hint" id="et-poster-locked" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Poster/gambar servis cuma untuk pelan Pro. <a href="/billing.html">Upgrade ke Pro</a> untuk membuka ciri ini.</p>
+                  <p class="hint" id="et-poster-locked" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Poster perkhidmatan hanya untuk pelan Pro. <a href="/billing.html" style="font-weight:600;">Upgrade ke Pro</a> untuk mengaktifkan.</p>
+                </div>
+
+                <button type="button" id="add-event-type-btn" style="margin-top:1rem; width:100%; padding:0.75rem; font-weight:700; border-radius:10px;">+ Tambah Jenis Perkhidmatan</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL 4: SOALAN INTAKE -->
+          <div class="bset-panel" id="bset-panel-soalan">
+            <div class="card bset-section-card">
+              <div class="bset-section-heading">
+                <div class="bset-header-icon" style="width:40px; height:40px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg>
+                </div>
+                <div>
+                  <h3 class="bset-section-title">Borang Soalan Intake Pelanggan <button type="button" class="info-icon-btn" data-info="Soalan khusus yang pelanggan perlu jawab semasa membuat tempahan. Jawapan akan dipaparkan terus dalam Senarai Booking anda.">i</button></h3>
+                  <p class="bset-section-sub">Dapatkan maklumat kritikal sebelum janji temu bermula, seperti lokasi majlis, tema pilihan, atau keperluan alahan.</p>
+                </div>
+              </div>
+
+              <!-- List of active questions -->
+              <div id="booking-questions-list" style="margin-top:0.8rem;"></div>
+
+              <!-- Question Form with Preset Chips -->
+              <div style="background:var(--paper); padding:1rem 1.15rem; border-radius:12px; border:1px solid var(--paper-line); margin-top:1.25rem;">
+                <label for="new-question-input" style="font-weight:600; margin-bottom:0.35rem; display:block;">Tambah Soalan Baharu <button type="button" class="info-icon-btn" data-info="Contoh: Apakah jenis kenderaan anda? atau Berapakah anggaran tetamu yang hadir?">i</button></label>
+                <div class="row">
+                  <input type="text" id="new-question-input" placeholder="cth: Di manakah alamat lokasi majlis diadakan?" style="flex:1;" />
+                  <button type="button" id="add-question-btn" class="secondary" style="font-weight:600; padding:0 1.25rem;">+ Tambah</button>
+                </div>
+
+                <div style="margin-top:0.75rem;">
+                  <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-soft); font-weight:700;">Cadangan Soalan Popular (Klik untuk guna):</span>
+                  <div class="bset-preset-row">
+                    <button type="button" class="bset-preset-chip" onclick="document.getElementById('new-question-input').value='Alamat atau lokasi temu janji'">📍 Alamat / Lokasi</button>
+                    <button type="button" class="bset-preset-chip" onclick="document.getElementById('new-question-input').value='Tema, warna atau konsep pilihan anda'">🎨 Tema &amp; Konsep</button>
+                    <button type="button" class="bset-preset-chip" onclick="document.getElementById('new-question-input').value='Sebarang alahan makanan atau keperluan khas?'">⚠️ Alahan / Keperluan Khas</button>
+                    <button type="button" class="bset-preset-chip" onclick="document.getElementById('new-question-input').value='Nota atau permintaan tambahan untuk kami'">📝 Nota Tambahan</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="bset-panel" id="bset-panel-soalan">
-            <div class="card">
-              <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg> Soalan Tambahan (Intake Questions)<button type="button" class="info-icon-btn" data-info="Tanya customer soalan khusus semasa booking, contohnya Apa jenis kek? atau Saiz? Muncul selepas mereka pilih slot.">i</button></h2></div>
-              <div id="booking-questions-list" style="margin-top:0.8rem;"></div>
-              <div class="row" style="margin-top:0.8rem;">
-                <input type="text" id="new-question-input" style="flex:1;" /><button type="button" class="info-icon-btn" data-info="Contoh: Apa jenis perkhidmatan yang anda perlukan?">i</button>
-                <button type="button" id="add-question-btn" class="secondary">+ Tambah</button>
-              </div>
-            </div>
-          </div>
-
+          <!-- PANEL 5: EMBED CODE -->
           <div class="bset-panel" id="bset-panel-embed">
-            <div class="card">
-              <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> Embed Dalam Website Anda<button type="button" class="info-icon-btn" data-info="Salin kod ini dan tampalkan terus dalam HTML laman web anda sendiri. Widget tempahan akan dipaparkan terus di situ.">i</button></h2></div>
-              <textarea id="embed-code" rows="3" readonly style="font-family:var(--font-mono); font-size:0.8rem;" onclick="this.select()"></textarea>
-              <button type="button" class="secondary" id="copy-embed-btn" style="margin-top:0.6rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy Code</button>
+            <div class="card bset-section-card">
+              <div class="bset-section-heading">
+                <div class="bset-header-icon" style="width:40px; height:40px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                </div>
+                <div>
+                  <h3 class="bset-section-title">Embed Widget Booking ke Laman Web Anda <button type="button" class="info-icon-btn" data-info="Salin kod iframe ini dan masukkan ke dalam blog atau laman web WordPress, Wix, Carrd, atau Shopify anda.">i</button></h3>
+                  <p class="bset-section-sub">Paparkan kalendar tempahan terus di dalam laman web sedia ada anda dengan satu baris kod mudah.</p>
+                </div>
+              </div>
+
+              <div class="bset-embed-box">
+                <div class="bset-embed-header">
+                  <span class="bset-embed-title">HTML Iframe Embed Code</span>
+                  <button type="button" class="secondary" id="copy-embed-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; font-weight:600; display:inline-flex; align-items:center; gap:0.35rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Salin Kod</button>
+                </div>
+                <textarea id="embed-code" rows="3" readonly class="bset-embed-code" onclick="this.select()"></textarea>
+              </div>
+
+              <div style="margin-top:1.25rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:0.75rem;">
+                <div style="background:var(--paper); border:1px solid var(--paper-line); border-radius:10px; padding:0.8rem;">
+                  <div style="font-size:0.82rem; font-weight:700; color:var(--ink); margin-bottom:0.25rem;">WordPress / Elementor</div>
+                  <div style="font-size:0.75rem; color:var(--ink-soft); line-height:1.4;">Gunakan widget <strong>Custom HTML</strong> dan tampalkan kod di atas.</div>
+                </div>
+                <div style="background:var(--paper); border:1px solid var(--paper-line); border-radius:10px; padding:0.8rem;">
+                  <div style="font-size:0.82rem; font-weight:700; color:var(--ink); margin-bottom:0.25rem;">Wix / Squarespace</div>
+                  <div style="font-size:0.75rem; color:var(--ink-soft); line-height:1.4;">Pilih elemen <strong>Embed Code / HTML Iframe</strong> dan tampal kod.</div>
+                </div>
+                <div style="background:var(--paper); border:1px solid var(--paper-line); border-radius:10px; padding:0.8rem;">
+                  <div style="font-size:0.82rem; font-weight:700; color:var(--ink); margin-bottom:0.25rem;">Carrd / Notion / Shopify</div>
+                  <div style="font-size:0.75rem; color:var(--ink-soft); line-height:1.4;">Masukkan block <strong>Embed</strong> untuk memaparkan widget secara responsif.</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -3813,10 +4293,18 @@
         document.getElementById("booking-slug-status").style.color = "var(--warn)";
         document.getElementById("booking-qr-wrap").style.display = "none";
         document.getElementById("embed-code").value = "";
+        const previewBtn = document.getElementById("bset-preview-live-btn");
+        if (previewBtn) previewBtn.style.display = "none";
       } else if (link?.slug) {
         const bookingUrl = `${window.location.origin}/book.html?slug=${link.slug}`;
         document.getElementById("booking-slug-status").innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Link aktif: <a href="/book.html?slug=${link.slug}" target="_blank">eqstudio.link/book.html?slug=${link.slug}</a>`;
         document.getElementById("booking-slug-status").style.color = "";
+
+        const previewBtn = document.getElementById("bset-preview-live-btn");
+        if (previewBtn) {
+          previewBtn.href = `/book.html?slug=${link.slug}`;
+          previewBtn.style.display = "inline-flex";
+        }
 
         const qrImgUrl = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data=${encodeURIComponent(bookingUrl)}`;
         document.getElementById("booking-qr-img").src = qrImgUrl;
@@ -3827,6 +4315,8 @@
         document.getElementById("booking-slug-status").textContent = "";
         document.getElementById("booking-qr-wrap").style.display = "none";
         document.getElementById("embed-code").value = "";
+        const previewBtn = document.getElementById("bset-preview-live-btn");
+        if (previewBtn) previewBtn.style.display = "none";
       }
 
       loadAvailabilityForCalendar();
@@ -4319,6 +4809,8 @@
       renderHomeTrendChart();
       renderHomeRecentBookings();
       renderHomeNextAction();
+      renderHomeMobileAgenda();
+      renderDesktopOpsCockpit();
 
       const weekAhead = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
       const todayStr = now.toISOString().slice(0, 10);
@@ -4407,6 +4899,665 @@
           </tr>
         `;
       }).join("");
+    }
+
+    function renderHomeMobileAgenda() {
+      const card = document.getElementById("mobile-today-agenda-card");
+      const listEl = document.getElementById("mobile-agenda-list");
+      const subEl = document.getElementById("mobile-agenda-subtitle");
+      if (!card || !listEl) return;
+
+      const now = new Date();
+      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      const todayEnd = todayStart + 24 * 60 * 60 * 1000;
+
+      // Filter confirmed bookings for today
+      const todayBookings = allBookings
+        .filter(b => {
+          if (b.status !== "confirmed") return false;
+          const t = new Date(b.slot_datetime).getTime();
+          return t >= todayStart && t < todayEnd;
+        })
+        .sort((a, b) => new Date(a.slot_datetime) - new Date(b.slot_datetime));
+
+      // Filter upcoming bookings in the near future (after today)
+      const upcomingFuture = allBookings
+        .filter(b => {
+          if (b.status !== "confirmed") return false;
+          const t = new Date(b.slot_datetime).getTime();
+          return t >= todayEnd;
+        })
+        .sort((a, b) => new Date(a.slot_datetime) - new Date(b.slot_datetime));
+
+      const customerMap = new Map(allCustomers.map(c => [c.id, c]));
+
+      if (todayBookings.length > 0) {
+        subEl.textContent = `${todayBookings.length} tempahan dijadualkan hari ini`;
+        listEl.innerHTML = todayBookings.map(b => {
+          const bDate = new Date(b.slot_datetime);
+          const timeStr = bDate.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+          const cust = customerMap.get(b.customer_id);
+          const isPaid = cust?.status === "dah_bayar";
+
+          return `
+            <div class="mobile-agenda-item">
+              <div class="mobile-agenda-time-col">
+                <span class="mobile-agenda-time">${timeStr}</span>
+                <span class="mobile-agenda-tag today">Hari Ini</span>
+              </div>
+              <div class="mobile-agenda-info-col">
+                <div class="mobile-agenda-cust-name">${escapeHtml(b.customer_name)}</div>
+                <div class="mobile-agenda-cust-meta">
+                  <span class="badge ${isPaid ? "dah_bayar" : "belum_bayar"} mobile-agenda-badge">${isPaid ? "Dah Bayar" : "Belum Bayar"}</span>
+                  ${b.duration_minutes ? `<span class="mobile-agenda-duration">${b.duration_minutes} min</span>` : ""}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      } else if (upcomingFuture.length > 0) {
+        const nextB = upcomingFuture[0];
+        const nextDate = new Date(nextB.slot_datetime);
+        const dateLabel = nextDate.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short" });
+        const timeLabel = nextDate.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+        const cust = customerMap.get(nextB.customer_id);
+        const isPaid = cust?.status === "dah_bayar";
+
+        subEl.textContent = `Tiada tempahan hari ini. Slot seterusnya: ${dateLabel}`;
+        listEl.innerHTML = `
+          <div class="mobile-agenda-item next-slot">
+            <div class="mobile-agenda-time-col">
+              <span class="mobile-agenda-time">${timeLabel}</span>
+              <span class="mobile-agenda-tag upcoming">${dateLabel}</span>
+            </div>
+            <div class="mobile-agenda-info-col">
+              <div class="mobile-agenda-cust-name">${escapeHtml(nextB.customer_name)}</div>
+              <div class="mobile-agenda-cust-meta">
+                <span class="badge ${isPaid ? "dah_bayar" : "belum_bayar"} mobile-agenda-badge">${isPaid ? "Dah Bayar" : "Belum Bayar"}</span>
+                <span class="mobile-agenda-duration">Slot Terdekat</span>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        subEl.textContent = "Tiada tempahan dijadualkan";
+        listEl.innerHTML = `
+          <div class="mobile-agenda-empty-state">
+            <p class="mobile-agenda-empty-msg">Tiada tempahan aktif hari ini. Kongsi pautan tempahan kepada prospek atau tambah pelanggan baharu.</p>
+            <div class="mobile-agenda-empty-actions">
+              <button type="button" class="secondary" id="mobile-agenda-share-btn" style="font-size:0.78rem; padding:0.4rem 0.8rem; border-radius:8px;">Salin Link Booking</button>
+              <button type="button" class="secondary" id="mobile-agenda-add-btn" style="font-size:0.78rem; padding:0.4rem 0.8rem; border-radius:8px;">+ Tambah Pelanggan</button>
+            </div>
+          </div>
+        `;
+        document.getElementById("mobile-agenda-share-btn")?.addEventListener("click", () => {
+          const activeLink = allBookingLinks.find(l => !!l.slug) || allBookingLinks[0];
+          if (activeLink && activeLink.slug) {
+            const fullUrl = `${window.location.origin}/book/${activeLink.slug}`;
+            navigator.clipboard.writeText(fullUrl).then(() => showToast("Pautan booking disalin ke clipboard!", "success"));
+          } else {
+            goToPage("booking-settings");
+          }
+        });
+        document.getElementById("mobile-agenda-add-btn")?.addEventListener("click", () => {
+          document.getElementById("quick-add-open-btn")?.click();
+        });
+      }
+    }
+
+    document.getElementById("mobile-agenda-viewall-btn")?.addEventListener("click", () => {
+      goToPage("booking-list");
+    });
+
+    // ── Desktop Operations Command Cockpit (Telemetry HUD, Aging Matrix, Heatmap, Audit Ticker) ──
+    function renderDesktopOpsCockpit() {
+      // 1. Ops Pulse & Status Bar Telemetry
+      const totalBilled = allCustomers.reduce((sum, c) => sum + Number(c.amount || 0), 0);
+      const totalCollected = allCustomers.filter(c => c.status === "dah_bayar").reduce((sum, c) => sum + Number(c.amount || 0), 0);
+      const collectionRate = totalBilled > 0 ? ((totalCollected / totalBilled) * 100).toFixed(1) : "0.0";
+      const avgTicket = allCustomers.length > 0 ? (totalBilled / allCustomers.length).toFixed(2) : "0.00";
+      const activeLinksCount = allBookingLinks.filter(l => !!l.slug).length;
+
+      const collEl = document.getElementById("desktop-ops-collection-rate");
+      const ticketEl = document.getElementById("desktop-ops-avg-ticket");
+      const linksEl = document.getElementById("desktop-ops-active-links");
+      if (collEl) collEl.textContent = `${collectionRate}%`;
+      if (ticketEl) ticketEl.textContent = `RM ${avgTicket}`;
+      if (linksEl) linksEl.textContent = `${activeLinksCount} link`;
+
+      // 2. Aging Receivables Matrix Calculation
+      const unpaidCustomers = allCustomers.filter(c => c.status !== "dah_bayar");
+      const now = new Date();
+      const todayMs = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+      let safeAmount = 0, safeCount = 0;
+      let warnAmount = 0, warnCount = 0;
+      let dangerAmount = 0, dangerCount = 0;
+
+      for (const c of unpaidCustomers) {
+        const amt = Number(c.amount || 0);
+        const dueMs = new Date(c.due_date).getTime();
+        const diffDays = Math.floor((todayMs - dueMs) / (1000 * 60 * 60 * 24));
+
+        if (diffDays <= 7) {
+          safeAmount += amt;
+          safeCount++;
+        } else if (diffDays <= 14) {
+          warnAmount += amt;
+          warnCount++;
+        } else {
+          dangerAmount += amt;
+          dangerCount++;
+        }
+      }
+
+      const totalUnpaid = safeAmount + warnAmount + dangerAmount;
+      const agingTag = document.getElementById("aging-total-unpaid-tag");
+      if (agingTag) agingTag.textContent = `RM ${totalUnpaid.toFixed(2)} Belum Dikutip`;
+
+      const safeValEl = document.getElementById("aging-val-safe");
+      const safeCntEl = document.getElementById("aging-cnt-safe");
+      const warnValEl = document.getElementById("aging-val-warning");
+      const warnCntEl = document.getElementById("aging-cnt-warning");
+      const dangerValEl = document.getElementById("aging-val-danger");
+      const dangerCntEl = document.getElementById("aging-cnt-danger");
+
+      if (safeValEl) safeValEl.textContent = `RM ${safeAmount.toFixed(2)}`;
+      if (safeCntEl) safeCntEl.textContent = `${safeCount} pelanggan`;
+      if (warnValEl) warnValEl.textContent = `RM ${warnAmount.toFixed(2)}`;
+      if (warnCntEl) warnCntEl.textContent = `${warnCount} pelanggan`;
+      if (dangerValEl) dangerValEl.textContent = `RM ${dangerAmount.toFixed(2)}`;
+      if (dangerCntEl) dangerCntEl.textContent = `${dangerCount} pelanggan`;
+
+      // Distribution Bar %
+      const safePct = totalUnpaid > 0 ? (safeAmount / totalUnpaid) * 100 : 0;
+      const warnPct = totalUnpaid > 0 ? (warnAmount / totalUnpaid) * 100 : 0;
+      const dangerPct = totalUnpaid > 0 ? (dangerAmount / totalUnpaid) * 100 : 0;
+
+      const barEl = document.getElementById("aging-progress-bar");
+      if (barEl) {
+        barEl.innerHTML = `
+          <div class="aging-bar-seg seg-safe" style="width:${safePct}%;" title="Normal: RM ${safeAmount.toFixed(2)} (${safePct.toFixed(0)}%)"></div>
+          <div class="aging-bar-seg seg-warning" style="width:${warnPct}%;" title="Perhatian: RM ${warnAmount.toFixed(2)} (${warnPct.toFixed(0)}%)"></div>
+          <div class="aging-bar-seg seg-danger" style="width:${dangerPct}%;" title="Overdue: RM ${dangerAmount.toFixed(2)} (${dangerPct.toFixed(0)}%)"></div>
+        `;
+      }
+
+      // 3. Booking Heatmap Matrix: Days (Isnin - Ahad) vs Time Windows
+      // Time Windows: Pagi (08:00 - 12:00), Tengahari (12:00 - 15:00), Petang (15:00 - 19:00), Malam (19:00 - 23:00)
+      const daysLabel = ["Isn", "Sel", "Rab", "Kha", "Jum", "Sab", "Ahd"];
+      // slot matrix: dayIndex (0=Mon..6=Sun) x period (0..3)
+      const matrix = Array.from({ length: 7 }, () => [0, 0, 0, 0]);
+
+      let totalHeatmapBookings = 0;
+      for (const b of allBookings) {
+        if (b.status !== "confirmed" || !b.slot_datetime) continue;
+        const d = new Date(b.slot_datetime);
+        let dayIdx = d.getDay() - 1; // getDay: 0=Sun, 1=Mon...
+        if (dayIdx < 0) dayIdx = 6; // Sunday is index 6
+        const hr = d.getHours();
+
+        let periodIdx = 0;
+        if (hr >= 8 && hr < 12) periodIdx = 0; // Pagi
+        else if (hr >= 12 && hr < 15) periodIdx = 1; // Tengahari
+        else if (hr >= 15 && hr < 19) periodIdx = 2; // Petang
+        else periodIdx = 3; // Malam
+
+        matrix[dayIdx][periodIdx]++;
+        totalHeatmapBookings++;
+      }
+
+      const heatmapTag = document.getElementById("heatmap-total-slots-tag");
+      if (heatmapTag) heatmapTag.textContent = `${totalHeatmapBookings} slot tempahan direkod`;
+
+      const heatmapEl = document.getElementById("desktop-booking-heatmap");
+      if (heatmapEl) {
+        const periodLabels = ["Pagi (8-12)", "Tgh (12-3)", "Ptg (3-7)", "Mlm (7-11)"];
+        let html = `
+          <div class="heatmap-table">
+            <div class="heatmap-row header">
+              <div class="heatmap-cell day-hdr">Hari</div>
+              ${periodLabels.map(p => `<div class="heatmap-cell period-hdr">${p}</div>`).join("")}
+            </div>
+        `;
+
+        for (let i = 0; i < 7; i++) {
+          html += `<div class="heatmap-row"><div class="heatmap-cell day-col">${daysLabel[i]}</div>`;
+          for (let p = 0; p < 4; p++) {
+            const count = matrix[i][p];
+            let lvl = 0;
+            if (count >= 3) lvl = 3;
+            else if (count === 2) lvl = 2;
+            else if (count === 1) lvl = 1;
+            html += `<div class="heatmap-cell block lvl-${lvl}" title="${daysLabel[i]} ${periodLabels[p]}: ${count} tempahan">${count > 0 ? count : ""}</div>`;
+          }
+          html += `</div>`;
+        }
+        html += `</div>`;
+        heatmapEl.innerHTML = html;
+      }
+
+      // 4. Real-Time Operations Activity Feed / Audit Ticker
+      const feedEl = document.getElementById("desktop-audit-feed");
+      if (feedEl) {
+        const events = [];
+
+        // Add confirmed bookings as events
+        allBookings.slice(0, 10).forEach(b => {
+          events.push({
+            time: new Date(b.created_at || b.slot_datetime),
+            type: "booking",
+            icon: "📅",
+            title: `Tempahan ${b.status === "confirmed" ? "Disahkan" : b.status}`,
+            desc: `${b.customer_name} — Slot ${fmtBookingDateTime(b.slot_datetime)}`,
+          });
+        });
+
+        // Add customer invoices/payments as events
+        allCustomers.slice(0, 10).forEach(c => {
+          if (c.status === "dah_bayar" && c.paid_at) {
+            events.push({
+              time: new Date(c.paid_at),
+              type: "payment",
+              icon: "💰",
+              title: "Bayaran Diterima",
+              desc: `${c.name} — RM ${Number(c.amount).toFixed(2)}`,
+            });
+          } else if (c.created_at) {
+            events.push({
+              time: new Date(c.created_at),
+              type: "customer",
+              icon: "👤",
+              title: "Pelanggan / Invois Didaftar",
+              desc: `${c.name} — RM ${Number(c.amount).toFixed(2)} (Due ${c.due_date})`,
+            });
+          }
+        });
+
+        // Sort events chronologically descending
+        events.sort((a, b) => b.time - a.time);
+        const topEvents = events.slice(0, 6);
+
+        if (topEvents.length === 0) {
+          feedEl.innerHTML = `<div class="audit-feed-empty hint">Tiada aktiviti dikesan lagi. Aktiviti tempahan dan kutipan akan dipaparkan di sini.</div>`;
+        } else {
+          feedEl.innerHTML = topEvents.map(e => {
+            const timeStr = isNaN(e.time) ? "-" : e.time.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+            const dateStr = isNaN(e.time) ? "" : e.time.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
+            return `
+              <div class="audit-feed-item">
+                <span class="audit-item-time">[${dateStr} ${timeStr}]</span>
+                <span class="audit-item-icon">${e.icon}</span>
+                <span class="audit-item-title">${escapeHtml(e.title)}:</span>
+                <span class="audit-item-desc">${escapeHtml(e.desc)}</span>
+              </div>
+            `;
+          }).join("");
+        }
+      }
+
+      // 5. Initialize Direct-Action Desktop Command Panel
+      initDesktopDirectActionEngine();
+    }
+
+    // ── Direct-Action Desktop Command Engine Controller ──
+    let directActionInitialized = false;
+    let directReminderOffsets = new Set();
+    const DIRECT_SCHEDULE_OPTIONS = [
+      { offset: 7, label: "H-7" },
+      { offset: 5, label: "H-5" },
+      { offset: 3, label: "H-3" },
+      { offset: 2, label: "H-2" },
+      { offset: 1, label: "H-1" },
+      { offset: 0, label: "Hari-Ini" },
+      { offset: -1, label: "H+1" },
+      { offset: -3, label: "H+3" },
+    ];
+
+    function initDesktopDirectActionEngine() {
+      // Tab switching logic
+      const tabBtns = document.querySelectorAll(".desktop-direct-tab");
+      tabBtns.forEach(btn => {
+        if (!btn.dataset.bound) {
+          btn.dataset.bound = "1";
+          btn.addEventListener("click", () => {
+            const targetTab = btn.dataset.directTab;
+            tabBtns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            document.querySelectorAll(".desktop-direct-content").forEach(c => c.classList.remove("active"));
+            const content = document.getElementById(`direct-content-${targetTab}`);
+            if (content) content.classList.add("active");
+          });
+        }
+      });
+
+      // Quick Nav Full Links
+      const openFullBooking = document.getElementById("direct-b-open-full");
+      if (openFullBooking && !openFullBooking.dataset.bound) {
+        openFullBooking.dataset.bound = "1";
+        openFullBooking.addEventListener("click", () => goToPage("booking-settings"));
+      }
+
+      const openFullProfile = document.getElementById("direct-p-open-full");
+      if (openFullProfile && !openFullProfile.dataset.bound) {
+        openFullProfile.dataset.bound = "1";
+        openFullProfile.addEventListener("click", () => goToPage("tetapan-profil"));
+      }
+
+      // Populate Tab 1: Booking Controls
+      const link = currentLink() || allBookingLinks[0];
+      const slugInput = document.getElementById("direct-b-slug");
+      const depositInput = document.getElementById("direct-b-deposit");
+      const durationSelect = document.getElementById("direct-b-duration");
+      const noticeSelect = document.getElementById("direct-b-min-notice");
+      const bStatus = document.getElementById("direct-b-status");
+
+      if (link) {
+        if (slugInput && !slugInput.matches(":focus")) slugInput.value = link.slug || "";
+        if (depositInput && !depositInput.matches(":focus")) depositInput.value = link.default_deposit_amount != null ? link.default_deposit_amount : "";
+        if (durationSelect && !durationSelect.matches(":focus")) durationSelect.value = String(link.slot_duration_minutes || 60);
+        if (noticeSelect && !noticeSelect.matches(":focus")) noticeSelect.value = String(link.booking_min_notice_hours != null ? link.booking_min_notice_hours : 24);
+        if (bStatus) bStatus.textContent = `Pautan: /book/${link.slug || "..."} (Deposit: RM ${link.default_deposit_amount || 0})`;
+      } else {
+        if (bStatus) bStatus.textContent = "Belum ada pautan booking dicipta.";
+      }
+
+      // Save Tab 1: Booking Controls
+      const bSaveBtn = document.getElementById("direct-b-save-btn");
+      if (bSaveBtn && !bSaveBtn.dataset.bound) {
+        bSaveBtn.dataset.bound = "1";
+        bSaveBtn.addEventListener("click", async () => {
+          if (blockIfPastDue()) return;
+          const targetLink = currentLink() || allBookingLinks[0];
+          if (!targetLink) {
+            showToast("Sila cipta link booking terlebih dahulu.", "error");
+            return;
+          }
+          const rawSlug = (slugInput.value || "").trim().toLowerCase();
+          const cleanSlug = rawSlug.replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+          const depositRaw = (depositInput.value || "").trim();
+          const depositVal = depositRaw === "" ? null : parseFloat(depositRaw);
+
+          if (!cleanSlug) {
+            showToast("Sila masukkan slug booking.", "error");
+            slugInput.focus();
+            return;
+          }
+          if (depositVal == null) {
+            showToast("Deposit lalai wajib diisi (contoh: 0 atau amaun).", "error");
+            depositInput.focus();
+            return;
+          }
+
+          bSaveBtn.disabled = true;
+          bSaveBtn.textContent = "Menyimpan...";
+
+          const payload = {
+            slug: cleanSlug,
+            default_deposit_amount: depositVal,
+            slot_duration_minutes: parseInt(durationSelect.value, 10),
+            booking_min_notice_hours: parseInt(noticeSelect.value, 10),
+          };
+
+          const { error } = await supabase.from("booking_links").update(payload).eq("id", targetLink.id);
+          bSaveBtn.disabled = false;
+          bSaveBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Kemas Kini Booking</span>';
+
+          if (error) {
+            showToast(error.message.includes("duplicate") ? "Slug telah digunakan. Sila pilih slug lain." : error.message, "error");
+            return;
+          }
+
+          // Update local memory
+          targetLink.slug = cleanSlug;
+          targetLink.default_deposit_amount = depositVal;
+          targetLink.slot_duration_minutes = payload.slot_duration_minutes;
+          targetLink.booking_min_notice_hours = payload.booking_min_notice_hours;
+
+          // Sync full booking settings page form fields if existing
+          const pSlug = document.getElementById("p-booking-slug");
+          if (pSlug) pSlug.value = cleanSlug;
+          const pDep = document.getElementById("p-default-deposit");
+          if (pDep) pDep.value = depositVal;
+          const pDur = document.getElementById("p-slot-duration");
+          if (pDur) pDur.value = payload.slot_duration_minutes;
+          const pNot = document.getElementById("p-min-notice");
+          if (pNot) pNot.value = payload.booking_min_notice_hours;
+
+          showToast("Tetapan booking berjaya dikemas kini secara langsung!", "success");
+          if (bStatus) bStatus.textContent = `Pautan: /book/${cleanSlug} (Disimpan)`;
+          renderDesktopOpsCockpit();
+        });
+      }
+
+      // Populate Tab 2: Profile Controls
+      const pBizName = document.getElementById("direct-p-biz-name");
+      const pPhone = document.getElementById("direct-p-phone");
+      const pBankName = document.getElementById("direct-p-bank-name");
+      const pBankAcc = document.getElementById("direct-p-bank-acc");
+      const pStatus = document.getElementById("direct-p-status");
+
+      if (profile) {
+        if (pBizName && !pBizName.matches(":focus")) pBizName.value = profile.business_name || "";
+        if (pPhone && !pPhone.matches(":focus")) pPhone.value = profile.contact_phone || "";
+        if (pBankName && !pBankName.matches(":focus")) pBankName.value = profile.bank_name || "";
+        if (pBankAcc && !pBankAcc.matches(":focus")) pBankAcc.value = profile.bank_account_number || "";
+      }
+
+      // Save Tab 2: Profile Controls
+      const pSaveBtn = document.getElementById("direct-p-save-btn");
+      if (pSaveBtn && !pSaveBtn.dataset.bound) {
+        pSaveBtn.dataset.bound = "1";
+        pSaveBtn.addEventListener("click", async () => {
+          if (blockIfPastDue()) return;
+          pSaveBtn.disabled = true;
+          pSaveBtn.textContent = "Menyimpan...";
+
+          const payload = {
+            business_name: (pBizName.value || "").trim() || null,
+            contact_phone: (pPhone.value || "").trim() || null,
+            bank_name: (pBankName.value || "").trim() || null,
+            bank_account_number: (pBankAcc.value || "").trim() || null,
+          };
+
+          const { error } = await supabase.from("profiles").update(payload).eq("id", user.id);
+          pSaveBtn.disabled = false;
+          pSaveBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Simpan Profil &amp; Bank</span>';
+
+          if (error) {
+            showToast("Gagal kemas kini profil: " + error.message, "error");
+            return;
+          }
+
+          // Update local memory and UI
+          if (profile) {
+            profile.business_name = payload.business_name;
+            profile.contact_phone = payload.contact_phone;
+            profile.bank_name = payload.bank_name;
+            profile.bank_account_number = payload.bank_account_number;
+          }
+
+          if (payload.business_name) {
+            document.getElementById("business-name-side").textContent = payload.business_name;
+            document.getElementById("home-biz-name").textContent = payload.business_name;
+            const fullBiz = document.getElementById("p-business-name");
+            if (fullBiz) fullBiz.value = payload.business_name;
+            await supabase.from("booking_links").update({ label: payload.business_name }).eq("owner_id", user.id).eq("is_primary", true);
+          }
+          if (payload.contact_phone) {
+            const fullPhone = document.getElementById("p-phone");
+            if (fullPhone) fullPhone.value = payload.contact_phone;
+          }
+          if (payload.bank_name) {
+            const fullBank = document.getElementById("p-bank-name");
+            if (fullBank) fullBank.value = payload.bank_name;
+          }
+          if (payload.bank_account_number) {
+            const fullAcc = document.getElementById("p-bank-account");
+            if (fullAcc) fullAcc.value = payload.bank_account_number;
+          }
+
+          showToast("Profil dan maklumat perbankan berjaya disimpan terus!", "success");
+          if (pStatus) pStatus.textContent = "Disimpan & diselaraskan ke seluruh sistem.";
+        });
+      }
+
+      // Populate Tab 3: Reminder Schedule Offset Chips
+      renderDirectReminderChips();
+
+      // Save Tab 3: Reminder Schedule
+      const rSaveBtn = document.getElementById("direct-reminder-save-btn");
+      if (rSaveBtn && !rSaveBtn.dataset.bound) {
+        rSaveBtn.dataset.bound = "1";
+        rSaveBtn.addEventListener("click", async () => {
+          if (blockIfPastDue()) return;
+          rSaveBtn.disabled = true;
+          rSaveBtn.textContent = "Menyimpan...";
+          const days = [...directReminderOffsets].sort((a, b) => b - a);
+          const { error } = await supabase.from("reminder_settings").upsert({ owner_id: user.id, days_before: days });
+          rSaveBtn.disabled = false;
+          rSaveBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Simpan Jadual</span>';
+
+          if (error) {
+            showToast("Gagal simpan jadual: " + error.message, "error");
+            return;
+          }
+
+          selectedOffsets = new Set(days);
+          renderChips(); // sync full reminder settings page
+          localStorage.setItem("eqstudio_schedule_saved", "1");
+          showToast("Jadual peringatan automatik dikemas kini terus!", "success");
+          updateDirectReminderSummary();
+        });
+      }
+
+      const rResetBtn = document.getElementById("direct-reminder-reset-btn");
+      if (rResetBtn && !rResetBtn.dataset.bound) {
+        rResetBtn.dataset.bound = "1";
+        rResetBtn.addEventListener("click", () => {
+          directReminderOffsets = new Set(DEFAULT_SCHEDULE);
+          renderDirectReminderChips();
+          showToast("Direset kepada jadual asal (H-3, H-1, Hari-Ini). Tekan Simpan Jadual untuk sahkan.", "info");
+        });
+      }
+
+      // Tab 4: FAQ / Quick Responses Engine
+      loadDirectFaqList();
+
+      const faqAddBtn = document.getElementById("direct-faq-add-btn");
+      if (faqAddBtn && !faqAddBtn.dataset.bound) {
+        faqAddBtn.dataset.bound = "1";
+        faqAddBtn.addEventListener("click", async () => {
+          if (blockIfPastDue()) return;
+          const labelInput = document.getElementById("direct-faq-label-input");
+          const ansInput = document.getElementById("direct-faq-answer-input");
+          const label = (labelInput?.value || "").trim();
+          const answer = (ansInput?.value || "").trim();
+
+          if (!label || !answer) {
+            showToast("Sila isi tajuk pintas dan teks jawapan pantas.", "error");
+            return;
+          }
+
+          faqAddBtn.disabled = true;
+          faqAddBtn.textContent = "Menambah...";
+
+          const { error } = await supabase.from("chat_faq_templates").insert({ owner_id: user.id, label, answer_text: answer });
+          faqAddBtn.disabled = false;
+          faqAddBtn.innerHTML = "<span>+ Tambah Jawapan Pantas</span>";
+
+          if (error) {
+            showToast("Gagal tambah template: " + error.message, "error");
+            return;
+          }
+
+          labelInput.value = "";
+          ansInput.value = "";
+          showToast(`Template "${label}" berjaya ditambah ke sistem!`, "success");
+          loadDirectFaqList();
+          if (typeof renderFaqManageList === "function") renderFaqManageList();
+        });
+      }
+    }
+
+    function renderDirectReminderChips() {
+      const container = document.getElementById("direct-reminder-chips");
+      if (!container) return;
+
+      // Sync with global selectedOffsets if not yet populated
+      if (directReminderOffsets.size === 0 && typeof selectedOffsets !== "undefined" && selectedOffsets.size > 0) {
+        directReminderOffsets = new Set(selectedOffsets);
+      } else if (directReminderOffsets.size === 0) {
+        directReminderOffsets = new Set(DEFAULT_SCHEDULE);
+      }
+
+      container.innerHTML = DIRECT_SCHEDULE_OPTIONS.map(opt => {
+        const isSel = directReminderOffsets.has(opt.offset);
+        return `<button type="button" class="desktop-direct-chip ${isSel ? "selected" : ""}" data-offset="${opt.offset}">${opt.label}</button>`;
+      }).join("");
+
+      container.querySelectorAll(".desktop-direct-chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+          const offset = parseInt(chip.dataset.offset, 10);
+          if (directReminderOffsets.has(offset)) {
+            if (directReminderOffsets.size === 1) {
+              showToast("Pilih sekurang-kurangnya satu waktu peringatan.", "error");
+              return;
+            }
+            directReminderOffsets.delete(offset);
+          } else {
+            directReminderOffsets.add(offset);
+          }
+          renderDirectReminderChips();
+          updateDirectReminderSummary();
+        });
+      });
+      updateDirectReminderSummary();
+    }
+
+    function updateDirectReminderSummary() {
+      const el = document.getElementById("direct-reminder-summary");
+      if (!el) return;
+      const sorted = [...directReminderOffsets].sort((a, b) => b - a);
+      const labels = sorted.map(d => OFFSET_LABEL[d] || (d > 0 ? `H-${d}` : d === 0 ? "Hari-Ini" : `H+${Math.abs(d)}`));
+      el.textContent = `Jadual Aktif: ${labels.join(", ")} (${sorted.length} peringatan)`;
+    }
+
+    async function loadDirectFaqList() {
+      const listEl = document.getElementById("direct-faq-active-list");
+      if (!listEl) return;
+
+      const { data, error } = await supabase.from("chat_faq_templates").select("id, label, answer_text").eq("owner_id", user.id).order("created_at", { ascending: true });
+
+      if (error) {
+        listEl.innerHTML = `<span class="error" style="font-size:0.75rem;">${error.message}</span>`;
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        listEl.innerHTML = `<span class="hint" style="font-size:0.75rem;">Belum ada template tersimpan. Tambah melalui borang di sebelah.</span>`;
+        return;
+      }
+
+      listEl.innerHTML = data.map(item => `
+        <div class="direct-faq-item-row">
+          <div style="min-width:0; flex:1;">
+            <div class="direct-faq-item-label">${escapeHtml(item.label)}</div>
+            <div class="direct-faq-item-ans">${escapeHtml(item.answer_text)}</div>
+          </div>
+          <button type="button" class="direct-faq-del-btn" data-faq-del="${item.id}" title="Padam template">✕</button>
+        </div>
+      `).join("");
+
+      listEl.querySelectorAll("[data-faq-del]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const id = btn.dataset.faqDel;
+          await supabase.from("chat_faq_templates").delete().eq("id", id);
+          showToast("Template jawapan dipadam.", "info");
+          loadDirectFaqList();
+          if (typeof renderFaqManageList === "function") renderFaqManageList();
+        });
+      });
     }
 
     // ── Dashboard tips: 100 pieces of content (strategy, customer handling,
@@ -4579,136 +5730,223 @@
 
     function renderHomeTrendChart() {
       const chartEl = document.getElementById("home-trend-chart");
-      const badgesEl = document.getElementById("home-trend-summary-badges");
-      const tooltipEl = document.getElementById("home-trend-tooltip");
       if (!chartEl) return;
+      const badgesEl = document.getElementById("home-trend-summary-badges");
 
       const now = new Date();
       const days = [];
       for (let i = 13; i >= 0; i--) {
-        const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
-        const dateStr = d.toISOString().slice(0, 10);
-        const count = allBookings.filter(b => b.status === "confirmed" && new Date(b.slot_datetime).toISOString().slice(0, 10) === dateStr).length;
-        days.push({ date: d, count });
+        const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+        const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+        const count = allBookings.filter(b => b.status === "confirmed" && toLocalDateStr(b.slot_datetime) === dateStr).length;
+        days.push({ date: d, dateStr, count, isToday: i === 0 });
       }
 
       const totalBookings = days.reduce((sum, d) => sum + d.count, 0);
-      const peakCount = Math.max(...days.map(d => d.count), 0);
+      const maxCount = Math.max(...days.map(d => d.count), 0);
+      const peakDay = days.reduce((prev, cur) => cur.count > prev.count ? cur : prev, days[0]);
 
       if (badgesEl) {
-        badgesEl.innerHTML = totalBookings > 0
-          ? `<span class="home-trend-badge">${totalBookings} Jumlah</span><span class="home-trend-badge">${peakCount} Puncak/Hari</span>`
-          : "";
+        if (totalBookings > 0) {
+          badgesEl.innerHTML = `
+            <span class="trend-summary-pill">Jumlah: <strong>${totalBookings}</strong> tempahan</span>
+            <span class="trend-summary-pill">Puncak: <strong>${peakDay.count}</strong> / hari</span>
+          `;
+        } else {
+          badgesEl.innerHTML = `<span class="trend-summary-pill">14 Hari Terkini</span>`;
+        }
       }
 
       if (totalBookings === 0) {
         chartEl.innerHTML = `
-          <div class="home-trend-empty">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M7 16l4-4 4 3 5-6" stroke-dasharray="3 3"></path></svg>
-            <p>Belum ada booking dalam 14 hari lepas.<br/>Carta akan terisi sebaik ada tempahan disahkan.</p>
-          </div>`;
-        if (tooltipEl) tooltipEl.style.display = "none";
+          <div style="text-align:center; padding:1.5rem 1rem; background:rgba(251,247,239,0.55); border:1px dashed var(--paper-line); border-radius:12px; margin-top:0.4rem;">
+            <div style="width:38px; height:38px; margin:0 auto 0.6rem; border-radius:50%; background:var(--stamp-soft); color:var(--stamp); display:flex; align-items:center; justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+            </div>
+            <p style="font-weight:600; font-size:0.9rem; margin:0 0 0.25rem;">Tiada Tempahan Dalam 14 Hari Lepas</p>
+            <p class="hint" style="font-size:0.76rem; max-width:380px; margin:0 auto; line-height:1.5;">Graf momentum harian ini akan dilukis dan dianimasikan secara automatik apabila pelanggan membuat tempahan slot.</p>
+          </div>
+        `;
         return;
       }
 
-      const w = 600, h = 130, pad = 8;
-      const max = Math.max(...days.map(d => d.count), 1);
-      const stepX = (w - pad * 2) / (days.length - 1);
-      const points = days.map((d, i) => ({
-        x: pad + i * stepX,
-        y: h - pad - (d.count / max) * (h - pad * 2),
-        count: d.count,
-        date: d.date,
-      }));
-      const linePath = catmullRomToBezierPath(points);
-      const areaPath = `${linePath} L${(w - pad).toFixed(1)},${(h - pad).toFixed(1)} L${pad.toFixed(1)},${(h - pad).toFixed(1)} Z`;
+      const w = 600, h = 140, padX = 14, padY = 16;
+      const chartMax = Math.max(maxCount, 2);
+
+      const points = days.map((d, i) => {
+        const x = padX + (i / (days.length - 1)) * (w - padX * 2);
+        const y = h - padY - (d.count / chartMax) * (h - padY * 2);
+        return { x, y, count: d.count, date: d.date, isToday: d.isToday, idx: i };
+      });
+
+      // Smooth Catmull-Rom cubic bezier spline
+      function buildSpline(pts) {
+        if (pts.length < 2) return "";
+        let path = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+        for (let i = 0; i < pts.length - 1; i++) {
+          const p0 = pts[Math.max(i - 1, 0)];
+          const p1 = pts[i];
+          const p2 = pts[i + 1];
+          const p3 = pts[Math.min(i + 2, pts.length - 1)];
+
+          const cp1x = p1.x + (p2.x - p0.x) / 6;
+          const cp1y = p1.y + (p2.y - p0.y) / 6;
+          const cp2x = p2.x - (p3.x - p1.x) / 6;
+          const cp2y = p2.y - (p3.y - p1.y) / 6;
+
+          path += ` C ${cp1x.toFixed(1)} ${cp1y.toFixed(1)}, ${cp2x.toFixed(1)} ${cp2y.toFixed(1)}, ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
+        }
+        return path;
+      }
+
+      const linePath = buildSpline(points);
+      const areaPath = `${linePath} L ${(w - padX).toFixed(1)} ${(h - padY).toFixed(1)} L ${padX.toFixed(1)} ${(h - padY).toFixed(1)} Z`;
 
       const firstLabel = days[0].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
+      const midLabel = days[6].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
       const lastLabel = days[days.length - 1].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
-      const lastPoint = points[points.length - 1];
+      const lastPt = points[points.length - 1];
+
+      const midY = (padY + (h - padY)) / 2;
+      const topY = padY;
+      const botY = h - padY;
 
       chartEl.innerHTML = `
-        <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:110px; display:block; overflow:visible;" preserveAspectRatio="none" id="home-trend-svg">
+        <div class="trend-tooltip" id="home-trend-tooltip">
+          <div class="trend-tooltip-date" id="home-trend-tip-date"></div>
+          <div class="trend-tooltip-val" id="home-trend-tip-val"></div>
+        </div>
+        <svg viewBox="0 0 ${w} ${h}" id="home-trend-svg" style="width:100%; height:130px; display:block; overflow:visible;" preserveAspectRatio="none">
           <defs>
-            <linearGradient id="homeTrendFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" style="stop-color:var(--stamp); stop-opacity:0.28"/>
-              <stop offset="100%" style="stop-color:var(--stamp); stop-opacity:0"/>
+            <linearGradient id="homeTrendGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--stamp)" stop-opacity="0.32" />
+              <stop offset="65%" stop-color="var(--stamp)" stop-opacity="0.08" />
+              <stop offset="100%" stop-color="var(--stamp)" stop-opacity="0" />
             </linearGradient>
+            <filter id="homeTrendShadow" x="-10%" y="-10%" width="120%" height="130%">
+              <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#4a098f" flood-opacity="0.22" />
+            </filter>
           </defs>
-          <path d="${areaPath}" style="fill:url(#homeTrendFill); stroke:none; opacity:0; animation:trend-fade-in 0.6s ease 0.5s forwards;" />
-          <line id="home-trend-crosshair" x1="0" y1="0" x2="0" y2="${h - pad}" style="stroke:var(--ink-soft); stroke-width:1; stroke-dasharray:3 3; opacity:0;" />
-          <path d="${linePath}" id="home-trend-line-path" style="fill:none; stroke:var(--stamp); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;" />
-          ${points.map((p, i) => i === points.length - 1 ? "" : `<circle class="home-trend-dot" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3" data-index="${i}" style="fill:var(--surface); stroke:var(--stamp); stroke-width:1.5; opacity:0; animation:trend-dot-in 0.3s ease ${0.5 + i * 0.04}s forwards;"/>`).join("")}
-          <circle cx="${lastPoint.x.toFixed(1)}" cy="${lastPoint.y.toFixed(1)}" r="8" style="fill:var(--stamp); opacity:0.25; animation:trend-today-pulse 2s ease-out infinite;" />
-          <circle class="home-trend-dot" cx="${lastPoint.x.toFixed(1)}" cy="${lastPoint.y.toFixed(1)}" r="3.5" data-index="${points.length - 1}" style="fill:var(--stamp);" />
-          <rect id="home-trend-hitarea" x="0" y="0" width="${w}" height="${h}" fill="transparent" style="cursor:crosshair;" />
+
+          <!-- Background guide lines -->
+          <line x1="${padX}" y1="${topY}" x2="${w - padX}" y2="${topY}" stroke="rgba(31,58,52,0.06)" stroke-dasharray="3 3" />
+          <line x1="${padX}" y1="${midY}" x2="${w - padX}" y2="${midY}" stroke="rgba(31,58,52,0.06)" stroke-dasharray="3 3" />
+          <line x1="${padX}" y1="${botY}" x2="${w - padX}" y2="${botY}" stroke="rgba(31,58,52,0.12)" />
+
+          <!-- Value marks -->
+          <text x="${w - padX - 2}" y="${topY + 9}" text-anchor="end" font-size="9" fill="var(--ink-soft)" opacity="0.6" font-family="monospace">${chartMax}</text>
+          <text x="${w - padX - 2}" y="${botY - 4}" text-anchor="end" font-size="9" fill="var(--ink-soft)" opacity="0.6" font-family="monospace">0</text>
+
+          <!-- Smooth Area Fill -->
+          <path d="${areaPath}" fill="url(#homeTrendGradient)" style="opacity:0; animation:trend-fade-in 0.6s ease 0.3s forwards;" />
+
+          <!-- Vertical interactive crosshair -->
+          <line id="home-trend-crosshair" x1="0" y1="${padY}" x2="0" y2="${botY}" stroke="var(--stamp)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0" style="pointer-events:none; transition:opacity 0.15s ease;" />
+
+          <!-- Main Spline Stroke Line -->
+          <path d="${linePath}" id="home-trend-line-path" fill="none" stroke="var(--stamp)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#homeTrendShadow)" />
+
+          <!-- Interactive Dots for each day -->
+          ${points.map(p => `
+            <circle class="trend-dot" id="trend-dot-${p.idx}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.isToday ? 4.2 : (p.count > 0 ? 3.5 : 2)}"
+              fill="${p.count > 0 ? 'var(--stamp)' : '#a39b8e'}"
+              stroke="#ffffff" stroke-width="${p.count > 0 ? 2 : 1.2}"
+              style="animation: trend-dot-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) ${(0.25 + p.idx * 0.035).toFixed(3)}s backwards;" />
+          `).join("")}
+
+          <!-- Today radar pulse on the final point -->
+          <circle cx="${lastPt.x.toFixed(1)}" cy="${lastPt.y.toFixed(1)}" r="4" style="fill:var(--stamp); animation:trend-today-pulse 2s ease-out infinite; pointer-events:none;" />
         </svg>
-        <div class="row" style="justify-content:space-between; margin-top:0.3rem;">
-          <span class="hint" style="font-size:0.72rem;">${firstLabel}</span>
-          <span class="hint" style="font-size:0.72rem;">${lastLabel}</span>
+
+        <div class="row" style="justify-content:space-between; margin-top:0.4rem; padding:0 2px;">
+          <span class="hint" style="font-size:0.72rem; font-weight:500;">${firstLabel}</span>
+          <span class="hint" style="font-size:0.72rem; font-weight:500;">${midLabel}</span>
+          <span class="hint" style="font-size:0.72rem; font-weight:600; color:var(--stamp);">Hari ini (${lastLabel})</span>
         </div>
       `;
 
-      // One-time "draw itself in" animation for the line — feels alive on
-      // first render without looping forever afterward.
+      // Animate line drawing
       const linePathEl = document.getElementById("home-trend-line-path");
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (linePathEl && !prefersReduced) {
+      if (linePathEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         const len = linePathEl.getTotalLength();
         linePathEl.style.strokeDasharray = len;
         linePathEl.style.strokeDashoffset = len;
-        linePathEl.getBoundingClientRect(); // force reflow before transition
-        linePathEl.style.transition = "stroke-dashoffset 1s ease";
+        linePathEl.getBoundingClientRect(); // reflow
+        linePathEl.style.transition = "stroke-dashoffset 0.9s cubic-bezier(0.2, 0.8, 0.4, 1)";
         linePathEl.style.strokeDashoffset = "0";
       }
 
-      // Hover/touch crosshair + floating tooltip — works with mouse (desktop)
-      // and touch (mobile, via touchmove/touchstart).
+      // Interactive hover / touch scrub
       const svgEl = document.getElementById("home-trend-svg");
-      const hitArea = document.getElementById("home-trend-hitarea");
+      const tooltipEl = document.getElementById("home-trend-tooltip");
+      const tipDateEl = document.getElementById("home-trend-tip-date");
+      const tipValEl = document.getElementById("home-trend-tip-val");
       const crosshairEl = document.getElementById("home-trend-crosshair");
-      const wrapEl = document.getElementById("home-trend-chart-wrap");
 
-      function updateCrosshair(clientX) {
+      let activeDotIdx = null;
+
+      function highlightPoint(clientX) {
+        if (!svgEl || !tooltipEl) return;
         const rect = svgEl.getBoundingClientRect();
-        const relX = clientX - rect.left;
-        const svgX = (relX / rect.width) * w;
-        let nearestIndex = Math.round((svgX - pad) / stepX);
-        nearestIndex = Math.max(0, Math.min(points.length - 1, nearestIndex));
-        const p = points[nearestIndex];
+        const mouseX = Math.max(0, Math.min(clientX - rect.left, rect.width));
+        const relX = (mouseX / rect.width) * w;
 
-        crosshairEl.setAttribute("x1", p.x.toFixed(1));
-        crosshairEl.setAttribute("x2", p.x.toFixed(1));
-        crosshairEl.style.opacity = "1";
+        // Find closest point by x coordinate
+        let closest = points[0];
+        let minDist = Math.abs(points[0].x - relX);
+        for (let i = 1; i < points.length; i++) {
+          const dist = Math.abs(points[i].x - relX);
+          if (dist < minDist) {
+            minDist = dist;
+            closest = points[i];
+          }
+        }
 
-        chartEl.querySelectorAll(".home-trend-dot").forEach(dot => {
-          const isActive = Number(dot.dataset.index) === nearestIndex;
-          dot.setAttribute("r", isActive ? "5" : "3");
-        });
+        if (activeDotIdx !== null && activeDotIdx !== closest.idx) {
+          document.getElementById(`trend-dot-${activeDotIdx}`)?.classList.remove("active");
+        }
+        activeDotIdx = closest.idx;
+        const dotEl = document.getElementById(`trend-dot-${closest.idx}`);
+        if (dotEl) dotEl.classList.add("active");
 
-        const dateLabel = p.date.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short" });
-        tooltipEl.innerHTML = `<strong>${p.count}</strong> booking<br/><span>${dateLabel}</span>`;
-        tooltipEl.style.display = "block";
-        const wrapRect = wrapEl.getBoundingClientRect();
-        const dotScreenX = rect.left - wrapRect.left + (p.x / w) * rect.width;
-        const dotScreenY = rect.top - wrapRect.top + (p.y / h) * rect.height;
-        let tooltipLeft = dotScreenX - 40;
-        tooltipLeft = Math.max(0, Math.min(tooltipLeft, wrapRect.width - 90));
-        tooltipEl.style.left = `${tooltipLeft}px`;
-        tooltipEl.style.top = `${Math.max(0, dotScreenY - 52)}px`;
+        if (crosshairEl) {
+          crosshairEl.setAttribute("x1", closest.x.toFixed(1));
+          crosshairEl.setAttribute("x2", closest.x.toFixed(1));
+          crosshairEl.style.opacity = "1";
+        }
+
+        const dateStr = closest.date.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short" });
+        tipDateEl.textContent = closest.isToday ? `${dateStr} (Hari Ini)` : dateStr;
+        tipValEl.textContent = closest.count === 0 ? "Tiada booking" : `${closest.count} booking disahkan`;
+
+        // Position tooltip accurately relative to container
+        const leftPercent = (closest.x / w) * 100;
+        const topPx = (closest.y / h) * rect.height;
+        tooltipEl.style.left = `${leftPercent}%`;
+        tooltipEl.style.top = `${topPx}px`;
+        tooltipEl.classList.add("visible");
       }
 
-      function hideCrosshair() {
-        crosshairEl.style.opacity = "0";
-        tooltipEl.style.display = "none";
-        chartEl.querySelectorAll(".home-trend-dot").forEach(dot => dot.setAttribute("r", dot.dataset.index == points.length - 1 ? "3.5" : "3"));
+      function unhighlight() {
+        if (activeDotIdx !== null) {
+          document.getElementById(`trend-dot-${activeDotIdx}`)?.classList.remove("active");
+          activeDotIdx = null;
+        }
+        if (crosshairEl) crosshairEl.style.opacity = "0";
+        if (tooltipEl) tooltipEl.classList.remove("visible");
       }
 
-      hitArea.addEventListener("mousemove", (e) => updateCrosshair(e.clientX));
-      hitArea.addEventListener("mouseleave", hideCrosshair);
-      hitArea.addEventListener("touchstart", (e) => { updateCrosshair(e.touches[0].clientX); }, { passive: true });
-      hitArea.addEventListener("touchmove", (e) => { e.preventDefault(); updateCrosshair(e.touches[0].clientX); }, { passive: false });
-      hitArea.addEventListener("touchend", hideCrosshair);
+      svgEl.addEventListener("mousemove", (e) => highlightPoint(e.clientX));
+      svgEl.addEventListener("mouseleave", unhighlight);
+
+      svgEl.addEventListener("touchmove", (e) => {
+        if (e.touches && e.touches[0]) {
+          highlightPoint(e.touches[0].clientX);
+        }
+      }, { passive: true });
+      svgEl.addEventListener("touchend", () => {
+        setTimeout(unhighlight, 1200);
+      });
     }
 
     function fmtBookingDateTime(iso) {

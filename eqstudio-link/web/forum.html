@@ -7,330 +7,2237 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png" />
-<title>Forum — eqstudio.link</title>
-<meta name="description" content="Diskusi, soalan, dan pengumuman untuk komuniti eqstudio.link." />
+<title>Forum & Pusat Bantuan — eqstudio.link</title>
+<meta name="description" content="Diskusi usahawan solo, cadangan ciri, pengumuman rasmi, dan pusat panduan bantuan eqstudio.link." />
 <link rel="canonical" href="https://eqstudio.link/forum.html" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=18" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=56" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
     if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
   })();
 </script>
+<style>
+  /* ── Modern Forum & Help Center Styles ── */
+  :root {
+    --fh-nav-height: 64px;
+    --fh-max-w: 980px;
+    --fh-surface-hover: #f1f1f5;
+    --fh-border-light: rgba(0, 0, 0, 0.08);
+  }
+  [data-theme="dark"] {
+    --fh-surface-hover: #222228;
+    --fh-border-light: rgba(255, 255, 255, 0.08);
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Sticky Top Bar */
+  .fh-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--surface);
+    border-bottom: 1px solid var(--paper-line);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .fh-topbar-inner {
+    max-width: var(--fh-max-w);
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    height: var(--fh-nav-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .fh-brand-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .fh-brand-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: block;
+  }
+  .fh-brand-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .fh-brand-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: var(--stamp-soft);
+    color: var(--stamp);
+    letter-spacing: 0.02em;
+  }
+
+  .fh-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .fh-icon-btn {
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    color: var(--ink);
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .fh-icon-btn:hover {
+    background: var(--fh-surface-hover);
+    border-color: var(--stamp);
+    color: var(--stamp);
+  }
+
+  .fh-user-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.6rem 0.25rem 0.35rem;
+    border-radius: 999px;
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink);
+    max-width: 180px;
+  }
+  .fh-user-avatar-sm {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--stamp);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .fh-back-dashboard-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.42rem 0.85rem;
+    border-radius: 8px;
+    background: var(--stamp);
+    color: #ffffff !important;
+    text-decoration: none;
+    transition: transform 0.1s ease, opacity 0.15s ease;
+  }
+  .fh-back-dashboard-btn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+  }
+
+  /* Main Container */
+  .fh-wrap {
+    max-width: var(--fh-max-w);
+    margin: 0 auto;
+    padding: 2rem 1.25rem 5rem;
+    width: 100%;
+    flex: 1;
+  }
+
+  /* Hero Section */
+  .fh-hero {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .fh-hero-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin: 0.35rem 0 0.45rem;
+    color: var(--ink);
+  }
+  .fh-hero-sub {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Search & Command Bar */
+  .fh-search-bar {
+    position: relative;
+    max-width: 620px;
+    margin: 1.5rem auto 1.75rem;
+  }
+  .fh-search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-soft);
+    pointer-events: none;
+  }
+  .fh-search-input {
+    width: 100%;
+    padding: 0.85rem 2.75rem 0.85rem 2.85rem;
+    font-size: 0.95rem;
+    border-radius: 14px;
+    border: 1px solid var(--paper-line);
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow);
+    transition: all 0.15s ease;
+    box-sizing: border-box;
+  }
+  .fh-search-input:focus {
+    outline: none;
+    border-color: var(--stamp);
+    box-shadow: 0 0 0 3px var(--stamp-soft), var(--shadow);
+  }
+  .fh-search-clear {
+    position: absolute;
+    right: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    display: none;
+  }
+  .fh-search-clear:hover {
+    color: var(--ink);
+  }
+
+  /* Segmented Main Navigation Tabs */
+  .fh-nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.35rem;
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    border-radius: 14px;
+    max-width: 640px;
+    margin: 0 auto 2rem;
+    overflow-x: auto;
+  }
+  .fh-tab-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .fh-tab-btn:hover {
+    color: var(--ink);
+  }
+  .fh-tab-btn.active {
+    background: var(--surface);
+    color: var(--stamp);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Forum Toolbar & Categories */
+  .fh-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .fh-cat-chips {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+    scrollbar-width: none;
+  }
+  .fh-cat-chips::-webkit-scrollbar {
+    display: none;
+  }
+  .fh-cat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--paper-line);
+    background: var(--surface);
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .fh-cat-chip:hover {
+    background: var(--fh-surface-hover);
+    color: var(--ink);
+  }
+  .fh-cat-chip.active {
+    background: var(--stamp-soft);
+    border-color: var(--stamp);
+    color: var(--stamp);
+    font-weight: 600;
+  }
+  .fh-cat-count {
+    font-size: 0.72rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 999px;
+    background: var(--paper);
+    color: var(--ink-soft);
+  }
+  .fh-cat-chip.active .fh-cat-count {
+    background: var(--stamp);
+    color: #ffffff;
+  }
+
+  .fh-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .fh-sort-select {
+    padding: 0.48rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid var(--paper-line);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .fh-new-thread-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.52rem 1.1rem;
+    border-radius: 9px;
+    background: var(--stamp);
+    color: #ffffff;
+    font-size: 0.84rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s ease, opacity 0.15s ease;
+    box-shadow: 0 2px 10px rgba(74, 9, 143, 0.2);
+  }
+  .fh-new-thread-btn:hover {
+    opacity: 0.94;
+    transform: translateY(-1px);
+  }
+
+  /* Forum Thread Cards */
+  .fh-thread-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .fh-thread-card {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius);
+    padding: 1.15rem 1.35rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    position: relative;
+  }
+  .fh-thread-card:hover {
+    border-color: var(--stamp);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  .fh-thread-card.pinned {
+    border-left: 4px solid var(--accent-sun);
+    background: linear-gradient(to right, var(--pending-bg), var(--surface) 25%);
+  }
+
+  .fh-thread-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--stamp-soft);
+    color: var(--stamp);
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .fh-thread-avatar.team-avatar {
+    background: var(--stamp);
+    color: #ffffff;
+  }
+
+  .fh-thread-main {
+    flex: 1;
+    min-width: 0;
+  }
+  .fh-thread-header-tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .fh-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.18rem 0.5rem;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  .fh-badge-cat {
+    background: var(--paper);
+    color: var(--ink-soft);
+    border: 1px solid var(--paper-line);
+    text-transform: uppercase;
+    font-size: 0.68rem;
+  }
+  .fh-badge-pinned {
+    background: var(--pending-bg);
+    color: var(--pending-text);
+  }
+  .fh-badge-team {
+    background: var(--stamp-soft);
+    color: var(--stamp);
+    border: 1px solid rgba(74, 9, 143, 0.2);
+  }
+  .fh-badge-pro {
+    background: var(--ok-bg);
+    color: var(--ok);
+    font-weight: 700;
+  }
+  .fh-badge-planned {
+    background: var(--pending-bg);
+    color: var(--pending-text);
+  }
+  .fh-badge-in-progress {
+    background: var(--stamp-soft);
+    color: var(--stamp);
+  }
+  .fh-badge-shipped {
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .fh-thread-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+  .fh-thread-card:hover .fh-thread-title {
+    color: var(--stamp);
+  }
+
+  .fh-thread-excerpt {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .fh-thread-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+  .fh-thread-author-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .fh-thread-author-name {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .fh-thread-stats {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .fh-thread-stat-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 500;
+  }
+
+  /* Single Thread Detail View */
+  .fh-detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .fh-breadcrumb-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+  .fh-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--stamp);
+    text-decoration: none;
+  }
+  .fh-back-link:hover {
+    text-decoration: underline;
+  }
+
+  .fh-op-card {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+  }
+  .fh-op-author-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+  .fh-op-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--stamp-soft);
+    color: var(--stamp);
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fh-op-avatar.team {
+    background: var(--stamp);
+    color: #ffffff;
+  }
+  .fh-op-author-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .fh-op-author-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .fh-op-date {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  .fh-op-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin: 0 0 1rem;
+    color: var(--ink);
+  }
+  .fh-op-body {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .fh-op-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--paper-line);
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .fh-reaction-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--paper-line);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .fh-reaction-btn:hover {
+    background: #ffebee;
+    border-color: #f87171;
+    color: #dc2626;
+  }
+  .fh-reaction-btn.reacted {
+    background: #ffebee;
+    border-color: #ef4444;
+    color: #dc2626;
+  }
+  .fh-share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid var(--paper-line);
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+    cursor: pointer;
+  }
+  .fh-share-btn:hover {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  /* Replies Timeline */
+  .fh-replies-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 2rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .fh-reply-card {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.4rem;
+    margin-bottom: 0.9rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  }
+  .fh-reply-card.team-reply {
+    border-left: 4px solid var(--stamp);
+    background: linear-gradient(to right, var(--stamp-soft), var(--surface) 40%);
+  }
+  .fh-reply-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+  .fh-reply-author-group {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .fh-reply-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: var(--paper);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fh-reply-avatar.team {
+    background: var(--stamp);
+    color: #ffffff;
+  }
+  .fh-reply-body {
+    font-size: 0.93rem;
+    line-height: 1.65;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+  }
+
+  /* Reply Composer */
+  .fh-composer-card {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+  .fh-composer-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 0.8rem;
+    color: var(--ink);
+  }
+  .fh-textarea {
+    width: 100%;
+    padding: 0.85rem;
+    border-radius: 10px;
+    border: 1px solid var(--paper-line);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease;
+  }
+  .fh-textarea:focus {
+    outline: none;
+    border-color: var(--stamp);
+    background: var(--surface);
+  }
+  .fh-identity-selector {
+    display: flex;
+    gap: 1rem;
+    margin: 0.8rem 0 1rem;
+    flex-wrap: wrap;
+  }
+  .fh-identity-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid var(--paper-line);
+    background: var(--paper);
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+  .fh-identity-chip:has(input:checked) {
+    background: var(--stamp-soft);
+    border-color: var(--stamp);
+    color: var(--stamp);
+    font-weight: 600;
+  }
+
+  /* Knowledge Base / Guides Grid */
+  .fh-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+  .fh-guide-card {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius);
+    padding: 1.35rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+  }
+  .fh-guide-card:hover {
+    border-color: var(--stamp);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  .fh-guide-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--stamp-soft);
+    color: var(--stamp);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .fh-guide-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 0.45rem;
+    color: var(--ink);
+  }
+  .fh-guide-desc {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+  .fh-guide-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--stamp);
+  }
+
+  /* FAQ Accordion */
+  .fh-faq-list {
+    max-width: 800px;
+    margin: 1rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .fh-faq-item {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+  .fh-faq-item:hover {
+    border-color: var(--stamp);
+  }
+  .fh-faq-btn {
+    width: 100%;
+    padding: 1.15rem 1.35rem;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    font-size: 0.98rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+  }
+  .fh-faq-chevron {
+    color: var(--ink-soft);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .fh-faq-item.open .fh-faq-chevron {
+    transform: rotate(180deg);
+    color: var(--stamp);
+  }
+  .fh-faq-body {
+    padding: 0 1.35rem 1.25rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    display: none;
+  }
+  .fh-faq-item.open .fh-faq-body {
+    display: block;
+  }
+
+  /* Support / Contact Cards */
+  .fh-support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+    max-width: 840px;
+    margin: 1.5rem auto 0;
+  }
+  .fh-support-card {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .fh-support-icon-lg {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--ok-bg);
+    color: var(--ok);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.1rem;
+  }
+  .fh-support-card.email .fh-support-icon-lg {
+    background: var(--stamp-soft);
+    color: var(--stamp);
+  }
+
+  /* Modern Dialog / Modal */
+  .fh-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .fh-modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .fh-modal {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 580px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    transform: scale(0.96) translateY(8px);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fh-modal-overlay.open .fh-modal {
+    transform: scale(1) translateY(0);
+  }
+  .fh-modal-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--paper-line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .fh-modal-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--ink);
+  }
+  .fh-modal-close {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fh-modal-close:hover {
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .fh-modal-body {
+    padding: 1.5rem;
+  }
+
+  /* Empty state */
+  .fh-empty-state {
+    text-align: center;
+    padding: 3.5rem 1.5rem;
+    background: var(--surface);
+    border: 1px dashed var(--paper-line);
+    border-radius: var(--radius-lg);
+    margin: 1rem 0;
+  }
+  .fh-empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .fh-empty-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 0.35rem;
+  }
+  .fh-empty-text {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    max-width: 400px;
+    margin: 0 auto 1.25rem;
+  }
+
+  /* Toast Notification */
+  .fh-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    z-index: 200;
+    transform: translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+  .fh-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @media (max-width: 680px) {
+    .fh-topbar-inner {
+      padding: 0 1rem;
+    }
+    .fh-user-pill {
+      display: none;
+    }
+    .fh-hero-title {
+      font-size: 1.6rem;
+    }
+    .fh-thread-card {
+      padding: 1rem;
+      gap: 0.8rem;
+    }
+    .fh-op-card {
+      padding: 1.25rem;
+    }
+    .fh-toast {
+      bottom: 1rem;
+      right: 1rem;
+      left: 1rem;
+      text-align: center;
+    }
+  }
+</style>
 </head>
 <body>
 
-  <nav class="lp-nav">
-    <a href="/" class="brand" style="text-decoration:none;"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
-    <div class="lp-nav-links">
-      <div class="lang-toggle">
-        <button type="button" class="lang-toggle-btn active" data-lang-toggle="en">EN</button>
-        <button type="button" class="lang-toggle-btn" data-lang-toggle="ms">BM</button>
-      </div>
-      <a href="/roadmap.html" class="plain">Roadmap</a>
-      <a href="/login.html" class="plain" data-i18n="nav_login">Log In</a>
-      <a href="/login.html" class="btn" data-i18n="nav_cta">Start Free</a>
-    </div>
-  </nav>
+  <!-- Sticky Top Navigation -->
+  <header class="fh-topbar">
+    <div class="fh-topbar-inner">
+      <a href="/" class="fh-brand-group">
+        <img src="/assets/logo/logo-64.png" alt="eqstudio.link" class="fh-brand-logo" />
+        <span class="fh-brand-title">eqstudio.link</span>
+        <span class="fh-brand-badge">Komuniti & Bantuan</span>
+      </a>
 
-  <div class="wrap" style="padding-top:2rem; padding-bottom:4rem; max-width:760px;">
-    <div id="forum-content">
-      <div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>
+      <div class="fh-topbar-actions">
+        <div id="fh-auth-zone" style="display:flex; align-items:center; gap:0.5rem;">
+          <!-- Injected dynamically via JS: either user pill + Back to Dashboard, or Login button -->
+        </div>
+
+        <!-- Dark mode toggle -->
+        <button type="button" class="fh-icon-btn" id="fh-theme-btn" title="Tukar Tema (Gelap/Cerah)" aria-label="Tukar Tema">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Viewport -->
+  <main class="fh-wrap">
+
+    <!-- Hero Header -->
+    <div class="fh-hero" id="fh-hero-section">
+      <h1 class="fh-hero-title" id="fh-hero-title">Pusat Komuniti & Bantuan Usahawan</h1>
+      <p class="fh-hero-sub" id="fh-hero-sub">Ruang perbincangan sesama usahawan studio, pengumuman rasmi, cadangan penambahbaikan, serta panduan lengkap operasi perniagaan anda.</p>
+
+      <!-- Global Search -->
+      <div class="fh-search-bar" id="fh-search-container">
+        <svg class="fh-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="search" class="fh-search-input" id="fh-search-input" placeholder="Cari perbincangan, panduan bantuan, atau topik..." />
+        <button type="button" class="fh-search-clear" id="fh-search-clear" title="Kosongkan carian">✕</button>
+      </div>
+
+      <!-- Main Navigation Tabs -->
+      <nav class="fh-nav-tabs" id="fh-main-tabs" aria-label="Tab Pusat Komuniti">
+        <button type="button" class="fh-tab-btn active" data-main-tab="forum">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Forum Komuniti
+        </button>
+        <button type="button" class="fh-tab-btn" data-main-tab="guides">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          Panduan & Tutorial
+        </button>
+        <button type="button" class="fh-tab-btn" data-main-tab="faq">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          Soalan Lazim
+        </button>
+        <button type="button" class="fh-tab-btn" data-main-tab="contact">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          Hubungi Pasukan
+        </button>
+      </nav>
+    </div>
+
+    <!-- TAB 1: FORUM VIEW -->
+    <div id="fh-tab-forum-content">
+      <!-- Toolbar & Category Filter -->
+      <div class="fh-toolbar">
+        <div class="fh-cat-chips" id="fh-cat-chips-container">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="fh-actions-group">
+          <select class="fh-sort-select" id="fh-sort-select" aria-label="Susunan Perbincangan">
+            <option value="recent">Aktiviti Terkini</option>
+            <option value="replies">Paling Banyak Balasan</option>
+            <option value="reactions">Paling Disukai</option>
+          </select>
+
+          <button type="button" class="fh-new-thread-btn" id="fh-open-new-thread-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Cipta Topik
+          </button>
+        </div>
+      </div>
+
+      <!-- Threads Feed -->
+      <div id="fh-thread-feed-wrap">
+        <div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan perbincangan komuniti...</p></div>
+      </div>
+    </div>
+
+    <!-- TAB 2: GUIDES & KNOWLEDGE BASE VIEW -->
+    <div id="fh-tab-guides-content" style="display:none;">
+      <div style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+        <div>
+          <h2 style="font-size:1.35rem; margin:0 0 0.3rem;">Pusat Panduan & Tutorial Pengguna</h2>
+          <p class="hint" style="margin:0;">Langkah demi langkah untuk memaksimumkan sistem tempahan studio anda.</p>
+        </div>
+      </div>
+
+      <div class="fh-guide-grid" id="fh-guide-grid">
+        <!-- Curated Actionable Guides -->
+      </div>
+    </div>
+
+    <!-- TAB 3: FAQ VIEW -->
+    <div id="fh-tab-faq-content" style="display:none;">
+      <div style="text-align:center; max-width:600px; margin:0 auto 1.75rem;">
+        <h2 style="font-size:1.35rem; margin:0 0 0.3rem;">Soalan Lazim Pemilik Studio</h2>
+        <p class="hint" style="margin:0;">Jawapan segera bagi kemusykilan yang paling kerap ditanya usahawan.</p>
+      </div>
+      <div class="fh-faq-list" id="fh-faq-list">
+        <!-- Interactive Accordion Items -->
+      </div>
+    </div>
+
+    <!-- TAB 4: CONTACT & SUPPORT VIEW -->
+    <div id="fh-tab-contact-content" style="display:none;">
+      <div style="text-align:center; max-width:600px; margin:0 auto 1.75rem;">
+        <h2 style="font-size:1.35rem; margin:0 0 0.3rem;">Perlukan Bantuan Segera?</h2>
+        <p class="hint" style="margin:0;">Pasukan sokongan teknikal eqstudio.link sedia membantu bisnes anda bila-bila masa.</p>
+      </div>
+
+      <div class="fh-support-grid">
+        <div class="fh-support-card">
+          <div class="fh-support-icon-lg">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <h3 style="margin:0 0 0.4rem; font-size:1.15rem;">Bantuan WhatsApp Rasmi</h3>
+          <p class="hint" style="font-size:0.88rem; line-height:1.5; margin-bottom:1.25rem;">Chat terus bersama pengurus khidmat pelanggan kami untuk pertanyaan setup atau sebarang kesulitan teknikal.</p>
+          <a href="https://wa.me/601110000000?text=Salam%20eqstudio.link,%20saya%20perlukan%20bantuan%20mengenai%20studio%20saya" target="_blank" class="btn" style="width:100%; text-decoration:none;">Buka WhatsApp Sekarang →</a>
+        </div>
+
+        <div class="fh-support-card email">
+          <div class="fh-support-icon-lg">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </div>
+          <h3 style="margin:0 0 0.4rem; font-size:1.15rem;">Sokongan Emel / Tiket</h3>
+          <p class="hint" style="font-size:0.88rem; line-height:1.5; margin-bottom:1.25rem;">Hantar mesej rasmi jika melibatkan isu bil, pangkalan data, atau cadangan perkongsian bisnes berskala besar.</p>
+          <a href="/contact.html" class="secondary" style="width:100%; text-decoration:none; text-align:center;">Borang Hubungi Kami →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEDICATED THREAD DETAIL VIEW (Rendered dynamically when ?thread=id) -->
+    <div id="fh-thread-detail-container" style="display:none;"></div>
+
+  </main>
+
+  <!-- MODAL: Cipta Topik Baharu -->
+  <div class="fh-modal-overlay" id="fh-new-thread-modal">
+    <div class="fh-modal" role="dialog" aria-modal="true" aria-labelledby="modal-thread-title">
+      <div class="fh-modal-header">
+        <h3 class="fh-modal-title" id="modal-thread-title">Cipta Topik Perbincangan Baharu</h3>
+        <button type="button" class="fh-modal-close" id="fh-modal-close-btn" aria-label="Tutup">✕</button>
+      </div>
+      <div class="fh-modal-body">
+        <div id="fh-modal-gate-notice" style="display:none; margin-bottom:1rem; padding:0.9rem; border-radius:10px; background:var(--pending-bg); color:var(--pending-text); font-size:0.88rem;"></div>
+
+        <form id="fh-new-thread-form">
+          <div style="margin-bottom:1rem;">
+            <label for="fh-form-category" style="display:block; font-weight:600; font-size:0.85rem; margin-bottom:0.35rem;">Kategori Perbincangan</label>
+            <select id="fh-form-category" style="width:100%; padding:0.65rem 0.85rem; border-radius:8px; border:1px solid var(--paper-line); background:var(--paper); color:var(--ink);" required>
+              <!-- Options populated by JS -->
+            </select>
+            <span class="hint" id="fh-category-desc-hint" style="font-size:0.75rem; display:block; margin-top:0.3rem;"></span>
+          </div>
+
+          <div style="margin-bottom:1rem;">
+            <label for="fh-form-title" style="display:block; font-weight:600; font-size:0.85rem; margin-bottom:0.35rem;">Tajuk Topik</label>
+            <input type="text" id="fh-form-title" placeholder="cth: Macam mana anda urus pelanggan yang lambat sampai?" style="width:100%; padding:0.75rem 0.85rem; border-radius:8px; border:1px solid var(--paper-line); background:var(--paper); color:var(--ink);" required />
+          </div>
+
+          <div style="margin-bottom:1rem;">
+            <label for="fh-form-message" style="display:block; font-weight:600; font-size:0.85rem; margin-bottom:0.35rem;">Kandungan Mesej</label>
+            <textarea id="fh-form-message" rows="5" class="fh-textarea" placeholder="Kongsi situasi, persoalan atau cadangan anda secara jelas..." required></textarea>
+          </div>
+
+          <div style="margin-bottom:1.5rem;">
+            <label style="display:block; font-weight:600; font-size:0.85rem; margin-bottom:0.4rem;">Siarkan Sebagai</label>
+            <div class="fh-identity-selector">
+              <label class="fh-identity-chip">
+                <input type="radio" name="fh-identity" value="business" checked style="width:auto; margin:0;" />
+                <span id="fh-identity-business-label">Nama Bisnes</span>
+              </label>
+              <label class="fh-identity-chip">
+                <input type="radio" name="fh-identity" value="anonymous" style="width:auto; margin:0;" />
+                <span>Tanpa Nama (Anonymous)</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="fh-form-error" class="error" style="display:none; margin-bottom:1rem;"></div>
+
+          <div style="display:flex; justify-content:flex-end; gap:0.6rem;">
+            <button type="button" class="secondary" id="fh-form-cancel-btn">Batal</button>
+            <button type="submit" class="btn" id="fh-form-submit-btn">Siarkan Sekarang</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
+  <!-- MODAL: Paparan Panduan Penuh (Guide Reader) -->
+  <div class="fh-modal-overlay" id="fh-guide-modal">
+    <div class="fh-modal" style="max-width:680px;" role="dialog" aria-modal="true">
+      <div class="fh-modal-header">
+        <h3 class="fh-modal-title" id="fh-guide-modal-title">Panduan Pengguna</h3>
+        <button type="button" class="fh-modal-close" id="fh-guide-modal-close" aria-label="Tutup">✕</button>
+      </div>
+      <div class="fh-modal-body" id="fh-guide-modal-body" style="font-size:0.95rem; line-height:1.75;">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="fh-toast" id="fh-toast-msg"></div>
+
+  <!-- SCRIPTS -->
   <script type="module">
     import { supabase } from "/assets/supabase-client.js";
-    import { applyLanguage, getCurrentLang, UI_STRINGS } from "/assets/i18n-ui.js";
-    function t(key) { return UI_STRINGS[getCurrentLang()]?.[key] ?? key; }
 
+    // ── Application State ──
     let currentUser = null;
+    let userProfile = null;
     let canPost = false;
     let currentBusinessName = "";
     let allThreads = [];
     let allCategories = [];
     let activeCategorySlug = "all";
+    let activeMainTab = "forum"; // 'forum' | 'guides' | 'faq' | 'contact'
+    let currentSort = "recent";
     let searchQuery = "";
 
+    // ── Helper Utilities ──
     function escapeHtml(str) {
+      if (!str) return "";
       const div = document.createElement("div");
-      div.textContent = str ?? "";
+      div.textContent = str;
       return div.innerHTML;
     }
-    function featureStatusBadge(status) {
-      if (status === "planned") return `<span class="badge pending" style="margin-right:0.4rem;">Planned</span>`;
-      if (status === "in_progress") return `<span class="badge" style="margin-right:0.4rem; background:var(--stamp-soft); color:var(--stamp);">In Progress</span>`;
-      if (status === "shipped") return `<span class="badge dah_bayar" style="margin-right:0.4rem;">Shipped</span>`;
+
+    function showToast(msg) {
+      const toast = document.getElementById("fh-toast-msg");
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+
+    function fmtRelativeTime(iso) {
+      if (!iso) return "";
+      const d = new Date(iso);
+      const diffMs = Date.now() - d.getTime();
+      const diffSec = Math.floor(diffMs / 1000);
+      const diffMin = Math.floor(diffSec / 60);
+      const diffHour = Math.floor(diffMin / 60);
+      const diffDay = Math.floor(diffHour / 24);
+
+      if (diffSec < 60) return "Sebentar tadi";
+      if (diffMin < 60) return `${diffMin} min lalu`;
+      if (diffHour < 24) return `${diffHour} jam lalu`;
+      if (diffDay === 1) return "Semalam";
+      if (diffDay < 7) return `${diffDay} hari lalu`;
+      return d.toLocaleDateString("ms-MY", { day: "numeric", month: "short", year: "numeric" });
+    }
+
+    function getInitials(name) {
+      if (!name) return "U";
+      const parts = name.trim().split(/\s+/);
+      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+
+    function featureBadgeHtml(status) {
+      if (!status) return "";
+      if (status === "planned") return `<span class="fh-badge fh-badge-planned">📋 Dirancang</span>`;
+      if (status === "in_progress") return `<span class="fh-badge fh-badge-in-progress">⚡ Dalam Pembikinan</span>`;
+      if (status === "shipped") return `<span class="fh-badge fh-badge-shipped">✓ Dilancarkan</span>`;
       return "";
     }
-    function fmtDate(iso) {
-      return new Date(iso).toLocaleString("ms-MY", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
-    }
-    function fmtDateShort(iso) {
-      return new Date(iso).toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
-    }
 
+    // ── Curated Interactive Guides Data ──
+    const KNOWLEDGE_GUIDES = [
+      {
+        id: "quickstart",
+        icon: "🚀",
+        title: "Setup Profil & Waktu Operasi (5 Minit Siap)",
+        desc: "Langkah asas menetapkan nama studio, waktu buka harian, buffer rehat antara sesi, dan had tempahan.",
+        content: `
+          <p>Mulakan persediaan perniagaan anda dengan 3 langkah ringkas:</p>
+          <ol style="padding-left:1.3rem; line-height:1.7;">
+            <li><strong>Tetapan Profil Perniagaan:</strong> Buka Dashboard > Profil Perniagaan. Masukkan nama studio, nombor WhatsApp, alamat premis, dan akaun Instagram/TikTok anda.</li>
+            <li><strong>Waktu Operasi & Hari Kerja:</strong> Tetapkan hari aktif (contoh: Isnin–Sabtu, 9:00 AM – 7:00 PM). Sistem akan menyusun slot kosong secara automatik.</li>
+            <li><strong>Buffer Sesi (Rehat & Kemas):</strong> Tetapkan buffer 15–30 minit antara setiap tempahan supaya anda mempunyai masa rehat dan premis kembali bersih untuk pelanggan seterusnya.</li>
+          </ol>
+          <div style="margin-top:1rem; padding:0.85rem; background:var(--stamp-soft); border-radius:8px; font-size:0.88rem;">
+            💡 <strong>Tips Pro:</strong> Muat naik logo studio berkualiti tinggi supaya pelanggan lebih yakin ketika mengisi borang tempahan anda.
+          </div>
+        `
+      },
+      {
+        id: "deposit-payments",
+        icon: "💳",
+        title: "Deposit Automatik & Bayaran DuitNow / Kad",
+        desc: "Kunci komitmen pelanggan dengan mengutip deposit secara automatik sebelum slot disahkan.",
+        content: `
+          <p>Masalah pelanggan "no-show" (tidak hadir) boleh dikurangkan sehingga 95% dengan menguatkuasakan deposit tempahan:</p>
+          <ol style="padding-left:1.3rem; line-height:1.7;">
+            <li><strong>Tetapkan Jumlah Deposit:</strong> Anda boleh menetapkan deposit tetap (cth: RM50) atau peratusan daripada jumlah keseluruhan perkhidmatan.</li>
+            <li><strong>Sambungkan Pembayaran Online (Stripe):</strong> Pelanggan boleh membayar terus menggunakan kad debit/kredit atau FPX online banking. Resit dihantar serta-merta.</li>
+            <li><strong>Pilihan Manual QR DuitNow:</strong> Jika tidak menggunakan gateway, anda boleh meletakkan QR DuitNow premis. Pelanggan memuat naik bukti resit, dan anda sahkan dengan 1 klik dari dashboard atau WhatsApp.</li>
+          </ol>
+          <div style="margin-top:1rem; padding:0.85rem; background:var(--ok-bg); border-radius:8px; font-size:0.88rem; color:var(--ok);">
+            ✓ <strong>Status Telus:</strong> Slot hanya dianggap 'Disahkan' selepas pembayaran deposit diterima.
+          </div>
+        `
+      },
+      {
+        id: "whatsapp-reminders",
+        icon: "📲",
+        title: "Notifikasi WhatsApp & Peringatan Pintar",
+        desc: "Hantar mesej pengesahan, peringatan H-1 dan panduan lokasi tanpa perlu menaip berulang kali.",
+        content: `
+          <p>Jimat masa anda daripada menaip mesej WhatsApp yang sama kepada puluhan pelanggan setiap hari:</p>
+          <ul style="padding-left:1.3rem; line-height:1.7;">
+            <li><strong>Tiket Sesi Segera:</strong> Sebaik sahaja tempahan dibuat, pelanggan menerima tiket digital yang mengandungi tarikh, masa, dan pautan navigasi Google Maps premis anda.</li>
+            <li><strong>Peringatan Automatik H-3 & H-1:</strong> Sistem menyediakan teks peringatan pantas untuk mengingatkan pelanggan tentang baki bayaran dan persediaan sebelum hadir.</li>
+            <li><strong>1-Click WhatsApp Direct:</strong> Pada dashboard chat, klik butang WhatsApp pada kad pelanggan untuk membuka perbualan mesej WhatsApp Web/App secara langsung.</li>
+          </ul>
+        `
+      },
+      {
+        id: "google-calendar",
+        icon: "📅",
+        title: "Google Calendar Sync: Elak Double-Booking",
+        desc: "Segerakkan slot studio dengan kalendar peribadi telefon anda secara automatik.",
+        content: `
+          <p>Pastikan jadual kerja dan kehidupan peribadi anda sentiasa teratur:</p>
+          <ol style="padding-left:1.3rem; line-height:1.7;">
+            <li>Pergi ke <strong>Dashboard > Tetapan Kalendar</strong>.</li>
+            <li>Sambungkan akaun Google anda. Sistem akan memuatkan jadual tempahan studio terus ke aplikasi Google Calendar di Android/iPhone anda.</li>
+            <li>Apabila anda menambah urusan peribadi di kalendar anda, eqstudio.link secara automatik boleh menutup slot tersebut agar pelanggan tidak membuat tempahan pada waktu berkenaan.</li>
+          </ol>
+        `
+      },
+      {
+        id: "promo-vouchers",
+        icon: "🏷️",
+        title: "Baucar & Kod Diskaun Promosi",
+        desc: "Cipta kod promosi bermusim untuk menarik pelanggan baharu atau menghargai pelanggan tetap.",
+        content: `
+          <p>Strategi mudah meningkatkan tempahan sempena musim cuti sekolah, perayaan atau hari pembukaan:</p>
+          <ul style="padding-left:1.3rem; line-height:1.7;">
+            <li><strong>Cipta Kod Baucar:</strong> Masukkan kod unik (contoh: <code>RAYA2026</code> atau <code>STUDENT10</code>).</li>
+            <li><strong>Jenis Potongan:</strong> Pilih sama ada diskaun dalam bentuk RM tetap (cth: Potongan RM20) atau peratusan (cth: 15% diskaun).</li>
+            <li><strong>Had Penggunaan & Tempoh:</strong> Tetapkan had jumlah tebusan (cth: Terhad kepada 50 pelanggan pertama) dan tarikh luput automatik.</li>
+          </ul>
+        `
+      },
+      {
+        id: "cancellation-policy",
+        icon: "🔄",
+        title: "Dasar Pembatalan & Tukar Tarikh (Reschedule)",
+        desc: "Kawal peraturan penukaran slot tanpa merugikan waktu dan kos operasi studio anda.",
+        content: `
+          <p>Kekalkan profesionalisme dengan peraturan penukaran yang adil dan jelas:</p>
+          <ul style="padding-left:1.3rem; line-height:1.7;">
+            <li><strong>Had Masa Notis:</strong> Anda boleh menetapkan bahawa sebarang penukaran tarikh mesti dibuat sekurang-kurangnya 24 atau 48 jam sebelum sesi.</li>
+            <li><strong>Self-Service Portal Pelanggan:</strong> Pelanggan boleh menukar tarikh sendiri melalui pautan khas mereka tanpa mengganggu waktu rehat anda.</li>
+            <li><strong>Polisi Deposit:</strong> Jika pelanggan membatalkan sesi pada saat akhir, deposit boleh dilupuskan mengikut syarat terma yang telah dipersetujui.</li>
+          </ul>
+        `
+      }
+    ];
+
+    // ── Curated Interactive FAQ Data ──
+    const FAQ_ITEMS = [
+      {
+        q: "Bolehkah pelanggan menempah slot tanpa membuat sebarang bayaran awal?",
+        a: "Boleh! Anda mempunyai kawalan penuh dalam tetapan perkhidmatan. Jika anda meletakkan deposit sebanyak RM0, tempahan pelanggan akan disahkan secara serta-merta tanpa meminta pembayaran deposit. Namun untuk studio yang mempunyai kos persediaan, kami sangat mengesyorkan mengenakan deposit minimum (contohnya RM30 – RM50)."
+      },
+      {
+        q: "Bagaimana jika pelanggan ingin menukar waktu tempahan (reschedule) mereka?",
+        a: "Pelanggan mempunyai halaman portal tempahan mereka sendiri. Di situ, mereka boleh menekan butang 'Tukar Tarikh' dan memilih slot baharu yang masih kosong, tertakluk kepada had notis masa minimum yang anda tetapkan dalam Tetapan Booking."
+      },
+      {
+        q: "Adakah sistem eqstudio.link mesra pengguna telefon pintar bagi pihak pelanggan?",
+        a: "Ya, 100%! Halaman tempahan awam (booking page) direka khas dengan pendekatan mobile-first. Borang tempahan sangat laju, mudah diisi menggunakan telefon bimbit, dan menyokong pelbagai bahasa (Bahasa Melayu, Bahasa Inggeris, Mandarin, dan Tamil)."
+      },
+      {
+        q: "Bagaimanakah keselamatan data dan rekod pelanggan saya dilindungi?",
+        a: "Semua pangkalan data pelanggan anda diasingkan secara selamat dengan enkripsi peringkat perbankan (Row Level Security Supabase). Hanya anda sebagai pemilik akaun studio yang mempunyai akses kepada data nombor telefon, sejarah tempahan, dan jumlah transaksi pelanggan anda."
+      },
+      {
+        q: "Apakah perbezaan antara pelan Starter dan pelan Pro di forum ini?",
+        a: "Pemilik akaun Pro mempunyai lencana emas 'Pro' pada profil forum dan komen mereka, di samping akses kepada ciri lanjutan sistem seperti semakan reminder setiap 2 jam, sokongan sehingga 3 pautan tempahan bebas, dan analitik laporan mingguan."
+      }
+    ];
+
+    // ── Authentication Check ──
     async function checkAuth() {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { currentUser = null; canPost = false; return; }
-      currentUser = session.user;
-      const { data: profile } = await supabase.from("profiles").select("subscription_status, business_name").eq("id", currentUser.id).single();
-      canPost = profile?.subscription_status === "active";
-      currentBusinessName = profile?.business_name?.trim() || "";
-    }
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          currentUser = null;
+          userProfile = null;
+          canPost = false;
+          renderAuthZone();
+          return;
+        }
+        currentUser = session.user;
+        const { data: profile } = await supabase.from("profiles")
+          .select("subscription_status, business_name, tier, forum_banned")
+          .eq("id", currentUser.id)
+          .single();
 
-    function notice() {
-      if (currentUser && canPost) return "";
-      if (currentUser && !canPost) return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--pending-bg); border-radius:8px;">${t("forum_subscribe_needed")}</p>`;
-      return `<p class="hint" style="text-align:center; padding:0.8rem; background:var(--paper); border-radius:8px;">${t("forum_login_needed")}</p>`;
-    }
-
-    // ── Unified feed (default landing) — search + category tabs, HivePress-style ──
-    async function renderFeed() {
-      const content = document.getElementById("forum-content");
-      content.innerHTML = `<div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>`;
-
-      const res = await fetch("/api/forum-all-threads");
-      const data = await res.json();
-      if (!res.ok) { content.innerHTML = `<p class="error">${escapeHtml(data.error)}</p>`; return; }
-      allThreads = data.threads;
-      allCategories = data.categories;
-
-      content.innerHTML = `
-        <div style="text-align:center; margin-bottom:1.5rem;">
-          <span class="lp-eyebrow">Forum</span>
-          <h1 style="font-size:1.8rem; margin:0.4rem 0;">${t("forum_hero_title")}</h1>
-          <p class="hint">${t("forum_hero_sub")}</p>
-        </div>
-
-        <input type="search" id="forum-search" data-i18n-placeholder="forum_search_placeholder" placeholder="Search threads..." style="margin-bottom:0.8rem;" />
-
-        <div class="chip-row" id="forum-category-tabs" style="margin-bottom:1rem;"></div>
-
-        ${canPost ? `
-          <div class="card" style="margin-bottom:1rem;">
-            <button type="button" class="btn" id="new-thread-toggle" data-i18n="forum_new_thread_btn" style="width:100%;">+ Start New Thread</button>
-            <form id="new-thread-form" style="display:none; margin-top:1rem;">
-              <label for="nt-category">Kategori</label>
-              <select id="nt-category">${allCategories.filter(c => !c.founder_only).map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join("")}</select>
-              <label for="nt-title">${t("forum_title_label")}</label>
-              <input type="text" id="nt-title" required />
-              <label for="nt-message">${t("forum_message_label")}</label>
-              <textarea id="nt-message" rows="4" required></textarea>
-              <label style="margin-top:0.6rem;">Post sebagai</label>
-              <div style="display:flex; gap:1rem; margin:0.3rem 0 0.2rem;">
-                <label style="display:flex; align-items:center; gap:0.4rem; font-weight:400; cursor:pointer;"><input type="radio" name="nt-identity" value="business" checked style="width:auto;" /> ${escapeHtml(currentBusinessName || "Business Owner")}</label>
-                <label style="display:flex; align-items:center; gap:0.4rem; font-weight:400; cursor:pointer;"><input type="radio" name="nt-identity" value="anonymous" style="width:auto;" /> Anonymous</label>
-              </div>
-              <button type="submit" style="margin-top:1rem;">Hantar</button>
-              <p class="error" id="nt-error" style="display:none;"></p>
-            </form>
-          </div>` : notice()}
-
-        <div class="card" id="forum-thread-feed"></div>
-      `;
-
-      renderCategoryTabs();
-      renderFilteredThreads();
-
-      document.getElementById("forum-search").addEventListener("input", (e) => {
-        searchQuery = e.target.value.trim().toLowerCase();
-        renderFilteredThreads();
-      });
-
-      const toggleBtn = document.getElementById("new-thread-toggle");
-      if (toggleBtn) {
-        toggleBtn.addEventListener("click", () => {
-          const form = document.getElementById("new-thread-form");
-          form.style.display = form.style.display === "none" ? "block" : "none";
-        });
-        document.getElementById("new-thread-form").addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const errorEl = document.getElementById("nt-error");
-          errorEl.style.display = "none";
-          const identityChoice = document.querySelector('input[name="nt-identity"]:checked')?.value;
-          const authorName = identityChoice === "anonymous" ? "Anonymous" : (currentBusinessName || "Business Owner");
-          const { error } = await supabase.from("forum_threads").insert({
-            category_id: document.getElementById("nt-category").value,
-            owner_id: currentUser.id,
-            author_name: authorName,
-            title: document.getElementById("nt-title").value.trim(),
-            message: document.getElementById("nt-message").value.trim(),
-          });
-          if (error) { errorEl.textContent = error.message; errorEl.style.display = "block"; return; }
-          renderFeed();
-        });
+        userProfile = profile;
+        canPost = profile?.subscription_status === "active" && !profile?.forum_banned;
+        currentBusinessName = profile?.business_name?.trim() || "Pemilik Bisnes";
+        renderAuthZone();
+      } catch (err) {
+        console.error("Auth check error:", err);
       }
     }
 
-    function renderCategoryTabs() {
-      const tabsEl = document.getElementById("forum-category-tabs");
-      const tabs = [{ slug: "all", name: getCurrentLang() === "ms" ? "Semua" : "All" }, ...allCategories.map(c => ({ slug: c.slug, name: c.name }))];
-      tabsEl.innerHTML = tabs.map(t => `
-        <button type="button" class="chip ${t.slug === activeCategorySlug ? "selected" : ""}" data-cat-slug="${t.slug}">${escapeHtml(t.name)}</button>
-      `).join("");
-      tabsEl.querySelectorAll("[data-cat-slug]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          activeCategorySlug = btn.dataset.catSlug;
-          renderCategoryTabs();
-          renderFilteredThreads();
-        });
-      });
+    function renderAuthZone() {
+      const authZone = document.getElementById("fh-auth-zone");
+      if (!authZone) return;
+
+      if (currentUser) {
+        const initials = getInitials(currentBusinessName);
+        authZone.innerHTML = `
+          <div class="fh-user-pill" title="${escapeHtml(currentBusinessName)}">
+            <span class="fh-user-avatar-sm">${escapeHtml(initials)}</span>
+            <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(currentBusinessName)}</span>
+          </div>
+          <a href="/dashboard.html" class="fh-back-dashboard-btn" title="Kembali ke Dashboard Utama">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Dashboard
+          </a>
+        `;
+      } else {
+        authZone.innerHTML = `
+          <a href="/login.html" class="plain" style="font-size:0.85rem; font-weight:600; text-decoration:none; margin-right:0.2rem;">Log Masuk</a>
+          <a href="/login.html" class="btn" style="padding:0.42rem 0.85rem; font-size:0.82rem; text-decoration:none;">Mula Percuma</a>
+        `;
+      }
+
+      // Update identity label in new thread form
+      const businessLabelEl = document.getElementById("fh-identity-business-label");
+      if (businessLabelEl) {
+        businessLabelEl.textContent = currentBusinessName || "Studio Anda";
+      }
     }
 
-    function renderFilteredThreads() {
-      const feedEl = document.getElementById("forum-thread-feed");
-      let filtered = allThreads;
-      if (activeCategorySlug !== "all") filtered = filtered.filter(t => t.category_slug === activeCategorySlug);
-      if (searchQuery) filtered = filtered.filter(t => t.title.toLowerCase().includes(searchQuery) || t.message.toLowerCase().includes(searchQuery));
+    // ── Load Forum Data ──
+    async function loadForumData() {
+      try {
+        const res = await fetch("/api/forum-all-threads");
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Gagal memuatkan data forum.");
+
+        allThreads = data.threads || [];
+        allCategories = data.categories || [];
+
+        renderCategories();
+        renderThreadsFeed();
+      } catch (err) {
+        const feedWrap = document.getElementById("fh-thread-feed-wrap");
+        if (feedWrap) {
+          feedWrap.innerHTML = `
+            <div class="fh-empty-state">
+              <div class="fh-empty-icon">⚠️</div>
+              <div class="fh-empty-title">Ralat Memuatkan Perbincangan</div>
+              <p class="fh-empty-text">${escapeHtml(err.message)}</p>
+              <button type="button" class="btn" onclick="location.reload()">Cuba Semula</button>
+            </div>
+          `;
+        }
+      }
+    }
+
+    // ── Render Category Pills ──
+    function renderCategories() {
+      const container = document.getElementById("fh-cat-chips-container");
+      if (!container) return;
+
+      const totalCount = allThreads.length;
+      let html = `
+        <button type="button" class="fh-cat-chip ${activeCategorySlug === 'all' ? 'active' : ''}" data-cat="all">
+          <span>🌐 Semua Topik</span>
+          <span class="fh-cat-count">${totalCount}</span>
+        </button>
+      `;
+
+      // Category Icon Mapper
+      const catIcons = {
+        "pengumuman": "📢",
+        "soalan-bantuan": "❓",
+        "cadangan-feature": "💡",
+        "perbualan-umum": "☕"
+      };
+
+      allCategories.forEach(cat => {
+        const count = allThreads.filter(t => t.category_slug === cat.slug).length;
+        const icon = catIcons[cat.slug] || "💬";
+        html += `
+          <button type="button" class="fh-cat-chip ${activeCategorySlug === cat.slug ? 'active' : ''}" data-cat="${escapeHtml(cat.slug)}">
+            <span>${icon} ${escapeHtml(cat.name)}</span>
+            <span class="fh-cat-count">${count}</span>
+          </button>
+        `;
+      });
+
+      container.innerHTML = html;
+
+      // Event listener for chips
+      container.querySelectorAll(".fh-cat-chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          activeCategorySlug = btn.dataset.cat;
+          renderCategories();
+          renderThreadsFeed();
+        });
+      });
+
+      // Also populate the modal select
+      const selectEl = document.getElementById("fh-form-category");
+      if (selectEl) {
+        const allowedCats = allCategories.filter(c => !c.founder_only);
+        selectEl.innerHTML = allowedCats.map(c => `
+          <option value="${c.id}" data-desc="${escapeHtml(c.description || '')}">${escapeHtml(c.name)}</option>
+        `).join("");
+
+        updateCategoryDescHint();
+        selectEl.addEventListener("change", updateCategoryDescHint);
+      }
+    }
+
+    function updateCategoryDescHint() {
+      const selectEl = document.getElementById("fh-form-category");
+      const hintEl = document.getElementById("fh-category-desc-hint");
+      if (selectEl && hintEl) {
+        const opt = selectEl.options[selectEl.selectedIndex];
+        hintEl.textContent = opt?.dataset?.desc || "";
+      }
+    }
+
+    // ── Render Threads Feed ──
+    function renderThreadsFeed() {
+      const feedWrap = document.getElementById("fh-thread-feed-wrap");
+      if (!feedWrap) return;
+
+      let filtered = [...allThreads];
+
+      // Filter by category
+      if (activeCategorySlug !== "all") {
+        filtered = filtered.filter(t => t.category_slug === activeCategorySlug);
+      }
+
+      // Filter by search query
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(t => 
+          (t.title && t.title.toLowerCase().includes(q)) || 
+          (t.message && t.message.toLowerCase().includes(q)) ||
+          (t.author_name && t.author_name.toLowerCase().includes(q))
+        );
+      }
+
+      // Sort
+      if (currentSort === "recent") {
+        // Pinned first, then recent activity
+        filtered.sort((a, b) => (b.is_pinned ? 1 : 0) - (a.is_pinned ? 1 : 0) || new Date(b.last_activity_at || b.created_at) - new Date(a.last_activity_at || a.created_at));
+      } else if (currentSort === "replies") {
+        filtered.sort((a, b) => (b.reply_count || 0) - (a.reply_count || 0));
+      } else if (currentSort === "reactions") {
+        filtered.sort((a, b) => (b.reaction_count || 0) - (a.reaction_count || 0));
+      }
 
       if (filtered.length === 0) {
-        feedEl.innerHTML = `<p class="hint" style="text-align:center;">${searchQuery ? t("forum_no_threads_search") : t("forum_no_threads_category")}</p>`;
+        feedWrap.innerHTML = `
+          <div class="fh-empty-state">
+            <div class="fh-empty-icon">🔍</div>
+            <div class="fh-empty-title">Tiada Perbincangan Dijumpai</div>
+            <p class="fh-empty-text">${searchQuery ? 'Cuba ubah kata kunci carian anda atau pilih kategori perbincangan yang berbeza.' : 'Jadilah usahawan pertama yang memulakan topik perbincangan dalam kategori ini!'}</p>
+            ${searchQuery ? `<button type="button" class="secondary" id="fh-reset-search-btn">Kosongkan Carian</button>` : `<button type="button" class="btn" id="fh-empty-new-btn">+ Cipta Topik Baharu</button>`}
+          </div>
+        `;
+        document.getElementById("fh-reset-search-btn")?.addEventListener("click", () => {
+          const input = document.getElementById("fh-search-input");
+          if (input) input.value = "";
+          searchQuery = "";
+          document.getElementById("fh-search-clear").style.display = "none";
+          renderThreadsFeed();
+        });
+        document.getElementById("fh-empty-new-btn")?.addEventListener("click", openNewThreadModal);
         return;
       }
 
-      feedEl.innerHTML = filtered.map((th, i) => `
-        <a href="?thread=${th.id}" class="fade-in-row" style="animation-delay:${Math.min(i * 0.04, 0.4)}s; display:block; text-decoration:none; color:inherit; padding:0.9rem 0; border-bottom:1px solid var(--paper-line);">
-          <div style="display:flex; justify-content:space-between; gap:0.8rem; align-items:flex-start;">
-            <div style="min-width:0;">
-              ${th.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pinned</span>` : ""}
-              ${th.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}${th.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pro</span>` : ""}${featureStatusBadge(th.feature_status)}
-              <span class="hint" style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em;">${escapeHtml(th.category_name || "")}</span>
-              <div><strong>${escapeHtml(th.title)}</strong></div>
-              <div class="hint" style="font-size:0.83rem; margin-top:0.2rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(th.message.length > 110 ? th.message.slice(0, 110) + "…" : th.message)}</div>
-              <div class="hint" style="font-size:0.8rem; margin-top:0.2rem;">oleh ${escapeHtml(th.author_name)} · ${fmtDateShort(th.created_at)}</div>
-            </div>
-            <span class="hint" style="flex-shrink:0; font-size:0.8rem; text-align:right;">${th.reply_count} ${t("forum_replies_suffix")}${th.reaction_count > 0 ? `<br>♥ ${th.reaction_count}` : ""}</span>
-          </div>
-        </a>
-      `).join("");
-    }
+      let html = `<div class="fh-thread-list">`;
 
-    // ── View: single thread + replies ──
-    async function renderThreadDetail(id) {
-      const content = document.getElementById("forum-content");
-      content.innerHTML = `<div class="sim-spinner-wrap"><div class="sim-spinner"></div><p class="hint">Memuatkan...</p></div>`;
-      const res = await fetch(`/api/forum-thread-detail?id=${id}`);
-      const data = await res.json();
-      if (!res.ok) { content.innerHTML = `<p class="error">${escapeHtml(data.error)}</p>`; return; }
+      filtered.forEach(th => {
+        const isTeam = !!th.is_founder;
+        const initials = isTeam ? "EQ" : getInitials(th.author_name);
+        const relativeTime = fmtRelativeTime(th.last_activity_at || th.created_at);
 
-      content.innerHTML = `
-        <a href="/forum.html" class="legal-back" style="text-decoration:none; color:var(--stamp); font-weight:600; font-size:0.85rem;">← Semua Thread</a>
-        <div class="card" style="margin:1rem 0;">
-          ${data.thread.is_pinned ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pinned</span>` : ""}
-          ${data.thread.is_founder ? `<span class="badge belum_bayar" style="margin-right:0.4rem;">Team</span>` : ""}${data.thread.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-right:0.4rem;">Pro</span>` : ""}${featureStatusBadge(data.thread.feature_status)}
-          <h1 style="font-size:1.4rem; margin:0.5rem 0 0.2rem;">${escapeHtml(data.thread.title)}</h1>
-          <p class="hint" style="margin-bottom:0.8rem;">oleh <strong>${escapeHtml(data.thread.author_name)}</strong> · ${fmtDate(data.thread.created_at)}</p>
-          <p style="white-space:pre-wrap; line-height:1.7;">${escapeHtml(data.thread.message)}</p>
-          <div style="margin-top:1rem; padding-top:0.8rem; border-top:1px solid var(--paper-line);">
-            <button type="button" class="secondary" id="reaction-btn" ${!canPost ? "disabled" : ""} style="font-size:0.85rem;">
-              ${currentUser && data.reactor_ids?.includes(currentUser.id) ? "♥" : "♡"} ${t("forum_appreciate")}${data.reaction_count > 0 ? ` (${data.reaction_count})` : ""}
-            </button>
-          </div>
-        </div>
-
-        <div id="replies-list">
-          ${data.replies.map((r, i) => `
-            <div class="card fade-in-row" style="animation-delay:${Math.min(i * 0.04, 0.4)}s; margin-bottom:0.8rem;">
-              ${r.is_founder ? `<span class="badge belum_bayar" style="margin-bottom:0.4rem; display:inline-block;">Team</span>` : ""}${r.author_tier === "pro" ? `<span class="badge dah_bayar" style="margin-bottom:0.4rem; display:inline-block;">Pro</span>` : ""}
-              <p class="hint" style="margin:0 0 0.4rem;"><strong>${escapeHtml(r.author_name)}</strong> · ${fmtDate(r.created_at)}</p>
-              <p style="white-space:pre-wrap; line-height:1.6; margin:0;">${escapeHtml(r.message)}</p>
-            </div>
-          `).join("")}
-        </div>
-
-        ${notice()}
-        ${canPost ? `
-          <div class="card" style="margin-top:1rem;">
-            <form id="reply-form">
-              <label for="reply-message">${t("forum_your_reply_label")}</label>
-              <textarea id="reply-message" rows="3" required></textarea>
-              <label style="margin-top:0.6rem;">Post sebagai</label>
-              <div style="display:flex; gap:1rem; margin:0.3rem 0 0.2rem;">
-                <label style="display:flex; align-items:center; gap:0.4rem; font-weight:400; cursor:pointer;"><input type="radio" name="reply-identity" value="business" checked style="width:auto;" /> ${escapeHtml(currentBusinessName || "Business Owner")}</label>
-                <label style="display:flex; align-items:center; gap:0.4rem; font-weight:400; cursor:pointer;"><input type="radio" name="reply-identity" value="anonymous" style="width:auto;" /> Anonymous</label>
+        html += `
+          <a href="?thread=${th.id}" class="fh-thread-card ${th.is_pinned ? 'pinned' : ''}" data-thread-id="${th.id}">
+            <div class="fh-thread-avatar ${isTeam ? 'team-avatar' : ''}">${escapeHtml(initials)}</div>
+            <div class="fh-thread-main">
+              <div class="fh-thread-header-tags">
+                ${th.is_pinned ? `<span class="fh-badge fh-badge-pinned">📌 Pinned</span>` : ''}
+                ${isTeam ? `<span class="fh-badge fh-badge-team"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Team</span>` : ''}
+                ${th.author_tier === 'pro' ? `<span class="fh-badge fh-badge-pro">★ Pro</span>` : ''}
+                ${featureBadgeHtml(th.feature_status)}
+                <span class="fh-badge fh-badge-cat">${escapeHtml(th.category_name || '')}</span>
               </div>
-              <button type="submit" style="margin-top:0.8rem;">${t("forum_submit_reply_btn")}</button>
-              <p class="error" id="reply-error" style="display:none;"></p>
-            </form>
-          </div>` : ""}
-      `;
-
-      document.getElementById("reaction-btn")?.addEventListener("click", async () => {
-        if (!canPost) return;
-        const alreadyReacted = data.reactor_ids?.includes(currentUser.id);
-        if (alreadyReacted) {
-          await supabase.from("forum_reactions").delete().eq("thread_id", id).eq("owner_id", currentUser.id);
-        } else {
-          await supabase.from("forum_reactions").insert({ thread_id: id, owner_id: currentUser.id });
-        }
-        renderThreadDetail(id);
+              <h3 class="fh-thread-title">${escapeHtml(th.title)}</h3>
+              <p class="fh-thread-excerpt">${escapeHtml(th.message)}</p>
+              <div class="fh-thread-footer">
+                <div class="fh-thread-author-meta">
+                  <span>Oleh <strong class="fh-thread-author-name">${escapeHtml(th.author_name)}</strong></span>
+                  <span>·</span>
+                  <span>${relativeTime}</span>
+                </div>
+                <div class="fh-thread-stats">
+                  <span class="fh-thread-stat-item" title="Jumlah Balasan">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    ${th.reply_count || 0}
+                  </span>
+                  ${(th.reaction_count || 0) > 0 ? `
+                    <span class="fh-thread-stat-item" style="color:#e11d48;" title="Disukai Usahawan">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                      ${th.reaction_count}
+                    </span>
+                  ` : ''}
+                </div>
+              </div>
+            </div>
+          </a>
+        `;
       });
 
-      const replyForm = document.getElementById("reply-form");
-      if (replyForm) {
-        replyForm.addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const errorEl = document.getElementById("reply-error");
-          errorEl.style.display = "none";
-          const replyIdentity = document.querySelector('input[name="reply-identity"]:checked')?.value;
-          const replyAuthorName = replyIdentity === "anonymous" ? "Anonymous" : (currentBusinessName || "Business Owner");
-          const { error } = await supabase.from("forum_replies").insert({
-            thread_id: id,
-            owner_id: currentUser.id,
-            author_name: replyAuthorName,
-            message: document.getElementById("reply-message").value.trim(),
-          });
-          if (error) { errorEl.textContent = error.message; errorEl.style.display = "block"; return; }
-          await supabase.from("forum_threads").update({ last_activity_at: new Date().toISOString() }).eq("id", id);
+      html += `</div>`;
+      feedWrap.innerHTML = html;
+    }
 
-          const threadOwnerId = data.thread.owner_id;
-          if (threadOwnerId && threadOwnerId !== currentUser.id) {
-            await supabase.from("notifications").insert({
-              owner_id: threadOwnerId,
-              type: "forum_reply",
-              title: "Ada balasan baharu untuk thread anda",
-              message: `${replyAuthorName} balas: "${data.thread.title}"`,
-              link_url: `/forum.html?thread=${id}`,
-            }).then(() => {}, () => {}); // best-effort — reply itself already succeeded regardless
+    // ── Render Thread Detail View ──
+    async function renderThreadDetail(id) {
+      // Hide hero elements & main tabs in detail view for maximum reading focus
+      document.getElementById("fh-hero-section").style.display = "none";
+      document.getElementById("fh-tab-forum-content").style.display = "none";
+      document.getElementById("fh-tab-guides-content").style.display = "none";
+      document.getElementById("fh-tab-faq-content").style.display = "none";
+      document.getElementById("fh-tab-contact-content").style.display = "none";
 
-            const { data: { session } } = await supabase.auth.getSession();
-            fetch("/api/trigger-push", {
-              method: "POST",
-              headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
-              body: JSON.stringify({
-                ownerId: threadOwnerId,
-                title: "Balasan baharu di forum",
-                body: `${replyAuthorName} balas: "${data.thread.title}"`,
-                url: `/forum.html?thread=${id}`,
-                tag: "forum_reply",
-              }),
-            }).catch(() => {}); // best-effort — never block the reply flow
+      const detailContainer = document.getElementById("fh-thread-detail-container");
+      detailContainer.style.display = "block";
+      detailContainer.innerHTML = `<div class="sim-spinner-wrap" style="padding:4rem 0;"><div class="sim-spinner"></div><p class="hint">Memuatkan bebenang perbincangan...</p></div>`;
+
+      try {
+        const res = await fetch(`/api/forum-thread-detail?id=${encodeURIComponent(id)}`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Gagal memuatkan topik.");
+
+        const th = data.thread;
+        const replies = data.replies || [];
+        const isTeam = !!th.is_founder;
+        const initials = isTeam ? "EQ" : getInitials(th.author_name);
+        const hasReacted = currentUser && data.reactor_ids?.includes(currentUser.id);
+        const createdDate = new Date(th.created_at).toLocaleString("ms-MY", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+
+        let html = `
+          <div class="fh-detail-container">
+            <div class="fh-breadcrumb-bar">
+              <a href="/forum.html" class="fh-back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Kembali ke Semua Perbincangan
+              </a>
+              <span class="fh-badge fh-badge-cat">${escapeHtml(th.category_name || "Perbincangan")}</span>
+            </div>
+
+            <!-- OP Hero Card -->
+            <article class="fh-op-card">
+              <div class="fh-op-author-row">
+                <div class="fh-op-avatar ${isTeam ? 'team' : ''}">${escapeHtml(initials)}</div>
+                <div class="fh-op-author-details">
+                  <div class="fh-op-author-name">
+                    ${escapeHtml(th.author_name)}
+                    ${isTeam ? `<span class="fh-badge fh-badge-team">Team</span>` : ''}
+                    ${th.author_tier === 'pro' ? `<span class="fh-badge fh-badge-pro">Pro</span>` : ''}
+                    ${th.is_pinned ? `<span class="fh-badge fh-badge-pinned">📌 Pinned</span>` : ''}
+                    ${featureBadgeHtml(th.feature_status)}
+                  </div>
+                  <div class="fh-op-date">${createdDate}</div>
+                </div>
+              </div>
+
+              <h1 class="fh-op-title">${escapeHtml(th.title)}</h1>
+              <div class="fh-op-body">${escapeHtml(th.message)}</div>
+
+              <div class="fh-op-actions">
+                <button type="button" class="fh-reaction-btn ${hasReacted ? 'reacted' : ''}" id="fh-thread-reaction-btn" ${!canPost ? 'disabled title="Langganan aktif diperlukan untuk menghantar reaksi"' : ''}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="${hasReacted ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                  <span>${hasReacted ? 'Disukai' : 'Hargai & Suka'}</span>
+                  ${(data.reaction_count || 0) > 0 ? `<strong>(${data.reaction_count})</strong>` : ''}
+                </button>
+
+                <button type="button" class="fh-share-btn" id="fh-thread-share-btn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                  Salin Pautan
+                </button>
+              </div>
+            </article>
+
+            <!-- Replies Timeline Section -->
+            <div class="fh-replies-heading">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              Balasan Komuniti (${replies.length})
+            </div>
+
+            <div id="fh-replies-list">
+              ${replies.length === 0 ? `
+                <div class="fh-empty-state" style="padding:2.5rem 1rem;">
+                  <div class="fh-empty-icon">💬</div>
+                  <div class="fh-empty-title">Belum ada balasan lagi</div>
+                  <p class="fh-empty-text">Jadilah orang pertama yang berkongsi pandangan atau jawapan kepada usahawan ini.</p>
+                </div>
+              ` : replies.map(r => {
+                const isReplyTeam = !!r.is_founder;
+                const replyInitials = isReplyTeam ? "EQ" : getInitials(r.author_name);
+                const replyDate = new Date(r.created_at).toLocaleString("ms-MY", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+                return `
+                  <div class="fh-reply-card ${isReplyTeam ? 'team-reply' : ''}">
+                    <div class="fh-reply-header">
+                      <div class="fh-reply-author-group">
+                        <div class="fh-reply-avatar ${isReplyTeam ? 'team' : ''}">${escapeHtml(replyInitials)}</div>
+                        <div>
+                          <strong style="font-size:0.9rem; color:var(--ink);">${escapeHtml(r.author_name)}</strong>
+                          ${isReplyTeam ? `<span class="fh-badge fh-badge-team" style="margin-left:0.3rem;">Team</span>` : ''}
+                          ${r.author_tier === 'pro' ? `<span class="fh-badge fh-badge-pro" style="margin-left:0.3rem;">Pro</span>` : ''}
+                        </div>
+                      </div>
+                      <span class="hint" style="font-size:0.75rem;">${replyDate}</span>
+                    </div>
+                    <div class="fh-reply-body">${escapeHtml(r.message)}</div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Reply Composer -->
+            ${canPost ? `
+              <div class="fh-composer-card">
+                <h3 class="fh-composer-title">Tinggalkan Balasan Anda</h3>
+                <form id="fh-thread-reply-form">
+                  <textarea id="fh-reply-textarea" rows="4" class="fh-textarea" placeholder="Tulis maklum balas yang membina dan membantu rakan usahawan..." required></textarea>
+                  
+                  <div style="margin:0.85rem 0 1rem;">
+                    <span style="font-size:0.8rem; font-weight:600; color:var(--ink-soft); display:block; margin-bottom:0.4rem;">Balas Sebagai:</span>
+                    <div class="fh-identity-selector" style="margin:0;">
+                      <label class="fh-identity-chip">
+                        <input type="radio" name="fh-reply-identity" value="business" checked style="width:auto; margin:0;" />
+                        <span>${escapeHtml(currentBusinessName || "Studio Anda")}</span>
+                      </label>
+                      <label class="fh-identity-chip">
+                        <input type="radio" name="fh-reply-identity" value="anonymous" style="width:auto; margin:0;" />
+                        <span>Tanpa Nama (Anonymous)</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div id="fh-reply-error" class="error" style="display:none; margin-bottom:0.8rem;"></div>
+
+                  <div style="display:flex; justify-content:flex-end;">
+                    <button type="submit" class="btn" id="fh-submit-reply-btn">Hantar Balasan</button>
+                  </div>
+                </form>
+              </div>
+            ` : `
+              <div class="fh-composer-card" style="text-align:center; padding:2rem 1.5rem;">
+                <p style="font-weight:600; margin:0 0 0.4rem; color:var(--ink);">Ingin Menyertai Perbualan Ini?</p>
+                <p class="hint" style="font-size:0.88rem; max-width:480px; margin:0 auto 1.25rem;">
+                  ${currentUser 
+                    ? 'Akaun anda memerlukan langganan aktif untuk menghantar soalan atau balasan di forum komuniti.' 
+                    : 'Sila log masuk dengan akaun eqstudio.link anda untuk membalas atau memulakan topik baharu.'}
+                </p>
+                <a href="${currentUser ? '/billing.html' : '/login.html'}" class="btn" style="text-decoration:none;">
+                  ${currentUser ? 'Tingkatkan Pelan Langganan →' : 'Log Masuk Sekarang →'}
+                </a>
+              </div>
+            `}
+
+          </div>
+        `;
+
+        detailContainer.innerHTML = html;
+
+        // Reaction Button Handler
+        document.getElementById("fh-thread-reaction-btn")?.addEventListener("click", async () => {
+          if (!canPost) {
+            showToast("Langganan aktif diperlukan untuk menghantar reaksi.");
+            return;
           }
-
+          if (hasReacted) {
+            await supabase.from("forum_reactions").delete().eq("thread_id", id).eq("owner_id", currentUser.id);
+          } else {
+            await supabase.from("forum_reactions").insert({ thread_id: id, owner_id: currentUser.id });
+          }
           renderThreadDetail(id);
         });
+
+        // Share Button Handler
+        document.getElementById("fh-thread-share-btn")?.addEventListener("click", () => {
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            showToast("Pautan topik telah disalin ke papan keratan!");
+          });
+        });
+
+        // Reply Form Submission
+        const replyForm = document.getElementById("fh-thread-reply-form");
+        if (replyForm) {
+          replyForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById("fh-submit-reply-btn");
+            const errorEl = document.getElementById("fh-reply-error");
+            const message = document.getElementById("fh-reply-textarea").value.trim();
+            if (!message) return;
+
+            errorEl.style.display = "none";
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Menghantar...";
+
+            const identityChoice = document.querySelector('input[name="fh-reply-identity"]:checked')?.value;
+            const replyAuthor = identityChoice === "anonymous" ? "Anonymous" : (currentBusinessName || "Studio Owner");
+
+            try {
+              const { error } = await supabase.from("forum_replies").insert({
+                thread_id: id,
+                owner_id: currentUser.id,
+                author_name: replyAuthor,
+                message: message
+              });
+              if (error) throw error;
+
+              // Update thread activity
+              await supabase.from("forum_threads").update({ last_activity_at: new Date().toISOString() }).eq("id", id);
+
+              // Notify thread owner if different user
+              const threadOwnerId = th.owner_id;
+              if (threadOwnerId && threadOwnerId !== currentUser.id) {
+                await supabase.from("notifications").insert({
+                  owner_id: threadOwnerId,
+                  type: "forum_reply",
+                  title: "Balasan baharu di forum",
+                  message: `${replyAuthor} membalas: "${th.title}"`,
+                  link_url: `/forum.html?thread=${id}`
+                }).catch(() => {});
+
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session?.access_token) {
+                  fetch("/api/trigger-push", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+                    body: JSON.stringify({
+                      ownerId: threadOwnerId,
+                      title: "Balasan baharu di forum",
+                      body: `${replyAuthor} membalas: "${th.title}"`,
+                      url: `/forum.html?thread=${id}`,
+                      tag: "forum_reply"
+                    })
+                  }).catch(() => {});
+                }
+              }
+
+              showToast("Balasan anda berjaya dihantar!");
+              renderThreadDetail(id);
+            } catch (err) {
+              errorEl.textContent = err.message;
+              errorEl.style.display = "block";
+              submitBtn.disabled = false;
+              submitBtn.textContent = "Hantar Balasan";
+            }
+          });
+        }
+
+      } catch (err) {
+        detailContainer.innerHTML = `
+          <div class="fh-empty-state" style="max-width:600px; margin:2rem auto;">
+            <div class="fh-empty-icon">⚠️</div>
+            <div class="fh-empty-title">Topik Tidak Dijumpai</div>
+            <p class="fh-empty-text">${escapeHtml(err.message)}</p>
+            <a href="/forum.html" class="btn" style="text-decoration:none;">Kembali ke Forum</a>
+          </div>
+        `;
       }
     }
 
-    async function router() {
-      await checkAuth();
-      const params = new URLSearchParams(location.search);
-      if (params.get("thread")) renderThreadDetail(params.get("thread"));
-      else renderFeed();
+    // ── Render Guides Grid ──
+    function renderGuidesGrid() {
+      const container = document.getElementById("fh-guide-grid");
+      if (!container) return;
+
+      container.innerHTML = KNOWLEDGE_GUIDES.map(g => `
+        <div class="fh-guide-card" data-guide-id="${g.id}">
+          <div class="fh-guide-icon-wrap">${g.icon}</div>
+          <h3 class="fh-guide-title">${escapeHtml(g.title)}</h3>
+          <p class="fh-guide-desc">${escapeHtml(g.desc)}</p>
+          <span class="fh-guide-action">Baca Panduan Penuh →</span>
+        </div>
+      `).join('');
+
+      container.querySelectorAll(".fh-guide-card").forEach(card => {
+        card.addEventListener("click", () => {
+          const guide = KNOWLEDGE_GUIDES.find(g => g.id === card.dataset.guideId);
+          if (guide) openGuideModal(guide);
+        });
+      });
     }
 
-    applyLanguage(getCurrentLang());
-    document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        applyLanguage(btn.dataset.langToggle);
-        router();
-      });
-    });
+    function openGuideModal(guide) {
+      const modal = document.getElementById("fh-guide-modal");
+      const titleEl = document.getElementById("fh-guide-modal-title");
+      const bodyEl = document.getElementById("fh-guide-modal-body");
+      if (!modal || !titleEl || !bodyEl) return;
 
-    router();
+      titleEl.innerHTML = `${guide.icon} ${escapeHtml(guide.title)}`;
+      bodyEl.innerHTML = guide.content;
+      modal.classList.add("open");
+    }
+
+    // ── Render FAQ Accordion ──
+    function renderFaqAccordion() {
+      const container = document.getElementById("fh-faq-list");
+      if (!container) return;
+
+      container.innerHTML = FAQ_ITEMS.map((item, i) => `
+        <div class="fh-faq-item ${i === 0 ? 'open' : ''}">
+          <button type="button" class="fh-faq-btn">
+            <span>${escapeHtml(item.q)}</span>
+            <svg class="fh-faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="fh-faq-body">
+            <p style="margin:0;">${escapeHtml(item.a)}</p>
+          </div>
+        </div>
+      `).join('');
+
+      container.querySelectorAll(".fh-faq-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const item = btn.closest(".fh-faq-item");
+          item.classList.toggle("open");
+        });
+      });
+    }
+
+    // ── Tab Switching Logic ──
+    function switchMainTab(tabKey) {
+      activeMainTab = tabKey;
+
+      // Update Nav buttons
+      document.querySelectorAll("#fh-main-tabs .fh-tab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.mainTab === tabKey);
+      });
+
+      // Toggle views
+      const forumView = document.getElementById("fh-tab-forum-content");
+      const guidesView = document.getElementById("fh-tab-guides-content");
+      const faqView = document.getElementById("fh-tab-faq-content");
+      const contactView = document.getElementById("fh-tab-contact-content");
+      const searchContainer = document.getElementById("fh-search-container");
+
+      if (forumView) forumView.style.display = tabKey === "forum" ? "block" : "none";
+      if (guidesView) guidesView.style.display = tabKey === "guides" ? "block" : "none";
+      if (faqView) faqView.style.display = tabKey === "faq" ? "block" : "none";
+      if (contactView) contactView.style.display = tabKey === "contact" ? "block" : "none";
+
+      if (searchContainer) {
+        searchContainer.style.display = (tabKey === "forum") ? "block" : "none";
+      }
+
+      // If user switches tab while in single thread view, bring back hero
+      document.getElementById("fh-hero-section").style.display = "block";
+      document.getElementById("fh-thread-detail-container").style.display = "none";
+    }
+
+    // ── New Thread Modal Logic ──
+    function openNewThreadModal() {
+      const modal = document.getElementById("fh-new-thread-modal");
+      const gateNotice = document.getElementById("fh-modal-gate-notice");
+      const form = document.getElementById("fh-new-thread-form");
+      if (!modal) return;
+
+      if (!canPost) {
+        gateNotice.style.display = "block";
+        if (!currentUser) {
+          gateNotice.innerHTML = `Sila <a href="/login.html" style="font-weight:700; color:inherit; text-decoration:underline;">Log Masuk</a> ke akaun eqstudio.link anda untuk memulakan perbincangan.`;
+        } else {
+          gateNotice.innerHTML = `Hanya pemilik akaun dengan langganan aktif boleh memulakan topik baharu. Sila langgan di <a href="/billing.html" style="font-weight:700; color:inherit; text-decoration:underline;">Halaman Langganan</a>.`;
+        }
+        form.style.display = "none";
+      } else {
+        gateNotice.style.display = "none";
+        form.style.display = "block";
+      }
+
+      modal.classList.add("open");
+    }
+
+    function closeNewThreadModal() {
+      document.getElementById("fh-new-thread-modal")?.classList.remove("open");
+    }
+
+    // ── Global Event Bindings ──
+    function setupEvents() {
+      // Main Tab Click
+      document.querySelectorAll("#fh-main-tabs .fh-tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => switchMainTab(btn.dataset.mainTab));
+      });
+
+      // Search Input
+      const searchInput = document.getElementById("fh-search-input");
+      const clearBtn = document.getElementById("fh-search-clear");
+      searchInput?.addEventListener("input", (e) => {
+        searchQuery = e.target.value.trim();
+        clearBtn.style.display = searchQuery ? "block" : "none";
+        renderThreadsFeed();
+      });
+
+      clearBtn?.addEventListener("click", () => {
+        searchInput.value = "";
+        searchQuery = "";
+        clearBtn.style.display = "none";
+        renderThreadsFeed();
+        searchInput.focus();
+      });
+
+      // Sort Select
+      document.getElementById("fh-sort-select")?.addEventListener("change", (e) => {
+        currentSort = e.target.value;
+        renderThreadsFeed();
+      });
+
+      // Open New Thread Modal
+      document.getElementById("fh-open-new-thread-btn")?.addEventListener("click", openNewThreadModal);
+      document.getElementById("fh-modal-close-btn")?.addEventListener("click", closeNewThreadModal);
+      document.getElementById("fh-form-cancel-btn")?.addEventListener("click", closeNewThreadModal);
+
+      // Guide Modal Close
+      document.getElementById("fh-guide-modal-close")?.addEventListener("click", () => {
+        document.getElementById("fh-guide-modal")?.classList.remove("open");
+      });
+
+      // Close modal on click backdrop
+      document.querySelectorAll(".fh-modal-overlay").forEach(overlay => {
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) overlay.classList.remove("open");
+        });
+      });
+
+      // ESC key to close modal
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          document.querySelectorAll(".fh-modal-overlay.open").forEach(o => o.classList.remove("open"));
+        }
+      });
+
+      // New Thread Form Submit
+      const newThreadForm = document.getElementById("fh-new-thread-form");
+      if (newThreadForm) {
+        newThreadForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const submitBtn = document.getElementById("fh-form-submit-btn");
+          const errorEl = document.getElementById("fh-form-error");
+          const title = document.getElementById("fh-form-title").value.trim();
+          const message = document.getElementById("fh-form-message").value.trim();
+          const categoryId = document.getElementById("fh-form-category").value;
+
+          if (!title || !message) return;
+
+          errorEl.style.display = "none";
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Menyiarkan...";
+
+          const identityChoice = document.querySelector('input[name="fh-identity"]:checked')?.value;
+          const authorName = identityChoice === "anonymous" ? "Anonymous" : (currentBusinessName || "Studio Owner");
+
+          try {
+            const { data, error } = await supabase.from("forum_threads").insert({
+              category_id: categoryId,
+              owner_id: currentUser.id,
+              author_name: authorName,
+              title: title,
+              message: message
+            }).select().single();
+
+            if (error) throw error;
+
+            showToast("Topik baharu anda berjaya disiarkan!");
+            closeNewThreadModal();
+            newThreadForm.reset();
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Siarkan Sekarang";
+
+            // Reload data and jump to new thread
+            await loadForumData();
+            if (data?.id) {
+              window.history.pushState({}, "", `?thread=${data.id}`);
+              renderThreadDetail(data.id);
+            }
+          } catch (err) {
+            errorEl.textContent = err.message;
+            errorEl.style.display = "block";
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Siarkan Sekarang";
+          }
+        });
+      }
+
+      // Theme toggle button
+      document.getElementById("fh-theme-btn")?.addEventListener("click", () => {
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        if (isDark) {
+          document.documentElement.removeAttribute("data-theme");
+          localStorage.setItem("eqstudio_theme", "light");
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          localStorage.setItem("eqstudio_theme", "dark");
+        }
+      });
+    }
+
+    // ── Application Initialization ──
+    async function init() {
+      setupEvents();
+      renderGuidesGrid();
+      renderFaqAccordion();
+
+      await checkAuth();
+
+      // Check URL parameters for direct routing
+      const params = new URLSearchParams(window.location.search);
+      const threadId = params.get("thread");
+      const tabParam = params.get("tab");
+
+      if (threadId) {
+        renderThreadDetail(threadId);
+      } else {
+        if (tabParam && ["guides", "faq", "contact"].includes(tabParam)) {
+          switchMainTab(tabParam);
+        }
+        await loadForumData();
+      }
+
+      // Handle browser back/forward
+      window.addEventListener("popstate", () => {
+        const p = new URLSearchParams(window.location.search);
+        const tId = p.get("thread");
+        if (tId) {
+          renderThreadDetail(tId);
+        } else {
+          document.getElementById("fh-hero-section").style.display = "block";
+          document.getElementById("fh-thread-detail-container").style.display = "none";
+          switchMainTab(activeMainTab);
+          renderThreadsFeed();
+        }
+      });
+    }
+
+    init();
   </script>
 </body>
 </html>

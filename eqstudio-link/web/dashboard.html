@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=56" />
+<link rel="stylesheet" href="/assets/style.css?v=57" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -1919,6 +1919,44 @@
     </div>
   </div>
 
+  <!-- ── Mobile Bottom Navigation Bar (Dock) ── -->
+  <nav class="mobile-bottom-dock" id="mobile-bottom-dock" aria-label="Navigasi Utama Mudah Alih">
+    <button type="button" class="mobile-dock-item active" data-dock-page="home" id="dock-btn-home" aria-label="Laman Utama">
+      <div class="mobile-dock-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <span class="mobile-dock-label">Home</span>
+    </button>
+
+    <button type="button" class="mobile-dock-item" data-dock-page="pelanggan-list" id="dock-btn-pelanggan" aria-label="Senarai Pelanggan">
+      <div class="mobile-dock-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <span class="mobile-dock-label">Pelanggan</span>
+    </button>
+
+    <button type="button" class="mobile-dock-item mobile-dock-center-action" id="dock-btn-quick-add" aria-label="Tambah Pelanggan Pantas">
+      <div class="mobile-dock-center-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <span class="mobile-dock-label">Tambah</span>
+    </button>
+
+    <button type="button" class="mobile-dock-item" data-dock-page="kalendar" id="dock-btn-kalendar" aria-label="Kalendar">
+      <div class="mobile-dock-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <span class="mobile-dock-label">Kalendar</span>
+    </button>
+
+    <button type="button" class="mobile-dock-item" id="dock-btn-menu" aria-label="Menu Utama & Tetapan">
+      <div class="mobile-dock-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </div>
+      <span class="mobile-dock-label">Menu</span>
+    </button>
+  </nav>
+
   <!-- ── Global floating chat widget (LinkedIn-style) ── -->
   <button type="button" class="chat-widget-launcher" id="chat-widget-launcher" aria-label="Buka Chat">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
@@ -1942,15 +1980,94 @@
     </div>
 
     <div class="chat-widget-list-view" id="chat-widget-list-view">
+      <div class="chat-inbox-toolbar">
+        <div class="chat-search-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="search" id="chat-widget-search" placeholder="Cari pelanggan atau mesej..." autocomplete="off" />
+        </div>
+        <div class="chat-filter-tabs" id="chat-filter-tabs">
+          <button type="button" class="chat-filter-tab active" data-chat-filter="all">Semua</button>
+          <button type="button" class="chat-filter-tab" data-chat-filter="action">Perlu Tindakan</button>
+          <button type="button" class="chat-filter-tab" data-chat-filter="today">Hari Ini</button>
+          <button type="button" class="chat-filter-tab" data-chat-filter="unread">Belum Dibaca</button>
+        </div>
+      </div>
       <div id="chat-widget-conversation-list"><p class="hint" style="padding:1rem;">Memuatkan...</p></div>
     </div>
 
     <div class="chat-widget-thread-view" id="chat-widget-thread-view" style="display:none;">
+      <!-- Client 360 Mini-Card & Booking Cockpit -->
       <div id="chat-widget-booking-card"></div>
+
+      <!-- Inline Drawer: Reschedule Pantas -->
+      <div id="chat-widget-reschedule-drawer" class="chat-inline-drawer" style="display:none;">
+        <div class="chat-drawer-title">
+          <span>Reschedule Tempahan Terus dari Chat</span>
+          <button type="button" class="chat-drawer-close" id="chat-drawer-reschedule-close" aria-label="Tutup">✕</button>
+        </div>
+        <form id="chat-drawer-reschedule-form" class="chat-drawer-form">
+          <div class="chat-drawer-row">
+            <input type="date" id="chat-reschedule-date" required style="flex:1;" />
+            <input type="time" id="chat-reschedule-time" required style="width:110px;" />
+          </div>
+          <button type="submit" class="primary chat-drawer-btn" id="chat-reschedule-submit-btn">Kemas Kini & Hantar Notis ke Chat</button>
+        </form>
+      </div>
+
+      <!-- Inline Drawer: Cadangan Slot Baharu (Slot Proposal) -->
+      <div id="chat-widget-proposal-drawer" class="chat-inline-drawer" style="display:none;">
+        <div class="chat-drawer-title">
+          <span>Cadang Slot Waktu kepada Pelanggan</span>
+          <button type="button" class="chat-drawer-close" id="chat-drawer-proposal-close" aria-label="Tutup">✕</button>
+        </div>
+        <form id="chat-drawer-proposal-form" class="chat-drawer-form">
+          <div class="chat-drawer-row">
+            <input type="date" id="chat-propose-date" required style="flex:1;" />
+            <input type="time" id="chat-propose-time" value="10:00" required style="width:110px;" />
+          </div>
+          <input type="text" id="chat-propose-note" placeholder="Nota tambahan (cth: Sesi 60 minit)" style="font-size:0.76rem;" />
+          <button type="submit" class="primary chat-drawer-btn" id="chat-propose-submit-btn">Kirim Cadangan Slot ke Chat</button>
+        </form>
+      </div>
+
       <div class="cw-messages" id="chat-widget-messages"></div>
-      <div class="chat-faq-chips" id="chat-widget-faq-chips"></div>
+
+      <!-- Collapsible Bottom Action & Template Tray (Toggled via ⚡) -->
+      <div id="chat-bottom-tray" class="chat-bottom-tray" style="display:none;">
+        <div class="chat-tray-header">
+          <span class="chat-tray-tab-title">⚡ Tindakan Segera & Templat</span>
+          <button type="button" id="chat-tray-close-btn" class="chat-tray-close" aria-label="Tutup Panel Tindakan">✕</button>
+        </div>
+        <div class="chat-quick-actions-bar" id="chat-quick-actions-bar">
+          <button type="button" class="chat-action-btn" id="chat-act-bank" title="Hantar No Akaun & DuitNow">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+            <span>Info Bank</span>
+          </button>
+          <button type="button" class="chat-action-btn" id="chat-act-location" title="Hantar Lokasi & Maps">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>Lokasi Premis</span>
+          </button>
+          <button type="button" class="chat-action-btn" id="chat-act-ticket" title="Hantar Kad Tiket / No Rujukan">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="7" y1="9" x2="17" y2="9"></line><line x1="7" y1="13" x2="17" y2="13"></line></svg>
+            <span>Tiket Sesi</span>
+          </button>
+          <button type="button" class="chat-action-btn" id="chat-act-reminder" title="Hantar Peringatan Janjitemu">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Peringatan</span>
+          </button>
+          <button type="button" class="chat-action-btn" id="chat-act-propose-btn" title="Cadang Slot Baharu">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Cadang Slot</span>
+          </button>
+        </div>
+        <div class="chat-faq-chips" id="chat-widget-faq-chips"></div>
+      </div>
+
       <form id="chat-widget-send-form" class="cw-send-row">
-        <input type="text" id="chat-widget-input" placeholder="Taip mesej..." autocomplete="off" />
+        <button type="button" id="chat-toggle-tray-btn" class="cw-tray-btn" title="Tindakan Pantas & Templat" aria-label="Tindakan Pantas">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        </button>
+        <input type="text" id="chat-widget-input" placeholder="Taip mesej... (atau tekan ⚡)" autocomplete="off" />
         <button type="submit" aria-label="Hantar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
       </form>
     </div>
@@ -2045,6 +2162,18 @@
       window.scrollTo({ top: 0, behavior: "instant" });
       setTimeout(() => target.classList.remove("page-enter"), 350);
 
+      // Sync mobile bottom dock active tab
+      document.querySelectorAll(".mobile-dock-item").forEach(item => item.classList.remove("active"));
+      if (id === "home") {
+        document.getElementById("dock-btn-home")?.classList.add("active");
+      } else if (id === "pelanggan-list" || id === "pelanggan-add") {
+        document.getElementById("dock-btn-pelanggan")?.classList.add("active");
+      } else if (id === "kalendar") {
+        document.getElementById("dock-btn-kalendar")?.classList.add("active");
+      } else {
+        document.getElementById("dock-btn-menu")?.classList.add("active");
+      }
+
       if (id === "home") {
         document.querySelectorAll(".bento-tile").forEach((tile, i) => {
           tile.classList.remove("tile-enter");
@@ -2054,6 +2183,30 @@
         });
       }
     }
+
+    // ── Mobile Bottom Dock Event Handlers ──
+    document.querySelectorAll("[data-dock-page]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        closeAllKebabMenus();
+        goToPage(btn.dataset.dockPage);
+      });
+    });
+
+    document.getElementById("dock-btn-quick-add")?.addEventListener("click", () => {
+      closeAllKebabMenus();
+      document.getElementById("quick-add-open-btn")?.click();
+    });
+
+    document.getElementById("dock-btn-menu")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const menu = document.getElementById("quick-nav-menu-mobile");
+      const wasOpen = menu?.classList.contains("open");
+      closeAllKebabMenus();
+      if (!wasOpen && menu) {
+        menu.classList.add("open");
+        kebabBackdrop.classList.add("open");
+      }
+    });
 
     // ── Tetapan Booking tab system ──
     function switchBsetTab(tabId) {
@@ -3473,6 +3626,10 @@
     let chatWidgetOpen = false;
     let chatActiveConversation = null; // { customerId, customerName }
     let chatConversationsCache = [];
+    let chatCurrentFilter = "all"; // 'all' | 'action' | 'today' | 'unread'
+    let chatSearchQuery = "";
+    let chatActiveCustomerData = null;
+    let chatActiveBookingData = null;
 
     function initialsAvatar(name) {
       const initial = (name || "?").trim().charAt(0).toUpperCase();
@@ -3499,7 +3656,7 @@
     async function loadChatConversations() {
       const { data, error } = await supabase
         .from("chat_messages")
-        .select("customer_id, sender_type, message_text, created_at, read_by_owner, customers(name)")
+        .select("customer_id, sender_type, message_text, created_at, read_by_owner, customers(id, name, contact_phone, status, amount, due_date)")
         .order("created_at", { ascending: false })
         .limit(300);
 
@@ -3507,11 +3664,22 @@
       if (error) { listEl.innerHTML = `<p class="error" style="padding:1rem;">${error.message}</p>`; return; }
 
       const byCustomer = new Map();
+      const todayIsoStr = new Date().toISOString().slice(0, 10);
+
       for (const m of data) {
         if (!byCustomer.has(m.customer_id)) {
+          const cust = m.customers || {};
+          const isToday = cust.due_date === todayIsoStr;
+          const needsDeposit = cust.status !== "dah_bayar";
           byCustomer.set(m.customer_id, {
             customerId: m.customer_id,
-            customerName: m.customers?.name || "Pelanggan",
+            customerName: cust.name || "Pelanggan",
+            customerPhone: cust.contact_phone || "",
+            status: cust.status || "belum_bayar",
+            amount: cust.amount || 0,
+            dueDate: cust.due_date || "",
+            isToday,
+            needsDeposit,
             lastMessage: m.message_text,
             lastAt: m.created_at,
             unreadCount: 0,
@@ -3532,7 +3700,35 @@
         listEl.innerHTML = `<p class="hint" style="padding:1.5rem 1rem; text-align:center;">Belum ada perbualan. Mesej dari pelanggan akan muncul di sini.</p>`;
         return;
       }
-      listEl.innerHTML = chatConversationsCache.map(c => `
+
+      const q = (chatSearchQuery || "").toLowerCase();
+      const filtered = chatConversationsCache.filter(c => {
+        // Search text check
+        if (q) {
+          const matchName = c.customerName.toLowerCase().includes(q);
+          const matchMsg = c.lastMessage.toLowerCase().includes(q);
+          const matchPhone = (c.customerPhone || "").includes(q);
+          if (!matchName && !matchMsg && !matchPhone) return false;
+        }
+        // Filter tab check
+        if (chatCurrentFilter === "action") {
+          return c.needsDeposit || c.unreadCount > 0;
+        }
+        if (chatCurrentFilter === "today") {
+          return c.isToday;
+        }
+        if (chatCurrentFilter === "unread") {
+          return c.unreadCount > 0;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<p class="hint" style="padding:1.5rem 1rem; text-align:center;">Tiada perbualan sepadan dengan tapisan ini.</p>`;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(c => `
         <button type="button" class="chat-conv-row ${c.unreadCount > 0 ? "unread" : ""}" data-conv-customer-id="${c.customerId}" data-conv-name="${escapeHtml(c.customerName)}">
           ${initialsAvatar(c.customerName)}
           <div class="chat-conv-info">
@@ -3541,14 +3737,35 @@
               <span class="chat-conv-time">${timeAgoShort(c.lastAt)}</span>
             </div>
             <div class="chat-conv-preview">${escapeHtml(c.lastMessage.slice(0, 60))}</div>
+            <div class="chat-conv-tags">
+              ${c.needsDeposit ? `<span class="chat-conv-tag tag-deposit">Perlu Deposit</span>` : `<span class="chat-conv-tag tag-confirmed">Deposit Sah</span>`}
+              ${c.isToday ? `<span class="chat-conv-tag tag-today">Hari Ini</span>` : ""}
+            </div>
           </div>
           ${c.unreadCount > 0 ? `<span class="chat-conv-unread-dot"></span>` : ""}
         </button>
       `).join("");
+
       listEl.querySelectorAll("[data-conv-customer-id]").forEach(row => {
         row.addEventListener("click", () => openConversationThread(row.dataset.convCustomerId, row.dataset.convName));
       });
     }
+
+    // Filter tabs click listener
+    document.getElementById("chat-filter-tabs")?.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-chat-filter]");
+      if (!btn) return;
+      document.querySelectorAll(".chat-filter-tab").forEach(t => t.classList.remove("active"));
+      btn.classList.add("active");
+      chatCurrentFilter = btn.dataset.chatFilter;
+      renderConversationList();
+    });
+
+    // Search input listener
+    document.getElementById("chat-widget-search")?.addEventListener("input", (e) => {
+      chatSearchQuery = e.target.value.trim();
+      renderConversationList();
+    });
 
     function updateChatBadge() {
       const totalUnread = chatConversationsCache.reduce((sum, c) => sum + c.unreadCount, 0);
@@ -3570,6 +3787,33 @@
         </div>`;
     }
 
+    async function sendChatMessageDirect(text) {
+      if (!text || !chatActiveConversation) return;
+      const { data, error } = await supabase.from("chat_messages").insert({
+        customer_id: chatActiveConversation.customerId,
+        owner_id: user.id,
+        sender_type: "owner",
+        message_text: text,
+      }).select().single();
+
+      if (error) {
+        showToast("Gagal hantar: " + error.message, "error");
+        return;
+      }
+
+      const el = document.getElementById("chat-widget-messages");
+      const emptyState = el.querySelector(".hint");
+      if (emptyState) el.innerHTML = "";
+      el.insertAdjacentHTML("beforeend", renderChatMessage(data));
+      el.scrollTop = el.scrollHeight;
+
+      fetch("/api/chat-notify-customer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ customer_id: chatActiveConversation.customerId }),
+      }).catch(() => {});
+    }
+
     async function openConversationThread(customerId, customerName) {
       chatActiveConversation = { customerId, customerName };
       document.getElementById("chat-widget-title").textContent = customerName;
@@ -3577,8 +3821,13 @@
       document.getElementById("chat-widget-manage-faq-btn").style.display = "none";
       document.getElementById("chat-widget-list-view").style.display = "none";
       document.getElementById("chat-widget-thread-view").style.display = "flex";
+
+      // Close inline drawers if open
+      document.getElementById("chat-widget-reschedule-drawer").style.display = "none";
+      document.getElementById("chat-widget-proposal-drawer").style.display = "none";
+
       const messagesEl = document.getElementById("chat-widget-messages");
-      messagesEl.innerHTML = `<p class="hint" style="padding:1rem;">Memuatkan...</p>`;
+      messagesEl.innerHTML = `<p class="hint" style="padding:1rem;">Memuatkan perbualan...</p>`;
       document.getElementById("chat-widget-booking-card").innerHTML = "";
 
       const { data, error } = await supabase
@@ -3590,7 +3839,7 @@
       if (error) { messagesEl.innerHTML = `<p class="error">${error.message}</p>`; return; }
       messagesEl.innerHTML = data.length > 0
         ? data.map(renderChatMessage).join("")
-        : `<p class="hint" style="text-align:center; padding:1rem;">Belum ada mesej. Mulakan perbualan!</p>`;
+        : `<p class="hint" style="text-align:center; padding:1rem;">Belum ada mesej. Gunakan butang tindakan pantas di bawah untuk memulakan perbualan!</p>`;
       messagesEl.scrollTop = messagesEl.scrollHeight;
 
       const unreadIds = data.filter(m => m.sender_type === "customer").map(m => m.id);
@@ -3599,30 +3848,404 @@
         loadChatConversations(); // refresh badge/list counts
       }
 
-      loadBookingCard(customerId);
+      await loadBookingCard(customerId);
       loadFaqChips();
     }
 
     async function loadBookingCard(customerId) {
       const cardEl = document.getElementById("chat-widget-booking-card");
-      const { data, error } = await supabase
+
+      // 1. Fetch Customer Profile & Details
+      const { data: cust } = await supabase
+        .from("customers")
+        .select("*")
+        .eq("id", customerId)
+        .maybeSingle();
+
+      chatActiveCustomerData = cust || null;
+
+      // 2. Fetch Customer Bookings
+      const { data: bList } = await supabase
         .from("bookings")
-        .select("slot_datetime, duration_minutes, status")
+        .select("*")
         .eq("customer_id", customerId)
-        .order("slot_datetime", { ascending: false })
-        .limit(1);
-      if (error || !data || data.length === 0) { cardEl.innerHTML = ""; return; }
-      const b = data[0];
-      const dateLabel = new Date(b.slot_datetime).toLocaleString("ms-MY", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
-      const statusLabel = b.status === "cancelled" ? "Dibatalkan" : "Disahkan";
+        .order("slot_datetime", { ascending: false });
+
+      const totalBookings = bList ? bList.length : 0;
+      const b = (bList && bList.length > 0) ? bList[0] : null;
+      chatActiveBookingData = b;
+
+      // Phone formatting for WhatsApp
+      const rawPhone = cust?.contact_phone || b?.customer_phone || "";
+      let cleanPhone = rawPhone.replace(/\D/g, "");
+      if (cleanPhone.startsWith("0")) cleanPhone = "6" + cleanPhone;
+
+      // Amounts & Deposit
+      const totalAmt = Number(cust?.amount || 0);
+      const isDepositPaid = cust?.status === "dah_bayar";
+      const depositAmt = totalAmt > 0 ? (totalAmt > 100 ? 50 : Math.round(totalAmt * 0.4)) : 50;
+      const balanceAmt = isDepositPaid ? Math.max(0, totalAmt - depositAmt) : totalAmt;
+
+      // Booking date & time
+      let bookingHeader = "";
+      let statusBadgeClass = "status-pending";
+      let statusLabel = "Menunggu Deposit";
+      let dateFormatted = "";
+      let timeFormatted = "";
+
+      if (b) {
+        const d = new Date(b.slot_datetime);
+        dateFormatted = d.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+        timeFormatted = d.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+
+        if (b.status === "cancelled") {
+          statusBadgeClass = "status-cancelled";
+          statusLabel = "Dibatalkan";
+        } else if (b.status === "completed") {
+          statusBadgeClass = "status-completed";
+          statusLabel = "Selesai";
+        } else if (isDepositPaid || b.status === "confirmed") {
+          statusBadgeClass = "status-confirmed";
+          statusLabel = "Disahkan";
+        }
+      }
+
+      // Build HTML - Compact Cockpit
       cardEl.innerHTML = `
-        <div class="chat-booking-card">
-          <div class="chat-booking-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
-          <div class="chat-booking-card-info">
-            <div class="chat-booking-card-title">Booking Terkini · ${statusLabel}</div>
-            <div class="chat-booking-card-detail">${dateLabel} · ${b.duration_minutes} minit</div>
+        <div class="chat-cockpit">
+          <!-- Slim Bar (Always visible, ~36px) -->
+          <div class="chat-cockpit-strip">
+            <div class="chat-cockpit-left">
+              <span class="chat-cockpit-dot ${statusBadgeClass}"></span>
+              <span class="chat-cockpit-title">${dateFormatted ? `${dateFormatted} · ${timeFormatted}` : escapeHtml(chatActiveConversation.customerName)}</span>
+              <span class="chat-cockpit-badge ${statusBadgeClass}">${statusLabel}</span>
+              ${!isDepositPaid ? `
+                <button type="button" class="chat-mini-action-pill" id="cba-mini-verify-deposit" title="Sahkan deposit segera tanpa buka menu">
+                  ⚡ Sahkan RM${depositAmt.toFixed(0)}
+                </button>
+              ` : ""}
+            </div>
+            <div class="chat-cockpit-right">
+              ${cleanPhone ? `
+                <a href="https://wa.me/${cleanPhone}" target="_blank" rel="noopener noreferrer" class="chat-cockpit-icon-btn" title="Buka WhatsApp Pelanggan">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                </a>
+              ` : ""}
+              <button type="button" class="chat-cockpit-toggle-btn" id="chat-cockpit-toggle-btn" aria-expanded="false" title="Buka/Tutup Menu Tindakan & Kewangan">
+                <span>Tindakan</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+            </div>
           </div>
-        </div>`;
+
+          <!-- Expandable Dropdown Action Deck (Collapsed by default) -->
+          <div class="chat-cockpit-dropdown" id="chat-cockpit-dropdown" style="display:none;">
+            <div class="chat-dropdown-meta-row">
+              <div>
+                <span class="chat-client-badge ${totalBookings > 1 ? "badge-vip" : "badge-new"}">
+                  ${totalBookings > 1 ? `Pelanggan Setia · ${totalBookings}x Sesi` : "Pelanggan Baharu"}
+                </span>
+                ${rawPhone ? `<span class="chat-client-spent" style="margin-left:0.4rem;">${escapeHtml(rawPhone)}</span>` : ""}
+              </div>
+              ${b ? `<span class="chat-booking-sub-text">Tempoh Sesi: ${b.duration_minutes || 60} minit</span>` : ""}
+            </div>
+
+            <!-- Financial Breakdown -->
+            <div class="chat-finance-grid">
+              <div class="chat-finance-chip">
+                <div class="chat-finance-k">Jumlah</div>
+                <div class="chat-finance-v">RM${totalAmt.toFixed(2)}</div>
+              </div>
+              <div class="chat-finance-chip">
+                <div class="chat-finance-k">Deposit</div>
+                <div class="chat-finance-v ${isDepositPaid ? "paid" : "unpaid"}">
+                  RM${depositAmt.toFixed(2)} ${isDepositPaid ? "✓" : "⚠️"}
+                </div>
+              </div>
+              <div class="chat-finance-chip">
+                <div class="chat-finance-k">Baki Premis</div>
+                <div class="chat-finance-v">RM${balanceAmt.toFixed(2)}</div>
+              </div>
+            </div>
+
+            <!-- 1-Click Operational Actions -->
+            <div class="chat-booking-actions">
+              ${!isDepositPaid ? `
+                <button type="button" class="cba-btn cba-primary" id="cba-verify-deposit" title="Sahkan deposit dan hantar resit ke chat">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  Sahkan Deposit
+                </button>` : ""}
+
+              ${b && b.status !== "confirmed" && b.status !== "completed" && b.status !== "cancelled" ? `
+                <button type="button" class="cba-btn" id="cba-confirm-booking" title="Sahkan tempahan pelanggan">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  Sahkan Sesi
+                </button>` : ""}
+
+              <button type="button" class="cba-btn" id="cba-toggle-reschedule" title="Reschedule slot tempahan ini">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line></svg>
+                Reschedule
+              </button>
+
+              ${b && b.status !== "completed" ? `
+                <button type="button" class="cba-btn" id="cba-mark-done" title="Tandakan servis selesai">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  Selesai
+                </button>` : ""}
+
+              ${b && b.status !== "cancelled" ? `
+                <button type="button" class="cba-btn cba-danger" id="cba-cancel-booking" title="Batal tempahan">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                  Batal
+                </button>` : ""}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Cockpit dropdown toggle handler
+      const cockpitToggleBtn = document.getElementById("chat-cockpit-toggle-btn");
+      cockpitToggleBtn?.addEventListener("click", () => {
+        const dd = document.getElementById("chat-cockpit-dropdown");
+        const isOpen = dd.style.display !== "none";
+        dd.style.display = isOpen ? "none" : "block";
+        cockpitToggleBtn.classList.toggle("open", !isOpen);
+      });
+
+      // Handler for verifying deposit (used by both buttons)
+      const handleVerifyDeposit = async () => {
+        if (!confirm(`Sahkan deposit RM${depositAmt.toFixed(2)} telah diterima dari ${chatActiveConversation.customerName}? Resit rasmi akan dihantar ke chat.`)) return;
+
+        // Update customer payment status
+        await supabase.from("customers").update({ status: "dah_bayar", paid_at: new Date().toISOString() }).eq("id", customerId);
+        if (b && b.status === "pending") {
+          await supabase.from("bookings").update({ status: "confirmed" }).eq("id", b.id);
+        }
+
+        // Send automated confirmation receipt to customer chat
+        const receiptMsg = `🧾 Resit Pengesahan Deposit:\n` +
+          `Pembayaran deposit sebanyak RM${depositAmt.toFixed(2)} telah disahkan diterima. Terima kasih! 🙏\n\n` +
+          `• Jumlah Keseluruhan: RM${totalAmt.toFixed(2)}\n` +
+          `• Baki di Premis: RM${Math.max(0, totalAmt - depositAmt).toFixed(2)}\n` +
+          `• Janjitemu: ${dateFormatted} jam ${timeFormatted}\n\n` +
+          `Jumpa anda pada hari tersebut! Sila maklumkan jika perlukan sebarang bantuan.`;
+
+        await sendChatMessageDirect(receiptMsg);
+        showToast("Deposit berjaya disahkan & resit dihantar ke chat!", "success");
+        await loadBookingCard(customerId);
+        loadCustomers();
+      };
+
+      document.getElementById("cba-verify-deposit")?.addEventListener("click", handleVerifyDeposit);
+      document.getElementById("cba-mini-verify-deposit")?.addEventListener("click", handleVerifyDeposit);
+
+      document.getElementById("cba-confirm-booking")?.addEventListener("click", async () => {
+        if (b) {
+          await supabase.from("bookings").update({ status: "confirmed" }).eq("id", b.id);
+        }
+        const confirmMsg = `✅ Pengesahan Janjitemu:\n` +
+          `Tempahan anda bagi sesi pada ${dateFormatted} jam ${timeFormatted} telah DISAHKAN sepenuhnya. Jumpa anda di studio!`;
+        await sendChatMessageDirect(confirmMsg);
+        showToast("Tempahan telah disahkan!", "success");
+        await loadBookingCard(customerId);
+      });
+
+      document.getElementById("cba-toggle-reschedule")?.addEventListener("click", () => {
+        const drawer = document.getElementById("chat-widget-reschedule-drawer");
+        const isHidden = drawer.style.display === "none";
+        drawer.style.display = isHidden ? "block" : "none";
+        if (isHidden && b) {
+          document.getElementById("chat-reschedule-date").value = b.slot_datetime.slice(0, 10);
+          document.getElementById("chat-reschedule-time").value = b.slot_datetime.slice(11, 16);
+        }
+      });
+
+      document.getElementById("cba-mark-done")?.addEventListener("click", async () => {
+        if (b) {
+          await supabase.from("bookings").update({ status: "completed" }).eq("id", b.id);
+        }
+        await supabase.from("customers").update({ status: "dah_bayar" }).eq("id", customerId);
+        const doneMsg = `✨ Sesi Selesai:\n` +
+          `Terima kasih ${chatActiveConversation.customerName}! Sesi tempahan anda telah selesai dengan jayanya. Kami sangat menghargai sokongan anda dan berharap dapat berkhidmat lagi pada masa akan datang. 😊`;
+        await sendChatMessageDirect(doneMsg);
+        showToast("Sesi ditandakan selesai!", "success");
+        await loadBookingCard(customerId);
+        loadCustomers();
+      });
+
+      document.getElementById("cba-cancel-booking")?.addEventListener("click", async () => {
+        if (!confirm("Adakah anda pasti ingin membatalkan tempahan ini? Notis pembatalan akan dihantar ke chat pelanggan.")) return;
+        if (b) {
+          await supabase.from("bookings").update({ status: "cancelled" }).eq("id", b.id);
+        }
+        const cancelMsg = `⚠️ Notis Pembatalan Tempahan:\n` +
+          `Sesi janjitemu anda pada ${dateFormatted} jam ${timeFormatted} telah dibatalkan. Sila hubungi kami jika ingin menjadualkan semula tarikh yang bersesuaian. Terima kasih.`;
+        await sendChatMessageDirect(cancelMsg);
+        showToast("Tempahan dibatalkan.", "info");
+        await loadBookingCard(customerId);
+        loadCustomers();
+      });
+    }
+
+    // Toggle Collapsible Action & Template Tray (⚡ button)
+    const chatToggleTrayBtn = document.getElementById("chat-toggle-tray-btn");
+    const chatBottomTray = document.getElementById("chat-bottom-tray");
+    chatToggleTrayBtn?.addEventListener("click", () => {
+      const isHidden = chatBottomTray.style.display === "none";
+      chatBottomTray.style.display = isHidden ? "flex" : "none";
+      chatToggleTrayBtn.classList.toggle("active", isHidden);
+    });
+    document.getElementById("chat-tray-close-btn")?.addEventListener("click", () => {
+      if (chatBottomTray) chatBottomTray.style.display = "none";
+      chatToggleTrayBtn?.classList.remove("active");
+    });
+
+    // Drawer close buttons
+    document.getElementById("chat-drawer-reschedule-close")?.addEventListener("click", () => {
+      document.getElementById("chat-widget-reschedule-drawer").style.display = "none";
+    });
+    document.getElementById("chat-drawer-proposal-close")?.addEventListener("click", () => {
+      document.getElementById("chat-widget-proposal-drawer").style.display = "none";
+    });
+
+    // Reschedule form submission
+    document.getElementById("chat-drawer-reschedule-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!chatActiveBookingData || !chatActiveConversation) return;
+      const newDate = document.getElementById("chat-reschedule-date").value;
+      const newTime = document.getElementById("chat-reschedule-time").value;
+      if (!newDate || !newTime) return;
+
+      const newIso = new Date(`${newDate}T${newTime}:00`).toISOString();
+      const { error } = await supabase.from("bookings").update({ slot_datetime: newIso }).eq("id", chatActiveBookingData.id);
+      if (error) { showToast("Gagal reschedule: " + error.message, "error"); return; }
+
+      // Also update customer due_date
+      await supabase.from("customers").update({ due_date: newDate }).eq("id", chatActiveConversation.customerId);
+
+      const dObj = new Date(newIso);
+      const fmtDate = dObj.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+      const fmtTime = dObj.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+
+      const msg = `📅 Notis Penjadualan Semula (Reschedule):\n` +
+        `Jadual tempahan anda telah berjaya dipindahkan kepada:\n` +
+        `📆 ${fmtDate}\n` +
+        `⏰ ${fmtTime}\n\n` +
+        `Jumpa anda pada waktu baharu ini!`;
+
+      await sendChatMessageDirect(msg);
+      document.getElementById("chat-widget-reschedule-drawer").style.display = "none";
+      showToast("Jadual tempahan berjaya dikemas kini!", "success");
+      await loadBookingCard(chatActiveConversation.customerId);
+      loadCustomers();
+    });
+
+    // Slot proposal form submission
+    document.getElementById("chat-drawer-proposal-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const propDate = document.getElementById("chat-propose-date").value;
+      const propTime = document.getElementById("chat-propose-time").value;
+      const propNote = document.getElementById("chat-propose-note").value.trim();
+      if (!propDate || !propTime) return;
+
+      const dObj = new Date(`${propDate}T${propTime}:00`);
+      const fmtDate = dObj.toLocaleDateString("ms-MY", { weekday: "long", day: "numeric", month: "short", year: "numeric" });
+      const fmtTime = dObj.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+
+      const msg = `💡 Cadangan Slot Janjitemu:\n` +
+        `Kami mencadangkan slot berikut untuk sesi anda:\n` +
+        `📆 ${fmtDate}\n` +
+        `⏰ ${fmtTime}${propNote ? `\n📝 ${propNote}` : ""}\n\n` +
+        `Adakah tarikh & waktu ini sesuai untuk anda? Sila balas mesej ini untuk pengesahan.`;
+
+      await sendChatMessageDirect(msg);
+      document.getElementById("chat-widget-proposal-drawer").style.display = "none";
+      showToast("Cadangan slot dihantar ke chat!", "success");
+    });
+
+    // Smart Action Bar Buttons
+    document.getElementById("chat-act-bank")?.addEventListener("click", () => {
+      const bankName = (profile && profile.bank_name) || "Maybank";
+      const bankAcc = (profile && profile.bank_account_number) || "-";
+      const bankHolder = (profile && profile.bank_account_holder) || (profile && profile.business_name) || "EQ Studio";
+      const custAmt = chatActiveCustomerData?.amount || 0;
+      const depAmt = custAmt > 0 ? (custAmt > 100 ? 50 : Math.round(custAmt * 0.4)) : 50;
+
+      const text = `💳 Butiran Pembayaran Deposit:\n` +
+        `Bank: ${bankName}\n` +
+        `No. Akaun: ${bankAcc}\n` +
+        `Penama: ${bankHolder}\n` +
+        `Jumlah Deposit: RM${depAmt.toFixed(2)}\n\n` +
+        `Sila kongsikan slip atau resit bayaran di sini setelah pembayaran dibuat untuk pengesahan segera. Terima kasih!`;
+      sendChatMessageDirect(text);
+    });
+
+    document.getElementById("chat-act-location")?.addEventListener("click", () => {
+      const addr = (profile && profile.business_address) || "Premis EQ Studio";
+      const maps = (profile && profile.maps_url) ? `\n🗺️ Google Maps: ${profile.maps_url}` : "";
+      const text = `📍 Lokasi Premis Kami:\n${addr}${maps}\n\nTempat letak kenderaan disediakan. Sila hubungi kami jika memerlukan panduan arah semasa perjalanan.`;
+      sendChatMessageDirect(text);
+    });
+
+    document.getElementById("chat-act-ticket")?.addEventListener("click", () => {
+      const b = chatActiveBookingData;
+      const refCode = b ? b.id.slice(0, 8).toUpperCase() : "BK-" + Math.floor(1000 + Math.random() * 9000);
+      let sessionTime = "Akan dimaklumkan";
+      if (b) {
+        const d = new Date(b.slot_datetime);
+        sessionTime = `${d.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short" })} jam ${d.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" })}`;
+      }
+      const text = `🎟️ Pas Janjitemu Rasmi:\n` +
+        `No. Rujukan: #${refCode}\n` +
+        `Nama Pelanggan: ${chatActiveConversation?.customerName}\n` +
+        `Sesi: ${sessionTime}\n\n` +
+        `Sila tunjukkan no. rujukan ini atau sebut nama anda semasa tiba di kaunter premis. Terima kasih!`;
+      sendChatMessageDirect(text);
+    });
+
+    document.getElementById("chat-act-reminder")?.addEventListener("click", () => {
+      const b = chatActiveBookingData;
+      let sessionTime = "dalam masa terdekat";
+      if (b) {
+        const d = new Date(b.slot_datetime);
+        sessionTime = `${d.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short" })} pada jam ${d.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" })}`;
+      }
+      const text = `⏰ Peringatan Janjitemu Mesra:\n` +
+        `Salam ${chatActiveConversation?.customerName}, ini adalah peringatan mesra untuk sesi anda ${sessionTime}.\n\n` +
+        `Sila hadir 5-10 minit lebih awal untuk proses pendaftaran lancar. Jumpa anda sebentar lagi!`;
+      sendChatMessageDirect(text);
+    });
+
+    document.getElementById("chat-act-propose-btn")?.addEventListener("click", () => {
+      const drawer = document.getElementById("chat-widget-proposal-drawer");
+      const isHidden = drawer.style.display === "none";
+      drawer.style.display = isHidden ? "block" : "none";
+      if (isHidden) {
+        document.getElementById("chat-propose-date").value = new Date().toISOString().slice(0, 10);
+      }
+    });
+
+    // Dynamic Variable Replacer for FAQ snippets
+    function replaceSnippetPlaceholders(text) {
+      const b = chatActiveBookingData;
+      const cust = chatActiveCustomerData;
+      const d = b ? new Date(b.slot_datetime) : new Date();
+      const dateStr = d.toLocaleDateString("ms-MY", { day: "numeric", month: "short", year: "numeric" });
+      const timeStr = d.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+      const totalAmt = Number(cust?.amount || 0);
+      const depositAmt = totalAmt > 0 ? (totalAmt > 100 ? 50 : Math.round(totalAmt * 0.4)) : 50;
+      const balAmt = Math.max(0, totalAmt - depositAmt);
+
+      return text
+        .replace(/\{nama\}/gi, chatActiveConversation?.customerName || "Pelanggan")
+        .replace(/\{tarikh\}/gi, dateStr)
+        .replace(/\{waktu\}/gi, timeStr)
+        .replace(/\{servis\}/gi, b?.service_name || "sesi anda")
+        .replace(/\{deposit\}/gi, `RM${depositAmt.toFixed(2)}`)
+        .replace(/\{baki\}/gi, `RM${balAmt.toFixed(2)}`)
+        .replace(/\{jumlah\}/gi, `RM${totalAmt.toFixed(2)}`)
+        .replace(/\{bank\}/gi, (profile && profile.bank_name) || "Maybank")
+        .replace(/\{akaun\}/gi, (profile && profile.bank_account_number) || "-");
     }
 
     let chatFaqTemplatesCache = null;
@@ -3636,7 +4259,8 @@
       chipsEl.innerHTML = chatFaqTemplatesCache.map(t => `<button type="button" class="chat-faq-chip" data-faq-answer="${escapeHtml(t.answer_text)}">${escapeHtml(t.label)}</button>`).join("");
       chipsEl.querySelectorAll("[data-faq-answer]").forEach(chip => {
         chip.addEventListener("click", () => {
-          document.getElementById("chat-widget-input").value = chip.dataset.faqAnswer;
+          const resolved = replaceSnippetPlaceholders(chip.dataset.faqAnswer);
+          document.getElementById("chat-widget-input").value = resolved;
           document.getElementById("chat-widget-send-form").requestSubmit();
         });
       });
@@ -3644,24 +4268,30 @@
 
     function backToConversationList() {
       chatActiveConversation = null;
+      chatActiveCustomerData = null;
+      chatActiveBookingData = null;
+      if (chatBottomTray) chatBottomTray.style.display = "none";
+      chatToggleTrayBtn?.classList.remove("active");
+      const rDrawer = document.getElementById("chat-widget-reschedule-drawer");
+      if (rDrawer) rDrawer.style.display = "none";
+      const pDrawer = document.getElementById("chat-widget-proposal-drawer");
+      if (pDrawer) pDrawer.style.display = "none";
       document.getElementById("chat-widget-back-btn").style.display = "none";
       document.getElementById("chat-widget-manage-faq-btn").style.display = "flex";
       document.getElementById("chat-widget-title").textContent = "Mesej";
       document.getElementById("chat-widget-thread-view").style.display = "none";
       document.getElementById("chat-widget-manage-view").style.display = "none";
-      document.getElementById("chat-widget-list-view").style.display = "block";
+      document.getElementById("chat-widget-list-view").style.display = "flex";
       loadChatConversations();
     }
 
-    // Default library — technical/process answers relevant to every owner
-    // (reschedule, cancel, deposit status), not business-specific. Owner
-    // taps "+ Tambah" to copy one into their own editable templates.
+    // Default library with smart dynamic variables
     const DEFAULT_FAQ_LIBRARY = [
-      { label: "Cara Reschedule", answer: "Untuk reschedule, buka emel pengesahan tempahan anda dan tekan butang Reschedule/Batal Tempahan. Pilih tarikh dan slot baharu, sistem akan kemas kini secara automatik." },
-      { label: "Cara Batal Booking", answer: "Untuk batal tempahan, buka emel pengesahan dan tekan butang Reschedule/Batal Tempahan, kemudian pilih Batal. Sila lakukan lebih awal supaya slot boleh diambil pelanggan lain." },
-      { label: "Bila Reminder Dihantar", answer: "Emel peringatan dihantar automatik mengikut jadual yang ditetapkan sebelum tarikh tempahan anda. Sila semak folder spam jika tidak nampak dalam inbox." },
-      { label: "Status Deposit Belum Update", answer: "Terima kasih maklumkan. Saya akan semak dan sahkan pembayaran deposit anda sekarang, status akan dikemas kini sebentar lagi." },
-      { label: "Berapa Lama Tempoh Servis", answer: "Tempoh servis berbeza mengikut jenis perkhidmatan yang dipilih. Sila rujuk maklumat pada halaman tempahan untuk tempoh tepat setiap servis." },
+      { label: "Cara Reschedule", answer: "Salam {nama}, untuk reschedule tempahan {tarikh} anda, buka emel pengesahan tempahan dan tekan pautan Reschedule/Batal. Sistem kami akan kemas kini slot secara automatik." },
+      { label: "Cara Batal Booking", answer: "Salam {nama}, untuk membatalkan tempahan, buka emel pengesahan dan klik butang Batal. Sila maklumkan sekurang-kurangnya 24 jam awal. Terima kasih!" },
+      { label: "Status Deposit", answer: "Salam {nama}, status deposit {deposit} anda telah disemak. Baki bayaran adalah sebanyak {baki}. Jumpa anda pada {tarikh} jam {waktu}!" },
+      { label: "Peringatan Janjitemu", answer: "Salam mesra {nama}, peringatan untuk janjitemu {servis} anda pada {tarikh} jam {waktu}. Sila hadir 5-10 minit lebih awal ya." },
+      { label: "Berapa Lama Tempoh Servis", answer: "Tempoh servis berbeza mengikut pakej yang dipilih (biasanya antara 30 hingga 60 minit). Maklumat lanjut ada pada pautan tempahan anda." },
     ];
 
     async function renderFaqManageList() {
@@ -3673,7 +4303,7 @@
       const existingLabels = new Set(data.map(t => t.label));
       const availableLibrary = DEFAULT_FAQ_LIBRARY.filter(l => !existingLabels.has(l.label));
       const libraryHtml = availableLibrary.length > 0 ? `
-        <div class="chat-manage-library-heading">Perpustakaan Cadangan</div>
+        <div class="chat-manage-library-heading">Perpustakaan Cadangan (Sokong {nama}, {tarikh}, dll)</div>
         ${availableLibrary.map(l => `
           <div class="chat-manage-row">
             <div class="chat-manage-row-text">
@@ -7026,8 +7656,178 @@
     document.addEventListener("mouseout", (e) => {
       if (e.target.closest(".info-icon-btn")) hideInfoTooltip();
     });
+
+    // ── Command Palette (Ctrl+K / Cmd+K) Dispatcher for Desktop ──
+    const cmdPaletteModal = document.getElementById("cmd-palette-modal");
+    const cmdPaletteInput = document.getElementById("cmd-palette-input");
+    const cmdPaletteResults = document.getElementById("cmd-palette-results");
+
+    const CMD_ACTIONS = [
+      { id: "add-cust", title: "Tambah Pelanggan Baru", category: "Tindakan Pantas", icon: "➕", run: () => document.getElementById("quick-add-open-btn")?.click() },
+      { id: "copy-link", title: "Salin Pautan Booking Utama", category: "Booking", icon: "🔗", run: () => {
+        const link = allBookingLinks.find(l => !!l.slug) || allBookingLinks[0];
+        if (link && link.slug) {
+          const url = `${window.location.origin}/book/${link.slug}`;
+          navigator.clipboard.writeText(url).then(() => showToast("Pautan booking disalin!", "success"));
+        } else {
+          goToPage("booking-settings");
+        }
+      }},
+      { id: "export-csv", title: "Muat Turun Laporan CSV", category: "Laporan", icon: "📊", run: () => document.getElementById("export-csv-btn")?.click() },
+      { id: "goto-booking", title: "Buka Senarai Booking", category: "Navigasi", icon: "📅", run: () => goToPage("booking-list") },
+      { id: "goto-pelanggan", title: "Buka Senarai Pelanggan", category: "Navigasi", icon: "👥", run: () => goToPage("pelanggan-list") },
+      { id: "goto-laporan", title: "Buka Analisis & Laporan", category: "Navigasi", icon: "📈", run: () => goToPage("laporan") },
+      { id: "goto-kalendar", title: "Buka Kalendar Studio", category: "Navigasi", icon: "🗓️", run: () => goToPage("kalendar") },
+      { id: "goto-booking-set", title: "Tetapan Link & Slot Booking", category: "Tetapan", icon: "⚙️", run: () => goToPage("booking-settings") },
+      { id: "goto-profil", title: "Profil Bisnes & Bank/QR", category: "Tetapan", icon: "🏦", run: () => goToPage("tetapan-profil") },
+      { id: "toggle-dark", title: "Tukar Mod Gelap / Cerah (Theme)", category: "Antaramuka", icon: "🌓", run: () => toggleTheme() },
+    ];
+
+    let cmdSelectedIdx = 0;
+    let filteredCmds = [...CMD_ACTIONS];
+
+    function openCommandPalette() {
+      if (!cmdPaletteModal) return;
+      cmdPaletteModal.style.display = "flex";
+      cmdPaletteInput.value = "";
+      renderCommandResults("");
+      cmdPaletteInput.focus();
+    }
+
+    function closeCommandPalette() {
+      if (!cmdPaletteModal) return;
+      cmdPaletteModal.style.display = "none";
+    }
+
+    function renderCommandResults(query) {
+      const q = query.toLowerCase().trim();
+      filteredCmds = CMD_ACTIONS.filter(c => c.title.toLowerCase().includes(q) || c.category.toLowerCase().includes(q));
+
+      // Also search live customers if query >= 2 chars
+      if (q.length >= 2) {
+        const matchingCustomers = allCustomers
+          .filter(c => c.name.toLowerCase().includes(q) || (c.contact_email && c.contact_email.toLowerCase().includes(q)))
+          .slice(0, 4)
+          .map(c => ({
+            id: `cust-${c.id}`,
+            title: `Pelanggan: ${c.name} (RM ${Number(c.amount).toFixed(2)})`,
+            category: "Pelanggan",
+            icon: "👤",
+            run: () => {
+              goToPage("pelanggan-list");
+              const searchInput = document.getElementById("search-input");
+              if (searchInput) {
+                searchInput.value = c.name;
+                applyCustomerListFilters();
+              }
+            }
+          }));
+        filteredCmds = [...matchingCustomers, ...filteredCmds];
+      }
+
+      cmdSelectedIdx = 0;
+      if (filteredCmds.length === 0) {
+        cmdPaletteResults.innerHTML = `<div class="cmd-empty hint">Tiada arahan atau pelanggan sepadan dengan "${escapeHtml(query)}"</div>`;
+        return;
+      }
+
+      cmdPaletteResults.innerHTML = filteredCmds.map((cmd, idx) => `
+        <div class="cmd-item ${idx === cmdSelectedIdx ? "selected" : ""}" data-idx="${idx}">
+          <span class="cmd-item-icon">${cmd.icon}</span>
+          <div class="cmd-item-info">
+            <span class="cmd-item-title">${escapeHtml(cmd.title)}</span>
+            <span class="cmd-item-cat">${escapeHtml(cmd.category)}</span>
+          </div>
+          <span class="cmd-item-enter hint">↵</span>
+        </div>
+      `).join("");
+
+      cmdPaletteResults.querySelectorAll(".cmd-item").forEach(item => {
+        item.addEventListener("click", () => {
+          const idx = parseInt(item.dataset.idx, 10);
+          if (filteredCmds[idx]) {
+            closeCommandPalette();
+            filteredCmds[idx].run();
+          }
+        });
+      });
+    }
+
+    cmdPaletteInput?.addEventListener("input", (e) => {
+      renderCommandResults(e.target.value);
+    });
+
+    cmdPaletteInput?.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        cmdSelectedIdx = (cmdSelectedIdx + 1) % filteredCmds.length;
+        updateSelectedCmdItem();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        cmdSelectedIdx = (cmdSelectedIdx - 1 + filteredCmds.length) % filteredCmds.length;
+        updateSelectedCmdItem();
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (filteredCmds[cmdSelectedIdx]) {
+          closeCommandPalette();
+          filteredCmds[cmdSelectedIdx].run();
+        }
+      } else if (e.key === "Escape") {
+        closeCommandPalette();
+      }
+    });
+
+    function updateSelectedCmdItem() {
+      const items = cmdPaletteResults.querySelectorAll(".cmd-item");
+      items.forEach((it, idx) => {
+        it.classList.toggle("selected", idx === cmdSelectedIdx);
+        if (idx === cmdSelectedIdx) {
+          it.scrollIntoView({ block: "nearest" });
+        }
+      });
+    }
+
+    // Global keyboard listener for Ctrl+K / Cmd+K
+    document.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "k" || e.key === "K")) {
+        e.preventDefault();
+        if (cmdPaletteModal.style.display === "flex") {
+          closeCommandPalette();
+        } else {
+          openCommandPalette();
+        }
+      }
+    });
+
+    // Ops shortcut button click listener
+    document.querySelector(".ops-command-shortcut-tip")?.addEventListener("click", () => {
+      openCommandPalette();
+    });
+
+    cmdPaletteModal?.addEventListener("click", (e) => {
+      if (e.target === cmdPaletteModal) {
+        closeCommandPalette();
+      }
+    });
   </script>
 
   <div class="info-tooltip" id="global-info-tooltip"></div>
+
+  <!-- Desktop Quick Command Palette (Ctrl+K) -->
+  <div class="cmd-palette-backdrop" id="cmd-palette-modal" style="display:none;">
+    <div class="cmd-palette-box">
+      <div class="cmd-palette-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="cmd-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="cmd-palette-input" placeholder="Taip arahan atau cari pelanggan..." autocomplete="off" />
+        <span class="cmd-esc-tag">ESC</span>
+      </div>
+      <div class="cmd-palette-results" id="cmd-palette-results"></div>
+      <div class="cmd-palette-footer">
+        <span><kbd>↑</kbd> <kbd>↓</kbd> Navigasi</span>
+        <span><kbd>↵</kbd> Jalankan</span>
+        <span><kbd>ESC</kbd> Tutup</span>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

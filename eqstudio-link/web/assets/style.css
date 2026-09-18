@@ -7786,7 +7786,7 @@ body.book-preview-mobile-view .book-layout-split.has-sidebar {
 /* ── Settings gear dropdown (nav bar) — app-level toggles accessible dari
    mana-mana page, bukan terperangkap dalam satu content page ── */
 .settings-dropdown-panel {
-  position: absolute; top: calc(100% + 8px); right: 0; background: var(--surface);
+  position: fixed; top: 0; right: 0; background: var(--surface);
   border: 1px solid var(--paper-line); border-radius: 14px; box-shadow: 0 12px 32px rgba(42,33,24,0.16);
   width: 320px; max-width: calc(100vw - 2rem); z-index: 60; display: none;
   max-height: 70vh; overflow-y: auto;

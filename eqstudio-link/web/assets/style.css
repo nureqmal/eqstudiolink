@@ -7782,3 +7782,42 @@ body.book-preview-mobile-view .book-layout-split.has-sidebar {
 .profile-section-divider-sub {
   margin: -1rem 0 1.5rem; font-size: 0.85rem; color: var(--ink-soft); text-align: center;
 }
+
+/* ── Settings gear dropdown (nav bar) — app-level toggles accessible dari
+   mana-mana page, bukan terperangkap dalam satu content page ── */
+.settings-dropdown-panel {
+  position: absolute; top: calc(100% + 8px); right: 0; background: var(--surface);
+  border: 1px solid var(--paper-line); border-radius: 14px; box-shadow: 0 12px 32px rgba(42,33,24,0.16);
+  width: 320px; max-width: calc(100vw - 2rem); z-index: 60; display: none;
+  max-height: 70vh; overflow-y: auto;
+}
+.settings-dropdown-panel.open { display: block; }
+.settings-dropdown-header {
+  padding: 0.9rem 1.1rem 0.7rem; border-bottom: 1px solid var(--paper-line);
+  font-weight: 700; font-size: 0.92rem; color: var(--ink);
+}
+.settings-dropdown-section {
+  padding: 0.85rem 1.1rem; border-bottom: 1px solid var(--paper-line);
+}
+.settings-dropdown-section:last-child { border-bottom: none; }
+.settings-dropdown-section-title {
+  display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .settings-dropdown-panel {
+    position: fixed; top: auto; bottom: 0; left: 0; right: 0; width: 100%; max-width: none;
+    border-radius: 20px 20px 0 0; max-height: 80vh;
+    transform: translateY(100%); opacity: 0; pointer-events: none; display: block;
+    transition: transform 0.28s cubic-bezier(.2,.9,.3,1), opacity 0.2s;
+  }
+  .settings-dropdown-panel.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .settings-dropdown-panel::before {
+    content: ""; display: block; width: 36px; height: 4px; background: var(--paper-line);
+    border-radius: 999px; margin: 0.5rem auto 0.2rem;
+  }
+}
+@media (max-width: 768px) {
+  .settings-dropdown-panel { z-index: 560 !important; }
+}

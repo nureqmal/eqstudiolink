@@ -12,7 +12,8 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=68" />
+<link rel="stylesheet" href="/assets/style.css?v=74" />
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -548,10 +549,17 @@
             <button type="button" class="secondary guide-btn" data-guide="booking-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
 
+          <div class="db-tabs">
+            <button type="button" class="db-tab active" data-db-tab="tempahan">Tempahan</button>
+            <button type="button" class="db-tab" data-db-tab="leads">Leads <span class="db-tab-badge" id="leads-count-badge" style="display:none;"></span></button>
+          </div>
+
+          <div class="db-tab-panel active" id="db-tab-panel-tempahan">
           <div class="card">
             <div class="section-title">
               <h2 style="margin:0;">Senarai Booking</h2>
               <span class="hint" id="booking-list-count"></span>
+              <button type="button" class="secondary" id="open-manual-booking-btn" style="font-size:0.78rem; padding:0.4rem 0.75rem;">+ Booking Manual</button>
             </div>
             <div class="db-search-row" style="gap:0.5rem; flex-wrap:wrap;">
               <input type="search" id="booking-search-input" placeholder="Cari nama atau emel customer..." style="flex:1; min-width:180px;" />
@@ -576,6 +584,22 @@
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
               <p class="empty-state-title">Belum ada booking lagi</p>
               <p class="hint">Kongsi link booking anda (dari menu Tetapan Booking) untuk mula terima tempahan.</p>
+            </div>
+          </div>
+          </div>
+
+          <div class="db-tab-panel" id="db-tab-panel-leads">
+            <div class="card">
+              <div class="section-title">
+                <h2 style="margin:0;">Leads<button type="button" class="info-icon-btn" data-info="Log pertanyaan pelanggan sebelum mereka buat tempahan rasmi — susulan quote, hubungi semula, dan tukar terus kepada tempahan bila mereka setuju.">i</button></h2>
+                <button type="button" class="secondary" id="lead-add-btn" style="font-size:0.78rem; padding:0.4rem 0.75rem;">+ Tambah Lead</button>
+              </div>
+              <div id="lead-list"></div>
+              <div class="empty-state-visual" id="lead-list-empty" style="display:none;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <p class="empty-state-title">Belum ada lead lagi</p>
+                <p class="hint">Log pertanyaan pelanggan di sini sebelum mereka buat tempahan rasmi.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -906,6 +930,9 @@
                     <div class="poster-upload-success" id="et-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
                   </div>
                   <p class="hint" id="et-poster-locked" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Poster perkhidmatan hanya untuk pelan Pro. <a href="/billing.html" style="font-weight:600;">Upgrade ke Pro</a> untuk mengaktifkan.</p>
+
+                  <label for="et-video-link" style="display:block; margin-top:0.9rem;">Link Panggilan Video (pilihan) <button type="button" class="info-icon-btn" data-info="Untuk servis konsultasi/temujanji jarak jauh — link Google Meet atau Zoom ini akan dipaparkan kepada pelanggan selepas mereka berjaya menempah.">i</button></label>
+                  <input type="url" id="et-video-link" placeholder="cth: https://meet.google.com/xxx-xxxx-xxx" style="margin-top:0.35rem;" />
                 </div>
 
                 <button type="button" id="add-event-type-btn" style="margin-top:1rem; width:100%; padding:0.75rem; font-weight:700; border-radius:10px;">+ Tambah Jenis Perkhidmatan</button>
@@ -1168,6 +1195,12 @@
             <div class="db-stat-card">
               <div class="num mono" id="rpt-total-lifetime">–</div><div class="label">Total Received (All Time)</div>
             </div>
+            <div class="db-stat-card">
+              <div class="num mono" id="rpt-booked-ahead">–</div><div class="label">Ditempah Awal (Akan Datang)</div>
+            </div>
+            <div class="db-stat-card">
+              <div class="num mono" id="rpt-avg-per-client">–</div><div class="label">Purata Per Pelanggan</div>
+            </div>
           </div>
 
           <div class="card" id="weekly-narrative-card" style="margin-bottom:1.5rem; display:none;">
@@ -1188,7 +1221,11 @@
           <div class="card" style="margin-bottom:1.5rem;">
             <div class="section-title">
               <h2 style="margin:0;">Pendapatan Ikut Bulan</h2>
-              <button class="secondary" id="export-csv-btn">Eksport CSV</button>
+              <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                <button class="secondary" id="export-csv-btn">Eksport CSV</button>
+                <button class="secondary" id="export-borang-b-btn" title="Ringkasan tahunan pendapatan dan perbelanjaan untuk cukai">Eksport Borang B</button>
+                <button class="secondary" id="open-bank-recon-btn">🏦 Rekonsiliasi Bank</button>
+              </div>
             </div>
             <table>
               <thead><tr><th>Bulan</th><th>Jumlah Diterima</th><th>Bil. Pelanggan Bayar</th></tr></thead>
@@ -1204,6 +1241,19 @@
               <tbody id="report-top-tbody"></tbody>
             </table>
             <p class="hint" id="report-top-empty" style="display:none;">Belum ada data untuk dipaparkan.</p>
+          </div>
+
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="section-title">
+              <h2 style="margin:0;">Perbelanjaan<button type="button" class="info-icon-btn" data-info="Rekod kos perniagaan anda — scan resit guna AI untuk isi maklumat automatik, atau tambah secara manual. Berguna untuk kira untung bersih sebenar dan eksport Borang B.">i</button></h2>
+              <div style="display:flex; gap:0.4rem;">
+                <button type="button" class="secondary" id="expense-scan-btn" style="font-size:0.78rem; padding:0.4rem 0.7rem;">📷 Scan Resit</button>
+                <button type="button" class="secondary" id="expense-manual-btn" style="font-size:0.78rem; padding:0.4rem 0.7rem;">+ Manual</button>
+              </div>
+            </div>
+            <p class="hint" id="expense-month-total" style="margin:0 0 0.8rem;"></p>
+            <div id="expense-list"></div>
+            <p class="hint" id="expense-list-empty" style="display:none;">Belum ada perbelanjaan direkodkan lagi.</p>
           </div>
 
           <div class="card" style="margin-top:1.5rem;">
@@ -1728,6 +1778,155 @@
   </div>
 
   <!-- Per-page contextual help (Lapisan 2) -->
+  <div class="modal-overlay" id="milestone-modal-backdrop" style="display:none;">
+    <div class="modal-box" style="max-width:460px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Jadual Bayaran Ansuran</h2></div>
+      <p class="hint" style="margin-top:-0.3rem;">Untuk <strong id="milestone-modal-customer-name"></strong> — pecahkan jumlah kepada beberapa bayaran (cth: Deposit, Bayaran 2, Baki).</p>
+      <input type="hidden" id="milestone-modal-booking-id" />
+      <div id="milestone-modal-rows" style="margin-top:0.8rem;"></div>
+      <button type="button" class="secondary" id="milestone-modal-add-row-btn" style="width:100%;">+ Tambah Baris Bayaran</button>
+      <div class="milestone-modal-total-bar">
+        <span>Jumlah Keseluruhan</span>
+        <span id="milestone-modal-total">RM 0.00</span>
+      </div>
+      <div class="row" style="margin-top:1.25rem;">
+        <button type="button" class="secondary" id="milestone-modal-close-btn" style="flex:1;">Batal</button>
+        <button type="button" id="milestone-modal-save-btn" style="flex:1;">Simpan Jadual Bayaran</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="bank-recon-modal-backdrop" style="display:none;">
+    <div class="modal-box" style="max-width:480px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Rekonsiliasi Penyata Bank</h2></div>
+      <p class="hint" style="margin-top:-0.3rem;">Muat naik CSV penyata bank anda (Tarikh, Perihal, Jumlah) — sistem akan cuba padankan dengan bayaran ansuran yang belum disahkan.</p>
+
+      <div id="bank-recon-upload-zone">
+        <div class="bank-recon-dropzone" id="bank-recon-dropzone">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--stamp); margin-bottom:0.4rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <p style="margin:0; font-weight:600; font-size:0.88rem;">Klik untuk pilih fail CSV</p>
+          <input type="file" id="bank-recon-file-input" accept=".csv" style="display:none;" />
+        </div>
+        <p class="error" id="bank-recon-error" style="display:none; margin-top:0.6rem;"></p>
+      </div>
+
+      <div id="bank-recon-results" style="display:none;">
+        <div id="bank-recon-match-list"></div>
+        <p class="bank-recon-unmatched-note" id="bank-recon-unmatched-note" style="display:none;"></p>
+      </div>
+
+      <button type="button" class="secondary" id="bank-recon-close-btn" style="width:100%; margin-top:1rem;">Tutup</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="equipment-modal-backdrop" style="display:none;">
+    <div class="modal-box" style="max-width:460px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Inventori Peralatan</h2></div>
+      <div id="equipment-list"></div>
+      <p class="hint" id="equipment-list-empty" style="display:none;">Belum ada peralatan direkodkan lagi.</p>
+      <form id="equipment-add-form" class="equip-add-form">
+        <input type="text" id="equip-name" placeholder="Nama peralatan" required />
+        <input type="number" id="equip-qty" placeholder="Kuantiti" min="1" value="1" required />
+        <button type="submit" style="flex-shrink:0; padding:0.5rem 0.8rem;">+</button>
+      </form>
+      <button type="button" class="secondary" id="equipment-modal-close-btn" style="width:100%; margin-top:1rem;">Tutup</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="expense-modal-backdrop" style="display:none;">
+    <div class="modal-box" style="max-width:420px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tambah Perbelanjaan</h2></div>
+
+      <div id="expense-scan-zone" style="display:none;">
+        <div class="receipt-scan-dropzone" id="expense-dropzone">
+          <div class="receipt-scan-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></div>
+          <p style="margin:0; font-weight:600; font-size:0.9rem;">Klik untuk pilih gambar resit</p>
+          <p class="hint" style="margin:0.2rem 0 0;">AI akan cuba baca vendor, jumlah dan tarikh secara automatik</p>
+          <input type="file" id="expense-file-input" accept="image/*" capture="environment" style="display:none;" />
+        </div>
+        <div id="expense-scan-loading" style="display:none; text-align:center; padding:1.5rem 0;">
+          <div class="receipt-scan-spinner"></div>
+          <p class="hint" style="margin:0;">Membaca resit secara automatik...</p>
+        </div>
+        <p class="error" id="expense-scan-error" style="display:none;"></p>
+      </div>
+
+      <form id="expense-form" style="display:none;">
+        <p class="hint" id="expense-ai-note" style="display:none; color:var(--stamp);">✨ Diisi automatik oleh AI — sila semak dan betulkan jika perlu.</p>
+        <label for="expense-vendor">Nama Vendor / Kedai</label>
+        <input type="text" id="expense-vendor" />
+        <label for="expense-amount">Jumlah (RM)</label>
+        <input type="number" id="expense-amount" min="0" step="0.01" required />
+        <label for="expense-date">Tarikh</label>
+        <input type="date" id="expense-date" required />
+        <label for="expense-category">Kategori</label>
+        <select id="expense-category">
+          <option value="bahan">Bahan</option>
+          <option value="peralatan">Peralatan</option>
+          <option value="sewa">Sewa</option>
+          <option value="pengangkutan">Pengangkutan</option>
+          <option value="pemasaran">Pemasaran</option>
+          <option value="utiliti">Utiliti</option>
+          <option value="lain-lain" selected>Lain-lain</option>
+        </select>
+        <label for="expense-notes">Nota (pilihan)</label>
+        <textarea id="expense-notes" rows="2"></textarea>
+        <button type="submit" style="width:100%; margin-top:1rem;">Simpan Perbelanjaan</button>
+        <p class="error" id="expense-form-error" style="display:none;"></p>
+      </form>
+
+      <button type="button" class="secondary" id="expense-modal-close-btn" style="width:100%; margin-top:0.5rem;">Batal</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="lead-modal-backdrop" style="display:none;">
+    <div class="modal-box" style="max-width:420px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tambah Lead</h2></div>
+      <p class="hint" style="margin-top:-0.3rem;">Log pertanyaan pelanggan sebelum mereka buat tempahan rasmi.</p>
+      <form id="lead-form">
+        <label for="lead-name">Nama</label>
+        <input type="text" id="lead-name" required />
+        <label for="lead-phone">Telefon</label>
+        <input type="tel" id="lead-phone" />
+        <label for="lead-email">Emel (pilihan)</label>
+        <input type="email" id="lead-email" />
+        <label for="lead-date">Tarikh Berpotensi (pilihan)</label>
+        <input type="date" id="lead-date" />
+        <label for="lead-notes">Nota</label>
+        <textarea id="lead-notes" rows="2" placeholder="cth: Berminat dengan pakej rawatan kulit kepala"></textarea>
+        <button type="submit" style="width:100%; margin-top:1rem;">Simpan Lead</button>
+        <p class="error" id="lead-form-error" style="display:none;"></p>
+      </form>
+      <button type="button" class="secondary" id="lead-modal-close-btn" style="width:100%; margin-top:0.5rem;">Batal</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="manual-booking-modal-backdrop" style="display:none;">
+    <div class="modal-box" style="max-width:480px;">
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tambah Booking Manual</h2></div>
+      <p class="hint" style="margin-top:-0.3rem;">Untuk pelanggan walk-in/telefon, atau projek dengan beberapa majlis (cth: Nikah + Sanding).</p>
+      <form id="manual-booking-form">
+        <input type="hidden" id="mb-lead-id" />
+        <label for="mb-name">Nama Pelanggan</label>
+        <input type="text" id="mb-name" required />
+        <label for="mb-email">Emel</label>
+        <input type="email" id="mb-email" required />
+        <label for="mb-phone">Telefon</label>
+        <input type="tel" id="mb-phone" />
+
+        <label style="margin-top:0.8rem;">Sesi / Majlis</label>
+        <div id="mb-legs-rows"></div>
+        <button type="button" class="secondary" id="mb-add-leg-btn" style="width:100%; margin-top:0.3rem;">+ Tambah Sesi/Majlis Lain</button>
+
+        <label for="mb-notes" style="margin-top:0.8rem;">Nota</label>
+        <textarea id="mb-notes" rows="2"></textarea>
+        <button type="submit" style="width:100%; margin-top:1rem;">Sahkan Booking</button>
+        <p class="error" id="manual-booking-error" style="display:none;"></p>
+      </form>
+      <button type="button" class="secondary" id="manual-booking-close-btn" style="width:100%; margin-top:0.5rem;">Batal</button>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="reschedule-modal" style="display:none;">
     <div class="modal-box" style="max-width:380px;">
       <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Jadual Semula Tempahan</h2></div>
@@ -1993,6 +2192,11 @@
               <div class="settings-dropdown-section-title">Setup Pantas</div>
               <p class="hint" style="margin:0 0 0.6rem;">Tutup checklist Setup Pantas di Home tanpa sengaja? Boleh buka semula di sini.</p>
               <button type="button" class="secondary" id="reopen-setup-checklist-btn" style="width:100%; justify-content:center;">↻ Buka Semula Setup Pantas</button>
+            </div>
+
+            <div class="settings-dropdown-section">
+              <div class="settings-dropdown-section-title">Inventori Peralatan<button type="button" class="info-icon-btn" data-info="Jejak peralatan perniagaan anda — status tersedia, sedang digunakan, penyelenggaraan atau rosak.">i</button></div>
+              <button type="button" class="secondary" id="open-equipment-modal-btn" style="width:100%; justify-content:center;">📦 Urus Inventori</button>
             </div>
           </div>
 
@@ -3223,6 +3427,40 @@
       renderCalendar();
       renderSetupChecklist(data.length);
       updateHomeTileStats();
+      updateMoneyDashboardExtras();
+      loadExpenses();
+    }
+
+    function updateMoneyDashboardExtras() {
+      // Guarded: only compute once both allBookings and allCustomers have loaded
+      // (called from the end of both loadBookings() and loadCustomers() so it
+      // runs correctly no matter which finishes first — same fix pattern as
+      // the earlier Ops Cockpit "Active Links" race condition).
+      const bookedAheadEl = document.getElementById("rpt-booked-ahead");
+      const avgPerClientEl = document.getElementById("rpt-avg-per-client");
+      if (!bookedAheadEl || !avgPerClientEl) return;
+      if (typeof allBookings === "undefined" || typeof allCustomers === "undefined") return;
+
+      // Booked Ahead: sum of milestone payments (Bayaran Ansuran) tied to
+      // confirmed future bookings. Bookings with no milestones set up yet
+      // aren't counted — this reflects money actually tracked in the system,
+      // not an estimate from event-type defaults.
+      const now = new Date();
+      let bookedAhead = 0;
+      allBookings.forEach(b => {
+        if (b.status !== "confirmed" || new Date(b.slot_datetime) < now) return;
+        const milestones = bookingMilestones.get(b.id) || [];
+        bookedAhead += milestones.reduce((sum, m) => sum + Number(m.amount), 0);
+      });
+      bookedAheadEl.textContent = "RM " + bookedAhead.toFixed(2);
+
+      // Average per client: lifetime paid total divided by number of distinct
+      // paying customers (by email) — a simple, honest "average spend" figure.
+      const paidRows = allCustomers.filter(c => c.status === "dah_bayar");
+      const uniqueEmails = new Set(paidRows.map(c => c.contact_email));
+      const lifetimeTotal = paidRows.reduce((sum, c) => sum + Number(c.amount), 0);
+      const avg = uniqueEmails.size > 0 ? lifetimeTotal / uniqueEmails.size : 0;
+      avgPerClientEl.textContent = "RM " + avg.toFixed(2);
     }
 
     function renderReports(data) {
@@ -5116,6 +5354,7 @@
       document.getElementById("et-deposit").value = t.deposit_amount != null ? t.deposit_amount : "";
       document.getElementById("et-capacity").value = t.capacity || 1;
       document.getElementById("et-description-rte").innerHTML = sanitizeRichText(t.description || "");
+      document.getElementById("et-video-link").value = t.video_call_link || "";
       document.getElementById("add-event-type-btn").textContent = `Kemaskini "${t.name}"`;
       document.getElementById("et-cancel-edit-btn").style.display = "block";
       document.getElementById("et-name").scrollIntoView({ behavior: "smooth", block: "center" });
@@ -5127,6 +5366,7 @@
       prefillEventTypeDeposit();
       document.getElementById("et-capacity").value = "1";
       document.getElementById("et-description-rte").innerHTML = "";
+      document.getElementById("et-video-link").value = "";
       if (document.getElementById("et-poster-file")) document.getElementById("et-poster-file").value = "";
       document.getElementById("add-event-type-btn").textContent = "+ Tambah Jenis Perkhidmatan";
       document.getElementById("et-cancel-edit-btn").style.display = "none";
@@ -5205,16 +5445,18 @@
       }
       btn.textContent = editingEventTypeId ? "Menyimpan..." : "+ Tambah Jenis Perkhidmatan";
 
+      const videoCallLink = document.getElementById("et-video-link").value.trim() || null;
+
       let error;
       if (editingEventTypeId) {
-        const updatePayload = { name, duration_minutes: duration, deposit_amount: deposit, capacity, description };
+        const updatePayload = { name, duration_minutes: duration, deposit_amount: deposit, capacity, description, video_call_link: videoCallLink };
         if (posterUrl) updatePayload.poster_url = posterUrl;
         ({ error } = await supabase.from("event_types").update(updatePayload).eq("id", editingEventTypeId));
       } else {
         const { data: existing } = await supabase.from("event_types").select("id").eq("booking_link_id", currentLinkId);
         ({ error } = await supabase.from("event_types").insert({
           owner_id: user.id, booking_link_id: currentLinkId, name, duration_minutes: duration, deposit_amount: deposit, capacity, sort_order: (existing?.length || 0),
-          description, poster_url: posterUrl,
+          description, poster_url: posterUrl, video_call_link: videoCallLink,
         }));
       }
       btn.disabled = false;
@@ -5353,10 +5595,12 @@
     let allBookings = [];
     // (reschedule state variables declared near the reschedule modal logic below)
 
+    let bookingMilestones = new Map(); // booking_id -> array of customers rows (milestone payments)
+
     async function loadBookings() {
       const { data, error } = await supabase
         .from("bookings")
-        .select("id, slot_datetime, duration_minutes, customer_name, customer_email, customer_phone, customer_notes, status, customer_id, custom_answers, booking_link_id, event_type_id, created_at")
+        .select("id, slot_datetime, duration_minutes, customer_name, customer_email, customer_phone, customer_notes, status, customer_id, custom_answers, booking_link_id, event_type_id, created_at, group_id, ceremony_label")
         .eq("owner_id", user.id)
         .order("slot_datetime", { ascending: true });
 
@@ -5367,8 +5611,24 @@
         return;
       }
       allBookings = data || [];
+
+      // Load milestone payments for all bookings in one query (grouped client-side)
+      // rather than one query per booking row.
+      const { data: milestoneRows } = await supabase
+        .from("customers")
+        .select("id, booking_id, milestone_label, amount, due_date, status")
+        .eq("owner_id", user.id)
+        .not("booking_id", "is", null)
+        .order("due_date", { ascending: true });
+      bookingMilestones = new Map();
+      (milestoneRows || []).forEach(m => {
+        if (!bookingMilestones.has(m.booking_id)) bookingMilestones.set(m.booking_id, []);
+        bookingMilestones.get(m.booking_id).push(m);
+      });
+
       renderBookingList();
       updateHomeTileStats();
+      updateMoneyDashboardExtras();
     }
 
     function animateCountUp(el, targetValue, isMoney, prefix = "") {
@@ -6648,6 +6908,28 @@
       return d.toLocaleString("ms-MY", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
     }
 
+    function fmtDateShort(dateStr) {
+      const d = new Date(dateStr + "T00:00:00");
+      return d.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
+    }
+
+    function groupBookingsForDisplay(bookings) {
+      const groups = new Map();
+      const singles = [];
+      bookings.forEach(b => {
+        if (!b.group_id) { singles.push(b); return; }
+        if (!groups.has(b.group_id)) groups.set(b.group_id, []);
+        groups.get(b.group_id).push(b);
+      });
+      const groupedRows = Array.from(groups.values()).map(legs => {
+        const sortedLegs = legs.slice().sort((a, b) => new Date(a.slot_datetime) - new Date(b.slot_datetime));
+        // Representative row: earliest leg's fields drive date-sort/upcoming-past logic;
+        // _legs carries every session for the group card renderer.
+        return { ...sortedLegs[0], _legs: sortedLegs };
+      });
+      return [...singles, ...groupedRows];
+    }
+
     function renderBookingList() {
       const now = new Date();
       const q = document.getElementById("booking-search-input")?.value.trim().toLowerCase() || "";
@@ -6658,6 +6940,7 @@
       let source = !q ? allBookings : allBookings.filter(b =>
         b.customer_name.toLowerCase().includes(q) || b.customer_email.toLowerCase().includes(q)
       );
+      source = groupBookingsForDisplay(source);
 
       const upcoming = source.filter(b => b.status === "confirmed" && new Date(b.slot_datetime) >= now);
       const past = source.filter(b => b.status !== "confirmed" || new Date(b.slot_datetime) < now);
@@ -6668,7 +6951,68 @@
       const list = document.getElementById("booking-list");
       list.innerHTML = "";
 
+      function renderPayScheduleWidget(b) {
+        const milestones = bookingMilestones.get(b.id) || [];
+        if (milestones.length === 0) {
+          return `<button type="button" class="pay-schedule-none-btn" data-add-milestone="${b.id}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Tambah Bayaran Ansuran</button>`;
+        }
+        const totalAmount = milestones.reduce((s, m) => s + Number(m.amount), 0);
+        const paidAmount = milestones.filter(m => m.status === "dah_bayar").reduce((s, m) => s + Number(m.amount), 0);
+        const pct = totalAmount > 0 ? Math.round((paidAmount / totalAmount) * 100) : 0;
+        const today = new Date().toISOString().slice(0, 10);
+        const itemsHtml = milestones.map(m => {
+          const isPaid = m.status === "dah_bayar";
+          const isOverdue = !isPaid && m.due_date < today;
+          return `
+            <div class="pay-schedule-item">
+              <div class="pay-schedule-item-info">
+                <div class="pay-schedule-item-label">${escapeHtml(m.milestone_label || "Bayaran")}</div>
+                <div class="pay-schedule-item-due${isOverdue ? " overdue" : ""}">${isPaid ? "Dibayar" : (isOverdue ? "Tertunggak — " : "Cukup tempoh ") + fmtDateShort(m.due_date)}</div>
+              </div>
+              <div class="pay-schedule-item-amount">RM ${Number(m.amount).toFixed(2)}</div>
+              <button type="button" class="pay-schedule-item-toggle${isPaid ? " paid" : ""}" data-toggle-milestone="${m.id}" title="${isPaid ? "Tanda belum dibayar" : "Tanda dah dibayar"}">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </button>
+            </div>`;
+        }).join("");
+        return `
+          <div class="pay-schedule-widget" data-booking-id="${b.id}">
+            <div class="pay-schedule-summary" data-toggle-schedule="${b.id}">
+              <span class="pay-schedule-label">RM ${paidAmount.toFixed(0)} / ${totalAmount.toFixed(0)}</span>
+              <div class="pay-schedule-bar-track"><div class="pay-schedule-bar-fill" style="width:${pct}%;"></div></div>
+              <span class="pay-schedule-pct">${pct}%</span>
+              <span class="pay-schedule-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            </div>
+            <div class="pay-schedule-items">
+              ${itemsHtml}
+              <div class="pay-schedule-add-row">
+                <button type="button" class="pay-schedule-add-btn" data-add-milestone="${b.id}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Tambah Bayaran</button>
+              </div>
+            </div>
+          </div>`;
+      }
+
+      function renderBookingGroupCard(b) {
+        const div = document.createElement("div");
+        div.className = "booking-group-card";
+        const legsHtml = b._legs.map(leg => `
+          <div class="booking-group-leg">
+            <span class="booking-group-leg-label">${escapeHtml(leg.ceremony_label || "Sesi")}</span>
+            <span class="booking-group-leg-time">${fmtBookingDateTime(leg.slot_datetime)}</span>
+            ${leg.status === "cancelled" ? '<span class="badge belum_bayar">Dibatalkan</span>' : ""}
+          </div>`).join("");
+        div.innerHTML = `
+          <div class="booking-group-header">
+            <span class="booking-group-badge">${b._legs.length} Sesi</span>
+            <span class="booking-group-name">${escapeHtml(b.customer_name)} <span class="hint">(${escapeHtml(b.customer_email)})</span></span>
+          </div>
+          ${legsHtml}
+        `;
+        return div;
+      }
+
       function row(b, isPast) {
+        if (b._legs && b._legs.length > 1) return renderBookingGroupCard(b);
         const isToday = new Date(b.slot_datetime).toDateString() === new Date().toDateString();
         const div = document.createElement("div");
         div.className = "booking-row" + (isPast ? " past" : "") + (isToday && !isPast ? " today-badge" : "");
@@ -6678,6 +7022,7 @@
             <div class="booking-row-name">${escapeHtml(b.customer_name)} <span class="hint">(${escapeHtml(b.customer_email)})</span></div>
             ${b.customer_notes ? `<div class="hint"><em>${escapeHtml(b.customer_notes)}</em></div>` : ""}
             ${b.custom_answers && Object.keys(b.custom_answers).length ? Object.entries(b.custom_answers).map(([q2, a]) => `<div class="hint" style="font-size:0.78rem;"><strong>${escapeHtml(q2)}:</strong> ${escapeHtml(a)}</div>`).join("") : ""}
+            ${b.status === "confirmed" ? renderPayScheduleWidget(b) : ""}
           </div>
           <div class="booking-row-actions">
             ${b.status === "cancelled" ? '<span class="badge belum_bayar">Dibatalkan</span>' : isPast ? '<span class="hint">Lepas</span>' : ""}
@@ -6742,6 +7087,336 @@
     document.getElementById("booking-search-input")?.addEventListener("input", renderBookingList);
     document.getElementById("booking-filter-status")?.addEventListener("change", renderBookingList);
     document.getElementById("booking-sort")?.addEventListener("change", renderBookingList);
+
+    document.getElementById("open-manual-booking-btn")?.addEventListener("click", () => openManualBookingModal());
+
+    // ── Tab switching: Tempahan | Leads ──
+    document.querySelectorAll("[data-db-tab]").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll("[data-db-tab]").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".db-tab-panel").forEach(p => p.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(`db-tab-panel-${tab.dataset.dbTab}`)?.classList.add("active");
+        if (tab.dataset.dbTab === "leads") loadLeads();
+      });
+    });
+
+    // ── Leads ──
+    let allLeads = [];
+    const LEAD_STATUS_LABELS = { baharu: "Baharu", dihubungi: "Dihubungi", quote_dihantar: "Quote Dihantar", ditukar: "Ditukar ✓", hilang: "Hilang" };
+
+    async function loadLeads() {
+      const { data, error } = await supabase.from("leads").select("*").eq("owner_id", user.id).order("created_at", { ascending: false });
+      if (error) { showToast(error.message, "error"); return; }
+      allLeads = data || [];
+      renderLeadList();
+    }
+
+    function renderLeadList() {
+      const listEl = document.getElementById("lead-list");
+      const emptyEl = document.getElementById("lead-list-empty");
+      const badgeEl = document.getElementById("leads-count-badge");
+      const openCount = allLeads.filter(l => l.status !== "ditukar" && l.status !== "hilang").length;
+      if (badgeEl) { badgeEl.textContent = openCount; badgeEl.style.display = openCount > 0 ? "inline-flex" : "none"; }
+
+      if (allLeads.length === 0) { listEl.innerHTML = ""; emptyEl.style.display = "block"; return; }
+      emptyEl.style.display = "none";
+
+      listEl.innerHTML = allLeads.map(l => `
+        <div class="lead-card" data-lead-id="${l.id}">
+          <div class="lead-card-main">
+            <div class="lead-card-name">${escapeHtml(l.customer_name)}</div>
+            <div class="lead-card-meta">
+              ${l.contact_phone ? `<span>📞 ${escapeHtml(l.contact_phone)}</span>` : ""}
+              ${l.potential_date ? `<span>📅 ${fmtDateShort(l.potential_date)}</span>` : ""}
+            </div>
+            ${l.notes ? `<div class="lead-card-notes">${escapeHtml(l.notes)}</div>` : ""}
+          </div>
+          <select class="lead-status-select ${l.status}" data-lead-status-select="${l.id}" ${l.status === "ditukar" ? "disabled" : ""}>
+            ${Object.entries(LEAD_STATUS_LABELS).map(([val, label]) => `<option value="${val}" ${l.status === val ? "selected" : ""}>${label}</option>`).join("")}
+          </select>
+          ${l.status !== "ditukar" ? `<button type="button" class="lead-convert-btn" data-convert-lead="${l.id}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg> Tukar ke Booking</button>` : ""}
+        </div>
+      `).join("");
+    }
+
+    document.getElementById("lead-list")?.addEventListener("change", async (e) => {
+      const select = e.target.closest("[data-lead-status-select]");
+      if (!select) return;
+      const leadId = select.dataset.leadStatusSelect;
+      const newStatus = select.value;
+      select.className = `lead-status-select ${newStatus}`;
+      const { error } = await supabase.from("leads").update({ status: newStatus, updated_at: new Date().toISOString() }).eq("id", leadId);
+      if (error) { showToast(error.message, "error"); return; }
+      await loadLeads();
+    });
+
+    document.getElementById("lead-list")?.addEventListener("click", (e) => {
+      const convertBtn = e.target.closest("[data-convert-lead]");
+      if (!convertBtn) return;
+      const lead = allLeads.find(l => l.id === convertBtn.dataset.convertLead);
+      if (lead) openManualBookingModal(lead);
+    });
+
+    document.getElementById("lead-add-btn")?.addEventListener("click", () => {
+      document.getElementById("lead-form").reset();
+      document.getElementById("lead-form-error").style.display = "none";
+      document.getElementById("lead-modal-backdrop").style.display = "flex";
+    });
+    document.getElementById("lead-modal-close-btn")?.addEventListener("click", () => {
+      document.getElementById("lead-modal-backdrop").style.display = "none";
+    });
+
+    document.getElementById("lead-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const errorEl = document.getElementById("lead-form-error");
+      errorEl.style.display = "none";
+      const payload = {
+        owner_id: user.id,
+        customer_name: document.getElementById("lead-name").value.trim(),
+        contact_phone: document.getElementById("lead-phone").value.trim() || null,
+        contact_email: document.getElementById("lead-email").value.trim() || null,
+        potential_date: document.getElementById("lead-date").value || null,
+        notes: document.getElementById("lead-notes").value.trim() || null,
+      };
+      const { error } = await supabase.from("leads").insert(payload);
+      if (error) { errorEl.textContent = error.message; errorEl.style.display = "block"; return; }
+      document.getElementById("lead-modal-backdrop").style.display = "none";
+      showToast("Lead disimpan!", "success");
+      await loadLeads();
+    });
+
+    // ── Manual Booking (walk-in/phone customers, multi-ceremony projects, or converting a Lead) ──
+    let mbLegRowCount = 0;
+    let mbEventTypesCache = [];
+
+    function mbLegRowHtml(idx, prefillLabel = "") {
+      const typeOptions = mbEventTypesCache.map(t => `<option value="${t.id}" data-duration="${t.duration_minutes}">${escapeHtml(t.name)}</option>`).join("");
+      return `
+        <div class="mb-leg-row" data-leg-row="${idx}">
+          <div class="mb-leg-row-top">
+            <div><label>Label Majlis (pilihan)</label><input type="text" class="mb-leg-label" placeholder="cth: Nikah, Sanding" value="${escapeHtml(prefillLabel)}" /></div>
+            <button type="button" class="mb-leg-remove-btn" data-remove-leg="${idx}" title="Buang sesi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+          </div>
+          <div class="mb-leg-row-grid">
+            <div><label>Tarikh</label><input type="date" class="mb-leg-date" required /></div>
+            <div><label>Masa</label><input type="time" class="mb-leg-time" required /></div>
+            <div><label>Tempoh (min)</label><input type="number" class="mb-leg-duration" min="5" step="5" value="60" required /></div>
+          </div>
+          ${mbEventTypesCache.length > 0 ? `<div style="margin-top:0.5rem;"><label>Jenis Perkhidmatan (pilihan)</label><select class="mb-leg-event-type"><option value="">— Tiada —</option>${typeOptions}</select></div>` : ""}
+        </div>`;
+    }
+
+    function addMbLegRow(prefillLabel = "") {
+      document.getElementById("mb-legs-rows").insertAdjacentHTML("beforeend", mbLegRowHtml(mbLegRowCount, prefillLabel));
+      const newRow = document.querySelector(`[data-leg-row="${mbLegRowCount}"]`);
+      newRow.querySelector(".mb-leg-event-type")?.addEventListener("change", (e) => {
+        const dur = e.target.selectedOptions[0]?.dataset.duration;
+        if (dur) newRow.querySelector(".mb-leg-duration").value = dur;
+      });
+      mbLegRowCount++;
+    }
+
+    async function openManualBookingModal(lead = null) {
+      document.getElementById("manual-booking-form").reset();
+      document.getElementById("manual-booking-error").style.display = "none";
+      document.getElementById("mb-lead-id").value = lead ? lead.id : "";
+      if (lead) {
+        document.getElementById("mb-name").value = lead.customer_name;
+        document.getElementById("mb-phone").value = lead.contact_phone || "";
+        document.getElementById("mb-email").value = lead.contact_email || "";
+      }
+
+      mbEventTypesCache = [];
+      if (currentLinkId) {
+        const { data: types } = await supabase.from("event_types").select("id, name, duration_minutes").eq("booking_link_id", currentLinkId).order("sort_order", { ascending: true });
+        mbEventTypesCache = types || [];
+      }
+
+      document.getElementById("mb-legs-rows").innerHTML = "";
+      mbLegRowCount = 0;
+      addMbLegRow();
+      if (lead?.potential_date) document.querySelector(".mb-leg-date").value = lead.potential_date;
+
+      document.getElementById("manual-booking-modal-backdrop").style.display = "flex";
+    }
+
+    document.getElementById("mb-add-leg-btn")?.addEventListener("click", () => addMbLegRow());
+
+    document.getElementById("mb-legs-rows")?.addEventListener("click", (e) => {
+      const removeBtn = e.target.closest("[data-remove-leg]");
+      if (!removeBtn) return;
+      const rows = document.querySelectorAll("#mb-legs-rows .mb-leg-row");
+      if (rows.length <= 1) { showToast("Perlu sekurang-kurangnya satu sesi.", "error"); return; }
+      removeBtn.closest(".mb-leg-row").remove();
+    });
+
+    document.getElementById("manual-booking-close-btn")?.addEventListener("click", () => {
+      document.getElementById("manual-booking-modal-backdrop").style.display = "none";
+    });
+
+    document.getElementById("manual-booking-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const errorEl = document.getElementById("manual-booking-error");
+      errorEl.style.display = "none";
+
+      const legRows = Array.from(document.querySelectorAll("#mb-legs-rows .mb-leg-row"));
+      const legs = [];
+      for (const row of legRows) {
+        const date = row.querySelector(".mb-leg-date").value;
+        const time = row.querySelector(".mb-leg-time").value;
+        const duration = parseInt(row.querySelector(".mb-leg-duration").value, 10);
+        if (!date || !time || !duration) { errorEl.textContent = "Sila lengkapkan tarikh, masa dan tempoh setiap sesi."; errorEl.style.display = "block"; return; }
+        legs.push({
+          slot_datetime: new Date(`${date}T${time}:00`).toISOString(),
+          duration_minutes: duration,
+          event_type_id: row.querySelector(".mb-leg-event-type")?.value || null,
+          ceremony_label: row.querySelector(".mb-leg-label").value.trim() || null,
+        });
+      }
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true; submitBtn.textContent = "Menyimpan...";
+
+      const { data: sessionData } = await supabase.auth.getSession();
+      const res = await fetch("/api/booking-create-manual", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${sessionData.session.access_token}` },
+        body: JSON.stringify({
+          legs,
+          customer_name: document.getElementById("mb-name").value.trim(),
+          customer_email: document.getElementById("mb-email").value.trim(),
+          customer_phone: document.getElementById("mb-phone").value.trim() || null,
+          customer_notes: document.getElementById("mb-notes").value.trim() || null,
+          lead_id: document.getElementById("mb-lead-id").value || null,
+        }),
+      });
+      const result = await res.json();
+      submitBtn.disabled = false; submitBtn.textContent = "Sahkan Booking";
+      if (!res.ok) { errorEl.textContent = result.error || "Gagal simpan booking."; errorEl.style.display = "block"; return; }
+
+      document.getElementById("manual-booking-modal-backdrop").style.display = "none";
+      showToast(legs.length > 1 ? `${legs.length} sesi berjaya disahkan!` : "Booking berjaya disahkan!", "success");
+      await loadBookings();
+      if (document.getElementById("mb-lead-id").value) await loadLeads();
+    });
+
+
+    // ── Bayaran Ansuran: event delegation (one listener handles every row,
+    // since rows are recreated on every render) ──
+    document.getElementById("booking-list")?.addEventListener("click", async (e) => {
+      const toggleSchedule = e.target.closest("[data-toggle-schedule]");
+      if (toggleSchedule) {
+        toggleSchedule.closest(".pay-schedule-widget")?.classList.toggle("expanded");
+        return;
+      }
+
+      const toggleMilestone = e.target.closest("[data-toggle-milestone]");
+      if (toggleMilestone) {
+        const milestoneId = toggleMilestone.dataset.toggleMilestone;
+        const isPaid = toggleMilestone.classList.contains("paid");
+        toggleMilestone.disabled = true;
+        const { error } = await supabase.from("customers").update({ status: isPaid ? "belum_bayar" : "dah_bayar" }).eq("id", milestoneId);
+        if (error) { showToast(error.message, "error"); toggleMilestone.disabled = false; return; }
+        await loadBookings();
+        return;
+      }
+
+      const addMilestoneBtn = e.target.closest("[data-add-milestone]");
+      if (addMilestoneBtn) {
+        openMilestoneModal(addMilestoneBtn.dataset.addMilestone);
+        return;
+      }
+    });
+
+    let milestoneModalRowCount = 0;
+    function milestoneModalRowHtml(idx) {
+      return `
+        <div class="milestone-modal-row" data-row="${idx}">
+          <div><label>Label</label><input type="text" class="ms-label" placeholder="cth: Deposit" /></div>
+          <div><label>Jumlah (RM)</label><input type="number" class="ms-amount" min="0" step="0.01" /></div>
+          <div><label>Cukup Tempoh</label><input type="date" class="ms-due" /></div>
+          <button type="button" class="milestone-modal-remove-btn" data-remove-row="${idx}" title="Buang baris"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        </div>`;
+    }
+
+    function updateMilestoneModalTotal() {
+      const total = Array.from(document.querySelectorAll("#milestone-modal-rows .ms-amount"))
+        .reduce((s, el) => s + (parseFloat(el.value) || 0), 0);
+      const totalEl = document.getElementById("milestone-modal-total");
+      if (totalEl) totalEl.textContent = `RM ${total.toFixed(2)}`;
+    }
+
+    function openMilestoneModal(bookingId) {
+      const booking = allBookings.find(b => b.id === bookingId);
+      if (!booking) return;
+      document.getElementById("milestone-modal-booking-id").value = bookingId;
+      document.getElementById("milestone-modal-customer-name").textContent = booking.customer_name;
+      const rowsEl = document.getElementById("milestone-modal-rows");
+      rowsEl.innerHTML = "";
+      milestoneModalRowCount = 0;
+      // Start with two rows pre-filled (Deposit / Baki) — the most common case —
+      // owner can add more or remove down to one.
+      rowsEl.insertAdjacentHTML("beforeend", milestoneModalRowHtml(milestoneModalRowCount++));
+      rowsEl.insertAdjacentHTML("beforeend", milestoneModalRowHtml(milestoneModalRowCount++));
+      rowsEl.querySelectorAll(".ms-label")[0].value = "Deposit";
+      rowsEl.querySelectorAll(".ms-label")[1].value = "Baki";
+      updateMilestoneModalTotal();
+      document.getElementById("milestone-modal-backdrop").style.display = "flex";
+    }
+
+    document.getElementById("milestone-modal-add-row-btn")?.addEventListener("click", () => {
+      document.getElementById("milestone-modal-rows").insertAdjacentHTML("beforeend", milestoneModalRowHtml(milestoneModalRowCount++));
+    });
+
+    document.getElementById("milestone-modal-rows")?.addEventListener("input", (e) => {
+      if (e.target.classList.contains("ms-amount")) updateMilestoneModalTotal();
+    });
+    document.getElementById("milestone-modal-rows")?.addEventListener("click", (e) => {
+      const removeBtn = e.target.closest("[data-remove-row]");
+      if (removeBtn) {
+        const rows = document.querySelectorAll("#milestone-modal-rows .milestone-modal-row");
+        if (rows.length <= 1) { showToast("Perlu sekurang-kurangnya satu bayaran.", "error"); return; }
+        removeBtn.closest(".milestone-modal-row").remove();
+        updateMilestoneModalTotal();
+      }
+    });
+
+    function closeMilestoneModal() {
+      document.getElementById("milestone-modal-backdrop").style.display = "none";
+    }
+    document.getElementById("milestone-modal-close-btn")?.addEventListener("click", closeMilestoneModal);
+    document.getElementById("milestone-modal-backdrop")?.addEventListener("click", (e) => {
+      if (e.target.id === "milestone-modal-backdrop") closeMilestoneModal();
+    });
+
+    document.getElementById("milestone-modal-save-btn")?.addEventListener("click", async () => {
+      const bookingId = document.getElementById("milestone-modal-booking-id").value;
+      const booking = allBookings.find(b => b.id === bookingId);
+      if (!booking) return;
+      const rows = Array.from(document.querySelectorAll("#milestone-modal-rows .milestone-modal-row"));
+      const payloads = [];
+      for (const row of rows) {
+        const label = row.querySelector(".ms-label").value.trim();
+        const amount = parseFloat(row.querySelector(".ms-amount").value);
+        const due = row.querySelector(".ms-due").value;
+        if (!label || !amount || !due) { showToast("Sila lengkapkan semua baris (label, jumlah, tarikh).", "error"); return; }
+        payloads.push({
+          owner_id: user.id, booking_id: bookingId, milestone_label: label, amount,
+          due_date: due, name: booking.customer_name, contact_email: booking.customer_email,
+          contact_phone: booking.customer_phone || null, status: "belum_bayar",
+        });
+      }
+      const saveBtn = document.getElementById("milestone-modal-save-btn");
+      saveBtn.disabled = true; saveBtn.textContent = "Menyimpan...";
+      const { error } = await supabase.from("customers").insert(payloads);
+      saveBtn.disabled = false; saveBtn.textContent = "Simpan Jadual Bayaran";
+      if (error) { showToast(error.message, "error"); return; }
+      showToast("Jadual bayaran berjaya disimpan!", "success");
+      closeMilestoneModal();
+      await loadBookings();
+    });
+
 
     async function cancelBooking(b) {
       if (!confirm(`Batalkan booking ${b.customer_name}?`)) return;
@@ -6948,6 +7623,406 @@
       a.download = `laporan-eqstudio-${new Date().toISOString().slice(0, 10)}.csv`;
       a.click();
       URL.revokeObjectURL(url);
+    });
+
+    document.getElementById("export-borang-b-btn")?.addEventListener("click", () => {
+      const paid = allCustomers.filter(c => c.status === "dah_bayar" && c.paid_at);
+      if (paid.length === 0 && allExpenses.length === 0) {
+        showToast("Tiada data pendapatan atau perbelanjaan untuk export lagi.", "error");
+        return;
+      }
+      // Group both income and expenses by month, so each row shows income, expenses,
+      // and net profit — the shape Malaysian sole-proprietor tax filing (Borang B) needs.
+      const monthMap = new Map();
+      paid.forEach(c => {
+        const key = c.paid_at.slice(0, 7);
+        if (!monthMap.has(key)) monthMap.set(key, { income: 0, expenses: 0 });
+        monthMap.get(key).income += Number(c.amount);
+      });
+      allExpenses.forEach(e => {
+        const key = e.expense_date.slice(0, 7);
+        if (!monthMap.has(key)) monthMap.set(key, { income: 0, expenses: 0 });
+        monthMap.get(key).expenses += Number(e.amount);
+      });
+
+      const sortedKeys = Array.from(monthMap.keys()).sort();
+      const header = "Bulan,Pendapatan (RM),Perbelanjaan (RM),Untung Bersih (RM)\n";
+      let totalIncome = 0, totalExpenses = 0;
+      const rows = sortedKeys.map(key => {
+        const { income, expenses } = monthMap.get(key);
+        totalIncome += income; totalExpenses += expenses;
+        return [key, income.toFixed(2), expenses.toFixed(2), (income - expenses).toFixed(2)]
+          .map(v => `"${String(v).replace(/"/g, '""')}"`).join(",");
+      }).join("\n");
+      const totalRow = `\n"JUMLAH","${totalIncome.toFixed(2)}","${totalExpenses.toFixed(2)}","${(totalIncome - totalExpenses).toFixed(2)}"`;
+
+      const blob = new Blob([header + rows + totalRow], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `borang-b-ringkasan-eqstudio-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // ── Perbelanjaan (Expenses) ──
+    let allExpenses = [];
+    const EXPENSE_CATEGORY_LABELS = { bahan: "Bahan", peralatan: "Peralatan", sewa: "Sewa", pengangkutan: "Pengangkutan", pemasaran: "Pemasaran", utiliti: "Utiliti", "lain-lain": "Lain-lain" };
+
+    async function loadExpenses() {
+      const { data, error } = await supabase.from("expenses").select("*").eq("owner_id", user.id).order("expense_date", { ascending: false });
+      if (error) return;
+      allExpenses = data || [];
+      renderExpenseList();
+    }
+
+    function renderExpenseList() {
+      const listEl = document.getElementById("expense-list");
+      const emptyEl = document.getElementById("expense-list-empty");
+      const totalEl = document.getElementById("expense-month-total");
+      if (!listEl) return;
+
+      const now = new Date();
+      const thisMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+      const monthTotal = allExpenses.filter(e => e.expense_date.slice(0, 7) === thisMonthKey).reduce((s, e) => s + Number(e.amount), 0);
+      totalEl.textContent = `Perbelanjaan bulan ini: RM ${monthTotal.toFixed(2)}`;
+
+      if (allExpenses.length === 0) { listEl.innerHTML = ""; emptyEl.style.display = "block"; return; }
+      emptyEl.style.display = "none";
+
+      listEl.innerHTML = allExpenses.slice(0, 20).map(exp => `
+        <div class="expense-row">
+          <div class="expense-row-main">
+            <div class="expense-row-vendor">${escapeHtml(exp.vendor_name || "Perbelanjaan")}</div>
+            <div class="expense-row-meta">${fmtDateShort(exp.expense_date)} · <span class="expense-category-badge">${EXPENSE_CATEGORY_LABELS[exp.category] || exp.category}</span></div>
+          </div>
+          <div class="expense-row-amount">− RM ${Number(exp.amount).toFixed(2)}</div>
+          <button type="button" class="expense-delete-btn" data-delete-expense="${exp.id}" title="Padam"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+        </div>
+      `).join("");
+    }
+
+    document.getElementById("expense-list")?.addEventListener("click", async (e) => {
+      const delBtn = e.target.closest("[data-delete-expense]");
+      if (!delBtn) return;
+      if (!confirm("Padam rekod perbelanjaan ini?")) return;
+      const { error } = await supabase.from("expenses").delete().eq("id", delBtn.dataset.deleteExpense);
+      if (error) { showToast(error.message, "error"); return; }
+      await loadExpenses();
+    });
+
+    function resetExpenseModal() {
+      document.getElementById("expense-form").reset();
+      document.getElementById("expense-form-error").style.display = "none";
+      document.getElementById("expense-ai-note").style.display = "none";
+      document.getElementById("expense-date").value = new Date().toISOString().slice(0, 10);
+      document.getElementById("expense-scan-error").style.display = "none";
+      document.getElementById("expense-scan-loading").style.display = "none";
+      document.getElementById("expense-dropzone").style.display = "block";
+    }
+
+    document.getElementById("expense-scan-btn")?.addEventListener("click", () => {
+      resetExpenseModal();
+      document.getElementById("expense-scan-zone").style.display = "block";
+      document.getElementById("expense-form").style.display = "none";
+      document.getElementById("expense-modal-backdrop").style.display = "flex";
+    });
+
+    document.getElementById("expense-manual-btn")?.addEventListener("click", () => {
+      resetExpenseModal();
+      document.getElementById("expense-scan-zone").style.display = "none";
+      document.getElementById("expense-form").style.display = "block";
+      document.getElementById("expense-modal-backdrop").style.display = "flex";
+    });
+
+    document.getElementById("expense-modal-close-btn")?.addEventListener("click", () => {
+      document.getElementById("expense-modal-backdrop").style.display = "none";
+    });
+
+    document.getElementById("expense-dropzone")?.addEventListener("click", () => {
+      document.getElementById("expense-file-input").click();
+    });
+
+    // ── Parse OCR raw text into best-guess vendor/amount/date/category.
+    // Heuristic-based (not as smart as an LLM reading the image directly),
+    // but runs entirely free in the browser — no API, no cost per scan.
+    function parseReceiptText(rawText) {
+      const lines = rawText.split("\n").map(l => l.trim()).filter(Boolean);
+
+      // Vendor: receipts almost always print the business name as one of the
+      // first few lines, in the largest/boldest text (which OCR still reads
+      // as plain text, but position is still the best signal available).
+      // Skip lines that are pure numbers/symbols (unlikely to be a name).
+      let vendor = null;
+      for (const line of lines.slice(0, 5)) {
+        if (/[a-zA-Z]{3,}/.test(line) && !/^(resit|invois|receipt|tarikh|date)/i.test(line)) {
+          vendor = line;
+          break;
+        }
+      }
+
+      // Amount: prefer a number on a line containing "total"/"jumlah"/"amount"
+      // (case-insensitive); fall back to the largest RM-formatted number found
+      // anywhere, since the grand total is usually the biggest figure printed.
+      let amount = null;
+      const totalLineMatch = lines.find(l => /total|jumlah|amount due|grand total/i.test(l));
+      const amountRegex = /(?:RM)?\s*(\d{1,5}(?:[.,]\d{2}))/i;
+      if (totalLineMatch) {
+        const m = totalLineMatch.match(amountRegex);
+        if (m) amount = parseFloat(m[1].replace(",", "."));
+      }
+      if (amount === null) {
+        const allAmounts = [...rawText.matchAll(/(?:RM)?\s*(\d{1,5}[.,]\d{2})/gi)]
+          .map(m => parseFloat(m[1].replace(",", ".")))
+          .filter(n => !isNaN(n));
+        if (allAmounts.length > 0) amount = Math.max(...allAmounts);
+      }
+
+      // Date: try common Malaysian receipt formats (DD/MM/YYYY, DD-MM-YYYY,
+      // DD.MM.YYYY, YYYY-MM-DD).
+      let expenseDate = null;
+      const dateMatch = rawText.match(/(\d{4})-(\d{1,2})-(\d{1,2})/) || rawText.match(/(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/);
+      if (dateMatch) {
+        if (dateMatch[0].startsWith(dateMatch[1]) && dateMatch[1].length === 4) {
+          expenseDate = `${dateMatch[1]}-${dateMatch[2].padStart(2, "0")}-${dateMatch[3].padStart(2, "0")}`;
+        } else {
+          expenseDate = `${dateMatch[3]}-${dateMatch[2].padStart(2, "0")}-${dateMatch[1].padStart(2, "0")}`;
+        }
+      }
+
+      return { vendor_name: vendor, amount, expense_date: expenseDate, category: "lain-lain" };
+    }
+
+    document.getElementById("expense-file-input")?.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const errorEl = document.getElementById("expense-scan-error");
+      errorEl.style.display = "none";
+      document.getElementById("expense-dropzone").style.display = "none";
+      document.getElementById("expense-scan-loading").style.display = "block";
+
+      try {
+        // Tesseract.js runs entirely in the browser (WebAssembly) — free,
+        // no server call, no per-scan cost.
+        const { data: { text } } = await Tesseract.recognize(file, "eng+msa");
+        const ex = parseReceiptText(text);
+
+        if (ex.vendor_name) document.getElementById("expense-vendor").value = ex.vendor_name;
+        if (ex.amount) document.getElementById("expense-amount").value = ex.amount;
+        if (ex.expense_date) document.getElementById("expense-date").value = ex.expense_date;
+        document.getElementById("expense-category").value = ex.category;
+        document.getElementById("expense-ai-note").style.display = "block";
+        document.getElementById("expense-ai-note").textContent = "✨ Diisi automatik daripada resit — sila semak dan betulkan jika perlu (pembacaan automatik tidak selalu tepat).";
+
+        document.getElementById("expense-scan-zone").style.display = "none";
+        document.getElementById("expense-form").style.display = "block";
+      } catch (err) {
+        document.getElementById("expense-scan-loading").style.display = "none";
+        document.getElementById("expense-dropzone").style.display = "block";
+        errorEl.textContent = "Gagal baca resit (" + err.message + "). Sila cuba lagi atau isi secara manual.";
+        errorEl.style.display = "block";
+      }
+    });
+
+    document.getElementById("expense-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const errorEl = document.getElementById("expense-form-error");
+      errorEl.style.display = "none";
+      const payload = {
+        owner_id: user.id,
+        vendor_name: document.getElementById("expense-vendor").value.trim() || null,
+        amount: parseFloat(document.getElementById("expense-amount").value),
+        expense_date: document.getElementById("expense-date").value,
+        category: document.getElementById("expense-category").value,
+        notes: document.getElementById("expense-notes").value.trim() || null,
+      };
+      const { error } = await supabase.from("expenses").insert(payload);
+      if (error) { errorEl.textContent = error.message; errorEl.style.display = "block"; return; }
+      document.getElementById("expense-modal-backdrop").style.display = "none";
+      showToast("Perbelanjaan disimpan!", "success");
+      await loadExpenses();
+    });
+
+    // ── Inventori Peralatan (Equipment) ──
+    let allEquipment = [];
+    const EQUIP_STATUS_LABELS = { tersedia: "Tersedia", digunakan: "Digunakan", penyelenggaraan: "Penyelenggaraan", rosak: "Rosak" };
+
+    async function loadEquipment() {
+      const { data, error } = await supabase.from("equipment").select("*").eq("owner_id", user.id).order("created_at", { ascending: true });
+      if (error) return;
+      allEquipment = data || [];
+      renderEquipmentList();
+    }
+
+    function renderEquipmentList() {
+      const listEl = document.getElementById("equipment-list");
+      const emptyEl = document.getElementById("equipment-list-empty");
+      if (allEquipment.length === 0) { listEl.innerHTML = ""; emptyEl.style.display = "block"; return; }
+      emptyEl.style.display = "none";
+      listEl.innerHTML = allEquipment.map(eq => `
+        <div class="equip-row" data-equip-id="${eq.id}">
+          <div class="equip-row-main">
+            <div class="equip-row-name">${escapeHtml(eq.name)}</div>
+            <div class="equip-row-qty">Kuantiti: ${eq.quantity}</div>
+          </div>
+          <select class="equip-status-select ${eq.status}" data-equip-status="${eq.id}">
+            ${Object.entries(EQUIP_STATUS_LABELS).map(([val, label]) => `<option value="${val}" ${eq.status === val ? "selected" : ""}>${label}</option>`).join("")}
+          </select>
+          <button type="button" class="equip-delete-btn" data-delete-equip="${eq.id}" title="Padam"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+        </div>
+      `).join("");
+    }
+
+    document.getElementById("open-equipment-modal-btn")?.addEventListener("click", () => {
+      loadEquipment();
+      document.getElementById("equipment-modal-backdrop").style.display = "flex";
+    });
+    document.getElementById("equipment-modal-close-btn")?.addEventListener("click", () => {
+      document.getElementById("equipment-modal-backdrop").style.display = "none";
+    });
+
+    document.getElementById("equipment-list")?.addEventListener("change", async (e) => {
+      const select = e.target.closest("[data-equip-status]");
+      if (!select) return;
+      select.className = `equip-status-select ${select.value}`;
+      await supabase.from("equipment").update({ status: select.value }).eq("id", select.dataset.equipStatus);
+    });
+
+    document.getElementById("equipment-list")?.addEventListener("click", async (e) => {
+      const delBtn = e.target.closest("[data-delete-equip]");
+      if (!delBtn) return;
+      if (!confirm("Padam peralatan ini dari inventori?")) return;
+      await supabase.from("equipment").delete().eq("id", delBtn.dataset.deleteEquip);
+      await loadEquipment();
+    });
+
+    document.getElementById("equipment-add-form")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("equip-name").value.trim();
+      const qty = parseInt(document.getElementById("equip-qty").value, 10) || 1;
+      if (!name) return;
+      const { error } = await supabase.from("equipment").insert({ owner_id: user.id, name, quantity: qty, status: "tersedia" });
+      if (error) { showToast(error.message, "error"); return; }
+      document.getElementById("equipment-add-form").reset();
+      document.getElementById("equip-qty").value = "1";
+      await loadEquipment();
+    });
+
+    // ── Rekonsiliasi Penyata Bank ──
+    function resetBankReconModal() {
+      document.getElementById("bank-recon-upload-zone").style.display = "block";
+      document.getElementById("bank-recon-results").style.display = "none";
+      document.getElementById("bank-recon-error").style.display = "none";
+    }
+
+    document.getElementById("open-bank-recon-btn")?.addEventListener("click", () => {
+      resetBankReconModal();
+      document.getElementById("bank-recon-modal-backdrop").style.display = "flex";
+    });
+    document.getElementById("bank-recon-close-btn")?.addEventListener("click", () => {
+      document.getElementById("bank-recon-modal-backdrop").style.display = "none";
+    });
+    document.getElementById("bank-recon-dropzone")?.addEventListener("click", () => {
+      document.getElementById("bank-recon-file-input").click();
+    });
+
+    // Simple CSV line parser — handles quoted fields with embedded commas,
+    // sufficient for typical Malaysian bank statement exports. Not a full
+    // RFC-4180 parser (no escaped-quote-within-quote support), but covers
+    // the common case without adding a library dependency.
+    function parseCsvLine(line) {
+      const cells = [];
+      let cur = "", inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') { inQuotes = !inQuotes; }
+        else if (ch === "," && !inQuotes) { cells.push(cur.trim()); cur = ""; }
+        else { cur += ch; }
+      }
+      cells.push(cur.trim());
+      return cells;
+    }
+
+    document.getElementById("bank-recon-file-input")?.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const errorEl = document.getElementById("bank-recon-error");
+      errorEl.style.display = "none";
+
+      const text = await file.text();
+      const lines = text.split("\n").map(l => l.trim()).filter(Boolean);
+      if (lines.length < 2) { errorEl.textContent = "Fail CSV kosong atau format tidak sah."; errorEl.style.display = "block"; return; }
+
+      // Skip header row, parse the rest as [date, description, amount] — flexible
+      // about column order isn't attempted; assumes the common Tarikh,Perihal,Jumlah shape.
+      const transactions = lines.slice(1).map(line => {
+        const cells = parseCsvLine(line);
+        const amount = parseFloat((cells[2] || "").replace(/[^0-9.-]/g, ""));
+        return { date: cells[0] || "", description: cells[1] || "", amount };
+      }).filter(t => !isNaN(t.amount) && t.amount > 0);
+
+      if (transactions.length === 0) { errorEl.textContent = "Tiada transaksi sah dijumpai dalam fail ini."; errorEl.style.display = "block"; return; }
+
+      // Gather every unpaid milestone across all bookings for matching.
+      const unpaidMilestones = [];
+      bookingMilestones.forEach(list => list.forEach(m => { if (m.status !== "dah_bayar") unpaidMilestones.push(m); }));
+
+      // Match by exact amount (within 1 sen tolerance for rounding) — simple
+      // and transparent; owner confirms each match manually before it's applied.
+      const matches = [];
+      const usedMilestoneIds = new Set();
+      transactions.forEach(t => {
+        const found = unpaidMilestones.find(m => !usedMilestoneIds.has(m.id) && Math.abs(Number(m.amount) - t.amount) < 0.01);
+        if (found) { usedMilestoneIds.add(found.id); matches.push({ transaction: t, milestone: found }); }
+      });
+
+      const listEl = document.getElementById("bank-recon-match-list");
+      const noteEl = document.getElementById("bank-recon-unmatched-note");
+      if (matches.length === 0) {
+        listEl.innerHTML = "";
+        noteEl.textContent = `Tiada padanan dijumpai antara ${transactions.length} transaksi dan bayaran ansuran belum disahkan.`;
+        noteEl.style.display = "block";
+      } else {
+        noteEl.style.display = transactions.length > matches.length
+          ? "block" : "none";
+        noteEl.textContent = `${transactions.length - matches.length} transaksi tiada padanan (diabaikan).`;
+        listEl.innerHTML = matches.map((m, i) => `
+          <div class="bank-recon-match-row" data-match-idx="${i}">
+            <div class="bank-recon-side">
+              <div class="bank-recon-side-label">Transaksi Bank</div>
+              <div class="bank-recon-side-value">${escapeHtml(m.transaction.description)}</div>
+              <div class="hint">RM ${m.transaction.amount.toFixed(2)} · ${escapeHtml(m.transaction.date)}</div>
+            </div>
+            <span class="bank-recon-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+            <div class="bank-recon-side">
+              <div class="bank-recon-side-label">Bayaran Ansuran</div>
+              <div class="bank-recon-side-value">${escapeHtml(m.milestone.milestone_label || "Bayaran")}</div>
+              <div class="hint">RM ${Number(m.milestone.amount).toFixed(2)}</div>
+            </div>
+            <button type="button" class="bank-recon-confirm-btn" data-confirm-match="${i}" title="Sahkan padanan"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></button>
+          </div>
+        `).join("");
+        listEl.dataset.matches = JSON.stringify(matches.map(m => ({ milestoneId: m.milestone.id })));
+      }
+
+      document.getElementById("bank-recon-upload-zone").style.display = "none";
+      document.getElementById("bank-recon-results").style.display = "block";
+    });
+
+    document.getElementById("bank-recon-match-list")?.addEventListener("click", async (e) => {
+      const btn = e.target.closest("[data-confirm-match]");
+      if (!btn) return;
+      const idx = parseInt(btn.dataset.confirmMatch, 10);
+      const matchData = JSON.parse(document.getElementById("bank-recon-match-list").dataset.matches || "[]");
+      const milestoneId = matchData[idx]?.milestoneId;
+      if (!milestoneId) return;
+      btn.disabled = true;
+      const { error } = await supabase.from("customers").update({ status: "dah_bayar" }).eq("id", milestoneId);
+      if (error) { showToast(error.message, "error"); btn.disabled = false; return; }
+      btn.closest(".bank-recon-match-row").classList.add("matched");
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      showToast("Bayaran disahkan!", "success");
+      await loadBookings();
     });
 
     // ── Calendar ──

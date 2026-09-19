@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=61" />
+<link rel="stylesheet" href="/assets/style.css?v=73" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -1933,6 +1933,12 @@
           </div>
 
           <div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:1rem;">
+            ${selectedType?.video_call_link ? `
+              <a href="${escapeHtml(selectedType.video_call_link)}" target="_blank" rel="noopener" class="book-contact-btn" style="justify-content:center; padding:0.75rem; border-radius:10px; font-size:0.88rem; background:var(--stamp-soft); color:var(--stamp); border-color:transparent;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 8-6 4 6 4V8Z"></path><rect width="14" height="12" x="2" y="6" rx="2" ry="2"></rect></svg>
+                Sertai Panggilan Video
+              </a>
+            ` : ""}
             ${waOwnerNumber ? `
               <a href="https://wa.me/${waOwnerNumber}?text=${waMessage}" target="_blank" rel="noopener" class="book-contact-btn wa-primary" style="justify-content:center; padding:0.75rem; border-radius:10px; font-size:0.88rem;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>

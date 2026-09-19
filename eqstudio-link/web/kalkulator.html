@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/x-icon" href="/assets/logo/favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png" />
+<title>Kalkulator Untung Pakej — eqstudio.link</title>
+<meta name="description" content="Kira margin untung sebenar setiap pakej perkhidmatan anda dalam saat — masukkan harga, kos bahan dan masa, dapatkan untung bersih serta-merta." />
+<link rel="canonical" href="https://eqstudio.link/kalkulator.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=73" />
+<script>
+  (function () {
+    var saved = localStorage.getItem("eqstudio_theme");
+    if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
+  })();
+</script>
+</head>
+<body>
+
+  <nav class="lp-nav">
+    <a href="/" class="brand" style="text-decoration:none;"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
+    <div class="lp-nav-links">
+      <a href="/login.html" class="plain">Log Masuk</a>
+      <a href="/login.html" class="btn">Mula Percuma</a>
+    </div>
+  </nav>
+
+  <div class="wrap-narrow" style="padding-top:2.5rem; padding-bottom:2rem; max-width:560px;">
+    <div style="text-align:center; margin-bottom:2rem;">
+      <span class="lp-eyebrow">Alat Percuma</span>
+      <h1 style="font-size:2rem; margin:0.4rem 0 0.6rem;">Kalkulator Untung Pakej</h1>
+      <p class="hint" style="font-size:0.95rem;">Masukkan harga dan kos setiap pakej — nampak untung bersih dan margin dalam saat.</p>
+    </div>
+
+    <div class="card">
+      <label for="calc-price">Harga Pakej (RM)</label>
+      <input type="number" id="calc-price" min="0" step="0.01" placeholder="cth: 500" />
+
+      <label for="calc-materials">Kos Bahan / Peralatan (RM)</label>
+      <input type="number" id="calc-materials" min="0" step="0.01" placeholder="cth: 80" />
+
+      <label for="calc-hours">Masa Diambil (jam)</label>
+      <input type="number" id="calc-hours" min="0" step="0.5" placeholder="cth: 3" />
+
+      <label for="calc-rate">Kadar Sejam Anda (RM)</label>
+      <input type="number" id="calc-rate" min="0" step="1" placeholder="cth: 40" />
+
+      <label for="calc-overhead">Overhead / Kos Lain-lain (%) <button type="button" class="info-icon-btn" data-info="Anggaran kasar untuk sewa premis, utiliti, pemasaran dan kos operasi am — biasanya antara 5% hingga 15% daripada harga pakej.">i</button></label>
+      <input type="number" id="calc-overhead" min="0" max="100" step="1" placeholder="cth: 10" value="10" />
+    </div>
+
+    <div class="card calc-result-card" id="calc-result-card" style="display:none;">
+      <div class="calc-result-hero">
+        <div class="calc-result-label">Untung Bersih</div>
+        <div class="calc-result-value" id="calc-net-profit">RM 0.00</div>
+        <div class="calc-margin-badge" id="calc-margin-badge">0% margin</div>
+      </div>
+      <div class="calc-breakdown">
+        <div class="calc-breakdown-row"><span>Harga Pakej</span><span id="calc-bd-price">RM 0.00</span></div>
+        <div class="calc-breakdown-row"><span>− Kos Bahan</span><span id="calc-bd-materials">RM 0.00</span></div>
+        <div class="calc-breakdown-row"><span>− Kos Buruh (masa × kadar)</span><span id="calc-bd-labor">RM 0.00</span></div>
+        <div class="calc-breakdown-row"><span>− Overhead</span><span id="calc-bd-overhead">RM 0.00</span></div>
+        <div class="calc-breakdown-row calc-breakdown-total"><span>Untung Bersih</span><span id="calc-bd-total">RM 0.00</span></div>
+      </div>
+      <div class="calc-bar-track">
+        <div class="calc-bar-segment calc-bar-materials" id="calc-bar-materials"></div>
+        <div class="calc-bar-segment calc-bar-labor" id="calc-bar-labor"></div>
+        <div class="calc-bar-segment calc-bar-overhead" id="calc-bar-overhead"></div>
+        <div class="calc-bar-segment calc-bar-profit" id="calc-bar-profit"></div>
+      </div>
+      <p class="hint" id="calc-verdict" style="margin-top:0.8rem; text-align:center;"></p>
+    </div>
+
+    <div class="card" style="margin-top:1.5rem; text-align:center; background:var(--stamp-soft); border-color:transparent;">
+      <p style="margin:0 0 0.8rem; font-weight:600; color:var(--ink);">Suka kira macam ni untuk setiap pakej?</p>
+      <p class="hint" style="margin:0 0 1rem;">eqstudio.link uruskan deposit, jadual dan peringatan pelanggan secara automatik — anda fokus kerja, bukan kira-kira.</p>
+      <a href="/login.html" class="btn" style="display:inline-block; text-decoration:none;">Mula Percuma — 14 Hari →</a>
+    </div>
+  </div>
+
+  <footer class="lp-footer">
+    eqstudio.link, dibina untuk business owner solo di Malaysia.
+    <p class="hint" style="margin-top:0.8rem; font-size:0.75rem;">
+      <a href="/forum.html" style="color:inherit;">Forum</a> · <a href="/contact.html" style="color:inherit;">Hubungi Kami</a> · <a href="/privacy-policy.html" style="color:inherit;">Dasar Privasi</a>
+    </p>
+  </footer>
+
+  <script type="module">
+    const priceEl = document.getElementById("calc-price");
+    const materialsEl = document.getElementById("calc-materials");
+    const hoursEl = document.getElementById("calc-hours");
+    const rateEl = document.getElementById("calc-rate");
+    const overheadEl = document.getElementById("calc-overhead");
+    const resultCard = document.getElementById("calc-result-card");
+
+    function fmt(n) { return "RM " + n.toFixed(2); }
+
+    function recalc() {
+      const price = parseFloat(priceEl.value) || 0;
+      const materials = parseFloat(materialsEl.value) || 0;
+      const hours = parseFloat(hoursEl.value) || 0;
+      const rate = parseFloat(rateEl.value) || 0;
+      const overheadPct = parseFloat(overheadEl.value) || 0;
+
+      if (price <= 0) { resultCard.style.display = "none"; return; }
+      resultCard.style.display = "block";
+
+      const labor = hours * rate;
+      const overhead = price * (overheadPct / 100);
+      const netProfit = price - materials - labor - overhead;
+      const marginPct = price > 0 ? Math.round((netProfit / price) * 100) : 0;
+
+      document.getElementById("calc-net-profit").textContent = fmt(netProfit);
+      document.getElementById("calc-net-profit").style.color = netProfit >= 0 ? "var(--ok)" : "var(--warn)";
+      document.getElementById("calc-margin-badge").textContent = `${marginPct}% margin`;
+      document.getElementById("calc-margin-badge").className = "calc-margin-badge " + (marginPct >= 30 ? "good" : marginPct >= 10 ? "ok" : "low");
+
+      document.getElementById("calc-bd-price").textContent = fmt(price);
+      document.getElementById("calc-bd-materials").textContent = "− " + fmt(materials);
+      document.getElementById("calc-bd-labor").textContent = "− " + fmt(labor);
+      document.getElementById("calc-bd-overhead").textContent = "− " + fmt(overhead);
+      document.getElementById("calc-bd-total").textContent = fmt(netProfit);
+
+      const total = Math.max(price, materials + labor + overhead + Math.max(netProfit, 0));
+      document.getElementById("calc-bar-materials").style.width = `${(materials / total) * 100}%`;
+      document.getElementById("calc-bar-labor").style.width = `${(labor / total) * 100}%`;
+      document.getElementById("calc-bar-overhead").style.width = `${(overhead / total) * 100}%`;
+      document.getElementById("calc-bar-profit").style.width = `${(Math.max(netProfit, 0) / total) * 100}%`;
+
+      const verdictEl = document.getElementById("calc-verdict");
+      if (marginPct >= 30) verdictEl.textContent = "Margin sihat! Pakej ini menguntungkan dengan baik.";
+      else if (marginPct >= 10) verdictEl.textContent = "Margin sederhana — mungkin boleh dipertimbangkan naikkan harga sedikit.";
+      else if (marginPct >= 0) verdictEl.textContent = "Margin nipis — kos hampir menyamai harga jualan.";
+      else verdictEl.textContent = "Pakej ini sebenarnya rugi pada kos semasa — pertimbangkan semula harga.";
+    }
+
+    [priceEl, materialsEl, hoursEl, rateEl, overheadEl].forEach(el => el.addEventListener("input", recalc));
+  </script>
+</body>
+</html>

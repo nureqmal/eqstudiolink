@@ -8096,3 +8096,62 @@ body.book-preview-mobile-view .book-layout-split.has-sidebar {
 .bank-recon-confirm-btn:hover { background: var(--ok); color: #fff; }
 .bank-recon-confirm-btn:disabled { opacity: 0.4; cursor: default; }
 .bank-recon-unmatched-note { font-size: 0.76rem; color: var(--ink-soft); text-align: center; padding: 0.8rem 0; }
+
+/* ═══════════════════════════════════════════════════════════
+   Mobile UX overhaul — global button/input scaling + page-specific
+   minimalist layouts (Senarai Booking, Senarai Pelanggan, Laporan,
+   Tambah Pelanggan). Base button/.btn/input never had a mobile
+   override before — this fixes that at the root so every button
+   across the app (including ones added recently) scales down
+   consistently, instead of patching each one individually.
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Global button scaling — the root cause of "semua button besar2" */
+  button, .btn {
+    padding: 0.5rem 0.95rem; font-size: 0.82rem;
+  }
+  .card .section-title button, .card .section-title .btn {
+    padding: 0.4rem 0.7rem; font-size: 0.76rem;
+  }
+  input, textarea, select { padding: 0.55rem 0.7rem; font-size: 0.9rem; }
+
+  /* Filter/search rows: stack to full-width instead of desktop-width
+     side-by-side controls that look oversized on a narrow screen */
+  .db-search-row { flex-direction: column; gap: 0.5rem; }
+  .db-search-row input, .db-search-row select { max-width: none !important; width: 100% !important; flex: none !important; }
+
+  /* Booking row actions: icon-only (hide the text span) — "Reschedule"/"Batal"
+     as full-width text buttons looked oversized; icons alone are compact and
+     still clear given the danger color on Batal. */
+  .booking-row-action-btn { flex: 0 0 auto !important; width: 40px; height: 40px; padding: 0 !important; display: flex; align-items: center; justify-content: center; }
+  .booking-row-action-btn span { display: none; }
+  .booking-row-actions { justify-content: flex-end; }
+
+  /* Tambah Pelanggan: stack Nama+Emel and Jumlah+Tarikh rows fully instead
+     of the 160px-min auto-wrap, which still feels cramped on narrow phones */
+  #add-customer-wrap .row { flex-direction: column; }
+  #add-customer-wrap .row > * { min-width: 0; }
+}
+.booking-row-action-btn { display: inline-flex; align-items: center; gap: 0.4rem; }
+
+/* ── Laporan: compact expandable rows (Customer Berisiko, Top 5 Pelanggan) —
+   replaces the full <table> stack-on-mobile pattern with a minimalist
+   summary row that expands on tap, matching the Bayaran Ansuran widget UX. ── */
+.compact-row-list { display: flex; flex-direction: column; }
+.compact-row {
+  border-bottom: 1px solid var(--paper-line);
+}
+.compact-row:last-child { border-bottom: none; }
+.compact-row-summary {
+  display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 0.2rem;
+  cursor: pointer; user-select: none;
+}
+.compact-row-name { flex: 1; min-width: 0; font-size: 0.86rem; font-weight: 600; color: var(--ink); }
+.compact-row-value { font-family: var(--font-mono); font-size: 0.84rem; font-weight: 700; color: var(--ink); flex-shrink: 0; }
+.compact-row-chevron { color: var(--ink-soft); flex-shrink: 0; transition: transform 0.2s ease; display: flex; }
+.compact-row.expanded .compact-row-chevron { transform: rotate(180deg); }
+.compact-row-detail {
+  max-height: 0; overflow: hidden; transition: max-height 0.25s ease;
+}
+.compact-row.expanded .compact-row-detail { max-height: 200px; }
+.compact-row-detail-inner { padding: 0 0.2rem 0.7rem; font-size: 0.78rem; color: var(--ink-soft); }

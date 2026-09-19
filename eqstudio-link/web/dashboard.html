@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=74" />
+<link rel="stylesheet" href="/assets/style.css?v=76" />
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
   (function () {
@@ -1218,6 +1218,27 @@
             <p class="hint" id="report-chart-empty" style="display:none;">Belum ada bayaran direkodkan lagi.</p>
           </div>
 
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Unjuran Cash-Flow (6 Minggu)<button type="button" class="info-icon-btn" data-info="Anggaran pendapatan akan datang daripada pelanggan yang belum membayar, mengikut tarikh cukup tempoh, dengan andaian semua membayar tepat pada masanya.">i</button></h2></div>
+            <div class="report-bar-chart" id="cashflow-chart"></div>
+            <p class="hint" id="cashflow-empty" style="display:none;">Tiada customer belum bayar lagi.</p>
+          </div>
+
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Customer Berisiko<button type="button" class="info-icon-btn" data-info="Dinilai berdasarkan rekod bayaran lepas pelanggan ini dengan perniagaan anda.">i</button></h2></div>
+            <div class="compact-row-list" id="risk-list"></div>
+            <p class="hint" id="risk-empty" style="display:none;">Tiada pelanggan berisiko tinggi atau sederhana pada masa ini.</p>
+          </div>
+
+          <div class="profile-section-divider" style="margin: 2rem 0 1.25rem;">
+            <span class="profile-section-divider-line"></span>
+            <span class="profile-section-divider-label">
+              <span class="profile-section-divider-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"></path></svg></span>
+              <span>Rekod Kewangan</span>
+            </span>
+            <span class="profile-section-divider-line"></span>
+          </div>
+
           <div class="card" style="margin-bottom:1.5rem;">
             <div class="section-title">
               <h2 style="margin:0;">Pendapatan Ikut Bulan</h2>
@@ -1236,10 +1257,7 @@
 
           <div class="card">
             <div class="section-title"><h2 style="margin:0;">Top 5 Pelanggan</h2></div>
-            <table>
-              <thead><tr><th>Nama</th><th>Emel</th><th>Jumlah Dibayar</th></tr></thead>
-              <tbody id="report-top-tbody"></tbody>
-            </table>
+            <div class="compact-row-list" id="report-top-list"></div>
             <p class="hint" id="report-top-empty" style="display:none;">Belum ada data untuk dipaparkan.</p>
           </div>
 
@@ -1256,20 +1274,6 @@
             <p class="hint" id="expense-list-empty" style="display:none;">Belum ada perbelanjaan direkodkan lagi.</p>
           </div>
 
-          <div class="card" style="margin-top:1.5rem;">
-            <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Unjuran Cash-Flow (6 Minggu)<button type="button" class="info-icon-btn" data-info="Anggaran pendapatan akan datang daripada pelanggan yang belum membayar, mengikut tarikh cukup tempoh, dengan andaian semua membayar tepat pada masanya.">i</button></h2></div>
-            <div class="report-bar-chart" id="cashflow-chart"></div>
-            <p class="hint" id="cashflow-empty" style="display:none;">Tiada customer belum bayar lagi.</p>
-          </div>
-
-          <div class="card" style="margin-top:1.5rem;">
-            <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Customer Berisiko<button type="button" class="info-icon-btn" data-info="Dinilai berdasarkan rekod bayaran lepas pelanggan ini dengan perniagaan anda.">i</button></h2></div>
-            <table>
-              <thead><tr><th>Nama</th><th>RM</th><th>Risiko</th><th>Sebab</th></tr></thead>
-              <tbody id="risk-tbody"></tbody>
-            </table>
-            <p class="hint" id="risk-empty" style="display:none;">Tiada pelanggan berisiko tinggi atau sederhana pada masa ini.</p>
-          </div>
         </div>
 
         <div class="db-page" id="page-kalendar">
@@ -3593,14 +3597,18 @@
         byCustomer.get(key).total += Number(c.amount);
       }
       const topCustomers = [...byCustomer.values()].sort((a, b) => b.total - a.total).slice(0, 5);
-      const topTbody = document.getElementById("report-top-tbody");
-      topTbody.innerHTML = "";
+      const topListEl = document.getElementById("report-top-list");
       document.getElementById("report-top-empty").style.display = topCustomers.length ? "none" : "block";
-      for (const cust of topCustomers) {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td data-label="Nama">${escapeHtml(cust.name)}</td><td data-label="Emel">${escapeHtml(cust.email)}</td><td data-label="Jumlah" class="mono">RM ${cust.total.toFixed(2)}</td>`;
-        topTbody.appendChild(tr);
-      }
+      topListEl.innerHTML = topCustomers.map(cust => `
+        <div class="compact-row">
+          <div class="compact-row-summary" data-toggle-compact-row>
+            <span class="compact-row-name">${escapeHtml(cust.name)}</span>
+            <span class="compact-row-value">RM ${cust.total.toFixed(2)}</span>
+            <span class="compact-row-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </div>
+          <div class="compact-row-detail"><div class="compact-row-detail-inner">${escapeHtml(cust.email)}</div></div>
+        </div>
+      `).join("");
 
       renderCashflowForecast(data, now);
       renderRiskScoring(data, now);
@@ -3681,16 +3689,19 @@
       scored.sort((a, b) => order[a.riskLevel] - order[b.riskLevel]);
       const riskyOnes = scored.filter(c => c.riskLevel !== "low").slice(0, 8);
 
-      const tbody = document.getElementById("risk-tbody");
+      const listEl = document.getElementById("risk-list");
       const emptyEl = document.getElementById("risk-empty");
       emptyEl.style.display = riskyOnes.length ? "none" : "block";
-      tbody.innerHTML = riskyOnes.map(c => `
-        <tr>
-          <td data-label="Nama">${escapeHtml(c.name)}</td>
-          <td data-label="RM" class="mono">${Number(c.amount).toFixed(2)}</td>
-          <td data-label="Risiko"><span class="risk-badge ${c.riskLevel}">${c.riskLevel === "high" ? "Tinggi" : "Sederhana"}</span></td>
-          <td data-label="Sebab" class="hint" style="font-size:0.78rem;">${escapeHtml(c.riskReason)}</td>
-        </tr>
+      listEl.innerHTML = riskyOnes.map(c => `
+        <div class="compact-row">
+          <div class="compact-row-summary" data-toggle-compact-row>
+            <span class="compact-row-name">${escapeHtml(c.name)}</span>
+            <span class="risk-badge ${c.riskLevel}">${c.riskLevel === "high" ? "Tinggi" : "Sederhana"}</span>
+            <span class="compact-row-value">RM ${Number(c.amount).toFixed(2)}</span>
+            <span class="compact-row-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </div>
+          <div class="compact-row-detail"><div class="compact-row-detail-inner">${escapeHtml(c.riskReason)}</div></div>
+        </div>
       `).join("");
     }
 
@@ -7031,13 +7042,13 @@
         if (b.status === "confirmed" && !isPast) {
           const actions = div.querySelector(".booking-row-actions");
           const rescheduleBtn = document.createElement("button");
-          rescheduleBtn.className = "secondary";
-          rescheduleBtn.textContent = "Reschedule";
+          rescheduleBtn.className = "secondary booking-row-action-btn";
+          rescheduleBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"></path><path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path><path d="M3 22v-6h6"></path><path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path></svg><span>Reschedule</span>';
           rescheduleBtn.addEventListener("click", () => openRescheduleModal(b));
           const cancelBtn = document.createElement("button");
-          cancelBtn.className = "secondary";
+          cancelBtn.className = "secondary booking-row-action-btn";
           cancelBtn.style.color = "var(--warn)";
-          cancelBtn.textContent = "Batal";
+          cancelBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg><span>Batal</span>';
           cancelBtn.addEventListener("click", () => cancelBooking(b));
           actions.appendChild(rescheduleBtn);
           actions.appendChild(cancelBtn);
@@ -7665,6 +7676,11 @@
       URL.revokeObjectURL(url);
     });
 
+    document.addEventListener("click", (e) => {
+      const toggle = e.target.closest("[data-toggle-compact-row]");
+      if (toggle) toggle.closest(".compact-row")?.classList.toggle("expanded");
+    });
+
     // ── Perbelanjaan (Expenses) ──
     let allExpenses = [];
     const EXPENSE_CATEGORY_LABELS = { bahan: "Bahan", peralatan: "Peralatan", sewa: "Sewa", pengangkutan: "Pengangkutan", pemasaran: "Pemasaran", utiliti: "Utiliti", "lain-lain": "Lain-lain" };
@@ -8140,19 +8156,19 @@
           row.querySelector(".cal-chevron").style.transform = "rotate(180deg)";
           actionsEl.innerHTML = "";
 
-          if (booking.customer_phone) {
-            const waBtn = document.createElement("button");
-            waBtn.type = "button";
-            waBtn.className = "secondary";
-            waBtn.style.flex = "1";
-            waBtn.textContent = "WhatsApp";
-            waBtn.addEventListener("click", (ev) => {
+          if (booking.customer_phone || booking.customer_id) {
+            const chatBtn = document.createElement("button");
+            chatBtn.type = "button";
+            chatBtn.className = "secondary";
+            chatBtn.style.flex = "1";
+            chatBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> Chat';
+            chatBtn.addEventListener("click", (ev) => {
               ev.stopPropagation();
-              const digits = booking.customer_phone.replace(/[^0-9]/g, "");
-              const withCC = digits.startsWith("0") ? "60" + digits.slice(1) : digits;
-              window.open(`https://wa.me/${withCC}`, "_blank");
+              chatWidgetOpen = true;
+              document.getElementById("chat-widget-panel").classList.add("open");
+              openConversationThread(booking.customer_id, booking.customer_name);
             });
-            actionsEl.appendChild(waBtn);
+            actionsEl.appendChild(chatBtn);
           }
           const rescheduleBtn = document.createElement("button");
           rescheduleBtn.type = "button";
@@ -8806,7 +8822,7 @@
       "laporan": [
         { page: "laporan", selector: "#report-stats", title: "Ringkasan Income", text: "Income bulan ini, jumlah belum diterima, dan jumlah sepanjang masa." },
         { page: "laporan", selector: "#cashflow-chart", title: "Unjuran Cash-Flow", text: "Anggaran income untuk 6 minggu akan datang, dikira dari customer yang masih belum bayar." },
-        { page: "laporan", selector: "#risk-tbody", title: "Customer Berisiko", text: "Sistem kenal pasti customer yang selalu lewat bayar, berdasarkan sejarah mereka dengan anda." },
+        { page: "laporan", selector: "#risk-list", title: "Customer Berisiko", text: "Sistem kenal pasti customer yang selalu lewat bayar, berdasarkan sejarah mereka dengan anda." },
       ],
       "kalendar": [
         { page: "kalendar", selector: "#cal-grid", title: "Kalendar", text: "Tarikh dengan titik ada booking atau bayaran due. Klik tarikh untuk lihat timeline booking sebenar, dan klik mana-mana row untuk WhatsApp/Reschedule/Batal terus." },

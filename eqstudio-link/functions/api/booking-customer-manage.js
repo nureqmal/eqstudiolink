@@ -4,6 +4,8 @@
 // OWN booking_link settings/availability, not the owner's profile-level defaults.
 // Required env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 
+import { loadAvailabilityInputs, rangesForDate } from "../lib/availability-resolver.js";
+
 async function sbAdmin(env, path) {
   const res = await fetch(`${env.SUPABASE_URL}/rest/v1${path}`, {
     headers: { apikey: env.SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}` },
@@ -75,15 +77,8 @@ export async function onRequestGet(context) {
       const p = myDateParts(now);
       return `${p.year}-${String(p.month + 1).padStart(2, "0")}-${String(p.date).padStart(2, "0")}`;
     })();
-    const availability = await sbAdmin(
-      env,
-      `/availability_dates?booking_link_id=eq.${booking.booking_link_id}&specific_date=gte.${todayDateKey}&specific_date=lte.${rangeEndDateKey}&select=specific_date,start_time,end_time`
-    );
-    const availByDate = new Map();
-    for (const a of availability) {
-      if (!availByDate.has(a.specific_date)) availByDate.set(a.specific_date, []);
-      availByDate.get(a.specific_date).push(a);
-    }
+    // Weekly template + closed dates + date-specific overrides (see availability-resolver.js).
+    const availInputs = await loadAvailabilityInputs(sbAdmin, env, booking.booking_link_id, todayDateKey, rangeEndDateKey);
 
     const slotsByDate = {};
 
@@ -91,7 +86,7 @@ export async function onRequestGet(context) {
       const cursor = new Date(now.getTime() + d * 24 * 60 * 60 * 1000);
       const { year, month, date } = myDateParts(cursor);
       const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
-      const dayRanges = availByDate.get(dateKey);
+      const dayRanges = rangesForDate(dateKey, availInputs);
       if (!dayRanges) continue;
 
       const daySlots = [];

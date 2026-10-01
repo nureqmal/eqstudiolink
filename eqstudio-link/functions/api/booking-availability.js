@@ -6,6 +6,8 @@
 //
 // Required env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 
+import { loadAvailabilityInputs, rangesForDate } from "../lib/availability-resolver.js";
+
 async function sbAdmin(env, path) {
   const res = await fetch(`${env.SUPABASE_URL}/rest/v1${path}`, {
     headers: { apikey: env.SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}` },
@@ -114,26 +116,15 @@ export async function onRequestGet(context) {
       const p = myDateParts(now);
       return `${p.year}-${String(p.month + 1).padStart(2, "0")}-${String(p.date).padStart(2, "0")}`;
     })();
-    const availability = await sbAdmin(
-      env,
-      `/availability_dates?booking_link_id=eq.${link.id}&specific_date=gte.${todayDateKey}&specific_date=lte.${rangeEndDateKey}&select=specific_date,start_time,end_time`
-    );
-    if (availability.length === 0) {
-      return json({ business, gallery, testimonials, event_types: eventTypes, slots_by_date: {}, questions, slot_duration_minutes: durationMinutes, capacity, deposit_amount: depositAmount, link_description: link.description, link_poster_url: link.poster_url, cancel_notice_hours: link.cancel_notice_hours });
-    }
-
-    const availByDate = new Map();
-    for (const a of availability) {
-      if (!availByDate.has(a.specific_date)) availByDate.set(a.specific_date, []);
-      availByDate.get(a.specific_date).push(a);
-    }
+    // Weekly template + closed dates + date-specific overrides (see availability-resolver.js).
+    const availInputs = await loadAvailabilityInputs(sbAdmin, env, link.id, todayDateKey, rangeEndDateKey);
 
     const slotsByDate = {};
     for (let d = 0; d <= daysAhead; d++) {
       const cursor = new Date(now.getTime() + d * 24 * 60 * 60 * 1000);
       const { year, month, date } = myDateParts(cursor);
       const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
-      const dayRanges = availByDate.get(dateKey);
+      const dayRanges = rangesForDate(dateKey, availInputs);
       if (!dayRanges) continue;
 
       const daySlots = [];

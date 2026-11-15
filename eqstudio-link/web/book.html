@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=73" />
+<link rel="stylesheet" href="/assets/style.css?v=78" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -93,9 +93,23 @@
         <!-- Interactive Booking Stage -->
         <section class="book-card-stage" id="book-card-stage" aria-label="Borang Tempahan">
           <div id="book-content">
-            <div class="sim-spinner-wrap" style="padding:3rem 1rem; text-align:center;">
-              <img src="/assets/logo/logo-64.png" class="logo-loader" alt="" />
-              <p class="hint" style="margin-top:0.8rem;" id="t-loading-initial">Memuatkan kalendar ketersediaan...</p>
+            <div class="book-skeleton-card" style="padding:1.5rem 1rem;">
+              <div class="skeleton" style="height:26px; width:55%; border-radius:8px; margin-bottom:0.75rem;"></div>
+              <div class="skeleton" style="height:16px; width:80%; border-radius:6px; margin-bottom:1.6rem;"></div>
+              <div style="display:flex; gap:0.5rem; margin-bottom:1.5rem; overflow:hidden;">
+                <div class="skeleton" style="height:40px; width:70px; border-radius:10px; flex-shrink:0;"></div>
+                <div class="skeleton" style="height:40px; width:70px; border-radius:10px; flex-shrink:0;"></div>
+                <div class="skeleton" style="height:40px; width:70px; border-radius:10px; flex-shrink:0;"></div>
+                <div class="skeleton" style="height:40px; width:70px; border-radius:10px; flex-shrink:0;"></div>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.6rem;">
+                <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+                <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+                <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+                <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+                <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+                <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+              </div>
             </div>
           </div>
         </section>
@@ -130,9 +144,18 @@
     </footer>
   </div>
 
-  <!-- Mobile Sticky CTA Bar -->
+  <!-- Mobile Sticky CTA Bar (Thumb-Zone Floating Sheet) -->
   <div class="book-sticky-cta" id="book-sticky-cta">
-    <button type="button" class="book-sticky-btn" id="book-sticky-cta-btn">Pilih Tarikh & Tempah Sekarang</button>
+    <div class="book-sticky-inner">
+      <div class="book-sticky-info">
+        <div class="book-sticky-slot" id="book-sticky-slot">Pilih Tarikh &amp; Slot</div>
+        <div class="book-sticky-sub" id="book-sticky-sub">Pilih pakej &amp; slot masa untuk teruskan</div>
+      </div>
+      <button type="button" class="book-sticky-btn" id="book-sticky-cta-btn">
+        <span id="book-sticky-btn-text">Pilih Slot</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
   </div>
 
   <!-- Service Details Modal -->
@@ -1164,9 +1187,23 @@
         return;
       }
       content.innerHTML = `
-        <div class="sim-spinner-wrap" style="padding:2.5rem 1rem; text-align:center;">
-          <div class="sim-spinner"></div>
-          <p class="hint" style="margin-top:0.8rem;">${T().loading}</p>
+        <div class="book-skeleton-card" style="padding:1.5rem 1rem;">
+          <div class="skeleton" style="height:26px; width:55%; border-radius:8px; margin-bottom:0.75rem;"></div>
+          <div class="skeleton" style="height:16px; width:80%; border-radius:6px; margin-bottom:1.6rem;"></div>
+          <div style="display:flex; gap:0.5rem; margin-bottom:1.5rem; overflow:hidden;">
+            <div class="skeleton" style="height:40px; width:70px; border-radius:10px; flex-shrink:0;"></div>
+            <div class="skeleton" style="height:40px; width:70px; border-radius:10px; flex-shrink:0;"></div>
+            <div class="skeleton" style="height:40px; width:70px; border-radius:10px; flex-shrink:0;"></div>
+            <div class="skeleton" style="height:40px; width:70px; border-radius:10px; flex-shrink:0;"></div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.6rem;">
+            <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+            <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+            <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+            <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+            <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+            <div class="skeleton" style="height:46px; border-radius:10px;"></div>
+          </div>
         </div>`;
       try {
         const typeParam = typeId ? `&type=${encodeURIComponent(typeId)}` : "";
@@ -1351,6 +1388,7 @@
           openServiceDetailModal(t);
         });
       });
+      updateStickyCta();
     }
 
     function openServiceDetailModal(t) {
@@ -1580,6 +1618,7 @@
       if (selectedSlot) {
         renderForm();
       }
+      updateStickyCta();
     }
 
     // Step 3: Customer Details Form & Transparent Summary
@@ -1785,6 +1824,7 @@
           btn.innerHTML = `<span>${T().confirmBtn}</span>`;
         }
       });
+      updateStickyCta();
     }
 
     function downloadIcsFile(biz, startIso, durationMinutes, title) {
@@ -1811,6 +1851,7 @@
 
     // Step 4: Digital Boarding Pass Voucher Ticket
     function renderSuccess(result) {
+      document.getElementById("book-sticky-cta")?.classList.remove("visible");
       if (holdTimer) clearInterval(holdTimer);
       const savedSlotIso = selectedSlot ? selectedSlot.iso : null;
       const savedDuration = selectedType?.duration_minutes || availabilityData.slot_duration_minutes || 60;
@@ -2047,16 +2088,53 @@
       }
     });
 
-    // Mobile sticky CTA button scroll trigger
-    const bookStickyCta = document.getElementById("book-sticky-cta");
-    const bookContentEl = document.getElementById("book-content");
-    if ("IntersectionObserver" in window && bookStickyCta && bookContentEl) {
-      new IntersectionObserver(([entry]) => {
-        bookStickyCta.classList.toggle("visible", !entry.isIntersecting);
-      }, { threshold: 0 }).observe(bookContentEl);
+    // Mobile sticky CTA bar (Thumb-Zone Floating Sheet)
+    function updateStickyCta() {
+      const cta = document.getElementById("book-sticky-cta");
+      const slotEl = document.getElementById("book-sticky-slot");
+      const subEl = document.getElementById("book-sticky-sub");
+      const btnText = document.getElementById("book-sticky-btn-text");
+      if (!cta || !slotEl || !subEl || !btnText) return;
+
+      const hasTypes = (availabilityData?.event_types || []).length > 0;
+      if (hasTypes && !selectedType) {
+        cta.classList.remove("visible");
+        return;
+      }
+
+      cta.classList.add("visible");
+      const totals = calculateTotals();
+
+      if (!selectedSlot) {
+        slotEl.textContent = selectedType ? selectedType.name : "Pilih Tarikh & Masa";
+        subEl.textContent = totals.baseDeposit > 0 ? `Deposit RM ${totals.baseDeposit.toFixed(2)}` : "Sila pilih slot masa anda";
+        btnText.textContent = "Pilih Masa";
+      } else {
+        const formWrap = document.getElementById("book-form-wrap");
+        const formInView = formWrap && formWrap.innerHTML.trim() !== "";
+        slotEl.textContent = `${selectedSlot.label} · ${dateLabel(selectedDate)}`;
+        if (totals.baseDeposit > 0) {
+          subEl.textContent = `Deposit RM ${totals.baseDeposit.toFixed(2)} diperlukan`;
+        } else {
+          subEl.textContent = "Percuma · Pengesahan serta-merta";
+        }
+        btnText.textContent = formInView ? "Sahkan Butiran" : "Teruskan";
+      }
     }
+
     document.getElementById("book-sticky-cta-btn")?.addEventListener("click", () => {
-      bookContentEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (!selectedSlot) {
+        document.getElementById("book-slot-grid")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else {
+        const formWrap = document.getElementById("book-form-wrap");
+        if (formWrap) {
+          formWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+          setTimeout(() => {
+            const nameInput = document.getElementById("bk-name");
+            if (nameInput) nameInput.focus();
+          }, 350);
+        }
+      }
     });
 
     // Gallery Lightbox

@@ -10,7 +10,7 @@
 <title>Status Bayaran</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=44" />
+<link rel="stylesheet" href="/assets/style.css?v=78" />
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -22,13 +22,32 @@
   <div class="wrap-narrow portal-wrap-wide">
     <p class="brand" style="text-align:center; margin-bottom:2rem;" id="biz-brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></p>
     <div class="card" id="content">
-      <p class="hint">Memuatkan...</p>
+      <div class="skeleton" style="height:26px; width:45%; border-radius:6px; margin-bottom:0.75rem;"></div>
+      <div class="skeleton" style="height:14px; width:65%; border-radius:4px; margin-bottom:1.5rem;"></div>
+      <div class="row" style="margin-bottom:1.25rem;">
+        <div style="flex:1;">
+          <div class="skeleton" style="height:12px; width:35%; border-radius:4px; margin-bottom:0.4rem;"></div>
+          <div class="skeleton" style="height:28px; width:65%; border-radius:6px;"></div>
+        </div>
+        <div style="flex:1;">
+          <div class="skeleton" style="height:12px; width:35%; border-radius:4px; margin-bottom:0.4rem;"></div>
+          <div class="skeleton" style="height:28px; width:65%; border-radius:6px;"></div>
+        </div>
+      </div>
+      <div class="skeleton" style="height:12px; width:25%; border-radius:4px; margin-bottom:0.4rem;"></div>
+      <div class="skeleton" style="height:26px; width:30%; border-radius:999px; margin-bottom:1.2rem;"></div>
+      <div class="skeleton" style="height:90px; width:100%; border-radius:10px;"></div>
     </div>
 
     <div class="card portal-chat-card" id="portal-chat-card" style="display:none; margin-top:1rem;">
       <div class="section-title"><h2 style="margin:0; font-size:1rem;" id="portal-chat-title">Chat</h2></div>
       <div id="portal-chat-booking-card"></div>
-      <div class="cw-messages" id="portal-chat-messages"><p class="hint">Memuatkan...</p></div>
+      <div class="cw-messages" id="portal-chat-messages">
+        <div style="padding:0.75rem;">
+          <div class="skeleton" style="height:38px; width:70%; border-radius:12px; margin-bottom:0.6rem;"></div>
+          <div class="skeleton" style="height:38px; width:60%; border-radius:12px; margin-left:auto; margin-bottom:0.6rem;"></div>
+        </div>
+      </div>
       <div class="chat-faq-chips" id="portal-chat-faq-chips"></div>
       <form id="portal-chat-form" class="cw-send-row">
         <input type="text" id="portal-chat-input" placeholder="Taip mesej..." autocomplete="off" />

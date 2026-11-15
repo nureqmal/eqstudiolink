@@ -108,15 +108,16 @@
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 </div>
                 <div>
-                  <h3 class="mobile-agenda-title">Jadual & Tempahan Terdekat</h3>
-                  <p class="mobile-agenda-sub" id="mobile-agenda-subtitle">Memuatkan jadual...</p>
+                  <h3 class="mobile-agenda-title">Jadual &amp; Tempahan Terdekat</h3>
+                  <div class="skeleton" style="height:12px; width:110px; border-radius:4px; margin-top:3px;" id="mobile-agenda-subtitle"></div>
                 </div>
               </div>
               <button type="button" class="mobile-agenda-viewall-btn" id="mobile-agenda-viewall-btn">Lihat Semua →</button>
             </div>
             <div class="mobile-agenda-list" id="mobile-agenda-list">
-              <div class="mobile-agenda-empty">
-                <p class="hint">Memeriksa jadual tempahan...</p>
+              <div style="padding:0.4rem 0; display:flex; flex-direction:column; gap:0.5rem;">
+                <div class="skeleton" style="height:48px; border-radius:10px;"></div>
+                <div class="skeleton" style="height:48px; border-radius:10px;"></div>
               </div>
             </div>
           </div>
@@ -8462,6 +8463,9 @@
           document.querySelectorAll(".cal-cell.selected").forEach(el => el.classList.remove("selected"));
           cell.classList.add("selected");
           renderDayList(dateStr, dueByDay.get(day) || []);
+          if (window.innerWidth <= 768) {
+            document.getElementById("cal-day-title")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
         });
         grid.appendChild(cell);
       }

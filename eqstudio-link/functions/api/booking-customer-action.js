@@ -67,7 +67,7 @@ export async function onRequestPost(context) {
 
     let link = {};
     if (booking.booking_link_id) {
-      const linkRes = await sbAdmin(env, `/booking_links?id=eq.${booking.booking_link_id}&select=label,cancellation_notice_hours`);
+      const linkRes = await sbAdmin(env, `/booking_links?id=eq.${booking.booking_link_id}&select=label,cancellation_notice_hours,buffer_minutes`);
       const links = await linkRes.json();
       link = links[0] || {};
     }
@@ -127,9 +127,7 @@ export async function onRequestPost(context) {
     if (action === "reschedule") {
       if (!new_slot_iso) return json({ error: "Slot baru diperlukan." }, 400);
 
-      // Capacity-aware conflict check (the DB no longer enforces a hard unique
-      // slot constraint — capacity>1 event types need multiple bookings at the
-      // same slot_datetime, same tradeoff as booking-create.js).
+      // Capacity-aware conflict check with duration & buffer overlap
       if (booking.booking_link_id) {
         let capacity = 1;
         if (booking.event_type_id) {
@@ -137,10 +135,42 @@ export async function onRequestPost(context) {
           const types = await typeRes.json();
           capacity = types[0]?.capacity || 1;
         }
-        const conflictRes = await sbAdmin(env, `/bookings?booking_link_id=eq.${booking.booking_link_id}&slot_datetime=eq.${new Date(new_slot_iso).toISOString()}&status=eq.confirmed&id=neq.${booking.id}&select=id${booking.event_type_id ? `&event_type_id=eq.${booking.event_type_id}` : ""}`);
+
+        const slotStartMs = new Date(new_slot_iso).getTime();
+        const durationMinutes = booking.duration_minutes || 60;
+        const slotEndMs = slotStartMs + durationMinutes * 60 * 1000;
+        const bufferMs = (link.buffer_minutes || 0) * 60 * 1000;
+
+        const searchStart = new Date(slotStartMs - 24 * 60 * 60 * 1000).toISOString();
+        const searchEnd = new Date(slotEndMs + 24 * 60 * 60 * 1000).toISOString();
+        const conflictRes = await sbAdmin(
+          env,
+          `/bookings?booking_link_id=eq.${booking.booking_link_id}&status=eq.confirmed&id=neq.${booking.id}&slot_datetime=gte.${searchStart}&slot_datetime=lte.${searchEnd}&select=id,slot_datetime,duration_minutes,event_type_id`
+        );
         const conflicts = await conflictRes.json();
-        if (conflicts.length >= capacity) {
-          return json({ error: "Alamak, slot ni baru sahaja diambil orang lain. Sila pilih slot lain." }, 409);
+
+        let sameSlotCount = 0;
+        let hasConflict = false;
+
+        for (const b of (Array.isArray(conflicts) ? conflicts : [])) {
+          const bStart = new Date(b.slot_datetime).getTime();
+          const bDuration = (b.duration_minutes || 60) * 60 * 1000;
+          const bEnd = bStart + bDuration;
+
+          const isSameSlotAndType = booking.event_type_id && b.event_type_id === booking.event_type_id && bStart === slotStartMs;
+          if (isSameSlotAndType) {
+            sameSlotCount++;
+          } else {
+            const overlaps = slotStartMs < (bEnd + bufferMs) && (slotEndMs + bufferMs) > bStart;
+            if (overlaps) {
+              hasConflict = true;
+              break;
+            }
+          }
+        }
+
+        if (hasConflict || sameSlotCount >= capacity) {
+          return json({ error: "Alamak, slot baru ni dah penuh atau bertindih dengan tempahan lain. Sila pilih slot lain." }, 409);
         }
       }
 

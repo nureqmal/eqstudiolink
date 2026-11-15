@@ -173,12 +173,42 @@ export async function onRequestPost(context) {
       return json({ error: "Slot ni terlalu hampir dengan masa sekarang. Sila pilih slot lain." }, 400);
     }
 
-    if (event_type_id) {
-      const existingRes = await sbAdmin(env, `/bookings?booking_link_id=eq.${link.id}&event_type_id=eq.${event_type_id}&slot_datetime=eq.${slotDate.toISOString()}&status=eq.confirmed&select=id`);
-      const existingAtSlot = await existingRes.json();
-      if (existingAtSlot.length >= capacity) {
-        return json({ error: "Alamak, slot ni dah penuh. Sila pilih slot lain." }, 409);
+    const slotStartMs = slotDate.getTime();
+    const slotEndMs = slotStartMs + resolvedDuration * 60 * 1000;
+    const bufferMs = (link.buffer_minutes || 0) * 60 * 1000;
+
+    // Fetch existing confirmed bookings in the broad time window for this booking link
+    const searchStart = new Date(slotStartMs - 24 * 60 * 60 * 1000).toISOString();
+    const searchEnd = new Date(slotEndMs + 24 * 60 * 60 * 1000).toISOString();
+    const existingRes = await sbAdmin(
+      env,
+      `/bookings?booking_link_id=eq.${link.id}&status=eq.confirmed&slot_datetime=gte.${searchStart}&slot_datetime=lte.${searchEnd}&select=id,slot_datetime,duration_minutes,event_type_id,created_at`
+    );
+    const existingBookings = await existingRes.json();
+
+    let sameSlotCount = 0;
+    let hasConflict = false;
+
+    for (const b of (Array.isArray(existingBookings) ? existingBookings : [])) {
+      const bStart = new Date(b.slot_datetime).getTime();
+      const bDuration = (b.duration_minutes || 60) * 60 * 1000;
+      const bEnd = bStart + bDuration;
+
+      const isSameSlotAndType = event_type_id && b.event_type_id === event_type_id && bStart === slotStartMs;
+      if (isSameSlotAndType) {
+        sameSlotCount++;
+      } else {
+        // Different event type or non-identical slot: check duration overlap including buffer
+        const overlaps = slotStartMs < (bEnd + bufferMs) && (slotEndMs + bufferMs) > bStart;
+        if (overlaps) {
+          hasConflict = true;
+          break;
+        }
       }
+    }
+
+    if (hasConflict || sameSlotCount >= capacity) {
+      return json({ error: "Alamak, slot ni dah penuh atau bertindih dengan tempahan lain. Sila pilih slot lain." }, 409);
     }
 
     const todayISO = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
@@ -226,6 +256,46 @@ export async function onRequestPost(context) {
     }
     const bookings = await bookingRes.json();
     const booking = bookings[0];
+
+    // Concurrency verification (Optimistic Concurrency Control):
+    // In case another request was processed at the exact same moment, re-query active bookings to verify slot ownership.
+    const verifyRes = await sbAdmin(
+      env,
+      `/bookings?booking_link_id=eq.${link.id}&status=eq.confirmed&slot_datetime=gte.${searchStart}&slot_datetime=lte.${searchEnd}&select=id,slot_datetime,duration_minutes,event_type_id,created_at`
+    );
+    const activeAtVerify = await verifyRes.json();
+    if (Array.isArray(activeAtVerify)) {
+      const concurrentSameSlot = [];
+      let concurrentOverlap = false;
+
+      for (const b of activeAtVerify) {
+        const bStart = new Date(b.slot_datetime).getTime();
+        const bDuration = (b.duration_minutes || 60) * 60 * 1000;
+        const bEnd = bStart + bDuration;
+
+        const isSameSlotAndType = event_type_id && b.event_type_id === event_type_id && bStart === slotStartMs;
+        if (isSameSlotAndType) {
+          concurrentSameSlot.push(b);
+        } else if (b.id !== booking.id) {
+          const overlaps = slotStartMs < (bEnd + bufferMs) && (slotEndMs + bufferMs) > bStart;
+          if (overlaps) {
+            concurrentOverlap = true;
+            break;
+          }
+        }
+      }
+
+      // First created takes precedence
+      concurrentSameSlot.sort((a, b) => new Date(a.created_at || 0) - new Date(b.created_at || 0) || a.id.localeCompare(b.id));
+      const myRank = concurrentSameSlot.findIndex(b => b.id === booking.id);
+
+      if (concurrentOverlap || (myRank !== -1 && myRank >= capacity)) {
+        // Concurrently booked by someone else who got in slightly ahead — rollback our newly inserted records
+        await sbAdmin(env, `/bookings?id=eq.${booking.id}`, { method: "DELETE", prefer: "return=minimal" });
+        await sbAdmin(env, `/customers?id=eq.${customer.id}`, { method: "DELETE", prefer: "return=minimal" });
+        return json({ error: "Alamak, slot ni baru sahaja diambil oleh pelanggan lain serentak. Sila pilih slot lain." }, 409);
+      }
+    }
 
     if (env.WORKER_CRON_URL && env.MANUAL_TRIGGER_KEY && Number(customer.amount) > 0) {
       try {

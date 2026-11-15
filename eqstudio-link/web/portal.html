@@ -202,7 +202,15 @@
       loadPortalBookingCard();
       renderPortalFaqChips();
       pollChatMessages(true);
-      setInterval(() => pollChatMessages(false), 3000);
+
+      // Only poll when the tab/screen is actively visible to protect server resources
+      setInterval(() => {
+        if (!document.hidden) pollChatMessages(false);
+      }, 3000);
+
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) pollChatMessages(false);
+      });
     }
 
     document.getElementById("portal-chat-form")?.addEventListener("submit", async (e) => {

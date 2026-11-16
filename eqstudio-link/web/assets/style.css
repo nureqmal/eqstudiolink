@@ -609,6 +609,29 @@ th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; text-transfor
   position: sticky; top: 0; z-index: 56;
 }
 
+@media (max-width: 640px) {
+  .db-topbar-mobile {
+    padding: 0.65rem 0.85rem;
+  }
+  .db-topbar-mobile .brand img {
+    height: 28px;
+  }
+  /* Keep mobile topbar clean and compact without horizontal overflow */
+  #quick-nav-btn-mobile,
+  #restart-tour-btn-mobile,
+  #theme-toggle-btn-mobile,
+  #logout-btn-mobile {
+    display: none !important;
+  }
+  .wrap {
+    padding: 0.85rem 0.85rem 4.5rem !important;
+  }
+  .mobile-today-agenda-card {
+    padding: 0.95rem 0.85rem !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
 @media (min-width: 640px) {
   .db-topbar-mobile { padding: 1rem 2rem; }
   .db-topbar-mobile .brand { font-size: 1.3rem; }

@@ -107,7 +107,7 @@
             </span>
             <span class="hint" id="home-live-datetime"></span>
             <span class="home-link-status-badge" id="home-link-status-badge">
-              <span class="home-link-status-dot"></span> <span id="home-link-status-text" data-i18n="home_status_checking">Menyemak...</span>
+              <span class="home-link-status-dot"></span> <span id="home-link-status-text">Menyemak...</span>
             </span>
           </div>
 
@@ -170,26 +170,26 @@
               <div class="ops-pulse-group">
                 <span class="ops-pulse-indicator">
                   <span class="ops-pulse-dot"></span>
-                  <span class="ops-pulse-label">STUDIO OPS HUD</span>
+                  <span class="ops-pulse-label" data-i18n="ops_hud_title">STUDIO OPS HUD</span>
                 </span>
                 <span class="ops-pulse-divider">|</span>
                 <span class="ops-telemetry-item">
-                  <span class="ops-telemetry-k">Collection Rate:</span>
+                  <span class="ops-telemetry-k" data-i18n="ops_collection_rate">Collection Rate:</span>
                   <span class="ops-telemetry-v" id="desktop-ops-collection-rate">0%</span>
                 </span>
                 <span class="ops-pulse-divider">|</span>
                 <span class="ops-telemetry-item">
-                  <span class="ops-telemetry-k">Avg Ticket:</span>
+                  <span class="ops-telemetry-k" data-i18n="ops_avg_ticket">Avg Ticket:</span>
                   <span class="ops-telemetry-v" id="desktop-ops-avg-ticket">RM0.00</span>
                 </span>
                 <span class="ops-pulse-divider">|</span>
                 <span class="ops-telemetry-item">
-                  <span class="ops-telemetry-k">Active Links:</span>
+                  <span class="ops-telemetry-k" data-i18n="ops_active_links">Active Links:</span>
                   <span class="ops-telemetry-v" id="desktop-ops-active-links">0</span>
                 </span>
               </div>
               <div class="ops-command-shortcut-tip">
-                <kbd>Ctrl</kbd>+<kbd>K</kbd> <span>Pintas Perintah</span>
+                <kbd>Ctrl</kbd>+<kbd>K</kbd> <span data-i18n="ops_cmd_tip">Pintas Perintah</span>
               </div>
             </div>
 
@@ -200,7 +200,7 @@
                 <div class="desktop-telemetry-header">
                   <div class="desktop-telemetry-title">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span>Penuaan Invois & Pendedahan Tunai</span>
+                    <span data-i18n="ops_aging_title">Penuaan Invois & Pendedahan Tunai</span>
                   </div>
                   <span class="desktop-telemetry-tag" id="aging-total-unpaid-tag">RM0 Belum Dikutip</span>
                 </div>
@@ -215,17 +215,17 @@
 
                 <div class="aging-matrix-grid">
                   <div class="aging-cell seg-safe">
-                    <span class="aging-label">0 - 7 HARI</span>
+                    <span class="aging-label" data-i18n="ops_aging_safe_label">0 - 7 HARI</span>
                     <span class="aging-val" id="aging-val-safe">RM0</span>
                     <span class="aging-count" id="aging-cnt-safe">0 pelanggan</span>
                   </div>
                   <div class="aging-cell seg-warning">
-                    <span class="aging-label">8 - 14 HARI</span>
+                    <span class="aging-label" data-i18n="ops_aging_warning_label">8 - 14 HARI</span>
                     <span class="aging-val" id="aging-val-warning">RM0</span>
                     <span class="aging-count" id="aging-cnt-warning">0 pelanggan</span>
                   </div>
                   <div class="aging-cell seg-danger">
-                    <span class="aging-label">> 14 HARI (OVERDUE)</span>
+                    <span class="aging-label" data-i18n="ops_aging_danger_label">> 14 HARI (OVERDUE)</span>
                     <span class="aging-val" id="aging-val-danger">RM0</span>
                     <span class="aging-count" id="aging-cnt-danger">0 pelanggan</span>
                   </div>
@@ -237,7 +237,7 @@
                 <div class="desktop-telemetry-header">
                   <div class="desktop-telemetry-title">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    <span>Kepadatan Slot Mingguan (Heatmap)</span>
+                    <span data-i18n="ops_heatmap_title">Kepadatan Slot Mingguan (Heatmap)</span>
                   </div>
                   <span class="desktop-telemetry-tag" id="heatmap-total-slots-tag">0 slot tempahan</span>
                 </div>
@@ -246,14 +246,14 @@
                   <!-- Generated via JS: Days (Mon-Sun) vs Time Slots (Pagi, Tengahari, Petang, Malam) -->
                 </div>
                 <div class="heatmap-legend">
-                  <span>Intensiti Slot:</span>
+                  <span data-i18n="ops_heatmap_intensity">Intensiti Slot:</span>
                   <div class="heatmap-legend-swatches">
                     <span class="swatch lvl-0" title="Kosong"></span>
                     <span class="swatch lvl-1" title="1 tempahan"></span>
                     <span class="swatch lvl-2" title="2 tempahan"></span>
                     <span class="swatch lvl-3" title="3+ tempahan (Puncak)"></span>
                   </div>
-                  <span class="hint" style="font-size:0.7rem;">(Puncak: Paling Kerap Ditempah)</span>
+                  <span class="hint" style="font-size:0.7rem;" data-i18n="ops_heatmap_peak">(Puncak: Paling Kerap Ditempah)</span>
                 </div>
               </div>
             </div>
@@ -263,12 +263,12 @@
               <div class="desktop-telemetry-header">
                 <div class="desktop-telemetry-title">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                  <span>Log Audit & Telemetri Aktiviti Masa Nyata</span>
+                  <span data-i18n="ops_audit_title">Log Audit & Telemetri Aktiviti Masa Nyata</span>
                 </div>
-                <span class="desktop-telemetry-tag live-badge">● AKTIF</span>
+                <span class="desktop-telemetry-tag live-badge" data-i18n="ops_audit_live">● AKTIF</span>
               </div>
               <div class="desktop-audit-feed" id="desktop-audit-feed">
-                <div class="audit-feed-empty hint">Menyemak log sistem dan aktiviti pelanggan...</div>
+                <div class="audit-feed-empty hint" data-i18n="ops_audit_empty">Menyemak log sistem dan aktiviti pelanggan...</div>
               </div>
             </div>
 
@@ -276,26 +276,26 @@
             <div class="card desktop-direct-action-panel" style="margin-bottom:1.5rem;">
               <div class="desktop-direct-header">
                 <div class="desktop-direct-title-group">
-                  <span class="desktop-direct-badge">INLINE OPS</span>
-                  <h3 class="desktop-direct-title">Kawalan Operasi Terus (Direct Action Engine)</h3>
-                  <span class="desktop-direct-sub">Kemas kini parameter sistem utama terus dari sini tanpa berpindah halaman</span>
+                  <span class="desktop-direct-badge" data-i18n="ops_direct_badge">INLINE OPS</span>
+                  <h3 class="desktop-direct-title" data-i18n="ops_direct_title">Kawalan Operasi Terus (Direct Action Engine)</h3>
+                  <span class="desktop-direct-sub" data-i18n="ops_direct_sub">Kemas kini parameter sistem utama terus dari sini tanpa berpindah halaman</span>
                 </div>
                 <div class="desktop-direct-tabs" id="desktop-direct-tabs" role="tablist">
                   <button type="button" class="desktop-direct-tab active" data-direct-tab="booking" id="tab-direct-booking">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    <span>Tetapan Booking</span>
+                    <span data-i18n="ops_tab_booking">Tetapan Booking</span>
                   </button>
                   <button type="button" class="desktop-direct-tab" data-direct-tab="profile" id="tab-direct-profile">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                    <span>Profil & Perbankan</span>
+                    <span data-i18n="ops_tab_profile">Profil & Perbankan</span>
                   </button>
                   <button type="button" class="desktop-direct-tab" data-direct-tab="reminder" id="tab-direct-reminder">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
-                    <span>Jadual Reminder</span>
+                    <span data-i18n="ops_tab_reminder">Jadual Reminder</span>
                   </button>
                   <button type="button" class="desktop-direct-tab" data-direct-tab="faq" id="tab-direct-faq">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                    <span>Jawapan Pantas (FAQ)</span>
+                    <span data-i18n="ops_tab_faq">Jawapan Pantas (FAQ)</span>
                   </button>
                 </div>
               </div>
@@ -305,44 +305,44 @@
                 <form id="direct-booking-form" class="desktop-direct-form" onsubmit="return false;">
                   <div class="desktop-direct-grid-4">
                     <div class="desktop-direct-field">
-                      <label for="direct-b-slug">Slug Link Utama <span class="mono hint" style="font-size:0.7rem;">(/book/slug)</span></label>
+                      <label for="direct-b-slug"><span data-i18n="ops_slug_label">Slug Link Utama</span> <span class="mono hint" style="font-size:0.7rem;">(/book/slug)</span></label>
                       <input type="text" id="direct-b-slug" placeholder="nama-bisnes" autocomplete="off" />
                     </div>
                     <div class="desktop-direct-field">
-                      <label for="direct-b-deposit">Deposit Lalai (RM) <span class="req">*</span></label>
+                      <label for="direct-b-deposit"><span data-i18n="ops_deposit_label">Deposit Lalai (RM)</span> <span class="req">*</span></label>
                       <input type="number" id="direct-b-deposit" min="0" step="0.5" placeholder="50.00" required />
                     </div>
                     <div class="desktop-direct-field">
-                      <label for="direct-b-duration">Tempoh Slot</label>
+                      <label for="direct-b-duration" data-i18n="ops_duration_label">Tempoh Slot</label>
                       <select id="direct-b-duration">
-                        <option value="15">15 minit</option>
-                        <option value="30">30 minit</option>
-                        <option value="45">45 minit</option>
-                        <option value="60">1 jam (60 min)</option>
-                        <option value="90">1.5 jam (90 min)</option>
-                        <option value="120">2 jam (120 min)</option>
-                        <option value="180">3 jam (180 min)</option>
+                        <option value="15">15 min</option>
+                        <option value="30">30 min</option>
+                        <option value="45">45 min</option>
+                        <option value="60">1 hr (60 min)</option>
+                        <option value="90">1.5 hr (90 min)</option>
+                        <option value="120">2 hr (120 min)</option>
+                        <option value="180">3 hr (180 min)</option>
                       </select>
                     </div>
                     <div class="desktop-direct-field">
-                      <label for="direct-b-min-notice">Notis Tempahan Min.</label>
+                      <label for="direct-b-min-notice" data-i18n="ops_min_notice_label">Notis Tempahan Min.</label>
                       <select id="direct-b-min-notice">
-                        <option value="0">Tiada (Boleh book terus)</option>
-                        <option value="2">2 jam sebelum</option>
-                        <option value="6">6 jam sebelum</option>
-                        <option value="12">12 jam sebelum</option>
-                        <option value="24">24 jam (1 hari sebelum)</option>
-                        <option value="48">48 jam (2 hari sebelum)</option>
+                        <option value="0" data-i18n="ops_notice_none">Tiada (Boleh book terus)</option>
+                        <option value="2" data-i18n="ops_notice_2h">2 jam sebelum</option>
+                        <option value="6" data-i18n="ops_notice_6h">6 jam sebelum</option>
+                        <option value="12" data-i18n="ops_notice_12h">12 jam sebelum</option>
+                        <option value="24" data-i18n="ops_notice_24h">24 jam (1 hari sebelum)</option>
+                        <option value="48" data-i18n="ops_notice_48h">48 jam (2 hari sebelum)</option>
                       </select>
                     </div>
                   </div>
                   <div class="desktop-direct-footer">
-                    <span class="desktop-direct-status hint" id="direct-b-status">Menyelaraskan data booking...</span>
+                    <span class="desktop-direct-status hint" id="direct-b-status" data-i18n="ops_b_status_syncing">Menyelaraskan data booking...</span>
                     <div class="desktop-direct-actions">
-                      <button type="button" class="secondary" id="direct-b-open-full">Buka Tetapan Penuh ↗</button>
+                      <button type="button" class="secondary" id="direct-b-open-full" data-i18n="ops_b_open_full">Buka Tetapan Penuh ↗</button>
                       <button type="button" class="primary" id="direct-b-save-btn">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Kemas Kini Booking</span>
+                        <span data-i18n="ops_b_save_btn">Kemas Kini Booking</span>
                       </button>
                     </div>
                   </div>
@@ -354,29 +354,29 @@
                 <form id="direct-profile-form" class="desktop-direct-form" onsubmit="return false;">
                   <div class="desktop-direct-grid-4">
                     <div class="desktop-direct-field">
-                      <label for="direct-p-biz-name">Nama Perniagaan</label>
-                      <input type="text" id="direct-p-biz-name" placeholder="Nama bisnes atau studio" />
+                      <label for="direct-p-biz-name" data-i18n="ops_prof_biz_label">Nama Perniagaan</label>
+                      <input type="text" id="direct-p-biz-name" placeholder="Nama bisnes atau studio" data-i18n-placeholder="ops_prof_biz_ph" />
                     </div>
                     <div class="desktop-direct-field">
-                      <label for="direct-p-phone">No Telefon / WhatsApp</label>
-                      <input type="text" id="direct-p-phone" placeholder="Contoh: 0123456789" />
+                      <label for="direct-p-phone" data-i18n="ops_prof_phone_label">No Telefon / WhatsApp</label>
+                      <input type="text" id="direct-p-phone" placeholder="Contoh: 0123456789" data-i18n-placeholder="ops_prof_phone_ph" />
                     </div>
                     <div class="desktop-direct-field">
-                      <label for="direct-p-bank-name">Nama Bank</label>
-                      <input type="text" id="direct-p-bank-name" placeholder="Maybank, CIMB, Bank Islam..." />
+                      <label for="direct-p-bank-name" data-i18n="ops_prof_bank_label">Nama Bank</label>
+                      <input type="text" id="direct-p-bank-name" placeholder="Maybank, CIMB, Bank Islam..." data-i18n-placeholder="ops_prof_bank_ph" />
                     </div>
                     <div class="desktop-direct-field">
-                      <label for="direct-p-bank-acc">No Akaun Bank</label>
-                      <input type="text" id="direct-p-bank-acc" placeholder="Nombor akaun simpanan/semasa" />
+                      <label for="direct-p-bank-acc" data-i18n="ops_prof_acc_label">No Akaun Bank</label>
+                      <input type="text" id="direct-p-bank-acc" placeholder="Nombor akaun simpanan/semasa" data-i18n-placeholder="ops_prof_acc_ph" />
                     </div>
                   </div>
                   <div class="desktop-direct-footer">
-                    <span class="desktop-direct-status hint" id="direct-p-status">Data perniagaan bersedia.</span>
+                    <span class="desktop-direct-status hint" id="direct-p-status" data-i18n="ops_prof_ready">Data perniagaan bersedia.</span>
                     <div class="desktop-direct-actions">
-                      <button type="button" class="secondary" id="direct-p-open-full">Profil Lengkap ↗</button>
+                      <button type="button" class="secondary" id="direct-p-open-full" data-i18n="ops_prof_open_full">Profil Lengkap ↗</button>
                       <button type="button" class="primary" id="direct-p-save-btn">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Simpan Profil &amp; Bank</span>
+                        <span data-i18n="ops_prof_save_btn">Simpan Profil &amp; Bank</span>
                       </button>
                     </div>
                   </div>
@@ -387,7 +387,7 @@
               <div class="desktop-direct-content" id="direct-content-reminder">
                 <div class="desktop-direct-reminder-wrap">
                   <div class="desktop-direct-reminder-intro">
-                    <span class="hint">Togol hari bila sistem menghantar reminder emel automatik kepada pelanggan sebelum & selepas tarikh due:</span>
+                    <span class="hint" data-i18n="ops_rem_intro">Togol hari bila sistem menghantar reminder emel automatik kepada pelanggan sebelum & selepas tarikh due:</span>
                   </div>
                   <div class="desktop-direct-chips" id="direct-reminder-chips">
                     <!-- Populated dynamically: H-7, H-5, H-3, H-2, H-1, Hari-Ini, H+1, H+3 -->
@@ -395,10 +395,10 @@
                   <div class="desktop-direct-footer">
                     <span class="desktop-direct-status hint" id="direct-reminder-summary">Peringatan: -</span>
                     <div class="desktop-direct-actions">
-                      <button type="button" class="secondary" id="direct-reminder-reset-btn">↻ Reset Asal</button>
+                      <button type="button" class="secondary" id="direct-reminder-reset-btn" data-i18n="ops_rem_reset_btn">↻ Reset Asal</button>
                       <button type="button" class="primary" id="direct-reminder-save-btn">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Simpan Jadual</span>
+                        <span data-i18n="ops_rem_save_btn">Simpan Jadual</span>
                       </button>
                     </div>
                   </div>
@@ -410,21 +410,21 @@
                 <div class="desktop-direct-faq-wrap">
                   <div class="desktop-direct-faq-grid">
                     <div class="desktop-direct-faq-form-col">
-                      <p class="hint" style="font-weight:600; font-size:0.75rem; margin:0 0 0.4rem; text-transform:uppercase; letter-spacing:0.04em;">Tambah Template Baru</p>
+                      <p class="hint" style="font-weight:600; font-size:0.75rem; margin:0 0 0.4rem; text-transform:uppercase; letter-spacing:0.04em;" data-i18n="ops_faq_new_title">Tambah Template Baru</p>
                       <div class="desktop-direct-field" style="margin-bottom:0.45rem;">
-                        <input type="text" id="direct-faq-label-input" placeholder="Tajuk Pintas (cth: Nombor Akaun, Lokasi)" />
+                        <input type="text" id="direct-faq-label-input" placeholder="Tajuk Pintas (cth: Nombor Akaun, Lokasi)" data-i18n-placeholder="ops_faq_label_ph" />
                       </div>
                       <div class="desktop-direct-field" style="margin-bottom:0.55rem;">
-                        <textarea id="direct-faq-answer-input" rows="2" placeholder="Teks jawapan pantas yang dihantar ke pelanggan..."></textarea>
+                        <textarea id="direct-faq-answer-input" rows="2" placeholder="Teks jawapan pantas yang dihantar ke pelanggan..." data-i18n-placeholder="ops_faq_answer_ph"></textarea>
                       </div>
                       <button type="button" class="primary" id="direct-faq-add-btn" style="width:100%; font-size:0.8rem; padding:0.4rem 0.8rem;">
-                        <span>+ Tambah Jawapan Pantas</span>
+                        <span data-i18n="ops_faq_add_btn">+ Tambah Jawapan Pantas</span>
                       </button>
                     </div>
                     <div class="desktop-direct-faq-list-col">
-                      <p class="hint" style="font-weight:600; font-size:0.75rem; margin:0 0 0.4rem; text-transform:uppercase; letter-spacing:0.04em;">Senarai Template Aktif</p>
+                      <p class="hint" style="font-weight:600; font-size:0.75rem; margin:0 0 0.4rem; text-transform:uppercase; letter-spacing:0.04em;" data-i18n="ops_faq_active_title">Senarai Template Aktif</p>
                       <div class="desktop-direct-faq-list" id="direct-faq-active-list">
-                        <span class="hint" style="font-size:0.78rem;">Memuatkan template FAQ...</span>
+                        <span class="hint" style="font-size:0.78rem;" data-i18n="ops_faq_loading">Memuatkan template FAQ...</span>
                       </div>
                     </div>
                   </div>
@@ -437,7 +437,7 @@
             <div class="section-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
               <h2 style="margin:0; font-size:0.95rem; display:flex; align-items:center; gap:0.45rem;">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--stamp);"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
-                Tren Booking (14 Hari)
+                <span data-i18n="home_trend_title">Tren Booking (14 Hari)</span>
               </h2>
               <div id="home-trend-summary-badges" style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;"></div>
             </div>
@@ -458,11 +458,16 @@
           </div>
 
           <div class="card" id="home-recent-bookings-card" style="margin-bottom:1.5rem; display:none;">
-            <div class="section-title"><h2 style="margin:0; font-size:0.95rem;">Booking Terbaru</h2></div>
+            <div class="section-title"><h2 style="margin:0; font-size:0.95rem;" data-i18n="home_recent_bookings_title">Booking Terbaru</h2></div>
             <div style="overflow-x:auto; margin-top:0.6rem;">
               <table class="home-recent-table">
                 <thead>
-                  <tr><th>Pelanggan</th><th>Tarikh Booking</th><th>Status</th><th style="text-align:right;">Amaun</th></tr>
+                  <tr>
+                    <th data-i18n="home_recent_th_client">Pelanggan</th>
+                    <th data-i18n="home_recent_th_date">Tarikh Booking</th>
+                    <th data-i18n="home_recent_th_status">Status</th>
+                    <th style="text-align:right;" data-i18n="home_recent_th_amount">Amaun</th>
+                  </tr>
                 </thead>
                 <tbody id="home-recent-bookings-body"></tbody>
               </table>
@@ -470,26 +475,26 @@
           </div>
 
           <div class="card home-booking-link-card" id="home-booking-link-card" style="display:none;">
-            <p class="hint" style="text-transform:uppercase; font-size:0.7rem; margin:0 0 0.4rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> <span id="home-link-card-label">Link Booking Anda</span></p>
+            <p class="hint" style="text-transform:uppercase; font-size:0.7rem; margin:0 0 0.4rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> <span id="home-link-card-label" data-i18n="home_your_links_title">Link Booking Anda</span></p>
             <div id="home-link-list"></div>
           </div>
           <div class="card" id="home-no-booking-link-card" style="display:none;">
-            <p class="hint" style="margin:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Anda belum setup link booking lagi.</p>
-            <button type="button" class="secondary" data-page="booking-settings" style="margin-top:0.6rem;">Setup Sekarang →</button>
+            <p class="hint" style="margin:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="home_no_links_msg">Anda belum setup link booking lagi.</span></p>
+            <button type="button" class="secondary" data-page="booking-settings" style="margin-top:0.6rem;" data-i18n="home_setup_now_btn">Setup Sekarang →</button>
           </div>
 
           <div class="mobile-stat-strip">
             <div class="mobile-stat-pill">
               <span class="pill-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-              <span><span class="pill-value" id="pill-stat-booking">0</span> <span class="pill-label">akan datang</span></span>
+              <span><span class="pill-value" id="pill-stat-booking">0</span> <span class="pill-label" data-i18n="home_stat_upcoming_suffix">akan datang</span></span>
             </div>
             <div class="mobile-stat-pill">
               <span class="pill-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg></span>
-              <span><span class="pill-value" id="pill-stat-outstanding">RM0</span> <span class="pill-label">belum diterima</span></span>
+              <span><span class="pill-value" id="pill-stat-outstanding">RM0</span> <span class="pill-label" data-i18n="home_stat_unpaid_suffix">belum diterima</span></span>
             </div>
             <div class="mobile-stat-pill">
               <span class="pill-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
-              <span><span class="pill-value" id="pill-stat-customers">0</span> <span class="pill-label">pelanggan</span></span>
+              <span><span class="pill-value" id="pill-stat-customers">0</span> <span class="pill-label" data-i18n="home_stat_clients_suffix">pelanggan</span></span>
             </div>
           </div>
 
@@ -2502,6 +2507,26 @@
         try {
           if (typeof renderBookingList === "function" && Array.isArray(allBookings) && allBookings.length > 0) {
             renderBookingList();
+          }
+        } catch (_) {}
+        try {
+          if (typeof updateHomeLinkStatusBadge === "function") {
+            updateHomeLinkStatusBadge();
+          }
+        } catch (_) {}
+        try {
+          if (typeof renderHomeMobileAgenda === "function") {
+            renderHomeMobileAgenda();
+          }
+        } catch (_) {}
+        try {
+          if (typeof renderDesktopOpsCockpit === "function") {
+            renderDesktopOpsCockpit();
+          }
+        } catch (_) {}
+        try {
+          if (typeof updateHomeTileStats === "function") {
+            updateHomeTileStats();
           }
         } catch (_) {}
       });
@@ -5078,6 +5103,7 @@
       await loadSettingsForCurrentLink();
       renderSetupChecklist(allCustomers.length);
       updateHomeLinkStatusBadge();
+      renderHomeMobileAgenda();
       renderDesktopOpsCockpit(); // allBookingLinks just finished loading — refresh Ops Cockpit stats (Active Links, etc.) in case updateHomeTileStats() already ran earlier with an empty array
 
       if (!onboardingChecked) {
@@ -6109,8 +6135,10 @@
       const el = document.getElementById("home-live-datetime");
       if (!el) return;
       const now = new Date();
-      const dateLabel = now.toLocaleDateString("ms-MY", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-      const timeLabel = now.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+      const lang = getCurrentLang();
+      const locale = lang === "en" ? "en-US" : "ms-MY";
+      const dateLabel = now.toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+      const timeLabel = now.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit", second: "2-digit" });
       el.textContent = `${dateLabel}, ${timeLabel}`;
     }
     updateHomeLiveClock();
@@ -6123,10 +6151,10 @@
       const hasActiveLink = allBookingLinks.some(l => !!l.slug);
       if (hasActiveLink) {
         badge.className = "home-link-status-badge active";
-        text.textContent = "Booking Link Aktif";
+        text.textContent = t("home_link_active", "Booking Link Aktif");
       } else {
         badge.className = "home-link-status-badge inactive";
-        text.textContent = "Belum Ada Booking Link";
+        text.textContent = t("home_link_inactive", "Belum Ada Booking Link");
       }
     }
 
@@ -6139,7 +6167,7 @@
 
       const now = new Date();
       const upcoming = allBookings.filter(b => b.status === "confirmed" && new Date(b.slot_datetime) >= now).sort((a, b) => new Date(a.slot_datetime) - new Date(b.slot_datetime));
-      bookingEl.textContent = `${upcoming.length} akan datang`;
+      bookingEl.textContent = `${upcoming.length} ${t("home_stat_upcoming_suffix", "akan datang")}`;
 
       // ── Streak: consecutive weeks (ending this week) with at least 1 confirmed booking ──
       const streakEl = document.getElementById("home-streak");
@@ -6156,19 +6184,19 @@
           if (hasBooking) streak++;
           else break;
         }
-        streakEl.textContent = streak >= 2 ? `${streak} minggu berturut-turut ada booking` : "";
+        streakEl.textContent = streak >= 2 ? `${streak} ${getCurrentLang() === "en" ? "consecutive weeks with bookings" : "minggu berturut-turut ada booking"}` : "";
       }
 
       const previewEl = document.getElementById("home-hero-preview");
       if (previewEl) {
         if (upcoming.length === 0) {
-          previewEl.innerHTML = `<p class="hint">Tiada booking akan datang.</p>`;
+          previewEl.innerHTML = `<p class="hint">${t("home_recent_empty", "Tiada booking akan datang.")}</p>`;
         } else {
           previewEl.innerHTML = upcoming.slice(0, 3).map(b => {
             const isToday = new Date(b.slot_datetime).toDateString() === now.toDateString();
             return `
             <div class="bento-hero-row">
-              <span class="bento-hero-name">${isToday ? `<span class="badge dah_bayar" style="margin-right:0.4rem; font-size:0.62rem;">Hari Ini</span>` : ""}${escapeHtml(b.customer_name)}</span>
+              <span class="bento-hero-name">${isToday ? `<span class="badge dah_bayar" style="margin-right:0.4rem; font-size:0.62rem;">${t("agenda_tag_today", "Hari Ini")}</span>` : ""}${escapeHtml(b.customer_name)}</span>
               <span class="bento-hero-time">${fmtBookingDateTime(b.slot_datetime)}</span>
             </div>
           `;
@@ -6176,12 +6204,12 @@
         }
       }
 
-      pelangganEl.textContent = `${allCustomers.length} pelanggan`;
+      pelangganEl.textContent = `${allCustomers.length} ${t("home_stat_clients_suffix", "pelanggan")}`;
       document.getElementById("pill-stat-booking").textContent = upcoming.length;
       document.getElementById("pill-stat-customers").textContent = allCustomers.length;
 
       const outstanding = allCustomers.filter(c => c.status !== "dah_bayar").reduce((sum, c) => sum + Number(c.amount), 0);
-      laporanEl.textContent = `RM ${outstanding.toFixed(2)} belum diterima`;
+      laporanEl.textContent = `RM ${outstanding.toFixed(2)} ${t("home_stat_unpaid_suffix", "belum diterima")}`;
       document.getElementById("pill-stat-outstanding").textContent = `RM${outstanding.toFixed(0)}`;
 
       // Mini sparkline — last 5 months' paid income
@@ -6227,7 +6255,7 @@
       const weekAhead = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
       const todayStr = now.toISOString().slice(0, 10);
       const dueThisWeek = allCustomers.filter(c => c.status !== "dah_bayar" && c.due_date >= todayStr && c.due_date <= weekAhead).length;
-      kalendarEl.textContent = `${dueThisWeek} due minggu ini`;
+      kalendarEl.textContent = `${dueThisWeek} ${t("home_stat_due_this_week", "due minggu ini")}`;
     }
 
     function renderHomeNextAction() {
@@ -6306,7 +6334,7 @@
           <tr>
             <td>${escapeHtml(b.customer_name)}</td>
             <td class="hint">${fmtBookingDateTime(b.slot_datetime)}</td>
-            <td><span class="badge ${isPaid ? "dah_bayar" : "belum_bayar"}" style="font-size:0.7rem;">${isPaid ? "Dah Bayar" : "Belum Bayar"}</span></td>
+            <td><span class="badge ${isPaid ? "dah_bayar" : "belum_bayar"}" style="font-size:0.7rem;">${isPaid ? t("status_dah_bayar", "Dah Bayar") : t("status_belum_bayar", "Belum Bayar")}</span></td>
             <td style="text-align:right;" class="mono">${amount}</td>
           </tr>
         `;
@@ -6319,7 +6347,15 @@
       const subEl = document.getElementById("mobile-agenda-subtitle");
       if (!card || !listEl) return;
 
+      if (subEl) {
+        subEl.className = "hint mobile-agenda-subtitle";
+        subEl.style.width = "auto";
+        subEl.style.height = "auto";
+      }
+
       const now = new Date();
+      const lang = getCurrentLang();
+      const locale = lang === "en" ? "en-US" : "ms-MY";
       const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
       const todayEnd = todayStart + 24 * 60 * 60 * 1000;
 
@@ -6344,10 +6380,10 @@
       const customerMap = new Map(allCustomers.map(c => [c.id, c]));
 
       if (todayBookings.length > 0) {
-        subEl.textContent = `${todayBookings.length} tempahan dijadualkan hari ini`;
+        if (subEl) subEl.textContent = `${todayBookings.length} ${t("agenda_today_scheduled", "tempahan dijadualkan hari ini")}`;
         listEl.innerHTML = todayBookings.map(b => {
           const bDate = new Date(b.slot_datetime);
-          const timeStr = bDate.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+          const timeStr = bDate.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
           const cust = customerMap.get(b.customer_id);
           const isPaid = cust?.status === "dah_bayar";
 
@@ -6355,12 +6391,12 @@
             <div class="mobile-agenda-item">
               <div class="mobile-agenda-time-col">
                 <span class="mobile-agenda-time">${timeStr}</span>
-                <span class="mobile-agenda-tag today">Hari Ini</span>
+                <span class="mobile-agenda-tag today">${t("agenda_tag_today", "Hari Ini")}</span>
               </div>
               <div class="mobile-agenda-info-col">
                 <div class="mobile-agenda-cust-name">${escapeHtml(b.customer_name)}</div>
                 <div class="mobile-agenda-cust-meta">
-                  <span class="badge ${isPaid ? "dah_bayar" : "belum_bayar"} mobile-agenda-badge">${isPaid ? "Dah Bayar" : "Belum Bayar"}</span>
+                  <span class="badge ${isPaid ? "dah_bayar" : "belum_bayar"} mobile-agenda-badge">${isPaid ? t("status_dah_bayar", "Dah Bayar") : t("status_belum_bayar", "Belum Bayar")}</span>
                   ${b.duration_minutes ? `<span class="mobile-agenda-duration">${b.duration_minutes} min</span>` : ""}
                 </div>
               </div>
@@ -6370,12 +6406,12 @@
       } else if (upcomingFuture.length > 0) {
         const nextB = upcomingFuture[0];
         const nextDate = new Date(nextB.slot_datetime);
-        const dateLabel = nextDate.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short" });
-        const timeLabel = nextDate.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit" });
+        const dateLabel = nextDate.toLocaleDateString(locale, { weekday: "short", day: "numeric", month: "short" });
+        const timeLabel = nextDate.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
         const cust = customerMap.get(nextB.customer_id);
         const isPaid = cust?.status === "dah_bayar";
 
-        subEl.textContent = `Tiada tempahan hari ini. Slot seterusnya: ${dateLabel}`;
+        if (subEl) subEl.textContent = `${t("agenda_no_today_next", "Tiada tempahan hari ini. Slot seterusnya:")} ${dateLabel}`;
         listEl.innerHTML = `
           <div class="mobile-agenda-item next-slot">
             <div class="mobile-agenda-time-col">
@@ -6385,20 +6421,20 @@
             <div class="mobile-agenda-info-col">
               <div class="mobile-agenda-cust-name">${escapeHtml(nextB.customer_name)}</div>
               <div class="mobile-agenda-cust-meta">
-                <span class="badge ${isPaid ? "dah_bayar" : "belum_bayar"} mobile-agenda-badge">${isPaid ? "Dah Bayar" : "Belum Bayar"}</span>
-                <span class="mobile-agenda-duration">Slot Terdekat</span>
+                <span class="badge ${isPaid ? "dah_bayar" : "belum_bayar"} mobile-agenda-badge">${isPaid ? t("status_dah_bayar", "Dah Bayar") : t("status_belum_bayar", "Belum Bayar")}</span>
+                <span class="mobile-agenda-duration">${t("agenda_tag_closest", "Slot Terdekat")}</span>
               </div>
             </div>
           </div>
         `;
       } else {
-        subEl.textContent = "Tiada tempahan dijadualkan";
+        if (subEl) subEl.textContent = t("agenda_none_scheduled", "Tiada tempahan dijadualkan");
         listEl.innerHTML = `
           <div class="mobile-agenda-empty-state">
-            <p class="mobile-agenda-empty-msg">Tiada tempahan aktif hari ini. Kongsi pautan tempahan kepada prospek atau tambah pelanggan baharu.</p>
+            <p class="mobile-agenda-empty-msg">${t("agenda_empty_msg", "Tiada tempahan aktif hari ini. Kongsi pautan tempahan kepada prospek atau tambah pelanggan baharu.")}</p>
             <div class="mobile-agenda-empty-actions">
-              <button type="button" class="secondary" id="mobile-agenda-share-btn" style="font-size:0.78rem; padding:0.4rem 0.8rem; border-radius:8px;">Salin Link Booking</button>
-              <button type="button" class="secondary" id="mobile-agenda-add-btn" style="font-size:0.78rem; padding:0.4rem 0.8rem; border-radius:8px;">+ Tambah Pelanggan</button>
+              <button type="button" class="secondary" id="mobile-agenda-share-btn" style="font-size:0.78rem; padding:0.4rem 0.8rem; border-radius:8px;">${t("agenda_copy_link_btn", "Salin Link Booking")}</button>
+              <button type="button" class="secondary" id="mobile-agenda-add-btn" style="font-size:0.78rem; padding:0.4rem 0.8rem; border-radius:8px;">${t("agenda_add_client_btn", "+ Tambah Pelanggan")}</button>
             </div>
           </div>
         `;
@@ -6406,7 +6442,7 @@
           const activeLink = allBookingLinks.find(l => !!l.slug) || allBookingLinks[0];
           if (activeLink && activeLink.slug) {
             const fullUrl = `${window.location.origin}/book/${activeLink.slug}`;
-            navigator.clipboard.writeText(fullUrl).then(() => showToast("Pautan booking disalin ke clipboard!", "success"));
+            navigator.clipboard.writeText(fullUrl).then(() => showToast(t("link_copied", "Pautan booking disalin ke clipboard!"), "success"));
           } else {
             goToPage("booking-settings");
           }
@@ -6435,7 +6471,7 @@
       const linksEl = document.getElementById("desktop-ops-active-links");
       if (collEl) collEl.textContent = `${collectionRate}%`;
       if (ticketEl) ticketEl.textContent = `RM ${avgTicket}`;
-      if (linksEl) linksEl.textContent = `${activeLinksCount} link`;
+      if (linksEl) linksEl.textContent = `${activeLinksCount} ${t("ops_active_links_count", "pautan")}`;
 
       // 2. Aging Receivables Matrix Calculation
       const unpaidCustomers = allCustomers.filter(c => c.status !== "dah_bayar");
@@ -6465,7 +6501,7 @@
 
       const totalUnpaid = safeAmount + warnAmount + dangerAmount;
       const agingTag = document.getElementById("aging-total-unpaid-tag");
-      if (agingTag) agingTag.textContent = `RM ${totalUnpaid.toFixed(2)} Belum Dikutip`;
+      if (agingTag) agingTag.textContent = `RM ${totalUnpaid.toFixed(2)} ${t("ops_aging_uncollected", "Belum Dikutip")}`;
 
       const safeValEl = document.getElementById("aging-val-safe");
       const safeCntEl = document.getElementById("aging-cnt-safe");
@@ -6475,11 +6511,11 @@
       const dangerCntEl = document.getElementById("aging-cnt-danger");
 
       if (safeValEl) safeValEl.textContent = `RM ${safeAmount.toFixed(2)}`;
-      if (safeCntEl) safeCntEl.textContent = `${safeCount} pelanggan`;
+      if (safeCntEl) safeCntEl.textContent = `${safeCount} ${t("ops_clients_suffix", "pelanggan")}`;
       if (warnValEl) warnValEl.textContent = `RM ${warnAmount.toFixed(2)}`;
-      if (warnCntEl) warnCntEl.textContent = `${warnCount} pelanggan`;
+      if (warnCntEl) warnCntEl.textContent = `${warnCount} ${t("ops_clients_suffix", "pelanggan")}`;
       if (dangerValEl) dangerValEl.textContent = `RM ${dangerAmount.toFixed(2)}`;
-      if (dangerCntEl) dangerCntEl.textContent = `${dangerCount} pelanggan`;
+      if (dangerCntEl) dangerCntEl.textContent = `${dangerCount} ${t("ops_clients_suffix", "pelanggan")}`;
 
       // Distribution Bar %
       const safePct = totalUnpaid > 0 ? (safeAmount / totalUnpaid) * 100 : 0;
@@ -6489,15 +6525,23 @@
       const barEl = document.getElementById("aging-progress-bar");
       if (barEl) {
         barEl.innerHTML = `
-          <div class="aging-bar-seg seg-safe" style="width:${safePct}%;" title="Normal: RM ${safeAmount.toFixed(2)} (${safePct.toFixed(0)}%)"></div>
-          <div class="aging-bar-seg seg-warning" style="width:${warnPct}%;" title="Perhatian: RM ${warnAmount.toFixed(2)} (${warnPct.toFixed(0)}%)"></div>
-          <div class="aging-bar-seg seg-danger" style="width:${dangerPct}%;" title="Overdue: RM ${dangerAmount.toFixed(2)} (${dangerPct.toFixed(0)}%)"></div>
+          <div class="aging-bar-seg seg-safe" style="width:${safePct}%;" title="${t("ops_aging_normal_hint", "Normal (< 7 hari)")}: RM ${safeAmount.toFixed(2)} (${safePct.toFixed(0)}%)"></div>
+          <div class="aging-bar-seg seg-warning" style="width:${warnPct}%;" title="${t("ops_aging_warn_hint", "Perhatian (7-14 hari)")}: RM ${warnAmount.toFixed(2)} (${warnPct.toFixed(0)}%)"></div>
+          <div class="aging-bar-seg seg-danger" style="width:${dangerPct}%;" title="${t("ops_aging_danger_hint", "Lewat (> 14 hari)")}: RM ${dangerAmount.toFixed(2)} (${dangerPct.toFixed(0)}%)"></div>
         `;
       }
 
       // 3. Booking Heatmap Matrix: Days (Isnin - Ahad) vs Time Windows
       // Time Windows: Pagi (08:00 - 12:00), Tengahari (12:00 - 15:00), Petang (15:00 - 19:00), Malam (19:00 - 23:00)
-      const daysLabel = ["Isn", "Sel", "Rab", "Kha", "Jum", "Sab", "Ahd"];
+      const daysLabel = [
+        t("ops_day_mon", "Isn"),
+        t("ops_day_tue", "Sel"),
+        t("ops_day_wed", "Rab"),
+        t("ops_day_thu", "Kha"),
+        t("ops_day_fri", "Jum"),
+        t("ops_day_sat", "Sab"),
+        t("ops_day_sun", "Ahd")
+      ];
       // slot matrix: dayIndex (0=Mon..6=Sun) x period (0..3)
       const matrix = Array.from({ length: 7 }, () => [0, 0, 0, 0]);
 
@@ -6520,15 +6564,20 @@
       }
 
       const heatmapTag = document.getElementById("heatmap-total-slots-tag");
-      if (heatmapTag) heatmapTag.textContent = `${totalHeatmapBookings} slot tempahan direkod`;
+      if (heatmapTag) heatmapTag.textContent = `${totalHeatmapBookings} ${t("ops_heatmap_slots", "slot tempahan direkod")}`;
 
       const heatmapEl = document.getElementById("desktop-booking-heatmap");
       if (heatmapEl) {
-        const periodLabels = ["Pagi (8-12)", "Tgh (12-3)", "Ptg (3-7)", "Mlm (7-11)"];
+        const periodLabels = [
+          t("ops_period_morn", "Pagi (8-12)"),
+          t("ops_period_noon", "Tgh (12-3)"),
+          t("ops_period_eve", "Ptg (3-7)"),
+          t("ops_period_night", "Mlm (7-11)")
+        ];
         let html = `
           <div class="heatmap-table">
             <div class="heatmap-row header">
-              <div class="heatmap-cell day-hdr">Hari</div>
+              <div class="heatmap-cell day-hdr">${t("ops_day_hdr", "Hari")}</div>
               ${periodLabels.map(p => `<div class="heatmap-cell period-hdr">${p}</div>`).join("")}
             </div>
         `;
@@ -6541,7 +6590,7 @@
             if (count >= 3) lvl = 3;
             else if (count === 2) lvl = 2;
             else if (count === 1) lvl = 1;
-            html += `<div class="heatmap-cell block lvl-${lvl}" title="${daysLabel[i]} ${periodLabels[p]}: ${count} tempahan">${count > 0 ? count : ""}</div>`;
+            html += `<div class="heatmap-cell block lvl-${lvl}" title="${daysLabel[i]} ${periodLabels[p]}: ${count}">${count > 0 ? count : ""}</div>`;
           }
           html += `</div>`;
         }
@@ -6560,7 +6609,7 @@
             time: new Date(b.created_at || b.slot_datetime),
             type: "booking",
             icon: "📅",
-            title: `Tempahan ${b.status === "confirmed" ? "Disahkan" : b.status}`,
+            title: b.status === "confirmed" ? t("ops_audit_booking_confirmed", "Tempahan Disahkan") : b.status,
             desc: `${b.customer_name} — Slot ${fmtBookingDateTime(b.slot_datetime)}`,
           });
         });
@@ -6572,7 +6621,7 @@
               time: new Date(c.paid_at),
               type: "payment",
               icon: "💰",
-              title: "Bayaran Diterima",
+              title: t("ops_audit_payment_received", "Bayaran Diterima"),
               desc: `${c.name} — RM ${Number(c.amount).toFixed(2)}`,
             });
           } else if (c.created_at) {
@@ -6580,7 +6629,7 @@
               time: new Date(c.created_at),
               type: "customer",
               icon: "👤",
-              title: "Pelanggan / Invois Didaftar",
+              title: t("ops_audit_client_invoice", "Pelanggan Baharu / Invois"),
               desc: `${c.name} — RM ${Number(c.amount).toFixed(2)} (Due ${c.due_date})`,
             });
           }
@@ -6591,11 +6640,13 @@
         const topEvents = events.slice(0, 6);
 
         if (topEvents.length === 0) {
-          feedEl.innerHTML = `<div class="audit-feed-empty hint">Tiada aktiviti dikesan lagi. Aktiviti tempahan dan kutipan akan dipaparkan di sini.</div>`;
+          feedEl.innerHTML = `<div class="audit-feed-empty hint">${t("ops_audit_empty", "Menyemak log sistem dan aktiviti pelanggan...")}</div>`;
         } else {
+          const lang = getCurrentLang();
+          const locale = lang === "en" ? "en-US" : "ms-MY";
           feedEl.innerHTML = topEvents.map(e => {
-            const timeStr = isNaN(e.time) ? "-" : e.time.toLocaleTimeString("ms-MY", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
-            const dateStr = isNaN(e.time) ? "" : e.time.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
+            const timeStr = isNaN(e.time) ? "-" : e.time.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+            const dateStr = isNaN(e.time) ? "" : e.time.toLocaleDateString(locale, { day: "numeric", month: "short" });
             return `
               <div class="audit-feed-item">
                 <span class="audit-item-time">[${dateStr} ${timeStr}]</span>
@@ -6713,7 +6764,7 @@
 
           const { error } = await supabase.from("booking_links").update(payload).eq("id", targetLink.id);
           bSaveBtn.disabled = false;
-          bSaveBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Kemas Kini Booking</span>';
+          bSaveBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>' + t("ops_b_save_btn", "Kemas Kini Booking") + '</span>';
 
           if (error) {
             showToast(error.message.includes("duplicate") ? "Slug telah digunakan. Sila pilih slug lain." : error.message, "error");
@@ -6774,7 +6825,7 @@
 
           const { error } = await supabase.from("profiles").update(payload).eq("id", user.id);
           pSaveBtn.disabled = false;
-          pSaveBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Simpan Profil &amp; Bank</span>';
+          pSaveBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>' + t("ops_prof_save_btn", "Simpan Profil & Bank") + '</span>';
 
           if (error) {
             showToast("Gagal kemas kini profil: " + error.message, "error");
@@ -6828,7 +6879,7 @@
           const days = [...directReminderOffsets].sort((a, b) => b - a);
           const { error } = await supabase.from("reminder_settings").upsert({ owner_id: user.id, days_before: days });
           rSaveBtn.disabled = false;
-          rSaveBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Simpan Jadual</span>';
+          rSaveBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>' + t("ops_rem_save_btn", "Simpan Jadual") + '</span>';
 
           if (error) {
             showToast("Gagal simpan jadual: " + error.message, "error");
@@ -6876,7 +6927,7 @@
 
           const { error } = await supabase.from("chat_faq_templates").insert({ owner_id: user.id, label, answer_text: answer });
           faqAddBtn.disabled = false;
-          faqAddBtn.innerHTML = "<span>+ Tambah Jawapan Pantas</span>";
+          faqAddBtn.innerHTML = "<span>" + t("ops_faq_add_btn", "+ Tambah Jawapan Pantas") + "</span>";
 
           if (error) {
             showToast("Gagal tambah template: " + error.message, "error");
@@ -6932,7 +6983,7 @@
       if (!el) return;
       const sorted = [...directReminderOffsets].sort((a, b) => b - a);
       const labels = sorted.map(d => OFFSET_LABEL[d] || (d > 0 ? `H-${d}` : d === 0 ? "Hari-Ini" : `H+${Math.abs(d)}`));
-      el.textContent = `Jadual Aktif: ${labels.join(", ")} (${sorted.length} peringatan)`;
+      el.textContent = `${t("ops_rem_summary_prefix", "Jadual Aktif:")} ${labels.join(", ")} (${sorted.length} ${t("ops_rem_summary_suffix", "peringatan")})`;
     }
 
     async function loadDirectFaqList() {
@@ -6947,7 +6998,7 @@
       }
 
       if (!data || data.length === 0) {
-        listEl.innerHTML = `<span class="hint" style="font-size:0.75rem;">Belum ada template tersimpan. Tambah melalui borang di sebelah.</span>`;
+        listEl.innerHTML = `<span class="hint" style="font-size:0.75rem;">${t("ops_faq_empty", "Belum ada template tersimpan. Tambah melalui borang di sebelah.")}</span>`;
         return;
       }
 

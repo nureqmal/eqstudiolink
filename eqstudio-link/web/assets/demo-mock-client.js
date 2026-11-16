@@ -74,7 +74,7 @@ function buildAiskrimComelDataset() {
   ];
 
   const customers = bookings.map((b, i) => ({
-    id: `demo-cust-${i + 1}`, owner_id: ownerId, name: b.customer_name, email: b.customer_email, phone: b.customer_phone,
+    id: `demo-cust-${i + 1}`, booking_id: b.id, owner_id: ownerId, name: b.customer_name, contact_email: b.customer_email, email: b.customer_email, phone: b.customer_phone,
     amount: b.deposit_amount, status: b.deposit_paid ? "dah_bayar" : "belum_bayar",
     paid_at: b.deposit_paid ? isoDateTime(new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 3))) : null,
     due_date: isoDate(daysFromNow(3)), notes: "", is_recurring: false, created_at: b.created_at,
@@ -174,7 +174,7 @@ function buildLensaKreatifDataset() {
   ];
 
   const customers = bookings.map((b, i) => ({
-    id: `demo-lcust-${i + 1}`, owner_id: ownerId, name: b.customer_name, email: b.customer_email, phone: b.customer_phone,
+    id: `demo-lcust-${i + 1}`, booking_id: b.id, owner_id: ownerId, name: b.customer_name, contact_email: b.customer_email, email: b.customer_email, phone: b.customer_phone,
     amount: b.deposit_amount, status: b.deposit_paid ? "dah_bayar" : "belum_bayar",
     paid_at: b.deposit_paid ? isoDateTime(new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 2))) : null,
     due_date: isoDate(daysFromNow(3)), notes: "", is_recurring: false, created_at: b.created_at,
@@ -246,6 +246,14 @@ function createQueryBuilder(dataStore, tableName) {
       if (op === "eq") return row[col] === val;
       if (op === "neq") return row[col] !== val;
       if (op === "gte") return row[col] >= val;
+      if (op === "lte") return row[col] <= val;
+      if (op === "in") return Array.isArray(val) ? val.includes(row[col]) : false;
+      if (op === "not") {
+        if (val === null || val === "null" || val === undefined) {
+          return row[col] != null;
+        }
+        return row[col] !== val;
+      }
       return true;
     }));
   }
@@ -255,11 +263,34 @@ function createQueryBuilder(dataStore, tableName) {
     eq(col, val) { filters.push(["eq", col, val]); return builder; },
     neq(col, val) { filters.push(["neq", col, val]); return builder; },
     gte(col, val) { filters.push(["gte", col, val]); return builder; },
+    lte(col, val) { filters.push(["lte", col, val]); return builder; },
+    in(col, vals) { filters.push(["in", col, Array.isArray(vals) ? vals : []]); return builder; },
+    is(col, val) {
+      if (val === null || val === "null") {
+        filters.push(["eq", col, null]);
+      } else {
+        filters.push(["eq", col, val]);
+      }
+      return builder;
+    },
+    not(col, op, val) {
+      if (op === "is" && (val === null || val === "null")) {
+        filters.push(["not", col, null]);
+      } else {
+        filters.push(["not", col, val]);
+      }
+      return builder;
+    },
     order(col, opts) { sortSpec = { col, ascending: opts?.ascending !== false }; return builder; },
     limit(n) { limitN = n; return builder; },
     single() { wantSingle = true; return builder; },
+    maybeSingle() { wantSingle = true; return builder; },
     insert(payload) {
       pendingOp = { type: "insert", payload: Array.isArray(payload) ? payload : [payload] };
+      return builder;
+    },
+    upsert(payload) {
+      pendingOp = { type: "upsert", payload: Array.isArray(payload) ? payload : [payload] };
       return builder;
     },
     update(payload) {
@@ -277,6 +308,20 @@ function createQueryBuilder(dataStore, tableName) {
         const inserted = pendingOp.payload.map(p => ({ id: `demo-new-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, created_at: new Date().toISOString(), ...p }));
         dataStore[tableName] = [...(dataStore[tableName] || []), ...inserted];
         return resolve({ data: wantSingle ? inserted[0] : inserted, error: null });
+      }
+      if (pendingOp?.type === "upsert") {
+        const payloadList = pendingOp.payload;
+        const currentRows = dataStore[tableName] || [];
+        for (const item of payloadList) {
+          const matchIdx = currentRows.findIndex(r => (item.id && r.id === item.id) || (item.owner_id && r.owner_id === item.owner_id));
+          if (matchIdx >= 0) {
+            currentRows[matchIdx] = { ...currentRows[matchIdx], ...item };
+          } else {
+            currentRows.push({ id: item.id || `demo-${Date.now()}`, created_at: new Date().toISOString(), ...item });
+          }
+        }
+        dataStore[tableName] = currentRows;
+        return resolve({ data: wantSingle ? payloadList[0] : payloadList, error: null });
       }
       if (pendingOp?.type === "update") {
         dataStore[tableName] = (dataStore[tableName] || []).map(row =>

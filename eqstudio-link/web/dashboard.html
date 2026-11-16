@@ -3563,7 +3563,7 @@
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td data-label="Nama">${escapeHtml(c.name)}</td>
-          <td data-label="Emel">${escapeHtml(c.contact_email)}</td>
+          <td data-label="Emel">${escapeHtml(c.contact_email || c.email || "")}</td>
           <td data-label="RM" class="mono">${Number(c.amount).toFixed(2)}</td>
           <td data-label="Due" class="mono">${c.due_date}</td>
           <td data-label="Status"><span class="badge ${c.status}">${STATUS_LABEL[c.status]}</span></td>
@@ -3590,7 +3590,7 @@
             <span class="mono">RM ${Number(c.amount).toFixed(2)}</span>
             <span class="due">Due ${c.due_date}</span>
           </div>
-          <div class="cust-card-email">${escapeHtml(c.contact_email)}</div>
+          <div class="cust-card-email">${escapeHtml(c.contact_email || c.email || "")}</div>
         `;
         const actionsHolder = document.createElement("div");
         actionsHolder.className = "cust-card-actions";
@@ -3615,22 +3615,26 @@
         return;
       }
 
-      allCustomers = data;
-      document.getElementById("list-count").textContent = data.length + " pelanggan";
-      document.getElementById("empty-state").style.display = data.length ? "none" : "block";
+      allCustomers = Array.isArray(data) ? data : [];
+      document.getElementById("list-count").textContent = allCustomers.length + " " + t("cl_stat_clients", "pelanggan");
+      document.getElementById("empty-state").style.display = allCustomers.length ? "none" : "block";
 
-      document.getElementById("stat-total").textContent = data.length;
-      document.getElementById("stat-belum").textContent = data.filter(c => c.status === "belum_bayar").length;
-      document.getElementById("stat-reminder").textContent = data.filter(c => c.status === "reminder_dihantar").length;
-      document.getElementById("stat-paid").textContent = data.filter(c => c.status === "dah_bayar").length;
+      document.getElementById("stat-total").textContent = allCustomers.length;
+      document.getElementById("stat-belum").textContent = allCustomers.filter(c => c.status === "belum_bayar").length;
+      document.getElementById("stat-reminder").textContent = allCustomers.filter(c => c.status === "reminder_dihantar").length;
+      document.getElementById("stat-paid").textContent = allCustomers.filter(c => c.status === "dah_bayar").length;
 
-      renderCustomerRows(data);
-      renderMobileCards(data);
-      renderReports(data);
+      renderCustomerRows(allCustomers);
+      renderMobileCards(allCustomers);
+      renderReports(allCustomers);
       renderCalendar();
-      renderSetupChecklist(data.length);
+      renderSetupChecklist(allCustomers.length);
       updateHomeTileStats();
       updateMoneyDashboardExtras();
+      renderHomeMobileAgenda();
+      renderDesktopOpsCockpit();
+      renderHomeTrendChart();
+      renderHomeNextAction();
       loadExpenses();
     }
 
@@ -3910,7 +3914,7 @@
       const sortBy = document.getElementById("customer-sort").value;
 
       let filtered = !q ? allCustomers : allCustomers.filter(c =>
-        c.name.toLowerCase().includes(q) || c.contact_email.toLowerCase().includes(q)
+        (c.name || "").toLowerCase().includes(q) || (c.contact_email || c.email || "").toLowerCase().includes(q)
       );
       if (statusFilter) filtered = filtered.filter(c => c.status === statusFilter);
 
@@ -6151,25 +6155,34 @@
         document.getElementById("booking-list-empty").style.display = "block";
         return;
       }
-      allBookings = data || [];
+      allBookings = Array.isArray(data) ? data : [];
 
       // Load milestone payments for all bookings in one query (grouped client-side)
       // rather than one query per booking row.
-      const { data: milestoneRows } = await supabase
-        .from("customers")
-        .select("id, booking_id, milestone_label, amount, due_date, status")
-        .eq("owner_id", user.id)
-        .not("booking_id", "is", null)
-        .order("due_date", { ascending: true });
       bookingMilestones = new Map();
-      (milestoneRows || []).forEach(m => {
-        if (!bookingMilestones.has(m.booking_id)) bookingMilestones.set(m.booking_id, []);
-        bookingMilestones.get(m.booking_id).push(m);
-      });
+      try {
+        const { data: milestoneRows } = await supabase
+          .from("customers")
+          .select("id, booking_id, milestone_label, amount, due_date, status")
+          .eq("owner_id", user.id)
+          .not("booking_id", "is", null)
+          .order("due_date", { ascending: true });
+        (milestoneRows || []).forEach(m => {
+          if (!bookingMilestones.has(m.booking_id)) bookingMilestones.set(m.booking_id, []);
+          bookingMilestones.get(m.booking_id).push(m);
+        });
+      } catch (mErr) {
+        console.warn("Could not load booking milestones:", mErr);
+      }
 
       renderBookingList();
       updateHomeTileStats();
       updateMoneyDashboardExtras();
+      renderHomeMobileAgenda();
+      renderDesktopOpsCockpit();
+      renderHomeTrendChart();
+      renderHomeNextAction();
+      renderCalendar();
     }
 
     function animateCountUp(el, targetValue, isMoney, prefix = "") {
@@ -8728,6 +8741,15 @@
       loadCustomers().catch(() => {});
     });
 
+    loadBookingLinksAndSettings().catch(err => {
+      console.error("loadBookingLinksAndSettings failed:", err);
+      showToast("Gagal muatkan tetapan booking. Cuba refresh page.", "error");
+    });
+    loadBookings().catch(err => {
+      console.error("loadBookings failed:", err);
+      document.getElementById("booking-table-skeleton").style.display = "none";
+      showToast("Gagal muatkan senarai booking. Cuba refresh page.", "error");
+    });
     loadCustomers().catch(err => {
       console.error("loadCustomers failed:", err);
       document.getElementById("table-skeleton").style.display = "none";

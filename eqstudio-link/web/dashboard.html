@@ -570,7 +570,7 @@
           </div>
 
           <div class="db-tabs">
-            <button type="button" class="db-tab active" data-db-tab="tempahan">Tempahan</button>
+            <button type="button" class="db-tab active" data-db-tab="tempahan" data-i18n="tab_bookings">Tempahan</button>
             <button type="button" class="db-tab" data-db-tab="leads">Leads <span class="db-tab-badge" id="leads-count-badge" style="display:none;"></span></button>
           </div>
 
@@ -590,8 +590,8 @@
                 <option value="past" data-i18n="status_completed">Lepas</option>
               </select>
               <select id="booking-sort" style="width:auto;">
-                <option value="date_asc">Tarikh (Terdekat Dulu)</option>
-                <option value="date_desc">Tarikh (Terjauh Dulu)</option>
+                <option value="date_asc" data-i18n="sort_date_asc">Tarikh (Terdekat Dulu)</option>
+                <option value="date_desc" data-i18n="sort_date_desc">Tarikh (Terjauh Dulu)</option>
                 <option value="name_asc">Nama (A-Z)</option>
               </select>
             </div>
@@ -612,13 +612,13 @@
             <div class="card">
               <div class="section-title">
                 <h2 style="margin:0;">Leads<button type="button" class="info-icon-btn" data-info="Log pertanyaan pelanggan sebelum mereka buat tempahan rasmi — susulan quote, hubungi semula, dan tukar terus kepada tempahan bila mereka setuju.">i</button></h2>
-                <button type="button" class="secondary" id="lead-add-btn" style="font-size:0.78rem; padding:0.4rem 0.75rem;">+ Tambah Lead</button>
+                <button type="button" class="secondary" id="lead-add-btn" style="font-size:0.78rem; padding:0.4rem 0.75rem;" data-i18n="lead_add_btn">+ Tambah Lead</button>
               </div>
               <div id="lead-list"></div>
               <div class="empty-state-visual" id="lead-list-empty" style="display:none;">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                <p class="empty-state-title">Belum ada lead lagi</p>
-                <p class="hint">Log pertanyaan pelanggan di sini sebelum mereka buat tempahan rasmi.</p>
+                <p class="empty-state-title" data-i18n="lead_empty_title">Belum ada lead lagi</p>
+                <p class="hint" data-i18n="lead_empty_desc">Log pertanyaan pelanggan di sini sebelum mereka buat tempahan rasmi.</p>
               </div>
             </div>
           </div>
@@ -660,7 +660,7 @@
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                   <span>Pautan Booking Aktif</span>
                 </div>
-                <span style="font-size:0.75rem; color:var(--ink-soft);">Pilih pautan untuk disunting</span>
+                <span style="font-size:0.75rem; color:var(--ink-soft);" data-i18n="bset_select_link_hint">Pilih pautan untuk disunting</span>
               </div>
               <div id="link-switcher-chips" class="chip-row"></div>
               <div id="add-link-row" style="display:none; margin-top:0.8rem; background:var(--surface); padding:0.8rem; border-radius:10px; border:1px solid var(--paper-line);">
@@ -678,8 +678,8 @@
                   </div>
                 </div>
               </div>
-              <button type="button" id="show-add-link-btn" class="secondary" style="display:none; margin-top:0.7rem; width:100%; font-size:0.82rem;">+ Tambah Link Booking (Pro)</button>
-              <p class="hint" id="link-switcher-upsell" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Setiap link ada kalendar & tetapan tersendiri. <a href="/billing.html" style="font-weight:600;">Upgrade ke Pro</a> untuk sehingga 3 pautan tempahan serentak.</p>
+              <button type="button" id="show-add-link-btn" class="secondary" style="display:none; margin-top:0.7rem; width:100%; font-size:0.82rem;" data-i18n="bset_add_link_btn">+ Tambah Link Booking (Pro)</button>
+              <p class="hint" id="link-switcher-upsell" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Setiap link ada kalendar & tetapan tersendiri. <a href="/billing.html" style="font-weight:600;" data-i18n="upgrade_to_pro">Upgrade ke Pro</a> untuk sehingga 3 pautan tempahan serentak.</p>
             </div>
 
             <!-- Segmented Modern Tabs -->
@@ -701,7 +701,7 @@
               </div>
               <div class="bset-summary-content">
                 <div class="bset-summary-label">Ringkasan Konfigurasi Langsung</div>
-                <div class="bset-summary-text" id="bset-live-summary">Isi tetapan di bawah untuk lihat ringkasan tempahan pelanggan...</div>
+                <div class="bset-summary-text" id="bset-live-summary" data-i18n="bset_live_summary_ph">Isi tetapan di bawah untuk lihat ringkasan tempahan pelanggan...</div>
               </div>
             </div>
 
@@ -710,8 +710,8 @@
               <div class="bset-section-heading">
                 <span class="bset-section-num">01</span>
                 <div>
-                  <h3 class="bset-section-title">Pautan Awam &amp; Kod QR Tempahan</h3>
-                  <p class="bset-section-sub">Pelanggan menggunakan pautan ini untuk memilih slot waktu dan membayar deposit secara layan diri.</p>
+                  <h3 class="bset-section-title" data-i18n="bset_section_qr">Pautan Awam &amp; Kod QR Tempahan</h3>
+                  <p class="bset-section-sub" data-i18n="bset_section_qr_sub">Pelanggan menggunakan pautan ini untuk memilih slot waktu dan membayar deposit secara layan diri.</p>
                 </div>
               </div>
 
@@ -732,7 +732,7 @@
                     <a id="booking-qr-download" download="qr-booking.png" class="secondary" style="flex:1; text-align:center; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:0.35rem; font-size:0.82rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Muat Turun</a>
                     <button type="button" class="secondary" id="booking-qr-print" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:0.35rem; font-size:0.82rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Cetak</button>
                   </div>
-                  <p class="hint" style="margin-top:0.5rem; text-align:center;">Tip: Cetak dan letakkan di kaunter bersebelahan QR DuitNow supaya pelanggan boleh terus lock tarikh & masa!</p>
+                  <p class="hint" style="margin-top:0.5rem; text-align:center;" data-i18n="bset_counter_tip">Tip: Cetak dan letakkan di kaunter bersebelahan QR DuitNow supaya pelanggan boleh terus lock tarikh & masa!</p>
                 </div>
               </div>
             </div>
@@ -743,7 +743,7 @@
                 <span class="bset-section-num">02</span>
                 <div>
                   <h3 class="bset-section-title">Ketetapan Tempoh &amp; Deposit</h3>
-                  <p class="bset-section-sub">Tentukan masa yang diperuntukkan bagi setiap sesi dan bayaran pendahuluan komitmen pelanggan.</p>
+                  <p class="bset-section-sub" data-i18n="bset_duration_sub">Tentukan masa yang diperuntukkan bagi setiap sesi dan bayaran pendahuluan komitmen pelanggan.</p>
                 </div>
               </div>
 
@@ -751,18 +751,18 @@
                 <div>
                   <label for="p-slot-duration">Tempoh Setiap Slot <button type="button" class="info-icon-btn" data-info="Tempoh lalai bagi setiap slot booking. Servis di tab 'Jenis Perkhidmatan' boleh menetapkan tempoh tersendiri.">i</button></label>
                   <select id="p-slot-duration" style="width:100%; margin-top:0.25rem;">
-                    <option value="30">30 minit</option>
-                    <option value="60" selected>1 jam (60 minit)</option>
-                    <option value="90">1 jam 30 minit</option>
-                    <option value="120">2 jam (120 minit)</option>
+                    <option value="30" data-i18n="min_30">30 minit</option>
+                    <option value="60" selected data-i18n="hour_1">1 jam (60 minit)</option>
+                    <option value="90" data-i18n="hour_1_5">1 jam 30 minit</option>
+                    <option value="120" data-i18n="hour_2">2 jam (120 minit)</option>
                   </select>
-                  <p class="hint" style="margin-top:0.3rem;">Berapa lama pelanggan berada dalam satu sesi temu janji.</p>
+                  <p class="hint" style="margin-top:0.3rem;" data-i18n="bset_duration_hint">Berapa lama pelanggan berada dalam satu sesi temu janji.</p>
                 </div>
 
                 <div>
                   <label for="p-default-deposit">Deposit Lalai (RM) <span style="color:var(--warn); font-size:0.78rem;">*Wajib</span> <button type="button" class="info-icon-btn" data-info="Contoh: 50 (taip 0 sekiranya tempahan adalah percuma tanpa deposit)">i</button></label>
                   <input type="number" id="p-default-deposit" step="0.01" min="0" placeholder="cth: 50.00" style="width:100%; margin-top:0.25rem;" />
-                  <p class="hint" style="margin-top:0.3rem;">Taip 0 sekiranya sesi percuma tanpa bayaran deposit.</p>
+                  <p class="hint" style="margin-top:0.3rem;" data-i18n="bset_deposit_hint">Taip 0 sekiranya sesi percuma tanpa bayaran deposit.</p>
                   <div id="bset-deposit-tip"></div>
                 </div>
               </div>
@@ -773,8 +773,8 @@
               <div class="bset-section-heading">
                 <span class="bset-section-num">03</span>
                 <div>
-                  <h3 class="bset-section-title">Peraturan Notis &amp; Jeda Masa</h3>
-                  <p class="bset-section-sub">Lindungi jadual kerja anda daripada tempahan saat akhir dan temu janji bertindih.</p>
+                  <h3 class="bset-section-title" data-i18n="bset_section_rules">Peraturan Notis &amp; Jeda Masa</h3>
+                  <p class="bset-section-sub" data-i18n="bset_section_rules_sub">Lindungi jadual kerja anda daripada tempahan saat akhir dan temu janji bertindih.</p>
                 </div>
               </div>
 
@@ -782,28 +782,28 @@
                 <div>
                   <label for="p-min-notice">Notis Min. Booking <button type="button" class="info-icon-btn" data-info="Tempoh minimum sebelum slot yang pelanggan masih boleh menempah. Contohnya 24 jam bermaksud slot esok pada jam yang sama tidak lagi boleh ditempah selepas sekarang.">i</button></label>
                   <select id="p-min-notice" style="width:100%; margin-top:0.25rem;">
-                    <option value="0">Tiada had (last minute)</option>
-                    <option value="6">6 jam sebelum</option>
-                    <option value="24" selected>24 jam sebelum</option>
-                    <option value="48">48 jam sebelum</option>
+                    <option value="0" data-i18n="bset_notice_lastmin">Tiada had (last minute)</option>
+                    <option value="6" data-i18n="bset_notice_6h">6 jam sebelum</option>
+                    <option value="24" selected data-i18n="bset_notice_24h">24 jam sebelum</option>
+                    <option value="48" data-i18n="bset_notice_48h">48 jam sebelum</option>
                   </select>
                 </div>
 
                 <div>
                   <label for="p-buffer">Waktu Jeda (Buffer) <button type="button" class="info-icon-btn" data-info="Jarak masa automatik antara dua tempahan berturutan, supaya anda ada ruang untuk berehat atau mengemas sebelum pelanggan seterusnya tiba.">i</button></label>
                   <select id="p-buffer" style="width:100%; margin-top:0.25rem;">
-                    <option value="0" selected>Tiada jeda</option>
-                    <option value="5">5 minit</option>
-                    <option value="10">10 minit</option>
-                    <option value="15">15 minit</option>
-                    <option value="30">30 minit</option>
+                    <option value="0" selected data-i18n="bset_buffer_none">Tiada jeda</option>
+                    <option value="5" data-i18n="bset_buffer_5m">5 minit</option>
+                    <option value="10" data-i18n="bset_buffer_10m">10 minit</option>
+                    <option value="15" data-i18n="bset_buffer_15m">15 minit</option>
+                    <option value="30" data-i18n="bset_buffer_30m">30 minit</option>
                   </select>
                 </div>
 
                 <div>
                   <label for="p-cancel-notice">Notis Min. Batal <button type="button" class="info-icon-btn" data-info="Tempoh minimum sebelum slot yang pelanggan masih dibenarkan batalkan sendiri.">i</button></label>
                   <select id="p-cancel-notice" style="width:100%; margin-top:0.25rem;">
-                    <option value="0" selected>Boleh batal bila-bila</option>
+                    <option value="0" selected data-i18n="bset_cancel_anytime">Boleh batal bila-bila</option>
                     <option value="6">6 jam sebelum</option>
                     <option value="24">24 jam sebelum</option>
                     <option value="48">48 jam sebelum</option>
@@ -818,7 +818,7 @@
                 <span class="bset-section-num">04</span>
                 <div>
                   <h3 class="bset-section-title">Deskripsi &amp; Poster Perkhidmatan <span class="optional-section-badge" style="margin-left:0.4rem; vertical-align:middle;">Pilihan</span></h3>
-                  <p class="bset-section-sub">Beri maklumat tambahan seperti terma servis, persediaan awal pelanggan, atau gambar poster promosi.</p>
+                  <p class="bset-section-sub" data-i18n="bset_info_sub">Beri maklumat tambahan seperti terma servis, persediaan awal pelanggan, atau gambar poster promosi.</p>
                 </div>
               </div>
 
@@ -834,13 +834,13 @@
                 <label for="p-link-poster-file">Poster / Banner Servis (maksimum 2MB) <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 untuk paparan terbaik pada halaman tempahan.">i</button></label>
                 <div class="poster-upload-zone" id="p-link-poster-zone" style="margin-top:0.35rem;">
                   <svg class="poster-upload-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                  <p class="hint" style="margin:0; font-weight:500;">Klik atau seret gambar poster ke sini</p>
+                  <p class="hint" style="margin:0; font-weight:500;" data-i18n="bset_drag_poster">Klik atau seret gambar poster ke sini</p>
                   <input type="file" id="p-link-poster-file" accept="image/*" />
                 </div>
                 <img id="p-link-poster-preview" style="max-width:140px; border-radius:10px; margin-top:0.6rem; display:none; border:1px solid var(--paper-line);" alt="" />
                 <div class="poster-upload-success" id="p-link-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
               </div>
-              <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.75rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Muat naik poster servis hanya tersedia untuk pelan Pro. <a href="/billing.html" style="font-weight:600;">Upgrade ke Pro</a> untuk membuka ciri ini.</p>
+              <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.75rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Muat naik poster servis hanya tersedia untuk pelan Pro. <a href="/billing.html" style="font-weight:600;" data-i18n="upgrade_to_pro">Upgrade ke Pro</a> untuk membuka ciri ini.</p>
             </div>
 
             <button type="button" id="save-booking-btn" style="width:100%; padding:0.85rem; font-size:1rem; font-weight:700; border-radius:12px; display:flex; align-items:center; justify-content:center; gap:0.5rem; box-shadow:0 4px 14px rgba(74,9,143,0.25);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Simpan Tetapan Booking</button>
@@ -856,7 +856,7 @@
                 </div>
                 <div>
                   <h3 class="bset-section-title">Jadual Mingguan Tetap <button type="button" class="info-icon-btn" data-info="Tetapkan waktu buka anda sekali sahaja dan ia berulang setiap minggu, tanpa perlu klik tarikh satu-satu. Untuk cuti atau waktu khas pada satu tarikh, guna kalendar di bawah.">i</button></h3>
-                  <p class="bset-section-sub">Set sekali, berulang setiap minggu. Cuti atau waktu khas satu hari? Klik tarikh dalam kalendar di bawah.</p>
+                  <p class="bset-section-sub" data-i18n="bset_weekly_sub">Set sekali, berulang setiap minggu. Cuti atau waktu khas satu hari? Klik tarikh dalam kalendar di bawah.</p>
                 </div>
               </div>
 
@@ -864,7 +864,7 @@
                 <span class="wk-quick-label">Salin pantas:</span>
                 <button type="button" class="wk-chip" data-wk-copy="1>2,3,4,5">Isnin → Sel–Jum</button>
                 <button type="button" class="wk-chip" data-wk-copy="6>0">Sabtu → Ahad</button>
-                <button type="button" class="wk-chip" data-wk-copy="1>2,3,4,5,6,0">Isnin → Semua hari</button>
+                <button type="button" class="wk-chip" data-wk-copy="1>2,3,4,5,6,0" data-i18n="bset_mon_all">Isnin → Semua hari</button>
               </div>
 
               <div class="wk-days" id="weekly-days"></div>
@@ -873,7 +873,7 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 <span id="weekly-summary-text"></span>
               </div>
-              <div class="wk-save-row"><button type="button" id="weekly-save-btn">Simpan Jadual Mingguan</button></div>
+              <div class="wk-save-row"><button type="button" id="weekly-save-btn" data-i18n="bset_save_weekly">Simpan Jadual Mingguan</button></div>
             </div>
 
             <div class="card bset-section-card">
@@ -883,7 +883,7 @@
                 </div>
                 <div>
                   <h3 class="bset-section-title">Kalendar &amp; Pengecualian <button type="button" class="info-icon-btn" data-info="Kalendar menunjukkan waktu buka sebenar setiap tarikh. Klik mana-mana tarikh untuk menukar waktunya, atau menutupnya, untuk hari itu sahaja. Tarikh lain terus ikut jadual mingguan.">i</button></h3>
-                  <p class="bset-section-sub">Klik tarikh untuk ubah atau tutup hari itu sahaja. Tarikh lain ikut jadual mingguan di atas.</p>
+                  <p class="bset-section-sub" data-i18n="bset_dates_sub">Klik tarikh untuk ubah atau tutup hari itu sahaja. Tarikh lain ikut jadual mingguan di atas.</p>
                 </div>
               </div>
 
@@ -909,9 +909,9 @@
               <summary class="hint" style="cursor:pointer; font-weight:600;">Cara alternatif: salin waktu khas minggu ini ke 4 minggu depan</summary>
               <div style="margin-top:0.6rem; background:var(--paper); padding:1rem; border-radius:12px; border:1px solid var(--paper-line);">
                 <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
-                  <button type="button" class="secondary" id="avail-copy-week-btn" style="flex:1; min-width:240px; display:inline-flex; align-items:center; justify-content:center; gap:0.45rem; font-weight:600; padding:0.65rem 1rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span id="avail-copy-week-text">Salin Minggu Ni ke 4 Minggu Depan</span></button>
+                  <button type="button" class="secondary" id="avail-copy-week-btn" style="flex:1; min-width:240px; display:inline-flex; align-items:center; justify-content:center; gap:0.45rem; font-weight:600; padding:0.65rem 1rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span id="avail-copy-week-text" data-i18n="bset_copy_btn">Salin Minggu Ni ke 4 Minggu Depan</span></button>
                 </div>
-                <p class="hint" style="margin-top:0.5rem; text-align:center;">Tidak guna jadual mingguan di atas? Butang ini mengulangi waktu khas (yang anda tetapkan pada tarikh tertentu) minggu semasa ke sebulan akan datang.</p>
+                <p class="hint" style="margin-top:0.5rem; text-align:center;" data-i18n="bset_copy_hint">Tidak guna jadual mingguan di atas? Butang ini mengulangi waktu khas (yang anda tetapkan pada tarikh tertentu) minggu semasa ke sebulan akan datang.</p>
               </div>
               </details>
             </div>
@@ -927,7 +927,7 @@
                 </div>
                 <div>
                   <h3 class="bset-section-title">Pakej &amp; Jenis Perkhidmatan <button type="button" class="info-icon-btn" data-info="Cipta pakej perkhidmatan dengan tempoh, harga deposit, dan kapasiti tersendiri. Contoh: Gunting Rambut (30 min) vs Rawatan Kulit Kepala (60 min).">i</button></h3>
-                  <p class="bset-section-sub">Pelanggan akan memilih servis mana yang ingin ditempah sebelum memilih tarikh dan masa.</p>
+                  <p class="bset-section-sub" data-i18n="bset_services_sub">Pelanggan akan memilih servis mana yang ingin ditempah sebelum memilih tarikh dan masa.</p>
                 </div>
               </div>
 
@@ -938,7 +938,7 @@
               <div class="card" style="background:var(--paper); border:1px solid var(--paper-line); border-radius:14px; padding:1.25rem; margin-top:1.25rem;">
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; border-bottom:1px solid var(--paper-line); padding-bottom:0.6rem;">
                   <h4 style="margin:0; font-size:0.95rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:0.4rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg> Tambah / Kemaskini Perkhidmatan</h4>
-                  <button type="button" id="et-cancel-edit-btn" class="secondary" style="font-size:0.75rem; padding:0.25rem 0.6rem; display:none;">✕ Batal Kemaskini</button>
+                  <button type="button" id="et-cancel-edit-btn" class="secondary" style="font-size:0.75rem; padding:0.25rem 0.6rem; display:none;" data-i18n="bset_cancel_edit">✕ Batal Kemaskini</button>
                 </div>
 
                 <div class="row">
@@ -954,7 +954,7 @@
 
                 <div class="row" style="margin-top:0.8rem;">
                   <div style="flex:1;">
-                    <label for="et-deposit">Deposit (RM) <span style="font-size:0.75rem; color:var(--ink-soft);">(taip 0 untuk percuma)</span> <button type="button" class="info-icon-btn" data-info="Bayaran komitmen pendahuluan. Contoh: 50.00">i</button></label>
+                    <label for="et-deposit">Deposit (RM) <span style="font-size:0.75rem; color:var(--ink-soft);" data-i18n="bset_type_0_free">(taip 0 untuk percuma)</span> <button type="button" class="info-icon-btn" data-info="Bayaran komitmen pendahuluan. Contoh: 50.00">i</button></label>
                     <input type="number" id="et-deposit" step="0.01" min="0" placeholder="cth: 50.00" style="margin-top:0.25rem;" />
                   </div>
                   <div style="flex:1;">
@@ -978,18 +978,18 @@
                     <label for="et-poster-file" style="display:block;">Poster / Gambar Pakej (maksimum 2MB) <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3.">i</button></label>
                     <div class="poster-upload-zone" id="et-poster-zone" style="margin-top:0.35rem;">
                       <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                      <p class="hint" style="margin:0;">Klik atau seret gambar ke sini</p>
+                      <p class="hint" style="margin:0;" data-i18n="bset_drag_img">Klik atau seret gambar ke sini</p>
                       <input type="file" id="et-poster-file" accept="image/*" />
                     </div>
                     <div class="poster-upload-success" id="et-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
                   </div>
-                  <p class="hint" id="et-poster-locked" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Poster perkhidmatan hanya untuk pelan Pro. <a href="/billing.html" style="font-weight:600;">Upgrade ke Pro</a> untuk mengaktifkan.</p>
+                  <p class="hint" id="et-poster-locked" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Poster perkhidmatan hanya untuk pelan Pro. <a href="/billing.html" style="font-weight:600;" data-i18n="upgrade_to_pro">Upgrade ke Pro</a> untuk mengaktifkan.</p>
 
                   <label for="et-video-link" style="display:block; margin-top:0.9rem;">Link Panggilan Video (pilihan) <button type="button" class="info-icon-btn" data-info="Untuk servis konsultasi/temujanji jarak jauh — link Google Meet atau Zoom ini akan dipaparkan kepada pelanggan selepas mereka berjaya menempah.">i</button></label>
                   <input type="url" id="et-video-link" placeholder="cth: https://meet.google.com/xxx-xxxx-xxx" style="margin-top:0.35rem;" />
                 </div>
 
-                <button type="button" id="add-event-type-btn" style="margin-top:1rem; width:100%; padding:0.75rem; font-weight:700; border-radius:10px;">+ Tambah Jenis Perkhidmatan</button>
+                <button type="button" id="add-event-type-btn" style="margin-top:1rem; width:100%; padding:0.75rem; font-weight:700; border-radius:10px;" data-i18n="bset_add_service">+ Tambah Jenis Perkhidmatan</button>
               </div>
             </div>
           </div>
@@ -1003,7 +1003,7 @@
                 </div>
                 <div>
                   <h3 class="bset-section-title">Borang Soalan Intake Pelanggan <button type="button" class="info-icon-btn" data-info="Soalan khusus yang pelanggan perlu jawab semasa membuat tempahan. Jawapan akan dipaparkan terus dalam Senarai Booking anda.">i</button></h3>
-                  <p class="bset-section-sub">Dapatkan maklumat kritikal sebelum janji temu bermula, seperti lokasi majlis, tema pilihan, atau keperluan alahan.</p>
+                  <p class="bset-section-sub" data-i18n="bset_questions_sub">Dapatkan maklumat kritikal sebelum janji temu bermula, seperti lokasi majlis, tema pilihan, atau keperluan alahan.</p>
                 </div>
               </div>
 
@@ -1015,7 +1015,7 @@
                 <label for="new-question-input" style="font-weight:600; margin-bottom:0.35rem; display:block;">Tambah Soalan Baharu <button type="button" class="info-icon-btn" data-info="Contoh: Apakah jenis kenderaan anda? atau Berapakah anggaran tetamu yang hadir?">i</button></label>
                 <div class="row">
                   <input type="text" id="new-question-input" placeholder="cth: Di manakah alamat lokasi majlis diadakan?" style="flex:1;" />
-                  <button type="button" id="add-question-btn" class="secondary" style="font-weight:600; padding:0 1.25rem;">+ Tambah</button>
+                  <button type="button" id="add-question-btn" class="secondary" style="font-weight:600; padding:0 1.25rem;" data-i18n="add_btn">+ Tambah</button>
                 </div>
 
                 <div style="margin-top:0.75rem;">
@@ -1040,7 +1040,7 @@
                 </div>
                 <div>
                   <h3 class="bset-section-title">Embed Widget Booking ke Laman Web Anda <button type="button" class="info-icon-btn" data-info="Salin kod iframe ini dan masukkan ke dalam blog atau laman web WordPress, Wix, Carrd, atau Shopify anda.">i</button></h3>
-                  <p class="bset-section-sub">Paparkan kalendar tempahan terus di dalam laman web sedia ada anda dengan satu baris kod mudah.</p>
+                  <p class="bset-section-sub" data-i18n="bset_embed_sub">Paparkan kalendar tempahan terus di dalam laman web sedia ada anda dengan satu baris kod mudah.</p>
                 </div>
               </div>
 
@@ -1112,19 +1112,19 @@
                   <label for="c-notes"><span data-i18n="cust_notes_label">Catatan (pilihan)</span><button type="button" class="info-icon-btn" data-info="Contoh: deposit kek hari lahir, 2kg">i</button></label>
                   <div class="note-tpl-row" id="c-note-tpl-row"></div>
                   <textarea id="c-notes" rows="2"></textarea>
-                  <button type="button" class="secondary note-save-tpl-btn" id="c-save-tpl-btn">+ Simpan sebagai template</button>
+                  <button type="button" class="secondary note-save-tpl-btn" id="c-save-tpl-btn" data-i18n="bset_save_template">+ Simpan sebagai template</button>
 
                   <label style="display:flex; align-items:center; gap:0.5rem; margin-top:1rem; cursor:pointer;">
                     <input type="checkbox" id="c-recurring" style="width:auto;" />
-                    <span style="font-size:0.9rem; color:var(--ink);">Bayaran berulang (repeat customer)</span>
+                    <span style="font-size:0.9rem; color:var(--ink);" data-i18n="repeat_cust">Bayaran berulang (repeat customer)</span>
                   </label>
                   <div id="recurring-interval-wrap" style="display:none; margin-top:0.5rem;">
                     <label for="c-recurring-days">Ulang setiap berapa hari?<button type="button" class="info-icon-btn" data-info="Untuk pelanggan tetap, contohnya kelas tuisyen bulanan. Sistem akan cadangkan tarikh cukup tempoh seterusnya secara automatik.">i</button></label>
                     <select id="c-recurring-days">
-                      <option value="7">7 hari</option>
-                      <option value="14">14 hari</option>
-                      <option value="30" selected>30 hari</option>
-                      <option value="60">60 hari</option>
+                      <option value="7" data-i18n="days_7">7 hari</option>
+                      <option value="14" data-i18n="days_14">14 hari</option>
+                      <option value="30" selected data-i18n="days_30">30 hari</option>
+                      <option value="60" data-i18n="days_60">60 hari</option>
                     </select>
                   </div>
 
@@ -1134,12 +1134,12 @@
                 <div class="add-cust-preview">
                   <p class="hint" style="text-align:center; margin-bottom:0.6rem; text-transform:uppercase; font-size:0.7rem; letter-spacing:0.04em;">Pratonton Resit</p>
                   <div class="mini-receipt">
-                    <div class="mini-receipt-biz" id="mr-biz">Perniagaan Anda</div>
-                    <div class="mini-receipt-name" id="mr-name">Nama Pelanggan</div>
+                    <div class="mini-receipt-biz" id="mr-biz" data-i18n="mr_biz_default">Perniagaan Anda</div>
+                    <div class="mini-receipt-name" id="mr-name" data-i18n="mr_name_default">Nama Pelanggan</div>
                     <div class="mini-receipt-line"><span>Jumlah</span><b id="mr-amount">RM 0.00</b></div>
                     <div class="mini-receipt-line"><span>Due</span><b id="mr-due">-</b></div>
                     <div class="mini-receipt-line"><span>Telefon</span><b id="mr-phone">-</b></div>
-                    <span class="badge belum_bayar" style="margin-top:0.6rem; display:inline-block;">Belum Bayar</span>
+                    <span class="badge belum_bayar" style="margin-top:0.6rem; display:inline-block;" data-i18n="status_belum_bayar">Belum Bayar</span>
                     <p class="hint" id="mr-recurring" style="margin-top:0.6rem; display:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg> Berulang</p>
                   </div>
                   <p class="hint" style="text-align:center; margin-top:0.6rem;">Ini akan jadi asas emel reminder yang customer terima.</p>
@@ -1226,8 +1226,8 @@
             <div class="cust-mobile-list" id="customer-mobile-list"></div>
             <div class="empty-state-visual" id="empty-state" style="display:none;">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-              <p class="empty-state-title">Belum ada pelanggan lagi</p>
-              <p class="hint">Pergi ke menu "Tambah Pelanggan" dari Home.</p>
+              <p class="empty-state-title" data-i18n="cust_empty_title">Belum ada pelanggan lagi</p>
+              <p class="hint" data-i18n="cust_empty_desc">Pergi ke menu "Tambah Pelanggan" dari Home.</p>
             </div>
           </div>
         </div>
@@ -1253,7 +1253,7 @@
               <div class="num mono" id="rpt-booked-ahead">–</div><div class="label">Ditempah Awal (Akan Datang)</div>
             </div>
             <div class="db-stat-card">
-              <div class="num mono" id="rpt-avg-per-client">–</div><div class="label">Purata Per Pelanggan</div>
+              <div class="num mono" id="rpt-avg-per-client">–</div><div class="label" data-i18n="report_avg_per_cust">Purata Per Pelanggan</div>
             </div>
           </div>
 
@@ -1269,13 +1269,13 @@
           <div class="card" style="margin-bottom:1.5rem;">
             <div class="section-title"><h2 style="margin:0;">Tren Pendapatan</h2></div>
             <div class="report-bar-chart" id="report-bar-chart"></div>
-            <p class="hint" id="report-chart-empty" style="display:none;">Belum ada bayaran direkodkan lagi.</p>
+            <p class="hint" id="report-chart-empty" style="display:none;" data-i18n="report_chart_empty">Belum ada bayaran direkodkan lagi.</p>
           </div>
 
           <div class="card" style="margin-top:1.5rem;">
             <div class="section-title"><h2 style="margin:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Unjuran Cash-Flow (6 Minggu)<button type="button" class="info-icon-btn" data-info="Anggaran pendapatan akan datang daripada pelanggan yang belum membayar, mengikut tarikh cukup tempoh, dengan andaian semua membayar tepat pada masanya.">i</button></h2></div>
             <div class="report-bar-chart" id="cashflow-chart"></div>
-            <p class="hint" id="cashflow-empty" style="display:none;">Tiada customer belum bayar lagi.</p>
+            <p class="hint" id="cashflow-empty" style="display:none;" data-i18n="report_cashflow_empty">Tiada customer belum bayar lagi.</p>
           </div>
 
           <div class="card" style="margin-top:1.5rem;">
@@ -1295,7 +1295,7 @@
 
           <div class="card" style="margin-bottom:1.5rem;">
             <div class="section-title">
-              <h2 style="margin:0;">Pendapatan Ikut Bulan</h2>
+              <h2 style="margin:0;" data-i18n="report_monthly_title">Pendapatan Ikut Bulan</h2>
               <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
                 <button class="secondary" id="export-csv-btn">Eksport CSV</button>
                 <button class="secondary" id="export-borang-b-btn" title="Ringkasan tahunan pendapatan dan perbelanjaan untuk cukai">Eksport Borang B</button>
@@ -1303,21 +1303,21 @@
               </div>
             </div>
             <table>
-              <thead><tr><th>Bulan</th><th>Jumlah Diterima</th><th>Bil. Pelanggan Bayar</th></tr></thead>
+              <thead><tr><th data-i18n="report_th_month">Bulan</th><th data-i18n="report_th_received">Jumlah Diterima</th><th data-i18n="report_th_paying_cust">Bil. Pelanggan Bayar</th></tr></thead>
               <tbody id="report-monthly-tbody"></tbody>
             </table>
             <p class="hint" id="report-monthly-empty" style="display:none;">Belum ada bayaran direkodkan lagi.</p>
           </div>
 
           <div class="card">
-            <div class="section-title"><h2 style="margin:0;">Top 5 Pelanggan</h2></div>
+            <div class="section-title"><h2 style="margin:0;" data-i18n="report_top_title">Top 5 Pelanggan</h2></div>
             <div class="compact-row-list" id="report-top-list"></div>
             <p class="hint" id="report-top-empty" style="display:none;">Belum ada data untuk dipaparkan.</p>
           </div>
 
           <div class="card" style="margin-top:1.5rem;">
             <div class="section-title">
-              <h2 style="margin:0;">Perbelanjaan<button type="button" class="info-icon-btn" data-info="Rekod kos perniagaan anda — scan resit guna AI untuk isi maklumat automatik, atau tambah secara manual. Berguna untuk kira untung bersih sebenar dan eksport Borang B.">i</button></h2>
+              <h2 style="margin:0;"><span data-i18n="expense_title">Perbelanjaan</span><button type="button" class="info-icon-btn" data-info="Rekod kos perniagaan anda — scan resit guna AI untuk isi maklumat automatik, atau tambah secara manual. Berguna untuk kira untung bersih sebenar dan eksport Borang B.">i</button></h2>
               <div style="display:flex; gap:0.4rem;">
                 <button type="button" class="secondary" id="expense-scan-btn" style="font-size:0.78rem; padding:0.4rem 0.7rem;">📷 Scan Resit</button>
                 <button type="button" class="secondary" id="expense-manual-btn" style="font-size:0.78rem; padding:0.4rem 0.7rem;">+ Manual</button>
@@ -1378,8 +1378,8 @@
                 <div class="profile-section-heading">
                   <span class="profile-section-num">01</span>
                   <div>
-                    <h3 class="profile-section-title">Maklumat Entiti & Perhubungan</h3>
-                    <p class="profile-section-sub">Nama rasmi dan saluran terus untuk pelanggan berhubung dengan anda.</p>
+                    <h3 class="profile-section-title" data-i18n="profile_info_title">Maklumat Entiti & Perhubungan</h3>
+                    <p class="profile-section-sub" data-i18n="profile_info_sub">Nama rasmi dan saluran terus untuk pelanggan berhubung dengan anda.</p>
                   </div>
                 </div>
 
@@ -1410,7 +1410,7 @@
 
                 <div class="profile-ssm-tip">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                  <span>Nombor pendaftaran SSM akan dipaparkan secara rasmi pada invois PDF dan mengaktifkan lencana <strong>Perniagaan Sah</strong> untuk meningkatkan keyakinan pelanggan.</span>
+                  <span>Nombor pendaftaran SSM akan dipaparkan secara rasmi pada invois PDF dan mengaktifkan lencana <strong data-i18n="profile_biz_verified">Perniagaan Sah</strong> untuk meningkatkan keyakinan pelanggan.</span>
                 </div>
               </div>
 
@@ -1419,7 +1419,7 @@
                   <span class="profile-section-num">02</span>
                   <div>
                     <h3 class="profile-section-title">Identiti Visual & Warna Jenama</h3>
-                    <p class="profile-section-sub">Logo dan warna aksen yang mewakili jenama anda dalam setiap emel dan resit.</p>
+                    <p class="profile-section-sub" data-i18n="profile_brand_sub">Logo dan warna aksen yang mewakili jenama anda dalam setiap emel dan resit.</p>
                   </div>
                 </div>
 
@@ -1432,7 +1432,7 @@
                       </div>
                       <div class="profile-preview-meta">
                         <span class="profile-preview-status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Logo Semasa Aktif</span>
-                        <span class="profile-preview-tip">Klik zon di bawah untuk menukar logo</span>
+                        <span class="profile-preview-tip" data-i18n="profile_change_logo_tip">Klik zon di bawah untuk menukar logo</span>
                       </div>
                     </div>
                     <div class="profile-upload-dropzone">
@@ -1460,7 +1460,7 @@
                         </div>
                       </div>
                       <div class="profile-color-presets">
-                        <span class="profile-presets-label">Pilihan Pantas:</span>
+                        <span class="profile-presets-label" data-i18n="profile_quick_presets">Pilihan Pantas:</span>
                         <button type="button" class="profile-swatch-btn" data-color="#C97A2B" style="background:#C97A2B;" title="Amber / Karamel"></button>
                         <button type="button" class="profile-swatch-btn" data-color="#4A098F" style="background:#4A098F;" title="Ungu Diraja"></button>
                         <button type="button" class="profile-swatch-btn" data-color="#0D9488" style="background:#0D9488;" title="Teal Moden"></button>
@@ -1478,8 +1478,8 @@
                 <div class="profile-section-heading">
                   <span class="profile-section-num">03</span>
                   <div>
-                    <h3 class="profile-section-title">Akaun Bank & QR DuitNow (Pilihan)</h3>
-                    <p class="profile-section-sub">Kaedah pembayaran alternatif sekiranya pelanggan memilih pindahan manual atau imbasan QR.</p>
+                    <h3 class="profile-section-title" data-i18n="profile_bank_qr_title">Akaun Bank & QR DuitNow (Pilihan)</h3>
+                    <p class="profile-section-sub" data-i18n="profile_bank_qr_sub">Kaedah pembayaran alternatif sekiranya pelanggan memilih pindahan manual atau imbasan QR.</p>
                   </div>
                 </div>
 
@@ -1507,7 +1507,7 @@
                     </div>
                     <div class="profile-preview-meta">
                       <span class="profile-preview-status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Kod QR Sedia Dipakai</span>
-                      <span class="profile-preview-tip">Klik kotak muat naik untuk tukar fail QR</span>
+                      <span class="profile-preview-tip" data-i18n="profile_change_qr_tip">Klik kotak muat naik untuk tukar fail QR</span>
                     </div>
                   </div>
 
@@ -1517,7 +1517,7 @@
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                     </div>
                     <span class="profile-upload-label"><strong>Pilih gambar QR DuitNow</strong> atau seret ke sini</span>
-                    <span class="profile-upload-sub">Format JPG atau PNG daripada tangkap layar aplikasi bank anda</span>
+                    <span class="profile-upload-sub" data-i18n="profile_qr_format_sub">Format JPG atau PNG daripada tangkap layar aplikasi bank anda</span>
                   </div>
                   <input type="hidden" id="p-qr" />
                 </div>
@@ -1544,7 +1544,7 @@
             </span>
             <span class="profile-section-divider-line"></span>
           </div>
-          <p class="profile-section-divider-sub">Laman awam yang pelanggan anda lihat bila tempah — asingan sepenuhnya daripada tetapan admin di atas.</p>
+          <p class="profile-section-divider-sub" data-i18n="profile_public_page_sub">Laman awam yang pelanggan anda lihat bila tempah — asingan sepenuhnya daripada tetapan admin di atas.</p>
 
           <div class="card ws-studio-card" id="ws-studio-card">
             <div class="ws-studio-header">
@@ -1554,13 +1554,13 @@
                 </div>
                 <div>
                   <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
-                    <h2 class="ws-studio-title">Website Saya (Microsite &amp; Portal Tempahan)</h2>
+                    <h2 class="ws-studio-title" data-i18n="ws_studio_title">Website Saya (Microsite &amp; Portal Tempahan)</h2>
                     <span class="ws-live-status-badge">
                       <span class="ws-status-live-dot"></span>
-                      <span>Auto-sync ke Laman Awam</span>
+                      <span data-i18n="ws_auto_sync">Auto-sync ke Laman Awam</span>
                     </span>
                   </div>
-                  <p class="ws-studio-desc">Ubah halaman tempahan anda menjadi laman web rasmi perniagaan lengkap dengan gambar muka hadapan (cover), cerita pengenalan bisnes, portfolio galeri hasil kerja, dan ulasan pelanggan.</p>
+                  <p class="ws-studio-desc" data-i18n="ws_studio_desc">Ubah halaman tempahan anda menjadi laman web rasmi perniagaan lengkap dengan gambar muka hadapan (cover), cerita pengenalan bisnes, portfolio galeri hasil kerja, dan ulasan pelanggan.</p>
                 </div>
               </div>
               <div>
@@ -1579,7 +1579,7 @@
                     <span>Hero &amp; Gambar Muka Hadapan</span>
                     <button type="button" class="info-icon-btn" data-info="Gambar besar dan tagline yang muncul di bahagian paling atas halaman tempahan awam anda, kesan pertama yang pelanggan nampak.">i</button>
                   </h3>
-                  <p class="ws-section-sub">Gambar impak besar dan tagline yang menyambut pelanggan pertama kali di portal tempahan.</p>
+                  <p class="ws-section-sub" data-i18n="ws_hero_sub">Gambar impak besar dan tagline yang menyambut pelanggan pertama kali di portal tempahan.</p>
                 </div>
               </div>
 
@@ -1603,7 +1603,7 @@
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                   </div>
                   <span class="ws-upload-label"><strong>Pilih gambar cover</strong> atau seret ke sini</span>
-                  <span class="ws-upload-sub">Nisbah 16:9 disyorkan (contoh 1200x675 px), JPG atau PNG (Maks 3MB)</span>
+                  <span class="ws-upload-sub" data-i18n="ws_hero_upload_sub">Nisbah 16:9 disyorkan (contoh 1200x675 px), JPG atau PNG (Maks 3MB)</span>
                 </div>
                 <button type="button" id="ws-cover-upload-btn" class="secondary" style="display:none;">Muat Naik Gambar Cover</button>
               </div>
@@ -1625,7 +1625,7 @@
               <div class="ws-section-actions">
                 <button type="button" id="ws-hero-save-btn" class="ws-section-save-btn">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                  <span>Simpan Hero</span>
+                  <span data-i18n="ws_save_hero">Simpan Hero</span>
                 </button>
                 <span class="ws-section-save-hint">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -1642,7 +1642,7 @@
                     <span>Cerita Bisnes (About Us)</span>
                     <button type="button" class="info-icon-btn" data-info="Cerita ringkas tentang bisnes anda, dipaparkan di halaman tempahan awam. Pilihan, jika dibiarkan kosong seksyen ini tidak akan dipaparkan.">i</button>
                   </h3>
-                  <p class="ws-section-sub">Kongsi latar belakang perkhidmatan, kepakaran, dan nilai yang anda bawa kepada pelanggan.</p>
+                  <p class="ws-section-sub" data-i18n="ws_about_sub">Kongsi latar belakang perkhidmatan, kepakaran, dan nilai yang anda bawa kepada pelanggan.</p>
                 </div>
               </div>
 
@@ -1653,7 +1653,7 @@
                   <button type="button" class="ws-rte-btn rte-btn" data-rte-cmd="underline" title="Garis Bawah (Underline)" aria-label="Teks garis bawah"><u>U</u></button>
                   <div class="ws-rte-tip">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                    <span>Penceritaan yang jelas membina keyakinan pelanggan</span>
+                    <span data-i18n="ws_about_tip">Penceritaan yang jelas membina keyakinan pelanggan</span>
                   </div>
                 </div>
                 <div class="ws-rte-editor rte-editor" id="ws-about-editor" contenteditable="true" data-placeholder="Contoh: Kami bermula sejak 2020 dengan misi menyediakan servis berkualiti tinggi dan mesra pelanggan. Setiap sesi dijalankan dengan teliti..."></div>
@@ -1662,9 +1662,9 @@
               <div class="ws-section-actions">
                 <button type="button" id="ws-about-save-btn" class="ws-section-save-btn">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                  <span>Simpan Cerita Bisnes</span>
+                  <span data-i18n="ws_save_about">Simpan Cerita Bisnes</span>
                 </button>
-                <span class="ws-section-save-hint">Akan muncul dalam kad tepi bersebelahan borang tempahan</span>
+                <span class="ws-section-save-hint" data-i18n="ws_about_side_hint">Akan muncul dalam kad tepi bersebelahan borang tempahan</span>
               </div>
             </div>
 
@@ -1677,14 +1677,14 @@
                       <span>Galeri Karya &amp; Portfolio</span>
                       <button type="button" class="info-icon-btn" data-info="Gambar kerja/servis anda, dipaparkan sebagai galeri bento di halaman tempahan awam. Pilihan, jika tiada gambar bahagian ini tidak akan dipaparkan.">i</button>
                     </h3>
-                    <p class="ws-section-sub">Tunjukkan bukti visual hasil kerja anda dalam susunan bento interaktif.</p>
+                    <p class="ws-section-sub" data-i18n="ws_gallery_sub">Tunjukkan bukti visual hasil kerja anda dalam susunan bento interaktif.</p>
                   </div>
                 </div>
                 <div style="display:flex; align-items:center; gap:0.6rem;">
                   <span class="ws-gallery-count-pill" id="ws-gallery-count-badge">Galeri Aktif</span>
                   <button type="button" id="ws-gallery-add-btn" class="secondary" style="width:auto; display:inline-flex; align-items:center; gap:0.35rem; font-size:0.82rem; padding:0.45rem 0.85rem;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Tambah Gambar</span>
+                    <span data-i18n="ws_add_photo">Tambah Gambar</span>
                   </button>
                 </div>
               </div>
@@ -1709,17 +1709,17 @@
                   <span class="ws-section-num">04</span>
                   <div>
                     <h3 class="ws-section-title">
-                      <span>Testimoni &amp; Ulasan Pelanggan</span>
+                      <span data-i18n="ws_testimonials_title">Testimoni &amp; Ulasan Pelanggan</span>
                       <button type="button" class="info-icon-btn" data-info="Kata-kata pelanggan sebenar anda sahaja. Jangan reka testimoni, ini akan menjejaskan integriti dan kepercayaan pelanggan baharu.">i</button>
                     </h3>
-                    <p class="ws-section-sub">Ulasan dan bukti kepuasan pelanggan untuk meningkatkan kadar penukaran tempahan.</p>
+                    <p class="ws-section-sub" data-i18n="ws_testimonials_sub">Ulasan dan bukti kepuasan pelanggan untuk meningkatkan kadar penukaran tempahan.</p>
                   </div>
                 </div>
                 <div style="display:flex; align-items:center; gap:0.6rem;">
                   <span class="ws-gallery-count-pill" id="ws-testimonial-count-badge">Ulasan</span>
                   <button type="button" id="ws-testimonial-add-btn" class="secondary" style="width:auto; display:inline-flex; align-items:center; gap:0.35rem; font-size:0.82rem; padding:0.45rem 0.85rem;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>Tambah Testimoni</span>
+                    <span data-i18n="ws_add_testimonial">Tambah Testimoni</span>
                   </button>
                 </div>
               </div>
@@ -1737,7 +1737,7 @@
                     <span>Saluran Sosial &amp; Lokasi Rasmi</span>
                     <button type="button" class="info-icon-btn" data-info="Pautan ini dipaparkan sebagai butang interaktif di halaman tempahan awam anda. Pilihan, isi mana yang relevan sahaja.">i</button>
                   </h3>
-                  <p class="ws-section-sub">Hubungkan pelanggan dengan saluran media sosial dan peta navigasi lokasi fizikal anda.</p>
+                  <p class="ws-section-sub" data-i18n="ws_social_sub">Hubungkan pelanggan dengan saluran media sosial dan peta navigasi lokasi fizikal anda.</p>
                 </div>
               </div>
 
@@ -1796,9 +1796,9 @@
               <div class="ws-section-actions">
                 <button type="button" id="ws-social-save-btn" class="ws-section-save-btn">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                  <span>Simpan Social &amp; Lokasi</span>
+                  <span data-i18n="ws_save_social">Simpan Social &amp; Lokasi</span>
                 </button>
-                <span class="ws-section-save-hint">Semua butang media sosial dan pautan peta akan aktif di portal tempahan</span>
+                <span class="ws-section-save-hint" data-i18n="ws_social_hint">Semua butang media sosial dan pautan peta akan aktif di portal tempahan</span>
               </div>
             </div>
           </div>
@@ -1816,7 +1816,7 @@
             <p class="schedule-summary" id="schedule-summary"></p>
             <div class="row" style="margin-top:1rem;">
               <button id="save-schedule-btn" data-i18n="btn_save">Simpan Jadual</button>
-              <button id="reset-schedule-btn" class="secondary">↻ Reset ke Default</button>
+              <button id="reset-schedule-btn" class="secondary" data-i18n="rem_reset_default">↻ Reset ke Default</button>
             </div>
           </div>
         </div>
@@ -1842,31 +1842,31 @@
   <!-- Per-page contextual help (Lapisan 2) -->
   <div class="modal-overlay" id="milestone-modal-backdrop" style="display:none;">
     <div class="modal-box" style="max-width:460px;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Jadual Bayaran Ansuran</h2></div>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="milestone_title">Jadual Bayaran Ansuran</h2></div>
       <p class="hint" style="margin-top:-0.3rem;">Untuk <strong id="milestone-modal-customer-name"></strong> — pecahkan jumlah kepada beberapa bayaran (cth: Deposit, Bayaran 2, Baki).</p>
       <input type="hidden" id="milestone-modal-booking-id" />
       <div id="milestone-modal-rows" style="margin-top:0.8rem;"></div>
-      <button type="button" class="secondary" id="milestone-modal-add-row-btn" style="width:100%;">+ Tambah Baris Bayaran</button>
+      <button type="button" class="secondary" id="milestone-modal-add-row-btn" style="width:100%;" data-i18n="milestone_add_row">+ Tambah Baris Bayaran</button>
       <div class="milestone-modal-total-bar">
-        <span>Jumlah Keseluruhan</span>
+        <span data-i18n="milestone_total">Jumlah Keseluruhan</span>
         <span id="milestone-modal-total">RM 0.00</span>
       </div>
       <div class="row" style="margin-top:1.25rem;">
-        <button type="button" class="secondary" id="milestone-modal-close-btn" style="flex:1;">Batal</button>
-        <button type="button" id="milestone-modal-save-btn" style="flex:1;">Simpan Jadual Bayaran</button>
+        <button type="button" class="secondary" id="milestone-modal-close-btn" style="flex:1;" data-i18n="cancel">Batal</button>
+        <button type="button" id="milestone-modal-save-btn" style="flex:1;" data-i18n="milestone_save">Simpan Jadual Bayaran</button>
       </div>
     </div>
   </div>
 
   <div class="modal-overlay" id="bank-recon-modal-backdrop" style="display:none;">
     <div class="modal-box" style="max-width:480px;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Rekonsiliasi Penyata Bank</h2></div>
-      <p class="hint" style="margin-top:-0.3rem;">Muat naik CSV penyata bank anda (Tarikh, Perihal, Jumlah) — sistem akan cuba padankan dengan bayaran ansuran yang belum disahkan.</p>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="bank_recon_title">Rekonsiliasi Penyata Bank</h2></div>
+      <p class="hint" style="margin-top:-0.3rem;" data-i18n="bank_recon_sub">Muat naik CSV penyata bank anda (Tarikh, Perihal, Jumlah) — sistem akan cuba padankan dengan bayaran ansuran yang belum disahkan.</p>
 
       <div id="bank-recon-upload-zone">
         <div class="bank-recon-dropzone" id="bank-recon-dropzone">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--stamp); margin-bottom:0.4rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          <p style="margin:0; font-weight:600; font-size:0.88rem;">Klik untuk pilih fail CSV</p>
+          <p style="margin:0; font-weight:600; font-size:0.88rem;" data-i18n="bank_recon_drop">Klik untuk pilih fail CSV</p>
           <input type="file" id="bank-recon-file-input" accept=".csv" style="display:none;" />
         </div>
         <p class="error" id="bank-recon-error" style="display:none; margin-top:0.6rem;"></p>
@@ -1877,149 +1877,149 @@
         <p class="bank-recon-unmatched-note" id="bank-recon-unmatched-note" style="display:none;"></p>
       </div>
 
-      <button type="button" class="secondary" id="bank-recon-close-btn" style="width:100%; margin-top:1rem;">Tutup</button>
+      <button type="button" class="secondary" id="bank-recon-close-btn" style="width:100%; margin-top:1rem;" data-i18n="close">Tutup</button>
     </div>
   </div>
 
   <div class="modal-overlay" id="equipment-modal-backdrop" style="display:none;">
     <div class="modal-box" style="max-width:460px;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Inventori Peralatan</h2></div>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="equip_title">Inventori Peralatan</h2></div>
       <div id="equipment-list"></div>
-      <p class="hint" id="equipment-list-empty" style="display:none;">Belum ada peralatan direkodkan lagi.</p>
+      <p class="hint" id="equipment-list-empty" style="display:none;" data-i18n="equip_empty">Belum ada peralatan direkodkan lagi.</p>
       <form id="equipment-add-form" class="equip-add-form">
         <input type="text" id="equip-name" placeholder="Nama peralatan" required />
         <input type="number" id="equip-qty" placeholder="Kuantiti" min="1" value="1" required />
         <button type="submit" style="flex-shrink:0; padding:0.5rem 0.8rem;">+</button>
       </form>
-      <button type="button" class="secondary" id="equipment-modal-close-btn" style="width:100%; margin-top:1rem;">Tutup</button>
+      <button type="button" class="secondary" id="equipment-modal-close-btn" style="width:100%; margin-top:1rem;" data-i18n="close">Tutup</button>
     </div>
   </div>
 
   <div class="modal-overlay" id="expense-modal-backdrop" style="display:none;">
     <div class="modal-box" style="max-width:420px;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tambah Perbelanjaan</h2></div>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="expense_title">Tambah Perbelanjaan</h2></div>
 
       <div id="expense-scan-zone" style="display:none;">
         <div class="receipt-scan-dropzone" id="expense-dropzone">
           <div class="receipt-scan-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></div>
-          <p style="margin:0; font-weight:600; font-size:0.9rem;">Klik untuk pilih gambar resit</p>
-          <p class="hint" style="margin:0.2rem 0 0;">AI akan cuba baca vendor, jumlah dan tarikh secara automatik</p>
+          <p style="margin:0; font-weight:600; font-size:0.9rem;" data-i18n="expense_drop">Klik untuk pilih gambar resit</p>
+          <p class="hint" style="margin:0.2rem 0 0;" data-i18n="expense_drop_sub">AI akan cuba baca vendor, jumlah dan tarikh secara automatik</p>
           <input type="file" id="expense-file-input" accept="image/*" capture="environment" style="display:none;" />
         </div>
         <div id="expense-scan-loading" style="display:none; text-align:center; padding:1.5rem 0;">
           <div class="receipt-scan-spinner"></div>
-          <p class="hint" style="margin:0;">Membaca resit secara automatik...</p>
+          <p class="hint" style="margin:0;" data-i18n="expense_ai_loading">Membaca resit secara automatik...</p>
         </div>
         <p class="error" id="expense-scan-error" style="display:none;"></p>
       </div>
 
       <form id="expense-form" style="display:none;">
-        <p class="hint" id="expense-ai-note" style="display:none; color:var(--stamp);">✨ Diisi automatik oleh AI — sila semak dan betulkan jika perlu.</p>
-        <label for="expense-vendor">Nama Vendor / Kedai</label>
+        <p class="hint" id="expense-ai-note" style="display:none; color:var(--stamp);" data-i18n="expense_ai_note">✨ Diisi automatik oleh AI — sila semak dan betulkan jika perlu.</p>
+        <label for="expense-vendor" data-i18n="expense_vendor">Nama Vendor / Kedai</label>
         <input type="text" id="expense-vendor" />
-        <label for="expense-amount">Jumlah (RM)</label>
+        <label for="expense-amount" data-i18n="expense_amount">Jumlah (RM)</label>
         <input type="number" id="expense-amount" min="0" step="0.01" required />
-        <label for="expense-date">Tarikh</label>
+        <label for="expense-date" data-i18n="expense_date">Tarikh</label>
         <input type="date" id="expense-date" required />
-        <label for="expense-category">Kategori</label>
+        <label for="expense-category" data-i18n="expense_category">Kategori</label>
         <select id="expense-category">
-          <option value="bahan">Bahan</option>
-          <option value="peralatan">Peralatan</option>
-          <option value="sewa">Sewa</option>
-          <option value="pengangkutan">Pengangkutan</option>
-          <option value="pemasaran">Pemasaran</option>
-          <option value="utiliti">Utiliti</option>
-          <option value="lain-lain" selected>Lain-lain</option>
+          <option value="bahan" data-i18n="expense_cat_materials">Bahan</option>
+          <option value="peralatan" data-i18n="expense_cat_equipment">Peralatan</option>
+          <option value="sewa" data-i18n="expense_cat_rent">Sewa</option>
+          <option value="pengangkutan" data-i18n="expense_cat_transport">Pengangkutan</option>
+          <option value="pemasaran" data-i18n="expense_cat_marketing">Pemasaran</option>
+          <option value="utiliti" data-i18n="expense_cat_utilities">Utiliti</option>
+          <option value="lain-lain" selected data-i18n="expense_cat_other">Lain-lain</option>
         </select>
-        <label for="expense-notes">Nota (pilihan)</label>
+        <label for="expense-notes" data-i18n="expense_notes">Nota (pilihan)</label>
         <textarea id="expense-notes" rows="2"></textarea>
-        <button type="submit" style="width:100%; margin-top:1rem;">Simpan Perbelanjaan</button>
+        <button type="submit" style="width:100%; margin-top:1rem;" data-i18n="expense_save">Simpan Perbelanjaan</button>
         <p class="error" id="expense-form-error" style="display:none;"></p>
       </form>
 
-      <button type="button" class="secondary" id="expense-modal-close-btn" style="width:100%; margin-top:0.5rem;">Batal</button>
+      <button type="button" class="secondary" id="expense-modal-close-btn" style="width:100%; margin-top:0.5rem;" data-i18n="cancel">Batal</button>
     </div>
   </div>
 
   <div class="modal-overlay" id="lead-modal-backdrop" style="display:none;">
     <div class="modal-box" style="max-width:420px;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tambah Lead</h2></div>
-      <p class="hint" style="margin-top:-0.3rem;">Log pertanyaan pelanggan sebelum mereka buat tempahan rasmi.</p>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="lead_modal_title">Tambah Lead</h2></div>
+      <p class="hint" style="margin-top:-0.3rem;" data-i18n="lead_modal_sub">Log pertanyaan pelanggan sebelum mereka buat tempahan rasmi.</p>
       <form id="lead-form">
-        <label for="lead-name">Nama</label>
+        <label for="lead-name" data-i18n="lead_name">Nama</label>
         <input type="text" id="lead-name" required />
-        <label for="lead-phone">Telefon</label>
+        <label for="lead-phone" data-i18n="lead_phone">Telefon</label>
         <input type="tel" id="lead-phone" />
-        <label for="lead-email">Emel (pilihan)</label>
+        <label for="lead-email" data-i18n="lead_email">Emel (pilihan)</label>
         <input type="email" id="lead-email" />
-        <label for="lead-date">Tarikh Berpotensi (pilihan)</label>
+        <label for="lead-date" data-i18n="lead_date">Tarikh Berpotensi (pilihan)</label>
         <input type="date" id="lead-date" />
-        <label for="lead-notes">Nota</label>
-        <textarea id="lead-notes" rows="2" placeholder="cth: Berminat dengan pakej rawatan kulit kepala"></textarea>
-        <button type="submit" style="width:100%; margin-top:1rem;">Simpan Lead</button>
+        <label for="lead-notes" data-i18n="lead_notes">Nota</label>
+        <textarea id="lead-notes" rows="2" data-i18n-placeholder="lead_notes_ph" placeholder="cth: Berminat dengan pakej rawatan kulit kepala"></textarea>
+        <button type="submit" style="width:100%; margin-top:1rem;" data-i18n="lead_submit">Simpan Lead</button>
         <p class="error" id="lead-form-error" style="display:none;"></p>
       </form>
-      <button type="button" class="secondary" id="lead-modal-close-btn" style="width:100%; margin-top:0.5rem;">Batal</button>
+      <button type="button" class="secondary" id="lead-modal-close-btn" style="width:100%; margin-top:0.5rem;" data-i18n="cancel">Batal</button>
     </div>
   </div>
 
   <div class="modal-overlay" id="manual-booking-modal-backdrop" style="display:none;">
     <div class="modal-box" style="max-width:480px;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tambah Booking Manual</h2></div>
-      <p class="hint" style="margin-top:-0.3rem;">Untuk pelanggan walk-in/telefon, atau projek dengan beberapa majlis (cth: Nikah + Sanding).</p>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="mb_title">Tambah Booking Manual</h2></div>
+      <p class="hint" style="margin-top:-0.3rem;" data-i18n="mb_sub">Untuk pelanggan walk-in/telefon, atau projek dengan beberapa majlis (cth: Nikah + Sanding).</p>
       <form id="manual-booking-form">
         <input type="hidden" id="mb-lead-id" />
-        <label for="mb-name">Nama Pelanggan</label>
+        <label for="mb-name" data-i18n="mb_name">Nama Pelanggan</label>
         <input type="text" id="mb-name" required />
-        <label for="mb-email">Emel</label>
+        <label for="mb-email" data-i18n="mb_email">Emel</label>
         <input type="email" id="mb-email" required />
-        <label for="mb-phone">Telefon</label>
+        <label for="mb-phone" data-i18n="mb_phone">Telefon</label>
         <input type="tel" id="mb-phone" />
 
-        <label style="margin-top:0.8rem;">Sesi / Majlis</label>
+        <label style="margin-top:0.8rem;" data-i18n="mb_legs">Sesi / Majlis</label>
         <div id="mb-legs-rows"></div>
-        <button type="button" class="secondary" id="mb-add-leg-btn" style="width:100%; margin-top:0.3rem;">+ Tambah Sesi/Majlis Lain</button>
+        <button type="button" class="secondary" id="mb-add-leg-btn" style="width:100%; margin-top:0.3rem;" data-i18n="mb_add_leg">+ Tambah Sesi/Majlis Lain</button>
 
-        <label for="mb-notes" style="margin-top:0.8rem;">Nota</label>
+        <label for="mb-notes" style="margin-top:0.8rem;" data-i18n="mb_notes">Nota</label>
         <textarea id="mb-notes" rows="2"></textarea>
-        <button type="submit" style="width:100%; margin-top:1rem;">Sahkan Booking</button>
+        <button type="submit" style="width:100%; margin-top:1rem;" data-i18n="mb_submit">Sahkan Booking</button>
         <p class="error" id="manual-booking-error" style="display:none;"></p>
       </form>
-      <button type="button" class="secondary" id="manual-booking-close-btn" style="width:100%; margin-top:0.5rem;">Batal</button>
+      <button type="button" class="secondary" id="manual-booking-close-btn" style="width:100%; margin-top:0.5rem;" data-i18n="cancel">Batal</button>
     </div>
   </div>
 
   <div class="modal-overlay" id="reschedule-modal" style="display:none;">
     <div class="modal-box" style="max-width:380px;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Jadual Semula Tempahan</h2></div>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="reschedule_title">Jadual Semula Tempahan</h2></div>
       <p class="hint" id="reschedule-current"></p>
-      <p class="hint">Pilih slot baru (dari waktu available anda):</p>
+      <p class="hint" data-i18n="reschedule_choose_slot">Pilih slot baru (dari waktu available anda):</p>
       <div class="book-date-row" id="reschedule-date-row"></div>
       <div class="book-slot-grid" id="reschedule-slot-grid" style="margin-top:0.8rem;"></div>
       <label for="reschedule-reason" style="margin-top:1rem;">Sebab (pilihan, akan dihantar kepada pelanggan)<button type="button" class="info-icon-btn" data-info="Contoh: slot asal bertindih dengan temujanji lain">i</button></label>
       <textarea id="reschedule-reason" rows="2"></textarea>
       <div class="row" style="margin-top:1.25rem;">
-        <button type="button" class="secondary" id="reschedule-cancel-btn" style="flex:1;">Batal</button>
+        <button type="button" class="secondary" id="reschedule-cancel-btn" style="flex:1;" data-i18n="cancel">Batal</button>
         <button type="button" id="reschedule-save-btn" style="flex:1;" disabled>Pilih Slot Dulu</button>
       </div>
       <p class="error" id="reschedule-error" style="display:none;"></p>
-      <p class="hint" id="reschedule-loading" style="display:none;">Memuatkan slot available...</p>
+      <p class="hint" id="reschedule-loading" style="display:none;" data-i18n="reschedule_loading">Memuatkan slot available...</p>
     </div>
   </div>
 
   <div class="modal-overlay" id="avail-date-modal" style="display:none;">
     <div class="modal-box" style="max-width:380px;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="avail-date-modal-title">Tetapkan Waktu</h2></div>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="avail-date-modal-title" data-i18n="avail_title">Tetapkan Waktu</h2></div>
       <div class="wk-modal-note" id="avail-modal-note"></div>
-      <p class="hint" style="margin-top:0.2rem;">Tekan untuk toggle waktu pantas, atau tambah waktu custom.</p>
+      <p class="hint" style="margin-top:0.2rem;" data-i18n="avail_hint">Tekan untuk toggle waktu pantas, atau tambah waktu custom.</p>
       <div class="avail-preset-grid" id="avail-preset-grid"></div>
       <div id="avail-custom-blocks-list" style="margin-top:0.6rem;"></div>
-      <button type="button" class="secondary" id="avail-add-custom-btn" style="width:100%; margin-top:0.5rem;">+ Waktu Custom</button>
+      <button type="button" class="secondary" id="avail-add-custom-btn" style="width:100%; margin-top:0.5rem;" data-i18n="avail_custom_btn">+ Waktu Custom</button>
       <div class="avail-modal-actions">
-        <button type="button" id="avail-save-date-btn">Simpan</button>
+        <button type="button" id="avail-save-date-btn" data-i18n="save">Simpan</button>
         <div class="avail-modal-secondary-row">
-          <button type="button" class="secondary" id="avail-clear-date-btn" style="color:var(--warn);" aria-label="Tutup tarikh ini">Tutup hari ini</button>
-          <button type="button" class="secondary" id="avail-reset-date-btn" style="display:none;">Reset ke jadual</button>
+          <button type="button" class="secondary" id="avail-clear-date-btn" style="color:var(--warn);" aria-label="Tutup tarikh ini" data-i18n="avail_close_today">Tutup hari ini</button>
+          <button type="button" class="secondary" id="avail-reset-date-btn" style="display:none;" data-i18n="avail_reset_sched">Reset ke jadual</button>
         </div>
       </div>
     </div>
@@ -2029,90 +2029,90 @@
     <div class="modal-box" style="max-width:400px;">
       <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Notifikasi</h2></div>
       <div id="notif-list" style="display:flex; flex-direction:column; gap:0.4rem; max-height:60vh; overflow-y:auto;"></div>
-      <p class="hint" id="notif-empty" style="display:none; text-align:center; padding:1.5rem 0;">Tiada notifikasi lagi.</p>
-      <button type="button" class="secondary" id="notif-modal-close" style="width:100%; margin-top:1rem;">Tutup</button>
+      <p class="hint" id="notif-empty" style="display:none; text-align:center; padding:1.5rem 0;" data-i18n="notif_empty">Tiada notifikasi lagi.</p>
+      <button type="button" class="secondary" id="notif-modal-close" style="width:100%; margin-top:1rem;" data-i18n="close">Tutup</button>
     </div>
   </div>
 
   <div class="modal-overlay" id="quick-add-modal" style="display:none;">
     <div class="modal-box" style="max-width:400px;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Tambah Pelanggan Pantas</h2></div>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="qa_title">Tambah Pelanggan Pantas</h2></div>
       <form id="quick-add-form">
-        <label for="qa-name">Nama<button type="button" class="info-icon-btn" data-info="Nama penuh atau nama panggilan pelanggan.">i</button></label>
+        <label for="qa-name"><span data-i18n="qa_name">Nama</span><button type="button" class="info-icon-btn" data-info="Nama penuh atau nama panggilan pelanggan." data-info-en="Full name or preferred name of the customer.">i</button></label>
         <input type="text" id="qa-name" required />
-        <label for="qa-email">Emel<button type="button" class="info-icon-btn" data-info="Emel pelanggan, digunakan untuk menghantar peringatan bayaran.">i</button></label>
+        <label for="qa-email"><span data-i18n="qa_email">Emel</span><button type="button" class="info-icon-btn" data-info="Emel pelanggan, digunakan untuk menghantar peringatan bayaran." data-info-en="Customer email, used for sending payment reminders.">i</button></label>
         <input type="email" id="qa-email" required />
-        <label for="qa-amount">Jumlah (RM)<button type="button" class="info-icon-btn" data-info="Jumlah deposit atau bayaran penuh yang perlu dijelaskan pelanggan ini.">i</button></label>
+        <label for="qa-amount"><span data-i18n="qa_amount">Jumlah (RM)</span><button type="button" class="info-icon-btn" data-info="Jumlah deposit atau bayaran penuh yang perlu dijelaskan pelanggan ini." data-info-en="Deposit amount or full payment due for this customer.">i</button></label>
         <input type="number" id="qa-amount" step="0.01" min="0" required />
-        <label for="qa-due">Tarikh Cukup Tempoh<button type="button" class="info-icon-btn" data-info="Tarikh akhir bayaran perlu diselesaikan. Peringatan akan dihantar berdasarkan tarikh ini.">i</button></label>
+        <label for="qa-due"><span data-i18n="qa_due">Tarikh Cukup Tempoh</span><button type="button" class="info-icon-btn" data-info="Tarikh akhir bayaran perlu diselesaikan. Peringatan akan dihantar berdasarkan tarikh ini." data-info-en="Final payment due date. Reminders will be sent based on this date.">i</button></label>
         <input type="date" id="qa-due" required />
-        <button type="submit" style="width:100%; margin-top:1rem;">Tambah</button>
+        <button type="submit" style="width:100%; margin-top:1rem;" data-i18n="qa_submit">Tambah</button>
         <p class="error" id="qa-error" style="display:none;"></p>
       </form>
-      <p class="hint" style="text-align:center; margin-top:0.8rem;"><a href="#" id="quick-add-more-link">Perlukan telefon, catatan, atau bayaran berulang? Buka borang penuh →</a></p>
-      <button type="button" class="secondary" id="quick-add-close-btn" style="width:100%; margin-top:0.5rem;">Batal</button>
+      <p class="hint" style="text-align:center; margin-top:0.8rem;"><a href="#" id="quick-add-more-link" data-i18n="qa_more_link">Perlukan telefon, catatan, atau bayaran berulang? Buka borang penuh →</a></p>
+      <button type="button" class="secondary" id="quick-add-close-btn" style="width:100%; margin-top:0.5rem;" data-i18n="cancel">Batal</button>
     </div>
   </div>
 
   <div class="modal-overlay" id="wizard-modal" style="display:none;">
     <div class="modal-box" style="max-width:460px;">
       <div style="text-align:right; margin-bottom:0.3rem;">
-        <button type="button" id="wizard-skip-btn" class="secondary" style="padding:0.25rem 0.6rem; font-size:0.75rem; width:auto;">Langkau Buat Masa Ini</button>
+        <button type="button" id="wizard-skip-btn" class="secondary" style="padding:0.25rem 0.6rem; font-size:0.75rem; width:auto;" data-i18n="wizard_skip">Langkau Buat Masa Ini</button>
       </div>
       <p class="hint" id="wizard-progress" style="text-align:center; margin:0 0 1rem;"></p>
 
       <div id="wizard-step-1" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">Apakah bidang perniagaan anda?</h2>
-        <p class="hint" style="text-align:center; margin-bottom:1.2rem;">Ini membantu kami menyesuaikan persediaan untuk anda.</p>
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wizard_step1_title">Apakah bidang perniagaan anda?</h2>
+        <p class="hint" style="text-align:center; margin-bottom:1.2rem;" data-i18n="wizard_step1_sub">Ini membantu kami menyesuaikan persediaan untuk anda.</p>
         <div id="wizard-persona-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:0.6rem;"></div>
       </div>
 
       <div id="wizard-step-2" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">Apakah perkhidmatan yang ingin ditempah oleh pelanggan anda?</h2>
-        <label for="wizard-service-name">Nama Perkhidmatan<button type="button" class="info-icon-btn" data-info="Contohnya: Konsultasi Kek">i</button></label>
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wizard_step2_title">Apakah perkhidmatan yang ingin ditempah oleh pelanggan anda?</h2>
+        <label for="wizard-service-name"><span data-i18n="wizard_step2_label">Nama Perkhidmatan</span><button type="button" class="info-icon-btn" data-info="Contohnya: Konsultasi Kek">i</button></label>
         <input type="text" id="wizard-service-name" />
       </div>
 
       <div id="wizard-step-3" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">Bilakah anda tersedia?</h2>
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wizard_step3_title">Bilakah anda tersedia?</h2>
         <div id="wizard-availability-options" style="display:flex; flex-direction:column; gap:0.6rem;"></div>
-        <p class="hint" style="margin-top:0.8rem;">Anda boleh menyesuaikan waktu yang tepat kemudian dalam Tetapan Tempahan.</p>
+        <p class="hint" style="margin-top:0.8rem;" data-i18n="wizard_step3_sub">Anda boleh menyesuaikan waktu yang tepat kemudian dalam Tetapan Tempahan.</p>
       </div>
 
       <div id="wizard-step-4" style="display:none;">
-        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;">Berapakah jumlah deposit anda?</h2>
-        <label for="wizard-deposit">Deposit (RM), taip 0 sekiranya percuma<button type="button" class="info-icon-btn" data-info="Contohnya: 50">i</button></label>
+        <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wizard_step4_title">Berapakah jumlah deposit anda?</h2>
+        <label for="wizard-deposit"><span data-i18n="wizard_step4_label">Deposit (RM), taip 0 sekiranya percuma</span><button type="button" class="info-icon-btn" data-info="Contohnya: 50">i</button></label>
         <input type="number" id="wizard-deposit" step="0.01" min="0" />
       </div>
 
       <div id="wizard-step-5" style="display:none; text-align:center;">
         <div style="font-size:2.5rem; margin-bottom:0.5rem; color:var(--ok);"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 17.01"></polyline></svg></div>
-        <h2 style="margin-top:0; font-size:1.2rem;">Halaman tempahan anda telah sedia!</h2>
+        <h2 style="margin-top:0; font-size:1.2rem;" data-i18n="wizard_step5_title">Halaman tempahan anda telah sedia!</h2>
         <p class="hint" id="wizard-final-link" style="word-break:break-all; margin-bottom:1rem;"></p>
-        <button type="button" id="wizard-copy-link-btn" class="secondary" style="width:100%; margin-bottom:1rem;">Salin Pautan</button>
+        <button type="button" id="wizard-copy-link-btn" class="secondary" style="width:100%; margin-bottom:1rem;" data-i18n="wizard_copy_link">Salin Pautan</button>
 
         <div class="bset-tip" style="text-align:left; margin-bottom:1rem;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <span><strong>Satu langkah penting sebelum share:</strong> isi Profil Perniagaan (bank/QR DuitNow) supaya pelanggan anda dapat lihat cara membayar deposit selepas mereka menempah.</span>
+          <span><strong data-i18n="wizard_important_step">Satu langkah penting sebelum share:</strong> <span data-i18n="wizard_important_step_desc">isi Profil Perniagaan (bank/QR DuitNow) supaya pelanggan anda dapat lihat cara membayar deposit selepas mereka menempah.</span></span>
         </div>
-        <button type="button" id="wizard-goto-profile-btn" style="width:100%; margin-bottom:1rem;">Isi Profil Perniagaan Sekarang →</button>
+        <button type="button" id="wizard-goto-profile-btn" style="width:100%; margin-bottom:1rem;" data-i18n="wizard_goto_profile">Isi Profil Perniagaan Sekarang →</button>
 
-        <a href="#" id="wizard-open-link-btn" target="_blank" class="btn" style="width:100%; display:block; text-align:center; background:transparent; color:var(--ink); border:1.5px solid var(--paper-line); box-shadow:none;">Buka Halaman Tempahan</a>
-        <p class="hint" style="margin-top:0.5rem;">Cadangan: tempah menggunakan emel lain (bukan emel akaun anda) untuk merasai pengalaman sebenar pelanggan, sebelum berkongsi pautan ini secara meluas.</p>
+        <a href="#" id="wizard-open-link-btn" target="_blank" class="btn" style="width:100%; display:block; text-align:center; background:transparent; color:var(--ink); border:1.5px solid var(--paper-line); box-shadow:none;" data-i18n="wizard_open_page">Buka Halaman Tempahan</a>
+        <p class="hint" style="margin-top:0.5rem;" data-i18n="wizard_test_hint">Cadangan: tempah menggunakan emel lain (bukan emel akaun anda) untuk merasai pengalaman sebenar pelanggan, sebelum berkongsi pautan ini secara meluas.</p>
       </div>
 
       <p class="error" id="wizard-error" style="display:none; margin-top:0.8rem;"></p>
 
       <div class="row" style="margin-top:1.4rem; gap:0.5rem;" id="wizard-nav-row">
-        <button type="button" class="secondary" id="wizard-back-btn" style="flex:1;">Kembali</button>
-        <button type="button" id="wizard-next-btn" style="flex:1;">Seterusnya</button>
+        <button type="button" class="secondary" id="wizard-back-btn" style="flex:1;" data-i18n="wizard_back">Kembali</button>
+        <button type="button" id="wizard-next-btn" style="flex:1;" data-i18n="wizard_next">Seterusnya</button>
       </div>
     </div>
   </div>
 
   <div class="modal-overlay" id="profile-modal" style="display:none;">
     <div class="modal-box" style="max-width:520px; max-height:82vh; overflow-y:auto;">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="profile-modal-name">Profil Pelanggan</h2></div>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="profile-modal-name" data-i18n="profile_modal_title">Profil Pelanggan</h2></div>
       <p class="hint" id="profile-modal-since" style="margin:0 0 1rem;"></p>
 
       <div class="row" style="margin-bottom:1rem;">
@@ -2120,53 +2120,53 @@
         <div class="admin-stat-card" style="flex:1;"><div class="num" style="font-size:1.05rem;" id="profile-total-pending">RM0</div><div class="label">Belum Bayar</div></div>
       </div>
 
-      <p class="hint" style="font-weight:600; margin:0 0 0.4rem;">Hubungi</p>
+      <p class="hint" style="font-weight:600; margin:0 0 0.4rem;" data-i18n="profile_contact_title">Hubungi</p>
       <p class="hint" id="profile-contact" style="margin:0 0 1rem;"></p>
 
       <div id="profile-upcoming-wrap" style="display:none; margin-bottom:1rem;">
-        <p class="hint" style="font-weight:600; margin:0 0 0.4rem;">Booking Akan Datang</p>
+        <p class="hint" style="font-weight:600; margin:0 0 0.4rem;" data-i18n="profile_upcoming_title">Booking Akan Datang</p>
         <div id="profile-upcoming-list"></div>
       </div>
 
-      <p class="hint" style="font-weight:600; margin:0 0 0.4rem;">Riwayat</p>
+      <p class="hint" style="font-weight:600; margin:0 0 0.4rem;" data-i18n="profile_history_title">Riwayat</p>
       <table style="margin-bottom:1rem;">
-        <thead><tr><th>Tarikh</th><th>Catatan</th><th style="text-align:right;">RM</th><th>Status</th></tr></thead>
+        <thead><tr><th data-i18n="profile_th_date">Tarikh</th><th data-i18n="profile_th_notes">Catatan</th><th style="text-align:right;" data-i18n="profile_th_amount">RM</th><th data-i18n="profile_th_status">Status</th></tr></thead>
         <tbody id="profile-history-tbody"></tbody>
       </table>
 
       <div class="row" id="profile-actions" style="margin-top:1rem;"></div>
-      <button type="button" class="secondary" id="profile-modal-close" style="width:100%; margin-top:0.6rem;">Tutup</button>
+      <button type="button" class="secondary" id="profile-modal-close" style="width:100%; margin-top:0.6rem;" data-i18n="close">Tutup</button>
     </div>
   </div>
 
   <div class="modal-overlay" id="edit-modal" style="display:none;">
     <div class="modal-box">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Edit Pelanggan</h2></div>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="edit_modal_title">Edit Pelanggan</h2></div>
       <div id="edit-status-bar" class="edit-status-bar"></div>
       <form id="edit-form">
         <input type="hidden" id="e-id" />
-        <label for="e-name">Nama Customer<button type="button" class="info-icon-btn" data-info="Nama penuh atau nama panggilan pelanggan.">i</button></label>
+        <label for="e-name"><span data-i18n="edit_name">Nama Customer</span><button type="button" class="info-icon-btn" data-info="Nama penuh atau nama panggilan pelanggan.">i</button></label>
         <input type="text" id="e-name" required />
-        <label for="e-email">Emel Customer<button type="button" class="info-icon-btn" data-info="Emel pelanggan, digunakan untuk menghantar peringatan bayaran.">i</button></label>
+        <label for="e-email"><span data-i18n="edit_email">Emel Customer</span><button type="button" class="info-icon-btn" data-info="Emel pelanggan, digunakan untuk menghantar peringatan bayaran.">i</button></label>
         <input type="email" id="e-email" required />
         <div class="row">
           <div>
-            <label for="e-amount">Jumlah (RM)<button type="button" class="info-icon-btn" data-info="Jumlah deposit atau bayaran penuh yang perlu dijelaskan pelanggan ini.">i</button></label>
+            <label for="e-amount"><span data-i18n="edit_amount">Jumlah (RM)</span><button type="button" class="info-icon-btn" data-info="Jumlah deposit atau bayaran penuh yang perlu dijelaskan pelanggan ini.">i</button></label>
             <input type="number" id="e-amount" step="0.01" min="0" required />
           </div>
           <div>
-            <label for="e-due">Tarikh Cukup Tempoh<button type="button" class="info-icon-btn" data-info="Tarikh akhir bayaran perlu diselesaikan. Peringatan akan dihantar berdasarkan tarikh ini.">i</button></label>
+            <label for="e-due"><span data-i18n="edit_due">Tarikh Cukup Tempoh</span><button type="button" class="info-icon-btn" data-info="Tarikh akhir bayaran perlu diselesaikan. Peringatan akan dihantar berdasarkan tarikh ini.">i</button></label>
             <input type="date" id="e-due" required />
           </div>
         </div>
-        <label for="e-phone">Nombor Telefon<button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789. Untuk anda hubungi pelanggan secara manual via WhatsApp.">i</button></label>
+        <label for="e-phone"><span data-i18n="edit_phone">Nombor Telefon</span><button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789. Untuk anda hubungi pelanggan secara manual via WhatsApp.">i</button></label>
         <input type="text" id="e-phone" />
-        <label for="e-notes">Catatan<button type="button" class="info-icon-btn" data-info="Nota peribadi tentang pelanggan ini, tidak dipaparkan kepada pelanggan.">i</button></label>
+        <label for="e-notes"><span data-i18n="edit_notes">Catatan</span><button type="button" class="info-icon-btn" data-info="Nota peribadi tentang pelanggan ini, tidak dipaparkan kepada pelanggan.">i</button></label>
         <div class="note-tpl-row" id="e-note-tpl-row"></div>
         <textarea id="e-notes" rows="2"></textarea>
         <div class="row" style="margin-top:1.25rem;">
-          <button type="button" class="secondary" id="edit-cancel-btn" style="flex:1;">Batal</button>
-          <button type="submit" style="flex:1;">Simpan Perubahan</button>
+          <button type="button" class="secondary" id="edit-cancel-btn" style="flex:1;" data-i18n="cancel">Batal</button>
+          <button type="submit" style="flex:1;" data-i18n="edit_save">Simpan Perubahan</button>
         </div>
       </form>
     </div>
@@ -2174,12 +2174,12 @@
 
   <div class="modal-overlay" id="history-modal" style="display:none;">
     <div class="modal-box">
-      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="history-title">Riwayat Emel</h2></div>
+      <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" id="history-title" data-i18n="history_modal_title">Riwayat Emel</h2></div>
       <div id="history-list">
         <div class="skeleton" style="height:36px; border-radius:8px; margin-bottom:0.5rem;"></div>
         <div class="skeleton" style="height:36px; border-radius:8px;"></div>
       </div>
-      <button type="button" class="secondary" id="history-close-btn" style="width:100%; margin-top:1rem;">Tutup</button>
+      <button type="button" class="secondary" id="history-close-btn" style="width:100%; margin-top:1rem;" data-i18n="close">Tutup</button>
     </div>
   </div>
 
@@ -2242,7 +2242,7 @@
             <div class="settings-dropdown-section">
               <div class="settings-dropdown-section-title">Kalendar Peribadi<button type="button" class="info-icon-btn" data-info="Sambungkan Google Calendar peribadi anda supaya tempahan baharu, pertukaran tarikh, dan pembatalan terus dipaparkan di kalendar telefon anda secara automatik.">i</button></div>
               <div id="gcal-not-connected" style="display:none;">
-                <p class="hint" style="margin:0 0 0.6rem;">Sambungkan Google Calendar untuk lihat tempahan studio terus di kalendar peribadi anda.</p>
+                <p class="hint" style="margin:0 0 0.6rem;" data-i18n="gcal_connect_hint">Sambungkan Google Calendar untuk lihat tempahan studio terus di kalendar peribadi anda.</p>
                 <button type="button" class="secondary" id="gcal-connect-btn" style="width:100%; justify-content:center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Sambungkan Google Calendar</button>
               </div>
               <div id="gcal-connected" style="display:none;">
@@ -2267,7 +2267,7 @@
 
             <div class="settings-dropdown-section">
               <div class="settings-dropdown-section-title">Setup Pantas</div>
-              <p class="hint" style="margin:0 0 0.6rem;">Tutup checklist Setup Pantas di Home tanpa sengaja? Boleh buka semula di sini.</p>
+              <p class="hint" style="margin:0 0 0.6rem;" data-i18n="checklist_reopen_hint">Tutup checklist Setup Pantas di Home tanpa sengaja? Boleh buka semula di sini.</p>
               <button type="button" class="secondary" id="reopen-setup-checklist-btn" style="width:100%; justify-content:center;">↻ Buka Semula Setup Pantas</button>
             </div>
 
@@ -2308,8 +2308,8 @@
         <div class="chat-filter-tabs" id="chat-filter-tabs">
           <button type="button" class="chat-filter-tab active" data-chat-filter="all">Semua</button>
           <button type="button" class="chat-filter-tab" data-chat-filter="action">Perlu Tindakan</button>
-          <button type="button" class="chat-filter-tab" data-chat-filter="today">Hari Ini</button>
-          <button type="button" class="chat-filter-tab" data-chat-filter="unread">Belum Dibaca</button>
+          <button type="button" class="chat-filter-tab" data-chat-filter="today" data-i18n="chat_tab_today">Hari Ini</button>
+          <button type="button" class="chat-filter-tab" data-chat-filter="unread" data-i18n="chat_tab_unread">Belum Dibaca</button>
         </div>
       </div>
       <div id="chat-widget-conversation-list">
@@ -2327,7 +2327,7 @@
       <!-- Inline Drawer: Reschedule Pantas -->
       <div id="chat-widget-reschedule-drawer" class="chat-inline-drawer" style="display:none;">
         <div class="chat-drawer-title">
-          <span>Reschedule Tempahan Terus dari Chat</span>
+          <span data-i18n="chat_drawer_resched_title">Reschedule Tempahan Terus dari Chat</span>
           <button type="button" class="chat-drawer-close" id="chat-drawer-reschedule-close" aria-label="Tutup">✕</button>
         </div>
         <form id="chat-drawer-reschedule-form" class="chat-drawer-form">
@@ -2335,14 +2335,14 @@
             <input type="date" id="chat-reschedule-date" required style="flex:1;" />
             <input type="time" id="chat-reschedule-time" required style="width:110px;" />
           </div>
-          <button type="submit" class="primary chat-drawer-btn" id="chat-reschedule-submit-btn">Kemas Kini & Hantar Notis ke Chat</button>
+          <button type="submit" class="primary chat-drawer-btn" id="chat-reschedule-submit-btn" data-i18n="chat_drawer_resched_btn">Kemas Kini & Hantar Notis ke Chat</button>
         </form>
       </div>
 
       <!-- Inline Drawer: Cadangan Slot Baharu (Slot Proposal) -->
       <div id="chat-widget-proposal-drawer" class="chat-inline-drawer" style="display:none;">
         <div class="chat-drawer-title">
-          <span>Cadang Slot Waktu kepada Pelanggan</span>
+          <span data-i18n="chat_drawer_suggest_title">Cadang Slot Waktu kepada Pelanggan</span>
           <button type="button" class="chat-drawer-close" id="chat-drawer-proposal-close" aria-label="Tutup">✕</button>
         </div>
         <form id="chat-drawer-proposal-form" class="chat-drawer-form">
@@ -2351,7 +2351,7 @@
             <input type="time" id="chat-propose-time" value="10:00" required style="width:110px;" />
           </div>
           <input type="text" id="chat-propose-note" placeholder="Nota tambahan (cth: Sesi 60 minit)" style="font-size:0.76rem;" />
-          <button type="submit" class="primary chat-drawer-btn" id="chat-propose-submit-btn">Kirim Cadangan Slot ke Chat</button>
+          <button type="submit" class="primary chat-drawer-btn" id="chat-propose-submit-btn" data-i18n="chat_drawer_suggest_btn">Kirim Cadangan Slot ke Chat</button>
         </form>
       </div>
 
@@ -2378,7 +2378,7 @@
           </button>
           <button type="button" class="chat-action-btn" id="chat-act-reminder" title="Hantar Peringatan Janjitemu">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            <span>Peringatan</span>
+            <span data-i18n="chat_drawer_remind_title">Peringatan</span>
           </button>
           <button type="button" class="chat-action-btn" id="chat-act-propose-btn" title="Cadang Slot Baharu">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
@@ -2402,7 +2402,7 @@
       <form id="chat-widget-manage-form" class="chat-manage-form">
         <input type="text" id="chat-manage-label" placeholder="Label (contoh: Cara Reschedule)" required maxlength="40" />
         <textarea id="chat-manage-answer" placeholder="Jawapan penuh yang akan dihantar..." rows="2" required></textarea>
-        <button type="submit">+ Tambah Jawapan Pantas</button>
+        <button type="submit" data-i18n="chat_add_quick_reply">+ Tambah Jawapan Pantas</button>
       </form>
     </div>
   </div>
@@ -2527,6 +2527,36 @@
         try {
           if (typeof updateHomeTileStats === "function") {
             updateHomeTileStats();
+          }
+        } catch (_) {}
+        try {
+          if (typeof renderHomeTrendChart === "function") {
+            renderHomeTrendChart();
+          }
+        } catch (_) {}
+        try {
+          if (typeof renderHomeNextAction === "function") {
+            renderHomeNextAction();
+          }
+        } catch (_) {}
+        try {
+          if (typeof window.refreshDashboardTip === "function") {
+            window.refreshDashboardTip();
+          }
+        } catch (_) {}
+        try {
+          if (typeof renderSubscriptionBanner === "function") {
+            renderSubscriptionBanner();
+          }
+        } catch (_) {}
+        try {
+          if (typeof window.refreshSetupChecklist === "function") {
+            window.refreshSetupChecklist();
+          }
+        } catch (_) {}
+        try {
+          if (typeof window.refreshNotifications === "function") {
+            window.refreshNotifications();
           }
         } catch (_) {}
       });
@@ -3002,11 +3032,12 @@
 
       const list = document.getElementById("notif-list");
       document.getElementById("notif-empty").style.display = (notifs || []).length ? "none" : "block";
+      const isEn = (window.getCurrentLang && window.getCurrentLang()) === "en";
       list.innerHTML = (notifs || []).map(n => `
         <a href="${n.link_url || "#"}" class="notif-item ${n.is_read ? "" : "unread"}" data-notif-id="${n.id}">
           <div class="notif-item-title">${escapeHtml(n.title)}</div>
           ${n.message ? `<div class="notif-item-message">${escapeHtml(n.message)}</div>` : ""}
-          <div class="notif-item-time">${new Date(n.created_at).toLocaleString("ms-MY")}</div>
+          <div class="notif-item-time">${new Date(n.created_at).toLocaleString(isEn ? "en-US" : "ms-MY")}</div>
         </a>
       `).join("");
 
@@ -3017,6 +3048,7 @@
       });
     }
     loadNotifications().catch(() => {});
+    window.refreshNotifications = loadNotifications;
 
     function openNotifModal() {
       document.getElementById("notif-modal").style.display = "flex";
@@ -3163,32 +3195,33 @@
       }
 
       const slot = document.getElementById("setup-checklist-slot");
+      if (!slot) return;
       const item = (done, label, linkPage) => `
         <div class="setup-item ${done ? "done" : ""}">
           <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
           <span class="setup-label">${label}</span>
-          ${!done ? `<a href="#" data-goto="${linkPage}">→ pergi</a>` : ""}
+          ${!done ? `<a href="#" data-goto="${linkPage}">${t("setup_goto", "→ pergi")}</a>` : ""}
         </div>`;
 
       const primarySlug = allBookingLinks.find(l => l.is_primary)?.slug || allBookingLinks[0]?.slug;
       const testItem = (done) => `
         <div class="setup-item ${done ? "done" : ""}">
           <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-          <span class="setup-label">Test booking sendiri guna emel lain (rasa pengalaman pelanggan)</span>
-          ${!done ? (primarySlug ? `<a href="#" id="setup-test-booking-link">→ pergi</a>` : `<span class="hint" style="font-size:0.75rem;">(siapkan Setup Booking dulu)</span>`) : ""}
+          <span class="setup-label">${t("setup_step5", "Test booking sendiri guna emel lain (rasa pengalaman pelanggan)")}</span>
+          ${!done ? (primarySlug ? `<a href="#" id="setup-test-booking-link">${t("setup_goto", "→ pergi")}</a>` : `<span class="hint" style="font-size:0.75rem;">${t("setup_step5_hint", "(siapkan Setup Booking dulu)")}</span>`) : ""}
         </div>`;
 
       slot.innerHTML = `
         <div class="card setup-checklist-card" style="margin-bottom:1.5rem;">
           <div class="section-title">
-            <h2 style="margin:0; font-size:1.05rem;">Setup Pantas</h2>
-            <button class="secondary" id="dismiss-setup" style="padding:0.3rem 0.7rem; font-size:0.8rem;">Tutup</button>
+            <h2 style="margin:0; font-size:1.05rem;">${t("setup_quick_title", "Setup Pantas")}</h2>
+            <button class="secondary" id="dismiss-setup" style="padding:0.3rem 0.7rem; font-size:0.8rem;">${t("close", "Tutup")}</button>
           </div>
           <div class="setup-checklist">
-            ${item(step1Done, "Isi Profil Perniagaan (nama, contact, bank & QR DuitNow)", "tetapan-profil")}
-            ${item(step2Done, "Setup Booking (link, waktu available & deposit lalai)", "booking-settings")}
-            ${item(step3Done, "Semak & simpan Jadual Reminder", "tetapan-reminder")}
-            ${item(step4Done, "Tambah pelanggan pertama (atau kongsi link booking)", "pelanggan-add")}
+            ${item(step1Done, t("setup_step1", "Isi Profil Perniagaan (nama, contact, bank & QR DuitNow)"), "tetapan-profil")}
+            ${item(step2Done, t("setup_step2", "Setup Booking (link, waktu available & deposit lalai)"), "booking-settings")}
+            ${item(step3Done, t("setup_step3", "Semak & simpan Jadual Reminder"), "tetapan-reminder")}
+            ${item(step4Done, t("setup_step4", "Tambah pelanggan pertama (atau kongsi link booking)"), "pelanggan-add")}
             ${testItem(step5Done)}
           </div>
         </div>`;
@@ -3212,34 +3245,39 @@
         renderSetupChecklist(customerCount);
       });
     }
+    window.refreshSetupChecklist = () => renderSetupChecklist(allCustomers ? allCustomers.length : 0);
 
     const isPastDue = profile?.subscription_status === "past_due";
 
-    if (profile?.is_suspended) {
-      window.location.href = "/suspended.html";
-    } else if (isPastDue) {
-      const banner = document.createElement("div");
-      banner.className = "trial-strip past-due-strip";
-      banner.innerHTML = `<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px; flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Langganan anda telah tamat. Tempahan baharu tetap diterima, tetapi sesetengah fungsi disekat.</span><a href="/billing.html">Bayar sekarang</a>`;
-      document.getElementById("banner-slot").appendChild(banner);
-    } else if (profile?.subscription_status === "trialing") {
-      const daysLeft = Math.ceil((new Date(profile.subscription_end_date) - new Date()) / (1000 * 60 * 60 * 24));
-      if (daysLeft <= 30) {
+    function renderSubscriptionBanner() {
+      const slot = document.getElementById("banner-slot");
+      if (!slot) return;
+      slot.innerHTML = "";
+      if (profile?.is_suspended) {
+        window.location.href = "/suspended.html";
+        return;
+      }
+      if (profile?.subscription_status === "past_due") {
         const banner = document.createElement("div");
-        banner.className = "trial-strip";
-        banner.innerHTML = `<span>⏳ Trial: <strong>${Math.max(daysLeft, 0)} hari</strong> lagi</span><a href="/billing.html">Bayar sekarang →</a>`;
-        document.getElementById("banner-slot").appendChild(banner);
+        banner.className = "trial-strip past-due-strip";
+        banner.innerHTML = `<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px; flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> ${t("banner_past_due", "Langganan anda telah tamat. Tempahan baharu tetap diterima, tetapi sesetengah fungsi disekat.")}</span><a href="/billing.html">${t("banner_past_due_action", "Bayar sekarang")}</a>`;
+        slot.appendChild(banner);
+      } else if (profile?.subscription_status === "trialing") {
+        const daysLeft = Math.ceil((new Date(profile.subscription_end_date) - new Date()) / (1000 * 60 * 60 * 24));
+        if (daysLeft <= 30) {
+          const banner = document.createElement("div");
+          banner.className = "trial-strip";
+          banner.innerHTML = `<span>⏳ Trial: <strong>${Math.max(daysLeft, 0)} ${t("banner_trial_left", "hari lagi")}</strong></span><a href="/billing.html">${t("banner_trial_action", "Bayar sekarang →")}</a>`;
+          slot.appendChild(banner);
+        }
       }
     }
+    renderSubscriptionBanner();
 
-    // Shared guard for actions that should be blocked while past_due (view-only
-    // access is fine, but resource-consuming actions like adding customers,
-    // changing settings, or sending reminders are not — this is what actually
-    // creates renewal pressure, unlike the old hard-redirect which just locked
-    // owners out entirely and gave them no reason to come back and pay).
+    // Shared guard for actions that should be blocked while past_due
     function blockIfPastDue() {
       if (!isPastDue) return false;
-      showToast("Langganan anda tamat. Sila bayar untuk terus menggunakan ciri ini.", "error");
+      showToast(t("toast_past_due_block", "Langganan anda tamat. Sila bayar untuk terus menggunakan ciri ini."), "error");
       return true;
     }
 
@@ -6275,17 +6313,18 @@
       const todayStr = new Date().toISOString().slice(0, 10);
       const isOverdue = target.due_date < todayStr;
       const amount = `RM${Number(target.amount).toFixed(2)}`;
-      const dueLabel = new Date(target.due_date).toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
+      const isEn = (window.getCurrentLang && window.getCurrentLang()) === "en";
+      const dueLabel = new Date(target.due_date).toLocaleDateString(isEn ? "en-US" : "ms-MY", { day: "numeric", month: "short" });
 
       textEl.textContent = isOverdue
-        ? `${target.name} belum bayar ${amount}. Dah lepas tarikh due (${dueLabel}).`
-        : `${target.name} belum bayar ${amount}. Due ${dueLabel}.`;
+        ? t("next_action_overdue", "{name} belum bayar {amount}. Dah lepas tarikh due ({due}).").replace("{name}", target.name).replace("{amount}", amount).replace("{due}", dueLabel)
+        : t("next_action_upcoming", "{name} belum bayar {amount}. Due {due}.").replace("{name}", target.name).replace("{amount}", amount).replace("{due}", dueLabel);
 
-      btnEl.textContent = "Hantar Reminder";
+      btnEl.textContent = t("next_action_btn", "Hantar Reminder");
       btnEl.onclick = async () => {
         if (blockIfPastDue()) return;
         btnEl.disabled = true;
-        btnEl.textContent = "Menghantar...";
+        btnEl.textContent = t("next_action_sending", "Menghantar...");
         try {
           const { data: sessionData } = await supabase.auth.getSession();
           const res = await fetch("/api/trigger-instant-reminder", {
@@ -6295,15 +6334,15 @@
           });
           const result = await res.json();
           if (result.sent === false) {
-            showToast(`Reminder untuk ${target.name} akan dihantar dalam sweep seterusnya (dalam 2 jam).`, "success");
+            showToast(t("next_action_toast_sweep", "Reminder untuk {name} akan dihantar dalam sweep seterusnya (dalam 2 jam).").replace("{name}", target.name), "success");
           } else {
-            showToast(`Peringatan telah dihantar kepada ${target.name}. Emel telah dihantar.`, "success");
+            showToast(t("next_action_toast_sent", "Peringatan telah dihantar kepada {name}. Emel telah dihantar.").replace("{name}", target.name), "success");
           }
         } catch {
-          showToast("Gagal hantar reminder. Cuba lagi sekejap.", "error");
+          showToast(t("next_action_toast_failed", "Gagal hantar reminder. Cuba lagi sekejap."), "error");
         }
         btnEl.disabled = false;
-        btnEl.textContent = "Hantar Reminder";
+        btnEl.textContent = t("next_action_btn", "Hantar Reminder");
       };
 
       card.style.display = "block";
@@ -7038,121 +7077,26 @@
       "Profil Perniagaan": { page: "tetapan-profil" },
       "Tetapan Reminder": { page: "tetapan-reminder" },
       "Forum": { href: "/forum.html" },
+      "Calendar": { page: "kalendar" },
+      "Booking Settings": { page: "booking-settings" },
+      "Reports": { page: "laporan" },
+      "Customer List": { page: "pelanggan-list" },
+      "Booking List": { page: "booking-list" },
+      "Business Profile": { page: "tetapan-profil" },
+      "Reminder Settings": { page: "tetapan-reminder" },
     };
-    const DASHBOARD_TIPS = [
-      // Strategi Dapat Lebih Booking
-      "Kongsi booking link di bio Instagram/TikTok, bukan setakat WhatsApp Status. Orang boleh book terus tanpa perlu tanya dulu.",
-      "Cetak QR code booking link untuk kaunter fizikal. Pelanggan walk-in pun boleh book untuk lain kali.",
-      "Deposit yang jelas dari awal kurangkan no-show. Pelanggan yang dah bayar lebih komited untuk datang.",
-      "Letak booking link dalam signature emel anda supaya setiap emel jadi peluang untuk terima tempahan.",
-      "Customer yang dah pernah book sebelum ni lebih mudah book semula. Follow up mereka secara berkala.",
-      "Poster/gambar servis yang menarik pada [Tetapan Booking] boleh tingkatkan kadar tempahan.",
-      "Tunjukkan waktu available yang cukup banyak. Slot kosong yang terhad buat pelanggan rasa perlu cepat.",
-      "Deskripsi servis yang jelas kurangkan soalan berulang daripada pelanggan baharu.",
-      "Reminder emel bukan setakat untuk pelanggan sedia ada. Ia juga bina kepercayaan untuk booking seterusnya.",
-      "Testimoni pelanggan berpuas hati adalah promosi paling berkesan. Minta izin untuk kongsikan pengalaman mereka.",
-      "Booking link yang sama boleh dikongsi di banyak platform serentak. Tak perlu link berasingan untuk setiap satu.",
-      "Founding Member atau harga promosi awal boleh tarik pelanggan pertama dengan lebih pantas.",
-      "Semak [Laporan] secara berkala untuk kenal pasti waktu paling ramai tempahan, dan fokus promosi pada waktu tu.",
-      "Pelanggan lebih selesa book bila mereka nampak proses bayaran jelas dari awal, bukan tertanya-tanya kemudian.",
-      "Kongsi link terus dalam grup WhatsApp komuniti setempat, bukan setakat status peribadi.",
-      "Jenis perkhidmatan yang pelbagai di [Tetapan Booking] buka peluang untuk pelanggan pilih sesuai bajet mereka.",
-      "Consistency dalam waktu available (bukan berubah-ubah setiap minggu) buat pelanggan lebih senang merancang.",
-      // Cara Handle Customer
-      "Reply pantas tak semestinya perlu manual. Sistem dah automatik hantar confirmation dan reminder untuk anda.",
-      "Customer yang selalu lewat bayar? Semak [Laporan] untuk kenal pasti Customer Berisiko awal-awal.",
-      "Catatan pada profil pelanggan di [Senarai Pelanggan] membantu anda ingat keperluan khas mereka.",
-      "Pelanggan yang batalkan lebih dari sekali patut diberi perhatian lebih semasa booking seterusnya.",
-      "Soalan Tambahan di [Tetapan Booking] elakkan anda perlu tanya berulang kali perkara sama pada setiap pelanggan.",
-      "Customer tetap (recurring) di [Senarai Pelanggan] boleh ditanda supaya tarikh cukup tempoh dijana automatik.",
-      "Notifikasi telefon pastikan anda tak terlepas bila pelanggan reschedule atau batal pada saat akhir.",
-      "Balas dengan tenang walaupun pelanggan tergesa-gesa. Sistem yang jelas bantu kurangkan salah faham.",
-      "Pelanggan yang bertanya banyak sebelum book biasanya lebih serius, bukan setakat tanya-tanya kosong.",
-      "Rekod pembayaran yang kemas di [Senarai Pelanggan] elakkan pertikaian tentang status bayaran yang sukar disahkan.",
-      "Kad Customer Berisiko bukan untuk hukum pelanggan, tapi untuk anda lebih bersedia semasa berurusan dengan mereka.",
-      "Pelanggan baharu perlukan sedikit lebih penjelasan berbanding pelanggan lama. Sesuaikan nada mesej anda.",
-      "Jangan anggap semua status belum bayar sebagai masalah. Kadang-kadang mereka cuma terlupa, bukan mengelak.",
-      "Emel peringatan yang sopan dan konsisten lebih berkesan daripada mesej mengejar berulang kali.",
-      "Simpan sejarah tempahan lama pelanggan sebagai rujukan bila mereka book semula untuk servis serupa.",
-      "Pelanggan yang reschedule sendiri melalui link biasanya lebih puas hati berbanding perlu hubungi anda terus.",
-      "Perkenalkan diri dan servis anda dengan jelas dalam deskripsi, supaya pelanggan baharu rasa lebih yakin sebelum book.",
-      // Falsafah Bisnes
-      "Sistem yang jelas buat pelanggan lebih percaya berbanding proses manual yang tak konsisten.",
-      "Automasi bukan untuk gantikan sentuhan peribadi anda. Ia bebaskan masa anda untuk fokus pada kerja sebenar.",
-      "Perniagaan kecil yang kelihatan profesional selalunya menang berbanding yang lebih besar tapi tak teratur.",
-      "Setiap tempahan yang lancar adalah peluang untuk pelanggan datang semula dan cadangkan anda kepada orang lain.",
-      "Kepercayaan dibina melalui konsistensi, bukan setakat kualiti produk atau servis sahaja.",
-      "Masa yang anda jimatkan daripada urusan manual adalah masa yang boleh digunakan untuk berkembang.",
-      "Sistem yang baik patut buat kerja anda nampak lebih senang, bukan lebih rumit.",
-      "Pelanggan yang berpuas hati dengan proses booking selalunya lebih toleran kalau ada kesilapan kecil kemudian.",
-      "Perniagaan yang bergantung pada ingatan sahaja mudah buat silap. Sistem yang direkod dengan baik kurangkan risiko itu.",
-      "Harga yang jelas dari awal elakkan salah faham yang boleh rosakkan hubungan dengan pelanggan.",
-      "Sikap profesional bukan tentang formal berlebihan, tapi tentang boleh dipercayai setiap masa.",
-      "Perniagaan yang berkembang selalunya yang paling konsisten, bukan yang paling cepat pada mulanya.",
-      "Setiap butiran kecil (deposit, reminder, konfirmasi) membentuk keseluruhan pengalaman pelanggan anda.",
-      "Jangan takut nampak kecil. Sistem yang teratur buat perniagaan kecil kelihatan sama profesional dengan yang besar.",
-      "Pelanggan tak semestinya ingat produk anda, tapi mereka ingat macam mana perasaan mereka semasa berurusan dengan anda.",
-      "Bisnes yang bertahan lama biasanya yang paling senang untuk pelanggan berurusan dengannya, bukan yang paling murah.",
-      // Cara Guna Dashboard
-      "[Tetapan Booking] boleh ada lebih dari satu jenis servis dengan harga berbeza.",
-      "[Kalendar] guna warna berbeza untuk tunjuk tahap kepenuhan slot anda.",
-      "[Forum] bukan setakat untuk tanya. Anda boleh cadangkan feature dan owner lain boleh vote.",
-      "[Senarai Booking] boleh ditapis ikut status untuk anda fokus pada tempahan yang perlu tindakan.",
-      "[Senarai Pelanggan] simpan sejarah pembayaran setiap pelanggan di satu tempat.",
-      "[Laporan] tunjukkan unjuran cash-flow 6 minggu akan datang berdasarkan pembayaran belum diterima.",
-      "Home page tunjuk ringkasan sekali imbas, tanpa perlu buka setiap page berasingan.",
-      "Icon i kecil di sebelah label memberikan penjelasan ringkas tentang fungsi setiap tetapan.",
-      "Notification bell di sidebar simpan rekod semua aktiviti terkini tempahan anda.",
-      "[Profil Perniagaan] adalah tempat isi maklumat bank dan QR DuitNow untuk terima bayaran.",
-      "Wizard Setup boleh dibuka semula bila-bila masa jika anda terlepas mana-mana langkah awal.",
-      "[Kalendar] modal tetapkan waktu ada 4 preset pantas: Pagi, Tengahari, Petang, dan Malam.",
-      "Salin ke 4 Minggu Depan pada [Kalendar] gandakan waktu available anda dalam sekali klik.",
-      "Tab Embed dalam [Tetapan Booking] bagi anda kod untuk letak widget tempahan terus di laman web sendiri.",
-      "Setiap booking link boleh ada slug tersendiri yang mudah diingati dan dikongsi.",
-      "[Tetapan Reminder] tentukan berapa hari sebelum tarikh cukup tempoh emel peringatan dihantar.",
-      "Menu Lompat ke Page di sidebar bantu anda navigate lebih pantas tanpa scroll cari.",
-      // Flow Bayaran/Reschedule/Settings
-      "Bila customer reschedule sendiri, sistem automatik kemas kini kalendar anda. Tiada perlu edit manual.",
-      "[Tetapan Booking] tentukan berapa lambat customer boleh batalkan sendiri sebelum perlu hubungi anda terus.",
-      "Set Waktu Jeda dalam [Tetapan Booking] untuk elak rasa tergesa-gesa antara pelanggan.",
-      "Notis Minimum Booking elakkan pelanggan menempah slot yang terlalu hampir dengan waktu sekarang.",
-      "Deposit diminta automatik sebaik tempahan disahkan, tanpa anda perlu hantar mesej manual.",
-      "Emel arahan bayaran termasuk QR DuitNow yang anda muat naik di [Profil Perniagaan].",
-      "Status pembayaran di [Senarai Pelanggan] kemas kini secara manual selepas anda sahkan bayaran diterima.",
-      "Tarikh cukup tempoh tentukan bila peringatan emel dihantar mengikut [Tetapan Reminder] anda.",
-      "Pelanggan yang reschedule tak perlu tempah baharu. Mereka pilih slot lain terus dari link sama.",
-      "Deposit lalai di [Tetapan Booking] jadi asas, tapi setiap Jenis Perkhidmatan boleh ada deposit berlainan.",
-      "Bil langganan dibayar secara manual melalui pindahan bank di halaman Billing.",
-      "Founding Member yang mengunci harga akan kekal pada kadar sama walau harga standard berubah kemudian.",
-      "Reminder dihantar sekali sehari secara automatik, bukan secara masa nyata sebaik tarikh cukup tempoh sampai.",
-      "Sekiranya langganan tamat tempoh, tempahan baharu tetap diterima, tapi sesetengah fungsi disekat sementara.",
-      "Setiap perubahan pada [Kalendar] terus mempengaruhi slot yang pelanggan nampak di halaman tempahan awam.",
-      "Sistem tak automatik caj kad kredit. Semua bayaran langganan perlu disahkan secara manual oleh anda.",
-      // Pengetahuan Umum
-      "Ramai perniagaan kehilangan pelanggan sebab lambat reply. Sistem book sendiri elakkan risiko ni sepenuhnya.",
-      "Emel reminder automatik terbukti kurangkan kadar lupa bayar berbanding kena tanya manual berulang kali.",
-      "Perniagaan berasaskan tempahan meliputi lebih daripada sekadar salon atau tuisyen. Apa sahaja yang perlukan slot masa boleh guna sistem ni.",
-      "Deposit adalah cara biasa perniagaan pastikan komitmen pelanggan sebelum menyediakan servis.",
-      "Kadar no-show biasanya lebih rendah bila deposit diminta lebih awal.",
-      "Pengalaman tempahan yang lancar selalunya meninggalkan kesan lebih lama berbanding kualiti servis itu sendiri.",
-      "Ramai pelanggan lebih suka book sendiri berbanding perlu berbual dahulu untuk sekadar tanya slot kosong.",
-      "Perniagaan kecil yang guna sistem tempahan berstruktur selalunya kelihatan lebih mapan di mata pelanggan.",
-      "Word-of-mouth masih cara paling berkesan untuk perniagaan berasaskan servis peribadi berkembang.",
-      "Waktu puncak permintaan biasanya berulang setiap minggu atau bulan. Kenal pasti pola ini bantu perancangan anda.",
-      "Pelanggan yang kecewa dengan proses tempahan jarang beritahu terus, tapi mereka tak kembali.",
-      "Sistem yang direkod dengan baik bantu anda buat keputusan perniagaan berdasarkan data, bukan agakan sahaja.",
-      "Perhubungan jangka panjang dengan pelanggan selalunya lebih bernilai daripada tempahan sekali sahaja.",
-      "Perniagaan yang boleh diakses bila-bila masa melalui link capai lebih ramai pelanggan berbanding perlu tunggu waktu bekerja.",
-      "Kepercayaan pelanggan terhadap perniagaan kecil selalunya dibina melalui konsistensi kecil yang berulang, bukan promosi besar.",
-      "Proses yang jelas dari mula hingga akhir kurangkan kebimbangan pelanggan tentang status tempahan mereka.",
-      "Data pelanggan yang tersusun adalah aset perniagaan, walau seberapa kecil skala operasi anda sekarang.",
-    ];
+    const DASHBOARD_TIPS = {
+      ms: undefined,
+      en: undefined
+    };
 
     function renderDashboardTip(index) {
       const el = document.getElementById("dashboard-tip-text");
       if (!el) return;
-      const raw = DASHBOARD_TIPS[index];
-      const html = raw.replace(/\[([^\]]+)\]/g, (match, label) => {
+      const curLang = (window.getCurrentLang && window.getCurrentLang()) || "ms";
+      const tips = DASHBOARD_TIPS[curLang] || DASHBOARD_TIPS.ms;
+      const raw = tips[index % tips.length];
+      const tipHtml = raw.replace(/\[([^\]]+)\]/g, (match, label) => {
         const link = DASHBOARD_TIP_LINKS[label];
         if (!link) return label;
         return link.href
@@ -7162,15 +7106,16 @@
       el.style.animation = "none";
       el.offsetHeight; // force reflow to restart fade-in
       el.style.animation = "";
-      el.innerHTML = html;
+      el.innerHTML = tipHtml;
       el.querySelectorAll("[data-tip-goto]").forEach(a => {
         a.addEventListener("click", (e) => { e.preventDefault(); goToPage(a.dataset.tipGoto); });
       });
     }
-    let dashboardTipIndex = Math.floor(Math.random() * DASHBOARD_TIPS.length);
+    let dashboardTipIndex = Math.floor(Math.random() * DASHBOARD_TIPS.ms.length);
     renderDashboardTip(dashboardTipIndex);
+    window.refreshDashboardTip = () => renderDashboardTip(dashboardTipIndex);
     document.getElementById("dashboard-tip-next")?.addEventListener("click", () => {
-      dashboardTipIndex = (dashboardTipIndex + 1) % DASHBOARD_TIPS.length;
+      dashboardTipIndex = (dashboardTipIndex + 1) % DASHBOARD_TIPS.ms.length;
       renderDashboardTip(dashboardTipIndex);
     });
 
@@ -7212,11 +7157,11 @@
       if (badgesEl) {
         if (totalBookings > 0) {
           badgesEl.innerHTML = `
-            <span class="trend-summary-pill">Jumlah: <strong>${totalBookings}</strong> tempahan</span>
-            <span class="trend-summary-pill">Puncak: <strong>${peakDay.count}</strong> / hari</span>
+            <span class="trend-summary-pill">${t("trend_total_pill", "Jumlah: <strong>{count}</strong> tempahan").replace("{count}", totalBookings)}</span>
+            <span class="trend-summary-pill">${t("trend_peak_pill", "Puncak: <strong>{count}</strong> / hari").replace("{count}", peakDay.count)}</span>
           `;
         } else {
-          badgesEl.innerHTML = `<span class="trend-summary-pill">14 Hari Terkini</span>`;
+          badgesEl.innerHTML = `<span class="trend-summary-pill">${t("trend_last_14_days", "14 Hari Terkini")}</span>`;
         }
       }
 
@@ -7226,8 +7171,8 @@
             <div style="width:38px; height:38px; margin:0 auto 0.6rem; border-radius:50%; background:var(--stamp-soft); color:var(--stamp); display:flex; align-items:center; justify-content:center;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
             </div>
-            <p style="font-weight:600; font-size:0.9rem; margin:0 0 0.25rem;">Tiada Tempahan Dalam 14 Hari Lepas</p>
-            <p class="hint" style="font-size:0.76rem; max-width:380px; margin:0 auto; line-height:1.5;">Graf momentum harian ini akan dilukis dan dianimasikan secara automatik apabila pelanggan membuat tempahan slot.</p>
+            <p style="font-weight:600; font-size:0.9rem; margin:0 0 0.25rem;">${t("trend_empty_title", "Tiada Tempahan Dalam 14 Hari Lepas")}</p>
+            <p class="hint" style="font-size:0.76rem; max-width:380px; margin:0 auto; line-height:1.5;">${t("trend_empty_desc", "Graf momentum harian ini akan dilukis dan dianimasikan secara automatik apabila pelanggan membuat tempahan slot.")}</p>
           </div>
         `;
         return;
@@ -7265,9 +7210,11 @@
       const linePath = buildSpline(points);
       const areaPath = `${linePath} L ${(w - padX).toFixed(1)} ${(h - padY).toFixed(1)} L ${padX.toFixed(1)} ${(h - padY).toFixed(1)} Z`;
 
-      const firstLabel = days[0].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
-      const midLabel = days[6].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
-      const lastLabel = days[days.length - 1].date.toLocaleDateString("ms-MY", { day: "numeric", month: "short" });
+      const isEn = (window.getCurrentLang && window.getCurrentLang()) === "en";
+      const dateLocale = isEn ? "en-US" : "ms-MY";
+      const firstLabel = days[0].date.toLocaleDateString(dateLocale, { day: "numeric", month: "short" });
+      const midLabel = days[6].date.toLocaleDateString(dateLocale, { day: "numeric", month: "short" });
+      const lastLabel = days[days.length - 1].date.toLocaleDateString(dateLocale, { day: "numeric", month: "short" });
       const lastPt = points[points.length - 1];
 
       const midY = (padY + (h - padY)) / 2;
@@ -7324,7 +7271,7 @@
         <div class="row" style="justify-content:space-between; margin-top:0.4rem; padding:0 2px;">
           <span class="hint" style="font-size:0.72rem; font-weight:500;">${firstLabel}</span>
           <span class="hint" style="font-size:0.72rem; font-weight:500;">${midLabel}</span>
-          <span class="hint" style="font-size:0.72rem; font-weight:600; color:var(--stamp);">Hari ini (${lastLabel})</span>
+          <span class="hint" style="font-size:0.72rem; font-weight:600; color:var(--stamp);">${t("trend_today_label", "Hari ini ({date})").replace("{date}", lastLabel)}</span>
         </div>
       `;
 
@@ -7378,9 +7325,9 @@
           crosshairEl.style.opacity = "1";
         }
 
-        const dateStr = closest.date.toLocaleDateString("ms-MY", { weekday: "short", day: "numeric", month: "short" });
-        tipDateEl.textContent = closest.isToday ? `${dateStr} (Hari Ini)` : dateStr;
-        tipValEl.textContent = closest.count === 0 ? "Tiada booking" : `${closest.count} booking disahkan`;
+        const dateStr = closest.date.toLocaleDateString(dateLocale, { weekday: "short", day: "numeric", month: "short" });
+        tipDateEl.textContent = closest.isToday ? `${dateStr}${t("trend_tip_today", " (Hari Ini)")}` : dateStr;
+        tipValEl.textContent = closest.count === 0 ? t("trend_tip_none", "Tiada booking") : `${closest.count} ${t("trend_tip_confirmed", "booking disahkan")}`;
 
         // Position tooltip accurately relative to container
         const leftPercent = (closest.x / w) * 100;

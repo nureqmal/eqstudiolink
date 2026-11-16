@@ -2441,6 +2441,12 @@
     }
     const user = sessionData.session.user;
 
+    // Global application data state (initialized early to prevent TDZ ReferenceError)
+    let allCustomers = [];
+    let allBookings = [];
+    let allBookingLinks = [];
+    let bookingMilestones = new Map();
+
     async function logout() {
       await supabase.auth.signOut();
       window.location.href = "/login.html";
@@ -2482,12 +2488,22 @@
     function setAppLanguage(lang) {
       applyLanguage(lang, (newLang) => {
         applyThemeUI();
-        if (typeof buildQuickNavMenu === "function") {
-          buildQuickNavMenu(document.getElementById("quick-nav-menu"));
-          buildQuickNavMenu(document.getElementById("quick-nav-menu-mobile"));
-        }
-        if (typeof renderCalendar === "function") renderCalendar();
-        if (typeof renderBookingList === "function") renderBookingList();
+        try {
+          if (typeof buildQuickNavMenu === "function") {
+            buildQuickNavMenu(document.getElementById("quick-nav-menu"));
+            buildQuickNavMenu(document.getElementById("quick-nav-menu-mobile"));
+          }
+        } catch (_) {}
+        try {
+          if (typeof renderCalendar === "function" && Array.isArray(allCustomers) && allCustomers.length > 0) {
+            renderCalendar();
+          }
+        } catch (_) {}
+        try {
+          if (typeof renderBookingList === "function" && Array.isArray(allBookings) && allBookings.length > 0) {
+            renderBookingList();
+          }
+        } catch (_) {}
       });
     }
 
@@ -3255,7 +3271,7 @@
       reminder_dihantar: "Reminder Dihantar",
       dah_bayar: "Dah Bayar",
     };
-    let allCustomers = [];
+    // allCustomers is declared at module top
 
     // Shared action-button builder (quick toggle + kebab menu) — used by both the
     // desktop table row and the mobile card, so behavior/logic stays identical.
@@ -5032,7 +5048,7 @@
     const DAY_LABELS = ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"];
 
     // ── Booking Links (each fully independent: own settings/availability/types/questions) ──
-    let allBookingLinks = [];
+    // allBookingLinks is declared at module top
     let currentLinkId = null;
 
     function currentLink() {
@@ -6036,10 +6052,8 @@
     });
 
     // ── Bookings list (senarai, cancel, reschedule) ──
-    let allBookings = [];
+    // allBookings and bookingMilestones are declared at module top
     // (reschedule state variables declared near the reschedule modal logic below)
-
-    let bookingMilestones = new Map(); // booking_id -> array of customers rows (milestone payments)
 
     async function loadBookings() {
       const { data, error } = await supabase
@@ -8509,7 +8523,8 @@
       const todayStr = new Date().toISOString().slice(0, 10);
 
       const dueByDay = new Map();
-      for (const c of allCustomers) {
+      for (const c of (allCustomers || [])) {
+        if (!c || !c.due_date) continue;
         if (c.due_date.slice(0, 7) === `${calYear}-${String(calMonth + 1).padStart(2, "0")}`) {
           const day = parseInt(c.due_date.slice(8, 10), 10);
           if (!dueByDay.has(day)) dueByDay.set(day, []);

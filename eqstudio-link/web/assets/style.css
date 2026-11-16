@@ -8330,3 +8330,114 @@ body.book-preview-mobile-view .book-layout-split.has-sidebar {
   .wk-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
   .wk-days, .wk-summary, .wk-save-row { max-width: none; }
 }
+
+/* ── Modern 2026 Desktop Topbar & Command Palette Enhancements ── */
+.topbar-cmd-btn {
+  display: none;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.topbar-cmd-btn:hover {
+  background: var(--surface);
+  border-color: var(--stamp);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+.topbar-cmd-label {
+  font-weight: 500;
+}
+.topbar-cmd-kbd {
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.68rem;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--ink-soft);
+  box-shadow: 0 1px 0 var(--paper-line);
+}
+.topbar-quicknav-label {
+  display: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+@media (min-width: 640px) {
+  .topbar-cmd-btn {
+    display: inline-flex;
+  }
+}
+@media (min-width: 769px) {
+  .topbar-quicknav-label {
+    display: inline;
+  }
+}
+
+/* ── Calendar Desktop 2-Column Split Layout ─────────────────── */
+.cal-desktop-split {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+.cal-desktop-split .cal-main-card,
+.cal-desktop-split .cal-side-card {
+  margin-top: 0 !important;
+}
+
+@media (min-width: 900px) {
+  .cal-desktop-split {
+    display: grid;
+    grid-template-columns: 1.18fr 0.82fr;
+    gap: 1.5rem;
+    align-items: start;
+    margin-top: 1.25rem;
+  }
+  .cal-desktop-split .cal-side-card {
+    position: sticky;
+    top: 85px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+
+.cal-timeline-row {
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem !important;
+  margin-bottom: 0.35rem;
+}
+.cal-timeline-row:hover {
+  background: color-mix(in srgb, var(--stamp) 5%, var(--surface));
+  transform: translateX(2px);
+}
+
+/* ── Ergonomic max-width constraints for settings & form pages on widescreen ── */
+@media (min-width: 960px) {
+  #page-tetapan-profil,
+  #page-tetapan-reminder,
+  #page-booking-settings,
+  #page-pelanggan-add {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ── Table Row Modern Hover Highlight for Desktop ──────────── */
+table tbody tr {
+  transition: background-color 0.15s ease;
+}
+table tbody tr:hover td {
+  background-color: color-mix(in srgb, var(--paper) 45%, var(--surface));
+}

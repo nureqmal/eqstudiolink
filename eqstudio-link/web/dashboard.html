@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=78" />
+<link rel="stylesheet" href="/assets/style.css?v=79" />
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
   (function () {
@@ -53,9 +53,17 @@
         <a href="/dashboard.html" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
         <a href="/billing.html" id="tier-badge-mobile" class="tier-badge" style="display:none;"></a>
       </div>
-      <div style="display:flex; gap:0.5rem;">
+      <div style="display:flex; gap:0.5rem; align-items:center;">
+        <button type="button" class="secondary topbar-cmd-btn" id="topbar-cmd-btn" title="Carian Pantas &amp; Arahan (Ctrl+K)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span class="topbar-cmd-label">Cari &amp; Arahan...</span>
+          <kbd class="topbar-cmd-kbd">Ctrl K</kbd>
+        </button>
         <div class="kebab-wrap">
-          <button class="secondary topbar-quicknav-btn" id="quick-nav-btn-mobile" title="Lompat ke Page" style="padding:0.5rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></button>
+          <button class="secondary topbar-quicknav-btn" id="quick-nav-btn-mobile" title="Lompat ke Page" style="padding:0.5rem 0.75rem; display:inline-flex; align-items:center; gap:0.4rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span class="topbar-quicknav-label">Menu</span>
+          </button>
         </div>
         <div class="kebab-wrap">
           <button class="secondary" id="settings-dropdown-btn" title="Tetapan"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg></button>
@@ -1319,19 +1327,21 @@
             <button type="button" class="home-back-btn">← Home</button>
             <button type="button" class="secondary guide-btn" data-guide="kalendar" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
           </div>
-          <div class="card">
-            <div class="section-title">
-              <h2 style="margin:0;" id="cal-month-label">–</h2>
-              <div>
-                <button class="secondary" id="cal-prev">←</button>
-                <button class="secondary" id="cal-next">→</button>
+          <div class="cal-desktop-split">
+            <div class="card cal-main-card">
+              <div class="section-title">
+                <h2 style="margin:0;" id="cal-month-label">–</h2>
+                <div>
+                  <button class="secondary" id="cal-prev">←</button>
+                  <button class="secondary" id="cal-next">→</button>
+                </div>
               </div>
+              <div class="cal-grid" id="cal-grid"></div>
             </div>
-            <div class="cal-grid" id="cal-grid"></div>
-          </div>
-          <div class="card" style="margin-top:1.5rem;">
-            <div class="section-title"><h2 style="margin:0;" id="cal-day-title">Pilih tarikh</h2></div>
-            <div id="cal-day-list"><p class="hint">Klik tarikh dalam kalendar untuk melihat pelanggan yang cukup tempoh pada hari tersebut.</p></div>
+            <div class="card cal-side-card">
+              <div class="section-title"><h2 style="margin:0;" id="cal-day-title">Pilih tarikh</h2></div>
+              <div id="cal-day-list"><p class="hint">Klik tarikh dalam kalendar untuk melihat pelanggan yang cukup tempoh pada hari tersebut.</p></div>
+            </div>
           </div>
         </div>
 
@@ -3923,11 +3933,27 @@
     [["quick-nav-btn", "quick-nav-menu"], ["quick-nav-btn-mobile", "quick-nav-menu-mobile"]].forEach(([btnId, menuId]) => {
       document.getElementById(btnId)?.addEventListener("click", (e) => {
         e.stopPropagation();
+        const btn = e.currentTarget;
         const menu = document.getElementById(menuId);
-        const wasOpen = menu.classList.contains("open");
+        const wasOpen = menu?.classList.contains("open");
         closeAllKebabMenus();
-        if (!wasOpen) { menu.classList.add("open"); kebabBackdrop.classList.add("open"); }
+        if (!wasOpen && menu) {
+          if (window.innerWidth > 640 && menuId === "quick-nav-menu-mobile") {
+            const rect = btn.getBoundingClientRect();
+            menu.style.position = "fixed";
+            menu.style.top = `${rect.bottom + 8}px`;
+            menu.style.right = `${window.innerWidth - rect.right}px`;
+            menu.style.left = "auto";
+          }
+          menu.classList.add("open");
+          kebabBackdrop.classList.add("open");
+        }
       });
+    });
+
+    document.getElementById("topbar-cmd-btn")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openCommandPalette();
     });
 
     // ── Edit customer modal ──

@@ -2183,6 +2183,25 @@
     </div>
   </div>
 
+  <div class="info-tooltip" id="global-info-tooltip"></div>
+
+  <!-- Desktop & Mobile Quick Command Palette (Ctrl+K) -->
+  <div class="cmd-palette-backdrop" id="cmd-palette-modal" style="display:none;">
+    <div class="cmd-palette-box">
+      <div class="cmd-palette-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="cmd-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="cmd-palette-input" placeholder="Taip arahan atau cari pelanggan..." data-i18n-placeholder="cmd_search_placeholder" autocomplete="off" />
+        <span class="cmd-esc-tag" id="cmd-palette-close-btn" style="cursor:pointer;" title="Tutup">ESC</span>
+      </div>
+      <div class="cmd-palette-results" id="cmd-palette-results"></div>
+      <div class="cmd-palette-footer">
+        <span><kbd>↑</kbd> <kbd>↓</kbd> Navigasi</span>
+        <span><kbd>↵</kbd> Jalankan</span>
+        <span><kbd>ESC</kbd> Tutup</span>
+      </div>
+    </div>
+  </div>
+
   <!-- ── Mobile Bottom Navigation Bar (Dock) ── -->
   <nav class="mobile-bottom-dock" id="mobile-bottom-dock" aria-label="Navigasi Utama Mudah Alih">
     <button type="button" class="mobile-dock-item active" data-dock-page="home" id="dock-btn-home" aria-label="Laman Utama">
@@ -9343,17 +9362,17 @@
       if (e.target.closest(".info-icon-btn")) hideInfoTooltip();
     });
 
-    // ── Command Palette (Ctrl+K / Cmd+K) Dispatcher for Desktop ──
-    const cmdPaletteModal = document.getElementById("cmd-palette-modal");
-    const cmdPaletteInput = document.getElementById("cmd-palette-input");
-    const cmdPaletteResults = document.getElementById("cmd-palette-results");
+    // ── Command Palette (Ctrl+K / Cmd+K) Dispatcher for Desktop & Mobile ──
+    let cmdSelectedIdx = 0;
+    let filteredCmds = [];
 
     function getCmdActions() {
-      const isEn = getCurrentLang() === "en";
+      const isEn = (window.getCurrentLang && window.getCurrentLang()) === "en";
       return [
         { id: "add-cust", title: t("cmd_act_add_cust", "Tambah Pelanggan Baru"), category: t("cmd_cat_quick", "Tindakan Pantas"), icon: "➕", run: () => document.getElementById("quick-add-open-btn")?.click() },
         { id: "copy-link", title: t("cmd_act_copy_link", "Salin Pautan Booking Utama"), category: t("cmd_cat_booking", "Booking"), icon: "🔗", run: () => {
-          const link = allBookingLinks.find(l => !!l.slug) || allBookingLinks[0];
+          const links = Array.isArray(allBookingLinks) ? allBookingLinks : [];
+          const link = links.find(l => !!l.slug) || links[0];
           if (link && link.slug) {
             const url = `${window.location.origin}/book/${link.slug}`;
             navigator.clipboard.writeText(url).then(() => showToast(isEn ? "Booking link copied!" : "Pautan booking disalin!", "success"));
@@ -9372,36 +9391,44 @@
       ];
     }
 
-    let cmdSelectedIdx = 0;
-    let filteredCmds = [];
-
     function openCommandPalette() {
-      if (!cmdPaletteModal) return;
-      cmdPaletteModal.style.display = "flex";
-      cmdPaletteInput.value = "";
-      renderCommandResults("");
-      cmdPaletteInput.focus();
+      const modal = document.getElementById("cmd-palette-modal");
+      const input = document.getElementById("cmd-palette-input");
+      if (!modal) return;
+      modal.style.display = "flex";
+      if (input) {
+        input.value = "";
+        renderCommandResults("");
+        setTimeout(() => input.focus(), 50);
+      }
     }
 
     function closeCommandPalette() {
-      if (!cmdPaletteModal) return;
-      cmdPaletteModal.style.display = "none";
+      const modal = document.getElementById("cmd-palette-modal");
+      if (!modal) return;
+      modal.style.display = "none";
     }
 
+    window.openCommandPalette = openCommandPalette;
+    window.closeCommandPalette = closeCommandPalette;
+
     function renderCommandResults(query) {
-      const isEn = getCurrentLang() === "en";
-      const q = query.toLowerCase().trim();
+      const resultsEl = document.getElementById("cmd-palette-results");
+      if (!resultsEl) return;
+      const isEn = (window.getCurrentLang && window.getCurrentLang()) === "en";
+      const q = (query || "").toLowerCase().trim();
       const baseCmds = getCmdActions();
       filteredCmds = baseCmds.filter(c => c.title.toLowerCase().includes(q) || c.category.toLowerCase().includes(q));
 
       // Also search live customers if query >= 2 chars
       if (q.length >= 2) {
-        const matchingCustomers = allCustomers
-          .filter(c => c.name.toLowerCase().includes(q) || (c.contact_email && c.contact_email.toLowerCase().includes(q)))
+        const custs = Array.isArray(allCustomers) ? allCustomers : [];
+        const matchingCustomers = custs
+          .filter(c => (c.name && c.name.toLowerCase().includes(q)) || (c.contact_email && c.contact_email.toLowerCase().includes(q)))
           .slice(0, 4)
           .map(c => ({
             id: `cust-${c.id}`,
-            title: `${isEn ? "Client" : "Pelanggan"}: ${c.name} (RM ${Number(c.amount).toFixed(2)})`,
+            title: `${isEn ? "Client" : "Pelanggan"}: ${c.name} (RM ${Number(c.amount || 0).toFixed(2)})`,
             category: isEn ? "Clients" : "Pelanggan",
             icon: "👤",
             run: () => {
@@ -9409,7 +9436,9 @@
               const searchInput = document.getElementById("search-input");
               if (searchInput) {
                 searchInput.value = c.name;
-                applyCustomerListFilters();
+                if (typeof applyCustomerListFilters === "function") {
+                  applyCustomerListFilters();
+                }
               }
             }
           }));
@@ -9418,11 +9447,11 @@
 
       cmdSelectedIdx = 0;
       if (filteredCmds.length === 0) {
-        cmdPaletteResults.innerHTML = `<div class="cmd-empty hint">${isEn ? `No commands or clients matching "${escapeHtml(query)}"` : `Tiada arahan atau pelanggan sepadan dengan "${escapeHtml(query)}"`}</div>`;
+        resultsEl.innerHTML = `<div class="cmd-empty hint">${isEn ? `No commands or clients matching "${escapeHtml(query)}"` : `Tiada arahan atau pelanggan sepadan dengan "${escapeHtml(query)}"`}</div>`;
         return;
       }
 
-      cmdPaletteResults.innerHTML = filteredCmds.map((cmd, idx) => `
+      resultsEl.innerHTML = filteredCmds.map((cmd, idx) => `
         <div class="cmd-item ${idx === cmdSelectedIdx ? "selected" : ""}" data-idx="${idx}">
           <span class="cmd-item-icon">${cmd.icon}</span>
           <div class="cmd-item-info">
@@ -9433,7 +9462,7 @@
         </div>
       `).join("");
 
-      cmdPaletteResults.querySelectorAll(".cmd-item").forEach(item => {
+      resultsEl.querySelectorAll(".cmd-item").forEach(item => {
         item.addEventListener("click", () => {
           const idx = parseInt(item.dataset.idx, 10);
           if (filteredCmds[idx]) {
@@ -9444,32 +9473,10 @@
       });
     }
 
-    cmdPaletteInput?.addEventListener("input", (e) => {
-      renderCommandResults(e.target.value);
-    });
-
-    cmdPaletteInput?.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        cmdSelectedIdx = (cmdSelectedIdx + 1) % filteredCmds.length;
-        updateSelectedCmdItem();
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        cmdSelectedIdx = (cmdSelectedIdx - 1 + filteredCmds.length) % filteredCmds.length;
-        updateSelectedCmdItem();
-      } else if (e.key === "Enter") {
-        e.preventDefault();
-        if (filteredCmds[cmdSelectedIdx]) {
-          closeCommandPalette();
-          filteredCmds[cmdSelectedIdx].run();
-        }
-      } else if (e.key === "Escape") {
-        closeCommandPalette();
-      }
-    });
-
     function updateSelectedCmdItem() {
-      const items = cmdPaletteResults.querySelectorAll(".cmd-item");
+      const resultsEl = document.getElementById("cmd-palette-results");
+      if (!resultsEl) return;
+      const items = resultsEl.querySelectorAll(".cmd-item");
       items.forEach((it, idx) => {
         it.classList.toggle("selected", idx === cmdSelectedIdx);
         if (idx === cmdSelectedIdx) {
@@ -9478,11 +9485,56 @@
       });
     }
 
+    // Attach listeners on DOM ready
+    function initCommandPaletteEvents() {
+      const input = document.getElementById("cmd-palette-input");
+      const modal = document.getElementById("cmd-palette-modal");
+      const closeBtn = document.getElementById("cmd-palette-close-btn");
+
+      input?.addEventListener("input", (e) => {
+        renderCommandResults(e.target.value);
+      });
+
+      input?.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          if (filteredCmds.length > 0) {
+            cmdSelectedIdx = (cmdSelectedIdx + 1) % filteredCmds.length;
+            updateSelectedCmdItem();
+          }
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          if (filteredCmds.length > 0) {
+            cmdSelectedIdx = (cmdSelectedIdx - 1 + filteredCmds.length) % filteredCmds.length;
+            updateSelectedCmdItem();
+          }
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          if (filteredCmds[cmdSelectedIdx]) {
+            closeCommandPalette();
+            filteredCmds[cmdSelectedIdx].run();
+          }
+        } else if (e.key === "Escape") {
+          closeCommandPalette();
+        }
+      });
+
+      closeBtn?.addEventListener("click", closeCommandPalette);
+
+      modal?.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeCommandPalette();
+        }
+      });
+    }
+    initCommandPaletteEvents();
+
     // Global keyboard listener for Ctrl+K / Cmd+K
     document.addEventListener("keydown", (e) => {
       if ((e.ctrlKey || e.metaKey) && (e.key === "k" || e.key === "K")) {
         e.preventDefault();
-        if (cmdPaletteModal.style.display === "flex") {
+        const modal = document.getElementById("cmd-palette-modal");
+        if (modal && modal.style.display === "flex") {
           closeCommandPalette();
         } else {
           openCommandPalette();
@@ -9490,35 +9542,17 @@
       }
     });
 
+    // Topbar search button click listener
+    document.getElementById("topbar-cmd-btn")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openCommandPalette();
+    });
+
     // Ops shortcut button click listener
     document.querySelector(".ops-command-shortcut-tip")?.addEventListener("click", () => {
       openCommandPalette();
     });
-
-    cmdPaletteModal?.addEventListener("click", (e) => {
-      if (e.target === cmdPaletteModal) {
-        closeCommandPalette();
-      }
-    });
   </script>
 
-  <div class="info-tooltip" id="global-info-tooltip"></div>
-
-  <!-- Desktop Quick Command Palette (Ctrl+K) -->
-  <div class="cmd-palette-backdrop" id="cmd-palette-modal" style="display:none;">
-    <div class="cmd-palette-box">
-      <div class="cmd-palette-input-wrap">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="cmd-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="cmd-palette-input" placeholder="Taip arahan atau cari pelanggan..." data-i18n-placeholder="cmd_search_placeholder" autocomplete="off" />
-        <span class="cmd-esc-tag">ESC</span>
-      </div>
-      <div class="cmd-palette-results" id="cmd-palette-results"></div>
-      <div class="cmd-palette-footer">
-        <span><kbd>↑</kbd> <kbd>↓</kbd> Navigasi</span>
-        <span><kbd>↵</kbd> Jalankan</span>
-        <span><kbd>ESC</kbd> Tutup</span>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

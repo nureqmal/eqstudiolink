@@ -76,6 +76,10 @@
       </span>
     </div>
     <div class="book-nav-actions">
+      <div class="lang-toggle" id="book-lang-toggle" title="Tukar Bahasa / Switch Language">
+        <button type="button" class="lang-toggle-btn active" data-book-lang="ms">BM</button>
+        <button type="button" class="lang-toggle-btn" data-book-lang="en">EN</button>
+      </div>
       <button type="button" class="book-share-nav-btn" id="book-share-btn" title="Kongsi Pautan">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
         <span id="t-share-label">Kongsi</span>
@@ -200,7 +204,7 @@
     let holdTimer = null;
     let holdSeconds = 600;
     let lastFormValues = { name: "", email: "", phone: "" };
-    let lang = "ms"; // Language switcher removed from UI — BM only, no localStorage lookup
+    let lang = localStorage.getItem("eqstudio_lang") || "ms";
 
     function startHoldCountdown() {
       if (holdTimer) clearInterval(holdTimer);
@@ -605,6 +609,14 @@
         appleCalendar: "Apple Pass (.ics)",
         copyBookingRef: "Salin No. Rujukan",
         bookingRefCopied: "Rujukan Disalin!",
+        stickyPickPrompt: "Pilih pakej & slot masa untuk teruskan",
+        stickyChooseSlotPrompt: "Sila pilih slot masa anda",
+        stickyDepositLabel: "Deposit",
+        stickyBtnPickSlot: "Pilih Slot",
+        stickyBtnPickTime: "Pilih Masa",
+        stickyBtnFillForm: "Isi Borang",
+        stickyBtnConfirm: "Sahkan Tempahan",
+        share: "Kongsi",
       },
       en: {
         verified: "Verified",
@@ -685,6 +697,14 @@
         appleCalendar: "Apple (.ics)",
         copyBookingRef: "Copy Reference",
         bookingRefCopied: "Reference Copied!",
+        stickyPickPrompt: "Choose a package & time slot to continue",
+        stickyChooseSlotPrompt: "Please select your time slot",
+        stickyDepositLabel: "Deposit",
+        stickyBtnPickSlot: "Select Slot",
+        stickyBtnPickTime: "Select Time",
+        stickyBtnFillForm: "Fill Details",
+        stickyBtnConfirm: "Confirm Booking",
+        share: "Share",
       },
       zh: {
         verified: "已验证",
@@ -852,8 +872,28 @@
 
     function updateNavLabels() {
       document.getElementById("t-verified-nav").textContent = T().verified;
-      document.getElementById("t-share-label").textContent = "Kongsi";
+      document.getElementById("t-share-label").textContent = T().share || (lang === "en" ? "Share" : "Kongsi");
+      document.querySelectorAll("[data-book-lang]").forEach(b => {
+        b.classList.toggle("active", b.dataset.bookLang === lang);
+      });
     }
+
+    function switchBookingLang(newLang) {
+      if (lang === newLang) return;
+      lang = newLang;
+      localStorage.setItem("eqstudio_lang", lang);
+      localStorage.setItem("eqstudio_ui_lang", lang);
+      document.documentElement.lang = lang;
+      updateNavLabels();
+      if (availabilityData) {
+        renderProfileSections(availabilityData.business, availabilityData.gallery, availabilityData.testimonials);
+        renderCurrentStep();
+      }
+    }
+
+    document.querySelectorAll("[data-book-lang]").forEach(b => {
+      b.addEventListener("click", () => switchBookingLang(b.dataset.bookLang));
+    });
 
     function escapeHtml(str) {
       const div = document.createElement("div");
@@ -2106,19 +2146,19 @@
       const totals = calculateTotals();
 
       if (!selectedSlot) {
-        slotEl.textContent = selectedType ? selectedType.name : "Pilih Tarikh & Masa";
-        subEl.textContent = totals.baseDeposit > 0 ? `Deposit RM ${totals.baseDeposit.toFixed(2)}` : "Sila pilih slot masa anda";
-        btnText.textContent = "Pilih Masa";
+        slotEl.textContent = selectedType ? selectedType.name : (T().pickSlot || "Pilih Tarikh & Masa");
+        subEl.textContent = totals.baseDeposit > 0 ? `${T().stickyDepositLabel || "Deposit"} RM ${totals.baseDeposit.toFixed(2)}` : (T().stickyChooseSlotPrompt || "Sila pilih slot masa anda");
+        btnText.textContent = T().stickyBtnPickTime || "Pilih Masa";
       } else {
         const formWrap = document.getElementById("book-form-wrap");
         const formInView = formWrap && formWrap.innerHTML.trim() !== "";
         slotEl.textContent = `${selectedSlot.label} · ${dateLabel(selectedDate)}`;
         if (totals.baseDeposit > 0) {
-          subEl.textContent = `Deposit RM ${totals.baseDeposit.toFixed(2)} diperlukan`;
+          subEl.textContent = `${T().depositDueNow || "Deposit Diperlukan Sekarang"}: RM ${totals.baseDeposit.toFixed(2)}`;
         } else {
-          subEl.textContent = "Percuma · Pengesahan serta-merta";
+          subEl.textContent = `${T().free || "Percuma"} · ${T().instantConfirm || "Pengesahan serta-merta"}`;
         }
-        btnText.textContent = formInView ? "Sahkan Butiran" : "Teruskan";
+        btnText.textContent = formInView ? (T().stickyBtnFillForm || "Isi Borang") : (T().chooseServiceBtn ? T().chooseServiceBtn.replace("➔", "").trim() : "Teruskan");
       }
     }
 

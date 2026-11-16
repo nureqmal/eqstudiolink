@@ -20,7 +20,13 @@
 </head>
 <body>
   <div class="wrap-narrow portal-wrap-wide">
-    <p class="brand" style="text-align:center; margin-bottom:2rem;" id="biz-brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></p>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+      <p class="brand" style="margin:0;" id="biz-brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></p>
+      <div class="lang-toggle" id="portal-lang-toggle" title="Tukar Bahasa / Switch Language">
+        <button type="button" class="lang-toggle-btn active" data-portal-lang="ms">BM</button>
+        <button type="button" class="lang-toggle-btn" data-portal-lang="en">EN</button>
+      </div>
+    </div>
     <div class="card" id="content">
       <div class="skeleton" style="height:26px; width:45%; border-radius:6px; margin-bottom:0.75rem;"></div>
       <div class="skeleton" style="height:14px; width:65%; border-radius:4px; margin-bottom:1.5rem;"></div>
@@ -67,6 +73,62 @@
 
     const token = new URLSearchParams(location.search).get("token");
     const content = document.getElementById("content");
+    let currentPortalLang = localStorage.getItem("eqstudio_lang") || "ms";
+    let cachedPortalData = null;
+
+    function renderPortalContent() {
+      if (!cachedPortalData) return;
+      const data = cachedPortalData;
+      const c = data.customer;
+      const T = PORTAL_I18N[currentPortalLang] || PORTAL_I18N.ms;
+
+      document.querySelectorAll("[data-portal-lang]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.portalLang === currentPortalLang);
+      });
+
+      if (data.business?.business_name) {
+        document.getElementById("biz-brand").textContent = data.business.business_name;
+      }
+
+      content.innerHTML = `
+        <h2 style="margin-top:0;">${T.greet(escapeHtml(c.name))}</h2>
+        <p class="hint">${T.sub}</p>
+        <div class="row">
+          <div><label>${T.amount}</label><p class="mono" style="font-size:1.3rem; margin:0;">RM ${Number(c.amount).toFixed(2)}</p></div>
+          <div><label>${T.due}</label><p class="mono" style="font-size:1.3rem; margin:0;">${c.due_date}</p></div>
+        </div>
+        <label>${T.status}</label>
+        <p style="margin:0 0 1rem;"><span class="badge ${c.status}">${T.statusLabels[c.status]}</span></p>
+        ${c.notes ? `<p class="hint"><em>${escapeHtml(c.notes)}</em></p>` : ""}
+        ${(data.business?.bank_name && data.business?.bank_account_number) || data.business?.qr_code_url ? `
+          <div style="background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px; padding:1rem; margin-top:1rem; text-align:center;">
+            <p class="hint" style="text-transform:uppercase; font-size:0.7rem; margin:0 0 0.5rem; text-align:left;">${T.bankLabel}</p>
+            ${data.business?.bank_name && data.business?.bank_account_number ? `
+              <p style="margin:0; font-size:0.9rem; text-align:left;">${escapeHtml(data.business.bank_name)}${data.business.bank_account_holder ? " — " + escapeHtml(data.business.bank_account_holder) : ""}<br/>
+              <strong class="mono">${escapeHtml(data.business.bank_account_number)}</strong></p>` : ""}
+            ${data.business?.qr_code_url ? `
+              <p class="hint" style="font-size:0.68rem; margin:${data.business.bank_name ? "0.9rem" : "0"} 0 0.4rem; text-transform:uppercase;">${T.qrLabel}</p>
+              <img src="${escapeHtml(data.business.qr_code_url)}" alt="QR DuitNow" style="max-width:160px; display:block; margin:0 auto;" />
+              <p class="hint" style="font-size:0.68rem; margin:0.4rem 0 0;">${T.qrNote}</p>` : ""}
+          </div>` : ""}
+        ${data.business?.contact_phone || data.business?.contact_email ? `
+          <p class="hint" style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--paper-line);">
+            ${T.questions} ${data.business.contact_phone ? "📞 " + escapeHtml(data.business.contact_phone) : ""}
+            ${data.business.contact_email ? " ✉️ " + escapeHtml(data.business.contact_email) : ""}
+          </p>` : ""}
+        ${data.business?.ssm_number ? `<p class="hint" style="font-size:0.72rem;">${T.ssm}: ${escapeHtml(data.business.ssm_number)}</p>` : ""}
+        <div class="pdpa-badge"><a href="/privacy-policy.html" style="color:inherit; text-decoration:none;">🔒 Data dilindungi PDPA</a></div>
+      `;
+      initChatWidget(data.business, c, T);
+    }
+
+    document.querySelectorAll("[data-portal-lang]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentPortalLang = btn.dataset.portalLang;
+        localStorage.setItem("eqstudio_lang", currentPortalLang);
+        renderPortalContent();
+      });
+    });
 
     async function load() {
       if (!token) {
@@ -78,42 +140,11 @@
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Ralat memuatkan.");
 
-        if (data.business?.business_name) {
-          document.getElementById("biz-brand").textContent = data.business.business_name;
+        cachedPortalData = data;
+        if (!localStorage.getItem("eqstudio_lang") && data.customer?.preferred_language) {
+          currentPortalLang = data.customer.preferred_language;
         }
-
-        const c = data.customer;
-        const T = PORTAL_I18N[c.preferred_language] || PORTAL_I18N.ms;
-        content.innerHTML = `
-          <h2 style="margin-top:0;">${T.greet(escapeHtml(c.name))}</h2>
-          <p class="hint">${T.sub}</p>
-          <div class="row">
-            <div><label>${T.amount}</label><p class="mono" style="font-size:1.3rem; margin:0;">RM ${Number(c.amount).toFixed(2)}</p></div>
-            <div><label>${T.due}</label><p class="mono" style="font-size:1.3rem; margin:0;">${c.due_date}</p></div>
-          </div>
-          <label>${T.status}</label>
-          <p style="margin:0 0 1rem;"><span class="badge ${c.status}">${T.statusLabels[c.status]}</span></p>
-          ${c.notes ? `<p class="hint"><em>${escapeHtml(c.notes)}</em></p>` : ""}
-          ${(data.business?.bank_name && data.business?.bank_account_number) || data.business?.qr_code_url ? `
-            <div style="background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px; padding:1rem; margin-top:1rem; text-align:center;">
-              <p class="hint" style="text-transform:uppercase; font-size:0.7rem; margin:0 0 0.5rem; text-align:left;">${T.bankLabel}</p>
-              ${data.business?.bank_name && data.business?.bank_account_number ? `
-                <p style="margin:0; font-size:0.9rem; text-align:left;">${escapeHtml(data.business.bank_name)}${data.business.bank_account_holder ? " — " + escapeHtml(data.business.bank_account_holder) : ""}<br/>
-                <strong class="mono">${escapeHtml(data.business.bank_account_number)}</strong></p>` : ""}
-              ${data.business?.qr_code_url ? `
-                <p class="hint" style="font-size:0.68rem; margin:${data.business.bank_name ? "0.9rem" : "0"} 0 0.4rem; text-transform:uppercase;">${T.qrLabel}</p>
-                <img src="${escapeHtml(data.business.qr_code_url)}" alt="QR DuitNow" style="max-width:160px; display:block; margin:0 auto;" />
-                <p class="hint" style="font-size:0.68rem; margin:0.4rem 0 0;">${T.qrNote}</p>` : ""}
-            </div>` : ""}
-          ${data.business?.contact_phone || data.business?.contact_email ? `
-            <p class="hint" style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--paper-line);">
-              ${T.questions} ${data.business.contact_phone ? "📞 " + escapeHtml(data.business.contact_phone) : ""}
-              ${data.business.contact_email ? " ✉️ " + escapeHtml(data.business.contact_email) : ""}
-            </p>` : ""}
-          ${data.business?.ssm_number ? `<p class="hint" style="font-size:0.72rem;">${T.ssm}: ${escapeHtml(data.business.ssm_number)}</p>` : ""}
-          <div class="pdpa-badge"><a href="/privacy-policy.html" style="color:inherit; text-decoration:none;">🔒 Data dilindungi PDPA</a></div>
-        `;
-        initChatWidget(data.business, c, T);
+        renderPortalContent();
       } catch (err) {
         content.innerHTML = `<p class="error">${escapeHtml(err.message)}</p>`;
       }

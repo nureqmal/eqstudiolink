@@ -195,6 +195,177 @@ export const UI_STRINGS = {
 
     pricing_monthly: "Monthly",
     pricing_yearly: "Yearly <span class=\"plan-badge\">Save 2 Months</span>",
+
+    // Dashboard & Navigation Keys
+    topbar_search_cmd: "Search & Commands...",
+    topbar_menu: "Menu",
+    topbar_settings: "Settings",
+    topbar_notif: "Notifications",
+    topbar_tour: "System Guide",
+    topbar_theme_dark: "Dark Mode",
+    topbar_theme_light: "Light Mode",
+    topbar_logout: "Log Out",
+    dash_lompat_page: "Jump to Page",
+
+    nav_home: "Home",
+    nav_booking_list: "Booking List",
+    nav_customer_list: "Customer List",
+    nav_add_customer: "Add Customer",
+    nav_reports: "Finance & Reports",
+    nav_calendar: "Calendar",
+    nav_booking_settings: "Booking Settings",
+    nav_profile: "Business Profile",
+    nav_reminders: "Auto Reminders",
+    nav_forum: "Forum & Help",
+
+    dock_home: "Home",
+    dock_customers: "Clients",
+    dock_add: "Add",
+    dock_calendar: "Calendar",
+    dock_menu: "Menu",
+
+    btn_home_back: "← Home",
+    btn_guide: "Guide",
+    btn_save: "Save",
+    btn_cancel: "Cancel",
+    btn_delete: "Delete",
+    btn_edit: "Edit",
+    btn_copy: "Copy",
+    btn_close: "Close",
+
+    home_greeting: "Welcome back",
+    home_quick_add: "+ Quick Add Customer",
+    home_status_live: "LIVE",
+    home_status_checking: "Checking...",
+    home_agenda_title: "Today's Schedule & Upcoming Bookings",
+    home_agenda_viewall: "View All →",
+    home_recent_title: "Recent Bookings",
+    home_recent_empty: "No recent bookings yet.",
+    home_th_client: "Client",
+    home_th_service: "Service",
+    home_th_slot: "Time Slot",
+    home_th_status: "Status",
+
+    bl_title: "Booking List",
+    bl_subtitle: "Track all client bookings, deposit statuses, and quick actions.",
+    bl_filter_all: "All",
+    bl_filter_confirmed: "Confirmed",
+    bl_filter_pending: "Pending",
+    bl_filter_completed: "Completed",
+    bl_filter_cancelled: "Cancelled",
+    bl_search_placeholder: "Search name, email or phone...",
+    bl_th_ref: "Ref No.",
+    bl_th_customer: "Customer",
+    bl_th_service: "Service / Package",
+    bl_th_slot: "Date & Slot",
+    bl_th_amount: "Amount / Deposit",
+    bl_th_status: "Status",
+    bl_th_actions: "Actions",
+    bl_empty: "No booking records found.",
+
+    bset_hero_title: "Booking Settings",
+    bset_hero_badge: "Auto Booking System",
+    bset_hero_desc: "Manage public booking links, slot availability, service types, deposits, and customer intake questions.",
+    bset_preview_btn: "View Booking Page ↗",
+    bset_tab_links: "Links & General",
+    bset_tab_types: "Packages & Services",
+    bset_tab_schedule: "Availability",
+    bset_tab_questions: "Intake Questions",
+    bset_tab_reminders: "Reminders & Policies",
+    bset_save_btn: "Save Settings",
+
+    cust_add_title: "+ Add Customer",
+    cust_name_label: "Customer Name",
+    cust_email_label: "Customer Email",
+    cust_phone_label: "Phone / WhatsApp Number",
+    cust_amount_label: "Amount Due (RM)",
+    cust_due_label: "Due Date",
+    cust_quickpick_label: "Quick Due Date Pick:",
+    cust_qp_today: "Today",
+    cust_qp_3d: "+3 Days",
+    cust_qp_7d: "+7 Days",
+    cust_qp_14d: "+14 Days",
+    cust_qp_30d: "+30 Days",
+    cust_notes_label: "Additional Notes (Optional)",
+    cust_save_btn: "Save Customer",
+
+    cl_title: "Customer List",
+    cl_search_placeholder: "Search name, email or phone...",
+    cl_filter_all: "All Statuses",
+    cl_filter_unpaid: "Unpaid",
+    cl_filter_reminded: "Reminder Sent",
+    cl_filter_paid: "Paid",
+    cl_th_name: "Name",
+    cl_th_email: "Email",
+    cl_th_phone: "Phone",
+    cl_th_amount: "Amount",
+    cl_th_due: "Due Date",
+    cl_th_status: "Status",
+    cl_th_actions: "Actions",
+    cl_export_csv: "Export CSV Report",
+
+    rpt_title: "Finance & Reports",
+    rpt_rev_total: "Total Revenue (Collected)",
+    rpt_exp_total: "Total Expenses",
+    rpt_net_profit: "Net Profit",
+    rpt_uncollected: "Outstanding Amount",
+    rpt_add_expense_btn: "+ Record Expense",
+    rpt_btn_this_month: "This Month",
+    rpt_btn_last_month: "Last Month",
+    rpt_btn_this_year: "This Year",
+    rpt_btn_all: "All Time",
+
+    cal_title: "Calendar",
+    cal_select_date_prompt: "Select a date",
+    cal_day_hint: "Click a date on the calendar to view bookings and payments due on that day.",
+    cal_day_empty: "No bookings or payments due on this date.",
+
+    prof_title: "Business Profile",
+    prof_desc: "This information appears on invoices, receipts, and customer payment portals.",
+    prof_biz_name: "Business Name",
+    prof_ssm: "Business Reg No. (SSM / ROC)",
+    prof_phone: "WhatsApp / Phone Number",
+    prof_email: "Business Email",
+    prof_address: "Studio / Business Address",
+    prof_bank_name: "Bank Name",
+    prof_bank_acc: "Bank Account Number",
+    prof_acc_holder: "Account Holder Name",
+    prof_logo: "Upload Logo",
+    prof_qr: "Upload DuitNow QR",
+    prof_save_btn: "Save Profile",
+
+    rem_title: "Auto Reminder Settings",
+    rem_subtitle: "Configure reminder schedules and message templates.",
+    rem_cron_status: "System Status",
+    rem_cron_active: "Operating Automatically",
+    rem_test_btn: "Send Test WhatsApp",
+
+    cmd_search_placeholder: "Type a command or search client...",
+    cmd_cat_quick: "Quick Actions",
+    cmd_cat_booking: "Booking",
+    cmd_cat_reports: "Reports",
+    cmd_cat_nav: "Navigation",
+    cmd_cat_settings: "Settings",
+    cmd_cat_theme: "Interface",
+    cmd_cat_clients: "Clients",
+    cmd_act_add_cust: "Add New Client",
+    cmd_act_copy_link: "Copy Main Booking Link",
+    cmd_act_export_csv: "Download CSV Report",
+    cmd_act_goto_booking: "Open Booking List",
+    cmd_act_goto_pelanggan: "Open Customer List",
+    cmd_act_goto_laporan: "Open Analytics & Reports",
+    cmd_act_goto_kalendar: "Open Studio Calendar",
+    cmd_act_goto_booking_set: "Booking Links & Slots Settings",
+    cmd_act_goto_profil: "Business Profile & Bank Details",
+    cmd_act_toggle_dark: "Toggle Dark / Light Theme",
+
+    status_dah_bayar: "Paid",
+    status_belum_bayar: "Unpaid",
+    status_reminder_dihantar: "Reminder Sent",
+    status_confirmed: "Confirmed",
+    status_pending: "Pending",
+    status_completed: "Completed",
+    status_cancelled: "Cancelled",
   },
   ms: {
     nav_login: "Log Masuk",
@@ -377,30 +548,220 @@ export const UI_STRINGS = {
 
     pricing_monthly: "Bulanan",
     pricing_yearly: "Tahunan <span class=\"plan-badge\">Jimat 2 Bulan</span>",
+
+    // Dashboard & Navigation Keys
+    topbar_search_cmd: "Cari & Arahan...",
+    topbar_menu: "Menu",
+    topbar_settings: "Tetapan",
+    topbar_notif: "Notifikasi",
+    topbar_tour: "Panduan Guna Sistem",
+    topbar_theme_dark: "Mod Gelap",
+    topbar_theme_light: "Mod Cerah",
+    topbar_logout: "Log Keluar",
+    dash_lompat_page: "Lompat ke Page",
+
+    nav_home: "Laman Utama",
+    nav_booking_list: "Senarai Tempahan",
+    nav_customer_list: "Senarai Pelanggan",
+    nav_add_customer: "Tambah Pelanggan",
+    nav_reports: "Kewangan & Laporan",
+    nav_calendar: "Kalendar",
+    nav_booking_settings: "Tetapan Booking",
+    nav_profile: "Profil Perniagaan",
+    nav_reminders: "Peringatan Automatik",
+    nav_forum: "Forum & Bantuan",
+
+    dock_home: "Home",
+    dock_customers: "Pelanggan",
+    dock_add: "Tambah",
+    dock_calendar: "Kalendar",
+    dock_menu: "Menu",
+
+    btn_home_back: "← Home",
+    btn_guide: "Panduan",
+    btn_save: "Simpan",
+    btn_cancel: "Batal",
+    btn_delete: "Padam",
+    btn_edit: "Kemaskini",
+    btn_copy: "Salin",
+    btn_close: "Tutup",
+
+    home_greeting: "Selamat kembali",
+    home_quick_add: "+ Tambah Pelanggan Pantas",
+    home_status_live: "LIVE",
+    home_status_checking: "Menyemak...",
+    home_agenda_title: "Jadual & Tempahan Terdekat",
+    home_agenda_viewall: "Lihat Semua →",
+    home_recent_title: "Tempahan Terbaru",
+    home_recent_empty: "Tiada tempahan terbaru lagi.",
+    home_th_client: "Pelanggan",
+    home_th_service: "Perkhidmatan",
+    home_th_slot: "Slot Masa",
+    home_th_status: "Status",
+
+    bl_title: "Senarai Tempahan",
+    bl_subtitle: "Pantau semua tempahan pelanggan, status deposit, dan tindakan pantas.",
+    bl_filter_all: "Semua",
+    bl_filter_confirmed: "Disahkan",
+    bl_filter_pending: "Menunggu",
+    bl_filter_completed: "Selesai",
+    bl_filter_cancelled: "Batal",
+    bl_search_placeholder: "Cari nama, emel atau no telefon...",
+    bl_th_ref: "No. Rujukan",
+    bl_th_customer: "Pelanggan",
+    bl_th_service: "Servis / Pakej",
+    bl_th_slot: "Tarikh & Slot",
+    bl_th_amount: "Jumlah / Deposit",
+    bl_th_status: "Status",
+    bl_th_actions: "Tindakan",
+    bl_empty: "Tiada rekod tempahan dijumpai.",
+
+    bset_hero_title: "Tetapan Booking",
+    bset_hero_badge: "Sistem Tempahan Auto",
+    bset_hero_desc: "Kawal pautan tempahan awam anda, jadual ketersediaan slot, jenis perkhidmatan, deposit, dan soalan intake pelanggan.",
+    bset_preview_btn: "Lihat Laman Booking ↗",
+    bset_tab_links: "Pautan & Umum",
+    bset_tab_types: "Pakej & Servis",
+    bset_tab_schedule: "Jadual Waktu",
+    bset_tab_questions: "Soalan Intake",
+    bset_tab_reminders: "Peringatan & Dasar",
+    bset_save_btn: "Simpan Tetapan",
+
+    cust_add_title: "+ Tambah Pelanggan",
+    cust_name_label: "Nama Customer",
+    cust_email_label: "Emel Pelanggan",
+    cust_phone_label: "Nombor Telefon / WhatsApp",
+    cust_amount_label: "Jumlah Bayaran (RM)",
+    cust_due_label: "Tarikh Cukup Tempoh (Due Date)",
+    cust_quickpick_label: "Pilihan Pantas Tarikh Due:",
+    cust_qp_today: "Hari Ini",
+    cust_qp_3d: "+3 Hari",
+    cust_qp_7d: "+7 Hari",
+    cust_qp_14d: "+14 Hari",
+    cust_qp_30d: "+30 Hari",
+    cust_notes_label: "Catatan Tambahan (Pilihan)",
+    cust_save_btn: "Simpan Pelanggan",
+
+    cl_title: "Senarai Pelanggan",
+    cl_search_placeholder: "Cari nama, emel atau no telefon...",
+    cl_filter_all: "Semua Status",
+    cl_filter_unpaid: "Belum Bayar",
+    cl_filter_reminded: "Peringatan Dihantar",
+    cl_filter_paid: "Dah Bayar",
+    cl_th_name: "Nama",
+    cl_th_email: "Emel",
+    cl_th_phone: "Telefon",
+    cl_th_amount: "Jumlah",
+    cl_th_due: "Tarikh Due",
+    cl_th_status: "Status",
+    cl_th_actions: "Tindakan",
+    cl_export_csv: "Muat Turun CSV",
+
+    rpt_title: "Kewangan & Laporan",
+    rpt_rev_total: "Jumlah Hasil (Kutipan)",
+    rpt_exp_total: "Jumlah Perbelanjaan",
+    rpt_net_profit: "Untung Bersih",
+    rpt_uncollected: "Belum Dikutip",
+    rpt_add_expense_btn: "+ Rekod Perbelanjaan",
+    rpt_btn_this_month: "Bulan Ini",
+    rpt_btn_last_month: "Bulan Lepas",
+    rpt_btn_this_year: "Tahun Ini",
+    rpt_btn_all: "Semua",
+
+    cal_title: "Kalendar",
+    cal_select_date_prompt: "Pilih tarikh",
+    cal_day_hint: "Klik tarikh dalam kalendar untuk melihat pelanggan yang cukup tempoh pada hari tersebut.",
+    cal_day_empty: "Tiada booking atau bayaran due pada tarikh ini.",
+
+    prof_title: "Profil Perniagaan",
+    prof_desc: "Maklumat ini akan dipaparkan pada invois dan portal pembayaran pelanggan.",
+    prof_biz_name: "Nama Perniagaan",
+    prof_ssm: "No. Pendaftaran Perniagaan (SSM / ROC)",
+    prof_phone: "Nombor WhatsApp / Telefon",
+    prof_email: "Emel Perniagaan",
+    prof_address: "Alamat Premis / Studio",
+    prof_bank_name: "Nama Bank",
+    prof_bank_acc: "No. Akaun Bank",
+    prof_acc_holder: "Nama Pemegang Akaun",
+    prof_logo: "Muat Naik Logo",
+    prof_qr: "Muat Naik QR DuitNow",
+    prof_save_btn: "Simpan Profil",
+
+    rem_title: "Tetapan Peringatan Automatik",
+    rem_subtitle: "Konfigurasikan jadual penghantaran peringatan dan templat mesej.",
+    rem_cron_status: "Status Sistem",
+    rem_cron_active: "Beroperasi Secara Automatik",
+    rem_test_btn: "Hantar Ujian WhatsApp",
+
+    cmd_search_placeholder: "Taip arahan atau cari pelanggan...",
+    cmd_cat_quick: "Tindakan Pantas",
+    cmd_cat_booking: "Booking",
+    cmd_cat_reports: "Laporan",
+    cmd_cat_nav: "Navigasi",
+    cmd_cat_settings: "Tetapan",
+    cmd_cat_theme: "Antaramuka",
+    cmd_cat_clients: "Pelanggan",
+    cmd_act_add_cust: "Tambah Pelanggan Baru",
+    cmd_act_copy_link: "Salin Pautan Booking Utama",
+    cmd_act_export_csv: "Muat Turun Laporan CSV",
+    cmd_act_goto_booking: "Buka Senarai Booking",
+    cmd_act_goto_pelanggan: "Buka Senarai Pelanggan",
+    cmd_act_goto_laporan: "Buka Analisis & Laporan",
+    cmd_act_goto_kalendar: "Buka Kalendar Studio",
+    cmd_act_goto_booking_set: "Tetapan Link & Slot Booking",
+    cmd_act_goto_profil: "Profil Bisnes & Bank/QR",
+    cmd_act_toggle_dark: "Tukar Mod Gelap / Cerah (Theme)",
+
+    status_dah_bayar: "Dah Bayar",
+    status_belum_bayar: "Belum Bayar",
+    status_reminder_dihantar: "Reminder Dihantar",
+    status_confirmed: "Disahkan",
+    status_pending: "Menunggu",
+    status_completed: "Selesai",
+    status_cancelled: "Dibatalkan",
   },
 };
 
 export function getCurrentLang() {
-  return localStorage.getItem("eqstudio_ui_lang") || "ms";
+  return localStorage.getItem("eqstudio_lang") || localStorage.getItem("eqstudio_ui_lang") || "ms";
 }
 
-export function applyLanguage(lang) {
-  const normalized = UI_STRINGS[lang] ? lang : "en";
+export function t(key, fallback = "") {
+  const lang = getCurrentLang();
+  return (UI_STRINGS[lang] && UI_STRINGS[lang][key]) || (UI_STRINGS.ms && UI_STRINGS.ms[key]) || fallback || key;
+}
+
+export function applyLanguage(lang, onLangChange) {
+  const normalized = (lang === "en" || lang === "ms") ? lang : (UI_STRINGS[lang] ? lang : "ms");
+  localStorage.setItem("eqstudio_lang", normalized);
   localStorage.setItem("eqstudio_ui_lang", normalized);
   document.documentElement.setAttribute("lang", normalized);
-  const dict = UI_STRINGS[normalized];
+  const dict = UI_STRINGS[normalized] || UI_STRINGS.ms;
 
   document.querySelectorAll("[data-i18n]").forEach(el => {
-    if (dict[el.dataset.i18n] != null) el.textContent = dict[el.dataset.i18n];
+    const k = el.dataset.i18n;
+    if (dict[k] != null) el.textContent = dict[k];
   });
   document.querySelectorAll("[data-i18n-html]").forEach(el => {
-    if (dict[el.dataset.i18nHtml] != null) el.innerHTML = dict[el.dataset.i18nHtml];
+    const k = el.dataset.i18nHtml;
+    if (dict[k] != null) el.innerHTML = dict[k];
   });
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
-    if (dict[el.dataset.i18nPlaceholder] != null) el.placeholder = dict[el.dataset.i18nPlaceholder];
+    const k = el.dataset.i18nPlaceholder;
+    if (dict[k] != null) el.placeholder = dict[k];
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const k = el.dataset.i18nTitle;
+    if (dict[k] != null) el.title = dict[k];
   });
 
   document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.langToggle === normalized);
   });
+
+  if (typeof onLangChange === "function") {
+    onLangChange(normalized);
+  }
+  window.dispatchEvent(new CustomEvent("eqstudio:langchange", { detail: { lang: normalized } }));
+  return normalized;
 }

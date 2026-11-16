@@ -40,11 +40,11 @@
       <div class="db-sidebar-footer">
         <div class="db-biz-name" id="business-name-side">-</div>
         <a href="/billing.html" id="tier-badge" class="tier-badge" style="display:none;"></a>
-        <button class="secondary" id="restart-tour-btn" style="width:100%; margin-bottom:0.5rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Panduan Guna Sistem</button>
+        <button class="secondary" id="restart-tour-btn" style="width:100%; margin-bottom:0.5rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="topbar_tour">Panduan Guna Sistem</span></button>
         <button class="secondary theme-toggle-btn" id="theme-toggle-btn" style="width:100%; margin-bottom:0.5rem;">
           <span id="theme-toggle-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span id="theme-toggle-label">Mod Gelap</span>
         </button>
-        <button class="secondary" id="logout-btn" style="width:100%;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Log Keluar</button>
+        <button class="secondary" id="logout-btn" style="width:100%;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> <span data-i18n="topbar_logout">Log Keluar</span></button>
       </div>
     </aside>
 
@@ -54,28 +54,31 @@
         <a href="/billing.html" id="tier-badge-mobile" class="tier-badge" style="display:none;"></a>
       </div>
       <div style="display:flex; gap:0.5rem; align-items:center;">
-        <button type="button" class="secondary topbar-cmd-btn" id="topbar-cmd-btn" title="Carian Pantas &amp; Arahan (Ctrl+K)">
+        <div class="lang-toggle" id="db-lang-toggle" title="Tukar Bahasa / Switch Language">
+          <button type="button" class="lang-toggle-btn active" data-lang-toggle="ms">BM</button>
+          <button type="button" class="lang-toggle-btn" data-lang-toggle="en">EN</button>
+        </div>
+        <button type="button" class="secondary topbar-cmd-btn" id="topbar-cmd-btn" title="Carian Pantas &amp; Arahan (Ctrl+K)" data-i18n-title="topbar_search_cmd">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <span class="topbar-cmd-label">Cari &amp; Arahan...</span>
+          <span class="topbar-cmd-label" data-i18n="topbar_search_cmd">Cari &amp; Arahan...</span>
           <kbd class="topbar-cmd-kbd">Ctrl K</kbd>
         </button>
         <div class="kebab-wrap">
-          <button class="secondary topbar-quicknav-btn" id="quick-nav-btn-mobile" title="Lompat ke Page" style="padding:0.5rem 0.75rem; display:inline-flex; align-items:center; gap:0.4rem;">
+          <button class="secondary topbar-quicknav-btn" id="quick-nav-btn-mobile" title="Lompat ke Page" data-i18n-title="dash_lompat_page" style="padding:0.5rem 0.75rem; display:inline-flex; align-items:center; gap:0.4rem;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            <span class="topbar-quicknav-label">Menu</span>
+            <span class="topbar-quicknav-label" data-i18n="topbar_menu">Menu</span>
           </button>
         </div>
         <div class="kebab-wrap">
-          <button class="secondary" id="settings-dropdown-btn" title="Tetapan"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg></button>
-
+          <button class="secondary" id="settings-dropdown-btn" title="Tetapan" data-i18n-title="topbar_settings"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg></button>
         </div>
-        <button class="secondary" id="notif-bell-btn-mobile" title="Notifikasi" style="padding:0.5rem 0.7rem; position:relative;">
+        <button class="secondary" id="notif-bell-btn-mobile" title="Notifikasi" data-i18n-title="topbar_notif" style="padding:0.5rem 0.7rem; position:relative;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
           <span id="notif-unread-badge-mobile" class="notif-unread-badge" style="display:none;"></span>
         </button>
-        <button class="secondary" id="restart-tour-btn-mobile" style="padding:0.5rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></button>
+        <button class="secondary" id="restart-tour-btn-mobile" title="Panduan Guna Sistem" data-i18n-title="topbar_tour" style="padding:0.5rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></button>
         <button class="secondary theme-toggle-btn" id="theme-toggle-btn-mobile" style="padding:0.5rem 0.7rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
-        <button class="secondary" id="logout-btn-mobile" title="Log Keluar" style="padding:0.5rem 0.65rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></button>
+        <button class="secondary" id="logout-btn-mobile" title="Log Keluar" data-i18n-title="topbar_logout" style="padding:0.5rem 0.65rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></button>
       </div>
     </div>
 
@@ -92,10 +95,10 @@
         <div class="db-page active" id="page-home">
           <div class="home-hero" style="display:flex; justify-content:space-between; align-items:flex-end; gap:0.6rem; flex-wrap:wrap;">
             <div>
-              <p class="hint" id="home-greeting">Selamat kembali</p>
+              <p class="hint" id="home-greeting" data-i18n="home_greeting">Selamat kembali</p>
               <h1 class="home-biz-name" id="home-biz-name">-</h1>
             </div>
-            <button type="button" id="quick-add-open-btn" style="width:auto; white-space:nowrap;">+ Tambah Pelanggan Pantas</button>
+            <button type="button" id="quick-add-open-btn" style="width:auto; white-space:nowrap;" data-i18n="home_quick_add">+ Tambah Pelanggan Pantas</button>
           </div>
 
           <div class="home-status-strip">
@@ -104,7 +107,7 @@
             </span>
             <span class="hint" id="home-live-datetime"></span>
             <span class="home-link-status-badge" id="home-link-status-badge">
-              <span class="home-link-status-dot"></span> <span id="home-link-status-text">Menyemak...</span>
+              <span class="home-link-status-dot"></span> <span id="home-link-status-text" data-i18n="home_status_checking">Menyemak...</span>
             </span>
           </div>
 
@@ -116,11 +119,11 @@
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 </div>
                 <div>
-                  <h3 class="mobile-agenda-title">Jadual &amp; Tempahan Terdekat</h3>
+                  <h3 class="mobile-agenda-title" data-i18n="home_agenda_title">Jadual &amp; Tempahan Terdekat</h3>
                   <div class="skeleton" style="height:12px; width:110px; border-radius:4px; margin-top:3px;" id="mobile-agenda-subtitle"></div>
                 </div>
               </div>
-              <button type="button" class="mobile-agenda-viewall-btn" id="mobile-agenda-viewall-btn">Lihat Semua →</button>
+              <button type="button" class="mobile-agenda-viewall-btn" id="mobile-agenda-viewall-btn" data-i18n="home_agenda_viewall">Lihat Semua →</button>
             </div>
             <div class="mobile-agenda-list" id="mobile-agenda-list">
               <div style="padding:0.4rem 0; display:flex; flex-direction:column; gap:0.5rem;">
@@ -134,27 +137,27 @@
             <div class="home-stat-box" data-accent="coral">
               <div class="home-stat-icon-chip" data-accent="coral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
               <div class="home-stat-value" id="hs-upcoming">0</div>
-              <div class="home-stat-label">Booking Akan Datang</div>
+              <div class="home-stat-label" data-i18n="dash_stat_upcoming">Booking Akan Datang</div>
             </div>
             <div class="home-stat-box" data-accent="sun">
               <div class="home-stat-icon-chip" data-accent="sun"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg></div>
               <div class="home-stat-value" id="hs-outstanding">RM0</div>
-              <div class="home-stat-label">Belum Diterima</div>
+              <div class="home-stat-label" data-i18n="dash_stat_outstanding">Belum Diterima</div>
             </div>
             <div class="home-stat-box home-stat-box-hero" data-accent="sage">
               <div class="home-stat-icon-chip" data-accent="sage"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
               <div class="home-stat-value" id="hs-income-month">RM0</div>
-              <div class="home-stat-label">Income Bulan Ini</div>
+              <div class="home-stat-label" data-i18n="dash_stat_income_month">Income Bulan Ini</div>
             </div>
             <div class="home-stat-box" data-accent="lilac">
               <div class="home-stat-icon-chip" data-accent="lilac"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
               <div class="home-stat-value" id="hs-customers">0</div>
-              <div class="home-stat-label">Jumlah Pelanggan</div>
+              <div class="home-stat-label" data-i18n="dash_stat_customers">Jumlah Pelanggan</div>
             </div>
             <div class="home-stat-box" data-accent="coral">
               <div class="home-stat-icon-chip" data-accent="coral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
               <div class="home-stat-value" id="hs-completed-month">0</div>
-              <div class="home-stat-label">Selesai Bulan Ini</div>
+              <div class="home-stat-label" data-i18n="dash_stat_completed">Selesai Bulan Ini</div>
             </div>
           </div>
 
@@ -495,7 +498,7 @@
               <div class="bento-tile-top">
                 <div class="bento-tile-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
                 <div>
-                  <div class="bento-tile-label">Senarai Booking</div>
+                  <div class="bento-tile-label" data-i18n="nav_booking_list">Senarai Booking</div>
                   <div class="bento-tile-stat" id="home-stat-booking">-</div>
                   <div class="hint" id="home-streak" style="font-size:0.72rem; margin-top:0.2rem;"></div>
                 </div>
@@ -510,46 +513,46 @@
 
             <button type="button" class="bento-tile" data-page="pelanggan-list" data-cat="sage">
               <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-              <div class="bento-tile-label">Senarai Pelanggan</div>
+              <div class="bento-tile-label" data-i18n="nav_customer_list">Senarai Pelanggan</div>
               <div class="bento-tile-stat" id="home-stat-pelanggan">-</div>
             </button>
 
             <button type="button" class="bento-tile" data-page="laporan" data-cat="sun">
               <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
-              <div class="bento-tile-label">Laporan</div>
+              <div class="bento-tile-label" data-i18n="nav_reports">Laporan</div>
               <div class="bento-sparkline" id="home-sparkline"></div>
               <div class="bento-tile-stat" id="home-stat-laporan">-</div>
             </button>
 
             <button type="button" class="bento-tile" data-page="pelanggan-add" data-cat="sage">
               <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></div>
-              <div class="bento-tile-label">Tambah Pelanggan</div>
+              <div class="bento-tile-label" data-i18n="nav_add_customer">Tambah Pelanggan</div>
               <div class="bento-tile-stat">Manual / CSV</div>
             </button>
 
             <button type="button" class="bento-tile" data-page="kalendar" data-cat="sun">
               <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
-              <div class="bento-tile-label">Kalendar</div>
+              <div class="bento-tile-label" data-i18n="nav_calendar">Kalendar</div>
               <div class="bento-tile-stat" id="home-stat-kalendar">-</div>
             </button>
 
             <button type="button" class="bento-tile bento-small" data-page="booking-settings" data-cat="coral">
               <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg></div>
-              <div class="bento-tile-label">Tetapan Booking</div>
+              <div class="bento-tile-label" data-i18n="nav_booking_settings">Tetapan Booking</div>
             </button>
 
             <button type="button" class="bento-tile bento-small" data-page="tetapan-profil" data-cat="lilac">
               <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg></div>
-              <div class="bento-tile-label">Profil Perniagaan</div>
+              <div class="bento-tile-label" data-i18n="nav_profile">Profil Perniagaan</div>
             </button>
 
             <button type="button" class="bento-tile bento-small" data-page="tetapan-reminder" data-cat="lilac">
               <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></div>
-              <div class="bento-tile-label">Jadual Reminder</div>
+              <div class="bento-tile-label" data-i18n="nav_reminders">Jadual Reminder</div>
             </button>
             <a href="/forum.html" target="_blank" class="bento-tile bento-small" data-cat="coral">
               <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></div>
-              <div class="bento-tile-label">Forum & Bantuan</div>
+              <div class="bento-tile-label" data-i18n="nav_forum">Forum & Bantuan</div>
               <div class="bento-tile-stat">Diskusi & pengumuman</div>
             </a>
           </div>
@@ -557,8 +560,8 @@
 
         <div class="db-page" id="page-booking-list">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="booking-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
+            <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="booking-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="btn_guide">Panduan</span></button>
           </div>
 
           <div class="db-tabs">
@@ -569,17 +572,17 @@
           <div class="db-tab-panel active" id="db-tab-panel-tempahan">
           <div class="card">
             <div class="section-title">
-              <h2 style="margin:0;">Senarai Booking</h2>
+              <h2 style="margin:0;" data-i18n="bl_title">Senarai Booking</h2>
               <span class="hint" id="booking-list-count"></span>
               <button type="button" class="secondary" id="open-manual-booking-btn" style="font-size:0.78rem; padding:0.4rem 0.75rem;">+ Booking Manual</button>
             </div>
             <div class="db-search-row" style="gap:0.5rem; flex-wrap:wrap;">
-              <input type="search" id="booking-search-input" placeholder="Cari nama atau emel customer..." style="flex:1; min-width:180px;" />
+              <input type="search" id="booking-search-input" placeholder="Cari nama atau emel customer..." data-i18n-placeholder="bl_search_placeholder" style="flex:1; min-width:180px;" />
               <select id="booking-filter-status" style="width:auto;">
-                <option value="">Semua Status</option>
-                <option value="upcoming">Akan Datang</option>
-                <option value="cancelled">Dibatalkan</option>
-                <option value="past">Lepas</option>
+                <option value="" data-i18n="bl_filter_all">Semua Status</option>
+                <option value="upcoming" data-i18n="status_pending">Akan Datang</option>
+                <option value="cancelled" data-i18n="status_cancelled">Dibatalkan</option>
+                <option value="past" data-i18n="status_completed">Lepas</option>
               </select>
               <select id="booking-sort" style="width:auto;">
                 <option value="date_asc">Tarikh (Terdekat Dulu)</option>
@@ -594,8 +597,8 @@
             <div id="booking-list"></div>
             <div class="empty-state-visual" id="booking-list-empty" style="display:none;">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              <p class="empty-state-title">Belum ada booking lagi</p>
-              <p class="hint">Kongsi link booking anda (dari menu Tetapan Booking) untuk mula terima tempahan.</p>
+              <p class="empty-state-title" data-i18n="bl_empty">Belum ada booking lagi</p>
+              <p class="hint" data-i18n="bl_subtitle">Kongsi link booking anda (dari menu Tetapan Booking) untuk mula terima tempahan.</p>
             </div>
           </div>
           </div>
@@ -618,10 +621,10 @@
 
         <div class="db-page" id="page-booking-settings">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <button type="button" class="home-back-btn">← Home</button>
+            <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
             <div style="display:flex; gap:0.5rem; align-items:center;">
-              <a id="bset-preview-live-btn" href="/book.html" target="_blank" class="secondary" style="font-size:0.78rem; padding:0.35rem 0.75rem; text-decoration:none; display:none; align-items:center; gap:0.35rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> <span>Lihat Laman Booking ↗</span></a>
-              <button type="button" class="secondary guide-btn" data-guide="booking-settings" style="font-size:0.78rem; padding:0.35rem 0.75rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
+              <a id="bset-preview-live-btn" href="/book.html" target="_blank" class="secondary" style="font-size:0.78rem; padding:0.35rem 0.75rem; text-decoration:none; display:none; align-items:center; gap:0.35rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> <span data-i18n="bset_preview_btn">Lihat Laman Booking ↗</span></a>
+              <button type="button" class="secondary guide-btn" data-guide="booking-settings" style="font-size:0.78rem; padding:0.35rem 0.75rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="btn_guide">Panduan</span></button>
             </div>
           </div>
 
@@ -634,13 +637,13 @@
                 </div>
                 <div>
                   <div class="bset-header-title-row">
-                    <h2 class="bset-title">Tetapan Booking</h2>
+                    <h2 class="bset-title" data-i18n="bset_hero_title">Tetapan Booking</h2>
                     <span class="bset-live-badge">
                       <span class="bset-status-dot"></span>
-                      <span>Sistem Tempahan Auto</span>
+                      <span data-i18n="bset_hero_badge">Sistem Tempahan Auto</span>
                     </span>
                   </div>
-                  <p class="bset-header-desc">Kawal pautan tempahan awam anda, jadual ketersediaan slot, jenis perkhidmatan, deposit, dan soalan intake pelanggan.</p>
+                  <p class="bset-header-desc" data-i18n="bset_hero_desc">Kawal pautan tempahan awam anda, jadual ketersediaan slot, jenis perkhidmatan, deposit, dan soalan intake pelanggan.</p>
                 </div>
               </div>
             </div>
@@ -676,10 +679,10 @@
 
             <!-- Segmented Modern Tabs -->
             <div class="bset-tabs" id="bset-tabs">
-              <button type="button" class="bset-tab active" data-bset-tab="asas"><span class="bset-tab-dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg> Asas &amp; Deposit</button>
-              <button type="button" class="bset-tab" data-bset-tab="waktu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Waktu Available</button>
-              <button type="button" class="bset-tab" data-bset-tab="jenis"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Jenis Perkhidmatan</button>
-              <button type="button" class="bset-tab" data-bset-tab="soalan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg> Soalan Intake</button>
+              <button type="button" class="bset-tab active" data-bset-tab="asas"><span class="bset-tab-dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg> <span data-i18n="bset_tab_links">Asas &amp; Deposit</span></button>
+              <button type="button" class="bset-tab" data-bset-tab="waktu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> <span data-i18n="bset_tab_schedule">Waktu Available</span></button>
+              <button type="button" class="bset-tab" data-bset-tab="jenis"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> <span data-i18n="bset_tab_types">Jenis Perkhidmatan</span></button>
+              <button type="button" class="bset-tab" data-bset-tab="soalan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg> <span data-i18n="bset_tab_questions">Soalan Intake</span></button>
               <button type="button" class="bset-tab" data-bset-tab="embed"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Embed Code</button>
             </div>
           </div>
@@ -1064,44 +1067,44 @@
 
         <div class="db-page" id="page-pelanggan-add">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="pelanggan-add" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
+            <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="pelanggan-add" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="btn_guide">Panduan</span></button>
           </div>
 
           <div class="card" style="margin-bottom:1.5rem;">
-            <h2 style="margin:0 0 0.3rem; font-size:1.15rem;">+ Add Customer<button type="button" class="info-icon-btn" data-info="Peringatan disemak dan dihantar secara automatik sekali sehari (kira-kira 9 pagi waktu Malaysia), bukan serta-merta selepas anda menambah pelanggan.">i</button></h2>
+            <h2 style="margin:0 0 0.3rem; font-size:1.15rem;"><span data-i18n="cust_add_title">+ Tambah Pelanggan</span><button type="button" class="info-icon-btn" data-info="Peringatan disemak dan dihantar secara automatik sekali sehari (kira-kira 9 pagi waktu Malaysia), bukan serta-merta selepas anda menambah pelanggan.">i</button></h2>
             <div id="add-customer-wrap" style="display:block; margin-top:1rem;">
               <div class="add-cust-grid">
                 <form id="customer-form">
                   <div class="row">
                     <div>
-                      <label for="c-name">Nama Customer<button type="button" class="info-icon-btn" data-info="Nama penuh atau nama panggilan pelanggan.">i</button></label>
+                      <label for="c-name"><span data-i18n="cust_name_label">Nama Customer</span><button type="button" class="info-icon-btn" data-info="Nama penuh atau nama panggilan pelanggan.">i</button></label>
                       <input type="text" id="c-name" required />
                     </div>
                     <div>
-                      <label for="c-email">Emel Pelanggan<button type="button" class="info-icon-btn" data-info="Diperlukan untuk menghantar peringatan bayaran">i</button></label>
+                      <label for="c-email"><span data-i18n="cust_email_label">Emel Pelanggan</span><button type="button" class="info-icon-btn" data-info="Diperlukan untuk menghantar peringatan bayaran">i</button></label>
                       <input type="email" id="c-email" required />
                     </div>
                   </div>
                   <div class="row">
                     <div>
-                      <label for="c-amount">Jumlah Bayaran (RM)<button type="button" class="info-icon-btn" data-info="Jumlah deposit atau bayaran penuh yang perlu dijelaskan pelanggan ini.">i</button></label>
+                      <label for="c-amount"><span data-i18n="cust_amount_label">Jumlah Bayaran (RM)</span><button type="button" class="info-icon-btn" data-info="Jumlah deposit atau bayaran penuh yang perlu dijelaskan pelanggan ini.">i</button></label>
                       <input type="number" id="c-amount" step="0.01" min="0" required />
                     </div>
                     <div>
-                      <label for="c-due">Tarikh Cukup Tempoh<button type="button" class="info-icon-btn" data-info="Tarikh akhir bayaran perlu diselesaikan. Peringatan akan dihantar berdasarkan tarikh ini.">i</button></label>
+                      <label for="c-due"><span data-i18n="cust_due_label">Tarikh Cukup Tempoh</span><button type="button" class="info-icon-btn" data-info="Tarikh akhir bayaran perlu diselesaikan. Peringatan akan dihantar berdasarkan tarikh ini.">i</button></label>
                       <input type="date" id="c-due" required />
                       <div class="due-quickpick">
-                        <button type="button" class="qp-btn" data-days="0">Hari Ini</button>
-                        <button type="button" class="qp-btn" data-days="7">+7 Hari</button>
-                        <button type="button" class="qp-btn" data-days="14">+14 Hari</button>
-                        <button type="button" class="qp-btn" data-days="30">+30 Hari</button>
+                        <button type="button" class="qp-btn" data-days="0" data-i18n="cust_qp_today">Hari Ini</button>
+                        <button type="button" class="qp-btn" data-days="7" data-i18n="cust_qp_7d">+7 Hari</button>
+                        <button type="button" class="qp-btn" data-days="14" data-i18n="cust_qp_14d">+14 Hari</button>
+                        <button type="button" class="qp-btn" data-days="30" data-i18n="cust_qp_30d">+30 Hari</button>
                       </div>
                     </div>
                   </div>
-                  <label for="c-phone">Nombor Telefon (pilihan, untuk hubungi via WhatsApp)<button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789. Reminder dihantar melalui emel; nombor ini untuk anda hubungi pelanggan secara manual via WhatsApp bila perlu.">i</button></label>
+                  <label for="c-phone"><span data-i18n="cust_phone_label">Nombor Telefon (pilihan, untuk hubungi via WhatsApp)</span><button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789. Reminder dihantar melalui emel; nombor ini untuk anda hubungi pelanggan secara manual via WhatsApp bila perlu.">i</button></label>
                   <input type="text" id="c-phone" />
-                  <label for="c-notes">Catatan (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: deposit kek hari lahir, 2kg">i</button></label>
+                  <label for="c-notes"><span data-i18n="cust_notes_label">Catatan (pilihan)</span><button type="button" class="info-icon-btn" data-info="Contoh: deposit kek hari lahir, 2kg">i</button></label>
                   <div class="note-tpl-row" id="c-note-tpl-row"></div>
                   <textarea id="c-notes" rows="2"></textarea>
                   <button type="button" class="secondary note-save-tpl-btn" id="c-save-tpl-btn">+ Simpan sebagai template</button>
@@ -1120,7 +1123,7 @@
                     </select>
                   </div>
 
-                  <button type="submit" style="margin-top:1.25rem;">Simpan Pelanggan</button>
+                  <button type="submit" style="margin-top:1.25rem;" data-i18n="cust_save_btn">Simpan Pelanggan</button>
                 </form>
 
                 <div class="add-cust-preview">
@@ -1155,8 +1158,8 @@
 
         <div class="db-page" id="page-pelanggan-list">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="pelanggan-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
+            <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="pelanggan-list" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="btn_guide">Panduan</span></button>
           </div>
 
           <p class="hint" id="schedule-badge" style="margin-bottom:0.8rem;"></p>
@@ -1164,34 +1167,34 @@
           <div class="db-stats" id="stats-row">
             <div class="db-stat-card">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              <div class="num" id="stat-total">–</div><div class="label">Jumlah Pelanggan</div>
+              <div class="num" id="stat-total">–</div><div class="label" data-i18n="dash_stat_customers">Jumlah Pelanggan</div>
             </div>
             <div class="db-stat-card">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              <div class="num" id="stat-belum">–</div><div class="label">Belum Bayar</div>
+              <div class="num" id="stat-belum">–</div><div class="label" data-i18n="status_belum_bayar">Belum Bayar</div>
             </div>
             <div class="db-stat-card">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
-              <div class="num" id="stat-reminder">–</div><div class="label">Reminder Dihantar</div>
+              <div class="num" id="stat-reminder">–</div><div class="label" data-i18n="status_reminder_dihantar">Reminder Dihantar</div>
             </div>
             <div class="db-stat-card">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
-              <div class="num" id="stat-paid">–</div><div class="label">Dah Bayar</div>
+              <div class="num" id="stat-paid">–</div><div class="label" data-i18n="status_dah_bayar">Dah Bayar</div>
             </div>
           </div>
 
           <div class="card" id="customer-list-card">
             <div class="section-title">
-              <h2 style="margin:0;">Senarai Pelanggan</h2>
+              <h2 style="margin:0;" data-i18n="cl_title">Senarai Pelanggan</h2>
               <span class="hint" id="list-count"></span>
             </div>
             <div class="db-search-row" style="gap:0.5rem; flex-wrap:wrap;">
-              <input type="search" id="search-input" placeholder="Cari nama atau emel pelanggan..." style="flex:1; min-width:180px;" />
+              <input type="search" id="search-input" placeholder="Cari nama atau emel pelanggan..." data-i18n-placeholder="cl_search_placeholder" style="flex:1; min-width:180px;" />
               <select id="customer-filter-status" style="width:auto;">
-                <option value="">Semua Status</option>
-                <option value="belum_bayar">Belum Bayar</option>
-                <option value="reminder_dihantar">Reminder Dihantar</option>
-                <option value="dah_bayar">Dah Bayar</option>
+                <option value="" data-i18n="cl_filter_all">Semua Status</option>
+                <option value="belum_bayar" data-i18n="status_belum_bayar">Belum Bayar</option>
+                <option value="reminder_dihantar" data-i18n="status_reminder_dihantar">Reminder Dihantar</option>
+                <option value="dah_bayar" data-i18n="status_dah_bayar">Dah Bayar</option>
               </select>
               <select id="customer-sort" style="width:auto;">
                 <option value="due_asc">Due (Terdekat Dulu)</option>
@@ -1226,20 +1229,20 @@
 
         <div class="db-page" id="page-laporan">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="laporan" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
+            <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="laporan" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="btn_guide">Panduan</span></button>
           </div>
 
           <div class="db-stats" id="report-stats">
             <div class="db-stat-card home-stat-box-hero">
-              <div class="num mono home-stat-value" id="rpt-income-month">–</div><div class="label">Income This Month (Paid)</div>
+              <div class="num mono home-stat-value" id="rpt-income-month">–</div><div class="label" data-i18n="dash_rpt_income_month">Income This Month (Paid)</div>
               <div class="hint" id="rpt-momentum" style="margin-top:0.3rem; font-size:0.78rem;"></div>
             </div>
             <div class="db-stat-card">
-              <div class="num mono" id="rpt-outstanding">–</div><div class="label">Total Outstanding</div>
+              <div class="num mono" id="rpt-outstanding">–</div><div class="label" data-i18n="dash_rpt_outstanding">Total Outstanding</div>
             </div>
             <div class="db-stat-card">
-              <div class="num mono" id="rpt-total-lifetime">–</div><div class="label">Total Received (All Time)</div>
+              <div class="num mono" id="rpt-total-lifetime">–</div><div class="label" data-i18n="dash_rpt_lifetime">Total Received (All Time)</div>
             </div>
             <div class="db-stat-card">
               <div class="num mono" id="rpt-booked-ahead">–</div><div class="label">Ditempah Awal (Akan Datang)</div>
@@ -1324,8 +1327,8 @@
 
         <div class="db-page" id="page-kalendar">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="kalendar" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
+            <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="kalendar" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="btn_guide">Panduan</span></button>
           </div>
           <div class="cal-desktop-split">
             <div class="card cal-main-card">
@@ -1339,16 +1342,16 @@
               <div class="cal-grid" id="cal-grid"></div>
             </div>
             <div class="card cal-side-card">
-              <div class="section-title"><h2 style="margin:0;" id="cal-day-title">Pilih tarikh</h2></div>
-              <div id="cal-day-list"><p class="hint">Klik tarikh dalam kalendar untuk melihat pelanggan yang cukup tempoh pada hari tersebut.</p></div>
+              <div class="section-title"><h2 style="margin:0;" id="cal-day-title" data-i18n="cal_select_date_prompt">Pilih tarikh</h2></div>
+              <div id="cal-day-list"><p class="hint" data-i18n="cal_day_hint">Klik tarikh dalam kalendar untuk melihat pelanggan yang cukup tempoh pada hari tersebut.</p></div>
             </div>
           </div>
         </div>
 
         <div class="db-page" id="page-tetapan-profil">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="tetapan-profil" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
+            <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
+            <button type="button" class="secondary guide-btn" data-guide="tetapan-profil" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="btn_guide">Panduan</span></button>
           </div>
 
           <div class="card profile-settings-card">
@@ -1358,10 +1361,10 @@
               </div>
               <div>
                 <div class="profile-header-title-row">
-                  <h2 style="margin:0; font-size:1.25rem; font-weight:700;">Profil Perniagaan</h2>
+                  <h2 style="margin:0; font-size:1.25rem; font-weight:700;" data-i18n="prof_title">Profil Perniagaan</h2>
                   <span class="profile-sync-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Auto-sync Invois & Emel</span>
                 </div>
-                <p class="profile-header-desc">Maklumat rasmi ini digunakan untuk menjana dokumen invois PDF, emel peringatan tempahan, dan identiti di laman tempahan anda.</p>
+                <p class="profile-header-desc" data-i18n="prof_desc">Maklumat rasmi ini digunakan untuk menjana dokumen invois PDF, emel peringatan tempahan, dan identiti di laman tempahan anda.</p>
               </div>
             </div>
 
@@ -1375,27 +1378,27 @@
                   </div>
                 </div>
 
-                <label for="p-business-name">Nama Perniagaan <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: Kek Rumah Kak Yong">i</button></label>
+                <label for="p-business-name"><span data-i18n="prof_biz_name">Nama Perniagaan</span> <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: Kek Rumah Kak Yong">i</button></label>
                 <input type="text" id="p-business-name" required placeholder="cth: Kek Rumah Kak Yong" />
 
                 <div class="row" style="margin-top:0.8rem;">
                   <div>
-                    <label for="p-phone">Nombor Telefon <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789">i</button></label>
+                    <label for="p-phone"><span data-i18n="prof_phone">Nombor WhatsApp / Telefon</span> <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789">i</button></label>
                     <input type="text" id="p-phone" required placeholder="cth: 012-345 6789" />
                   </div>
                   <div>
-                    <label for="p-email">Emel Perhubungan (untuk pelanggan membalas) <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: hello@bisnesanda.com">i</button></label>
+                    <label for="p-email"><span data-i18n="prof_email">Emel Perniagaan</span> <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: hello@bisnesanda.com">i</button></label>
                     <input type="email" id="p-email" required placeholder="cth: hello@bisnesanda.com" />
                   </div>
                 </div>
 
                 <div class="row" style="margin-top:0.8rem;">
                   <div>
-                    <label for="p-address">Alamat / Lokasi (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: Kajang, Selangor">i</button></label>
+                    <label for="p-address"><span data-i18n="prof_address">Alamat Premis / Studio</span> (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: Kajang, Selangor">i</button></label>
                     <input type="text" id="p-address" placeholder="cth: Seksyen 7, Shah Alam, Selangor" />
                   </div>
                   <div>
-                    <label for="p-ssm">Nombor Pendaftaran Perniagaan / SSM (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: 202301012345 (JR/SA/PT)">i</button></label>
+                    <label for="p-ssm"><span data-i18n="prof_ssm">No. Pendaftaran Perniagaan (SSM / ROC)</span> (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: 202301012345 (JR/SA/PT)">i</button></label>
                     <input type="text" id="p-ssm" placeholder="cth: 202301012345 (SA0123456-X)" />
                   </div>
                 </div>
@@ -1477,20 +1480,20 @@
 
                 <div class="row">
                   <div>
-                    <label for="p-bank-name">Nama Bank<button type="button" class="info-icon-btn" data-info="Contoh: Maybank">i</button></label>
+                    <label for="p-bank-name"><span data-i18n="prof_bank_name">Nama Bank</span><button type="button" class="info-icon-btn" data-info="Contoh: Maybank">i</button></label>
                     <input type="text" id="p-bank-name" required placeholder="cth: Maybank / CIMB" />
                   </div>
                   <div>
-                    <label for="p-bank-account">Nombor Akaun<button type="button" class="info-icon-btn" data-info="Contoh: 1234567890">i</button></label>
+                    <label for="p-bank-account"><span data-i18n="prof_bank_acc">Nombor Akaun</span><button type="button" class="info-icon-btn" data-info="Contoh: 1234567890">i</button></label>
                     <input type="text" id="p-bank-account" required placeholder="cth: 512345678901" />
                   </div>
                 </div>
 
-                <label for="p-bank-holder" style="margin-top:0.8rem;">Nama Pemegang Akaun<button type="button" class="info-icon-btn" data-info="Contoh: Nama Penuh atau Nama Perniagaan">i</button></label>
+                <label for="p-bank-holder" style="margin-top:0.8rem;"><span data-i18n="prof_acc_holder">Nama Pemegang Akaun</span><button type="button" class="info-icon-btn" data-info="Contoh: Nama Penuh atau Nama Perniagaan">i</button></label>
                 <input type="text" id="p-bank-holder" required placeholder="cth: Syarikat Contoh Sdn Bhd" />
 
                 <div style="margin-top:0.9rem;">
-                  <label for="p-qr-file">Kod QR DuitNow<button type="button" class="info-icon-btn" data-info="Muat naik gambar kod QR DuitNow perniagaan anda daripada aplikasi bank atau e-dompet. Ini dipaparkan kepada pelanggan untuk membayar deposit.">i</button></label>
+                  <label for="p-qr-file"><span data-i18n="prof_qr">Kod QR DuitNow</span><button type="button" class="info-icon-btn" data-info="Muat naik gambar kod QR DuitNow perniagaan anda daripada aplikasi bank atau e-dompet. Ini dipaparkan kepada pelanggan untuk membayar deposit.">i</button></label>
                   <p class="hint" style="margin-top:-0.2rem; margin-bottom:0.5rem;">Serasi dengan <strong>semua bank & e-dompet Malaysia</strong> (Touch 'n Go, MAE, GrabPay, Boost, dll). Pelanggan hanya perlu imbas terus dari emel peringatan.</p>
 
                   <div id="qr-preview-wrap" class="profile-preview-card" style="display:none;">
@@ -1518,7 +1521,7 @@
               <div class="profile-form-actions">
                 <button type="submit" class="btn profile-save-btn">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                  <span>Simpan Profil Perniagaan</span>
+                  <span data-i18n="prof_save_btn">Simpan Profil Perniagaan</span>
                 </button>
                 <span class="profile-save-hint">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1799,15 +1802,15 @@
         <div class="db-page" id="page-tetapan-reminder">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <button type="button" class="home-back-btn">← Home</button>
-            <button type="button" class="secondary guide-btn" data-guide="tetapan-reminder" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span>Panduan</span></button>
+            <button type="button" class="secondary guide-btn" data-guide="tetapan-reminder" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="btn_guide">Panduan</span></button>
           </div>
 
           <div class="card">
-            <div class="section-title"><h2 style="margin:0;">Jadual Peringatan<button type="button" class="info-icon-btn" data-info="Klik hari bila sistem patut hantar reminder emel, relatif kepada tarikh due. Sistem menyemak jadual ini sekali sehari (kira-kira 9 pagi), bukan secara masa nyata.">i</button></h2></div>
+            <div class="section-title"><h2 style="margin:0;"><span data-i18n="rem_title">Jadual Peringatan</span><button type="button" class="info-icon-btn" data-info="Klik hari bila sistem patut hantar reminder emel, relatif kepada tarikh due. Sistem menyemak jadual ini sekali sehari (kira-kira 9 pagi), bukan secara masa nyata.">i</button></h2></div>
             <div class="chip-row" id="chip-row"></div>
             <p class="schedule-summary" id="schedule-summary"></p>
             <div class="row" style="margin-top:1rem;">
-              <button id="save-schedule-btn">Simpan Jadual</button>
+              <button id="save-schedule-btn" data-i18n="btn_save">Simpan Jadual</button>
               <button id="reset-schedule-btn" class="secondary">↻ Reset ke Default</button>
             </div>
           </div>
@@ -2181,35 +2184,35 @@
       <div class="mobile-dock-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </div>
-      <span class="mobile-dock-label">Home</span>
+      <span class="mobile-dock-label" data-i18n="dock_home">Home</span>
     </button>
 
     <button type="button" class="mobile-dock-item" data-dock-page="pelanggan-list" id="dock-btn-pelanggan" aria-label="Senarai Pelanggan">
       <div class="mobile-dock-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </div>
-      <span class="mobile-dock-label">Pelanggan</span>
+      <span class="mobile-dock-label" data-i18n="dock_customers">Pelanggan</span>
     </button>
 
     <button type="button" class="mobile-dock-item mobile-dock-center-action" id="dock-btn-quick-add" aria-label="Tambah Pelanggan Pantas">
       <div class="mobile-dock-center-circle">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </div>
-      <span class="mobile-dock-label">Tambah</span>
+      <span class="mobile-dock-label" data-i18n="dock_add">Tambah</span>
     </button>
 
     <button type="button" class="mobile-dock-item" data-dock-page="kalendar" id="dock-btn-kalendar" aria-label="Kalendar">
       <div class="mobile-dock-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       </div>
-      <span class="mobile-dock-label">Kalendar</span>
+      <span class="mobile-dock-label" data-i18n="dock_calendar">Kalendar</span>
     </button>
 
     <button type="button" class="mobile-dock-item" id="dock-btn-menu" aria-label="Menu Utama & Tetapan">
       <div class="mobile-dock-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
       </div>
-      <span class="mobile-dock-label">Menu</span>
+      <span class="mobile-dock-label" data-i18n="dock_menu">Menu</span>
     </button>
   </nav>
 
@@ -2221,7 +2224,15 @@
   <!-- Moved out of .db-topbar-mobile (position:sticky ancestor traps stacking context,
        same issue fixed earlier for quick-nav-menu-mobile) — body-level sibling now. -->
   <div class="settings-dropdown-panel" id="settings-dropdown-panel">
-            <div class="settings-dropdown-header">Tetapan &amp; Sambungan</div>
+            <div class="settings-dropdown-header" data-i18n="topbar_settings">Tetapan &amp; Sambungan</div>
+
+            <div class="settings-dropdown-section">
+              <div class="settings-dropdown-section-title">Bahasa / Language</div>
+              <div class="lang-toggle" style="width:100%; justify-content:center; margin-top:0.35rem;">
+                <button type="button" class="lang-toggle-btn active" style="flex:1; text-align:center;" data-lang-toggle="ms">Bahasa Melayu</button>
+                <button type="button" class="lang-toggle-btn" style="flex:1; text-align:center;" data-lang-toggle="en">English</button>
+              </div>
+            </div>
 
             <div class="settings-dropdown-section">
               <div class="settings-dropdown-section-title">Kalendar Peribadi<button type="button" class="info-icon-btn" data-info="Sambungkan Google Calendar peribadi anda supaya tempahan baharu, pertukaran tarikh, dan pembatalan terus dipaparkan di kalendar telefon anda secara automatik.">i</button></div>
@@ -2394,6 +2405,7 @@
   <script type="module">
     import { showToast } from "/assets/toast.js";
     import { loadNotices } from "/assets/notices.js";
+    import { UI_STRINGS, getCurrentLang, applyLanguage, t } from "/assets/i18n-ui.js";
 
     function flashButtonSuccess(btn, originalText) {
       if (!btn) return;
@@ -2439,10 +2451,14 @@
     function applyThemeUI() {
       const isDark = document.documentElement.getAttribute("data-theme") === "dark";
       const icon = isDark ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>' : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
-      const label = isDark ? "Mod Terang" : "Mod Gelap";
-      document.getElementById("theme-toggle-icon").innerHTML = icon;
-      document.getElementById("theme-toggle-label").textContent = label;
-      document.getElementById("theme-toggle-btn-mobile").innerHTML = icon;
+      const isEn = getCurrentLang() === "en";
+      const label = isDark ? (isEn ? "Light Mode" : "Mod Terang") : (isEn ? "Dark Mode" : "Mod Gelap");
+      const iconEl = document.getElementById("theme-toggle-icon");
+      if (iconEl) iconEl.innerHTML = icon;
+      const labelEl = document.getElementById("theme-toggle-label");
+      if (labelEl) labelEl.textContent = label;
+      const mobileBtn = document.getElementById("theme-toggle-btn-mobile");
+      if (mobileBtn) mobileBtn.innerHTML = icon;
     }
 
     function toggleTheme() {
@@ -2461,6 +2477,29 @@
     document.getElementById("theme-toggle-btn-mobile")?.addEventListener("click", toggleTheme);
     applyThemeUI();
     document.getElementById("logout-btn-mobile")?.addEventListener("click", logout);
+
+    // ── Owner UI Language Setup ──
+    function setAppLanguage(lang) {
+      applyLanguage(lang, (newLang) => {
+        applyThemeUI();
+        if (typeof buildQuickNavMenu === "function") {
+          buildQuickNavMenu(document.getElementById("quick-nav-menu"));
+          buildQuickNavMenu(document.getElementById("quick-nav-menu-mobile"));
+        }
+        if (typeof renderCalendar === "function") renderCalendar();
+        if (typeof renderBookingList === "function") renderBookingList();
+      });
+    }
+
+    document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setAppLanguage(btn.dataset.langToggle);
+      });
+    });
+
+    // Initial UI language apply
+    setAppLanguage(getCurrentLang());
 
 
     // ── Navigation (pure hub — Home tile grid + Home back button on every other page) ──
@@ -3901,21 +3940,24 @@
     document.body.appendChild(kebabBackdrop);
 
     // ── Quick Nav — jump directly to any page from anywhere, not just Home ──
-    const QUICK_NAV_PAGES = [
-      { id: "home", label: "Home", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
-      { id: "booking-list", label: "Senarai Booking", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' },
-      { id: "pelanggan-list", label: "Senarai Pelanggan", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>' },
-      { id: "pelanggan-add", label: "Tambah Pelanggan", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>' },
-      { id: "laporan", label: "Laporan", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>' },
-      { id: "kalendar", label: "Kalendar", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' },
-      { id: "booking-settings", label: "Tetapan Booking", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>' },
-      { id: "tetapan-profil", label: "Profil Perniagaan", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' },
-      { id: "tetapan-reminder", label: "Jadual Reminder", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>' },
-      { id: "forum", label: "Forum & Bantuan", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>' },
-    ];
+    function getQuickNavPages() {
+      return [
+        { id: "home", label: t("nav_home", "Home"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
+        { id: "booking-list", label: t("nav_booking_list", "Senarai Booking"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' },
+        { id: "pelanggan-list", label: t("nav_customer_list", "Senarai Pelanggan"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>' },
+        { id: "pelanggan-add", label: t("nav_add_customer", "Tambah Pelanggan"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>' },
+        { id: "laporan", label: t("nav_reports", "Laporan"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>' },
+        { id: "kalendar", label: t("nav_calendar", "Kalendar"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' },
+        { id: "booking-settings", label: t("nav_booking_settings", "Tetapan Booking"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>' },
+        { id: "tetapan-profil", label: t("nav_profile", "Profil Perniagaan"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' },
+        { id: "tetapan-reminder", label: t("nav_reminders", "Jadual Reminder"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>' },
+        { id: "forum", label: t("nav_forum", "Forum & Bantuan"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>' },
+      ];
+    }
 
     function buildQuickNavMenu(menuEl) {
-      menuEl.innerHTML = QUICK_NAV_PAGES.map(p => `
+      if (!menuEl) return;
+      menuEl.innerHTML = getQuickNavPages().map(p => `
         <button type="button" class="kebab-menu-item" data-quick-nav="${p.id}">${p.icon}<span>${p.label}</span></button>
       `).join("");
       menuEl.querySelectorAll("[data-quick-nav]").forEach(btn => {
@@ -7347,7 +7389,10 @@
       const upcoming = source.filter(b => b.status === "confirmed" && new Date(b.slot_datetime) >= now);
       const past = source.filter(b => b.status !== "confirmed" || new Date(b.slot_datetime) < now);
 
-      document.getElementById("booking-list-count").textContent = `${upcoming.length} akan datang` + (q || statusFilter ? ` (dari ${allBookings.length})` : "");
+      const isEn = getCurrentLang() === "en";
+      document.getElementById("booking-list-count").textContent = isEn
+        ? `${upcoming.length} upcoming` + (q || statusFilter ? ` (out of ${allBookings.length})` : "")
+        : `${upcoming.length} akan datang` + (q || statusFilter ? ` (dari ${allBookings.length})` : "");
       document.getElementById("booking-list-empty").style.display = allBookings.length ? "none" : "block";
 
       const list = document.getElementById("booking-list");
@@ -8433,19 +8478,26 @@
     });
 
     // ── Calendar ──
-    const MONTH_NAMES = ["Januari","Februari","Mac","April","Mei","Jun","Julai","Ogos","September","Oktober","November","Disember"];
-    const DOW = ["Ahd","Isn","Sel","Rab","Kha","Jum","Sab"];
+    const MONTH_NAMES_MS = ["Januari","Februari","Mac","April","Mei","Jun","Julai","Ogos","September","Oktober","November","Disember"];
+    const MONTH_NAMES_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const DOW_MS = ["Ahd","Isn","Sel","Rab","Kha","Jum","Sab"];
+    const DOW_EN = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
     let calYear = new Date().getFullYear();
     let calMonth = new Date().getMonth(); // 0-indexed
 
     function renderCalendar() {
-      document.getElementById("cal-month-label").textContent = `${MONTH_NAMES[calMonth]} ${calYear}`;
+      const isEn = getCurrentLang() === "en";
+      const monthNames = isEn ? MONTH_NAMES_EN : MONTH_NAMES_MS;
+      const dowNames = isEn ? DOW_EN : DOW_MS;
+      const monthLabel = document.getElementById("cal-month-label");
+      if (monthLabel) monthLabel.textContent = `${monthNames[calMonth]} ${calYear}`;
       const grid = document.getElementById("cal-grid");
+      if (!grid) return;
       grid.classList.remove("cal-grid");
       void grid.offsetWidth;
       grid.classList.add("cal-grid");
       grid.innerHTML = "";
-      DOW.forEach(d => {
+      dowNames.forEach(d => {
         const el = document.createElement("div");
         el.className = "cal-dow";
         el.textContent = d;
@@ -8498,15 +8550,18 @@
     }
 
     function renderDayList(dateStr, customersOnDay) {
-      document.getElementById("cal-day-title").textContent = new Date(dateStr + "T00:00:00").toLocaleDateString("ms-MY", { weekday: "long", day: "numeric", month: "long" });
+      const isEn = getCurrentLang() === "en";
+      const titleEl = document.getElementById("cal-day-title");
+      if (titleEl) titleEl.textContent = new Date(dateStr + "T00:00:00").toLocaleDateString(isEn ? "en-US" : "ms-MY", { weekday: "long", day: "numeric", month: "long" });
       const listEl = document.getElementById("cal-day-list");
+      if (!listEl) return;
 
       const dayBookings = (allBookings || [])
         .filter(b => b.status === "confirmed" && toLocalDateStr(b.slot_datetime) === dateStr)
         .sort((a, b) => new Date(a.slot_datetime) - new Date(b.slot_datetime));
 
       if (dayBookings.length === 0 && customersOnDay.length === 0) {
-        listEl.innerHTML = `<p class="hint">Tiada booking atau bayaran due pada tarikh ini.</p>`;
+        listEl.innerHTML = `<p class="hint">${t("cal_day_empty", "Tiada booking atau bayaran due pada tarikh ini.")}</p>`;
         return;
       }
 
@@ -8525,7 +8580,7 @@
       }).join("");
 
       const dueHtml = customersOnDay.length > 0 ? `
-        <p class="hint" style="font-weight:600; margin:1rem 0 0.4rem;">Bayaran Due</p>
+        <p class="hint" style="font-weight:600; margin:1rem 0 0.4rem;">${isEn ? "Payments Due" : "Bayaran Due"}</p>
         ${customersOnDay.map(c => `
           <div style="display:flex; justify-content:space-between; padding:0.4rem 0; border-bottom:1px solid var(--paper-line);">
             <span>${escapeHtml(c.name)}</span>
@@ -9280,29 +9335,32 @@
     const cmdPaletteInput = document.getElementById("cmd-palette-input");
     const cmdPaletteResults = document.getElementById("cmd-palette-results");
 
-    const CMD_ACTIONS = [
-      { id: "add-cust", title: "Tambah Pelanggan Baru", category: "Tindakan Pantas", icon: "➕", run: () => document.getElementById("quick-add-open-btn")?.click() },
-      { id: "copy-link", title: "Salin Pautan Booking Utama", category: "Booking", icon: "🔗", run: () => {
-        const link = allBookingLinks.find(l => !!l.slug) || allBookingLinks[0];
-        if (link && link.slug) {
-          const url = `${window.location.origin}/book/${link.slug}`;
-          navigator.clipboard.writeText(url).then(() => showToast("Pautan booking disalin!", "success"));
-        } else {
-          goToPage("booking-settings");
-        }
-      }},
-      { id: "export-csv", title: "Muat Turun Laporan CSV", category: "Laporan", icon: "📊", run: () => document.getElementById("export-csv-btn")?.click() },
-      { id: "goto-booking", title: "Buka Senarai Booking", category: "Navigasi", icon: "📅", run: () => goToPage("booking-list") },
-      { id: "goto-pelanggan", title: "Buka Senarai Pelanggan", category: "Navigasi", icon: "👥", run: () => goToPage("pelanggan-list") },
-      { id: "goto-laporan", title: "Buka Analisis & Laporan", category: "Navigasi", icon: "📈", run: () => goToPage("laporan") },
-      { id: "goto-kalendar", title: "Buka Kalendar Studio", category: "Navigasi", icon: "🗓️", run: () => goToPage("kalendar") },
-      { id: "goto-booking-set", title: "Tetapan Link & Slot Booking", category: "Tetapan", icon: "⚙️", run: () => goToPage("booking-settings") },
-      { id: "goto-profil", title: "Profil Bisnes & Bank/QR", category: "Tetapan", icon: "🏦", run: () => goToPage("tetapan-profil") },
-      { id: "toggle-dark", title: "Tukar Mod Gelap / Cerah (Theme)", category: "Antaramuka", icon: "🌓", run: () => toggleTheme() },
-    ];
+    function getCmdActions() {
+      const isEn = getCurrentLang() === "en";
+      return [
+        { id: "add-cust", title: t("cmd_act_add_cust", "Tambah Pelanggan Baru"), category: t("cmd_cat_quick", "Tindakan Pantas"), icon: "➕", run: () => document.getElementById("quick-add-open-btn")?.click() },
+        { id: "copy-link", title: t("cmd_act_copy_link", "Salin Pautan Booking Utama"), category: t("cmd_cat_booking", "Booking"), icon: "🔗", run: () => {
+          const link = allBookingLinks.find(l => !!l.slug) || allBookingLinks[0];
+          if (link && link.slug) {
+            const url = `${window.location.origin}/book/${link.slug}`;
+            navigator.clipboard.writeText(url).then(() => showToast(isEn ? "Booking link copied!" : "Pautan booking disalin!", "success"));
+          } else {
+            goToPage("booking-settings");
+          }
+        }},
+        { id: "export-csv", title: t("cmd_act_export_csv", "Muat Turun Laporan CSV"), category: t("cmd_cat_reports", "Laporan"), icon: "📊", run: () => document.getElementById("export-csv-btn")?.click() },
+        { id: "goto-booking", title: t("cmd_act_goto_booking", "Buka Senarai Booking"), category: t("cmd_cat_nav", "Navigasi"), icon: "📅", run: () => goToPage("booking-list") },
+        { id: "goto-pelanggan", title: t("cmd_act_goto_pelanggan", "Buka Senarai Pelanggan"), category: t("cmd_cat_nav", "Navigasi"), icon: "👥", run: () => goToPage("pelanggan-list") },
+        { id: "goto-laporan", title: t("cmd_act_goto_laporan", "Buka Analisis & Laporan"), category: t("cmd_cat_nav", "Navigasi"), icon: "📈", run: () => goToPage("laporan") },
+        { id: "goto-kalendar", title: t("cmd_act_goto_kalendar", "Buka Kalendar Studio"), category: t("cmd_cat_nav", "Navigasi"), icon: "🗓️", run: () => goToPage("kalendar") },
+        { id: "goto-booking-set", title: t("cmd_act_goto_booking_set", "Tetapan Link & Slot Booking"), category: t("cmd_cat_settings", "Tetapan"), icon: "⚙️", run: () => goToPage("booking-settings") },
+        { id: "goto-profil", title: t("cmd_act_goto_profil", "Profil Bisnes & Bank/QR"), category: t("cmd_cat_settings", "Tetapan"), icon: "🏦", run: () => goToPage("tetapan-profil") },
+        { id: "toggle-dark", title: t("cmd_act_toggle_dark", "Tukar Mod Gelap / Cerah (Theme)"), category: t("cmd_cat_theme", "Antaramuka"), icon: "🌓", run: () => toggleTheme() },
+      ];
+    }
 
     let cmdSelectedIdx = 0;
-    let filteredCmds = [...CMD_ACTIONS];
+    let filteredCmds = [];
 
     function openCommandPalette() {
       if (!cmdPaletteModal) return;
@@ -9318,8 +9376,10 @@
     }
 
     function renderCommandResults(query) {
+      const isEn = getCurrentLang() === "en";
       const q = query.toLowerCase().trim();
-      filteredCmds = CMD_ACTIONS.filter(c => c.title.toLowerCase().includes(q) || c.category.toLowerCase().includes(q));
+      const baseCmds = getCmdActions();
+      filteredCmds = baseCmds.filter(c => c.title.toLowerCase().includes(q) || c.category.toLowerCase().includes(q));
 
       // Also search live customers if query >= 2 chars
       if (q.length >= 2) {
@@ -9328,8 +9388,8 @@
           .slice(0, 4)
           .map(c => ({
             id: `cust-${c.id}`,
-            title: `Pelanggan: ${c.name} (RM ${Number(c.amount).toFixed(2)})`,
-            category: "Pelanggan",
+            title: `${isEn ? "Client" : "Pelanggan"}: ${c.name} (RM ${Number(c.amount).toFixed(2)})`,
+            category: isEn ? "Clients" : "Pelanggan",
             icon: "👤",
             run: () => {
               goToPage("pelanggan-list");
@@ -9345,7 +9405,7 @@
 
       cmdSelectedIdx = 0;
       if (filteredCmds.length === 0) {
-        cmdPaletteResults.innerHTML = `<div class="cmd-empty hint">Tiada arahan atau pelanggan sepadan dengan "${escapeHtml(query)}"</div>`;
+        cmdPaletteResults.innerHTML = `<div class="cmd-empty hint">${isEn ? `No commands or clients matching "${escapeHtml(query)}"` : `Tiada arahan atau pelanggan sepadan dengan "${escapeHtml(query)}"`}</div>`;
         return;
       }
 
@@ -9436,7 +9496,7 @@
     <div class="cmd-palette-box">
       <div class="cmd-palette-input-wrap">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="cmd-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="cmd-palette-input" placeholder="Taip arahan atau cari pelanggan..." autocomplete="off" />
+        <input type="text" id="cmd-palette-input" placeholder="Taip arahan atau cari pelanggan..." data-i18n-placeholder="cmd_search_placeholder" autocomplete="off" />
         <span class="cmd-esc-tag">ESC</span>
       </div>
       <div class="cmd-palette-results" id="cmd-palette-results"></div>

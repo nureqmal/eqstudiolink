@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/x-icon" href="/assets/logo/favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png" />
+<title>eqstudio.link untuk Jurugambar &amp; Videographer — Kutip Deposit &amp; Baki Majlis Tepat Waktu</title>
+<meta name="description" content="Sistem booking online, kutipan baki ansuran automatik, dan pengurusan majlis perkahwinan khusus untuk Jurugambar, Videographer &amp; Studio Kreatif Malaysia." />
+<link rel="canonical" href="https://eqstudio.link/fotografi.html" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://eqstudio.link/fotografi.html" />
+<meta property="og:title" content="eqstudio.link untuk Jurugambar &amp; Videographer Malaysia" />
+<meta property="og:description" content="Kutip deposit lock tarikh &amp; baki majlis automatik. Elak clash tarikh Nikah &amp; Sanding." />
+<meta property="og:image" content="https://eqstudio.link/assets/og-image.png" />
+<meta property="og:locale" content="ms_MY" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=48" />
+<script>
+  (function () {
+    var saved = localStorage.getItem("eqstudio_theme");
+    if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
+  })();
+</script>
+<style>
+  .niche-hero {
+    padding: 3.5rem 1rem 3rem;
+    max-width: 1140px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .niche-hero { grid-template-columns: 1fr; padding-top: 2rem; gap: 2rem; text-align: center; }
+    .niche-hero .cta-row { justify-content: center; }
+  }
+  .niche-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--stamp-soft);
+    color: var(--stamp);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+  }
+  .niche-h1 {
+    font-size: clamp(2rem, 4vw, 2.85rem);
+    line-height: 1.18;
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .niche-sub {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0 0 1.5rem;
+  }
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin: 2.5rem 0;
+  }
+  @media (max-width: 800px) {
+    .pain-grid { grid-template-columns: 1fr; }
+  }
+  .pain-card {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .pain-card.solution-glow {
+    border-color: var(--stamp);
+    background: linear-gradient(180deg, var(--stamp-soft) 0%, var(--surface) 100%);
+  }
+  .pain-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #FEE2E2;
+    color: #DC2626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .pain-card.solution-glow .pain-icon-wrap {
+    background: var(--stamp-soft);
+    color: var(--stamp);
+  }
+  .feat-showcase-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin: 4rem 0;
+  }
+  @media (max-width: 850px) {
+    .feat-showcase-row { grid-template-columns: 1fr; gap: 1.5rem; }
+    .feat-showcase-row:nth-child(even) .feat-visual { order: -1; }
+  }
+  .feat-visual {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .milestone-pill-track {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .milestone-pill-step {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--paper);
+    border-radius: 8px;
+    border-left: 4px solid var(--stamp);
+    font-size: 0.9rem;
+  }
+  .milestone-pill-step.paid {
+    border-left-color: var(--ok);
+  }
+  .roi-box {
+    background: var(--surface);
+    border: 2px solid var(--stamp);
+    border-radius: 16px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    margin: 4rem auto;
+    max-width: 820px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  }
+  .roi-stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    font-weight: 700;
+    color: var(--stamp);
+    margin: 0.5rem 0;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="lp-nav">
+    <div style="display:flex; align-items:center; gap:1.2rem;">
+      <a href="/" class="brand" style="text-decoration:none;"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
+      <a href="/" class="plain" style="font-size:0.85rem; font-weight:500; display:inline-flex; align-items:center; gap:0.35rem;">← <span data-i18n="nav_back_home">Laman Utama</span></a>
+    </div>
+    <div class="lp-nav-links">
+      <div class="lang-toggle">
+        <button type="button" class="lang-toggle-btn active" data-lang-toggle="ms">BM</button>
+        <button type="button" class="lang-toggle-btn" data-lang-toggle="en">EN</button>
+      </div>
+      <a href="/login.html" class="plain" data-i18n="nav_login">Log Masuk</a>
+      <a href="/login.html" class="btn btn-primary-cta" data-i18n="nav_cta">Cuba Percuma 14 Hari</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="niche-hero">
+    <div>
+      <div class="niche-badge">
+        <span>📸</span> <span data-i18n="hero_niche_badge">Khas untuk Jurugambar, Videographer &amp; Studio Majlis</span>
+      </div>
+      <h1 class="niche-h1">
+        <span data-i18n="hero_niche_h1_a">Kutip Baki Majlis Tepat Waktu.</span><br />
+        <span style="color:var(--stamp);" data-i18n="hero_niche_h1_b">Tanpa Anda Perlu Minta Berulang Kali.</span>
+      </h1>
+      <p class="niche-sub" data-i18n="hero_niche_sub">
+        Biar bakal pengantin pilih pakej dan kunci slot terus dari bio Instagram/TikTok anda. Jadual bayaran ansuran dikutip automatik mengikut fasa majlis. Tiada lagi clash tarikh, tiada lagi baki tertunggak berbulan-bulan.
+      </p>
+      <div class="cta-row">
+        <a href="/login.html" class="btn btn-lg btn-primary-cta" data-i18n="hero_cta_primary">Mula Percuma 14 Hari</a>
+        <a href="/demo.html" class="btn secondary btn-lg" data-i18n="hero_cta_demo">Tengok Demo Studio Live</a>
+      </div>
+      <p class="hint" style="margin-top:0.75rem; display:flex; align-items:center; gap:0.4rem;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span data-i18n="hero_guarantee">Trial percuma tanpa kad kredit • Setup siap dalam 5 minit</span>
+      </p>
+    </div>
+
+    <!-- Live Preview Card: Photography Package & Milestones -->
+    <div>
+      <div class="feat-visual">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem; border-bottom:1px solid var(--paper-line); padding-bottom:0.75rem;">
+          <div>
+            <span class="badge dah_bayar" style="font-size:0.7rem; font-weight:600; text-transform:uppercase;">Confirmed Booking</span>
+            <h3 style="margin:0.35rem 0 0.15rem; font-size:1.15rem;">Hafiy &amp; Alia (Nikah + Sanding)</h3>
+            <span class="hint" style="font-size:0.8rem;">Pakej Signature Dual-Session • Dewan Perdana, KL</span>
+          </div>
+          <div style="text-align:right;">
+            <span class="mono" style="font-size:1.1rem; font-weight:700; color:var(--stamp);">RM 2,800</span>
+          </div>
+        </div>
+
+        <p style="font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-soft); margin-bottom:0.6rem;" data-i18n="preview_milestone_title">Jadual Bayaran Ansuran Majlis:</p>
+        <div class="milestone-pill-track">
+          <div class="milestone-pill-step paid">
+            <div>
+              <strong>1. Deposit Kunci Slot (15%)</strong>
+              <div class="hint" style="font-size:0.75rem;">Dibayar semasa pengantin book online</div>
+            </div>
+            <div style="text-align:right;">
+              <span class="mono" style="font-weight:600;">RM 400.00</span><br />
+              <span class="badge dah_bayar" style="font-size:0.65rem;">Lunas</span>
+            </div>
+          </div>
+
+          <div class="milestone-pill-step paid">
+            <div>
+              <strong>2. Baki Sebelum Hari Majlis (55%)</strong>
+              <div class="hint" style="font-size:0.75rem;">Due 7 hari sebelum majlis berlangsung</div>
+            </div>
+            <div style="text-align:right;">
+              <span class="mono" style="font-weight:600;">RM 1,500.00</span><br />
+              <span class="badge dah_bayar" style="font-size:0.65rem;">Lunas</span>
+            </div>
+          </div>
+
+          <div class="milestone-pill-step" style="border-left-color:var(--pending);">
+            <div>
+              <strong>3. Baki Akhir Sebelum Serah Album (30%)</strong>
+              <div class="hint" style="font-size:0.75rem;">Auto-reminder bila softcopy/album sedia</div>
+            </div>
+            <div style="text-align:right;">
+              <span class="mono" style="font-weight:600;">RM 900.00</span><br />
+              <span class="badge belum_bayar" style="font-size:0.65rem;">Due Segera</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Problem Section -->
+  <section class="wrap" style="padding-top:2rem;">
+    <div style="text-align:center; max-width:680px; margin:0 auto 1.5rem;">
+      <span class="hint" style="font-weight:600; text-transform:uppercase; color:var(--stamp); font-size:0.8rem;" data-i18n="pain_eyebrow">Realiti Sebenar Jurugambar Majlis</span>
+      <h2 style="font-size:clamp(1.5rem, 3vw, 2.1rem); margin:0.4rem 0 0.8rem; font-family:var(--font-display);" data-i18n="pain_heading">3 Mimpi Ngeri Yang Selalu Hanguskan Untung Studio Anda</h2>
+    </div>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        </div>
+        <h3 style="margin:0 0 0.5rem; font-size:1.1rem;" data-i18n="pain_1_title">1. Baki 30% Liat Nak Bayar Lepas Majlis</h3>
+        <p class="hint" style="line-height:1.55; font-size:0.88rem;" data-i18n="pain_1_desc">
+          Majlis dah selesai 2 bulan, album dan pen drive dah siap dibungkus, tapi pengantin terus senyap bila minta baki. Anda rasa segan dan letih macam mengemis duit titik peluh sendiri.
+        </p>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        </div>
+        <h3 style="margin:0 0 0.5rem; font-size:1.1rem;" data-i18n="pain_2_title">2. Tarikh Bertindih &amp; Terambil 2 Job</h3>
+        <p class="hint" style="line-height:1.55; font-size:0.88rem;" data-i18n="pain_2_desc">
+          Bila susun tarikh manual dalam buku nota atau WhatsApp chat, risiko terlepas pandang majlis Nikah pagi dan Sanding malam klien berbeza sangat tinggi. Satu kesilapan boleh robohkan reputasi studio bertahun-tahun.
+        </p>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <h3 style="margin:0 0 0.5rem; font-size:1.1rem;" data-i18n="pain_3_title">3. WhatsApp Bersepah &amp; Maklumat Tenggelam</h3>
+        <p class="hint" style="line-height:1.55; font-size:0.88rem;" data-i18n="pain_3_desc">
+          Berapa kali anda terpaksa scroll balik ratusan mesej semata-mata nak cari alamat dewan, warna tema baju, atau contact person pengantin pada pagi hari majlis?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions Section -->
+  <section class="wrap" style="padding-top:2rem;">
+    <div style="text-align:center; max-width:680px; margin:0 auto 2.5rem;">
+      <span class="hint" style="font-weight:600; text-transform:uppercase; color:var(--ok); font-size:0.8rem;" data-i18n="sol_eyebrow">Penyelesaian Menyeluruh</span>
+      <h2 style="font-size:clamp(1.5rem, 3vw, 2.1rem); margin:0.4rem 0 0.8rem; font-family:var(--font-display);" data-i18n="sol_heading">Bagaimana eqstudio.link Melindungi Aliran Tunai &amp; Masa Anda</h2>
+    </div>
+
+    <!-- Feature 1: Milestone Payments -->
+    <div class="feat-showcase-row">
+      <div>
+        <span class="badge" style="background:var(--stamp-soft); color:var(--stamp); font-weight:600; margin-bottom:0.6rem;">Ciri Khas 01</span>
+        <h3 style="font-size:1.6rem; margin:0 0 0.8rem; font-family:var(--font-display);" data-i18n="f1_title">Jadual Bayaran Ansuran (Milestone Payments)</h3>
+        <p class="sub" style="font-size:0.95rem; line-height:1.6;" data-i18n="f1_desc">
+          Jangan tunggu majlis selesai baru tuntut bayaran penuh. Bahagikan bayaran kepada 3 fasa: <strong>Deposit Lock Slot</strong>, <strong>Baki Sebelum Hari Majlis</strong>, dan <strong>Baki Sebelum Siap Album</strong>. Sistem hantar invois dan resit automatik, jadi anda tak perlu rasa segan lagi.
+        </p>
+      </div>
+      <div class="feat-visual">
+        <div style="padding:0.5rem 0;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.6rem;">
+            <span style="font-weight:600;">Status Kutipan Studio Bulan Ini:</span>
+            <span class="mono" style="color:var(--ok); font-weight:700;">88.5% Berjaya</span>
+          </div>
+          <div style="background:var(--paper); border-radius:6px; height:10px; overflow:hidden;">
+            <div style="background:var(--ok); width:88.5%; height:100%;"></div>
+          </div>
+          <p class="hint" style="font-size:0.75rem; margin-top:0.6rem;">Sistem menghantar peringatan automatik 7 hari &amp; 3 hari sebelum tarikh majlis tanpa campur tangan manual.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2: Multi-Ceremony Protection -->
+    <div class="feat-showcase-row">
+      <div class="feat-visual">
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <div style="padding:0.65rem 0.85rem; background:var(--paper); border-radius:8px; border-left:4px solid var(--stamp);">
+            <div style="display:flex; justify-content:space-between;">
+              <strong>Majlis Akad Nikah (Pagi)</strong>
+              <span class="mono" style="font-size:0.8rem;">09:00 - 12:00</span>
+            </div>
+            <span class="hint" style="font-size:0.75rem;">Masjid Wilayah Persekutuan</span>
+          </div>
+          <div style="padding:0.65rem 0.85rem; background:var(--paper); border-radius:8px; border-left:4px solid #8B5CF6;">
+            <div style="display:flex; justify-content:space-between;">
+              <strong>Majlis Resepsi Sanding (Malam)</strong>
+              <span class="mono" style="font-size:0.8rem;">19:30 - 23:00</span>
+            </div>
+            <span class="hint" style="font-size:0.75rem;">Dewan Felda Perdana</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="badge" style="background:#EDE9FE; color:#7C3AED; font-weight:600; margin-bottom:0.6rem;">Ciri Khas 02</span>
+        <h3 style="font-size:1.6rem; margin:0 0 0.8rem; font-family:var(--font-display);" data-i18n="f2_title">Perlindungan Multi-Ceremony (Nikah &amp; Sanding)</h3>
+        <p class="sub" style="font-size:0.95rem; line-height:1.6;" data-i18n="f2_desc">
+          Satu klien boleh simpan beberapa sesi majlis (Nikah, Sanding, Bertandang, Outdoor) dalam satu kontrak tempahan. Kalendar studio blok masa automatik supaya tiada pertembungan slot dengan pasangan lain.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feature 3: Event Intake Questions -->
+    <div class="feat-showcase-row">
+      <div>
+        <span class="badge" style="background:var(--ok-bg); color:var(--ok); font-weight:600; margin-bottom:0.6rem;">Ciri Khas 03</span>
+        <h3 style="font-size:1.6rem; margin:0 0 0.8rem; font-family:var(--font-display);" data-i18n="f3_title">Borang Soalan Spesifik Acara Terus di Booking Link</h3>
+        <p class="sub" style="font-size:0.95rem; line-height:1.6;" data-i18n="f3_desc">
+          Kumpul semua butiran penting sebelum hari kejadian: nama penuh pasangan, lokasi dewan (Google Maps link), tema warna pakaian, nama penolong majlis (PIC), dan kehendak khas foto keluarga.
+        </p>
+      </div>
+      <div class="feat-visual">
+        <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.85rem;">
+          <div style="background:var(--paper); padding:0.5rem 0.75rem; border-radius:6px;">
+            <span class="hint" style="font-size:0.75rem;">Lokasi Dewan &amp; Waze:</span>
+            <div>Dewan Cempaka Sari, Putrajaya</div>
+          </div>
+          <div style="background:var(--paper); padding:0.5rem 0.75rem; border-radius:6px;">
+            <span class="hint" style="font-size:0.75rem;">Tema Konsep Baju:</span>
+            <div>Songket Tradisional Hijau Zamrud</div>
+          </div>
+          <div style="background:var(--paper); padding:0.5rem 0.75rem; border-radius:6px;">
+            <span class="hint" style="font-size:0.75rem;">Nombor Wakil Keluarga (PIC):</span>
+            <div>Pakcik Razak (019-333 4455)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI Calculator Section -->
+  <section class="wrap">
+    <div class="roi-box">
+      <span class="niche-badge" style="background:var(--stamp-soft); color:var(--stamp);" data-i18n="roi_badge">Kira Pulangan Pelaburan Anda (ROI)</span>
+      <h2 style="font-family:var(--font-display); font-size:clamp(1.6rem, 3.5vw, 2.3rem); margin:0.6rem 0;" data-i18n="roi_title">Berapa Banyak Duit Baki Yang Anda Selamatkan?</h2>
+      <p class="hint" style="font-size:0.95rem; max-width:540px; margin:0 auto;" data-i18n="roi_desc">
+        Katakan anda buat 25 majlis kahwin setahun. Jika sistem ini menyelamatkan <strong>hanya 1 baki majlis (RM800)</strong> daripada liat dibayar pengantin:
+      </p>
+      <div class="roi-stat-num">RM 12,000+</div>
+      <p style="font-size:1.05rem; font-weight:600; margin:0 0 1.5rem; color:var(--ink);" data-i18n="roi_sub">
+        Aliran tunai studio anda terlindung setiap tahun. Nilai software (RM39/bulan) telah pun terbayar lebih 20 kali ganda!
+      </p>
+      <a href="/login.html" class="btn btn-lg btn-primary-cta" data-i18n="roi_cta">Lindungi Duit Baki Studio Sekarang →</a>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="wrap" style="max-width:800px; padding-bottom:4rem;">
+    <h2 style="text-align:center; font-family:var(--font-display); font-size:1.8rem; margin-bottom:1.5rem;" data-i18n="faq_title">Soalan Lazim Jurugambar</h2>
+    
+    <div class="card" style="margin-bottom:1rem; padding:1.2rem;">
+      <h3 style="font-size:1rem; margin:0 0 0.35rem;" data-i18n="faq_q1">Bolehkah pengantin bayar deposit guna DuitNow QR atau Online Transfer?</h3>
+      <p class="hint" style="font-size:0.88rem; margin:0; line-height:1.55;" data-i18n="faq_a1">
+        Boleh! Anda boleh letak kod DuitNow QR rasmi studio anda atau nombor akaun bank. Pengantin boleh terus muat naik resit pindahan wang semasa menempah, dan anda cuma perlu klik satu butang untuk sahkan bayaran.
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:1rem; padding:1.2rem;">
+      <h3 style="font-size:1rem; margin:0 0 0.35rem;" data-i18n="faq_q2">Bolehkah saya letak syarat deposit "Non-Refundable" (Tidak Dipulangkan)?</h3>
+      <p class="hint" style="font-size:0.88rem; margin:0; line-height:1.55;" data-i18n="faq_a2">
+        Boleh. Polisi pembatalan studio anda akan dipaparkan secara jelas dan telus pada borang tempahan sebelum pengantin membuat bayaran. Ini melindungi anda daripada tuntutan refund saat akhir.
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:1rem; padding:1.2rem;">
+      <h3 style="font-size:1rem; margin:0 0 0.35rem;" data-i18n="faq_q3">Bagaimana jika pengantin perlu reschedule tarikh majlis?</h3>
+      <p class="hint" style="font-size:0.88rem; margin:0; line-height:1.55;" data-i18n="faq_a3">
+        eqstudio.link mempunyai fungsi reschedule pintar. Anda atau klien boleh memilih tarikh baharu yang masih kosong dalam kalendar tanpa risiko bertindih dengan pasangan lain, dan rekod bayaran deposit kekal bersambung.
+      </p>
+    </div>
+  </section>
+
+  <!-- Final CTA Bar -->
+  <footer style="background:var(--paper); border-top:1px solid var(--paper-line); padding:3rem 1rem 2.5rem; text-align:center;">
+    <div class="wrap" style="max-width:680px;">
+      <h2 style="font-family:var(--font-display); font-size:clamp(1.6rem, 3vw, 2.1rem); margin:0 0 0.6rem;" data-i18n="footer_cta_title">Jangan Biarkan Baki Majlis Seterusnya Tergantung.</h2>
+      <p class="hint" style="font-size:0.95rem; margin-bottom:1.5rem;" data-i18n="footer_cta_sub">Sertai ratusan jurugambar dan pencipta majlis profesional Malaysia yang menguruskan tempahan secara automatik.</p>
+      <a href="/login.html" class="btn btn-lg btn-primary-cta" data-i18n="footer_cta_btn">Mulakan Percubaan Percuma 14 Hari</a>
+      <p class="hint" style="font-size:0.8rem; margin-top:2rem;">© 2026 eqstudio.link • Dibina khas untuk bisnes kreatif &amp; perkhidmatan acara Malaysia.</p>
+    </div>
+  </footer>
+
+  <!-- Language Switcher Script -->
+  <script type="module">
+    const NICHE_I18N = {
+      ms: {
+        nav_back_home: "Laman Utama",
+        nav_login: "Log Masuk",
+        nav_cta: "Cuba Percuma 14 Hari",
+        hero_niche_badge: "Khas untuk Jurugambar, Videographer & Studio Majlis",
+        hero_niche_h1_a: "Kutip Baki Majlis Tepat Waktu.",
+        hero_niche_h1_b: "Tanpa Anda Perlu Minta Berulang Kali.",
+        hero_niche_sub: "Biar bakal pengantin pilih pakej dan kunci slot terus dari bio Instagram/TikTok anda. Jadual bayaran ansuran dikutip automatik mengikut fasa majlis. Tiada lagi clash tarikh, tiada lagi baki tertunggak berbulan-bulan.",
+        hero_cta_primary: "Mula Percuma 14 Hari",
+        hero_cta_demo: "Tengok Demo Studio Live",
+        hero_guarantee: "Trial percuma tanpa kad kredit • Setup siap dalam 5 minit",
+        preview_milestone_title: "Jadual Bayaran Ansuran Majlis:",
+        pain_eyebrow: "Realiti Sebenar Jurugambar Majlis",
+        pain_heading: "3 Mimpi Ngeri Yang Selalu Hanguskan Untung Studio Anda",
+        pain_1_title: "1. Baki 30% Liat Nak Bayar Lepas Majlis",
+        pain_1_desc: "Majlis dah selesai 2 bulan, album dan pen drive dah siap dibungkus, tapi pengantin terus senyap bila minta baki. Anda rasa segan dan letih macam mengemis duit titik peluh sendiri.",
+        pain_2_title: "2. Tarikh Bertindih & Terambil 2 Job",
+        pain_2_desc: "Bila susun tarikh manual dalam buku nota atau WhatsApp chat, risiko terlepas pandang majlis Nikah pagi dan Sanding malam klien berbeza sangat tinggi. Satu kesilapan boleh robohkan reputasi studio bertahun-tahun.",
+        pain_3_title: "3. WhatsApp Bersepah & Maklumat Tenggelam",
+        pain_3_desc: "Berapa kali anda terpaksa scroll balik ratusan mesej semata-mata nak cari alamat dewan, warna tema baju, atau contact person pengantin pada pagi hari majlis?",
+        sol_eyebrow: "Penyelesaian Menyeluruh",
+        sol_heading: "Bagaimana eqstudio.link Melindungi Aliran Tunai & Masa Anda",
+        f1_title: "Jadual Bayaran Ansuran (Milestone Payments)",
+        f1_desc: "Jangan tunggu majlis selesai baru tuntut bayaran penuh. Bahagikan bayaran kepada 3 fasa: Deposit Lock Slot, Baki Sebelum Hari Majlis, dan Baki Sebelum Siap Album. Sistem hantar invois dan resit automatik, jadi anda tak perlu rasa segan lagi.",
+        f2_title: "Perlindungan Multi-Ceremony (Nikah & Sanding)",
+        f2_desc: "Satu klien boleh simpan beberapa sesi majlis (Nikah, Sanding, Bertandang, Outdoor) dalam satu kontrak tempahan. Kalendar studio blok masa automatik supaya tiada pertembungan slot dengan pasangan lain.",
+        f3_title: "Borang Soalan Spesifik Acara Terus di Booking Link",
+        f3_desc: "Kumpul semua butiran penting sebelum hari kejadian: nama penuh pasangan, lokasi dewan (Google Maps link), tema warna pakaian, nama penolong majlis (PIC), dan kehendak khas foto keluarga.",
+        roi_badge: "Kira Pulangan Pelaburan Anda (ROI)",
+        roi_title: "Berapa Banyak Duit Baki Yang Anda Selamatkan?",
+        roi_desc: "Katakan anda buat 25 majlis kahwin setahun. Jika sistem ini menyelamatkan hanya 1 baki majlis (RM800) daripada liat dibayar pengantin:",
+        roi_sub: "Aliran tunai studio anda terlindung setiap tahun. Nilai software (RM39/bulan) telah pun terbayar lebih 20 kali ganda!",
+        roi_cta: "Lindungi Duit Baki Studio Sekarang →",
+        faq_title: "Soalan Lazim Jurugambar",
+        faq_q1: "Bolehkah pengantin bayar deposit guna DuitNow QR atau Online Transfer?",
+        faq_a1: "Boleh! Anda boleh letak kod DuitNow QR rasmi studio anda atau nombor akaun bank. Pengantin boleh terus muat naik resit pindahan wang semasa menempah, dan anda cuma perlu klik satu butang untuk sahkan bayaran.",
+        faq_q2: "Bolehkah saya letak syarat deposit 'Non-Refundable' (Tidak Dipulangkan)?",
+        faq_a2: "Boleh. Polisi pembatalan studio anda akan dipaparkan secara jelas dan telus pada borang tempahan sebelum pengantin membuat bayaran. Ini melindungi anda daripada tuntutan refund saat akhir.",
+        faq_q3: "Bagaimana jika pengantin perlu reschedule tarikh majlis?",
+        faq_a3: "eqstudio.link mempunyai fungsi reschedule pintar. Anda atau klien boleh memilih tarikh baharu yang masih kosong dalam kalendar tanpa risiko bertindih dengan pasangan lain, dan rekod bayaran deposit kekal bersambung.",
+        footer_cta_title: "Jangan Biarkan Baki Majlis Seterusnya Tergantung.",
+        footer_cta_sub: "Sertai ratusan jurugambar dan pencipta majlis profesional Malaysia yang menguruskan tempahan secara automatik.",
+        footer_cta_btn: "Mulakan Percubaan Percuma 14 Hari"
+      },
+      en: {
+        nav_back_home: "Main Home",
+        nav_login: "Sign In",
+        nav_cta: "Try 14 Days Free",
+        hero_niche_badge: "Built for Wedding Photographers, Videographers & Studios",
+        hero_niche_h1_a: "Collect Wedding Balances on Time.",
+        hero_niche_h1_b: "Without Ever Chasing Clients Again.",
+        hero_niche_sub: "Let couples choose packages and lock dates directly from your Instagram/TikTok bio link. Milestone installment schedules are collected automatically. No more date clashes, no more months of unpaid balances.",
+        hero_cta_primary: "Start Free for 14 Days",
+        hero_cta_demo: "View Live Studio Demo",
+        hero_guarantee: "Free trial without credit card • Ready in under 5 minutes",
+        preview_milestone_title: "Ceremony Milestone Payment Schedule:",
+        pain_eyebrow: "The Hard Reality of Wedding Creators",
+        pain_heading: "3 Nightmares That Silently Burn Your Studio's Profits",
+        pain_1_title: "1. The 30% Balance That Couples Delay Paying",
+        pain_1_desc: "The wedding finished 2 months ago, the photo album and flash drive are packaged and ready, but the couple goes silent when the final invoice is due. You feel like a beggar chasing your own hard-earned money.",
+        pain_2_title: "2. Date Clashes & Double Booking",
+        pain_2_desc: "Managing dates manually across notebooks or WhatsApp chats creates huge risks of overlapping morning Nikah and evening Reception between different couples. One mistake damages years of reputation.",
+        pain_3_title: "3. Disorganized WhatsApp & Buried Details",
+        pain_3_desc: "How often do you scroll through hundreds of messages on the wedding morning just to find the ballroom address, outfit color palette, or family coordinator contact number?",
+        sol_eyebrow: "Complete Operational Solution",
+        sol_heading: "How eqstudio.link Protects Your Studio's Cashflow & Peace of Mind",
+        f1_title: "Milestone Payments (Stage-by-Stage Collection)",
+        f1_desc: "Never wait until everything is delivered to ask for full payment. Split bookings into 3 stages: Booking Deposit, Pre-Event Balance, and Pre-Delivery Balance. Automated invoices and receipts keep communication professional.",
+        f2_title: "Multi-Ceremony Protection (Morning & Evening Sessions)",
+        f2_desc: "A single client can have separate sessions (Solemnization, Reception, Outdoor) under one booking contract. The studio calendar blocks slots automatically to prevent schedule conflicts.",
+        f3_title: "Event-Specific Intake Questions Built Right into Booking Links",
+        f3_desc: "Collect essential event details upfront: couple names, ballroom venue (Google Maps link), color theme, family coordinator phone number, and special family photo requests.",
+        roi_badge: "Calculate Your Return on Investment (ROI)",
+        roi_title: "How Much Lost Balance Will You Save?",
+        roi_desc: "Suppose you shoot 25 weddings a year. If this system saves just ONE delayed balance (RM800) from being ghosted:",
+        roi_sub: "Your studio cash flow is protected year-round. The software investment (RM39/month) pays for itself over 20 times over!",
+        roi_cta: "Protect Your Studio Balances Today →",
+        faq_title: "Frequently Asked Questions by Photographers",
+        faq_q1: "Can couples pay deposits via DuitNow QR or Online Banking?",
+        faq_a1: "Yes! You can display your official DuitNow QR code or bank account details. Couples upload payment receipts directly upon booking, and you confirm with a single tap.",
+        faq_q2: "Can I enforce a Non-Refundable Deposit policy?",
+        faq_a2: "Yes. Your cancellation and deposit policy is clearly presented on the booking page before payment, protecting your studio from last-minute refund disputes.",
+        faq_q3: "What if a couple needs to reschedule their wedding date?",
+        faq_a3: "eqstudio.link includes an intelligent reschedule engine. Either you or the couple can pick a newly available date from your calendar without schedule overlap, keeping all deposit records linked.",
+        footer_cta_title: "Never Leave Your Next Wedding Balance Hanging.",
+        footer_cta_sub: "Join hundreds of professional Malaysian photographers and wedding creators streamlining their booking operations.",
+        footer_cta_btn: "Start Your 14-Day Free Trial"
+      }
+    };
+
+    function applyNicheLanguage(lang) {
+      const dict = NICHE_I18N[lang] || NICHE_I18N.ms;
+      document.documentElement.setAttribute("lang", lang);
+      localStorage.setItem("eqstudio_niche_lang", lang);
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const k = el.dataset.i18n;
+        if (dict[k]) el.textContent = dict[k];
+      });
+
+      document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.langToggle === lang);
+      });
+    }
+
+    document.querySelectorAll("[data-lang-toggle]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        applyNicheLanguage(btn.dataset.langToggle);
+      });
+    });
+
+    // Initialize with saved or default BM
+    const initialLang = localStorage.getItem("eqstudio_niche_lang") || "ms";
+    applyNicheLanguage(initialLang);
+  </script>
+</body>
+</html>

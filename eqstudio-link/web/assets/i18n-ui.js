@@ -15,6 +15,7 @@
 
 export const UI_STRINGS = {
   en: {
+    nav_fotografi: "📸 Photographers",
     lead_add_btn: "+ Add Lead",
     add_btn: "+ Add",
 
@@ -747,6 +748,7 @@ export const UI_STRINGS = {
     agenda_add_client_btn: "+ Add Customer",
   },
   ms: {
+    nav_fotografi: "📸 Fotografi & Majlis",
     lead_add_btn: "+ Tambah Lead",
     add_btn: "+ Tambah",
 

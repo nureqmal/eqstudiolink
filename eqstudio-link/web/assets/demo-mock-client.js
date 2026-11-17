@@ -988,6 +988,17 @@ export function createMockSupabaseClient(niche) {
       onAuthStateChange() { return { data: { subscription: { unsubscribe() {} } } }; }
     },
     from(tableName) { return createQueryBuilder(dataStore, tableName); },
+    channel(_name) {
+      const channelObj = {
+        on(_event, _opts, _callback) { return channelObj; },
+        subscribe(cb) {
+          if (typeof cb === "function") cb("SUBSCRIBED");
+          return channelObj;
+        },
+        unsubscribe() { return Promise.resolve(); }
+      };
+      return channelObj;
+    },
     storage: {
       from() {
         return {

@@ -15,7 +15,7 @@
 
 export const UI_STRINGS = {
   en: {
-    nav_fotografi: "📸 Photographers",
+    nav_fotografi: "Photographers & Studios",
     lead_add_btn: "+ Add Lead",
     add_btn: "+ Add",
 
@@ -277,7 +277,7 @@ export const UI_STRINGS = {
     hero_cta_secondary: "See Full Details",
     hero_trial_note: "14-day trial, no card needed",
     hero_setup_time: "Guided setup, most owners are live in under 5 minutes",
-    chat_title: "Ask Us 🤖",
+    chat_title: "Ask Us",
     chat_sub: "FAQ bot, answers automatically",
     chat_input_placeholder: "Type your question...",
 
@@ -748,7 +748,7 @@ export const UI_STRINGS = {
     agenda_add_client_btn: "+ Add Customer",
   },
   ms: {
-    nav_fotografi: "📸 Fotografi & Majlis",
+    nav_fotografi: "Fotografi & Majlis",
     lead_add_btn: "+ Tambah Lead",
     add_btn: "+ Tambah",
 
@@ -1010,7 +1010,7 @@ export const UI_STRINGS = {
     hero_cta_secondary: "Tengok Butiran Lanjut",
     hero_trial_note: "Trial 14 hari, tak perlu kad",
     hero_setup_time: "Setup berpandu, kebanyakan owner siap dalam bawah 5 minit",
-    chat_title: "Tanya Kami 🤖",
+    chat_title: "Tanya Kami",
     chat_sub: "Bot FAQ, jawab automatic",
     chat_input_placeholder: "Taip soalan anda...",
 

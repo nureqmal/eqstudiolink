@@ -2450,7 +2450,7 @@
     // ends up being the real client or the demo mock, since both expose the
     // exact same .auth/.from()/.storage shape.
     const _urlParams = new URLSearchParams(window.location.search);
-    const isDemoMode = _urlParams.get("demo") && _urlParams.get("key") === "eqstudio-demo-2026";
+    const isDemoMode = Boolean(_urlParams.get("demo"));
     let supabase;
     if (isDemoMode) {
       const { createMockSupabaseClient } = await import("/assets/demo-mock-client.js");

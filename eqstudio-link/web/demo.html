@@ -21,18 +21,26 @@
   </div>
 
   <script type="module">
-    const DEMO_KEY = "eqstudio-demo-2026";
     const NICHES = [
-      { slug: "aiskrim", label: "Aiskrim Comel", desc: "Katering aiskrim untuk event & majlis", emoji: "🍦" },
-      { slug: "fotografi", label: "Lensa Kreatif Studio", desc: "Fotografi potret, pra-perkahwinan & majlis", emoji: "📷" },
-      // Tambah niche baharu di sini bila dataset baharu ditambah ke demo-mock-client.js
+      {
+        slug: "fotografi",
+        label: "Lensa Kreatif Studio",
+        desc: "Fotografi potret, pra-perkahwinan & liputan majlis",
+        icon: '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--stamp);"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>'
+      },
+      {
+        slug: "aiskrim",
+        label: "Aiskrim Comel",
+        desc: "Katering aiskrim untuk event sekolah, kenduri & majlis",
+        icon: '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--stamp);"><path d="m7 11 5 11 5-11Z"></path><circle cx="12" cy="6" r="4"></circle></svg>'
+      }
     ];
 
     document.getElementById("demo-grid").innerHTML = NICHES.map(n => `
-      <a href="/dashboard.html?demo=${n.slug}&key=${DEMO_KEY}" class="card" style="text-decoration:none; color:inherit; display:block;">
-        <div style="font-size:2rem; margin-bottom:0.4rem;">${n.emoji}</div>
-        <strong>${n.label}</strong>
-        <p class="hint" style="margin:0.3rem 0 0;">${n.desc}</p>
+      <a href="/dashboard.html?demo=${n.slug}" class="card" style="text-decoration:none; color:inherit; display:block; transition:transform 0.15s ease;">
+        <div style="margin-bottom:0.6rem;">${n.icon}</div>
+        <strong style="font-size:1.05rem;">${n.label}</strong>
+        <p class="hint" style="margin:0.35rem 0 0; font-size:0.85rem;">${n.desc}</p>
       </a>
     `).join("");
   </script>

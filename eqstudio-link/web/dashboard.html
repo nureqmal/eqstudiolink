@@ -112,191 +112,66 @@
           </div>
 
           <!-- ═════════════════════════════════════════════════════════════════════
-               STOREFRONT READINESS & OPTIMIZATION COCKPIT (Desktop & Mobile)
-               Laman Jualan Rasmi Bio — Skor Kesiapsiagaan & Pautan Pelanggan
+               OFFICIAL BIO STOREFRONT (LIVE CUSTOMER VIEW)
+               Laman Jualan Rasmi Bio — Paparan Pelanggan & Enjin Kesiapsiagaan
                ═════════════════════════════════════════════════════════════════════ -->
-          <div class="storefront-cockpit-card" id="home-storefront-cockpit">
-            <div class="storefront-cockpit-grid">
-              <!-- Left Column: Readiness Score & Actionable Conversion Checklist -->
-              <div class="storefront-cockpit-main">
-                <div class="storefront-cockpit-badge-row">
-                  <span class="storefront-status-pill status-ready-mid" id="sf-status-pill">
-                    <span class="sf-status-dot"></span>
-                    <span id="sf-status-label">Mengira Kesiapsiagaan...</span>
-                  </span>
-                  <span class="storefront-target-hint">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    <span id="sf-conversion-impact">Impak: Enjin Konversi Bio</span>
-                  </span>
+          <div class="card storefront-live-card" id="home-storefront-cockpit">
+            <!-- Header Row: Title, Live Status, and Compact Readiness Gauge -->
+            <div class="sf-live-header">
+              <div class="sf-live-title-group">
+                <div class="sf-live-icon-badge">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                 </div>
-
-                <div class="storefront-score-header">
-                  <div class="storefront-score-val-wrap">
-                    <div class="storefront-score-number" id="sf-score-number">0%</div>
-                    <div>
-                      <h2 class="storefront-score-title">Kesiapsiagaan Laman Jualan Bio</h2>
-                      <p class="storefront-score-desc" id="sf-score-desc">Pelanggan di Instagram &amp; TikTok buat keputusan dalam 5 saat pertama. Lengkapkan 5 tiang konversi ini untuk kunci deposit serta-merta tanpa soal jawab WhatsApp berulang kali.</p>
-                    </div>
+                <div>
+                  <div class="sf-live-title-row">
+                    <h2 class="sf-live-title" data-i18n="sf_live_storefront_title">Laman Jualan Rasmi Bio (Paparan Pelanggan)</h2>
+                    <span class="sf-live-status-pill" id="sf-status-pill">
+                      <span class="sf-status-dot"></span>
+                      <span id="sf-status-label" data-i18n="sf_score_optimized">Super-Optimized (Sedia Viral)</span>
+                    </span>
                   </div>
-                </div>
-
-                <!-- High-impact progress meter -->
-                <div class="storefront-progress-track">
-                  <div class="storefront-progress-bar" id="sf-progress-bar" style="width: 0%;"></div>
-                </div>
-
-                <!-- 5 Conversion Pillars Checklist -->
-                <div class="storefront-checklist" id="sf-checklist">
-                  <!-- Item 1: Profile & Logo -->
-                  <div class="sf-check-item" id="sf-item-profile" data-step="profile">
-                    <div class="sf-check-status-icon">
-                      <svg class="sf-icon-checked" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      <svg class="sf-icon-pending" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    </div>
-                    <div class="sf-check-info">
-                      <div class="sf-check-title-row">
-                        <span class="sf-check-title">Profil Rasmi &amp; Logo / Gambar Studio</span>
-                        <span class="sf-check-weight">+20% Keyakinan</span>
-                      </div>
-                      <p class="sf-check-sub">Nama bisnes jelas &amp; logo profesional membina kredibiliti agar pelanggan tidak ragu-ragu.</p>
-                    </div>
-                    <button type="button" class="sf-check-action-btn" data-page="tetapan-profil">Kemas Kini</button>
-                  </div>
-
-                  <!-- Item 2: DuitNow QR & Bank Info -->
-                  <div class="sf-check-item" id="sf-item-payment" data-step="payment">
-                    <div class="sf-check-status-icon">
-                      <svg class="sf-icon-checked" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      <svg class="sf-icon-pending" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    </div>
-                    <div class="sf-check-info">
-                      <div class="sf-check-title-row">
-                        <span class="sf-check-title">DuitNow QR &amp; Deposit Automatik</span>
-                        <span class="sf-check-weight">+20% Kunci Slot</span>
-                      </div>
-                      <p class="sf-check-sub">Terima slip deposit serta-merta semasa pelanggan lock slot tarikh pilihan mereka.</p>
-                    </div>
-                    <button type="button" class="sf-check-action-btn" data-page="tetapan-profil">Setup DuitNow</button>
-                  </div>
-
-                  <!-- Item 3: Packages / Event Types (min 2) -->
-                  <div class="sf-check-item" id="sf-item-services" data-step="services">
-                    <div class="sf-check-status-icon">
-                      <svg class="sf-icon-checked" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      <svg class="sf-icon-pending" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    </div>
-                    <div class="sf-check-info">
-                      <div class="sf-check-title-row">
-                        <span class="sf-check-title">Sekurang-kurangnya 2 Pakej / Servis Rasmi</span>
-                        <span class="sf-check-weight">+25% Konversi</span>
-                      </div>
-                      <p class="sf-check-sub">Senarai pakej beserta durasi &amp; harga telus memudahkan pelanggan memilih tanpa tanya di chat.</p>
-                    </div>
-                    <button type="button" class="sf-check-action-btn" data-page="booking-settings">Tambah Pakej</button>
-                  </div>
-
-                  <!-- Item 4: Custom Intake Questions -->
-                  <div class="sf-check-item" id="sf-item-questions" data-step="questions">
-                    <div class="sf-check-status-icon">
-                      <svg class="sf-icon-checked" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      <svg class="sf-icon-pending" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    </div>
-                    <div class="sf-check-info">
-                      <div class="sf-check-title-row">
-                        <span class="sf-check-title">Soalan Khas Tempahan (Intake Questions)</span>
-                        <span class="sf-check-weight">+15% Jimat Masa</span>
-                      </div>
-                      <p class="sf-check-sub">Kumpul lokasi, masa siap, atau tema majlis awal-awal tanpa sembang WhatsApp berulang kali.</p>
-                    </div>
-                    <button type="button" class="sf-check-action-btn" data-page="booking-settings">Urus Soalan</button>
-                  </div>
-
-                  <!-- Item 5: Social Media Bio & Policy / Terms -->
-                  <div class="sf-check-item" id="sf-item-bio" data-step="bio">
-                    <div class="sf-check-status-icon">
-                      <svg class="sf-icon-checked" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      <svg class="sf-icon-pending" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    </div>
-                    <div class="sf-check-info">
-                      <div class="sf-check-title-row">
-                        <span class="sf-check-title">Pautan Media Sosial &amp; Terma Tempahan</span>
-                        <span class="sf-check-weight">+20% Kredibiliti</span>
-                      </div>
-                      <p class="sf-check-sub">Pautan Instagram/TikTok rasmi &amp; polisi deposit jelas untuk keselamatan dua hala.</p>
-                    </div>
-                    <button type="button" class="sf-check-action-btn" data-page="tetapan-profil">Lengkapkan Info</button>
-                  </div>
+                  <p class="sf-live-desc" id="sf-live-desc" data-i18n="sf_live_sub">Pautan rasmi di bio Instagram &amp; TikTok. Pelanggan pilih pakej, semak tarikh &amp; bayar deposit automatik.</p>
                 </div>
               </div>
 
-              <!-- Right Column: Interactive Live Bio-Storefront Preview & Quick Sharing Suite -->
-              <div class="storefront-cockpit-preview">
-                <div class="sf-preview-header">
-                  <div class="sf-preview-title">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><line x1="12" x2="12.01" y1="18" y2="18"/></svg>
-                    <span>Paparan Pelanggan (Live)</span>
-                  </div>
-                  <span class="sf-live-badge-mini" id="sf-preview-slug-badge">/book/...</span>
+              <!-- Compact Readiness Gauge & Clickable Quick Pillars -->
+              <div class="sf-readiness-box" id="sf-readiness-box">
+                <div class="sf-readiness-top">
+                  <span class="sf-readiness-label" data-i18n="sf_readiness_score">Kesiapsiagaan Laman Jualan</span>
+                  <span class="sf-readiness-pct" id="sf-score-number">100%</span>
                 </div>
-
-                <!-- Smartphone / Mini Storefront Card Display -->
-                <div class="sf-mini-phone-card">
-                  <div class="sf-phone-notch"></div>
-                  <div class="sf-phone-biz-header">
-                    <div class="sf-phone-logo-wrap" id="sf-phone-logo-wrap">
-                      <div class="sf-phone-logo-fallback" id="sf-phone-logo-fallback">EQ</div>
-                      <img src="" id="sf-phone-logo-img" style="display:none;" alt="Logo" />
-                    </div>
-                    <div class="sf-phone-biz-meta">
-                      <div class="sf-phone-biz-name" id="sf-phone-biz-name">-</div>
-                      <div class="sf-phone-biz-sub" id="sf-phone-biz-sub">Laman Tempahan Rasmi</div>
-                    </div>
-                  </div>
-
-                  <div class="sf-phone-url-chip" id="sf-phone-url-display">
-                    <span class="sf-url-text" id="sf-live-url-text">eqstudio.link/book.html?slug=...</span>
-                  </div>
-
-                  <div class="sf-phone-quick-features">
-                    <div class="sf-phone-pill">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span id="sf-preview-services-cnt">0 Pakej</span>
-                    </div>
-                    <div class="sf-phone-pill">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span id="sf-preview-deposit-status">DuitNow QR</span>
-                    </div>
-                    <div class="sf-phone-pill">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span>Kalendar Realtime</span>
-                    </div>
-                  </div>
+                <div class="sf-readiness-track">
+                  <div class="sf-readiness-bar" id="sf-progress-bar" style="width: 100%;"></div>
                 </div>
-
-                <!-- Quick Action Buttons -->
-                <div class="sf-preview-actions">
-                  <button type="button" class="primary sf-btn-copy" id="sf-copy-bio-link-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                    <span id="sf-copy-btn-text">Salin Link Bio (IG/TikTok)</span>
+                <div class="sf-quick-pills">
+                  <button type="button" class="sf-q-pill completed" id="sf-pill-profile" data-page="tetapan-profil">
+                    <span class="sf-q-dot"></span>
+                    <span data-i18n="sf_pill_profile">Profil &amp; Logo</span>
                   </button>
-
-                  <div class="sf-preview-dual-btns">
-                    <a href="#" target="_blank" rel="noopener" class="secondary sf-btn-live" id="sf-open-live-btn">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-                      <span>Buka Laman Jualan</span>
-                    </a>
-                    <button type="button" class="secondary sf-btn-wa" id="sf-copy-wa-template-btn">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                      <span>Mesej Jemputan WA</span>
-                    </button>
-                  </div>
+                  <button type="button" class="sf-q-pill completed" id="sf-pill-payment" data-page="tetapan-profil">
+                    <span class="sf-q-dot"></span>
+                    <span data-i18n="sf_pill_payment">DuitNow QR</span>
+                  </button>
+                  <button type="button" class="sf-q-pill completed" id="sf-pill-services" data-page="booking-settings" data-tab="jenis">
+                    <span class="sf-q-dot"></span>
+                    <span data-i18n="sf_pill_services">2+ Pakej</span>
+                  </button>
+                  <button type="button" class="sf-q-pill completed" id="sf-pill-questions" data-page="booking-settings" data-tab="soalan">
+                    <span class="sf-q-dot"></span>
+                    <span data-i18n="sf_pill_questions">Soalan Khas</span>
+                  </button>
+                  <button type="button" class="sf-q-pill completed" id="sf-pill-bio" data-page="tetapan-profil">
+                    <span class="sf-q-dot"></span>
+                    <span data-i18n="sf_pill_bio">Media Sosial &amp; Polisi</span>
+                  </button>
                 </div>
               </div>
             </div>
+
+            <!-- Dynamic Links Showcase Area (Supports 1 or multiple links) -->
+            <div class="sf-links-list" id="sf-links-list"></div>
           </div>
 
-
-          <!-- ── Mobile Today's Schedule & Agenda Glance (Mobile Only, Desktop 100% Unchanged) ── -->
           <div class="mobile-today-agenda-card" id="mobile-today-agenda-card">
             <div class="mobile-agenda-header">
               <div class="mobile-agenda-title-group">
@@ -2731,6 +2606,11 @@
           }
         } catch (_) {}
         try {
+          if (typeof updateStorefrontReadiness === "function") {
+            updateStorefrontReadiness();
+          }
+        } catch (_) {}
+        try {
           if (typeof renderHomeMobileAgenda === "function") {
             renderHomeMobileAgenda();
           }
@@ -3282,7 +3162,8 @@
     const { data: allHomeLinks } = await supabase.from("booking_links").select("slug, label, is_primary").eq("owner_id", user.id).order("is_primary", { ascending: false }).order("created_at", { ascending: true });
 
     if (allHomeLinks && allHomeLinks.length > 0) {
-      document.getElementById("home-booking-link-card").style.display = "block";
+      document.getElementById("home-booking-link-card").style.display = "none"; // Consolidated into Storefront Cockpit
+      updateStorefrontReadiness();
       document.getElementById("home-no-booking-link-card").style.display = "none";
 
       document.getElementById("home-link-list").innerHTML = allHomeLinks.map((l, i) => {
@@ -6427,31 +6308,31 @@
       }
     }
 
-    // ── Storefront Readiness & Conversion Optimization Engine ──
+    // ── Unified Storefront & Live Customer View Engine ──
     async function updateStorefrontReadiness() {
       const cockpit = document.getElementById("home-storefront-cockpit");
       if (!cockpit) return;
 
-      const link = currentLink() || allBookingLinks[0];
-      const slug = link?.slug || "";
-      const fullUrl = slug ? `${window.location.origin}/book.html?slug=${slug}` : "";
+      const lang = (window.getCurrentLang && window.getCurrentLang()) || "ms";
+      const isEn = lang === "en";
 
       // 1. Profil & Logo (20%)
       const bizName = currentProfile?.business_name || document.getElementById("home-biz-name")?.textContent || "";
       const hasCustomBizName = bizName && bizName !== "Perniagaan Anda" && bizName !== "-";
-      const hasLogoOrCover = !!(currentProfile?.logo_url || currentProfile?.cover_photo_url || link?.poster_url);
+      const hasLogoOrCover = !!(currentProfile?.logo_url || currentProfile?.cover_photo_url);
       const hasProfile = hasCustomBizName && (hasLogoOrCover || !!currentProfile?.contact_phone);
 
       // 2. DuitNow QR & Deposit (20%)
-      const hasQr = !!(currentProfile?.qr_code_url || currentProfile?.bank_account_number || link?.default_deposit_amount != null);
-      const hasDepositAmount = link?.default_deposit_amount != null && Number(link.default_deposit_amount) > 0;
+      const hasQr = !!(currentProfile?.qr_code_url || currentProfile?.bank_account_number || allBookingLinks.some(l => l.default_deposit_amount != null));
+      const hasDepositAmount = allBookingLinks.some(l => l.default_deposit_amount != null && Number(l.default_deposit_amount) > 0);
       const hasPayment = hasQr && hasDepositAmount;
 
       // 3. Pakej / Servis Rasmi (25%)
       let servicesCount = 0;
-      if (link?.id) {
+      const primaryLink = allBookingLinks.find(l => l.is_primary) || allBookingLinks[0];
+      if (primaryLink?.id) {
         try {
-          const { count } = await supabase.from("event_types").select("*", { count: "exact", head: true }).eq("booking_link_id", link.id);
+          const { count } = await supabase.from("event_types").select("*", { count: "exact", head: true }).eq("booking_link_id", primaryLink.id);
           servicesCount = count || 0;
         } catch (_) { servicesCount = 0; }
       }
@@ -6459,16 +6340,16 @@
 
       // 4. Soalan Khas Tempahan (15%)
       let questionsCount = 0;
-      if (link?.id) {
+      if (primaryLink?.id) {
         try {
-          const { count } = await supabase.from("booking_questions").select("*", { count: "exact", head: true }).eq("booking_link_id", link.id);
+          const { count } = await supabase.from("booking_questions").select("*", { count: "exact", head: true }).eq("booking_link_id", primaryLink.id);
           questionsCount = count || 0;
         } catch (_) { questionsCount = 0; }
       }
       const hasQuestions = questionsCount >= 1;
 
       // 5. Media Sosial & Polisi Tempahan (20%)
-      const hasBio = !!(currentProfile?.instagram_url || currentProfile?.tiktok_url || currentProfile?.whatsapp_number || currentProfile?.about_text || link?.description);
+      const hasBio = !!(currentProfile?.instagram_url || currentProfile?.tiktok_url || currentProfile?.whatsapp_number || currentProfile?.about_text || primaryLink?.description);
 
       // Calculate total score
       let score = 0;
@@ -6482,24 +6363,11 @@
       else if (servicesCount === 1) score += 12;
 
       if (hasQuestions) score += 15;
-
       if (hasBio) score += 20;
 
       score = Math.min(100, Math.max(0, score));
 
-      currentStorefrontMetrics = {
-        score,
-        hasProfile,
-        hasPayment,
-        hasServices,
-        hasQuestions,
-        hasBio,
-        slug,
-        activeUrl: fullUrl,
-        servicesCount
-      };
-
-      // Update UI elements
+      // Update score display
       const scoreEl = document.getElementById("sf-score-number");
       if (scoreEl) scoreEl.textContent = `${score}%`;
 
@@ -6513,133 +6381,170 @@
 
       const pill = document.getElementById("sf-status-pill");
       const pillLabel = document.getElementById("sf-status-label");
-      const impactEl = document.getElementById("sf-conversion-impact");
       if (pill && pillLabel) {
-        pill.className = "storefront-status-pill";
+        pill.className = "sf-live-status-pill";
         if (score >= 85) {
           pill.classList.add("status-ready-high");
-          pillLabel.textContent = "Super-Optimized (Sedia Viral)";
-          if (impactEl) impactEl.textContent = "Impak: Konversi Maksimum";
+          pillLabel.textContent = t("sf_score_optimized", "Super-Optimized (Sedia Viral)");
         } else if (score >= 50) {
           pill.classList.add("status-ready-mid");
-          pillLabel.textContent = "Kesiapsiagaan Sederhana";
-          if (impactEl) impactEl.textContent = "Impak: Sedia Terima Tempahan";
+          pillLabel.textContent = t("sf_score_moderate", "Kesiapsiagaan Sederhana");
         } else {
           pill.classList.add("status-ready-low");
-          pillLabel.textContent = "Belum Sedia Dikongsi";
-          if (impactEl) impactEl.textContent = "Impak: Risiko Pelanggan Bounce";
+          pillLabel.textContent = t("sf_score_low", "Belum Sedia Dikongsi");
         }
       }
 
-      // Update checklist item statuses
-      document.getElementById("sf-item-profile")?.classList.toggle("completed", hasProfile);
-      document.getElementById("sf-item-payment")?.classList.toggle("completed", hasPayment);
-      document.getElementById("sf-item-services")?.classList.toggle("completed", hasServices);
-      document.getElementById("sf-item-questions")?.classList.toggle("completed", hasQuestions);
-      document.getElementById("sf-item-bio")?.classList.toggle("completed", hasBio);
+      // Update quick pills
+      document.getElementById("sf-pill-profile")?.classList.toggle("completed", hasProfile);
+      document.getElementById("sf-pill-payment")?.classList.toggle("completed", hasPayment);
+      document.getElementById("sf-pill-services")?.classList.toggle("completed", hasServices);
+      document.getElementById("sf-pill-questions")?.classList.toggle("completed", hasQuestions);
+      document.getElementById("sf-pill-bio")?.classList.toggle("completed", hasBio);
 
-      // Mini phone preview updates
-      const phoneBizName = document.getElementById("sf-phone-biz-name");
-      if (phoneBizName) phoneBizName.textContent = bizName || "Studio Anda";
+      // Render all links into #sf-links-list
+      const linksContainer = document.getElementById("sf-links-list");
+      if (!linksContainer) return;
 
-      const phoneSlug = document.getElementById("sf-live-url-text");
-      if (phoneSlug) phoneSlug.textContent = slug ? `eqstudio.link/book.html?slug=${slug}` : "eqstudio.link/book.html?slug=nama-bisnes";
-
-      const slugBadge = document.getElementById("sf-preview-slug-badge");
-      if (slugBadge) slugBadge.textContent = slug ? `/book/${slug}` : "/book/...";
-
-      const servicesPill = document.getElementById("sf-preview-services-cnt");
-      if (servicesPill) servicesPill.textContent = `${servicesCount} Pakej`;
-
-      const depositPill = document.getElementById("sf-preview-deposit-status");
-      if (depositPill) depositPill.textContent = (link?.default_deposit_amount != null) ? `Deposit RM${link.default_deposit_amount}` : "DuitNow QR";
-
-      // Logo/avatar preview in phone mockup
-      const logoImg = document.getElementById("sf-phone-logo-img");
-      const logoFallback = document.getElementById("sf-phone-logo-fallback");
-      const logoUrl = currentProfile?.logo_url || currentProfile?.cover_photo_url || link?.poster_url;
-      if (logoImg && logoFallback) {
-        if (logoUrl) {
-          logoImg.src = logoUrl;
-          logoImg.style.display = "block";
-          logoFallback.style.display = "none";
-        } else {
-          logoImg.style.display = "none";
-          logoFallback.style.display = "block";
-          const initials = (bizName || "EQ").split(" ").map(w => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
-          logoFallback.textContent = initials || "EQ";
-        }
+      if (!allBookingLinks || allBookingLinks.length === 0) {
+        linksContainer.innerHTML = `
+          <div style="padding:1rem; text-align:center; background:color-mix(in srgb, var(--paper) 40%, var(--surface)); border-radius:8px; border:1px dashed var(--paper-line);">
+            <p class="hint" style="margin:0 0 0.6rem;">${t("sf_no_links_msg", "Anda belum setup link booking lagi.")}</p>
+            <button type="button" class="primary" data-page="booking-settings">${t("sf_setup_now_btn", "Setup Pautan Tempahan Pertama Anda →")}</button>
+          </div>
+        `;
+        linksContainer.querySelector("[data-page]")?.addEventListener("click", () => goToPage("booking-settings"));
+        return;
       }
 
-      // Live link button
-      const previewBtn = document.getElementById("sf-open-live-btn");
-      if (previewBtn) {
-        if (fullUrl) {
-          previewBtn.href = fullUrl;
-          previewBtn.style.pointerEvents = "";
-          previewBtn.style.opacity = "";
-        } else {
-          previewBtn.href = "#";
-          previewBtn.style.pointerEvents = "none";
-          previewBtn.style.opacity = "0.5";
-        }
-      }
+      const multi = allBookingLinks.length > 1;
+      linksContainer.innerHTML = allBookingLinks.map((l, i) => {
+        const fullUrl = `${window.location.origin}/book.html?slug=${l.slug}`;
+        const label = l.label || (multi ? `Link ${i + 1}` : (bizName || "Link Tempahan"));
+        const depositTxt = (l.default_deposit_amount != null && Number(l.default_deposit_amount) > 0) 
+          ? `Deposit: RM${Number(l.default_deposit_amount).toFixed(0)}` 
+          : (l.default_deposit_amount === 0 ? "Deposit: Percuma" : "Deposit belum diset");
+
+        return `
+          <div class="sf-link-row-card" data-link-id="${l.id}">
+            <div class="sf-link-left">
+              <div class="sf-link-meta-row">
+                <span class="sf-link-label">${escapeHtml(label)}</span>
+                ${l.is_primary ? `<span class="sf-primary-badge">${t("sf_primary_badge", "Utama")}</span>` : ""}
+                <span class="sf-deposit-tag">${escapeHtml(depositTxt)}</span>
+              </div>
+              <div class="sf-link-url-code">${escapeHtml(fullUrl)}</div>
+            </div>
+            <div class="sf-link-actions-group">
+              <button type="button" class="sf-btn-copy-main" data-sf-copy="${fullUrl}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span>${t("sf_btn_copy", "Salin Link Bio")}</span>
+              </button>
+              <a href="${fullUrl}" target="_blank" rel="noopener" class="sf-btn-icon-action" title="${t("sf_btn_open", "Buka Laman")}">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                <span>${t("sf_btn_open", "Buka Laman")}</span>
+              </a>
+              <button type="button" class="sf-btn-icon-action" data-sf-wa="${fullUrl}" data-sf-biz="${escapeHtml(bizName || "")}" title="${t("sf_btn_wa", "Kongsi WhatsApp")}">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>${t("sf_btn_wa", "WhatsApp")}</span>
+              </button>
+              <button type="button" class="sf-btn-icon-action" data-sf-edit="${l.id}" title="${t("sf_btn_edit", "Edit Tetapan")}">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg>
+                <span>${t("sf_btn_edit", "Edit")}</span>
+              </button>
+              <button type="button" class="sf-btn-icon-action" data-sf-qr="${fullUrl}" data-sf-title="${escapeHtml(label)}" title="${t("sf_btn_qr", "Kod QR")}">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span>${t("sf_btn_qr", "QR")}</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Wire copy handlers
+      linksContainer.querySelectorAll("[data-sf-copy]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          navigator.clipboard.writeText(btn.dataset.sfCopy).then(() => {
+            showToast(t("sf_copied_toast", "Pautan Laman Bio berjaya disalin!"), "success");
+            const span = btn.querySelector("span");
+            if (span) {
+              const orig = span.textContent;
+              span.textContent = isEn ? "Copied!" : "Tersalin!";
+              setTimeout(() => { span.textContent = orig; }, 2000);
+            }
+          });
+        });
+      });
+
+      // Wire WhatsApp invite share handlers
+      linksContainer.querySelectorAll("[data-sf-wa]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const url = btn.dataset.sfWa;
+          const biz = btn.dataset.sfBiz || (isEn ? "our services" : "kami");
+          const msg = isEn
+            ? `Hi! Thank you for your interest in ${biz}. To view our official packages and book a slot directly, visit our link here:\n${url}`
+            : `Salam sejahtera! Terima kasih kerana berminat dengan ${biz}. Untuk semak ketersediaan tarikh, senarai pakej & tempah slot terus, klik pautan rasmi kami di sini:\n${url}`;
+          
+          if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
+          } else {
+            navigator.clipboard.writeText(msg).then(() => {
+              showToast(t("sf_wa_copied_toast", "Mesej jemputan WhatsApp berjaya disalin!"), "success");
+            });
+          }
+        });
+      });
+
+      // Wire edit settings handler
+      linksContainer.querySelectorAll("[data-sf-edit]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          currentLinkId = btn.dataset.sfEdit;
+          goToPage("booking-settings");
+          if (typeof renderLinkSwitcher === "function") renderLinkSwitcher(currentUserIsPro);
+          if (typeof loadSettingsForCurrentLink === "function") loadSettingsForCurrentLink();
+        });
+      });
+
+      // Wire QR code modal
+      linksContainer.querySelectorAll("[data-sf-qr]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const url = btn.dataset.sfQr;
+          const title = btn.dataset.sfTitle || "Booking QR";
+          const qrImgUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=8&data=${encodeURIComponent(url)}`;
+          const modalHtml = `
+            <div id="sf-qr-modal" style="position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; display:flex; align-items:center; justify-content:center; padding:1rem;">
+              <div class="card" style="max-width:340px; width:100%; text-align:center; padding:1.5rem; position:relative; background:var(--surface);">
+                <button type="button" id="sf-qr-modal-close" style="position:absolute; top:0.75rem; right:0.75rem; background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--ink);">&times;</button>
+                <h3 style="margin:0 0 0.5rem; font-size:1.1rem;">${escapeHtml(title)}</h3>
+                <p class="hint" style="margin:0 0 1rem; font-size:0.8rem;">${t("sf_qr_modal_desc", "Imbas untuk terus menempah.")}</p>
+                <img src="${qrImgUrl}" alt="QR" style="width:200px; height:200px; margin:0 auto 1rem; border-radius:8px; border:1px solid var(--paper-line); display:block;" />
+                <a href="${qrImgUrl}" target="_blank" download="qr-booking.png" class="btn primary" style="width:100%; justify-content:center; text-decoration:none;">${t("sf_qr_download_btn", "Muat Turun Gambar QR")}</a>
+              </div>
+            </div>
+          `;
+          document.getElementById("sf-qr-modal")?.remove();
+          document.body.insertAdjacentHTML("beforeend", modalHtml);
+          document.getElementById("sf-qr-modal-close")?.addEventListener("click", () => document.getElementById("sf-qr-modal")?.remove());
+          document.getElementById("sf-qr-modal")?.addEventListener("click", (e) => {
+            if (e.target.id === "sf-qr-modal") e.target.remove();
+          });
+        });
+      });
     }
 
-    // ── Wire Storefront Cockpit Actions ──
-    document.getElementById("sf-copy-bio-link-btn")?.addEventListener("click", () => {
-      if (!currentStorefrontMetrics.activeUrl) {
-        showToast("Sila tetapkan slug pautan tempahan terlebih dahulu.", "error");
-        goToPage("booking-settings");
-        return;
-      }
-      navigator.clipboard.writeText(currentStorefrontMetrics.activeUrl).then(() => {
-        showToast("Pautan Laman Bio berjaya disalin!", "success");
-        const txt = document.getElementById("sf-copy-btn-text");
-        if (txt) {
-          const orig = txt.textContent;
-          txt.textContent = "Tersalin!";
-          setTimeout(() => { txt.textContent = orig; }, 2000);
-        }
-      }).catch(() => {
-        showToast("Gagal menyalin link. Sila salin manual.", "error");
-      });
-    });
-
-    document.getElementById("sf-copy-wa-template-btn")?.addEventListener("click", () => {
-      if (!currentStorefrontMetrics.activeUrl) {
-        showToast("Sila tetapkan slug pautan tempahan terlebih dahulu.", "error");
-        goToPage("booking-settings");
-        return;
-      }
-      const bizName = currentProfile?.business_name || "kami";
-      const msg = `Salam sejahtera! Terima kasih kerana berminat dengan perkhidmatan ${bizName}.\n\nUntuk semak ketersediaan tarikh kosong, senarai pakej rasmi & buat tempahan slot serta-merta, sila klik pautan rasmi kami di sini:\n${currentStorefrontMetrics.activeUrl}\n\nJumpa anda di sana!`;
-      navigator.clipboard.writeText(msg).then(() => {
-        showToast("Templat jemputan WhatsApp berjaya disalin!", "success");
-      }).catch(() => {
-        showToast("Gagal menyalin. Sila salin manual.", "error");
-      });
-    });
-
-    document.querySelectorAll(".sf-check-action-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const targetPage = btn.dataset.page;
-        const parentItem = btn.closest(".sf-check-item");
-        const step = parentItem?.dataset.step;
-        if (targetPage) {
-          goToPage(targetPage);
-          if (step === "services") {
-            setTimeout(() => switchBsetTab("jenis"), 50);
-          } else if (step === "questions") {
-            setTimeout(() => switchBsetTab("soalan"), 50);
-          } else if (step === "payment") {
-            setTimeout(() => {
-              const qrSection = document.getElementById("p-qr-wrap") || document.getElementById("p-qr");
-              if (qrSection) qrSection.scrollIntoView({ behavior: "smooth" });
-            }, 100);
+    // Quick pillars jump click
+    document.querySelectorAll(".sf-q-pill").forEach(pill => {
+      pill.addEventListener("click", () => {
+        const page = pill.dataset.page;
+        const tab = pill.dataset.tab;
+        if (page) {
+          goToPage(page);
+          if (tab && typeof switchBsetTab === "function") {
+            setTimeout(() => switchBsetTab(tab), 50);
           }
         }
       });
+    });
     });
 
     function updateHomeTileStats() {

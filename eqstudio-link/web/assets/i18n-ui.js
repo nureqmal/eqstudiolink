@@ -16,6 +16,7 @@
 export const UI_STRINGS = {
   en: {
     nav_fotografi: "Photographers & Studios",
+    nav_mua: "Makeup Artists & MUAs",
     lead_add_btn: "+ Add Lead",
     add_btn: "+ Add",
 
@@ -749,6 +750,7 @@ export const UI_STRINGS = {
   },
   ms: {
     nav_fotografi: "Fotografi & Majlis",
+    nav_mua: "MUA & Solekan",
     lead_add_btn: "+ Tambah Lead",
     add_btn: "+ Tambah",
 

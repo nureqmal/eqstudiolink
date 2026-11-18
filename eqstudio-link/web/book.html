@@ -193,12 +193,12 @@
     const pathMatch = window.location.pathname.match(/\/book\/([^/?#]+)/);
     const slug = new URLSearchParams(window.location.search).get("slug") || (pathMatch ? decodeURIComponent(pathMatch[1]) : null);
     const _search = new URLSearchParams(window.location.search);
-    const isPreviewMode = !slug || slug === "preview" || slug === "_preview" || slug === "demo" || slug === "lensa-kreatif" || slug === "aiskrim-comel" || _search.has("preview") || _search.has("demo");
+    const isPreviewMode = !slug || slug === "preview" || slug === "_preview" || slug === "demo" || slug === "lensa-kreatif" || slug === "bella-glam" || slug === "aiskrim-comel" || _search.has("preview") || _search.has("demo");
     let availabilityData = null;
     let selectedType = null;
     let selectedDate = null;
     let selectedSlot = null;
-    let activePreviewPreset = (slug === "aiskrim-comel" || _search.get("demo") === "aiskrim") ? "food" : "photo";
+    let activePreviewPreset = (slug === "aiskrim-comel" || _search.get("demo") === "aiskrim") ? "food" : ((slug === "bella-glam" || _search.get("demo") === "mua") ? "spa" : "photo");
     let selectedCategory = "all";
     let selectedAddons = new Set();
     let selectedTod = "all";

@@ -832,8 +832,356 @@ function buildAiskrimComelDataset() {
   };
 }
 
+
+// ─────────────────────────────────────────────────────────────
+// NICHE 3: MAKEUP ARTIST & JURUSOLEK PENGANTIN (Bella Glam Studio)
+// ─────────────────────────────────────────────────────────────
+function buildMuaDataset() {
+  const ownerId = "demo-mua-uid";
+  const linkId = "demo-link-mua";
+  const etNikah = "demo-et-mua-nikah";
+  const etSanding = "demo-et-mua-sanding";
+  const etFull = "demo-et-mua-full";
+  const etEvent = "demo-et-mua-event";
+
+  const now = new Date();
+  const thisMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+
+  const availability_dates = [];
+  for (let i = 0; i < 60; i++) {
+    const day = daysFromNow(i);
+    const dow = day.getDay();
+    if (dow === 4 || dow === 5 || dow === 6 || dow === 0) {
+      availability_dates.push({
+        id: `avail-mua-${i}`,
+        owner_id: ownerId,
+        booking_link_id: linkId,
+        specific_date: isoDate(day),
+        start_time: "05:00:00",
+        end_time: "18:00:00"
+      });
+    }
+  }
+
+  const bookings = [];
+  let bkIdx = 1;
+
+  const pastList = [
+    { daysAgo: 13, name: "Farhana & Haziq", et: etSanding, fee: 650, time: 11 },
+    { daysAgo: 12, name: "Nurul Aini (Nikah)", et: etNikah, fee: 450, time: 5 },
+    { daysAgo: 11, name: "Datin Seri Rosnah (Dinner)", et: etEvent, fee: 200, time: 17 },
+    { daysAgo: 10, name: "Siti Sarah & Azlan", et: etFull, fee: 1100, time: 6 },
+    { daysAgo: 9,  name: "Natasha (Tunang)", et: etNikah, fee: 450, time: 10 },
+    { daysAgo: 8,  name: "Anis & Hafiz", et: etSanding, fee: 650, time: 11 },
+    { daysAgo: 7,  name: "Dr. Liyana (Gala Dinner)", et: etEvent, fee: 200, time: 16 },
+    { daysAgo: 6,  name: "Nabila & Syakir", et: etFull, fee: 1100, time: 5 },
+    { daysAgo: 5,  name: "Puteri Balqis", et: etNikah, fee: 450, time: 6 },
+    { daysAgo: 4,  name: "Aisyah & Danial", et: etSanding, fee: 650, time: 11 },
+    { daysAgo: 3,  name: "Fatin Nadia (Dinner)", et: etEvent, fee: 200, time: 17 },
+    { daysAgo: 2,  name: "Zulaikha & Khairul", et: etFull, fee: 1100, time: 5 },
+    { daysAgo: 2,  name: "Amira (Pre-Wed Shoot)", et: etEvent, fee: 200, time: 14 },
+    { daysAgo: 1,  name: "Syaza (Nikah Subuh)", et: etNikah, fee: 450, time: 5 },
+    { daysAgo: 1,  name: "Irdina & Faris", et: etSanding, fee: 650, time: 11 },
+    { daysAgo: 0,  name: "Melissa (Sanding Petang)", et: etSanding, fee: 650, time: 12 }
+  ];
+
+  for (const p of pastList) {
+    const slotD = daysFromNow(-p.daysAgo);
+    slotD.setHours(p.time, 0, 0, 0);
+    bookings.push({
+      id: `demo-mbk-${bkIdx}`,
+      owner_id: ownerId,
+      booking_link_id: linkId,
+      event_type_id: p.et,
+      customer_id: `demo-mcust-${bkIdx}`,
+      customer_name: p.name,
+      customer_email: `bride${bkIdx}@example.com`,
+      customer_phone: `013-${String(200 + bkIdx * 17).slice(0, 3)} ${String(1000 + bkIdx * 31).slice(0, 4)}`,
+      slot_datetime: isoDateTime(slotD),
+      duration_minutes: p.et === etFull ? 300 : (p.et === etSanding ? 150 : 120),
+      status: "confirmed",
+      deposit_amount: p.fee > 600 ? 300 : 150,
+      deposit_paid: true,
+      custom_answers: {
+        "Lokasi tempat bersiap (nyatakan alamat rumah, nama hotel atau dewan)?": "Hotel Le Meridien Putrajaya",
+        "Pukul berapa mekap WAJIB siap sepenuhnya?": "7:00 AM",
+        "Jenis kulit dan adakah mempunyai sebarang alahan kosmetik?": "Kulit kombinasi normal-kering, tiada alahan",
+        "Pilihan rujukan gaya mekap (cth: Soft Glam, Natural Barbie, Thai Look)?": "Soft Barbie Glowing Look"
+      },
+      created_at: isoDateTime(daysFromNow(-p.daysAgo - 4))
+    });
+    bkIdx++;
+  }
+
+  const upcomingList = [
+    { daysAhead: 1, time: 5, name: "Nurul Huda (Nikah)", et: etNikah, loc: "Masjid Wilayah KL" },
+    { daysAhead: 2, time: 11, name: "Iffah & Luqman (Sanding)", et: etSanding, loc: "Dewan Seri Siantan" },
+    { daysAhead: 3, time: 5, name: "Sharifah Diana (Nikah)", et: etNikah, loc: "Hotel Majestic KL" },
+    { daysAhead: 4, time: 17, name: "Datin Azura (Dinner)", et: etEvent, loc: "Grand Hyatt KL" },
+    { daysAhead: 5, time: 5, name: "Athirah & Hafiz (Full 2 Sesi)", et: etFull, loc: "Glasshouse Seputeh" },
+    { daysAhead: 7, time: 11, name: "Zulaikha (Sanding)", et: etSanding, loc: "Boraombak Marina" },
+    { daysAhead: 8, time: 5, name: "Farah Adila (Nikah Subuh)", et: etNikah, loc: "Rumah Pengantin, Shah Alam" },
+    { daysAhead: 9, time: 12, name: "Nurin (Sanding)", et: etSanding, loc: "Dewan Perdana Felda" },
+    { daysAhead: 11, time: 5, name: "Maisarah & Syafiq (Nikah)", et: etNikah, loc: "Masjid Tuanku Mizan Putrajaya" },
+    { daysAhead: 12, time: 11, name: "Tengku Nadia (Sanding)", et: etSanding, loc: "Royale Chulan Damansara" },
+    { daysAhead: 14, time: 16, name: "Siti Khatijah (Konvo)", et: etEvent, loc: "Studio Bella Glam" },
+    { daysAhead: 15, time: 5, name: "Wan Nurul (Nikah Subuh)", et: etNikah, loc: "Hotel Istana KL" },
+    { daysAhead: 18, time: 11, name: "Hanis & Zikri (Sanding)", et: etSanding, loc: "Dewan Seri Endon" },
+    { daysAhead: 20, time: 5, name: "Sarah & Norman (2 Sesi)", et: etFull, loc: "Magica Subang" },
+    { daysAhead: 22, time: 11, name: "Ainul Mardhiah", et: etSanding, loc: "Dewan Sivik MBPJ" },
+    { daysAhead: 25, time: 5, name: "Qistina (Nikah)", et: etNikah, loc: "Masjid Shah Alam" },
+    { daysAhead: 27, time: 11, name: "Diana & Adam (Sanding)", et: etSanding, loc: "Hilton Petaling Jaya" },
+    { daysAhead: 29, time: 5, name: "Sabrina (Nikah Subuh)", et: etNikah, loc: "Cyberview Resort" },
+    { daysAhead: 32, time: 11, name: "Alia & Zharif (Sanding)", et: etSanding, loc: "Lakeside Terrace Cyberjaya" },
+    { daysAhead: 35, time: 5, name: "Fatin (Nikah)", et: etNikah, loc: "Masjid Wilayah" },
+    { daysAhead: 38, time: 11, name: "Nabila (Sanding)", et: etSanding, loc: "Mandarin Oriental" },
+    { daysAhead: 42, time: 5, name: "Syakirah (Nikah)", et: etNikah, loc: "Dewan Banquet Menara Felda" }
+  ];
+
+  for (const uc of upcomingList) {
+    const slotD = daysFromNow(uc.daysAhead);
+    slotD.setHours(uc.time, 0, 0, 0);
+    bookings.push({
+      id: `demo-mbk-${bkIdx}`,
+      owner_id: ownerId,
+      booking_link_id: linkId,
+      event_type_id: uc.et,
+      customer_id: `demo-mcust-${bkIdx}`,
+      customer_name: uc.name,
+      customer_email: `bride${bkIdx}@example.com`,
+      customer_phone: `012-${String(300 + bkIdx * 19).slice(0, 3)} ${String(2000 + bkIdx * 29).slice(0, 4)}`,
+      slot_datetime: isoDateTime(slotD),
+      duration_minutes: uc.et === etFull ? 300 : (uc.et === etSanding ? 150 : 120),
+      status: "confirmed",
+      deposit_amount: uc.et === etFull ? 350 : 200,
+      deposit_paid: true,
+      custom_answers: {
+        "Lokasi tempat bersiap (nyatakan alamat rumah, nama hotel atau dewan)?": uc.loc,
+        "Pukul berapa mekap WAJIB siap sepenuhnya?": `${uc.time + 2}:00`,
+        "Jenis kulit dan adakah mempunyai sebarang alahan kosmetik?": "Kulit normal, minta bulu mata selesa",
+        "Pilihan rujukan gaya mekap (cth: Soft Glam, Natural Barbie, Thai Look)?": "Soft Glam / Thai Look"
+      },
+      created_at: isoDateTime(daysFromNow(-2))
+    });
+    bkIdx++;
+  }
+
+  const customers = [];
+  let custId = 1;
+
+  const thisMonthPaid = [
+    { name: "Farhana & Haziq (Pakej Sanding)", amount: 650, phone: "013-221 4455", daysAgo: 8, bId: "demo-mbk-1" },
+    { name: "Siti Sarah & Azlan (2 Sesi Lengkap)", amount: 1100, phone: "017-889 0011", daysAgo: 10, bId: "demo-mbk-4" },
+    { name: "Anis & Hafiz (Mekap Sanding)", amount: 650, phone: "019-334 5566", daysAgo: 8, bId: "demo-mbk-6" },
+    { name: "Nabila & Syakir (Nikah & Sanding)", amount: 1100, phone: "012-778 9900", daysAgo: 6, bId: "demo-mbk-8" },
+    { name: "Zulaikha & Khairul (2 Sesi)", amount: 1100, phone: "016-554 2233", daysAgo: 2, bId: "demo-mbk-12" },
+    { name: "Irdina & Faris (Sanding)", amount: 650, phone: "018-990 1122", daysAgo: 1, bId: "demo-mbk-15" },
+    { name: "Nurul Aini (Nikah Subuh)", amount: 450, phone: "011-234 5678", daysAgo: 12, bId: "demo-mbk-2" },
+    { name: "Natasha (Mekap Tunang)", amount: 450, phone: "014-556 7890", daysAgo: 9, bId: "demo-mbk-5" },
+    { name: "Puteri Balqis (Mekap Nikah)", amount: 450, phone: "019-887 6655", daysAgo: 5, bId: "demo-mbk-9" },
+    { name: "Aisyah & Danial (Mekap Sanding)", amount: 650, phone: "013-112 3344", daysAgo: 4, bId: "demo-mbk-10" },
+    { name: "Syaza (Nikah Subuh)", amount: 450, phone: "012-445 6678", daysAgo: 1, bId: "demo-mbk-14" },
+    { name: "Melissa (Sanding Petang)", amount: 650, phone: "017-665 4433", daysAgo: 0, bId: "demo-mbk-16" }
+  ];
+
+  for (const p of thisMonthPaid) {
+    const pDate = daysFromNow(-p.daysAgo);
+    const pIso = `${thisMonthKey}-${String(pDate.getDate()).padStart(2, "0")}T10:00:00.000Z`;
+    customers.push({
+      id: `demo-mcust-${custId}`,
+      owner_id: ownerId,
+      booking_id: p.bId,
+      name: p.name,
+      contact_email: `client${custId}@example.com`,
+      email: `client${custId}@example.com`,
+      phone: p.phone,
+      contact_phone: p.phone,
+      amount: p.amount,
+      status: "dah_bayar",
+      paid_at: pIso,
+      due_date: pIso.slice(0, 10),
+      milestone_label: "Bayaran Penuh Pakej",
+      notes: "Bayaran DuitNow disahkan",
+      is_recurring: false,
+      created_at: pIso
+    });
+    custId++;
+  }
+
+  const unpaid = [
+    { name: "Nurul Huda (Baki Majlis Nikah)", amount: 300, daysAhead: 1, phone: "013-445 6677", status: "belum_bayar" },
+    { name: "Iffah & Luqman (Baki Sanding)", amount: 450, daysAhead: 2, phone: "019-223 4455", status: "reminder_dihantar" },
+    { name: "Sharifah Diana (Baki Nikah)", amount: 300, daysAhead: 3, phone: "012-887 6655", status: "belum_bayar" },
+    { name: "Athirah & Hafiz (Baki 2 Sesi)", amount: 750, daysAhead: 5, phone: "018-778 9901", status: "reminder_dihantar" },
+    { name: "Zulaikha (Baki Sanding Marina)", amount: 450, daysAhead: 7, phone: "017-334 5566", status: "belum_bayar" },
+    { name: "Nurin (Baki Sanding Felda)", amount: 450, daysAhead: 9, phone: "016-778 2211", status: "belum_bayar" }
+  ];
+  for (const u of unpaid) {
+    const dDate = daysFromNow(u.daysAhead);
+    customers.push({
+      id: `demo-mcust-${custId}`,
+      owner_id: ownerId,
+      booking_id: `demo-mbk-${custId}`,
+      name: u.name,
+      contact_email: `client${custId}@example.com`,
+      email: `client${custId}@example.com`,
+      phone: u.phone,
+      contact_phone: u.phone,
+      amount: u.amount,
+      status: u.status,
+      paid_at: null,
+      due_date: isoDate(dDate),
+      milestone_label: "Baki Hari Majlis",
+      notes: "Menunggu baki sebelum majlis",
+      is_recurring: false,
+      created_at: isoDateTime(daysFromNow(-3))
+    });
+    custId++;
+  }
+
+  const needed = 380 - (custId - 1);
+  for (let i = 0; i < needed; i++) {
+    const pastDays = 35 + i * 2;
+    const pDate = daysFromNow(-pastDays);
+    customers.push({
+      id: `demo-mcust-${custId}`,
+      owner_id: ownerId,
+      booking_id: null,
+      name: `Pengantin Anggun #${380 - i}`,
+      contact_email: `client${custId}@example.com`,
+      email: `client${custId}@example.com`,
+      phone: `012-${String(100 + i % 899)} ${String(1000 + i % 8999)}`,
+      contact_phone: `012-${String(100 + i % 899)} ${String(1000 + i % 8999)}`,
+      amount: 450 + (i % 4) * 200,
+      status: "dah_bayar",
+      paid_at: isoDateTime(pDate),
+      due_date: isoDate(pDate),
+      milestone_label: "Bayaran Penuh",
+      notes: "Selesai",
+      is_recurring: false,
+      created_at: isoDateTime(pDate)
+    });
+    custId++;
+  }
+
+  const notifications = [
+    { id: "mnotif-1", owner_id: ownerId, type: "new_booking", title: "Tempahan Baharu Masuk", message: "Nurul Huda menempah Pakej Nikah Subuh (Masjid Wilayah KL)", link_url: "/dashboard.html?page=booking-list", is_read: false, created_at: isoDateTime(daysFromNow(0)) },
+    { id: "mnotif-2", owner_id: ownerId, type: "deposit_paid", title: "Deposit DuitNow RM200 Diterima", message: "Iffah & Luqman telah membayar deposit untuk Pakej Sanding", link_url: "/dashboard.html?page=customer-list", is_read: false, created_at: isoDateTime(daysFromNow(-1)) },
+    { id: "mnotif-3", owner_id: ownerId, type: "prep_reminder", title: "Peringatan Persediaan Kulit Dihantar", message: "Automasi WhatsApp tips penjagaan kulit dihantar kepada 3 pengantin minggu ini", link_url: "/dashboard.html?page=customer-list", is_read: true, created_at: isoDateTime(daysFromNow(-2)) },
+    { id: "mnotif-4", owner_id: ownerId, type: "review", title: "Ulasan 5 Bintang Diterima", message: "Farhana: 'Mekap tahan lebih 14 jam dari nikah sampai sanding! Ramai puji berseri.'", link_url: "/dashboard.html?page=booking-settings", is_read: true, created_at: isoDateTime(daysFromNow(-4)) }
+  ];
+
+  const chat_messages = [
+    { id: "mmsg-1", customer_id: "demo-mcust-1", sender_type: "customer", message_text: "Salam Kak Bella! Nak tanya untuk mekap sanding ahad ni, kening perlu cukur ke?", created_at: isoDateTime(daysFromNow(-2)), read_by_owner: true },
+    { id: "mmsg-2", customer_id: "demo-mcust-1", sender_type: "owner", message_text: "Waalaikumussalam Farhana! Tak perlu cukur ya sayang, akak guna teknik brow concealer untuk kemaskan bentuk kening tanpa cukur.", created_at: isoDateTime(daysFromNow(-1)), read_by_owner: true },
+    { id: "mmsg-3", customer_id: "demo-mcust-1", sender_type: "customer", message_text: "Alhamdulillah lega dengar! Jumpa akak pukul 5:30 pagi ahad ni kat bilik hotel ya.", created_at: isoDateTime(daysFromNow(0)), read_by_owner: false },
+    { id: "mmsg-4", customer_id: "demo-mcust-13", sender_type: "customer", message_text: "Hi Kak Bella, saya dah transfer baki mekap RM300 ikut link tadi. Ni resit Maybank.", created_at: isoDateTime(daysFromNow(-1)), read_by_owner: true },
+    { id: "mmsg-5", customer_id: "demo-mcust-13", sender_type: "owner", message_text: "Terima kasih Huda! Resit dah disahkan dalam sistem. Rehat cukup-cukup malam ni ya.", created_at: isoDateTime(daysFromNow(-1)), read_by_owner: true }
+  ];
+
+  const equipment = [
+    { id: "meq-1", owner_id: ownerId, name: "Professional Rolling Makeup Train Case", category: "Makeup Case", status: "Tersedia", location: "Car Trunk / Studio" },
+    { id: "meq-2", owner_id: ownerId, name: "Neewer 18-inch Bi-Color LED Ring Light", category: "Lighting", status: "Tersedia", location: "Studio Bay" },
+    { id: "meq-3", owner_id: ownerId, name: "TEMPTU Pro Cordless Airbrush Gun", category: "Airbrush", status: "Tersedia", location: "Case A" },
+    { id: "meq-4", owner_id: ownerId, name: "Foldable High Director's Makeup Chair", category: "Furniture", status: "Tersedia", location: "Car Trunk" },
+    { id: "meq-5", owner_id: ownerId, name: "Dyson Supersonic Hair Dryer Pro", category: "Hair Styling", status: "Tersedia", location: "Hair Case" }
+  ];
+
+  const testimonials = [
+    { id: "mt-1", owner_id: ownerId, customer_name: "Farhana & Haziq", quote_text: "Mekap Kak Bella memang tahan lasak dari Subuh sampai ke malam! Tak bercapuk langsung walaupun berpeluh masa sesi photoshoot outdoor.", sort_order: 0 },
+    { id: "mt-2", owner_id: ownerId, customer_name: "Siti Sarah & Azlan", quote_text: "Sangat profesional. Kak Bella datang on-time pukul 5 pagi dan siap tepat waktu sebelum rombongan lelaki sampai.", sort_order: 1 }
+  ];
+
+  const gallery_images = [
+    { id: "mgal-1", owner_id: ownerId, image_url: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80", sort_order: 0 },
+    { id: "mgal-2", owner_id: ownerId, image_url: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80", sort_order: 1 },
+    { id: "mgal-3", owner_id: ownerId, image_url: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80", sort_order: 2 }
+  ];
+
+  return {
+    user: { id: ownerId, email: "demo-mua@eqstudio.link" },
+    profiles: [{
+      id: ownerId,
+      business_name: "Bella Glam MUA & Bridal Studio",
+      contact_phone: "013-667 8899",
+      contact_email: "bellaglam@eqstudio.link",
+      business_address: "Subang Jaya, Selangor",
+      logo_url: null,
+      brand_color: "#C2410C",
+      bank_name: "Maybank",
+      bank_account_number: "5123 4567 8901",
+      bank_account_holder: "Bella Glam Enterprise",
+      qr_code_url: null,
+      ssm_number: "202401887766",
+      tier: "pro",
+      subscription_status: "active",
+      subscription_end_date: isoDate(daysFromNow(365)),
+      is_suspended: false,
+      booking_slug: "bella-glam",
+      default_deposit_amount: 200,
+      is_founding_member: true,
+      founding_member_locked_price_monthly: 15,
+      founding_member_locked_price_yearly: 150,
+      payment_claimed_at: null,
+      forum_banned: false,
+      alt_payment_note: ""
+    }],
+    booking_links: [{
+      id: linkId,
+      owner_id: ownerId,
+      slug: "bella-glam",
+      label: "Bella Glam MUA Studio",
+      is_primary: true,
+      default_deposit_amount: 200,
+      slot_duration_minutes: 150,
+      booking_min_notice_hours: 24,
+      buffer_minutes: 60,
+      cancel_notice_hours: 48,
+      description: "Servis solekan profesional untuk pengantin Nikah, Sanding, Bertunang & Majlis Rasmi. Sentuhan eksklusif bertaraf selebriti.",
+      poster_url: null,
+      created_at: isoDateTime(daysFromNow(-90))
+    }],
+    event_types: [
+      { id: etNikah, owner_id: ownerId, booking_link_id: linkId, name: "Pakej Mekap Nikah & Tunang", duration_minutes: 120, deposit_amount: 150, capacity: 1, sort_order: 0, description: "Solekan lembut & berseri untuk upacara akad nikah atau pertunangan. Termasuk bulu mata premium dan pelembap asas.", poster_url: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80" },
+      { id: etSanding, owner_id: ownerId, booking_link_id: linkId, name: "Pakej Mekap Sanding Signature", duration_minutes: 150, deposit_amount: 200, capacity: 1, sort_order: 1, description: "Solekan eksklusif tahan lebih 12 jam untuk majlis resepsi pelamin. Termasuk pemakaian aksesori kepala & veil.", poster_url: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80" },
+      { id: etFull, owner_id: ownerId, booking_link_id: linkId, name: "Pakej 2 Sesi: Nikah & Sanding Lengkap", duration_minutes: 300, deposit_amount: 350, capacity: 1, sort_order: 2, description: "Pakej lengkap 2 sesi berasingan pada hari sama atau hari berbeza. Jimat RM200 dan percuma touch-up sebelum naik pelamin.", poster_url: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80" },
+      { id: etEvent, owner_id: ownerId, booking_link_id: linkId, name: "Mekap Majlis Makan Malam & Konvo", duration_minutes: 60, deposit_amount: 80, capacity: 1, sort_order: 3, description: "Solekan majlis makan malam korporat, sesi konvokesyen atau mekap bridesmaid/ibu pengantin.", poster_url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80" }
+    ],
+    availability_dates,
+    booking_questions: [
+      { id: "mq-1", owner_id: ownerId, booking_link_id: linkId, question_text: "Lokasi tempat bersiap (nyatakan alamat rumah, nama hotel atau dewan)?", sort_order: 0 },
+      { id: "mq-2", owner_id: ownerId, booking_link_id: linkId, question_text: "Pukul berapa mekap WAJIB siap sepenuhnya?", sort_order: 1 },
+      { id: "mq-3", owner_id: ownerId, booking_link_id: linkId, question_text: "Jenis kulit dan adakah mempunyai sebarang alahan kosmetik?", sort_order: 2 },
+      { id: "mq-4", owner_id: ownerId, booking_link_id: linkId, question_text: "Pilihan rujukan gaya mekap (cth: Soft Glam, Natural Barbie, Thai Look)?", sort_order: 3 }
+    ],
+    bookings,
+    customers,
+    notifications,
+    chat_messages,
+    chat_faq_templates: [
+      { id: "mfaq-1", owner_id: ownerId, title: "Cara Kunci Tarikh", text: "Deposit diperlukan untuk mengunci slot masa rasmi. Pindahan DuitNow QR akan disahkan serta-merta." },
+      { id: "mfaq-2", owner_id: ownerId, title: "Persediaan Sebelum Mekap", text: "Sila bersihkan muka dan pakai hydrating sheet mask malam sebelum majlis. Elakkan waxing kening 24 jam sebelum sesi." }
+    ],
+    equipment,
+    leads: [
+      { id: "mlead-1", owner_id: ownerId, name: "Tengku Nadia", phone: "012-887 6655", email: "nadia@example.com", package_name: "Pakej 2 Sesi Sanding & Nikah (RM1,100)", status: "Berminat", notes: "Majlis di Royale Chulan Disember.", created_at: isoDateTime(daysFromNow(-2)) },
+      { id: "mlead-2", owner_id: ownerId, name: "Ainul Mardhiah", phone: "013-445 7788", email: "ainul@example.com", package_name: "Pakej Sanding Signature", status: "Dihubungi", notes: "Tanya pasal travel fee ke Rawang.", created_at: isoDateTime(daysFromNow(-3)) }
+    ],
+    expenses: [
+      { id: "mexp-1", owner_id: ownerId, title: "Restock Skincare & Kosmetik Premium (Sephora)", amount: 850, category: "Kos Produk", expense_date: isoDate(daysFromNow(-4)) },
+      { id: "mexp-2", owner_id: ownerId, title: "Minyak Kenderaan & Tol Majlis Hujung Minggu", amount: 160, category: "Pengangkutan", expense_date: isoDate(daysFromNow(-6)) }
+    ],
+    testimonials,
+    gallery_images,
+    reminder_settings: [{ id: "mrs-1", owner_id: ownerId, days_before: [3, 1, 0] }],
+    note_templates: [{ id: "mnt-1", owner_id: ownerId, text: "Deposit disahkan. Baki dibayar sebelum majlis bermula." }],
+    reminders_log: []
+  };
+}
+
 const DEMO_DATASETS = {
   fotografi: buildLensaKreatifDataset(),
+  mua: buildMuaDataset(),
   aiskrim: buildAiskrimComelDataset()
 };
 
@@ -976,7 +1324,7 @@ function createQueryBuilder(dataStore, tableName) {
 }
 
 export function createMockSupabaseClient(niche) {
-  const selectedNiche = (niche === "aiskrim") ? "aiskrim" : "fotografi";
+  const selectedNiche = (niche === "mua" || niche === "aiskrim") ? niche : "fotografi";
   const dataStore = DEMO_DATASETS[selectedNiche] || DEMO_DATASETS.fotografi;
   const fakeSession = { access_token: "demo-token", user: dataStore.user };
 
@@ -984,7 +1332,7 @@ export function createMockSupabaseClient(niche) {
     auth: {
       async getSession() { return { data: { session: fakeSession } }; },
       async getUser() { return { data: { user: dataStore.user } }; },
-      async signOut() { window.location.href = "/fotografi.html"; },
+      async signOut() { window.location.href = (selectedNiche === "mua") ? "/mua.html" : "/fotografi.html"; },
       onAuthStateChange() { return { data: { subscription: { unsubscribe() {} } } }; }
     },
     from(tableName) { return createQueryBuilder(dataStore, tableName); },
@@ -1017,6 +1365,7 @@ export function isDemoModeActive() {
 
 export function getDemoNiche() {
   const p = new URLSearchParams(window.location.search).get("demo");
+  if (p === "mua") return "mua";
   if (p === "aiskrim") return "aiskrim";
   return "fotografi";
 }

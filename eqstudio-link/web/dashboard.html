@@ -16,9 +16,29 @@
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
  (function () {
- var saved = localStorage.getItem("eqstudio_theme");
- if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
+   var saved = localStorage.getItem("eqstudio_theme");
+   if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
  })();
+ window.openCommandPalette = function() {
+   var modal = document.getElementById("cmd-palette-modal");
+   var input = document.getElementById("cmd-palette-input");
+   if (!modal) return;
+   modal.style.display = "flex";
+   if (input) {
+     input.value = "";
+     if (typeof window.renderCommandResults === "function") {
+       window.renderCommandResults("");
+     }
+     setTimeout(function() {
+       try { input.focus(); } catch(_) {}
+     }, 60);
+   }
+ };
+ window.closeCommandPalette = function() {
+   var modal = document.getElementById("cmd-palette-modal");
+   if (!modal) return;
+   modal.style.display = "none";
+ };
 </script>
 </head>
 <body>
@@ -58,8 +78,8 @@
  <button type="button" class="lang-toggle-btn active" data-lang-toggle="ms">BM</button>
  <button type="button" class="lang-toggle-btn" data-lang-toggle="en">EN</button>
  </div>
- <button type="button" class="secondary" id="topbar-cmd-btn" title="Carian Pantas (Ctrl+K)" style="padding:0.42rem 0.55rem; border-radius:999px;">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+ <button type="button" class="secondary" id="topbar-cmd-btn" onclick="openCommandPalette()" title="Carian Pantas (Ctrl+K)" aria-label="Carian Pantas (Ctrl+K)" style="padding:0.45rem 0.6rem; min-width:38px; min-height:38px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;">
+ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
  </button>
  <div class="kebab-wrap">
  <button type="button" class="secondary" id="settings-dropdown-btn" title="Tetapan &amp; Sambungan" style="padding:0.42rem 0.55rem; border-radius:999px;">
@@ -130,7 +150,7 @@
  <div class="db-quota-top">
  <div class="db-quota-label">
  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
- <span id="quota-label-text">Kapasiti Tempahan Bulan Ini</span>
+ <span id="quota-label-text" data-i18n="quota_card_label">Kapasiti Tempahan Bulan Ini</span>
  </div>
  <div class="db-quota-val" id="quota-val-text">–</div>
  </div>
@@ -139,7 +159,7 @@
  </div>
  </div>
  <a href="/billing.html" class="db-quota-upgrade-btn" id="quota-upgrade-btn">
- <span>Naik Taraf Pro (Unlimited) →</span>
+ <span data-i18n="quota_upgrade_btn">Naik Taraf ke Studio Pro (Unlimited) →</span>
  </a>
  </div>
 
@@ -2405,13 +2425,13 @@
  <div class="info-tooltip" id="global-info-tooltip"></div>
 
  <!-- Desktop & Mobile Quick Command Palette (Ctrl+K) -->
- <div class="cmd-palette-backdrop" id="cmd-palette-modal" style="display:none;">
+ <div class="cmd-palette-backdrop" id="cmd-palette-modal" style="display:none;" onclick="if(event.target===this)closeCommandPalette()">
  <div class="cmd-palette-box" style="position:relative;">
- <button type="button" class="modal-close-x-btn" id="cmd-palette-x-btn" aria-label="Tutup" style="top:0.75rem; right:0.75rem;">&times;</button>
+ <button type="button" class="modal-close-x-btn" id="cmd-palette-x-btn" onclick="closeCommandPalette()" aria-label="Tutup" style="top:0.65rem; right:0.65rem;">&times;</button>
  <div class="cmd-palette-input-wrap">
  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="cmd-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
  <input type="text" id="cmd-palette-input" placeholder="Taip arahan atau cari pelanggan..." data-i18n-placeholder="cmd_search_placeholder" autocomplete="off" />
- <span class="cmd-esc-tag" id="cmd-palette-close-btn" style="cursor:pointer;" title="Tutup">ESC</span>
+ <span class="cmd-esc-tag" id="cmd-palette-close-btn" onclick="closeCommandPalette()" style="cursor:pointer;" title="Tutup">ESC</span>
  </div>
  <div class="cmd-palette-results" id="cmd-palette-results"></div>
  <div class="cmd-palette-footer">
@@ -2651,6 +2671,10 @@
  import { loadNotices } from "/assets/notices.js";
  import { UI_STRINGS, getCurrentLang, applyLanguage, t } from "/assets/i18n-ui.js";
 
+ window.getCurrentLang = getCurrentLang;
+ window.applyLanguage = applyLanguage;
+ window.t = t;
+
  function flashButtonSuccess(btn, originalText) {
  if (!btn) return;
  const prevText = btn.textContent;
@@ -2793,6 +2817,10 @@
  try {
  if (typeof renderHomeNextAction === "function") {
  renderHomeNextAction();
+ }
+ } catch (_) {}
+ try {
+ if (typeof updateMonthlyQuotaMeter === "function") {
  updateMonthlyQuotaMeter();
  }
  } catch (_) {}
@@ -3282,6 +3310,9 @@
  const card = document.getElementById("home-monthly-quota-card");
  if (!card) return;
 
+ const curLang = typeof getCurrentLang === "function" ? getCurrentLang() : (localStorage.getItem("eqstudio_lang") || "ms");
+ const isEn = curLang === "en";
+
  const activeTier = (typeof currentProfile !== "undefined" && currentProfile?.tier) || (typeof profile !== "undefined" && profile?.tier) || (typeof profTier !== "undefined" ? profTier?.tier : null);
  const isPro = activeTier === "pro" || (typeof currentUserIsPro !== "undefined" && currentUserIsPro);
  const isLite = activeTier === "lite";
@@ -3306,45 +3337,45 @@
  const lblEl = document.getElementById("quota-label-text");
 
  if (isPro) {
- if (lblEl) lblEl.textContent = "Status Pelan: Studio Pro (Aktif)";
- if (valEl) valEl.textContent = `${thisMonthCount} Tempahan Bulan Ini · Akses Tanpa Had`;
+ if (lblEl) lblEl.textContent = isEn ? "Plan Status: Studio Pro (Active)" : "Status Pelan: Studio Pro (Aktif)";
+ if (valEl) valEl.textContent = isEn ? `${thisMonthCount} Bookings This Month · Unlimited Access` : `${thisMonthCount} Tempahan Bulan Ini · Akses Tanpa Had`;
  if (fillEl) {
  fillEl.style.width = "100%";
  fillEl.style.background = "linear-gradient(90deg, #4a098f, #7c3aed)";
  }
  if (btnEl) {
  const s = btnEl.querySelector("span");
- if (s) s.textContent = "Urus Langganan Studio Pro";
+ if (s) s.textContent = isEn ? "Manage Studio Pro Plan" : "Urus Langganan Studio Pro";
  btnEl.style.background = "var(--stamp)";
  btnEl.href = "/billing.html";
  }
  } else if (isLite) {
  const cap = 30;
  const pct = Math.min(100, Math.round((thisMonthCount / cap) * 100));
- if (lblEl) lblEl.textContent = "Kapasiti Tempahan Bulan Ini (Solo Lite)";
- if (valEl) valEl.textContent = `${thisMonthCount} / ${cap} Tempahan`;
+ if (lblEl) lblEl.textContent = isEn ? "Monthly Booking Capacity (Solo Lite)" : "Kapasiti Tempahan Bulan Ini (Solo Lite)";
+ if (valEl) valEl.textContent = isEn ? `${thisMonthCount} / ${cap} Bookings` : `${thisMonthCount} / ${cap} Tempahan`;
  if (fillEl) {
  fillEl.style.width = `${pct}%`;
  fillEl.style.background = pct >= 80 ? "#EF4444" : "linear-gradient(90deg, #10B981, #059669)";
  }
  if (btnEl) {
  const s = btnEl.querySelector("span");
- if (s) s.textContent = "Naik Taraf ke Studio Pro (Unlimited) →";
+ if (s) s.textContent = isEn ? "Upgrade to Studio Pro (Unlimited) →" : "Naik Taraf ke Studio Pro (Unlimited) →";
  btnEl.href = "/billing.html";
  }
  } else {
  // Free Forever tier
  const cap = 10;
  const pct = Math.min(100, Math.round((thisMonthCount / cap) * 100));
- if (lblEl) lblEl.textContent = "Kapasiti Tempahan Bulan Ini (Pelan Percuma)";
- if (valEl) valEl.textContent = `${thisMonthCount} / ${cap} Tempahan Percuma`;
+ if (lblEl) lblEl.textContent = isEn ? "Monthly Booking Capacity (Free Plan)" : "Kapasiti Tempahan Bulan Ini (Pelan Percuma)";
+ if (valEl) valEl.textContent = isEn ? `${thisMonthCount} / ${cap} Free Bookings` : `${thisMonthCount} / ${cap} Tempahan Percuma`;
  if (fillEl) {
  fillEl.style.width = `${pct}%`;
  fillEl.style.background = pct >= 80 ? "#EF4444" : "linear-gradient(90deg, #10B981, #059669)";
  }
  if (btnEl) {
  const s = btnEl.querySelector("span");
- if (s) s.textContent = "Naik Taraf ke Studio Pro (Unlimited) →";
+ if (s) s.textContent = isEn ? "Upgrade to Studio Pro (Unlimited) →" : "Naik Taraf ke Studio Pro (Unlimited) →";
  btnEl.href = "/billing.html";
  }
  }
@@ -10476,6 +10507,7 @@
 
  window.openCommandPalette = openCommandPalette;
  window.closeCommandPalette = closeCommandPalette;
+ window.renderCommandResults = renderCommandResults;
 
  function renderCommandResults(query) {
  const resultsEl = document.getElementById("cmd-palette-results");
@@ -10585,6 +10617,7 @@
  });
 
  closeBtn?.addEventListener("click", closeCommandPalette);
+ document.getElementById("cmd-palette-x-btn")?.addEventListener("click", closeCommandPalette);
 
  modal?.addEventListener("click", (e) => {
  if (e.target === modal) {

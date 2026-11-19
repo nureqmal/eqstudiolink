@@ -9011,3 +9011,310 @@ table tbody tr:hover td {
   color: #fff;
   border-color: var(--stamp);
 }
+
+
+/* ═════════════════════════════════════════════════════════════════════
+   GALLERY SHOWCASE: VISUAL MINI-WEBSITE MOCKUPS (index.html)
+   Real Device Screenshots & Thumbnails
+   ═════════════════════════════════════════════════════════════════════ */
+.lp-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .lp-gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.lp-mockup-card {
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.lp-mockup-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(74, 9, 143, 0.12);
+  border-color: color-mix(in srgb, var(--stamp) 50%, var(--paper-line));
+}
+
+.lp-mockup-device {
+  border: 2px solid var(--paper-line);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--surface) 98%, var(--paper));
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+.lp-device-topbar {
+  background: color-mix(in srgb, var(--paper) 70%, var(--surface));
+  padding: 0.5rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.lp-device-camera {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--paper-line);
+}
+
+.lp-device-url {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  color: var(--stamp);
+}
+
+.lp-device-screen {
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lp-screen-hero {
+  border-radius: 10px;
+  padding: 1.5rem 0.9rem 0.75rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 85px;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+.lp-hero-photo {
+  background: linear-gradient(135deg, #18181b 0%, #27272a 40%, #4a098f 100%);
+}
+
+.lp-hero-mua {
+  background: linear-gradient(135deg, #4a098f 0%, #86198f 50%, #f43f5e 100%);
+}
+
+.lp-hero-henna {
+  background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #059669 100%);
+}
+
+.lp-screen-pill {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.lp-screen-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--stamp);
+  font-weight: 800;
+  font-family: var(--font-display, serif);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  border: 2px solid #fff;
+}
+
+.lp-screen-biz {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.lp-screen-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.lp-v-badge {
+  font-size: 0.7rem;
+  color: var(--ok);
+  font-weight: 800;
+}
+
+.lp-screen-desc {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  line-height: 1.35;
+}
+
+.lp-screen-packages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.lp-screen-pkg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.65rem;
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.lp-screen-pkg.active {
+  border-color: color-mix(in srgb, var(--stamp) 50%, var(--paper-line));
+  background: color-mix(in srgb, var(--stamp) 4%, var(--surface));
+}
+
+.lp-pkg-t {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.lp-pkg-m {
+  font-size: 0.65rem;
+  color: var(--ink-soft);
+}
+
+.lp-pkg-p {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--stamp);
+  white-space: nowrap;
+}
+
+.lp-screen-slots {
+  background: color-mix(in srgb, var(--paper) 40%, var(--surface));
+  border-radius: 6px;
+  padding: 0.45rem 0.6rem;
+  border: 1px dashed var(--paper-line);
+}
+
+.lp-slot-lbl {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.lp-slot-row {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.lp-slot-chip {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  color: var(--ink);
+}
+
+.lp-slot-chip.selected {
+  background: var(--stamp);
+  color: #fff;
+  border-color: var(--stamp);
+}
+
+.lp-slot-chip.disabled {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+.lp-tag-q {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(74, 9, 143, 0.08);
+  color: var(--stamp);
+}
+
+.lp-screen-deposit {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  color: var(--ok);
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 6px;
+  padding: 0.35rem 0.55rem;
+}
+
+.lp-mockup-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.lp-mockup-info h4 {
+  margin: 0 0 0.25rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.lp-mockup-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.lp-mockup-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: var(--stamp);
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.lp-mockup-btn:hover {
+  background: #390670;
+  transform: translateY(-1px);
+}

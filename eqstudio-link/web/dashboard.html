@@ -2115,57 +2115,186 @@
  </div>
 
  <div class="modal-overlay" id="wizard-modal" style="display:none;">
- <div class="modal-box" style="max-width:460px;">
- <div style="text-align:right; margin-bottom:0.3rem;">
- <button type="button" id="wizard-skip-btn" class="secondary" style="padding:0.25rem 0.6rem; font-size:0.75rem; width:auto;" data-i18n="wizard_skip">Langkau Buat Masa Ini</button>
+ <div class="modal-box" style="max-width:520px; border-radius:18px; padding:1.75rem;">
+ <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+ <span class="sf-pill sf-pill-verified" style="font-size:0.7rem; font-weight:700;">
+ <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+ Persediaan Pintar (Zero Friction)
+ </span>
+ <button type="button" id="wizard-skip-btn" class="secondary" style="padding:0.25rem 0.6rem; font-size:0.75rem; width:auto;">Langkau</button>
  </div>
- <p class="hint" id="wizard-progress" style="text-align:center; margin:0 0 1rem;"></p>
 
+ <!-- Step 1: Industry Selection -->
  <div id="wizard-step-1" style="display:none;">
- <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wizard_step1_title">Apakah bidang perniagaan anda?</h2>
- <p class="hint" style="text-align:center; margin-bottom:1.2rem;" data-i18n="wizard_step1_sub">Ini membantu kami menyesuaikan persediaan untuk anda.</p>
- <div id="wizard-persona-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:0.6rem;"></div>
+ <h2 style="margin:0 0 0.3rem; font-size:1.25rem; font-family:var(--font-display);">Pilih Bidang Bisnes Anda</h2>
+ <p class="hint" style="margin:0 0 1.1rem; font-size:0.85rem;">Sistem akan sediakan pakej harga, deposit automatik &amp; soalan tempahan yang sesuai.</p>
+ 
+ <div class="wizard-industry-grid" id="wizard-industry-grid">
+ <div class="wizard-ind-card active" data-industry="fotografi">
+ <div class="wizard-ind-header">
+ <div class="wizard-ind-icon">
+ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+ </div>
+ <div>
+ <div class="wizard-ind-title">Fotografi &amp; Studio</div>
+ <div class="wizard-ind-desc">Kahwin, nikah, outdoor &amp; potret</div>
+ </div>
+ </div>
+ <div class="wizard-ind-check">✓</div>
  </div>
 
+ <div class="wizard-ind-card" data-industry="mua">
+ <div class="wizard-ind-header">
+ <div class="wizard-ind-icon">
+ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+ </div>
+ <div>
+ <div class="wizard-ind-title">MUA &amp; Solekan</div>
+ <div class="wizard-ind-desc">Sanding glam, nikah subuh &amp; event</div>
+ </div>
+ </div>
+ <div class="wizard-ind-check">✓</div>
+ </div>
+
+ <div class="wizard-ind-card" data-industry="inai">
+ <div class="wizard-ind-header">
+ <div class="wizard-ind-icon">
+ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+ </div>
+ <div>
+ <div class="wizard-ind-title">Inai &amp; Henna Art</div>
+ <div class="wizard-ind-desc">Inai pengantin, henna putih &amp; spa</div>
+ </div>
+ </div>
+ <div class="wizard-ind-check">✓</div>
+ </div>
+
+ <div class="wizard-ind-card" data-industry="tutor">
+ <div class="wizard-ind-header">
+ <div class="wizard-ind-icon">
+ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+ </div>
+ <div>
+ <div class="wizard-ind-title">Tutor &amp; Kelas</div>
+ <div class="wizard-ind-desc">Bimbingan 1-on-1, tuisyen &amp; bengkel</div>
+ </div>
+ </div>
+ <div class="wizard-ind-check">✓</div>
+ </div>
+
+ <div class="wizard-ind-card" data-industry="general">
+ <div class="wizard-ind-header">
+ <div class="wizard-ind-icon">
+ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+ </div>
+ <div>
+ <div class="wizard-ind-title">Lain-lain Servis Solo</div>
+ <div class="wizard-ind-desc">Baker, urut, katering, konsultan dll</div>
+ </div>
+ </div>
+ <div class="wizard-ind-check">✓</div>
+ </div>
+ </div>
+
+ <!-- Live Package Preview Box -->
+ <div class="wizard-preview-box" id="wizard-preset-preview">
+ <div class="wizard-prev-header">
+ <span class="wizard-prev-badge">Templat Pintar Siap Dimuatkan:</span>
+ </div>
+ <div class="wizard-prev-list" id="wizard-prev-list">
+ <div class="wizard-prev-item">
+ <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+ <span><strong>Pakej Sanding &amp; Outdoor (Full Day)</strong> · RM 1,200 (Deposit RM 150)</span>
+ </div>
+ <div class="wizard-prev-item">
+ <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+ <span><strong>Pakej Akad Nikah (Half Day)</strong> · RM 800 (Deposit RM 100)</span>
+ </div>
+ <div class="wizard-prev-item">
+ <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+ <span>Soalan Borang Tempahan: <em>Lokasi Majlis (Dewan/Rumah)</em></span>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Step 2: Business & Payment Setup -->
  <div id="wizard-step-2" style="display:none;">
- <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wizard_step2_title">Apakah perkhidmatan yang ingin ditempah oleh pelanggan anda?</h2>
- <label for="wizard-service-name"><span data-i18n="wizard_step2_label">Nama Perkhidmatan</span><button type="button" class="info-icon-btn" data-info="Contohnya: Konsultasi Kek">i</button></label>
- <input type="text" id="wizard-service-name" />
+ <h2 style="margin:0 0 0.3rem; font-size:1.25rem; font-family:var(--font-display);">Maklumat Bisnes &amp; DuitNow</h2>
+ <p class="hint" style="margin:0 0 1.1rem; font-size:0.85rem;">Pelanggan akan lihat maklumat ini di laman bio rasmi dan arahan bayaran deposit anda.</p>
+
+ <div style="display:flex; flex-direction:column; gap:0.85rem;">
+ <div>
+ <label for="wz-biz-name" style="font-weight:600; font-size:0.82rem; margin-bottom:0.25rem; display:block;">Nama Bisnes / Studio Anda *</label>
+ <input type="text" id="wz-biz-name" placeholder="cth: Hazim Wedding Studio" style="width:100%;" />
  </div>
 
- <div id="wizard-step-3" style="display:none;">
- <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wizard_step3_title">Bilakah anda tersedia?</h2>
- <div id="wizard-availability-options" style="display:flex; flex-direction:column; gap:0.6rem;"></div>
- <p class="hint" style="margin-top:0.8rem;" data-i18n="wizard_step3_sub">Anda boleh menyesuaikan waktu yang tepat kemudian dalam Tetapan Tempahan.</p>
+ <div>
+ <label for="wz-phone" style="font-weight:600; font-size:0.82rem; margin-bottom:0.25rem; display:block;">No. Telefon / WhatsApp Rasmi *</label>
+ <input type="tel" id="wz-phone" placeholder="cth: 012-3456789" style="width:100%;" />
  </div>
 
- <div id="wizard-step-4" style="display:none;">
- <h2 style="margin-top:0; text-align:center; font-size:1.2rem;" data-i18n="wizard_step4_title">Berapakah jumlah deposit anda?</h2>
- <label for="wizard-deposit"><span data-i18n="wizard_step4_label">Deposit (RM), taip 0 sekiranya percuma</span><button type="button" class="info-icon-btn" data-info="Contohnya: 50">i</button></label>
- <input type="number" id="wizard-deposit" step="0.01" min="0" />
+ <div style="background:color-mix(in srgb, var(--paper) 40%, var(--surface)); padding:0.85rem; border-radius:10px; border:1px solid var(--paper-line);">
+ <div style="display:flex; align-items:center; gap:0.4rem; margin-bottom:0.55rem;">
+ <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+ <strong style="font-size:0.82rem; color:var(--ink);">Kunci Bayaran Deposit Automatik</strong>
+ </div>
+ <div style="display:grid; grid-template-columns:1fr 1.5fr; gap:0.55rem;">
+ <div>
+ <label for="wz-bank-name" style="font-size:0.75rem; margin-bottom:0.2rem; display:block;">Bank</label>
+ <select id="wz-bank-name" style="width:100%;">
+ <option value="Maybank">Maybank</option>
+ <option value="CIMB Bank">CIMB Bank</option>
+ <option value="Bank Islam">Bank Islam</option>
+ <option value="Public Bank">Public Bank</option>
+ <option value="RHB Bank">RHB Bank</option>
+ <option value="Hong Leong Bank">Hong Leong Bank</option>
+ <option value="Bank Muamalat">Bank Muamalat</option>
+ <option value="Touch n Go eWallet">Touch 'n Go eWallet</option>
+ <option value="Lain-lain">Lain-lain</option>
+ </select>
+ </div>
+ <div>
+ <label for="wz-bank-acc" style="font-size:0.75rem; margin-bottom:0.2rem; display:block;">No. Akaun / No. DuitNow *</label>
+ <input type="text" id="wz-bank-acc" placeholder="cth: 162012345678" style="width:100%;" />
+ </div>
+ </div>
+ <p class="hint" style="margin:0.4rem 0 0; font-size:0.7rem;">Imej Kod QR DuitNow boleh dimuat naik kemudian di Tetapan Profil. Nombor akaun/DuitNow sudah mencukupi untuk jana paparan bayaran segera.</p>
+ </div>
+ </div>
  </div>
 
- <div id="wizard-step-5" style="display:none; text-align:center;">
- <div style="font-size:2.5rem; margin-bottom:0.5rem; color:var(--ok);"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 17.01"></polyline></svg></div>
- <h2 style="margin-top:0; font-size:1.2rem;" data-i18n="wizard_step5_title">Halaman tempahan anda telah sedia!</h2>
- <p class="hint" id="wizard-final-link" style="word-break:break-all; margin-bottom:1rem;"></p>
- <button type="button" id="wizard-copy-link-btn" class="secondary" style="width:100%; margin-bottom:1rem;" data-i18n="wizard_copy_link">Salin Pautan</button>
-
- <div class="bset-tip" style="text-align:left; margin-bottom:1rem;">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
- <span><strong data-i18n="wizard_important_step">Satu langkah penting sebelum share:</strong> <span data-i18n="wizard_important_step_desc">isi Profil Perniagaan (bank/QR DuitNow) supaya pelanggan anda dapat lihat cara membayar deposit selepas mereka menempah.</span></span>
+ <!-- Step 3: Success Screen (100% Ready) -->
+ <div id="wizard-step-3" style="display:none; text-align:center;">
+ <div style="width:52px; height:52px; border-radius:50%; background:rgba(16,185,129,0.12); color:var(--ok); display:flex; align-items:center; justify-content:center; margin:0 auto 0.75rem;">
+ <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
  </div>
- <button type="button" id="wizard-goto-profile-btn" style="width:100%; margin-bottom:1rem;" data-i18n="wizard_goto_profile">Isi Profil Perniagaan Sekarang →</button>
+ <h2 style="margin:0 0 0.3rem; font-size:1.3rem; font-family:var(--font-display);">Tahniah! Laman Bio Anda 100% Live!</h2>
+ <p class="hint" style="margin:0 0 1.1rem; font-size:0.85rem;">Pakej rasmi, deposit DuitNow &amp; kalendar tempahan telah siap dibina dan sedia menerima tempahan pertama.</p>
 
- <a href="#" id="wizard-open-link-btn" target="_blank" class="btn" style="width:100%; display:block; text-align:center; background:transparent; color:var(--ink); border:1.5px solid var(--paper-line); box-shadow:none;" data-i18n="wizard_open_page">Buka Halaman Tempahan</a>
- <p class="hint" style="margin-top:0.5rem;" data-i18n="wizard_test_hint">Cadangan: tempah menggunakan emel lain (bukan emel akaun anda) untuk merasai pengalaman sebenar pelanggan, sebelum berkongsi pautan ini secara meluas.</p>
+ <div style="background:var(--surface); border:1.5px solid var(--paper-line); border-radius:12px; padding:0.85rem 1rem; margin-bottom:1.1rem; text-align:left;">
+ <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:var(--ink-soft); margin-bottom:0.25rem;">Pautan Rasmi Bio Anda:</div>
+ <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:700; color:var(--stamp); word-break:break-all;" id="wz-final-url">eqstudio.link/...</div>
+ </div>
+
+ <div style="display:flex; flex-direction:column; gap:0.55rem;">
+ <a href="#" id="wz-view-live-btn" target="_blank" class="btn" style="width:100%; justify-content:center; padding:0.7rem; font-size:0.9rem;">
+ <span>Buka Laman Rasmi Saya ↗</span>
+ </a>
+ <button type="button" id="wz-copy-live-btn" class="secondary" style="width:100%; justify-content:center; padding:0.6rem; font-size:0.85rem;">
+ Salin Pautan Bio
+ </button>
+ <button type="button" id="wz-enter-dash-btn" class="secondary" style="width:100%; justify-content:center; border:none; color:var(--ink-soft); font-size:0.8rem;">
+ Terus ke Dashboard Pengurusan →
+ </button>
+ </div>
  </div>
 
  <p class="error" id="wizard-error" style="display:none; margin-top:0.8rem;"></p>
 
- <div class="row" style="margin-top:1.4rem; gap:0.5rem;" id="wizard-nav-row">
- <button type="button" class="secondary" id="wizard-back-btn" style="flex:1;" data-i18n="wizard_back">Kembali</button>
- <button type="button" id="wizard-next-btn" style="flex:1;" data-i18n="wizard_next">Seterusnya</button>
+ <div class="row" style="margin-top:1.4rem; gap:0.6rem;" id="wizard-nav-row">
+ <button type="button" class="secondary" id="wizard-back-btn" style="flex:1;">Kembali</button>
+ <button type="button" id="wizard-next-btn" style="flex:2;">Seterusnya →</button>
  </div>
  </div>
  </div>
@@ -9452,84 +9581,327 @@
  }
  }
 
- // ── Onboarding Wizard (first-time setup, "first booking in 5 minutes") ──
- const WIZARD_PERSONAS = [
- { en: "Home Baker", ms: "Home Baker" },
- { en: "Tutor", ms: "Tutor" },
- { en: "Photographer", ms: "Photographer" },
- { en: "Fitness Coach", ms: "Fitness Coach" },
- { en: "Freelancer", ms: "Freelancer" },
- { en: "Consultant", ms: "Consultant" },
- { en: "Clinic or Medical", ms: "Klinik atau Perubatan" },
- { en: "Hair & Beauty Salon", ms: "Salon Kecantikan" },
- { en: "Spa & Massage", ms: "Spa & Urut" },
- { en: "Pet Grooming", ms: "Pet Grooming" },
- { en: "Car Detailing", ms: "Car Detailing" },
- { en: "Event Planner", ms: "Perancang Majlis" },
- { en: "Home Cleaning", ms: "Perkhidmatan Pembersihan" },
- { en: "Tailor", ms: "Tukang Jahit" },
- { en: "Music or Art Teacher", ms: "Guru Muzik atau Seni" },
- { en: "Other", ms: "Lain-lain" },
- ];
- let wizardPersona = null;
- let wizardStepIdx = 0;
+ // ── Onboarding Wizard (Smart Zero-Friction Setup) ──
+ const SMART_INDUSTRY_PRESETS = {
+ fotografi: {
+ key: "fotografi",
+ title: "Fotografi & Studio",
+ sampleBiz: "Studio Impian Seni",
+ tagline: "Fotografi Kahwin & Majlis Rasmi",
+ bio: "Pakej fotografi kahwin, nikah & outdoor bertaraf eksklusif. Slot terhad 2 sesi sehari.",
+ slotDuration: 60,
+ packages: [
+ { name: "Pakej Sanding & Outdoor (Full Day)", duration: 480, deposit: 150 },
+ { name: "Pakej Akad Nikah (Half Day)", duration: 240, deposit: 100 }
+ ],
+ questions: ["Lokasi Majlis (Dewan/Rumah/Outdoor)", "Waktu Acara Bermula"]
+ },
+ mua: {
+ key: "mua",
+ title: "MUA & Solekan",
+ sampleBiz: "Bella Glamour Makeup",
+ tagline: "Solekan Pengantin Eksklusif",
+ bio: "Solekan pengantin eksklusif, nikah subuh & sanding bertaraf selebriti.",
+ slotDuration: 60,
+ packages: [
+ { name: "Solekan Sanding Glam", duration: 120, deposit: 100 },
+ { name: "Solekan Nikah Subuh", duration: 120, deposit: 100 }
+ ],
+ questions: ["Lokasi Solekan & Waktu Siap (cth: 06:30 AM)"]
+ },
+ inai: {
+ key: "inai",
+ title: "Inai & Henna Art",
+ sampleBiz: "Inai Cantik KL & Selangor",
+ tagline: "Ukiran Inai Asli & Henna Putih",
+ bio: "Ukiran inai asli merah pekat, henna putih moden & inai tunang simple.",
+ slotDuration: 45,
+ packages: [
+ { name: "Inai Raja Sehari Tangan & Kaki", duration: 90, deposit: 50 },
+ { name: "Inai Simple Bertunang", duration: 45, deposit: 30 }
+ ],
+ questions: ["Tema & Warna Inai (Merah Asli / Putih Moden)"]
+ },
+ tutor: {
+ key: "tutor",
+ title: "Tutor & Kelas",
+ sampleBiz: "Cikgu Azman Fizik SPM",
+ tagline: "Bimbingan Intensif 1-on-1 Fizik SPM",
+ bio: "Bimbingan intensif persediaan peperiksaan SPM. Format soalan terkini.",
+ slotDuration: 60,
+ packages: [
+ { name: "1-on-1 Intensive Coaching", duration: 90, deposit: 50 },
+ { name: "Bengkel Skor A SPM (Kumpulan)", duration: 120, deposit: 20 }
+ ],
+ questions: ["Tingkatan & Subjek / Topik Fokus"]
+ },
+ general: {
+ key: "general",
+ title: "Servis Solo & Perkhidmatan",
+ sampleBiz: "Perniagaan Saya",
+ tagline: "Perkhidmatan Profesional Solo",
+ bio: "Tempahan sesi perkhidmatan rasmi dalam talian.",
+ slotDuration: 60,
+ packages: [
+ { name: "Servis Standard Penuh", duration: 60, deposit: 50 },
+ { name: "Sesi Konsultasi Ringkas", duration: 30, deposit: 20 }
+ ],
+ questions: ["Keperluan khas atau nota tempahan"]
+ }
+ };
+
+ let selectedWizardIndustry = "fotografi";
+ let wizardStepIdx = 1;
+
+ function renderWizardPresetPreview(key) {
+ const preset = SMART_INDUSTRY_PRESETS[key] || SMART_INDUSTRY_PRESETS.general;
+ const list = document.getElementById("wizard-prev-list");
+ if (!list) return;
+ list.innerHTML = `
+ ${preset.packages.map(p => `
+ <div class="wizard-prev-item">
+ <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+ <span><strong>${escapeHtml(p.name)}</strong> · Deposit RM${p.deposit}</span>
+ </div>
+ `).join("")}
+ ${preset.questions.map(q => `
+ <div class="wizard-prev-item">
+ <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+ <span>Soalan Borang: <em>${escapeHtml(q)}</em></span>
+ </div>
+ `).join("")}
+ `;
+ }
 
  function openOnboardingWizard() {
  wizardStepIdx = 1;
- wizardPersona = null;
- renderWizardPersonaGrid();
- renderWizardAvailabilityOptions();
+ selectedWizardIndustry = "fotografi";
+ 
+ // Attach industry cards listener
+ document.querySelectorAll(".wizard-ind-card").forEach(card => {
+ card.classList.toggle("active", card.dataset.industry === selectedWizardIndustry);
+ card.onclick = () => {
+ document.querySelectorAll(".wizard-ind-card").forEach(c => c.classList.remove("active"));
+ card.classList.add("active");
+ selectedWizardIndustry = card.dataset.industry;
+ renderWizardPresetPreview(selectedWizardIndustry);
+
+ // Pre-fill business name placeholder
+ const bizInput = document.getElementById("wz-biz-name");
+ if (bizInput && !bizInput.value) {
+ bizInput.placeholder = SMART_INDUSTRY_PRESETS[selectedWizardIndustry]?.sampleBiz || "Nama Bisnes Anda";
+ }
+ };
+ });
+
+ renderWizardPresetPreview(selectedWizardIndustry);
  renderWizardStep();
  document.getElementById("wizard-modal").style.display = "flex";
  }
 
- function renderWizardPersonaGrid() {
- document.getElementById("wizard-persona-grid").innerHTML = WIZARD_PERSONAS.map(p => `
- <button type="button" class="secondary wizard-persona-btn" data-persona="${p.en}" style="padding:0.8rem 0.5rem;">${p.ms}</button>
- `).join("");
- document.getElementById("wizard-persona-grid").querySelectorAll(".wizard-persona-btn").forEach(btn => {
- btn.addEventListener("click", () => {
- document.querySelectorAll(".wizard-persona-btn").forEach(b => { b.style.background = ""; b.style.color = ""; });
- btn.style.background = "var(--stamp)";
- btn.style.color = "#fff";
- wizardPersona = btn.dataset.persona;
- });
- });
- }
-
- function renderWizardAvailabilityOptions() {
- const opts = [["everyday", "Setiap hari, 9 pagi hingga 6 petang", true], ["weekdays", "Hari bekerja sahaja, 9 pagi hingga 6 petang", false], ["later", "Saya akan tetapkan sendiri kemudian", false]];
- document.getElementById("wizard-availability-options").innerHTML = opts.map(([val, label, checked]) => `
- <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;"><input type="radio" name="wizard-avail" value="${val}" ${checked ? "checked" : ""} style="width:auto;" /> ${label}</label>
- `).join("");
- }
-
  function renderWizardStep() {
- for (let i = 1; i <= 5; i++) {
+ for (let i = 1; i <= 3; i++) {
  const el = document.getElementById(`wizard-step-${i}`);
  if (el) el.style.display = i === wizardStepIdx ? "block" : "none";
  }
- document.getElementById("wizard-progress").textContent = (wizardStepIdx >= 1 && wizardStepIdx <= 4) ? `Langkah ${wizardStepIdx} daripada 4` : "";
- document.getElementById("wizard-back-btn").style.visibility = wizardStepIdx <= 1 ? "hidden" : "visible";
- document.getElementById("wizard-nav-row").style.display = wizardStepIdx === 5 ? "none" : "flex";
- document.getElementById("wizard-next-btn").textContent = wizardStepIdx === 4 ? "Selesai" : "Seterusnya";
- document.getElementById("wizard-error").style.display = "none";
+ const navRow = document.getElementById("wizard-nav-row");
+ if (navRow) navRow.style.display = wizardStepIdx === 3 ? "none" : "flex";
+
+ const backBtn = document.getElementById("wizard-back-btn");
+ if (backBtn) backBtn.style.visibility = wizardStepIdx <= 1 ? "hidden" : "visible";
+
+ const nextBtn = document.getElementById("wizard-next-btn");
+ if (nextBtn) {
+ nextBtn.textContent = wizardStepIdx === 2 ? "Lancarkan Laman Bio Rasmi →" : "Seterusnya →";
+ }
+
+ const errEl = document.getElementById("wizard-error");
+ if (errEl) errEl.style.display = "none";
  }
 
  function closeWizard(markComplete) {
  if (markComplete) {
  localStorage.setItem("eqstudio_onboarding_completed", "1");
- localStorage.setItem("eqstudio_tour_completed", "1");
+ localStorage.setItem("eqstudio_setup_dismissed", "1");
  }
  document.getElementById("wizard-modal").style.display = "none";
  }
 
  document.getElementById("wizard-skip-btn")?.addEventListener("click", () => closeWizard(true));
- document.getElementById("restart-wizard-btn")?.addEventListener("click", () => {
- if (allBookingLinks.length > 0) {
- const proceed = confirm(`Anda telah mempunyai ${allBookingLinks.length} pautan tempahan sedia ada. Panduan ini akan mencipta pautan, jenis perkhidmatan, dan waktu tersedia yang BAHARU, bukan menyunting yang sedia ada. Ini mungkin menyebabkan pertindanan data sekiranya anda hanya ingin menyemak semula panduan. Adakah anda ingin meneruskan?`);
- if (!proceed) return;
+ document.getElementById("wz-enter-dash-btn")?.addEventListener("click", () => closeWizard(true));
+
+ document.getElementById("wizard-back-btn")?.addEventListener("click", () => {
+ if (wizardStepIdx > 1) {
+ wizardStepIdx--;
+ renderWizardStep();
  }
+ });
+
+ document.getElementById("wizard-next-btn")?.addEventListener("click", async () => {
+ const errorEl = document.getElementById("wizard-error");
+ errorEl.style.display = "none";
+
+ if (wizardStepIdx === 1) {
+ wizardStepIdx = 2;
+ renderWizardStep();
+ return;
+ }
+
+ if (wizardStepIdx === 2) {
+ const bizName = document.getElementById("wz-biz-name").value.trim();
+ const phone = document.getElementById("wz-phone").value.trim();
+ const bankAcc = document.getElementById("wz-bank-acc").value.trim();
+
+ if (!bizName) {
+ errorEl.textContent = "Sila masukkan nama bisnes atau studio anda.";
+ errorEl.style.display = "block";
+ return;
+ }
+ if (!phone) {
+ errorEl.textContent = "Sila masukkan nombor telefon / WhatsApp.";
+ errorEl.style.display = "block";
+ return;
+ }
+ if (!bankAcc) {
+ errorEl.textContent = "Sila masukkan nombor akaun bank atau DuitNow untuk terima deposit.";
+ errorEl.style.display = "block";
+ return;
+ }
+
+ const nextBtn = document.getElementById("wizard-next-btn");
+ nextBtn.disabled = true;
+ nextBtn.textContent = "Sedang Melancarkan Laman Anda...";
+
+ try {
+ await finishSmartWizardSetup();
+ wizardStepIdx = 3;
+ renderWizardStep();
+ } catch (err) {
+ errorEl.textContent = err.message || "Berlaku masalah. Sila cuba semula.";
+ errorEl.style.display = "block";
+ }
+ nextBtn.disabled = false;
+ nextBtn.textContent = "Lancarkan Laman Bio Rasmi →";
+ return;
+ }
+ });
+
+ async function finishSmartWizardSetup() {
+ const preset = SMART_INDUSTRY_PRESETS[selectedWizardIndustry] || SMART_INDUSTRY_PRESETS.general;
+ const bizName = document.getElementById("wz-biz-name").value.trim() || preset.sampleBiz;
+ const phone = document.getElementById("wz-phone").value.trim();
+ const bankName = document.getElementById("wz-bank-name").value || "Maybank";
+ const bankAcc = document.getElementById("wz-bank-acc").value.trim();
+
+ const baseSource = (bizName || "studio").toLowerCase();
+ const baseSlug = baseSource.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || `studio-${Date.now().toString(36)}`;
+
+ let inserted = null;
+ let finalSlug = baseSlug;
+ for (let attempt = 0; attempt < 3; attempt++) {
+ const trySlug = attempt === 0 ? baseSlug : `${baseSlug}-${Math.random().toString(36).slice(2, 6)}`;
+ const { data, error } = await supabase.from("booking_links").insert({
+ owner_id: user.id,
+ slug: trySlug,
+ label: bizName,
+ is_primary: true,
+ slot_duration_minutes: preset.slotDuration || 60,
+ booking_min_notice_hours: 24,
+ buffer_minutes: 0,
+ cancellation_notice_hours: 0,
+ default_deposit_amount: preset.packages[0]?.deposit || 50,
+ description: preset.bio
+ }).select().single();
+ if (!error) { inserted = data; finalSlug = trySlug; break; }
+ if (!error.message?.includes("duplicate")) throw new Error(error.message);
+ }
+ if (!inserted) throw new Error("Gagal mencipta pautan tempahan. Sila cuba sebentar lagi.");
+
+ currentLinkId = inserted.id;
+
+ // 1. Insert packages (Event types)
+ const pkgPayload = preset.packages.map((pkg, idx) => ({
+ owner_id: user.id,
+ booking_link_id: inserted.id,
+ name: pkg.name,
+ duration_minutes: pkg.duration,
+ deposit_amount: pkg.deposit,
+ capacity: 1,
+ sort_order: idx
+ }));
+ await supabase.from("event_types").insert(pkgPayload);
+
+ // 2. Insert intake questions
+ if (preset.questions && preset.questions.length > 0) {
+ const qPayload = preset.questions.map((q, idx) => ({
+ owner_id: user.id,
+ booking_link_id: inserted.id,
+ question_text: q,
+ sort_order: idx
+ }));
+ await supabase.from("booking_questions").insert(qPayload);
+ }
+
+ // 3. Open 60-day calendar availability
+ const availRows = [];
+ for (let d = 0; d < 60; d++) {
+ const date = new Date(Date.now() + d * 86400000);
+ availRows.push({
+ owner_id: user.id,
+ booking_link_id: inserted.id,
+ specific_date: date.toISOString().slice(0, 10),
+ start_time: "09:00",
+ end_time: "18:00"
+ });
+ }
+ await supabase.from("availability_dates").insert(availRows);
+
+ // 4. Update Profile
+ const profilePayload = {
+ business_name: bizName,
+ contact_phone: phone,
+ whatsapp_number: phone,
+ bank_name: bankName,
+ bank_account_number: bankAcc,
+ about_text: preset.bio,
+ tagline: preset.tagline
+ };
+ await supabase.from("profiles").update(profilePayload).eq("id", user.id);
+
+ // Keep currentProfile in sync
+ if (typeof currentProfile !== "undefined" && currentProfile) {
+ Object.assign(currentProfile, profilePayload);
+ }
+
+ // Set local storage flags
+ localStorage.setItem("eqstudio_onboarding_completed", "1");
+ localStorage.setItem("eqstudio_setup_dismissed", "1");
+
+ // Success Screen links
+ const bookingUrl = `${window.location.origin}/book.html?slug=${finalSlug}`;
+ const finalUrlEl = document.getElementById("wz-final-url");
+ if (finalUrlEl) finalUrlEl.textContent = bookingUrl;
+
+ const viewLiveBtn = document.getElementById("wz-view-live-btn");
+ if (viewLiveBtn) viewLiveBtn.href = bookingUrl;
+
+ const copyLiveBtn = document.getElementById("wz-copy-live-btn");
+ if (copyLiveBtn) {
+ copyLiveBtn.onclick = () => {
+ navigator.clipboard.writeText(bookingUrl).then(() => showToast("Pautan bio rasmi disalin!", "success"));
+ };
+ }
+
+ // Refresh dashboard state
+ await loadBookingLinksAndSettings().catch(console.error);
+ if (typeof updateStorefrontReadiness === "function") {
+ updateStorefrontReadiness();
+ }
+ const checklistSlot = document.getElementById("setup-checklist-slot");
+ if (checklistSlot) checklistSlot.innerHTML = "";
+ }
+
+ document.getElementById("restart-wizard-btn")?.addEventListener("click", () => {
  openOnboardingWizard();
  });
 

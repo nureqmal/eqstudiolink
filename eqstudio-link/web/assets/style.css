@@ -9791,3 +9791,119 @@ table tbody tr:hover td {
     max-width: 100%;
   }
 }
+
+
+/* ═════════════════════════════════════════════════════════════════════
+   SMART ZERO-FRICTION ONBOARDING WIZARD
+   ═════════════════════════════════════════════════════════════════════ */
+.wizard-industry-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 0.9rem;
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 0.2rem;
+}
+
+.wizard-ind-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  background: var(--surface);
+  border: 1.5px solid var(--paper-line);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wizard-ind-card:hover {
+  border-color: color-mix(in srgb, var(--stamp) 50%, var(--paper-line));
+  transform: translateY(-1px);
+}
+
+.wizard-ind-card.active {
+  border-color: var(--stamp);
+  background: color-mix(in srgb, var(--stamp) 5%, var(--surface));
+  box-shadow: 0 4px 14px rgba(74, 9, 143, 0.08);
+}
+
+.wizard-ind-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.wizard-ind-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--paper) 60%, var(--surface));
+  color: var(--stamp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.wizard-ind-card.active .wizard-ind-icon {
+  background: var(--stamp);
+  color: #fff;
+}
+
+.wizard-ind-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.wizard-ind-desc {
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+.wizard-ind-check {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--ok);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.wizard-ind-card.active .wizard-ind-check {
+  opacity: 1;
+}
+
+.wizard-preview-box {
+  background: color-mix(in srgb, var(--paper) 40%, var(--surface));
+  border: 1px dashed var(--paper-line);
+  border-radius: 10px;
+  padding: 0.75rem 0.85rem;
+}
+
+.wizard-prev-header {
+  margin-bottom: 0.4rem;
+}
+
+.wizard-prev-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--stamp);
+  letter-spacing: 0.03em;
+}
+
+.wizard-prev-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.74rem;
+  color: var(--ink);
+  margin-top: 0.3rem;
+}
+
+.wizard-prev-item svg {
+  color: var(--ok);
+  flex-shrink: 0;
+}

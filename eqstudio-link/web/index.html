@@ -10,6 +10,12 @@
 <title>eqstudio.link: Booking & Client Manager untuk Business Owner Solo</title>
 <meta name="description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Booking online, invois, dan pengurusan pelanggan untuk usahawan solo Malaysia. Pelan percuma selamanya, tanpa kad kredit." />
 <link rel="canonical" href="https://eqstudio.link/" />
+<link rel="manifest" href="/manifest.json" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="eqstudio" />
+<meta name="theme-color" content="#4A098F" />
+<meta name="mobile-web-app-capable" content="yes" />
 
 <!-- Open Graph (Facebook, WhatsApp, LinkedIn preview cards) -->
 <meta property="og:type" content="website" />
@@ -2213,6 +2219,35 @@
       }
     }
     loadForumPreview();
+  </script>
+
+
+  <!-- Mobile Sticky App CTA Bar (Visible only on mobile on scroll) -->
+  <div class="lp-mobile-sticky-bar" id="lp-mobile-sticky-bar" aria-label="Tindakan Pantas Mudah Alih">
+    <div class="lp-sticky-left">
+      <span class="lp-sticky-tag">Pelan Asas Percuma</span>
+      <span class="lp-sticky-title">10 Tempahan/bln · RM0</span>
+    </div>
+    <a href="/login.html" class="btn btn-primary-cta lp-sticky-btn">
+      <span>Mula Percuma</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
+  </div>
+
+  <script>
+    (function() {
+      const bar = document.getElementById("lp-mobile-sticky-bar");
+      if (!bar) return;
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 280) {
+          bar.classList.add("visible");
+          document.body.classList.add("has-mobile-sticky");
+        } else {
+          bar.classList.remove("visible");
+          document.body.classList.remove("has-mobile-sticky");
+        }
+      }, { passive: true });
+    })();
   </script>
 
 </body>

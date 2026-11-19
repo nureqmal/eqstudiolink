@@ -10163,3 +10163,186 @@ table tbody tr:hover td {
   background: #390670;
   transform: translateY(-1px);
 }
+
+
+/* ═════════════════════════════════════════════════════════════════════
+   NATIVE MOBILE APP-LIKE UI/UX OVERHAUL (PLAY STORE / APP STORE FEEL)
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* 1. Bottom Sheet Modal Transformation on Mobile */
+@media (max-width: 640px) {
+  .modal-overlay {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+  .modal-box {
+    border-radius: 22px 22px 0 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 1.25rem 1.2rem calc(1.5rem + env(safe-area-inset-bottom, 16px)) !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    animation: modal-sheet-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  }
+  @keyframes modal-sheet-in {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal-box::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 4.5px;
+    background: var(--paper-line);
+    border-radius: 999px;
+    margin: 0 auto 0.9rem;
+  }
+}
+
+/* 2. Landing Page Mobile Sticky Bottom Bar (App-like CTA) */
+.lp-mobile-sticky-bar {
+  display: none;
+}
+@media (max-width: 768px) {
+  .lp-mobile-sticky-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 990;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--paper-line);
+    padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom, 8px));
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    transform: translateY(110%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .lp-mobile-sticky-bar.visible {
+    transform: translateY(0);
+  }
+  .lp-sticky-left {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .lp-sticky-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--stamp);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .lp-sticky-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .lp-sticky-btn {
+    padding: 0.55rem 1.15rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    box-shadow: 0 4px 12px rgba(74, 9, 143, 0.25);
+  }
+  body.has-mobile-sticky {
+    padding-bottom: calc(70px + env(safe-area-inset-bottom, 8px));
+  }
+}
+
+/* 3. Mobile Agenda WhatsApp 1-Click Action Pill */
+.mobile-agenda-wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.75rem;
+  background: #25D366;
+  color: #fff !important;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.3);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  flex-shrink: 0;
+}
+.mobile-agenda-wa-btn:hover {
+  opacity: 0.92;
+}
+.mobile-agenda-wa-btn:active {
+  transform: scale(0.93);
+}
+.mobile-agenda-wa-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: #fff;
+}
+
+/* 4. Smart PWA Install Card */
+.mobile-pwa-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, rgba(74, 9, 143, 0.08) 0%, rgba(124, 58, 237, 0.05) 100%);
+  border: 1px solid rgba(74, 9, 143, 0.2);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.1rem;
+}
+.mobile-pwa-info {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+.mobile-pwa-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+.mobile-pwa-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mobile-pwa-info strong {
+  font-size: 0.88rem;
+  color: var(--ink);
+  display: block;
+}
+.mobile-pwa-info p {
+  margin: 0.1rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
+/* 5. Native Touch & Tap Feedback */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:active, .btn:active, .mobile-dock-item:active, .card:active {
+    transform: scale(0.975);
+    transition: transform 0.1s ease;
+  }
+}

@@ -125,7 +125,7 @@
  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
  <span id="quota-label-text">Kapasiti Tempahan Bulan Ini</span>
  </div>
- <div class="db-quota-val" id="quota-val-text">0 / 10 Tempahan Percuma</div>
+ <div class="db-quota-val" id="quota-val-text">–</div>
  </div>
  <div class="db-quota-bar-bg">
  <div class="db-quota-bar-fill" id="quota-bar-fill" style="width:0%;"></div>
@@ -2783,6 +2783,7 @@
  try {
  if (typeof renderHomeNextAction === "function") {
  renderHomeNextAction();
+ updateMonthlyQuotaMeter();
  }
  } catch (_) {}
  try {
@@ -3258,16 +3259,19 @@
  const upgradeHint = !isPro ? ` <span class="tier-badge-upgrade">· Upgrade</span>` : "";
  el.innerHTML = `${label}${upgradeHint}`;
  el.style.display = "inline-flex";
+ updateMonthlyQuotaMeter();
  }
  renderTierBadge(document.getElementById("tier-badge"));
  renderTierBadge(document.getElementById("tier-badge-mobile"));
+ updateMonthlyQuotaMeter();
 
  function updateMonthlyQuotaMeter() {
  const card = document.getElementById("home-monthly-quota-card");
  if (!card) return;
 
- const isPro = profile?.tier === "pro";
- const isLite = profile?.tier === "lite";
+ const activeTier = (typeof currentProfile !== "undefined" && currentProfile?.tier) || (typeof profile !== "undefined" && profile?.tier) || (typeof profTier !== "undefined" ? profTier?.tier : null);
+ const isPro = activeTier === "pro" || (typeof currentUserIsPro !== "undefined" && currentUserIsPro);
+ const isLite = activeTier === "lite";
 
  // Count bookings created in the current month
  const now = new Date();
@@ -3290,14 +3294,16 @@
 
  if (isPro) {
  if (lblEl) lblEl.textContent = "Status Pelan: Studio Pro (Aktif)";
- if (valEl) valEl.textContent = `${thisMonthCount} Tempahan (Tanpa Had)`;
+ if (valEl) valEl.textContent = `${thisMonthCount} Tempahan Bulan Ini · Akses Tanpa Had`;
  if (fillEl) {
  fillEl.style.width = "100%";
  fillEl.style.background = "linear-gradient(90deg, #4a098f, #7c3aed)";
  }
  if (btnEl) {
- btnEl.querySelector("span").textContent = "Urus Langganan";
+ const s = btnEl.querySelector("span");
+ if (s) s.textContent = "Urus Langganan Studio Pro";
  btnEl.style.background = "var(--stamp)";
+ btnEl.href = "/billing.html";
  }
  } else if (isLite) {
  const cap = 30;
@@ -3308,7 +3314,11 @@
  fillEl.style.width = `${pct}%`;
  fillEl.style.background = pct >= 80 ? "#EF4444" : "linear-gradient(90deg, #10B981, #059669)";
  }
- if (btnEl) btnEl.querySelector("span").textContent = "Naik Taraf Studio Pro (Unlimited) →";
+ if (btnEl) {
+ const s = btnEl.querySelector("span");
+ if (s) s.textContent = "Naik Taraf ke Studio Pro (Unlimited) →";
+ btnEl.href = "/billing.html";
+ }
  } else {
  // Free Forever tier
  const cap = 10;
@@ -3319,7 +3329,11 @@
  fillEl.style.width = `${pct}%`;
  fillEl.style.background = pct >= 80 ? "#EF4444" : "linear-gradient(90deg, #10B981, #059669)";
  }
- if (btnEl) btnEl.querySelector("span").textContent = "Naik Taraf Pro (Unlimited) →";
+ if (btnEl) {
+ const s = btnEl.querySelector("span");
+ if (s) s.textContent = "Naik Taraf ke Studio Pro (Unlimited) →";
+ btnEl.href = "/billing.html";
+ }
  }
  }
 
@@ -5437,6 +5451,7 @@
  renderSetupChecklist(allCustomers.length);
  updateHomeLinkStatusBadge();
  renderHomeMobileAgenda();
+ updateMonthlyQuotaMeter();
  renderDesktopOpsCockpit(); // allBookingLinks just finished loading — refresh Ops Cockpit stats (Active Links, etc.) in case updateHomeTileStats() already ran earlier with an empty array
  updateStorefrontReadiness();
 

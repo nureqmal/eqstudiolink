@@ -10,7 +10,103 @@
 <title>Langganan & Pembayaran — eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=61" />
+<link rel="stylesheet" href="/assets/style.css?v=62" />
+<style>
+  @media (max-width: 640px) {
+    .billing-wrapper { padding: 1.1rem 0.85rem 3.5rem; }
+    .billing-tier-grid { grid-template-columns: 1fr; gap: 0.85rem; }
+    .billing-freq-wrap { grid-template-columns: 1fr; gap: 0.5rem; }
+    .transfer-grid { grid-template-columns: 1fr; }
+    .billing-header-card { padding: 1.25rem 1.1rem; }
+    .billing-trust-strip { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+  }
+  .billing-tier-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .billing-tier-card:hover {
+    border-color: var(--stamp);
+    transform: translateY(-2px);
+  }
+  .billing-tier-card.selected {
+    border-color: var(--stamp);
+    background: linear-gradient(180deg, var(--surface) 0%, rgba(74, 9, 143, 0.03) 100%);
+    box-shadow: 0 4px 16px rgba(74, 9, 143, 0.08);
+  }
+  .billing-freq-option {
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .billing-badge-decoy {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+  }
+  .billing-badge-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #4a098f, #7c3aed);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(74, 9, 143, 0.25);
+  }
+  .billing-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--paper-line);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .billing-feature-item:last-child {
+    border-bottom: none;
+  }
+  .billing-feature-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.15);
+    color: #059669;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+  .billing-feature-icon svg {
+    width: 11px;
+    height: 11px;
+    stroke-width: 3;
+  }
+  .billing-highlight-box {
+    background: rgba(74, 9, 143, 0.05);
+    border: 1px solid rgba(74, 9, 143, 0.15);
+    border-radius: 12px;
+    padding: 0.9rem 1.1rem;
+    margin: 1.1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+</style>
 <script>
   (function () {
     var saved = localStorage.getItem("eqstudio_theme");
@@ -41,8 +137,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
           </div>
           <div>
-            <h1 class="billing-status-title" id="status-title">Pilih Pelan Langganan Anda</h1>
-            <p class="billing-status-sub" id="status-sub">Tingkatkan kapasiti bisnes anda dengan automasi penuh WhatsApp, pautan tanpa had &amp; penjenamaan eksklusif.</p>
+            <h1 class="billing-status-title" id="status-title">Pilih Pelan Langganan Studio Anda</h1>
+            <p class="billing-status-sub" id="status-sub">Tingkatkan kapasiti bisnes anda dengan automasi penuh WhatsApp, pautan tanpa had, penjenamaan eksklusif &amp; integrasi Google Calendar.</p>
           </div>
         </div>
       </div>
@@ -50,7 +146,7 @@
       <div class="billing-trust-strip">
         <span class="billing-trust-item">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span>Data Pelanggan & Booking Dijamin Selamat</span>
+          <span>Data Pelanggan &amp; Booking Dijamin Selamat</span>
         </span>
         <span class="billing-trust-item">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -85,13 +181,14 @@
     <div class="card" id="plan-selector-card" style="padding:1.6rem 1.8rem;">
       <div style="margin-bottom:1.2rem;">
         <h2 style="margin:0; font-size:1.15rem; font-weight:700; color:var(--ink);">1. Pilih Kapasiti Pelan Perniagaan</h2>
-        <p class="hint" style="margin:0.25rem 0 0;">Pilih tier yang sesuai mengikut bilangan link booking dan keperluan operasi anda.</p>
+        <p class="hint" style="margin:0.25rem 0 0;">Pilih tier yang sesuai mengikut keperluan kapasiti, penjenamaan dan automasi WhatsApp anda.</p>
       </div>
 
       <!-- Tier Selection Grid -->
       <div class="billing-tier-grid" id="tier-selector">
-        <label class="billing-tier-card" for="tier-lite">
-          <input type="radio" name="tier" id="tier-lite" value="lite" />
+        <!-- Solo Lite Card -->
+        <label class="billing-tier-card" for="tier-lite" id="card-tier-lite">
+          <input type="radio" name="tier" id="tier-lite" value="lite" style="position:absolute; opacity:0; pointer-events:none;" />
           <div class="billing-tier-header">
             <div class="billing-tier-title-wrap">
               <div class="billing-tier-icon">
@@ -99,16 +196,23 @@
               </div>
               <div>
                 <h3 class="billing-tier-name">Solo Lite</h3>
-                <span class="billing-tier-badge">Had 30 Booking</span>
+                <span class="billing-badge-decoy">RM39/bln · Had 30 Booking</span>
               </div>
             </div>
             <div class="billing-radio-indicator"></div>
           </div>
-          <p class="billing-tier-desc">Pelan asas untuk peniaga solo yang mahu membuang watermark dan menguruskan sehingga 30 tempahan sebulan.</p>
+          <p class="billing-tier-desc" style="margin:0.6rem 0 0.8rem; font-size:0.85rem; line-height:1.45; color:var(--ink-soft);">
+            Pelan asas untuk solopreneur atau perniagaan sambilan yang ingin menyingkirkan watermark dan menguruskan sehingga 30 tempahan sebulan.
+          </p>
+          <div style="font-size:0.8rem; color:var(--ink-soft); font-weight:600; display:flex; align-items:center; gap:0.4rem;">
+            <span>Peringatan WhatsApp:</span>
+            <span style="color:var(--ink); font-weight:700;">Mod 1-Klik Manual</span>
+          </div>
         </label>
 
-        <label class="billing-tier-card selected" for="tier-pro">
-          <input type="radio" name="tier" id="tier-pro" value="pro" checked />
+        <!-- Studio Pro Card -->
+        <label class="billing-tier-card selected" for="tier-pro" id="card-tier-pro">
+          <input type="radio" name="tier" id="tier-pro" value="pro" checked style="position:absolute; opacity:0; pointer-events:none;" />
           <div class="billing-tier-header">
             <div class="billing-tier-title-wrap">
               <div class="billing-tier-icon" style="background:var(--stamp); color:#fff;">
@@ -116,54 +220,66 @@
               </div>
               <div>
                 <h3 class="billing-tier-name">Studio Pro</h3>
-                <span class="billing-tier-badge pro">Disyorkan · Unlimited</span>
+                <span class="billing-badge-hero">Paling Popular · Tempahan Tanpa Had</span>
               </div>
             </div>
             <div class="billing-radio-indicator"></div>
           </div>
-          <p class="billing-tier-desc">Automasi penuh tanpa had dengan peringatan WhatsApp automatik, resit PDF, dan sehingga 3 pautan bio bebas.</p>
+          <p class="billing-tier-desc" style="margin:0.6rem 0 0.8rem; font-size:0.85rem; line-height:1.45; color:var(--ink-soft);">
+            Penyelesaian lengkap paling berbaloi untuk studio &amp; profesional. Tempahan tanpa had, automasi WhatsApp autopilot latar belakang &amp; segerak Google Calendar.
+          </p>
+          <div style="font-size:0.8rem; color:var(--stamp); font-weight:700; display:flex; align-items:center; gap:0.4rem;">
+            <span>WhatsApp Latar Belakang:</span>
+            <span style="background:var(--stamp-soft); padding:0.1rem 0.45rem; border-radius:4px;">100% Autopilot Hands-Free</span>
+          </div>
         </label>
       </div>
 
       <!-- Frequency Switcher -->
       <div style="margin:1.4rem 0 0.8rem;">
         <h2 style="margin:0; font-size:1.15rem; font-weight:700; color:var(--ink);">2. Pilih Kekerapan Pembayaran</h2>
-        <p class="hint" style="margin:0.25rem 0 0;">Jimat lebih banyak dengan langganan tahunan.</p>
+        <p class="hint" style="margin:0.25rem 0 0;">Jimat sehingga 2 bulan percuma dengan komitmen tahunan.</p>
       </div>
 
       <div class="billing-freq-wrap" id="plan-selector">
-        <label class="billing-freq-option" for="plan-monthly">
-          <input type="radio" name="plan" id="plan-monthly" value="monthly" />
+        <label class="billing-freq-option" for="plan-monthly" id="card-plan-monthly">
+          <input type="radio" name="plan" id="plan-monthly" value="monthly" style="position:absolute; opacity:0; pointer-events:none;" />
           <span class="billing-freq-label">Bayaran Bulanan</span>
-          <div class="billing-freq-price" id="price-monthly">RM19<span>/bulan</span></div>
+          <div class="billing-freq-price" id="price-monthly">RM59<span>/bulan</span></div>
           <span class="billing-freq-sub">Fleksibel, komitmen bulanan</span>
         </label>
 
-        <label class="billing-freq-option selected" for="plan-yearly">
-          <input type="radio" name="plan" id="plan-yearly" value="yearly" checked />
+        <label class="billing-freq-option selected" for="plan-yearly" id="card-plan-yearly">
+          <input type="radio" name="plan" id="plan-yearly" value="yearly" checked style="position:absolute; opacity:0; pointer-events:none;" />
           <span class="billing-freq-label">
             <span>Bayaran Tahunan</span>
-            <span class="billing-save-pill" id="price-save-badge">Jimat RM38</span>
+            <span class="billing-save-pill" id="price-save-badge">Jimat RM120</span>
           </span>
-          <div class="billing-freq-price" id="price-yearly">RM190<span>/tahun</span></div>
-          <span class="billing-freq-sub" id="price-yearly-sub">= RM15.83/bulan, 2 bulan percuma</span>
+          <div class="billing-freq-price" id="price-yearly">RM588<span>/tahun</span></div>
+          <span class="billing-freq-sub" id="price-yearly-sub">= RM49.00/bulan, 2 bulan percuma</span>
         </label>
+      </div>
+
+      <!-- Comparison Highlight Box -->
+      <div class="billing-highlight-box" id="tier-summary-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--stamp); flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span id="tier-summary-text">Anda memilih <strong>Studio Pro</strong>: Anda menikmati tempahan tanpa had, automasi WhatsApp latar belakang tanpa perlu klik manual, dan sehingga 3 pautan bio rasmi.</span>
       </div>
 
       <!-- Features Checklist Included -->
       <div style="margin-top:1.4rem; padding-top:1.2rem; border-top:1px solid var(--paper-line);">
-        <h3 style="margin:0 0 0.4rem; font-size:0.92rem; font-weight:700; color:var(--ink); text-transform:uppercase; letter-spacing:0.04em;">Ciri-Ciri Termasuk:</h3>
-        <ul class="billing-value-list" id="value-checklist"></ul>
+        <h3 style="margin:0 0 0.75rem; font-size:0.92rem; font-weight:700; color:var(--ink); text-transform:uppercase; letter-spacing:0.04em;" id="feature-heading">Ciri-Ciri Termasuk Dalam Pelan Ini:</h3>
+        <div id="value-checklist"></div>
       </div>
 
       <!-- Checkout Action Button -->
       <div style="margin-top:1.5rem; padding-top:1.2rem; border-top:1px solid var(--paper-line);">
-        <button id="pay-btn" style="width:100%; padding:0.9rem; font-size:1rem; font-weight:700; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
-          <span>Jana Bil &amp; Bayar</span>
+        <button id="pay-btn" type="button" style="width:100%; padding:0.95rem; font-size:1.02rem; font-weight:700; display:flex; align-items:center; justify-content:center; gap:0.5rem; border-radius:12px; cursor:pointer;">
+          <span id="pay-btn-text">Teruskan ke Bayaran DuitNow (RM588/tahun)</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </button>
         <p class="hint" style="text-align:center; margin:0.6rem 0 0; font-size:0.78rem;">
-          Pembayaran selamat melalui DuitNow QR atau pindahan bank tempatan (GXBank). Resit rasmi dikeluarkan.
+          Pembayaran selamat melalui DuitNow QR atau pindahan bank tempatan (GXBank). Invois rasmi dikeluarkan serta-merta.
         </p>
       </div>
     </div>
@@ -209,7 +325,7 @@
               </span>
               <div>
                 <p class="hint" style="margin:0; font-size:0.75rem;">Jumlah Tepat Perlu Dibayar</p>
-                <p style="margin:0; font-weight:700; font-size:1.2rem; color:var(--stamp);" id="transfer-amount">RM190.00</p>
+                <p style="margin:0; font-weight:700; font-size:1.2rem; color:var(--stamp);" id="transfer-amount">RM588.00</p>
               </div>
             </div>
             <button type="button" class="transfer-copy-btn" id="copy-amount-btn">
@@ -237,8 +353,8 @@
       </div>
 
       <div style="margin-top:1.5rem; padding-top:1.2rem; border-top:1px solid var(--paper-line); display:flex; flex-direction:column; gap:0.6rem;">
-        <button type="button" id="claim-paid-btn" style="width:100%; padding:0.85rem; font-size:1rem; font-weight:700;">✓ Saya Dah Buat Bayaran</button>
-        <button type="button" class="secondary" id="back-to-plan-btn" style="width:100%; padding:0.75rem; font-size:0.9rem;">← Kembali Tukar Pakej</button>
+        <button type="button" id="claim-paid-btn" style="width:100%; padding:0.85rem; font-size:1rem; font-weight:700; border-radius:12px; cursor:pointer;">✓ Saya Dah Buat Bayaran</button>
+        <button type="button" class="secondary" id="back-to-plan-btn" style="width:100%; padding:0.75rem; font-size:0.9rem; border-radius:12px; cursor:pointer;">← Kembali Tukar Pakej</button>
       </div>
     </div>
 
@@ -270,7 +386,7 @@
         </div>
       </div>
 
-      <a href="/dashboard.html" class="btn" style="display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; padding:0.8rem 1.8rem; font-size:0.95rem; font-weight:700; text-decoration:none; margin-top:0.5rem;">
+      <a href="/dashboard.html" class="btn" style="display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; padding:0.8rem 1.8rem; font-size:0.95rem; font-weight:700; text-decoration:none; margin-top:0.5rem; border-radius:12px;">
         <span>Kembali ke Dashboard</span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </a>
@@ -282,88 +398,135 @@
     import { showToast } from "/assets/toast.js";
 
     const { data: sessionData } = await supabase.auth.getSession();
-    if (!sessionData.session) {
+    if (!sessionData || !sessionData.session) {
       window.location.href = "/login.html";
     }
     const session = sessionData.session;
 
-    document.getElementById("logout-btn").addEventListener("click", async () => {
+    document.getElementById("logout-btn")?.addEventListener("click", async () => {
       await supabase.auth.signOut();
       window.location.href = "/login.html";
     });
 
-    // Show a different framing depending on whether they still have time left
-    // or have actually run out
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("subscription_status, subscription_end_date, tier, subscription_plan, is_founding_member, founding_member_locked_price_monthly, founding_member_locked_price_yearly")
-      .eq("id", session.user.id)
-      .single();
-
-    const stillHasTime = profile && profile.subscription_status !== "past_due" && new Date(profile.subscription_end_date) > new Date();
-    if (stillHasTime) {
-      const endDateLabel = new Date(profile.subscription_end_date).toLocaleDateString("ms-MY", { day: "numeric", month: "long", year: "numeric" });
-      document.getElementById("status-title").textContent = `Akses Aktif Sehingga ${endDateLabel}`;
-      document.getElementById("status-sub").textContent = `Akaun anda masih aktif pada pelan ${profile.tier === "pro" ? "Pro" : "Starter"}. Anda boleh memperbaharui awal atau menaik taraf pelan dengan mudah di bawah.`;
-    }
-
-    // Existing Founding Members always see their own locked price
-    const isExistingFoundingMember = !!profile?.is_founding_member;
-    if (isExistingFoundingMember) {
-      document.getElementById("tier-starter").checked = true;
-      document.getElementById("tier-pro").disabled = true;
-      const proCard = document.querySelector('label[for="tier-pro"]');
-      if (proCard) proCard.style.opacity = "0.45";
-      const banner = document.createElement("div");
-      banner.className = "founding-member-card";
-      banner.style.marginBottom = "1.2rem";
-      banner.innerHTML = `
-        <span class="founding-member-badge">VIP Locked</span>
-        <div>
-          <strong style="color:var(--ink);">Tahniah! Anda adalah Founding Member Rasmi</strong>
-          <p class="hint" style="margin:0.2rem 0 0; font-size:0.82rem;">Kadar langganan anda telah dikunci selama-lamanya pada harga istimewa, terlindung daripada sebarang kenaikan harga di masa hadapan.</p>
-        </div>
-      `;
-      document.getElementById("plan-selector-card").prepend(banner);
-    }
-
-    // Pre-select the plan/tier they last chose, if known
-    if (profile?.subscription_plan === "yearly") {
-      document.getElementById("plan-yearly").checked = true;
-    }
-    if (profile?.tier === "pro" && !isExistingFoundingMember) {
-      document.getElementById("tier-pro").checked = true;
-    }
-
+    // Pricing Model: Solo Lite (Decoy) vs Studio Pro (Hero)
     const TIER_PRICING = {
-      lite: { monthly: 39, yearly: 390, save: 78 },
-      pro: { monthly: 59, yearly: 588, save: 120 }
+      lite: {
+        name: "Solo Lite",
+        monthly: 39,
+        yearly: 390,
+        save: 78,
+        perMonthYearly: "32.50",
+        summary: "Anda memilih <strong>Solo Lite</strong>: Had 30 tempahan/bulan, watermark dibuang, dan peringatan WhatsApp secara manual (1-klik). Pilihan tepat untuk bajet terhad."
+      },
+      pro: {
+        name: "Studio Pro",
+        monthly: 59,
+        yearly: 588,
+        save: 120,
+        perMonthYearly: "49.00",
+        summary: "Anda memilih <strong>Studio Pro</strong>: Anda menikmati <strong>tempahan tanpa had</strong>, <strong>automasi WhatsApp autopilot di latar belakang</strong>, 3 pautan bio bebas &amp; segerak Google Calendar."
+      }
     };
 
     const TIER_FEATURES = {
       lite: [
-        "Sehingga 30 tempahan setiap bulan (had)",
-        "5 pakej perkhidmatan rasmi",
-        "Buang watermark lencana (100% jenama studio anda)",
-        "1 pautan bio rasmi",
-        "Peringatan WhatsApp mod 1-klik pantas",
-        "Semakan slot kalendar masa nyata"
+        { title: "Kapasiti Sehingga 30 Tempahan Setiap Bulan", desc: "Sesuai untuk perniagaan solo atau permulaan santai." },
+        { title: "Buang Watermark eqstudio", desc: "100% paparan bersih dengan logo dan jenama studio anda sendiri." },
+        { title: "1 Pautan Bio Tempahan Rasmi", desc: "Pautan rasmi eqstudio.link/nama untuk diletakkan di Instagram &amp; TikTok." },
+        { title: "Katalog Sehingga 5 Pakej Perkhidmatan", desc: "Senaraikan pakej utama anda dengan butiran harga &amp; deposit." },
+        { title: "Peringatan WhatsApp Mod 1-Klik Manual", desc: "Satu klik untuk buka WhatsApp bersama mesej peringatan yang siap ditaip." },
+        { title: "Semakan Kalendar Slot Masa Nyata", desc: "Elak pertindihan slot; pelanggan hanya boleh pilih masa yang masih kosong." },
+        { title: "Kutipan Deposit Pantas", desc: "Paparan automatik QR DuitNow dan butiran akaun bank anda." },
+        { title: "Sokongan Komuniti &amp; Emel", desc: "Bantuan penggunaan melalui forum dan tiket emel sokongan." }
       ],
       pro: [
-        "Tempahan TANPA HAD (Unlimited Bookings)",
-        "Pakej & perkhidmatan TANPA HAD",
-        "Automasi WhatsApp latar belakang penuh (24j sebelum & resit deposit)",
-        "Sehingga 3 pautan bio bebas sepenuhnya",
-        "100% White-label tanpa sebarang watermark",
-        "Invois & Resit PDF Rasmi Berlogo muat turun",
-        "Segerak 2-hala Google Calendar rasmi",
-        "Analisis Aliran Tunai & Ramalan AI",
-        "Sokongan Keutamaan VIP WhatsApp 24/7"
+        { title: "TEMPAHAN TANPA HAD (Unlimited Bookings)", desc: "Tiada sebarang had bulanan. Terima seberapa banyak pelanggan tanpa risau sekatan kuota." },
+        { title: "AUTOMASI WHATSAPP LATAR BELAKANG (Hands-Free)", desc: "Sistem hantar peringatan 24 jam sebelum slot &amp; resit deposit secara automatik di latar belakang tanpa anda perlu klik apa-apa." },
+        { title: "Sehingga 3 Pautan Bio Bebas Sepenuhnya", desc: "Cipta pautan berasingan untuk servis studio, photoshoot luar, atau cawangan berbeza." },
+        { title: "Pakej &amp; Servis TANPA HAD", desc: "Senaraikan semua variasi pakej, add-on tambahan, dan promosi bermusim." },
+        { title: "100% White-Label Studio Eksklusif", desc: "Laman tempahan kelihatan seperti sistem berharga puluhan ribu milik anda sendiri." },
+        { title: "Invois &amp; Resit PDF Rasmi Berlogo", desc: "Pelanggan boleh muat turun invois rasmi profesional dengan logo &amp; butiran SSM studio anda." },
+        { title: "Segerak 2-Hala Google Calendar Rasmi", desc: "Tempahan masuk terus disegerakkan ke Google Calendar di telefon pintar anda secara automatik." },
+        { title: "Analisis Aliran Tunai &amp; Ramalan Risiko AI", desc: "Dashboard khas untuk mengesan pelanggan berisiko lewat bayar dan trend pendapatan bulanan." },
+        { title: "Sokongan Keutamaan VIP WhatsApp 24/7", desc: "Talian terus ke WhatsApp pasukan teknikal kami untuk sebarang bantuan segera." }
       ]
     };
 
+    // Check existing profile status
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("subscription_status, subscription_end_date, tier, subscription_plan")
+      .eq("id", session.user.id)
+      .single();
+
+    if (profile) {
+      const isStillActive = profile.subscription_status === "active" && profile.subscription_end_date && new Date(profile.subscription_end_date) > new Date();
+      if (isStillActive) {
+        const endDateLabel = new Date(profile.subscription_end_date).toLocaleDateString("ms-MY", { day: "numeric", month: "long", year: "numeric" });
+        const tierLabel = profile.tier === "pro" ? "Studio Pro" : profile.tier === "lite" ? "Solo Lite" : "Percuma";
+        document.getElementById("status-title").textContent = `Pelan ${tierLabel} Aktif Sehingga ${endDateLabel}`;
+        document.getElementById("status-sub").textContent = `Akaun anda berstatus aktif. Anda boleh memperbaharui awal atau menaik taraf pelan anda di bawah tanpa kehilangan baki hari langganan sedia ada.`;
+      }
+
+      // Pre-select user's current tier if Pro
+      if (profile.tier === "pro") {
+        const proRadio = document.getElementById("tier-pro");
+        if (proRadio) proRadio.checked = true;
+      } else if (profile.tier === "lite") {
+        const liteRadio = document.getElementById("tier-lite");
+        if (liteRadio) liteRadio.checked = true;
+      }
+    }
+
+    function getCurrentTier() {
+      return document.querySelector('input[name="tier"]:checked')?.value || "pro";
+    }
+
+    function getCurrentPlan() {
+      return document.querySelector('input[name="plan"]:checked')?.value || "yearly";
+    }
+
+    function syncCardClasses() {
+      const currentTier = getCurrentTier();
+      const currentPlan = getCurrentPlan();
+
+      const cardLite = document.getElementById("card-tier-lite");
+      const cardPro = document.getElementById("card-tier-pro");
+      if (cardLite) cardLite.classList.toggle("selected", currentTier === "lite");
+      if (cardPro) cardPro.classList.toggle("selected", currentTier === "pro");
+
+      const cardMonthly = document.getElementById("card-plan-monthly");
+      const cardYearly = document.getElementById("card-plan-yearly");
+      if (cardMonthly) cardMonthly.classList.toggle("selected", currentPlan === "monthly");
+      if (cardYearly) cardYearly.classList.toggle("selected", currentPlan === "yearly");
+    }
+
+    function updateValueChecklist(tier) {
+      const listEl = document.getElementById("value-checklist");
+      const headingEl = document.getElementById("feature-heading");
+      if (!listEl) return;
+
+      const items = TIER_FEATURES[tier] || TIER_FEATURES.pro;
+      if (headingEl) {
+        headingEl.textContent = `Ciri-Ciri Termasuk Dalam Pelan ${tier === "pro" ? "Studio Pro" : "Solo Lite"}:`;
+      }
+
+      const checkIconSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+      listEl.innerHTML = items.map(item => `
+        <div class="billing-feature-item">
+          <div class="billing-feature-icon">${checkIconSvg}</div>
+          <div>
+            <strong style="color:var(--ink);">${item.title}</strong>
+            <p style="margin:0.15rem 0 0; font-size:0.8rem; color:var(--ink-soft); line-height:1.4;">${item.desc}</p>
+          </div>
+        </div>
+      `).join("");
+    }
+
     function updatePrices() {
-      const tier = document.querySelector('input[name="tier"]:checked')?.value || "pro";
+      const tier = getCurrentTier();
+      const plan = getCurrentPlan();
       const pricing = TIER_PRICING[tier] || TIER_PRICING.pro;
 
       const monthlyEl = document.getElementById("price-monthly");
@@ -372,38 +535,69 @@
       const yearlyEl = document.getElementById("price-yearly");
       if (yearlyEl) yearlyEl.innerHTML = `RM${pricing.yearly}<span>/tahun</span>`;
 
-      const perMonth = (pricing.yearly / 12).toFixed(2);
-      const subEl = document.getElementById("price-yearly-sub");
-      if (subEl) subEl.textContent = `= RM${perMonth}/bulan, jimat RM${pricing.save}`;
-
       const saveBadge = document.getElementById("price-save-badge");
       if (saveBadge) saveBadge.textContent = `Jimat RM${pricing.save}`;
 
-      updateValueChecklist();
-    }
+      const yearlySubEl = document.getElementById("price-yearly-sub");
+      if (yearlySubEl) yearlySubEl.textContent = `= RM${pricing.perMonthYearly}/bulan, 2 bulan percuma`;
 
-    document.querySelectorAll('input[name="tier"]').forEach(r => {
-      r.addEventListener("change", () => {
-        document.querySelectorAll(".billing-tier-card").forEach(c => c.classList.remove("selected"));
-        r.closest(".billing-tier-card")?.classList.add("selected");
-        updatePrices();
-      });
-    });
+      const summaryTextEl = document.getElementById("tier-summary-text");
+      if (summaryTextEl) summaryTextEl.innerHTML = pricing.summary;
 
-    document.querySelectorAll('input[name="plan"]').forEach(r => {
-      r.addEventListener("change", () => {
-        document.querySelectorAll(".billing-freq-option").forEach(c => c.classList.remove("selected"));
-        r.closest(".billing-freq-option")?.classList.add("selected");
-      });
-    });
+      const currentAmount = plan === "yearly" ? pricing.yearly : pricing.monthly;
+      const periodLabel = plan === "yearly" ? "/tahun" : "/bulan";
 
-    function updateValueChecklist() {
-      const tier = document.querySelector('input[name="tier"]:checked')?.value || "starter";
-      const listEl = document.getElementById("value-checklist");
-      if (listEl) {
-        listEl.innerHTML = TIER_FEATURES[tier].map(f => `<li>${checkSvg}<span>${f}</span></li>`).join("");
+      const payBtnText = document.getElementById("pay-btn-text");
+      if (payBtnText) {
+        payBtnText.textContent = `Teruskan ke Bayaran DuitNow (RM${currentAmount}${periodLabel})`;
       }
+
+      syncCardClasses();
+      updateValueChecklist(tier);
     }
+
+    // Attach click and change listeners to Tier Cards
+    const cardLite = document.getElementById("card-tier-lite");
+    const cardPro = document.getElementById("card-tier-pro");
+
+    cardLite?.addEventListener("click", () => {
+      const input = document.getElementById("tier-lite");
+      if (input) {
+        input.checked = true;
+        updatePrices();
+      }
+    });
+
+    cardPro?.addEventListener("click", () => {
+      const input = document.getElementById("tier-pro");
+      if (input) {
+        input.checked = true;
+        updatePrices();
+      }
+    });
+
+    // Attach click and change listeners to Frequency Cards
+    const cardMonthly = document.getElementById("card-plan-monthly");
+    const cardYearly = document.getElementById("card-plan-yearly");
+
+    cardMonthly?.addEventListener("click", () => {
+      const input = document.getElementById("plan-monthly");
+      if (input) {
+        input.checked = true;
+        updatePrices();
+      }
+    });
+
+    cardYearly?.addEventListener("click", () => {
+      const input = document.getElementById("plan-yearly");
+      if (input) {
+        input.checked = true;
+        updatePrices();
+      }
+    });
+
+    // Initial render
+    updatePrices();
 
     function setBillingStep(step) {
       for (let i = 1; i <= 3; i++) {
@@ -418,72 +612,17 @@
       document.getElementById("line-2")?.classList.toggle("done", step > 2);
     }
 
-    function syncCardClasses() {
-      document.querySelectorAll('.billing-tier-card').forEach(card => {
-        const radio = card.querySelector('input[name="tier"]');
-        card.classList.toggle('selected', !!radio?.checked);
-      });
-      document.querySelectorAll('.billing-freq-option').forEach(card => {
-        const radio = card.querySelector('input[name="plan"]');
-        card.classList.toggle('selected', !!radio?.checked);
-      });
-    }
-
-    function updatePrices() {
-      const tier = document.querySelector('input[name="tier"]:checked')?.value || "starter";
-      const p = isFoundingSelected() ? getFoundingPricing() : TIER_PRICING[tier];
-      const monthlyEl = document.getElementById("price-monthly");
-      const yearlyEl = document.getElementById("price-yearly");
-      const saveEl = document.getElementById("price-save-badge");
-      const yearlySubEl = document.getElementById("price-yearly-sub");
-
-      if (monthlyEl) monthlyEl.innerHTML = `RM${p.monthly}<span>/bulan</span>`;
-      if (yearlyEl) yearlyEl.innerHTML = `RM${p.yearly}<span>/tahun</span>`;
-      if (saveEl) saveEl.textContent = `Jimat RM${p.save}`;
-      if (yearlySubEl) yearlySubEl.textContent = `= RM${(p.yearly / 12).toFixed(2)}/bulan, 2 bulan percuma`;
-
-      syncCardClasses();
-      updatePayBtnLabel();
-      updateValueChecklist();
-    }
-
-    document.querySelectorAll('input[name="tier"]').forEach(el => {
-      el.addEventListener("change", () => {
-        syncCardClasses();
-        updateFoundingToggleVisibility();
-      });
-    });
-    document.getElementById("wants-founding-member")?.addEventListener("change", updatePrices);
-
-    function updatePayBtnLabel() {
-      const plan = document.querySelector('input[name="plan"]:checked')?.value || "yearly";
-      const tier = document.querySelector('input[name="tier"]:checked')?.value || "starter";
-      const price = (isFoundingSelected() ? getFoundingPricing() : TIER_PRICING[tier])[plan];
-      const payBtn = document.getElementById("pay-btn");
-      if (payBtn) {
-        payBtn.innerHTML = `
-          <span>Teruskan ke Bayaran DuitNow (RM${price}${plan === "yearly" ? "/tahun" : "/bulan"})</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        `;
-      }
-    }
-
-    document.querySelectorAll('input[name="plan"]').forEach(el => {
-      el.addEventListener("change", () => {
-        syncCardClasses();
-        updatePayBtnLabel();
-      });
-    });
-
-    updatePrices();
-    updatePrices();
-
     function refCode() {
       return `EQ-${session.user.id.slice(0, 6).toUpperCase()}`;
     }
 
-    // Show "pending verification" state if payment already claimed
-    const { data: claimProfile } = await supabase.from("profiles").select("payment_claimed_at").eq("id", session.user.id).single();
+    // Check if user has already claimed a pending payment
+    const { data: claimProfile } = await supabase
+      .from("profiles")
+      .select("payment_claimed_at")
+      .eq("id", session.user.id)
+      .single();
+
     if (claimProfile?.payment_claimed_at) {
       document.getElementById("value-hero").style.display = "none";
       document.getElementById("billing-steps").style.display = "none";
@@ -493,10 +632,13 @@
       setBillingStep(3);
     }
 
+    // Handle "Jana Bil & Bayar" click
     document.getElementById("pay-btn")?.addEventListener("click", () => {
-      const plan = document.querySelector('input[name="plan"]:checked').value;
-      const tier = document.querySelector('input[name="tier"]:checked').value;
-      const price = (isFoundingSelected() ? getFoundingPricing() : TIER_PRICING[tier])[plan];
+      const tier = getCurrentTier();
+      const plan = getCurrentPlan();
+      const pricing = TIER_PRICING[tier] || TIER_PRICING.pro;
+      const price = plan === "yearly" ? pricing.yearly : pricing.monthly;
+
       document.getElementById("transfer-amount").textContent = `RM${price.toFixed(2)}`;
       document.getElementById("transfer-ref").textContent = refCode();
       document.getElementById("plan-selector-card").style.display = "none";
@@ -505,6 +647,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
+    // Handle back button
     document.getElementById("back-to-plan-btn")?.addEventListener("click", () => {
       document.getElementById("transfer-panel").style.display = "none";
       document.getElementById("plan-selector-card").style.display = "block";
@@ -512,36 +655,46 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
+    // Copy buttons
     document.querySelectorAll("[data-copy]").forEach(btn => {
       btn.addEventListener("click", () => {
-        navigator.clipboard.writeText(btn.dataset.copy).then(() => showToast("Disalin ke papan keratan!", "success"));
+        navigator.clipboard.writeText(btn.dataset.copy).then(() => showToast("Nombor akaun disalin ke papan keratan!", "success"));
       });
     });
 
     document.getElementById("copy-amount-btn")?.addEventListener("click", () => {
-      navigator.clipboard.writeText(document.getElementById("transfer-amount").textContent.replace("RM", "")).then(() => showToast("Jumlah disalin!", "success"));
+      const amt = document.getElementById("transfer-amount")?.textContent?.replace("RM", "").trim() || "";
+      navigator.clipboard.writeText(amt).then(() => showToast("Jumlah bayaran disalin!", "success"));
     });
 
     document.getElementById("copy-ref-btn")?.addEventListener("click", () => {
       navigator.clipboard.writeText(refCode()).then(() => showToast("Kod Rujukan disalin!", "success"));
     });
 
+    // Handle Claim Payment
     document.getElementById("claim-paid-btn")?.addEventListener("click", async () => {
       const btn = document.getElementById("claim-paid-btn");
-      const plan = document.querySelector('input[name="plan"]:checked').value;
-      const tier = document.querySelector('input[name="tier"]:checked').value;
-      const wantsFounding = isFoundingSelected();
-      const price = (wantsFounding ? FOUNDING_PRICING : TIER_PRICING[tier])[plan];
+      const tier = getCurrentTier();
+      const plan = getCurrentPlan();
+      const pricing = TIER_PRICING[tier] || TIER_PRICING.pro;
+      const price = plan === "yearly" ? pricing.yearly : pricing.monthly;
+
       btn.disabled = true;
       btn.textContent = "Menghantar Pengesahan...";
+
       try {
         const res = await fetch("/api/claim-payment", {
           method: "POST",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
-          body: JSON.stringify({ tier, amount: price, wantsFoundingMember: wantsFounding }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.access_token}`
+          },
+          body: JSON.stringify({ tier, amount: price, plan }),
         });
+
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Gagal hantar tuntutan.");
+        if (!res.ok) throw new Error(data.error || "Gagal menghantar tuntutan bayaran.");
+
         document.getElementById("value-hero").style.display = "none";
         document.getElementById("transfer-panel").style.display = "none";
         document.getElementById("pending-panel").style.display = "block";

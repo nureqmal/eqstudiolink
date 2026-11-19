@@ -1262,7 +1262,14 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .home-link-row { background: var(--paper); border-radius: 8px; padding: 0.6rem 0.9rem; font-size: 0.82rem; }
 
 /* ── Pricing: two-card grid (Starter + Pro) ───────────────────────── */
-.lp-price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 720px; margin: 0 auto; align-items: start; }
+.lp-price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.5rem;
+  max-width: 1120px;
+  margin: 0 auto;
+  align-items: stretch;
+}
 @media (max-width: 700px) { .lp-price-grid { grid-template-columns: 1fr; } }
 
 /* ── Home hub: bento grid (asymmetric, glassmorphism, live preview) ──
@@ -9906,4 +9913,253 @@ table tbody tr:hover td {
 .wizard-prev-item svg {
   color: var(--ok);
   flex-shrink: 0;
+}
+
+
+/* ═════════════════════════════════════════════════════════════════════
+   3-TIER DECOY PRICING SYSTEM & QUOTA TRACKER
+   ═════════════════════════════════════════════════════════════════════ */
+.lp-price-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  border-radius: 18px;
+  padding: 2rem 1.75rem;
+  position: relative;
+  background: var(--surface);
+  border: 1.5px solid var(--paper-line);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.lp-price-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+.lp-price-card.hero-tier {
+  border: 2px solid var(--stamp);
+  background: color-mix(in srgb, var(--stamp) 3%, var(--surface));
+  box-shadow: 0 20px 50px rgba(74, 9, 143, 0.16);
+  transform: scale(1.02);
+}
+
+.lp-price-card.hero-tier:hover {
+  transform: scale(1.02) translateY(-4px);
+  box-shadow: 0 24px 60px rgba(74, 9, 143, 0.22);
+}
+
+.lp-price-card.decoy-tier {
+  border-color: var(--paper-line);
+  opacity: 0.95;
+}
+
+.lp-hero-tier-ribbon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, #4a098f, #7c3aed);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.35rem 0;
+}
+
+.lp-price-card.hero-tier {
+  padding-top: 2.75rem;
+}
+
+.lp-price-header {
+  margin-bottom: 1.25rem;
+}
+
+.lp-plan-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--stamp);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.lp-plan-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display, serif);
+}
+
+.lp-plan-sub {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.lp-price-box {
+  margin: 1.25rem 0 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.lp-price-amount {
+  font-family: var(--font-display, serif);
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.lp-price-amount span {
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.lp-price-billing-note {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin-top: 0.4rem;
+}
+
+.lp-plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex-grow: 1;
+}
+
+.lp-plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.lp-plan-features li.negative {
+  color: var(--ink-soft);
+  opacity: 0.65;
+}
+
+.lp-feat-check {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--ok);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.lp-feat-cross {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--ink-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+/* Dashboard Quota Meter Card */
+.db-quota-card {
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: 12px;
+  padding: 0.85rem 1.15rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.db-quota-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.db-quota-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.db-quota-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.db-quota-val {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--stamp);
+}
+
+.db-quota-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: var(--paper-line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.db-quota-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10B981, #059669);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.db-quota-upgrade-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 8px;
+  background: var(--stamp);
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.db-quota-upgrade-btn:hover {
+  background: #390670;
+  transform: translateY(-1px);
 }

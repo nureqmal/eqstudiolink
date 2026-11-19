@@ -115,6 +115,27 @@
  OFFICIAL BIO STOREFRONT (LIVE CUSTOMER VIEW)
  Laman Jualan Rasmi Bio — Paparan Pelanggan & Enjin Kesiapsiagaan
  ═════════════════════════════════════════════════════════════════════ -->
+ <!-- ═════════════════════════════════════════════════════════════════════
+ MONTHLY USAGE QUOTA TRACKER (FREEMIUM / 10 BOOKINGS LIMIT)
+ ═════════════════════════════════════════════════════════════════════ -->
+ <div class="db-quota-card" id="home-monthly-quota-card">
+ <div class="db-quota-info">
+ <div class="db-quota-top">
+ <div class="db-quota-label">
+ <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+ <span id="quota-label-text">Kapasiti Tempahan Bulan Ini</span>
+ </div>
+ <div class="db-quota-val" id="quota-val-text">0 / 10 Tempahan Percuma</div>
+ </div>
+ <div class="db-quota-bar-bg">
+ <div class="db-quota-bar-fill" id="quota-bar-fill" style="width:0%;"></div>
+ </div>
+ </div>
+ <a href="/billing.html" class="db-quota-upgrade-btn" id="quota-upgrade-btn">
+ <span>Naik Taraf Pro (Unlimited) →</span>
+ </a>
+ </div>
+
  <div class="card storefront-live-card" id="home-storefront-cockpit">
  <!-- Header Row: Title, Live Status, and Compact Readiness Gauge -->
  <div class="sf-live-header">
@@ -3230,16 +3251,77 @@
 
  function renderTierBadge(el) {
  if (!el || !profile) return;
- const isTrial = profile.subscription_status === "trialing";
  const isPro = profile.tier === "pro";
- el.className = "tier-badge " + (isTrial ? "tier-trial" : isPro ? "tier-pro" : "tier-starter");
- const label = isTrial ? "Trial" : isPro ? "Pro" : "Starter";
- const upgradeHint = !isPro && !isTrial ? ` <span class="tier-badge-upgrade">· Upgrade</span>` : "";
+ const isLite = profile.tier === "lite";
+ el.className = "tier-badge " + (isPro ? "tier-pro" : isLite ? "tier-starter" : "tier-trial");
+ const label = isPro ? "Studio Pro" : isLite ? "Solo Lite" : "Pelan Percuma";
+ const upgradeHint = !isPro ? ` <span class="tier-badge-upgrade">· Upgrade</span>` : "";
  el.innerHTML = `${label}${upgradeHint}`;
  el.style.display = "inline-flex";
  }
  renderTierBadge(document.getElementById("tier-badge"));
  renderTierBadge(document.getElementById("tier-badge-mobile"));
+
+ function updateMonthlyQuotaMeter() {
+ const card = document.getElementById("home-monthly-quota-card");
+ if (!card) return;
+
+ const isPro = profile?.tier === "pro";
+ const isLite = profile?.tier === "lite";
+
+ // Count bookings created in the current month
+ const now = new Date();
+ const curYear = now.getFullYear();
+ const curMonth = now.getMonth();
+ 
+ let thisMonthCount = 0;
+ if (typeof allBookings !== "undefined" && Array.isArray(allBookings)) {
+ thisMonthCount = allBookings.filter(b => {
+ if (!b.created_at) return false;
+ const bd = new Date(b.created_at);
+ return bd.getFullYear() === curYear && bd.getMonth() === curMonth;
+ }).length;
+ }
+
+ const valEl = document.getElementById("quota-val-text");
+ const fillEl = document.getElementById("quota-bar-fill");
+ const btnEl = document.getElementById("quota-upgrade-btn");
+ const lblEl = document.getElementById("quota-label-text");
+
+ if (isPro) {
+ if (lblEl) lblEl.textContent = "Status Pelan: Studio Pro (Aktif)";
+ if (valEl) valEl.textContent = `${thisMonthCount} Tempahan (Tanpa Had)`;
+ if (fillEl) {
+ fillEl.style.width = "100%";
+ fillEl.style.background = "linear-gradient(90deg, #4a098f, #7c3aed)";
+ }
+ if (btnEl) {
+ btnEl.querySelector("span").textContent = "Urus Langganan";
+ btnEl.style.background = "var(--stamp)";
+ }
+ } else if (isLite) {
+ const cap = 30;
+ const pct = Math.min(100, Math.round((thisMonthCount / cap) * 100));
+ if (lblEl) lblEl.textContent = "Kapasiti Tempahan Bulan Ini (Solo Lite)";
+ if (valEl) valEl.textContent = `${thisMonthCount} / ${cap} Tempahan`;
+ if (fillEl) {
+ fillEl.style.width = `${pct}%`;
+ fillEl.style.background = pct >= 80 ? "#EF4444" : "linear-gradient(90deg, #10B981, #059669)";
+ }
+ if (btnEl) btnEl.querySelector("span").textContent = "Naik Taraf Studio Pro (Unlimited) →";
+ } else {
+ // Free Forever tier
+ const cap = 10;
+ const pct = Math.min(100, Math.round((thisMonthCount / cap) * 100));
+ if (lblEl) lblEl.textContent = "Kapasiti Tempahan Bulan Ini (Pelan Percuma)";
+ if (valEl) valEl.textContent = `${thisMonthCount} / ${cap} Tempahan Percuma`;
+ if (fillEl) {
+ fillEl.style.width = `${pct}%`;
+ fillEl.style.background = pct >= 80 ? "#EF4444" : "linear-gradient(90deg, #10B981, #059669)";
+ }
+ if (btnEl) btnEl.querySelector("span").textContent = "Naik Taraf Pro (Unlimited) →";
+ }
+ }
 
  async function loadNotifications() {
  const { data: notifs } = await supabase

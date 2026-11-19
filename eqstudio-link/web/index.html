@@ -61,7 +61,7 @@
       <div class="cta-row">
         <a href="/login.html" class="btn btn-lg btn-primary-cta" data-i18n="hero_cta_primary">Mula Percuma</a>
         <a href="/ciri-ciri.html" class="btn secondary btn-lg" data-i18n="hero_cta_secondary">Tengok Butiran Lanjut</a>
-        <span class="hint" data-i18n="hero_trial_note">Trial 14 hari, tak perlu kad</span>
+        <span class="hint" data-i18n="hero_trial_note">Percuma Selamanya · Tanpa Kad Kredit · Sedia 20 Saat</span>
       </div>
       <p class="hint" style="margin-top:0.6rem; display:flex; align-items:center; gap:0.4rem;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -593,46 +593,170 @@
   </section>
 
   <section class="lp-section" id="harga">
-    <h2 data-i18n="pricing_h2">Harga</h2>
-    <p class="lead" data-i18n="pricing_lead">Pilih pelan yang sesuai. Ambil tahunan, jimat 2 bulan.</p>
+    <div style="text-align:center; max-width:680px; margin:0 auto 2.5rem;">
+      <span class="sf-pill sf-pill-verified" style="font-size:0.75rem; font-weight:700; margin-bottom:0.75rem; display:inline-flex;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Pelan Tanpa Risiko
+      </span>
+      <h2 data-i18n="pricing_h2" style="margin:0 0 0.5rem; font-size:clamp(1.8rem, 3.5vw, 2.5rem);">Pilihan Harga Telus &amp; Berbaloi</h2>
+      <p class="lead" data-i18n="pricing_lead" style="margin:0; font-size:1.05rem;">Mula secara percuma selamanya. Naik taraf bila bisnes anda semakin maju.</p>
+    </div>
 
     <div class="lp-price-toggle">
       <button type="button" class="lp-toggle-btn" id="price-toggle-monthly" data-i18n="pricing_monthly">Bulanan</button>
-      <button type="button" class="lp-toggle-btn active" id="price-toggle-yearly" data-i18n-html="pricing_yearly">Yearly <span class="plan-badge">Save 2 Months</span></button>
+      <button type="button" class="lp-toggle-btn active" id="price-toggle-yearly" data-i18n-html="pricing_yearly">Tahunan <span class="plan-badge">Jimat RM120</span></button>
     </div>
 
     <div class="lp-price-grid">
-      <div class="lp-price-card" id="price-card">
-        <div class="lp-price-ribbon" id="price-ribbon" data-i18n="pricing_recommended">Disyorkan</div>
-        <p class="hint" style="text-transform:uppercase; font-size:0.75rem; font-weight:700; letter-spacing:0.04em; color:var(--stamp); margin:0 0 0.3rem;" data-i18n="pricing_starter">Starter</p>
-        <p style="font-weight:600; margin:0 0 0.8rem; font-size:1.05rem;" data-i18n="pricing_starter_outcome">Uruskan bisnes anda.</p>
-        <div class="amount" id="price-amount">RM190<span>/year</span></div>
-        <p class="hint" id="price-sub">= RM15.83/month, save 2 months, after 14-day trial</p>
-        <ul>
-          <li data-i18n="pricing_starter_feat1">1 link booking, plus embed website</li>
-          <li data-i18n="pricing_starter_feat2">Jenis perkhidmatan tanpa had (tempoh, harga, kapasiti berbeza)</li>
-          <li data-i18n="pricing_starter_feat3">Deposit dan reminder automatic, disemak sekali sehari</li>
-          <li data-i18n="pricing_starter_feat4">Reschedule dan cancel self serve</li>
-          <li data-i18n="pricing_starter_feat5">Multi bahasa (BM/EN/中文/தமிழ்) untuk customer</li>
-          <li data-i18n="pricing_starter_feat6">Cash flow forecast dan risk scoring</li>
-          <li data-i18n="pricing_starter_feat7">Emel ringkasan bulanan</li>
+      <!-- Tier 1: Pelan Percuma Selamanya -->
+      <div class="lp-price-card" id="free-price-card">
+        <div class="lp-price-header">
+          <span class="lp-plan-tag">Free Forever</span>
+          <h3 class="lp-plan-name">Percuma</h3>
+          <p class="lp-plan-sub">Sesuai untuk solo bisnes baru mula &amp; part-time.</p>
+        </div>
+
+        <div class="lp-price-box">
+          <div class="lp-price-amount" id="free-price-amount">RM0<span>/selamanya</span></div>
+          <div class="lp-price-billing-note">Sifar risiko, tiada kad kredit diperlukan.</div>
+        </div>
+
+        <ul class="lp-plan-features">
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>1 Laman Jualan Bio Rasmi</strong> (link IG/TikTok)</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Sehingga 10 tempahan</strong> setiap bulan</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>2 pakej servis rasmi (cth: Sanding &amp; Nikah)</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Kunci deposit DuitNow QR automatik</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Peringatan WhatsApp mod 1-klik pantas</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Kalendar semakan slot masa nyata</span>
+          </li>
+          <li class="negative">
+            <span class="lp-feat-cross">✕</span>
+            <span>Watermark lencana eqstudio.link</span>
+          </li>
         </ul>
-        <a href="/login.html" class="btn btn-primary-cta" style="width:100%;" data-i18n="pricing_cta">Mula Percuma</a>
+
+        <a href="/login.html" class="btn secondary" style="width:100%; justify-content:center; padding:0.75rem;">Mula Percuma Selamanya →</a>
       </div>
 
-      <div class="lp-price-card" id="pro-price-card">
-        <p class="hint" style="text-transform:uppercase; font-size:0.75rem; font-weight:700; letter-spacing:0.04em; color:var(--stamp); margin:0 0 0.3rem;" data-i18n="pricing_pro">Pro</p>
-        <p style="font-weight:600; margin:0 0 0.8rem; font-size:1.05rem;" data-i18n="pricing_pro_outcome">Kembangkan bisnes anda.</p>
-        <div class="amount" id="pro-price-amount">RM390<span>/year</span></div>
-        <p class="hint" id="pro-price-sub">= RM32.50/month</p>
-        <ul>
-          <li data-i18n="pricing_pro_feat1">Semua dalam Starter</li>
-          <li data-i18n="pricing_pro_feat2">Sehingga 3 link booking, setiap satu independen sepenuhnya</li>
-          <li data-i18n="pricing_pro_feat3">Reminder disemak setiap 2 jam, bukan sekali sehari</li>
-          <li data-i18n="pricing_pro_feat4">Emel ringkasan mingguan, bukan bulanan</li>
-          <li data-i18n="pricing_pro_feat5">Badge Pro pada post forum anda</li>
+      <!-- Tier 2: Solo Lite (The Decoy / Umpan) -->
+      <div class="lp-price-card decoy-tier" id="lite-price-card">
+        <div class="lp-price-header">
+          <span class="lp-plan-tag">Solo Lite</span>
+          <h3 class="lp-plan-name">Standard</h3>
+          <p class="lp-plan-sub">Pelan asas untuk peniaga yang nak buang watermark.</p>
+        </div>
+
+        <div class="lp-price-box">
+          <div class="lp-price-amount" id="lite-price-amount">RM390<span>/tahun</span></div>
+          <div class="lp-price-billing-note" id="lite-price-sub">= RM32.50/bulan, jimat RM78 setahun</div>
+        </div>
+
+        <ul class="lp-plan-features">
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Sehingga 30 tempahan</strong> sebulan (dihadkan)</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>5 pakej perkhidmatan rasmi</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Buang watermark</strong> (jenama studio anda)</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>1 pautan bio rasmi</span>
+          </li>
+          <li class="negative">
+            <span class="lp-feat-cross">✕</span>
+            <span>Tiada automasi WhatsApp latar belakang (manual)</span>
+          </li>
+          <li class="negative">
+            <span class="lp-feat-cross">✕</span>
+            <span>Tiada invois &amp; resit PDF rasmi</span>
+          </li>
+          <li class="negative">
+            <span class="lp-feat-cross">✕</span>
+            <span>Tiada ramalan Aliran Tunai AI</span>
+          </li>
         </ul>
-        <a href="/login.html" class="btn secondary" style="width:100%;" data-i18n="pricing_cta">Mula Percuma</a>
+
+        <a href="/login.html" class="btn secondary" style="width:100%; justify-content:center; padding:0.75rem;">Pilih Solo Lite</a>
+      </div>
+
+      <!-- Tier 3: Studio Pro (The Hero / Nilai Terbaik) -->
+      <div class="lp-price-card hero-tier" id="pro-price-card">
+        <div class="lp-hero-tier-ribbon">Paling Popular · Nilai Terbaik</div>
+        
+        <div class="lp-price-header">
+          <span class="lp-plan-tag">Studio Pro</span>
+          <h3 class="lp-plan-name">Studio Pro</h3>
+          <p class="lp-plan-sub">Automasi penuh tanpa had untuk usahawan solo serius.</p>
+        </div>
+
+        <div class="lp-price-box">
+          <div class="lp-price-amount" id="pro-price-amount">RM588<span>/tahun</span></div>
+          <div class="lp-price-billing-note" id="pro-price-sub">= RM49.00/bulan, jimat RM120 setahun</div>
+        </div>
+
+        <ul class="lp-plan-features">
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Tempahan TANPA HAD</strong> (Unlimited Bookings)</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Pakej servis TANPA HAD</strong> (Outdoor, Nikah, dsb)</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Automasi WhatsApp Penuh</strong> (24j sebelum &amp; resit deposit auto)</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>Sehingga 3 Laman Bio Bebas</strong> (Kahwin, Studio, Sewaan)</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><strong>100% White-label</strong> (Sifar watermark)</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Invois &amp; Resit PDF Rasmi Berlogo muat turun</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Segerak 2-hala Google Calendar rasmi</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Analisis Aliran Tunai &amp; Ramalan AI</span>
+          </li>
+          <li>
+            <span class="lp-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Sokongan Keutamaan VIP WhatsApp 24/7</span>
+          </li>
+        </ul>
+
+        <a href="/login.html" class="btn btn-primary-cta" style="width:100%; justify-content:center; padding:0.8rem; font-weight:700;">Langgan Studio Pro Sekarang →</a>
       </div>
     </div>
   </section>
@@ -1762,32 +1886,51 @@
       startChatConversation();
     });
 
-    // ── Pricing toggle ──
-    document.getElementById("price-toggle-monthly").addEventListener("click", () => {
-      document.getElementById("price-toggle-monthly").classList.add("active");
-      document.getElementById("price-toggle-yearly").classList.remove("active");
-      const isMs = document.documentElement.getAttribute("lang") === "ms";
-      document.getElementById("price-amount").innerHTML = isMs ? 'RM19<span>/bulan</span>' : 'RM19<span>/month</span>';
-      document.getElementById("price-sub").textContent = isMs ? "Trial 14 hari, tak perlu kad kredit" : "14-day trial, no card needed";
-      document.getElementById("pro-price-amount").innerHTML = isMs ? 'RM39<span>/bulan</span>' : 'RM39<span>/month</span>';
-      document.getElementById("pro-price-sub").textContent = "";
-      document.getElementById("price-ribbon").style.display = "none";
-      document.getElementById("price-card").classList.remove("featured");
-    });
-    document.getElementById("price-toggle-yearly").addEventListener("click", () => {
-      document.getElementById("price-toggle-yearly").classList.add("active");
-      document.getElementById("price-toggle-monthly").classList.remove("active");
-      const isMs = document.documentElement.getAttribute("lang") === "ms";
-      document.getElementById("price-amount").innerHTML = isMs ? 'RM190<span>/tahun</span>' : 'RM190<span>/year</span>';
-      document.getElementById("price-sub").textContent = isMs ? "= RM15.83/bulan, jimat 2 bulan, lepas trial 14 hari" : "= RM15.83/month, save 2 months, after 14-day trial";
-      document.getElementById("pro-price-amount").innerHTML = isMs ? 'RM390<span>/tahun</span>' : 'RM390<span>/year</span>';
-      document.getElementById("pro-price-sub").textContent = isMs ? "= RM32.50/bulan" : "= RM32.50/month";
-      document.getElementById("price-ribbon").style.display = "block";
-      document.getElementById("price-card").classList.add("featured");
-    });
-    document.getElementById("price-card").classList.add("featured");
-    document.getElementById("price-ribbon").style.display = "block";
+    // ── Pricing toggle (Decoy Effect: Free / Lite / Pro) ──
+    const monthlyBtn = document.getElementById("price-toggle-monthly");
+    const yearlyBtn = document.getElementById("price-toggle-yearly");
 
+    if (monthlyBtn && yearlyBtn) {
+      monthlyBtn.addEventListener("click", () => {
+        monthlyBtn.classList.add("active");
+        yearlyBtn.classList.remove("active");
+        const isMs = document.documentElement.getAttribute("lang") === "ms";
+
+        const freeAmount = document.getElementById("free-price-amount");
+        if (freeAmount) freeAmount.innerHTML = isMs ? 'RM0<span>/selamanya</span>' : 'RM0<span>/forever</span>';
+
+        const liteAmount = document.getElementById("lite-price-amount");
+        if (liteAmount) liteAmount.innerHTML = isMs ? 'RM39<span>/bulan</span>' : 'RM39<span>/month</span>';
+        const liteSub = document.getElementById("lite-price-sub");
+        if (liteSub) liteSub.textContent = isMs ? '= Pelan asas tanpa watermark' : '= Basic plan without watermark';
+
+        const proAmount = document.getElementById("pro-price-amount");
+        if (proAmount) proAmount.innerHTML = isMs ? 'RM59<span>/bulan</span>' : 'RM59<span>/month</span>';
+        const proSub = document.getElementById("pro-price-sub");
+        if (proSub) proSub.textContent = isMs ? '= Automasi penuh, beza RM20 sahaja dari Lite!' : '= Full automation, only RM20 difference from Lite!';
+      });
+
+      yearlyBtn.addEventListener("click", () => {
+        yearlyBtn.classList.add("active");
+        monthlyBtn.classList.remove("active");
+        const isMs = document.documentElement.getAttribute("lang") === "ms";
+
+        const freeAmount = document.getElementById("free-price-amount");
+        if (freeAmount) freeAmount.innerHTML = isMs ? 'RM0<span>/selamanya</span>' : 'RM0<span>/forever</span>';
+
+        const liteAmount = document.getElementById("lite-price-amount");
+        if (liteAmount) liteAmount.innerHTML = isMs ? 'RM390<span>/tahun</span>' : 'RM390<span>/year</span>';
+        const liteSub = document.getElementById("lite-price-sub");
+        if (liteSub) liteSub.textContent = isMs ? '= RM32.50/bulan, jimat RM78 setahun' : '= RM32.50/month, save RM78/year';
+
+        const proAmount = document.getElementById("pro-price-amount");
+        if (proAmount) proAmount.innerHTML = isMs ? 'RM588<span>/tahun</span>' : 'RM588<span>/year</span>';
+        const proSub = document.getElementById("pro-price-sub");
+        if (proSub) proSub.textContent = isMs ? '= RM49.00/bulan, jimat RM120 setahun' : '= RM49.00/month, save RM120/year';
+      });
+    }
+
+    
     // ── Jelajah Dashboard (explore mode — free-roam mockups, not sequential) ──
     const EXPLORE_STRINGS = {
       ms: {

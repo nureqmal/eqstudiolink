@@ -10520,101 +10520,100 @@
  window.renderCommandResults = renderCommandResults;
 
  function renderCommandResults(query) {
+    const resultsEl = document.getElementById("cmd-palette-results");
+    if (!resultsEl) return;
     try {
+      const isEn = (window.getCurrentLang && window.getCurrentLang()) === "en";
+      const q = (query || "").toLowerCase().trim();
+      const baseCmds = getCmdActions();
 
- const resultsEl = document.getElementById("cmd-palette-results");
- if (!resultsEl) return;
- const isEn = (window.getCurrentLang && window.getCurrentLang()) === "en";
- const q = (query || "").toLowerCase().trim();
- const baseCmds = getCmdActions();
+      if (!q) {
+        filteredCmds = baseCmds.slice(0, 7);
+      } else {
+        // 1. Actions match title or category
+        const actionMatches = baseCmds.filter(c => c.title.toLowerCase().includes(q) || c.category.toLowerCase().includes(q));
 
- if (!q) {
- filteredCmds = baseCmds.slice(0, 7);
- } else {
- // 1. Actions match title or category
- const actionMatches = baseCmds.filter(c => c.title.toLowerCase().includes(q) || c.category.toLowerCase().includes(q));
+        // 2. Customers match name, phone, or email
+        const custs = Array.isArray(allCustomers) ? allCustomers : [];
+        const custMatches = custs
+          .filter(c => {
+            const name = (c.name || "").toLowerCase();
+            const email = (c.contact_email || "").toLowerCase();
+            const phone = (c.contact_phone || c.phone || "").toLowerCase();
+            return name.includes(q) || email.includes(q) || phone.includes(q);
+          })
+          .slice(0, 5)
+          .map(c => ({
+            id: `cust-${c.id}`,
+            title: `${c.name || "Pelanggan"} · ${c.contact_phone || c.phone || c.contact_email || "RM " + Number(c.amount || 0).toFixed(2)}`,
+            category: isEn ? "Customer" : "Pelanggan",
+            icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="7" r="4"></circle><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path></svg>`,
+            run: () => {
+              goToPage("pelanggan-list");
+              const searchInput = document.getElementById("search-input");
+              if (searchInput) {
+                searchInput.value = c.name;
+                if (typeof applyCustomerListFilters === "function") applyCustomerListFilters();
+              }
+            }
+          }));
 
- // 2. Customers match name, phone, or email
- const custs = Array.isArray(allCustomers) ? allCustomers : [];
- const custMatches = custs
- .filter(c => {
- const name = (c.name || "").toLowerCase();
- const email = (c.contact_email || "").toLowerCase();
- const phone = (c.contact_phone || c.phone || "").toLowerCase();
- return name.includes(q) || email.includes(q) || phone.includes(q);
- })
- .slice(0, 5)
- .map(c => ({
- id: `cust-${c.id}`,
- title: `${c.name || "Pelanggan"} · ${c.contact_phone || c.phone || c.contact_email || "RM " + Number(c.amount || 0).toFixed(2)}`,
- category: isEn ? "Customer" : "Pelanggan",
- icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="7" r="4"></circle><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path></svg>`,
- run: () => {
- goToPage("pelanggan-list");
- const searchInput = document.getElementById("search-input");
- if (searchInput) {
- searchInput.value = c.name;
- if (typeof applyCustomerListFilters === "function") applyCustomerListFilters();
- }
- }
- }));
+        // 3. Bookings match customer name, phone, service, date
+        const bks = Array.isArray(allBookings) ? allBookings : [];
+        const bkMatches = bks
+          .filter(b => {
+            const cName = (b.customer_name || "").toLowerCase();
+            const cPhone = (b.customer_phone || "").toLowerCase();
+            const sName = (b.service_name || b.event_type_name || "").toLowerCase();
+            const bDate = (b.booking_date || "").toLowerCase();
+            return cName.includes(q) || cPhone.includes(q) || sName.includes(q) || bDate.includes(q);
+          })
+          .slice(0, 5)
+          .map(b => ({
+            id: `bk-${b.id}`,
+            title: `${b.customer_name || "Booking"} · ${b.service_name || "Slot"} (${b.booking_date || ""})`,
+            category: isEn ? "Booking" : "Tempahan",
+            icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`,
+            run: () => {
+              goToPage("booking-list");
+            }
+          }));
 
- // 3. Bookings match customer name, phone, service, date
- const bks = Array.isArray(allBookings) ? allBookings : [];
- const bkMatches = bks
- .filter(b => {
- const cName = (b.customer_name || "").toLowerCase();
- const cPhone = (b.customer_phone || "").toLowerCase();
- const sName = (b.service_name || b.event_type_name || "").toLowerCase();
- const bDate = (b.booking_date || "").toLowerCase();
- return cName.includes(q) || cPhone.includes(q) || sName.includes(q) || bDate.includes(q);
- })
- .slice(0, 5)
- .map(b => ({
- id: `bk-${b.id}`,
- title: `${b.customer_name || "Booking"} · ${b.service_name || "Slot"} (${b.booking_date || ""})`,
- category: isEn ? "Booking" : "Tempahan",
- icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`,
- run: () => {
- goToPage("booking-list");
- }
- }));
+        filteredCmds = [...custMatches, ...bkMatches, ...actionMatches];
+      }
 
- filteredCmds = [...custMatches, ...bkMatches, ...actionMatches];
- }
+      cmdSelectedIdx = 0;
+      if (filteredCmds.length === 0) {
+        resultsEl.innerHTML = `<div class="cmd-empty hint" style="padding:1.5rem 1rem; text-align:center;">${isEn ? `No commands, bookings or customers matching "${escapeHtml(query)}"` : `Tiada padanan arahan, tempahan atau pelanggan untuk "${escapeHtml(query)}"`}</div>`;
+        return;
+      }
 
- cmdSelectedIdx = 0;
- if (filteredCmds.length === 0) {
- resultsEl.innerHTML = `<div class="cmd-empty hint" style="padding:1.5rem 1rem; text-align:center;">${isEn ? `No commands, bookings or customers matching "${escapeHtml(query)}"` : `Tiada padanan arahan, tempahan atau pelanggan untuk "${escapeHtml(query)}"`}</div>`;
- return;
- }
+      resultsEl.innerHTML = filteredCmds.map((cmd, idx) => `
+        <div class="cmd-item ${idx === cmdSelectedIdx ? "selected" : ""}" data-idx="${idx}">
+          <span class="cmd-item-icon">${cmd.icon}</span>
+          <div class="cmd-item-info">
+            <span class="cmd-item-title">${escapeHtml(cmd.title)}</span>
+            <span class="cmd-item-cat">${escapeHtml(cmd.category)}</span>
+          </div>
+          <span class="cmd-item-enter hint">↵</span>
+        </div>
+      `).join("");
 
- resultsEl.innerHTML = filteredCmds.map((cmd, idx) => `
- <div class="cmd-item ${idx === cmdSelectedIdx ? "selected" : ""}" data-idx="${idx}">
- <span class="cmd-item-icon">${cmd.icon}</span>
- <div class="cmd-item-info">
- <span class="cmd-item-title">${escapeHtml(cmd.title)}</span>
- <span class="cmd-item-cat">${escapeHtml(cmd.category)}</span>
- </div>
- <span class="cmd-item-enter hint">↵</span>
- </div>
- `).join("");
-
- resultsEl.querySelectorAll(".cmd-item").forEach(item => {
- item.addEventListener("click", () => {
- const idx = parseInt(item.dataset.idx, 10);
- if (filteredCmds[idx]) {
- closeCommandPalette();
- filteredCmds[idx].run();
- }
- });
+      resultsEl.querySelectorAll(".cmd-item").forEach(item => {
+        item.addEventListener("click", () => {
+          const idx = parseInt(item.dataset.idx, 10);
+          if (filteredCmds[idx]) {
+            closeCommandPalette();
+            filteredCmds[idx].run();
+          }
+        });
+      });
     } catch (err) {
       console.warn("Command palette render warning:", err);
     }
- });
- }
+  }
 
- function updateSelectedCmdItem() {
+  function updateSelectedCmdItem() {
  const resultsEl = document.getElementById("cmd-palette-results");
  if (!resultsEl) return;
  const items = resultsEl.querySelectorAll(".cmd-item");

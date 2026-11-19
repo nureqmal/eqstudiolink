@@ -9318,3 +9318,476 @@ table tbody tr:hover td {
   background: #390670;
   transform: translateY(-1px);
 }
+
+
+/* ═════════════════════════════════════════════════════════════════════
+   CALENDLY-GRADE HERO MOTION STAGE & INTERACTIVE PERSONA SWITCHER
+   Human-Centric Motion UI, Floating Glassmorphic Badges, Smart Phone
+   ═════════════════════════════════════════════════════════════════════ */
+.lp-hero-stage-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Persona Segmented Switcher */
+.lp-hero-segment-tabs {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+  align-items: center;
+  background: color-mix(in srgb, var(--paper) 60%, var(--surface));
+  padding: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid var(--paper-line);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  flex-wrap: wrap;
+}
+
+.lp-segment-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.lp-segment-tab:hover {
+  color: var(--stamp);
+  background: rgba(74, 9, 143, 0.05);
+}
+
+.lp-segment-tab.active {
+  background: var(--surface);
+  color: var(--stamp);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--paper-line);
+}
+
+/* Visual Stage with 3D Depth */
+.lp-hero-visual-stage {
+  position: relative;
+  width: 100%;
+  padding: 1.5rem 1rem 1rem;
+}
+
+/* Central Phone Mockup Device */
+.lp-hero-phone {
+  max-width: 330px;
+  margin: 0 auto;
+  border: 2.5px solid var(--paper-line);
+  border-radius: 26px;
+  background: var(--surface);
+  box-shadow: 0 24px 60px -15px rgba(74, 9, 143, 0.18), 0 10px 24px -5px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lp-hero-phone:hover {
+  transform: translateY(-4px);
+}
+
+.lp-phone-top {
+  background: color-mix(in srgb, var(--paper) 70%, var(--surface));
+  padding: 0.55rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.lp-phone-speaker {
+  width: 32px;
+  height: 4px;
+  background: var(--paper-line);
+  border-radius: 999px;
+}
+
+.lp-phone-url {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  color: var(--stamp);
+  font-weight: 600;
+}
+
+.lp-phone-screen {
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.lp-phone-hero {
+  border-radius: 12px;
+  padding: 1.5rem 0.85rem 0.75rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 85px;
+  background: linear-gradient(135deg, #18181b 0%, #27272a 40%, #4a098f 100%);
+  overflow: hidden;
+  transition: background 0.4s ease;
+}
+
+.lp-phone-hero.persona-mua {
+  background: linear-gradient(135deg, #4a098f 0%, #86198f 50%, #f43f5e 100%);
+}
+
+.lp-phone-hero.persona-inai {
+  background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #059669 100%);
+}
+
+.lp-phone-hero.persona-tutor {
+  background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 60%, #0ea5e9 100%);
+}
+
+.lp-phone-pill {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.lp-phone-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--stamp);
+  font-weight: 800;
+  font-family: var(--font-display, serif);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  border: 2px solid #fff;
+}
+
+.lp-phone-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.lp-phone-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.lp-phone-bio {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  line-height: 1.35;
+}
+
+.lp-phone-packages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.lp-phone-pkg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.65rem;
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lp-phone-pkg:hover,
+.lp-phone-pkg.selected {
+  border-color: color-mix(in srgb, var(--stamp) 55%, var(--paper-line));
+  background: color-mix(in srgb, var(--stamp) 5%, var(--surface));
+}
+
+.lp-phone-pkg-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.lp-phone-pkg-meta {
+  font-size: 0.64rem;
+  color: var(--ink-soft);
+}
+
+.lp-phone-pkg-price {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--stamp);
+  white-space: nowrap;
+}
+
+.lp-phone-calendar {
+  background: color-mix(in srgb, var(--paper) 40%, var(--surface));
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  border: 1px dashed var(--paper-line);
+}
+
+.lp-cal-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.lp-cal-lbl {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+
+.lp-cal-sub {
+  font-size: 0.62rem;
+  color: var(--ok);
+  font-weight: 600;
+}
+
+.lp-cal-slots {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.lp-phone-slot {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.lp-phone-slot:hover {
+  border-color: var(--stamp);
+}
+
+.lp-phone-slot.selected {
+  background: var(--stamp);
+  color: #fff;
+  border-color: var(--stamp);
+  box-shadow: 0 2px 6px rgba(74, 9, 143, 0.25);
+}
+
+.lp-phone-slot.disabled {
+  opacity: 0.45;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.lp-phone-action {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.lp-phone-deposit-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  color: var(--ok);
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+  font-weight: 500;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.lp-phone-cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: var(--stamp);
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.lp-phone-cta-btn:hover {
+  background: #390670;
+}
+
+/* Floating Glassmorphic Badges */
+.lp-float-badge {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.9rem;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+  pointer-events: auto;
+  transition: transform 0.3s ease;
+}
+
+.lp-float-badge:hover {
+  transform: scale(1.04) !important;
+}
+
+.lp-float-top {
+  top: 15px;
+  right: -30px;
+  animation: floatSlow1 6s ease-in-out infinite;
+}
+
+.lp-float-left {
+  top: 42%;
+  left: -40px;
+  animation: floatSlow2 7s ease-in-out infinite;
+}
+
+.lp-float-bottom {
+  bottom: 25px;
+  right: -25px;
+  animation: floatSlow3 6.5s ease-in-out infinite;
+}
+
+@keyframes floatSlow1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.4deg); }
+}
+
+@keyframes floatSlow2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(9px) rotate(-0.5deg); }
+}
+
+@keyframes floatSlow3 {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-7px) scale(1.01); }
+}
+
+.lp-float-icon-ok {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--ok);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lp-float-icon-wa {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(37, 211, 102, 0.12);
+  color: #128c7e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lp-float-icon-cal {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(74, 9, 143, 0.1);
+  color: var(--stamp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lp-float-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+
+.lp-float-val {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Responsive adjustments for Tablets & Mobile */
+@media (max-width: 900px) {
+  .lp-float-top {
+    right: 0px;
+    top: 5px;
+  }
+  .lp-float-left {
+    left: 0px;
+  }
+  .lp-float-bottom {
+    right: 0px;
+    bottom: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .lp-float-badge {
+    position: static;
+    margin-bottom: 0.5rem;
+    animation: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  .lp-hero-visual-stage {
+    padding: 0.5rem;
+  }
+  .lp-hero-phone {
+    max-width: 100%;
+  }
+}

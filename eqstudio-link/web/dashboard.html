@@ -3566,28 +3566,13 @@
  window.location.href = "/suspended.html";
  return;
  }
- if (profile?.subscription_status === "past_due") {
- const banner = document.createElement("div");
- banner.className = "trial-strip past-due-strip";
- banner.innerHTML = `<span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px; flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> ${t("banner_past_due", "Langganan anda telah tamat. Tempahan baharu tetap diterima, tetapi sesetengah fungsi disekat.")}</span><a href="/billing.html">${t("banner_past_due_action", "Bayar sekarang")}</a>`;
- slot.appendChild(banner);
- } else if (profile?.subscription_status === "trialing") {
- const daysLeft = Math.ceil((new Date(profile.subscription_end_date) - new Date()) / (1000 * 60 * 60 * 24));
- if (daysLeft <= 30) {
- const banner = document.createElement("div");
- banner.className = "trial-strip";
- banner.innerHTML = `<span>⏳ Trial: <strong>${Math.max(daysLeft, 0)} ${t("banner_trial_left", "hari lagi")}</strong></span><a href="/billing.html">${t("banner_trial_action", "Bayar sekarang →")}</a>`;
- slot.appendChild(banner);
- }
- }
+ // Pelan Percuma Selamanya: Tiada banner tamat tempoh atau amaran sekatan
  }
  renderSubscriptionBanner();
 
- // Shared guard for actions that should be blocked while past_due
+ // Shared guard: Pelan Percuma tidak pernah disekat
  function blockIfPastDue() {
- if (!isPastDue) return false;
- showToast(t("toast_past_due_block", "Langganan anda tamat. Sila bayar untuk terus menggunakan ciri ini."), "error");
- return true;
+ return false;
  }
 
  document.getElementById("profile-form")?.addEventListener("submit", async (e) => {
@@ -7728,7 +7713,7 @@
  "Bil langganan dibayar secara manual melalui pindahan bank di halaman Billing.",
  "Founding Member yang mengunci harga akan kekal pada kadar sama walau harga standard berubah kemudian.",
  "Reminder dihantar sekali sehari secara automatik, bukan secara masa nyata sebaik tarikh cukup tempoh sampai.",
- "Sekiranya langganan tamat tempoh, tempahan baharu tetap diterima, tapi sesetengah fungsi disekat sementara.",
+ "Anda berada di Pelan Percuma Selamanya — naik taraf ke Studio Pro bila-bila masa untuk tempahan tanpa had.",
  "Setiap perubahan pada [Kalendar] terus mempengaruhi slot yang pelanggan nampak di halaman tempahan awam.",
  "Sistem tak automatik caj kad kredit. Semua bayaran langganan perlu disahkan secara manual oleh anda.",
  "Ramai perniagaan kehilangan pelanggan sebab lambat reply. Sistem book sendiri elakkan risiko ni sepenuhnya.",
@@ -7830,7 +7815,7 @@
  "Bil langganan dibayar secara manual melalui pindahan bank di halaman Billing.",
  "Founding Member yang mengunci harga akan kekal pada kadar sama walau harga standard berubah kemudian.",
  "Reminder dihantar sekali sehari secara automatik, bukan secara masa nyata sebaik tarikh cukup tempoh sampai.",
- "Sekiranya langganan tamat tempoh, tempahan baharu tetap diterima, tapi sesetengah fungsi disekat sementara.",
+ "Anda berada di Pelan Percuma Selamanya — naik taraf ke Studio Pro bila-bila masa untuk tempahan tanpa had.",
  "Setiap perubahan pada [Kalendar] terus mempengaruhi slot yang pelanggan nampak di halaman tempahan awam.",
  "Sistem tak automatik caj kad kredit. Semua bayaran langganan perlu disahkan secara manual oleh anda.",
  "Ramai perniagaan kehilangan pelanggan sebab lambat reply. Sistem book sendiri elakkan risiko ni sepenuhnya.",

@@ -41,8 +41,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
           </div>
           <div>
-            <h1 class="billing-status-title" id="status-title">Sila Bayar untuk Terus Guna</h1>
-            <p class="billing-status-sub" id="status-sub">Langganan atau tempoh percubaan anda telah tamat. Pilih pakej di bawah untuk menyambung akses automasi dan portal booking anda.</p>
+            <h1 class="billing-status-title" id="status-title">Pilih Pelan Langganan Anda</h1>
+            <p class="billing-status-sub" id="status-sub">Tingkatkan kapasiti bisnes anda dengan automasi penuh WhatsApp, pautan tanpa had &amp; penjenamaan eksklusif.</p>
           </div>
         </div>
       </div>
@@ -90,53 +90,39 @@
 
       <!-- Tier Selection Grid -->
       <div class="billing-tier-grid" id="tier-selector">
-        <label class="billing-tier-card selected" for="tier-starter">
-          <input type="radio" name="tier" id="tier-starter" value="starter" checked />
+        <label class="billing-tier-card" for="tier-lite">
+          <input type="radio" name="tier" id="tier-lite" value="lite" />
           <div class="billing-tier-header">
             <div class="billing-tier-title-wrap">
               <div class="billing-tier-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               </div>
               <div>
-                <h3 class="billing-tier-name">Starter</h3>
-                <span class="billing-tier-badge">1 Pautan Booking</span>
+                <h3 class="billing-tier-name">Solo Lite</h3>
+                <span class="billing-tier-badge">Had 30 Booking</span>
               </div>
             </div>
             <div class="billing-radio-indicator"></div>
           </div>
-          <p class="billing-tier-desc">Sesuai untuk pemilik bisnes solo, jurugambar tunggal, konsultan, atau studio kecil yang memerlukan 1 portal tempahan teras.</p>
+          <p class="billing-tier-desc">Pelan asas untuk peniaga solo yang mahu membuang watermark dan menguruskan sehingga 30 tempahan sebulan.</p>
         </label>
 
-        <label class="billing-tier-card" for="tier-pro">
-          <input type="radio" name="tier" id="tier-pro" value="pro" />
+        <label class="billing-tier-card selected" for="tier-pro">
+          <input type="radio" name="tier" id="tier-pro" value="pro" checked />
           <div class="billing-tier-header">
             <div class="billing-tier-title-wrap">
-              <div class="billing-tier-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <div class="billing-tier-icon" style="background:var(--stamp); color:#fff;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg>
               </div>
               <div>
-                <h3 class="billing-tier-name">Pro</h3>
-                <span class="billing-tier-badge pro">Sehingga 3 Pautan</span>
+                <h3 class="billing-tier-name">Studio Pro</h3>
+                <span class="billing-tier-badge pro">Disyorkan · Unlimited</span>
               </div>
             </div>
             <div class="billing-radio-indicator"></div>
           </div>
-          <p class="billing-tier-desc">Untuk perniagaan dengan berbilang cawangan, staf berasingan, atau venture berbeza yang memerlukan portal asing.</p>
+          <p class="billing-tier-desc">Automasi penuh tanpa had dengan peringatan WhatsApp automatik, resit PDF, dan sehingga 3 pautan bio bebas.</p>
         </label>
-      </div>
-
-      <!-- Founding Member Privilege Banner -->
-      <div class="founding-member-card" id="founding-member-toggle" style="display:none;">
-        <input type="checkbox" id="wants-founding-member" style="width:auto; margin-top:0.25rem; flex-shrink:0;" />
-        <div style="flex:1;">
-          <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
-            <strong style="color:var(--ink); font-size:0.92rem;">Jadi Founding Member Rasmi</strong>
-            <span class="founding-member-badge" id="founding-slots-badge">Menyemak baki slot...</span>
-          </div>
-          <p class="hint" style="margin:0.25rem 0 0; font-size:0.82rem; line-height:1.45;">
-            Kunci kadar istimewa <strong>RM15/bulan</strong> atau <strong>RM150/tahun</strong> selama-lamanya (terhad kepada 50 bisnes terawal). Harga anda dijamin kekal seumur hidup tanpa kenaikan!
-          </p>
-        </div>
       </div>
 
       <!-- Frequency Switcher -->
@@ -350,75 +336,66 @@
     }
 
     const TIER_PRICING = {
-      starter: { monthly: 19, yearly: 190, save: 38 },
-      pro: { monthly: 39, yearly: 390, save: 78 },
+      lite: { monthly: 39, yearly: 390, save: 78 },
+      pro: { monthly: 59, yearly: 588, save: 120 }
     };
-    const FOUNDING_PRICING = { monthly: 15, yearly: 150, save: 30 };
-
-    let foundingSlotsAvailable = false;
-    async function loadFoundingMemberStatus() {
-      try {
-        const res = await fetch("/api/founding-member-count");
-        const data = await res.json();
-        foundingSlotsAvailable = !!data.available;
-        const badge = document.getElementById("founding-slots-badge");
-        if (badge) {
-          badge.textContent = foundingSlotsAvailable
-            ? `${data.remaining}/${data.cap} slot berbaki`
-            : "Slot Penuh";
-        }
-      } catch {
-        foundingSlotsAvailable = false;
-      }
-      updateFoundingToggleVisibility();
-    }
-
-    function updateFoundingToggleVisibility() {
-      const tier = document.querySelector('input[name="tier"]:checked')?.value || "starter";
-      const toggle = document.getElementById("founding-member-toggle");
-      const show = !isExistingFoundingMember && tier === "starter" && foundingSlotsAvailable;
-      if (toggle) toggle.style.display = show ? "flex" : "none";
-      if (!show && document.getElementById("wants-founding-member")) {
-        document.getElementById("wants-founding-member").checked = false;
-      }
-      updatePrices();
-    }
-
-    function isFoundingSelected() {
-      if (isExistingFoundingMember) return true;
-      return document.querySelector('input[name="tier"]:checked')?.value === "starter"
-        && document.getElementById("wants-founding-member")?.checked;
-    }
-
-    function getFoundingPricing() {
-      if (isExistingFoundingMember) {
-        return {
-          monthly: profile.founding_member_locked_price_monthly ?? FOUNDING_PRICING.monthly,
-          yearly: profile.founding_member_locked_price_yearly ?? FOUNDING_PRICING.yearly,
-          save: FOUNDING_PRICING.save,
-        };
-      }
-      return FOUNDING_PRICING;
-    }
 
     const TIER_FEATURES = {
-      starter: [
-        "1 pautan portal booking + keupayaan semat (embed) ke laman web",
-        "Jenis perkhidmatan tanpa had (tempoh & harga berasingan)",
-        "Notifikasi deposit & peringatan WhatsApp/SMS automatik",
-        "Penjadualan semula & pembatalan layan diri (self-serve) pelanggan",
-        "Laporan aliran tunai dan analisis risiko ketidakhadiran",
+      lite: [
+        "Sehingga 30 tempahan setiap bulan (had)",
+        "5 pakej perkhidmatan rasmi",
+        "Buang watermark lencana (100% jenama studio anda)",
+        "1 pautan bio rasmi",
+        "Peringatan WhatsApp mod 1-klik pantas",
+        "Semakan slot kalendar masa nyata"
       ],
       pro: [
-        "Semua ciri dalam pakej Starter",
-        "Sehingga 3 pautan booking rasmi (untuk cawangan/jenama asing)",
-        "Peringatan pintar disemak setiap 2 jam secara automatik",
-        "Emel analisis mingguan berprestasi tinggi",
-        "Lencana Pro eksklusif pada perkongsian komuniti",
-      ],
+        "Tempahan TANPA HAD (Unlimited Bookings)",
+        "Pakej & perkhidmatan TANPA HAD",
+        "Automasi WhatsApp latar belakang penuh (24j sebelum & resit deposit)",
+        "Sehingga 3 pautan bio bebas sepenuhnya",
+        "100% White-label tanpa sebarang watermark",
+        "Invois & Resit PDF Rasmi Berlogo muat turun",
+        "Segerak 2-hala Google Calendar rasmi",
+        "Analisis Aliran Tunai & Ramalan AI",
+        "Sokongan Keutamaan VIP WhatsApp 24/7"
+      ]
     };
 
-    const checkSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+    function updatePrices() {
+      const tier = document.querySelector('input[name="tier"]:checked')?.value || "pro";
+      const pricing = TIER_PRICING[tier] || TIER_PRICING.pro;
+
+      const monthlyEl = document.getElementById("price-monthly");
+      if (monthlyEl) monthlyEl.innerHTML = `RM${pricing.monthly}<span>/bulan</span>`;
+
+      const yearlyEl = document.getElementById("price-yearly");
+      if (yearlyEl) yearlyEl.innerHTML = `RM${pricing.yearly}<span>/tahun</span>`;
+
+      const perMonth = (pricing.yearly / 12).toFixed(2);
+      const subEl = document.getElementById("price-yearly-sub");
+      if (subEl) subEl.textContent = `= RM${perMonth}/bulan, jimat RM${pricing.save}`;
+
+      const saveBadge = document.getElementById("price-save-badge");
+      if (saveBadge) saveBadge.textContent = `Jimat RM${pricing.save}`;
+
+      updateValueChecklist();
+    }
+
+    document.querySelectorAll('input[name="tier"]').forEach(r => {
+      r.addEventListener("change", () => {
+        document.querySelectorAll(".billing-tier-card").forEach(c => c.classList.remove("selected"));
+        r.closest(".billing-tier-card")?.classList.add("selected");
+        updatePrices();
+      });
+    });
+
+    document.querySelectorAll('input[name="plan"]').forEach(r => {
+      r.addEventListener("change", () => {
+        document.querySelectorAll(".billing-freq-option").forEach(c => c.classList.remove("selected"));
+        r.closest(".billing-freq-option")?.classList.add("selected");
+      });
+    });
 
     function updateValueChecklist() {
       const tier = document.querySelector('input[name="tier"]:checked')?.value || "starter";
@@ -499,7 +476,7 @@
     });
 
     updatePrices();
-    loadFoundingMemberStatus();
+    updatePrices();
 
     function refCode() {
       return `EQ-${session.user.id.slice(0, 6).toUpperCase()}`;

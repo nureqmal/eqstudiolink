@@ -8,21 +8,21 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png" />
 <title>eqstudio.link: Booking & Client Manager untuk Business Owner Solo</title>
-<meta name="description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Booking online, invois, dan pengurusan pelanggan untuk usahawan solo Malaysia. Percuba 14 hari, RM19/bulan." />
+<meta name="description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Booking online, invois, dan pengurusan pelanggan untuk usahawan solo Malaysia. Pelan percuma selamanya, tanpa kad kredit." />
 <link rel="canonical" href="https://eqstudio.link/" />
 
 <!-- Open Graph (Facebook, WhatsApp, LinkedIn preview cards) -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://eqstudio.link/" />
 <meta property="og:title" content="eqstudio.link: Booking & Client Manager untuk Business Owner Solo" />
-<meta property="og:description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Percuba 14 hari, RM19/bulan." />
+<meta property="og:description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Pelan percuma selamanya, tanpa kad kredit." />
 <meta property="og:image" content="https://eqstudio.link/assets/og-image.png" />
 <meta property="og:locale" content="ms_MY" />
 
 <!-- Twitter/X Card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="eqstudio.link: Booking & Client Manager untuk Business Owner Solo" />
-<meta name="twitter:description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Percuba 14 hari, RM19/bulan." />
+<meta name="twitter:description" content="Biar customer book slot sendiri, deposit & reminder jalan automatik. Pelan percuma selamanya, tanpa kad kredit." />
 <meta name="twitter:image" content="https://eqstudio.link/assets/og-image.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -228,13 +228,7 @@
     </div>
   </div>
 
-  <div class="founding-banner-strip" id="founding-banner-strip">
-    <span class="founding-banner-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg> Founding Member</span>
-    <span>RM15/bulan dikunci selama-lamanya</span>
-    <span class="founding-banner-dot">•</span>
-    <span id="founding-banner-counter-text">Menyemak baki slot...</span>
-    <a href="/login.html" id="founding-cta-btn">Jadi Founding Member →</a>
-  </div>
+  
 
   <!-- ═════════════════════════════════════════════════════════════════════
        GALLERY SHOWCASE: VISUAL MOCKUP MINI-WEBSITE YANG ANDA BOLEH BINA
@@ -820,7 +814,7 @@
       <p data-i18n-html="faq_a14">Every account can only see its own customer data. (Rujuk <a href="/privacy-policy.html">Dasar Privasi</a> kami.)</p>
     </details>
     <details>
-      <summary data-i18n="faq_q15">Perlu kad kredit untuk trial 14 hari?</summary>
+      <summary data-i18n="faq_q15">Perlu kad kredit untuk mula?</summary>
       <p data-i18n="faq_a15">Tak perlu. Daftar dengan emel je, cuba dulu sebelum komited.</p>
     </details>
     <details>
@@ -852,7 +846,7 @@
 
   <section class="lp-cta-band">
     <h2>Biar Customer Book Sendiri, Bukan Anda Kejar Bayaran</h2>
-    <p>Booking, deposit, reminder, semua automatic. Percuba 14 hari, percuma.</p>
+    <p>Booking, deposit, reminder, semua automatik. Pelan percuma selamanya, tanpa kad kredit.</p>
     <a href="/login.html" class="btn btn-lg btn-primary-cta">Mula Percuma</a>
     <div class="lp-trust-badges">
       <span>Dibina di Malaysia</span>
@@ -928,30 +922,7 @@
   </footer>
 
   <script>
-    // Founding Member offer — real database count, no hardcoded numbers.
-    // If the offer is no longer available (50 slots taken), the section
-    // switches to a clear closed-state message rather than silently
-    // vanishing, so visitors aren't confused by a missing CTA.
-    async function loadFoundingMemberCounter() {
-      try {
-        const res = await fetch("/api/founding-member-count");
-        const data = await res.json();
-        const textEl = document.getElementById("founding-banner-counter-text");
-        const ctaBtn = document.getElementById("founding-cta-btn");
-        if (textEl && ctaBtn) {
-          if (data.available) {
-            textEl.textContent = `${data.remaining}/${data.cap} slot berbaki`;
-          } else {
-            textEl.textContent = "Semua 50 slot telah diambil";
-            ctaBtn.textContent = "Lihat Pelan Standard";
-            ctaBtn.href = "#harga";
-            const badge = document.querySelector(".founding-banner-badge");
-            if (badge) badge.textContent = "Tawaran Telah Tamat";
-          }
-        }
-      } catch { /* leave the default "Menyemak baki slot..." text if this fails */ }
-    }
-    loadFoundingMemberCounter();
+    
 
     // Interactive hero spotlight — follows the mouse for a modern, subtle
     // "aurora glow" effect. Desktop only (hidden on touch devices via CSS,
@@ -1737,7 +1708,7 @@
         { keywords: ["berulang", "repeat", "recurring", "bulanan"], q: "Customer bayaran berulang macam mana?", a: "Tandakan \"Bayaran Berulang\" bila tambah customer, pilih interval (7/14/30/60 hari), sistem auto generate cycle baru bila dah bayar." },
         { keywords: ["selamat", "safe", "security", "data"], q: "Selamat ke data customer saya?", a: "Ya. Setiap akaun hanya boleh nampak data customer sendiri, dikuatkuasakan pada peringkat database. Kami tidak kongsi data anda." },
         { keywords: ["cancel", "berhenti", "batal"], q: "Boleh cancel bila-bila?", a: "Boleh, tiada kontrak jangka masa. Cancel terus dari dashboard bila-bila anda nak berhenti." },
-        { keywords: ["harga", "price", "kad kredit", "trial", "percuma", "berapa"], q: "Berapa harga & perlu kad kredit untuk trial?", a: "RM19/bulan (Starter) atau RM39/bulan (Pro) lepas trial 14 hari percuma. Tak perlu kad kredit, daftar terus dengan emel je." },
+        { keywords: ["harga", "price", "kad kredit", "trial", "percuma", "berapa"], q: "Berapa harga & ada pelan percuma?", a: "Percuma selamanya untuk sehingga 10 tempahan sebulan. Pelan Solo Lite RM39/bulan dan Studio Pro RM59/bulan untuk tempahan tanpa had. Tak perlu kad kredit." },
         { keywords: ["berapa ramai", "had", "limit", "bilangan customer"], q: "Berapa ramai customer boleh saya track?", a: "Tiada had bilangan customer dalam mana-mana pelan." },
         { keywords: ["bila reminder", "masa", "pukul", "jam", "automatik"], q: "Bila reminder sebenarnya dihantar?", a: "Pelan Starter disemak sekali sehari (~9 pagi waktu Malaysia). Pelan Pro disemak setiap 2 jam, jadi reminder sampai lebih pantas. Semua automatic, anda tak perlu buat apa-apa." },
         { keywords: ["whatsapp", "wasap"], q: "Ada WhatsApp reminder ke?", a: "Setakat ni reminder guna emel. Ada butang WhatsApp dalam dashboard untuk anda hantar manual bila perlu." },
@@ -1767,7 +1738,7 @@
         { keywords: ["recurring", "repeat", "monthly"], q: "How does recurring payment work?", a: "Mark \"Recurring Payment\" when adding a customer, pick an interval (7/14/30/60 days), the system auto-generates the next cycle once paid." },
         { keywords: ["safe", "security", "data"], q: "Is my customer data safe?", a: "Yes. Every account can only see its own customer data, enforced at the database level. We don't share your data." },
         { keywords: ["cancel", "stop", "unsubscribe"], q: "Can I cancel anytime?", a: "Yes, there's no lock-in contract. Cancel directly from the dashboard whenever you're ready to stop." },
-        { keywords: ["price", "pricing", "credit card", "trial", "free", "how much"], q: "What's the price, and do I need a card for the trial?", a: "RM19/month (Starter) or RM39/month (Pro) after a free 14-day trial. No credit card needed, just sign up with an email." },
+        { keywords: ["price", "pricing", "credit card", "trial", "free", "how much"], q: "What's the price, and is there a free plan?", a: "Free forever for up to 10 bookings per month. Solo Lite RM39/month and Studio Pro RM59/month for unlimited bookings. No credit card needed." },
         { keywords: ["how many", "limit", "customer limit"], q: "How many customers can I track?", a: "There's no customer limit on any plan." },
         { keywords: ["when reminder", "time", "what time", "automatic"], q: "When are reminders actually sent?", a: "Starter is checked once a day (around 9am Malaysia time). Pro is checked every 2 hours, so reminders go out faster. All automatic, you don't need to do anything." },
         { keywords: ["whatsapp"], q: "Is there WhatsApp reminders?", a: "Right now reminders run over email. There's a WhatsApp button in the dashboard for sending one manually whenever you need." },

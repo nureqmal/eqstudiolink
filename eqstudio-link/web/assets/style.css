@@ -1699,6 +1699,7 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 }
 .tier-badge:hover { transform: translateY(-1px); }
 .tier-badge.tier-trial { background: var(--pending-bg); color: var(--pending-text); }
+.tier-badge.tier-free { background: rgba(100, 116, 139, 0.12); color: #475569; border: 1px solid rgba(148, 163, 184, 0.35); }
 .tier-badge.tier-starter { background: var(--paper); color: var(--ink-soft); border: 1px solid var(--paper-line); }
 .tier-badge.tier-pro { background: var(--stamp-soft); color: var(--stamp); }
 .tier-badge .tier-badge-upgrade { font-weight: 500; text-transform: none; opacity: 0.75; }
@@ -10169,19 +10170,72 @@ table tbody tr:hover td {
    NATIVE MOBILE APP-LIKE UI/UX OVERHAUL (PLAY STORE / APP STORE FEEL)
    ═════════════════════════════════════════════════════════════════════ */
 
-/* 1. Bottom Sheet Modal Transformation on Mobile */
+/* 1. Bottom Sheet Modal Transformation on Mobile & Safe Stacking */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100 !important; /* Above bottom dock (450) and kebab (550) */
+  padding: 1rem;
+}
+
+.modal-box {
+  position: relative;
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7);
+  max-width: 440px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.3);
+}
+
+.modal-close-x-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0;
+  z-index: 15;
+  transition: all 0.15s ease;
+}
+.modal-close-x-btn:hover {
+  background: var(--paper);
+  color: var(--ink);
+  transform: scale(1.05);
+}
+
 @media (max-width: 640px) {
   .modal-overlay {
     align-items: flex-end !important;
     padding: 0 !important;
+    z-index: 1100 !important;
   }
   .modal-box {
-    border-radius: 22px 22px 0 0 !important;
+    border-radius: 24px 24px 0 0 !important;
     max-width: 100% !important;
     width: 100% !important;
-    padding: 1.25rem 1.2rem calc(1.5rem + env(safe-area-inset-bottom, 16px)) !important;
+    padding: 1.25rem 1.25rem calc(3.5rem + env(safe-area-inset-bottom, 24px)) !important;
     max-height: 85vh !important;
     overflow-y: auto !important;
+    margin-bottom: 0 !important;
     animation: modal-sheet-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both !important;
   }
   @keyframes modal-sheet-in {

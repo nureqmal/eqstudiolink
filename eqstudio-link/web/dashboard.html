@@ -49,20 +49,26 @@
  </aside>
 
  <div class="db-topbar-mobile">
- <div style="display:flex; align-items:center; gap:0.6rem;">
+ <div style="display:flex; align-items:center; gap:0.5rem; min-width:0;">
  <a href="/dashboard.html" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
- <a href="/billing.html" id="tier-badge-mobile" class="tier-badge" style="display:none;"></a>
+ <a href="/billing.html" id="tier-badge-mobile" class="tier-badge" style="display:inline-flex;"></a>
  </div>
- <div style="display:flex; gap:0.45rem; align-items:center;">
- <button type="button" class="secondary" id="topbar-cmd-btn" title="Carian Pantas (Ctrl+K)" style="padding:0.45rem 0.65rem; border-radius:999px;">
+ <div style="display:flex; gap:0.35rem; align-items:center; flex-shrink:0;">
+ <div class="lang-toggle" id="db-lang-toggle" title="Tukar Bahasa / Switch Language">
+ <button type="button" class="lang-toggle-btn active" data-lang-toggle="ms">BM</button>
+ <button type="button" class="lang-toggle-btn" data-lang-toggle="en">EN</button>
+ </div>
+ <button type="button" class="secondary" id="topbar-cmd-btn" title="Carian Pantas (Ctrl+K)" style="padding:0.42rem 0.55rem; border-radius:999px;">
  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
  </button>
- <button type="button" class="secondary" id="notif-bell-btn-mobile" title="Notifikasi" style="padding:0.45rem 0.65rem; border-radius:999px; position:relative;">
+ <div class="kebab-wrap">
+ <button type="button" class="secondary" id="settings-dropdown-btn" title="Tetapan &amp; Sambungan" style="padding:0.42rem 0.55rem; border-radius:999px;">
+ <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>
+ </button>
+ </div>
+ <button type="button" class="secondary" id="notif-bell-btn-mobile" title="Notifikasi" style="padding:0.42rem 0.55rem; border-radius:999px; position:relative;">
  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
  <span id="notif-unread-badge-mobile" class="notif-unread-badge" style="display:none;"></span>
- </button>
- <button type="button" class="secondary theme-toggle-btn" id="theme-toggle-btn-mobile" title="Tukar Tema" style="padding:0.45rem 0.65rem; border-radius:999px;">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
  </button>
  </div>
  </div>
@@ -2109,6 +2115,7 @@
 
  <div class="modal-overlay" id="notif-modal" style="display:none;">
  <div class="modal-box" style="max-width:400px;">
+ <button type="button" class="modal-close-x-btn" id="notif-modal-x" aria-label="Tutup">&times;</button>
  <div class="section-title"><h2 style="margin:0; font-size:1.1rem;">Notifikasi</h2></div>
  <div id="notif-list" style="display:flex; flex-direction:column; gap:0.4rem; max-height:60vh; overflow-y:auto;"></div>
  <p class="hint" id="notif-empty" style="display:none; text-align:center; padding:1.5rem 0;" data-i18n="notif_empty">Tiada notifikasi lagi.</p>
@@ -2118,6 +2125,7 @@
 
  <div class="modal-overlay" id="quick-add-modal" style="display:none;">
  <div class="modal-box" style="max-width:400px;">
+ <button type="button" class="modal-close-x-btn" id="quick-add-x" aria-label="Tutup">&times;</button>
  <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="qa_title">Tambah Pelanggan Pantas</h2></div>
  <form id="quick-add-form">
  <label for="qa-name"><span data-i18n="qa_name">Nama</span><button type="button" class="info-icon-btn" data-info="Nama penuh atau nama panggilan pelanggan." data-info-en="Full name or preferred name of the customer.">i</button></label>
@@ -2398,7 +2406,8 @@
 
  <!-- Desktop & Mobile Quick Command Palette (Ctrl+K) -->
  <div class="cmd-palette-backdrop" id="cmd-palette-modal" style="display:none;">
- <div class="cmd-palette-box">
+ <div class="cmd-palette-box" style="position:relative;">
+ <button type="button" class="modal-close-x-btn" id="cmd-palette-x-btn" aria-label="Tutup" style="top:0.75rem; right:0.75rem;">&times;</button>
  <div class="cmd-palette-input-wrap">
  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="cmd-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
  <input type="text" id="cmd-palette-input" placeholder="Taip arahan atau cari pelanggan..." data-i18n-placeholder="cmd_search_placeholder" autocomplete="off" />
@@ -3252,12 +3261,15 @@
  if (document.getElementById("ws-testimonial-list")) loadTestimonials();
 
  function renderTierBadge(el) {
- if (!el || !profile) return;
- const isPro = profile.tier === "pro";
- const isLite = profile.tier === "lite";
- el.className = "tier-badge " + (isPro ? "tier-pro" : isLite ? "tier-starter" : "tier-trial");
+ if (!el) return;
+ const tier = (typeof currentProfile !== "undefined" && currentProfile?.tier) || (typeof profile !== "undefined" && profile?.tier);
+ const isPro = tier === "pro";
+ const isLite = tier === "lite";
+ const isFree = !isPro && !isLite;
+
+ el.className = "tier-badge " + (isPro ? "tier-pro" : isLite ? "tier-starter" : "tier-free");
  const label = isPro ? "Studio Pro" : isLite ? "Solo Lite" : "Pelan Percuma";
- const upgradeHint = !isPro ? ` <span class="tier-badge-upgrade">· Upgrade</span>` : "";
+ const upgradeHint = !isPro ? ` <span class="tier-badge-upgrade">· Naik Taraf</span>` : "";
  el.innerHTML = `${label}${upgradeHint}`;
  el.style.display = "inline-flex";
  updateMonthlyQuotaMeter();

@@ -12,7 +12,7 @@
 <title>Dashboard | eqstudio.link</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=79" />
+<link rel="stylesheet" href="/assets/style.css?v=80" />
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
  (function () {
@@ -39,6 +39,29 @@
    if (!modal) return;
    modal.style.display = "none";
  };
+ window.openSettingsDropdown = function(e) {
+   if (e) e.stopPropagation();
+   var btn = document.getElementById("settings-dropdown-btn");
+   var panel = document.getElementById("settings-dropdown-panel");
+   var backdrop = document.getElementById("kebab-backdrop");
+   if (!panel) return;
+   var wasOpen = panel.classList.contains("open");
+   if (typeof window.closeAllKebabMenus === "function") window.closeAllKebabMenus();
+   if (!wasOpen) {
+     if (window.innerWidth > 640 && btn) {
+       var rect = btn.getBoundingClientRect();
+       panel.style.top = (rect.bottom + 8) + "px";
+       panel.style.right = (window.innerWidth - rect.right) + "px";
+     }
+     panel.classList.add("open");
+     if (backdrop) backdrop.classList.add("open");
+   }
+ };
+ window.openNotifModal = function(e) {
+   if (e) e.stopPropagation();
+   var m = document.getElementById("notif-modal");
+   if (m) m.style.display = "flex";
+ };
 </script>
 </head>
 <body>
@@ -46,7 +69,10 @@
  <div class="db-shell">
 
  <aside class="db-sidebar">
+ <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:1rem;">
  <a href="/dashboard.html" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
+ <a href="/billing.html" id="tier-badge" class="tier-badge tier-free" style="display:inline-flex;">Pelan Percuma <span class="tier-badge-upgrade">· Naik Taraf</span></a>
+ </div>
  <div class="kebab-wrap" style="margin-bottom:0.8rem;">
  <button type="button" class="secondary" id="quick-nav-btn" style="width:100%;">
  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Lompat ke Page
@@ -59,7 +85,6 @@
  </button>
  <div class="db-sidebar-footer">
  <div class="db-biz-name" id="business-name-side">-</div>
- <a href="/billing.html" id="tier-badge" class="tier-badge" style="display:none;"></a>
  <button class="secondary" id="restart-tour-btn" style="width:100%; margin-bottom:0.5rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="topbar_tour">Panduan Guna Sistem</span></button>
  <button class="secondary theme-toggle-btn" id="theme-toggle-btn" style="width:100%; margin-bottom:0.5rem;">
  <span id="theme-toggle-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span id="theme-toggle-label">Mod Gelap</span>
@@ -71,7 +96,7 @@
  <div class="db-topbar-mobile">
  <div style="display:flex; align-items:center; gap:0.5rem; min-width:0;">
  <a href="/dashboard.html" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
- <a href="/billing.html" id="tier-badge-mobile" class="tier-badge" style="display:inline-flex;"></a>
+ <a href="/billing.html" id="tier-badge-mobile" class="tier-badge tier-free" style="display:inline-flex;">Pelan Percuma <span class="tier-badge-upgrade">· Naik Taraf</span></a>
  </div>
  <div style="display:flex; gap:0.35rem; align-items:center; flex-shrink:0;">
  <div class="lang-toggle" id="db-lang-toggle" title="Tukar Bahasa / Switch Language">
@@ -82,11 +107,11 @@
  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
  </button>
  <div class="kebab-wrap">
- <button type="button" class="secondary" id="settings-dropdown-btn" title="Tetapan &amp; Sambungan" style="padding:0.42rem 0.55rem; border-radius:999px;">
+ <button type="button" class="secondary" id="settings-dropdown-btn" onclick="window.openSettingsDropdown && window.openSettingsDropdown(event)" title="Tetapan &amp; Sambungan" style="padding:0.42rem 0.55rem; border-radius:999px;">
  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>
  </button>
  </div>
- <button type="button" class="secondary" id="notif-bell-btn-mobile" title="Notifikasi" style="padding:0.42rem 0.55rem; border-radius:999px; position:relative;">
+ <button type="button" class="secondary" id="notif-bell-btn-mobile" onclick="window.openNotifModal && window.openNotifModal(event)" title="Notifikasi" style="padding:0.42rem 0.55rem; border-radius:999px; position:relative;">
  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
  <span id="notif-unread-badge-mobile" class="notif-unread-badge" style="display:none;"></span>
  </button>
@@ -2430,7 +2455,7 @@
  <button type="button" class="modal-close-x-btn" id="cmd-palette-x-btn" onclick="closeCommandPalette()" aria-label="Tutup" style="top:0.65rem; right:0.65rem;">&times;</button>
  <div class="cmd-palette-input-wrap">
  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="cmd-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
- <input type="text" id="cmd-palette-input" placeholder="Taip arahan atau cari pelanggan..." data-i18n-placeholder="cmd_search_placeholder" autocomplete="off" />
+ <input type="text" id="cmd-palette-input" oninput="window.renderCommandResults && window.renderCommandResults(this.value)" placeholder="Taip arahan atau cari pelanggan..." data-i18n-placeholder="cmd_search_placeholder" autocomplete="off" />
  <span class="cmd-esc-tag" id="cmd-palette-close-btn" onclick="closeCommandPalette()" style="cursor:pointer;" title="Tutup">ESC</span>
  </div>
  <div class="cmd-palette-results" id="cmd-palette-results"></div>
@@ -2669,7 +2694,7 @@
  <script type="module">
  import { showToast } from "/assets/toast.js";
  import { loadNotices } from "/assets/notices.js";
- import { UI_STRINGS, getCurrentLang, applyLanguage, t } from "/assets/i18n-ui.js";
+ import { UI_STRINGS, getCurrentLang, applyLanguage, t } from "/assets/i18n-ui.js?v=80";
 
  window.getCurrentLang = getCurrentLang;
  window.applyLanguage = applyLanguage;
@@ -3096,6 +3121,11 @@
  .eq("id", user.id)
  .single();
  currentProfile = profile;
+ if (typeof renderTierBadge === "function") {
+ renderTierBadge(document.getElementById("tier-badge"));
+ renderTierBadge(document.getElementById("tier-badge-mobile"));
+ updateMonthlyQuotaMeter();
+ }
 
  const bizLabel = profile?.business_name || "Perniagaan Anda";
  document.getElementById("business-name-side").textContent = bizLabel;
@@ -3316,6 +3346,13 @@
  const activeTier = (typeof currentProfile !== "undefined" && currentProfile?.tier) || (typeof profile !== "undefined" && profile?.tier) || (typeof profTier !== "undefined" ? profTier?.tier : null);
  const isPro = activeTier === "pro" || (typeof currentUserIsPro !== "undefined" && currentUserIsPro);
  const isLite = activeTier === "lite";
+ // Issue 4: Studio Pro has unlimited bookings - quota card is irrelevant, so hide completely!
+ if (isPro) {
+ card.style.display = "none";
+ return;
+ } else {
+ card.style.display = "block";
+ }
 
  // Count bookings created in the current month
  const now = new Date();
@@ -5500,14 +5537,13 @@
  updateStorefrontReadiness();
 
  if (!onboardingChecked) {
- onboardingChecked = true;
- if (allBookingLinks.length === 0 && !localStorage.getItem("eqstudio_onboarding_completed")) {
- openOnboardingWizard();
- } else if (!localStorage.getItem("eqstudio_tour_completed")) {
- setTimeout(startTour, 900);
- }
- }
- }
+    onboardingChecked = true;
+    const wizardCompleted = localStorage.getItem("eqstudio_onboarding_completed") || localStorage.getItem("eqstudio_setup_dismissed");
+    if (!wizardCompleted && (allBookingLinks.length === 0 || !profile?.business_name)) {
+      openOnboardingWizard();
+    }
+  }
+}
 
  function renderLinkSwitcher(isPro) {
  const chipRow = document.getElementById("link-switcher-chips");
@@ -10205,111 +10241,7 @@
  updatePushButtonState();
  });
 
- document.getElementById("wizard-back-btn")?.addEventListener("click", () => {
- if (wizardStepIdx > 1) { wizardStepIdx--; renderWizardStep(); }
- });
-
- document.getElementById("wizard-next-btn")?.addEventListener("click", async () => {
- const errorEl = document.getElementById("wizard-error");
- errorEl.style.display = "none";
-
- if (wizardStepIdx === 1 && !wizardPersona) {
- errorEl.textContent = "Sila pilih satu untuk meneruskan.";
- errorEl.style.display = "block";
- return;
- }
- if (wizardStepIdx === 2 && !document.getElementById("wizard-service-name").value.trim()) {
- errorEl.textContent = "Sila masukkan nama perkhidmatan.";
- errorEl.style.display = "block";
- return;
- }
-
- if (wizardStepIdx === 4) {
- const btn = document.getElementById("wizard-next-btn");
- btn.disabled = true;
- btn.textContent = "Sedang menyediakan...";
- try {
- await finishWizardSetup();
- wizardStepIdx = 5;
- renderWizardStep();
- } catch (err) {
- errorEl.textContent = err.message || "Berlaku masalah. Sila cuba semula.";
- errorEl.style.display = "block";
- }
- btn.disabled = false;
- btn.textContent = "Selesai";
- return;
- }
-
- wizardStepIdx++;
- renderWizardStep();
- });
-
- async function finishWizardSetup() {
- const serviceName = document.getElementById("wizard-service-name").value.trim();
- const depositRaw = document.getElementById("wizard-deposit").value.trim();
- const deposit = depositRaw === "" ? 0 : parseFloat(depositRaw);
- const availPreset = document.querySelector('input[name="wizard-avail"]:checked').value;
-
- const baseSource = (profile?.business_name || serviceName || "bisnes").toLowerCase();
- const baseSlug = baseSource.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || `bisnes-${Date.now().toString(36)}`;
-
- let inserted = null;
- let finalSlug = baseSlug;
- for (let attempt = 0; attempt < 3; attempt++) {
- const trySlug = attempt === 0 ? baseSlug : `${baseSlug}-${Math.random().toString(36).slice(2, 6)}`;
- const { data, error } = await supabase.from("booking_links").insert({
- owner_id: user.id, slug: trySlug, label: profile?.business_name || serviceName, is_primary: true,
- slot_duration_minutes: 60, booking_min_notice_hours: 24, buffer_minutes: 0, cancellation_notice_hours: 0,
- default_deposit_amount: deposit,
- }).select().single();
- if (!error) { inserted = data; finalSlug = trySlug; break; }
- if (!error.message?.includes("duplicate")) throw new Error(error.message);
- }
- if (!inserted) throw new Error("Couldn't create your booking link. Please try again.");
-
- currentLinkId = inserted.id;
-
- // Every owner now gets at least one event type by default — even a
- // "simple, one service" owner — so the booking flow always has a
- // duration/deposit to carve slots against, and adding a second type
- // later (multi-service owners) is just adding another row, not a
- // structural change.
- await supabase.from("event_types").insert({
- owner_id: user.id, booking_link_id: inserted.id, name: serviceName || "Servis Utama",
- duration_minutes: 60, deposit_amount: deposit, capacity: 1, sort_order: 0,
- });
-
- if (availPreset !== "later") {
- const days = availPreset === "everyday" ? [0, 1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5];
- const rows = [];
- for (let d = 0; d < 60; d++) {
- const date = new Date(Date.now() + d * 24 * 60 * 60 * 1000);
- if (days.includes(date.getDay())) {
- rows.push({ owner_id: user.id, booking_link_id: inserted.id, specific_date: date.toISOString().slice(0, 10), start_time: "09:00", end_time: "18:00" });
- }
- }
- await supabase.from("availability_dates").insert(rows);
- }
-
- const bookingUrl = `${window.location.origin}/book.html?slug=${finalSlug}`;
- document.getElementById("wizard-final-link").textContent = bookingUrl;
- document.getElementById("wizard-open-link-btn").href = bookingUrl;
- document.getElementById("wizard-copy-link-btn").onclick = () => {
- navigator.clipboard.writeText(bookingUrl).then(() => showToast("Pautan disalin!", "success"));
- };
-
- loadBookingLinksAndSettings().catch(err => {
- console.error("loadBookingLinksAndSettings failed:", err);
- showToast("Gagal muatkan tetapan booking. Cuba refresh page.", "error");
- });
- }
-
- document.getElementById("wizard-open-link-btn")?.addEventListener("click", () => closeWizard(true));
- document.getElementById("wizard-goto-profile-btn")?.addEventListener("click", () => {
- closeWizard(true);
- goToPage("tetapan-profil");
- });
+  // Legacy duplicate wizard handlers removed in favor of Persediaan Pintar (Smart Setup Wizard)
 
  function startTour() {
  isMainTour = true;
@@ -10325,6 +10257,8 @@
  tourStepIndex = 0;
  goToTourStep(0);
  }
+ window.startTour = startTour;
+ window.startPageGuide = startPageGuide;
  function endTour() {
  document.getElementById("tour-panel").style.display = "none";
  if (currentGlowEl) { currentGlowEl.classList.remove("tour-glow"); currentGlowEl = null; }
@@ -10338,11 +10272,16 @@
  document.getElementById("tour-back-btn").addEventListener("click", () => goToTourStep(tourStepIndex - 1));
  document.getElementById("tour-skip-btn").addEventListener("click", endTour);
  document.getElementById("restart-tour-btn").addEventListener("click", startTour);
- document.getElementById("restart-tour-btn-mobile").addEventListener("click", startTour);
+  document.getElementById("restart-tour-btn-mobile")?.addEventListener("click", startTour);
 
- document.querySelectorAll(".guide-btn").forEach(btn => {
- btn.addEventListener("click", () => startPageGuide(btn.dataset.guide));
- });
+  // Document-level event delegation for all Guide buttons across every page
+  document.addEventListener("click", (e) => {
+    const guideBtn = e.target.closest(".guide-btn");
+    if (guideBtn && guideBtn.dataset.guide) {
+      e.preventDefault();
+      startPageGuide(guideBtn.dataset.guide);
+    }
+  });
 
  // ── Per-page contextual guide (Lapisan 2) ──
  const PAGE_GUIDES = {
@@ -10465,25 +10404,38 @@
  function getCmdActions() {
  const isEn = (window.getCurrentLang && window.getCurrentLang()) === "en";
  return [
- { id: "add-cust", title: t("cmd_act_add_cust", "Tambah Pelanggan Baru"), category: t("cmd_cat_quick", "Tindakan Pantas"), icon: "➕", run: () => document.getElementById("quick-add-open-btn")?.click() },
- { id: "copy-link", title: t("cmd_act_copy_link", "Salin Pautan Booking Utama"), category: t("cmd_cat_booking", "Booking"), icon: "", run: () => {
+ { id: "add-cust", title: isEn ? "Quick Add Customer / Client" : "Tambah Pelanggan Baru", category: isEn ? "Actions" : "Tindakan Pantas", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`, run: () => document.getElementById("quick-add-open-btn")?.click() },
+ { id: "copy-link", title: isEn ? "Copy Primary Booking Link" : "Salin Pautan Booking Utama", category: isEn ? "Booking" : "Tempahan", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`, run: () => {
  const links = Array.isArray(allBookingLinks) ? allBookingLinks : [];
  const link = links.find(l => !!l.slug) || links[0];
  if (link && link.slug) {
- const url = `${window.location.origin}/book/${link.slug}`;
+ const url = `${window.location.origin}/book.html?slug=${link.slug}`;
  navigator.clipboard.writeText(url).then(() => showToast(isEn ? "Booking link copied!" : "Pautan booking disalin!", "success"));
  } else {
  goToPage("booking-settings");
  }
  }},
- { id: "export-csv", title: t("cmd_act_export_csv", "Muat Turun Laporan CSV"), category: t("cmd_cat_reports", "Laporan"), icon: "", run: () => document.getElementById("export-csv-btn")?.click() },
- { id: "goto-booking", title: t("cmd_act_goto_booking", "Buka Senarai Booking"), category: t("cmd_cat_nav", "Navigasi"), icon: "", run: () => goToPage("booking-list") },
- { id: "goto-pelanggan", title: t("cmd_act_goto_pelanggan", "Buka Senarai Pelanggan"), category: t("cmd_cat_nav", "Navigasi"), icon: "", run: () => goToPage("pelanggan-list") },
- { id: "goto-laporan", title: t("cmd_act_goto_laporan", "Buka Analisis & Laporan"), category: t("cmd_cat_nav", "Navigasi"), icon: "", run: () => goToPage("laporan") },
- { id: "goto-kalendar", title: t("cmd_act_goto_kalendar", "Buka Kalendar Studio"), category: t("cmd_cat_nav", "Navigasi"), icon: "", run: () => goToPage("kalendar") },
- { id: "goto-booking-set", title: t("cmd_act_goto_booking_set", "Tetapan Link & Slot Booking"), category: t("cmd_cat_settings", "Tetapan"), icon: "", run: () => goToPage("booking-settings") },
- { id: "goto-profil", title: t("cmd_act_goto_profil", "Profil Bisnes & Bank/QR"), category: t("cmd_cat_settings", "Tetapan"), icon: "", run: () => goToPage("tetapan-profil") },
- { id: "toggle-dark", title: t("cmd_act_toggle_dark", "Tukar Mod Gelap / Cerah (Theme)"), category: t("cmd_cat_theme", "Antaramuka"), icon: "", run: () => toggleTheme() },
+ { id: "open-public-link", title: isEn ? "Open Live Booking Page" : "Buka Laman Booking Awam", category: isEn ? "Booking" : "Tempahan", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`, run: () => {
+ const links = Array.isArray(allBookingLinks) ? allBookingLinks : [];
+ const link = links.find(l => !!l.slug) || links[0];
+ if (link && link.slug) {
+ window.open(`${window.location.origin}/book.html?slug=${link.slug}`, "_blank");
+ } else {
+ goToPage("booking-settings");
+ }
+ }},
+ { id: "goto-booking", title: isEn ? "All Bookings List" : "Buka Senarai Tempahan", category: isEn ? "Navigation" : "Navigasi", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>`, run: () => goToPage("booking-list") },
+ { id: "goto-pelanggan", title: isEn ? "All Customers Directory" : "Buka Direktori Pelanggan", category: isEn ? "Navigation" : "Navigasi", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`, run: () => goToPage("pelanggan-list") },
+ { id: "goto-laporan", title: isEn ? "Business Reports & Analytics" : "Buka Analisis & Laporan", category: isEn ? "Navigation" : "Navigasi", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>`, run: () => goToPage("laporan") },
+ { id: "goto-kalendar", title: isEn ? "Studio Booking Calendar" : "Buka Kalendar Studio", category: isEn ? "Navigation" : "Navigasi", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`, run: () => goToPage("kalendar") },
+ { id: "goto-booking-set", title: isEn ? "Booking Links & Slot Settings" : "Tetapan Link & Slot Booking", category: isEn ? "Settings" : "Tetapan", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>`, run: () => goToPage("booking-settings") },
+ { id: "goto-profil", title: isEn ? "Business Profile, Bank & DuitNow" : "Profil Bisnes & Bank/DuitNow", category: isEn ? "Settings" : "Tetapan", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>`, run: () => goToPage("tetapan-profil") },
+ { id: "goto-reminder", title: isEn ? "WhatsApp Reminders & Templates" : "Peringatan WhatsApp & Polisi", category: isEn ? "Settings" : "Tetapan", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>`, run: () => goToPage("tetapan-reminder") },
+ { id: "goto-billing", title: isEn ? "Manage Subscription & Billing" : "Langganan & Naik Taraf Pelan", category: isEn ? "Account" : "Akaun", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>`, run: () => { window.location.href = "/billing.html"; } },
+ { id: "start-smart-wizard", title: isEn ? "Smart Setup Wizard (Persediaan Pintar)" : "Persediaan Pintar (Setup Wizard)", category: isEn ? "Help" : "Bantuan", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"></polygon></svg>`, run: () => openOnboardingWizard() },
+ { id: "start-tour", title: isEn ? "System Tour & User Guide" : "Panduan Guna Sistem (Tour)", category: isEn ? "Help" : "Bantuan", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`, run: () => startTour() },
+ { id: "export-csv", title: isEn ? "Export Customers CSV Report" : "Muat Turun Laporan CSV", category: isEn ? "Reports" : "Laporan", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`, run: () => document.getElementById("export-csv-btn")?.click() },
+ { id: "toggle-dark", title: isEn ? "Toggle Dark / Light Theme" : "Tukar Mod Gelap / Cerah (Theme)", category: isEn ? "Appearance" : "Antaramuka", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`, run: () => toggleTheme() },
  ];
  }
 
@@ -10515,36 +10467,65 @@
  const isEn = (window.getCurrentLang && window.getCurrentLang()) === "en";
  const q = (query || "").toLowerCase().trim();
  const baseCmds = getCmdActions();
- filteredCmds = baseCmds.filter(c => c.title.toLowerCase().includes(q) || c.category.toLowerCase().includes(q));
 
- // Also search live customers if query >= 2 chars
- if (q.length >= 2) {
+ if (!q) {
+ filteredCmds = baseCmds.slice(0, 7);
+ } else {
+ // 1. Actions match title or category
+ const actionMatches = baseCmds.filter(c => c.title.toLowerCase().includes(q) || c.category.toLowerCase().includes(q));
+
+ // 2. Customers match name, phone, or email
  const custs = Array.isArray(allCustomers) ? allCustomers : [];
- const matchingCustomers = custs
- .filter(c => (c.name && c.name.toLowerCase().includes(q)) || (c.contact_email && c.contact_email.toLowerCase().includes(q)))
- .slice(0, 4)
+ const custMatches = custs
+ .filter(c => {
+ const name = (c.name || "").toLowerCase();
+ const email = (c.contact_email || "").toLowerCase();
+ const phone = (c.contact_phone || c.phone || "").toLowerCase();
+ return name.includes(q) || email.includes(q) || phone.includes(q);
+ })
+ .slice(0, 5)
  .map(c => ({
  id: `cust-${c.id}`,
- title: `${isEn ? "Client" : "Pelanggan"}: ${c.name} (RM ${Number(c.amount || 0).toFixed(2)})`,
- category: isEn ? "Clients" : "Pelanggan",
- icon: "",
+ title: `${c.name || "Pelanggan"} · ${c.contact_phone || c.phone || c.contact_email || "RM " + Number(c.amount || 0).toFixed(2)}`,
+ category: isEn ? "Customer" : "Pelanggan",
+ icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="7" r="4"></circle><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path></svg>`,
  run: () => {
  goToPage("pelanggan-list");
  const searchInput = document.getElementById("search-input");
  if (searchInput) {
  searchInput.value = c.name;
- if (typeof applyCustomerListFilters === "function") {
- applyCustomerListFilters();
- }
+ if (typeof applyCustomerListFilters === "function") applyCustomerListFilters();
  }
  }
  }));
- filteredCmds = [...matchingCustomers, ...filteredCmds];
+
+ // 3. Bookings match customer name, phone, service, date
+ const bks = Array.isArray(allBookings) ? allBookings : [];
+ const bkMatches = bks
+ .filter(b => {
+ const cName = (b.customer_name || "").toLowerCase();
+ const cPhone = (b.customer_phone || "").toLowerCase();
+ const sName = (b.service_name || b.event_type_name || "").toLowerCase();
+ const bDate = (b.booking_date || "").toLowerCase();
+ return cName.includes(q) || cPhone.includes(q) || sName.includes(q) || bDate.includes(q);
+ })
+ .slice(0, 5)
+ .map(b => ({
+ id: `bk-${b.id}`,
+ title: `${b.customer_name || "Booking"} · ${b.service_name || "Slot"} (${b.booking_date || ""})`,
+ category: isEn ? "Booking" : "Tempahan",
+ icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`,
+ run: () => {
+ goToPage("booking-list");
+ }
+ }));
+
+ filteredCmds = [...custMatches, ...bkMatches, ...actionMatches];
  }
 
  cmdSelectedIdx = 0;
  if (filteredCmds.length === 0) {
- resultsEl.innerHTML = `<div class="cmd-empty hint">${isEn ? `No commands or clients matching "${escapeHtml(query)}"` : `Tiada arahan atau pelanggan sepadan dengan "${escapeHtml(query)}"`}</div>`;
+ resultsEl.innerHTML = `<div class="cmd-empty hint" style="padding:1.5rem 1rem; text-align:center;">${isEn ? `No commands, bookings or customers matching "${escapeHtml(query)}"` : `Tiada padanan arahan, tempahan atau pelanggan untuk "${escapeHtml(query)}"`}</div>`;
  return;
  }
 

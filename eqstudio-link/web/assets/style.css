@@ -1700,6 +1700,7 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 .tier-badge:hover { transform: translateY(-1px); }
 .tier-badge.tier-trial { background: var(--pending-bg); color: var(--pending-text); }
 .tier-badge.tier-free { background: rgba(100, 116, 139, 0.12); color: #475569; border: 1px solid rgba(148, 163, 184, 0.35); }
+[data-theme="dark"] .tier-badge.tier-free { background: rgba(148, 163, 184, 0.18); color: #e2e8f0; border-color: rgba(148, 163, 184, 0.3); }
 .tier-badge.tier-starter { background: var(--paper); color: var(--ink-soft); border: 1px solid var(--paper-line); }
 .tier-badge.tier-pro { background: var(--stamp-soft); color: var(--stamp); }
 .tier-badge .tier-badge-upgrade { font-weight: 500; text-transform: none; opacity: 0.75; }

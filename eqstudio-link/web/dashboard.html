@@ -688,11 +688,11 @@
  <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></div>
  <div class="bento-tile-label" data-i18n="nav_reminders">Jadual Reminder</div>
  </button>
- <button type="button" class="bento-tile bento-small" data-page="website" data-cat="coral">
- <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
- <div class="bento-tile-label" data-i18n="nav_website">Website Saya</div>
- <div class="bento-tile-stat" style="color:var(--stamp); font-weight:600; font-size:0.75rem;">Laman Bio Rasmi ↗</div>
- </button>
+ <a href="/forum.html" target="_blank" class="bento-tile bento-small" data-cat="coral">
+ <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></div>
+ <div class="bento-tile-label" data-i18n="nav_forum">Forum & Bantuan</div>
+ <div class="bento-tile-stat">Diskusi & pengumuman</div>
+ </a>
  </div>
  </div>
 
@@ -1417,37 +1417,267 @@
  <p class="hint" id="risk-empty" style="display:none;">Tiada pelanggan berisiko tinggi atau sederhana pada masa ini.</p>
  </div>
 
- <div class="card" style="margin-top:1.5rem; background:linear-gradient(135deg, rgba(74,9,143,0.05), rgba(124,58,237,0.05)); border:1.5px dashed var(--stamp-soft); border-radius:14px; padding:1.25rem 1.4rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
- <div>
- <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
- <span style="display:inline-flex; width:30px; height:30px; border-radius:8px; background:var(--stamp-soft); color:var(--stamp); align-items:center; justify-content:center;">
- <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+ <div class="profile-section-divider" style="margin: 2rem 0 1.25rem;">
+ <span class="profile-section-divider-line"></span>
+ <span class="profile-section-divider-label">
+ <span class="profile-section-divider-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"></path></svg></span>
+ <span>Rekod Kewangan</span>
  </span>
- <strong style="font-size:0.95rem; color:var(--ink);">Studio Laman Bio &amp; Mini-Website Rasmi</strong>
- </div>
- <p class="hint" style="margin:0; font-size:0.8rem; max-width:540px;">Gambar cover, cerita bisnes, portfolio galeri, testimoni, pautan peta &amp; media sosial kini diuruskan secara khusus di halaman <strong>Website Saya</strong>.</p>
- </div>
- <button type="button" class="btn" onclick="goToPage('website')" style="white-space:nowrap; padding:0.55rem 1rem; font-size:0.85rem;">
- Buka Studio Website Saya →
- </button>
+ <span class="profile-section-divider-line"></span>
  </div>
 
- <div class="db-page" id="page-website">
- <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.6rem;">
- <div style="display:flex; align-items:center; gap:0.6rem;">
+ <div class="card" style="margin-bottom:1.5rem;">
+ <div class="section-title">
+ <h2 style="margin:0;" data-i18n="report_monthly_title">Pendapatan Ikut Bulan</h2>
+ <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+ <button class="secondary" id="export-csv-btn">Eksport CSV</button>
+ <button class="secondary" id="export-borang-b-btn" title="Ringkasan tahunan pendapatan dan perbelanjaan untuk cukai">Eksport Borang B</button>
+ <button class="secondary" id="open-bank-recon-btn"> Rekonsiliasi Bank</button>
+ </div>
+ </div>
+ <table>
+ <thead><tr><th data-i18n="report_th_month">Bulan</th><th data-i18n="report_th_received">Jumlah Diterima</th><th data-i18n="report_th_paying_cust">Bil. Pelanggan Bayar</th></tr></thead>
+ <tbody id="report-monthly-tbody"></tbody>
+ </table>
+ <p class="hint" id="report-monthly-empty" style="display:none;">Belum ada bayaran direkodkan lagi.</p>
+ </div>
+
+ <div class="card">
+ <div class="section-title"><h2 style="margin:0;" data-i18n="report_top_title">Top 5 Pelanggan</h2></div>
+ <div class="compact-row-list" id="report-top-list"></div>
+ <p class="hint" id="report-top-empty" style="display:none;">Belum ada data untuk dipaparkan.</p>
+ </div>
+
+ <div class="card" style="margin-top:1.5rem;">
+ <div class="section-title">
+ <h2 style="margin:0;"><span data-i18n="expense_title">Perbelanjaan</span><button type="button" class="info-icon-btn" data-info="Rekod kos perniagaan anda — scan resit guna AI untuk isi maklumat automatik, atau tambah secara manual. Berguna untuk kira untung bersih sebenar dan eksport Borang B.">i</button></h2>
+ <div style="display:flex; gap:0.4rem;">
+ <button type="button" class="secondary" id="expense-scan-btn" style="font-size:0.78rem; padding:0.4rem 0.7rem;">Scan Resit</button>
+ <button type="button" class="secondary" id="expense-manual-btn" style="font-size:0.78rem; padding:0.4rem 0.7rem;">+ Manual</button>
+ </div>
+ </div>
+ <p class="hint" id="expense-month-total" style="margin:0 0 0.8rem;"></p>
+ <div id="expense-list"></div>
+ <p class="hint" id="expense-list-empty" style="display:none;">Belum ada perbelanjaan direkodkan lagi.</p>
+ </div>
+
+ </div>
+
+ <div class="db-page" id="page-kalendar">
+ <div style="display:flex; justify-content:space-between; align-items:center;">
  <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
- <h1 style="margin:0; font-size:1.3rem; font-family:var(--font-display); display:flex; align-items:center; gap:0.5rem;">
- <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--stamp)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
- <span data-i18n="nav_website">Website Saya</span>
- </h1>
+ <button type="button" class="secondary guide-btn" data-guide="kalendar" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="btn_guide">Panduan</span></button>
  </div>
- <div style="display:flex; align-items:center; gap:0.5rem;">
- <a href="/book.html?preview=1" target="_blank" rel="noopener" class="ws-preview-live-btn" id="ws-preview-live-link">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
- <span data-i18n="ws_preview_live">Lihat Laman Awam ↗</span>
- </a>
+ <div class="cal-desktop-split">
+ <div class="card cal-main-card">
+ <div class="section-title">
+ <h2 style="margin:0;" id="cal-month-label">–</h2>
+ <div>
+ <button class="secondary" id="cal-prev">←</button>
+ <button class="secondary" id="cal-next">→</button>
  </div>
  </div>
+ <div class="cal-grid" id="cal-grid"></div>
+ </div>
+ <div class="card cal-side-card">
+ <div class="section-title"><h2 style="margin:0;" id="cal-day-title" data-i18n="cal_select_date_prompt">Pilih tarikh</h2></div>
+ <div id="cal-day-list"><p class="hint" data-i18n="cal_day_hint">Klik tarikh dalam kalendar untuk melihat pelanggan yang cukup tempoh pada hari tersebut.</p></div>
+ </div>
+ </div>
+ </div>
+
+ <div class="db-page" id="page-tetapan-profil">
+ <div style="display:flex; justify-content:space-between; align-items:center;">
+ <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
+ <button type="button" class="secondary guide-btn" data-guide="tetapan-profil" style="font-size:0.78rem; padding:0.35rem 0.7rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="btn_guide">Panduan</span></button>
+ </div>
+
+ <div class="card profile-settings-card">
+ <div class="profile-card-header">
+ <div class="profile-header-icon">
+ <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+ </div>
+ <div>
+ <div class="profile-header-title-row">
+ <h2 style="margin:0; font-size:1.25rem; font-weight:700;" data-i18n="prof_title">Profil Perniagaan</h2>
+ <span class="profile-sync-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Auto-sync Invois & Emel</span>
+ </div>
+ <p class="profile-header-desc" data-i18n="prof_desc">Maklumat rasmi ini digunakan untuk menjana dokumen invois PDF, emel peringatan tempahan, dan identiti di laman tempahan anda.</p>
+ </div>
+ </div>
+
+ <form id="profile-form">
+ <div class="profile-section-card">
+ <div class="profile-section-heading">
+ <span class="profile-section-num">01</span>
+ <div>
+ <h3 class="profile-section-title" data-i18n="profile_info_title">Maklumat Entiti & Perhubungan</h3>
+ <p class="profile-section-sub" data-i18n="profile_info_sub">Nama rasmi dan saluran terus untuk pelanggan berhubung dengan anda.</p>
+ </div>
+ </div>
+
+ <label for="p-business-name"><span data-i18n="prof_biz_name">Nama Perniagaan</span> <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: Kek Rumah Kak Yong">i</button></label>
+ <input type="text" id="p-business-name" required placeholder="cth: Kek Rumah Kak Yong" />
+
+ <div class="row" style="margin-top:0.8rem;">
+ <div>
+ <label for="p-phone"><span data-i18n="prof_phone">Nombor WhatsApp / Telefon</span> <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: 012-345 6789">i</button></label>
+ <input type="text" id="p-phone" required placeholder="cth: 012-345 6789" />
+ </div>
+ <div>
+ <label for="p-email"><span data-i18n="prof_email">Emel Perniagaan</span> <span style="color:var(--warn); font-size:0.78rem;">*</span><button type="button" class="info-icon-btn" data-info="Contoh: hello@bisnesanda.com">i</button></label>
+ <input type="email" id="p-email" required placeholder="cth: hello@bisnesanda.com" />
+ </div>
+ </div>
+
+ <div class="row" style="margin-top:0.8rem;">
+ <div>
+ <label for="p-address"><span data-i18n="prof_address">Alamat Premis / Studio</span> (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: Kajang, Selangor">i</button></label>
+ <input type="text" id="p-address" placeholder="cth: Seksyen 7, Shah Alam, Selangor" />
+ </div>
+ <div>
+ <label for="p-ssm"><span data-i18n="prof_ssm">No. Pendaftaran Perniagaan (SSM / ROC)</span> (pilihan)<button type="button" class="info-icon-btn" data-info="Contoh: 202301012345 (JR/SA/PT)">i</button></label>
+ <input type="text" id="p-ssm" placeholder="cth: 202301012345 (SA0123456-X)" />
+ </div>
+ </div>
+
+ <div class="profile-ssm-tip">
+ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+ <span>Nombor pendaftaran SSM akan dipaparkan secara rasmi pada invois PDF dan mengaktifkan lencana <strong data-i18n="profile_biz_verified">Perniagaan Sah</strong> untuk meningkatkan keyakinan pelanggan.</span>
+ </div>
+ </div>
+
+ <div class="profile-section-card">
+ <div class="profile-section-heading">
+ <span class="profile-section-num">02</span>
+ <div>
+ <h3 class="profile-section-title">Identiti Visual & Warna Jenama</h3>
+ <p class="profile-section-sub" data-i18n="profile_brand_sub">Logo dan warna aksen yang mewakili jenama anda dalam setiap emel dan resit.</p>
+ </div>
+ </div>
+
+ <div class="row" style="align-items:flex-start;">
+ <div style="flex:1; min-width:240px;">
+ <label for="p-logo-file">Logo Perniagaan (pilihan)<button type="button" class="info-icon-btn" data-info="Logo perniagaan anda, dipaparkan pada emel dan invois. Disyorkan format PNG dengan latar belakang lutsinar.">i</button></label>
+ <div id="logo-preview-wrap" class="profile-preview-card" style="display:none;">
+ <div class="profile-preview-thumb">
+ <img id="logo-preview" alt="Logo Perniagaan" />
+ </div>
+ <div class="profile-preview-meta">
+ <span class="profile-preview-status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Logo Semasa Aktif</span>
+ <span class="profile-preview-tip" data-i18n="profile_change_logo_tip">Klik zon di bawah untuk menukar logo</span>
+ </div>
+ </div>
+ <div class="profile-upload-dropzone">
+ <input type="file" id="p-logo-file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
+ <div class="profile-upload-icon-wrap">
+ <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+ </div>
+ <span class="profile-upload-label"><strong>Pilih fail logo</strong> atau seret ke sini</span>
+ <span class="profile-upload-sub">PNG lutsinar disyorkan, JPG, WebP, SVG (Maks 2MB)</span>
+ </div>
+ <input type="hidden" id="p-logo" />
+ </div>
+
+ <div style="flex:1; min-width:240px;">
+ <label for="p-color">Warna Jenama (dipakai dalam emel peringatan)<button type="button" class="info-icon-btn" data-info="Digunakan pada butang dan aksen dalam emel peringatan yang pelanggan terima.">i</button></label>
+ <div class="profile-color-widget">
+ <div class="profile-color-top">
+ <div class="color-swatch-row">
+ <input type="color" id="p-color" value="#C97A2B" />
+ <span class="hex-label" id="p-color-hex">#C97A2B</span>
+ </div>
+ <div class="profile-brand-preview-pill" id="brand-pill-preview" style="background:#C97A2B; color:#ffffff;">
+ <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+ <span>Pratonton Butang</span>
+ </div>
+ </div>
+ <div class="profile-color-presets">
+ <span class="profile-presets-label" data-i18n="profile_quick_presets">Pilihan Pantas:</span>
+ <button type="button" class="profile-swatch-btn" data-color="#C97A2B" style="background:#C97A2B;" title="Amber / Karamel"></button>
+ <button type="button" class="profile-swatch-btn" data-color="#4A098F" style="background:#4A098F;" title="Ungu Diraja"></button>
+ <button type="button" class="profile-swatch-btn" data-color="#0D9488" style="background:#0D9488;" title="Teal Moden"></button>
+ <button type="button" class="profile-swatch-btn" data-color="#1F3A34" style="background:#1F3A34;" title="Forest Green"></button>
+ <button type="button" class="profile-swatch-btn" data-color="#2563EB" style="background:#2563EB;" title="Biru Klasik"></button>
+ <button type="button" class="profile-swatch-btn" data-color="#BE123C" style="background:#BE123C;" title="Merah Mawar"></button>
+ <button type="button" class="profile-swatch-btn" data-color="#18181B" style="background:#18181B;" title="Hitam Elegan"></button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div class="profile-section-card">
+ <div class="profile-section-heading">
+ <span class="profile-section-num">03</span>
+ <div>
+ <h3 class="profile-section-title" data-i18n="profile_bank_qr_title">Akaun Bank & QR DuitNow (Pilihan)</h3>
+ <p class="profile-section-sub" data-i18n="profile_bank_qr_sub">Kaedah pembayaran alternatif sekiranya pelanggan memilih pindahan manual atau imbasan QR.</p>
+ </div>
+ </div>
+
+ <div class="row">
+ <div>
+ <label for="p-bank-name"><span data-i18n="prof_bank_name">Nama Bank</span><button type="button" class="info-icon-btn" data-info="Contoh: Maybank">i</button></label>
+ <input type="text" id="p-bank-name" required placeholder="cth: Maybank / CIMB" />
+ </div>
+ <div>
+ <label for="p-bank-account"><span data-i18n="prof_bank_acc">Nombor Akaun</span><button type="button" class="info-icon-btn" data-info="Contoh: 1234567890">i</button></label>
+ <input type="text" id="p-bank-account" required placeholder="cth: 512345678901" />
+ </div>
+ </div>
+
+ <label for="p-bank-holder" style="margin-top:0.8rem;"><span data-i18n="prof_acc_holder">Nama Pemegang Akaun</span><button type="button" class="info-icon-btn" data-info="Contoh: Nama Penuh atau Nama Perniagaan">i</button></label>
+ <input type="text" id="p-bank-holder" required placeholder="cth: Syarikat Contoh Sdn Bhd" />
+
+ <div style="margin-top:0.9rem;">
+ <label for="p-qr-file"><span data-i18n="prof_qr">Kod QR DuitNow</span><button type="button" class="info-icon-btn" data-info="Muat naik gambar kod QR DuitNow perniagaan anda daripada aplikasi bank atau e-dompet. Ini dipaparkan kepada pelanggan untuk membayar deposit.">i</button></label>
+ <p class="hint" style="margin-top:-0.2rem; margin-bottom:0.5rem;">Serasi dengan <strong>semua bank & e-dompet Malaysia</strong> (Touch 'n Go, MAE, GrabPay, Boost, dll). Pelanggan hanya perlu imbas terus dari emel peringatan.</p>
+
+ <div id="qr-preview-wrap" class="profile-preview-card" style="display:none;">
+ <div class="profile-preview-thumb qr-thumb">
+ <img id="qr-preview" alt="QR DuitNow" />
+ </div>
+ <div class="profile-preview-meta">
+ <span class="profile-preview-status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Kod QR Sedia Dipakai</span>
+ <span class="profile-preview-tip" data-i18n="profile_change_qr_tip">Klik kotak muat naik untuk tukar fail QR</span>
+ </div>
+ </div>
+
+ <div class="profile-upload-dropzone">
+ <input type="file" id="p-qr-file" accept="image/png,image/jpeg,image/webp" />
+ <div class="profile-upload-icon-wrap">
+ <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+ </div>
+ <span class="profile-upload-label"><strong>Pilih gambar QR DuitNow</strong> atau seret ke sini</span>
+ <span class="profile-upload-sub" data-i18n="profile_qr_format_sub">Format JPG atau PNG daripada tangkap layar aplikasi bank anda</span>
+ </div>
+ <input type="hidden" id="p-qr" />
+ </div>
+ </div>
+
+ <div class="profile-form-actions">
+ <button type="submit" class="btn profile-save-btn">
+ <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+ <span data-i18n="prof_save_btn">Simpan Profil Perniagaan</span>
+ </button>
+ <span class="profile-save-hint">
+ <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+ Perubahan akan diselaraskan serta-merta pada semua invois & emel
+ </span>
+ </div>
+ </form>
+ </div>
+
+ <div class="profile-section-divider">
+ <span class="profile-section-divider-line"></span>
+ <span class="profile-section-divider-label">
+ <span class="profile-section-divider-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></span>
+ <span>Website Saya</span>
+ </span>
+ <span class="profile-section-divider-line"></span>
+ </div>
+ <p class="profile-section-divider-sub" data-i18n="profile_public_page_sub">Laman awam yang pelanggan anda lihat bila tempah — asingan sepenuhnya daripada tetapan admin di atas.</p>
 
  <div class="card ws-studio-card" id="ws-studio-card">
  <div class="ws-studio-header">
@@ -1702,7 +1932,6 @@
  <span data-i18n="ws_save_social">Simpan Social &amp; Lokasi</span>
  </button>
  <span class="ws-section-save-hint" data-i18n="ws_social_hint">Semua butang media sosial dan pautan peta akan aktif di portal tempahan</span>
- </div>
  </div>
  </div>
  </div>
@@ -2329,11 +2558,6 @@
  <div class="settings-dropdown-section">
  <div class="settings-dropdown-section-title">Inventori Peralatan<button type="button" class="info-icon-btn" data-info="Jejak peralatan perniagaan anda — status tersedia, sedang digunakan, penyelenggaraan atau rosak.">i</button></div>
  <button type="button" class="secondary" id="open-equipment-modal-btn" style="width:100%; justify-content:center;"> Urus Inventori</button>
- </div>
-
- <div class="settings-dropdown-section">
- <div class="settings-dropdown-section-title">Komuniti &amp; Cadangan Ciri</div>
- <a href="/forum.html" target="_blank" style="width:100%; justify-content:center; display:flex; align-items:center; gap:0.45rem; padding:0.55rem; text-decoration:none; font-size:0.82rem; border-radius:8px; border:1px solid var(--paper-line); color:var(--ink); background:var(--paper); transition:background 0.15s;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> <span>Buka Forum &amp; Idea Ciri ↗</span></a>
  </div>
  </div>
 
@@ -4199,7 +4423,7 @@
  { id: "booking-settings", label: t("nav_booking_settings", "Tetapan Booking"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>' },
  { id: "tetapan-profil", label: t("nav_profile", "Profil Perniagaan"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' },
  { id: "tetapan-reminder", label: t("nav_reminders", "Jadual Reminder"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>' },
- { id: "website", label: t("nav_website", "Website Saya (Mini-Website)"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' },
+ { id: "forum", label: t("nav_forum", "Forum & Bantuan"), icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>' },
  ];
  }
 
@@ -10061,10 +10285,6 @@
 
  // ── Per-page contextual guide (Lapisan 2) ──
  const PAGE_GUIDES = {
-    "website": [
-      { page: "website", selector: "#ws-studio-card", title: "Studio Mini-Website Rasmi", text: "Ubah rupa paras laman web jualan bio anda. Pelanggan akan melihat paparan eksklusif ini apabila membuka pautan anda di bio Instagram & TikTok." },
-      { page: "website", selector: "#ws-preview-live-link", title: "Lihat Laman Awam", text: "Ketik butang ini pada bila-bila masa untuk menyemak rupa sebenar laman web anda di mata pelanggan secara live." }
-    ],
  "booking-list": [
  { page: "booking-list", selector: "#booking-list", title: "Semua Tempahan Anda", text: "Setiap tempahan yang dibuat oleh pelanggan melalui pautan anda akan dipaparkan di sini, disusun mengikut masa akan datang. Terdapat lencana HARI INI untuk tempahan pada hari tersebut, serta butang Jadual Semula dan Batal pada setiap baris." },
  ],
@@ -10185,7 +10405,6 @@
  const isEn = (window.getCurrentLang && window.getCurrentLang()) === "en";
  return [
  { id: "add-cust", title: isEn ? "Quick Add Customer / Client" : "Tambah Pelanggan Baru", category: isEn ? "Actions" : "Tindakan Pantas", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`, run: () => document.getElementById("quick-add-open-btn")?.click() },
- { id: "goto-website", title: isEn ? "My Website Studio (Bio Storefront)" : "Studio Website Saya (Laman Bio)", category: isEn ? "Storefront" : "Laman Jualan", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`, run: () => goToPage("website") },
  { id: "copy-link", title: isEn ? "Copy Primary Booking Link" : "Salin Pautan Booking Utama", category: isEn ? "Booking" : "Tempahan", icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`, run: () => {
  const links = Array.isArray(allBookingLinks) ? allBookingLinks : [];
  const link = links.find(l => !!l.slug) || links[0];

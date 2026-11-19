@@ -379,8 +379,7 @@ export const UI_STRINGS = {
     dash_stat_income_month: "Income This Month",
     dash_stat_customers: "Total Customers",
     dash_stat_completed: "Completed This Month",
-    dash_nav_website: "My Website (Bio Storefront)",
-    nav_booking_list: "Booking List",
+    dash_nav_booking_list: "Booking List",
     dash_nav_customer_list: "Customer List",
     dash_nav_reports: "Reports",
     dash_nav_add_customer: "Add Customer",
@@ -1242,7 +1241,6 @@ export const UI_STRINGS = {
     dash_lompat_page: "Lompat ke Page",
 
     nav_home: "Laman Utama",
-    nav_website: "Website Saya (Laman Bio)",
     nav_booking_list: "Senarai Tempahan",
     nav_customer_list: "Senarai Pelanggan",
     nav_add_customer: "Tambah Pelanggan",

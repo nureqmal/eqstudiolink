@@ -3058,6 +3058,12 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
   line-height: 1.45;
 }
 
+.ws-cover-layout-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
 .ws-cover-preview-card {
   position: relative;
   border-radius: 12px;
@@ -3164,6 +3170,10 @@ button.btn-success-morph { background: var(--ok) !important; transition: backgro
 
 .ws-tagline-input-wrap {
   position: relative;
+}
+
+.ws-tagline-input-wrap input {
+  padding-right: 3.8rem;
 }
 
 .ws-char-count-pill {
@@ -10430,7 +10440,19 @@ body.ws-modal-open {
 }
 
 /* Page Topbar */
-.ws-page-topbar {
+.bento-website-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding: 1.1rem;
+  }
+
+  .bento-ws-cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ws-page-topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10769,6 +10791,11 @@ body.ws-modal-open {
   font-family: inherit;
 }
 
+.ws-accordion-header:focus-visible {
+  outline: 2px solid var(--stamp);
+  outline-offset: -2px;
+}
+
 .ws-accordion-header:hover {
   background: color-mix(in srgb, var(--stamp-soft) 35%, transparent);
 }
@@ -11053,6 +11080,135 @@ body.ws-modal-open {
   color: var(--ink-soft);
   z-index: 5;
   transition: opacity 0.2s;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   BENTO WEBSITE BANNER (Tile 9 in grid-area: forum)
+   ═══════════════════════════════════════════════════════════ */
+.bento-website-banner {
+  grid-area: forum;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.15rem 1.4rem;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--surface) 92%, #fdf2f8) 0%, color-mix(in srgb, var(--surface) 96%, #ede9fe) 100%);
+  border: 1px solid color-mix(in srgb, var(--stamp) 22%, var(--paper-line));
+  border-radius: var(--radius-lg, 16px);
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.bento-website-banner:hover {
+  transform: translateY(-2px);
+  border-color: var(--stamp);
+  box-shadow: 0 10px 24px -6px rgba(74, 9, 143, 0.12), 0 0 0 1px color-mix(in srgb, var(--stamp) 20%, transparent);
+}
+
+.bento-website-banner:active {
+  transform: translateY(0);
+}
+
+.bento-ws-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.bento-ws-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--stamp-soft) 85%, #fdf2f8);
+  border: 1px solid color-mix(in srgb, var(--stamp) 25%, transparent);
+  color: var(--stamp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.bento-website-banner:hover .bento-ws-icon-wrap {
+  transform: scale(1.06);
+}
+
+.bento-ws-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.bento-ws-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.bento-ws-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.bento-ws-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--stamp-soft) 80%, transparent);
+  color: var(--stamp);
+  border: 1px solid color-mix(in srgb, var(--stamp) 25%, transparent);
+}
+
+.bento-ws-sub {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin: 0.25rem 0 0 0;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+.bento-ws-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 0.55rem 1.05rem;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--stamp);
+  border: 1px solid color-mix(in srgb, var(--stamp) 25%, var(--paper-line));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.bento-website-banner:hover .bento-ws-cta {
+  background: var(--stamp);
+  color: #fff;
+  border-color: var(--stamp);
+  box-shadow: 0 4px 12px rgba(74, 9, 143, 0.25);
+}
+
+.bento-ws-cta svg {
+  transition: transform 0.2s ease;
+}
+
+.bento-website-banner:hover .bento-ws-cta svg {
+  transform: translateX(3px);
 }
 
 /* Mobile Sticky Bottom Bar */

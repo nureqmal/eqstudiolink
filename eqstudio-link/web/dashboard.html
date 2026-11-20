@@ -4338,12 +4338,29 @@
     }
   }
 
+  function triggerCopyBadgeFeedback() {
+    try {
+      const copyBadgeSpan = document.querySelector(".ws-slug-copy-badge span");
+      const copyBadge = document.querySelector(".ws-slug-copy-badge");
+      if (copyBadgeSpan && copyBadge) {
+        const orig = copyBadgeSpan.textContent;
+        copyBadgeSpan.textContent = "Disalin ✓";
+        copyBadge.classList.add("is-copied");
+        setTimeout(() => {
+          copyBadgeSpan.textContent = orig;
+          copyBadge.classList.remove("is-copied");
+        }, 2000);
+      }
+    } catch (e) {}
+  }
+
   function copyWebsiteBioLink() {
     try {
       const { shareUrl } = getWebsiteSlugAndUrls();
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(shareUrl).then(() => {
           showToast("Pautan mini-website disalin: " + shareUrl, "success");
+          triggerCopyBadgeFeedback();
         }).catch(() => {
           fallbackCopy(shareUrl);
         });
@@ -4360,6 +4377,7 @@
         document.execCommand("copy");
         document.body.removeChild(ta);
         showToast("Pautan mini-website disalin: " + text, "success");
+        triggerCopyBadgeFeedback();
       }
     } catch (err) {
       console.warn("copyWebsiteBioLink error:", err);

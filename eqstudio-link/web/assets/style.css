@@ -11652,3 +11652,171 @@ body.ws-modal-open {
     font-size: 0.68rem;
   }
 }
+
+
+/* ═══════════════════════════════════════════════════════════
+   FINAL TOUCH-UP: ACCORDIONS, TRUNCATION & MOBILE OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════ */
+
+/* Accordion Active State Accent */
+.ws-accordion-card {
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s ease, border-left-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.ws-accordion-card.is-open {
+  border-left-color: var(--stamp);
+  border-color: color-mix(in srgb, var(--stamp) 35%, var(--paper-line));
+  box-shadow: 0 4px 18px rgba(74, 9, 143, 0.04);
+}
+
+.ws-accordion-card.is-open .ws-accordion-header {
+  background: color-mix(in srgb, var(--stamp-soft) 22%, transparent);
+}
+
+/* Slug Pill Box Truncation & Copied Badge */
+.ws-slug-pill-box {
+  max-width: 100%;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ws-slug-val {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 170px;
+}
+
+@media (min-width: 640px) {
+  .ws-slug-val {
+    max-width: 320px;
+  }
+}
+
+.ws-slug-copy-badge {
+  transition: all 0.2s ease;
+}
+
+.ws-slug-copy-badge.is-copied {
+  background: var(--ok, #10b981) !important;
+  color: #fff !important;
+  border-color: var(--ok, #10b981) !important;
+}
+
+/* Desktop Cover Layout Row (Side-by-Side if Cover Exists) */
+@media (min-width: 769px) {
+  .ws-cover-layout-row:has(#ws-cover-preview[style*="block"]) {
+    display: grid;
+    grid-template-columns: minmax(0, 360px) 1fr;
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+  
+  .ws-cover-layout-row:has(#ws-cover-preview[style*="block"]) .ws-upload-dropzone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 200px;
+  }
+}
+
+/* Enhanced Phone Mockup Depth */
+.ws-phone-mockup {
+  border: 4px solid #232332;
+  box-shadow: 0 35px 80px -20px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 40px rgba(74, 9, 143, 0.12);
+}
+
+/* Mobile Specific Optimizations */
+@media (max-width: 768px) {
+  /* Safe area padding for bottom dock */
+  #page-website {
+    padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* Compact 2-column thumb-friendly actions row */
+  .ws-hero-actions-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.6rem !important;
+  }
+
+  .ws-cta-primary {
+    grid-column: span 2 !important;
+    padding: 0.8rem 1rem !important;
+    font-size: 0.9rem !important;
+    justify-content: center !important;
+  }
+
+  .ws-cta-secondary {
+    padding: 0.65rem 0.75rem !important;
+    font-size: 0.78rem !important;
+    justify-content: center !important;
+  }
+
+  /* Multi-links bar horizontal scroll without wrapping */
+  .ws-multi-links-bar {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .ws-multi-links-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .ws-link-chip {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Links Overview Card responsive adjustments */
+  .ws-links-overview-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.65rem !important;
+  }
+
+  .ws-links-manage-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .ws-link-card-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    padding: 0.9rem 1rem !important;
+  }
+
+  .ws-link-row-actions {
+    width: 100% !important;
+    display: flex !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding-bottom: 2px !important;
+  }
+
+  .ws-link-row-actions::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .ws-link-action-btn {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Mobile Sticky Bar safe area */
+  #page-website.active ~ .ws-mobile-sticky-bar,
+  #page-website.active .ws-mobile-sticky-bar {
+    bottom: calc(58px + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 995 !important;
+  }
+}

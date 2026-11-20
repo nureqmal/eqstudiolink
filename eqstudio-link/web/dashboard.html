@@ -1745,6 +1745,15 @@
           </div>
           <p class="ws-hero-biz-tagline" id="ws-hero-biz-tagline">Ubah profil tempahan menjadi mini-website profesional dengan pautan bio &amp; portfolio hasil kerja.</p>
           
+          <!-- Multiple Links Switcher Row (Shown when allBookingLinks.length > 1) -->
+          <div class="ws-multi-links-bar" id="ws-multi-links-bar" style="display:none;">
+            <div class="ws-multi-links-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              <span>Pilih Pautan:</span>
+            </div>
+            <div class="ws-multi-links-chips" id="ws-multi-links-chips"></div>
+          </div>
+
           <!-- Bio Slug Interactive Pill -->
           <div class="ws-hero-slug-bar">
             <div class="ws-slug-pill-box" id="ws-slug-pill-box" role="button" tabindex="0" title="Ketik untuk salin pautan mini-website">
@@ -1779,6 +1788,31 @@
           <span>Tab Penuh ↗</span>
         </a>
         <a href="/book.html?preview=1" target="_blank" rel="noopener" id="ws-preview-live-link" style="display:none;"></a>
+      </div>
+    </div>
+
+    <!-- All Booking Links Showcase Card (for 1 or multiple links) -->
+    <div class="card ws-links-overview-card" id="ws-links-overview-card">
+      <div class="ws-links-overview-header">
+        <div class="ws-links-overview-title-group">
+          <div class="ws-links-icon-wrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:0.55rem; flex-wrap:wrap;">
+              <h3 class="ws-links-card-title">Pautan Tempahan Mini-Website Anda</h3>
+              <span class="ws-status-badge is-active" id="ws-all-links-count-badge">Pautan Aktif</span>
+            </div>
+            <p class="ws-links-card-sub">Setiap pautan mempunyai slot jadual, pakej perkhidmatan dan halaman tempahan yang unik. Klik pada mana-mana pautan untuk pratonton pantas atau salin pautan bio.</p>
+          </div>
+        </div>
+        <button type="button" class="ws-links-manage-btn" id="ws-manage-links-btn" title="Urus atau cipta pautan baru di Tetapan Tempahan">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg>
+          <span>Urus di Tetapan</span>
+        </button>
+      </div>
+      <div class="ws-links-list-grid" id="ws-links-list-grid">
+        <!-- Rendered dynamically -->
       </div>
     </div>
 
@@ -2668,6 +2702,7 @@
 
       <!-- Modal Toolbar / Navigation Bar -->
       <div class="ws-phone-toolbar">
+        <select id="ws-phone-link-select" class="ws-phone-link-select" title="Pilih link tempahan" style="display:none;"></select>
         <div class="ws-phone-url-bar" id="ws-phone-url-bar" title="Ketik untuk salin link">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
           <span class="ws-phone-url-host">eqstudio.link/book/</span><strong id="ws-phone-url-slug" class="ws-phone-url-slug">...</strong>
@@ -3915,21 +3950,30 @@
  if (document.getElementById("ws-testimonial-list")) loadTestimonials();
 
   // ── Website Saya: Storefront Studio & Phone Preview Modal Enhancements ──
-  function getWebsiteSlugAndUrls() {
+  let selectedWebsiteLinkId = null;
+
+  function getWebsiteSlugAndUrls(targetLinkId) {
     try {
-      const pSlug = (Array.isArray(allBookingLinks) && (allBookingLinks.find(l => l.is_primary)?.slug || allBookingLinks[0]?.slug)) || (typeof currentProfile !== "undefined" && currentProfile?.booking_slug) || "";
-      const liveUrl = pSlug ? `/book.html?slug=${encodeURIComponent(pSlug)}&preview=1` : `/book.html?preview=1`;
+      const links = Array.isArray(allBookingLinks) ? allBookingLinks : [];
+      const linkId = targetLinkId || selectedWebsiteLinkId || (typeof currentLinkId !== "undefined" ? currentLinkId : null);
+      const link = (linkId ? links.find(l => l.id === linkId) : null) || links.find(l => l.is_primary) || links[0] || null;
+      const pSlug = link?.slug || (typeof currentProfile !== "undefined" && currentProfile?.booking_slug) || "";
+      const liveUrl = pSlug ? `/book.html?slug=${encodeURIComponent(pSlug)}` : `/book.html?preview=1`;
       const origin = (typeof window !== "undefined" && window.location.origin) || "";
       const shareUrl = pSlug ? `${origin}/book.html?slug=${encodeURIComponent(pSlug)}` : `${origin}/book.html`;
       const displaySlug = pSlug || "pautan-anda";
-      return { pSlug, liveUrl, shareUrl, displaySlug };
+      const label = link?.label || "Pautan Tempahan";
+      return { pSlug, liveUrl, shareUrl, displaySlug, label, linkId: link?.id || null };
     } catch (err) {
-      return { pSlug: "", liveUrl: "/book.html?preview=1", shareUrl: "/book.html", displaySlug: "pautan-anda" };
+      return { pSlug: "", liveUrl: "/book.html?preview=1", shareUrl: "/book.html", displaySlug: "pautan-anda", label: "Pautan Tempahan", linkId: null };
     }
   }
 
-  function refreshWebsiteStudioLinks() {
+  function refreshWebsiteStudioLinks(targetLinkId) {
     try {
+      if (typeof targetLinkId === "string" && targetLinkId) {
+        selectedWebsiteLinkId = targetLinkId;
+      }
       const { liveUrl, displaySlug } = getWebsiteSlugAndUrls();
       const slugEl = document.getElementById("ws-slug-display");
       if (slugEl) slugEl.textContent = displaySlug;
@@ -3942,8 +3986,170 @@
       if (heroTabBtn) heroTabBtn.href = liveUrl;
       const phoneTabBtn = document.getElementById("ws-phone-open-tab-btn");
       if (phoneTabBtn) phoneTabBtn.href = liveUrl;
+
+      // Synchronize all multi-link UI components
+      renderWebsiteStudioMultiLinks();
     } catch (err) {
       console.warn("refreshWebsiteStudioLinks error:", err);
+    }
+  }
+
+  function renderWebsiteStudioMultiLinks() {
+    try {
+      const links = Array.isArray(allBookingLinks) ? allBookingLinks : [];
+      const multiBar = document.getElementById("ws-multi-links-bar");
+      const chipsContainer = document.getElementById("ws-multi-links-chips");
+      const overviewCard = document.getElementById("ws-links-overview-card");
+      const gridContainer = document.getElementById("ws-links-list-grid");
+      const countBadge = document.getElementById("ws-all-links-count-badge");
+      const phoneSelect = document.getElementById("ws-phone-link-select");
+
+      const activeId = selectedWebsiteLinkId || (links.find(l => l.is_primary)?.id || links[0]?.id || null);
+
+      if (links.length > 1) {
+        if (multiBar) multiBar.style.display = "flex";
+        if (chipsContainer) {
+          chipsContainer.innerHTML = links.map(l => {
+            const isSelected = l.id === activeId;
+            return `
+              <button type="button" class="ws-link-chip ${isSelected ? 'active' : ''}" data-ws-chip-id="${l.id}">
+                ${l.is_primary ? '<span class="ws-primary-star">★</span>' : ''}
+                <span>${escapeHtml(l.label || l.slug)}</span>
+                ${l.is_primary ? '<span class="ws-chip-sub">(Utama)</span>' : ''}
+              </button>
+            `;
+          }).join("");
+
+          chipsContainer.querySelectorAll("[data-ws-chip-id]").forEach(btn => {
+            btn.addEventListener("click", () => {
+              selectedWebsiteLinkId = btn.dataset.wsChipId;
+              refreshWebsiteStudioLinks();
+            });
+          });
+        }
+
+        // Phone modal dropdown
+        if (phoneSelect) {
+          phoneSelect.style.display = "inline-block";
+          phoneSelect.innerHTML = links.map(l => `
+            <option value="${l.id}" ${l.id === activeId ? 'selected' : ''}>
+              ${escapeHtml(l.label || l.slug)}${l.is_primary ? ' (Utama)' : ''}
+            </option>
+          `).join("");
+          phoneSelect.onchange = (e) => {
+            selectedWebsiteLinkId = e.target.value;
+            openWebsitePhonePreview(selectedWebsiteLinkId);
+          };
+        }
+      } else {
+        if (multiBar) multiBar.style.display = "none";
+        if (phoneSelect) phoneSelect.style.display = "none";
+      }
+
+      // Render overview card if present
+      if (overviewCard && gridContainer) {
+        if (countBadge) {
+          countBadge.textContent = links.length === 1 ? "1 Pautan Aktif" : `${links.length} Pautan Aktif`;
+        }
+
+        if (links.length === 0) {
+          gridContainer.innerHTML = `
+            <div class="ws-no-links-box">
+              <p>Belum ada pautan tempahan. Sila cipta pautan tempahan di Tetapan.</p>
+              <button type="button" class="primary" onclick="goToPage('booking-settings')">Cipta Pautan Pertama →</button>
+            </div>
+          `;
+          return;
+        }
+
+        const origin = window.location.origin;
+        gridContainer.innerHTML = links.map((l, idx) => {
+          const isSelected = l.id === activeId;
+          const fullUrl = `${origin}/book.html?slug=${encodeURIComponent(l.slug)}`;
+          const depositTxt = (l.default_deposit_amount != null && Number(l.default_deposit_amount) > 0)
+            ? `Deposit: RM${Number(l.default_deposit_amount).toFixed(0)}`
+            : (l.default_deposit_amount === 0 ? "Deposit: Percuma" : "Deposit belum diset");
+
+          return `
+            <div class="ws-link-card-row ${isSelected ? 'is-selected' : ''}" data-row-link-id="${l.id}">
+              <div class="ws-link-row-main">
+                <div class="ws-link-row-meta">
+                  <span class="ws-link-row-name">${escapeHtml(l.label || `Pautan #${idx + 1}`)}</span>
+                  ${l.is_primary ? '<span class="sf-primary-badge">Utama</span>' : ''}
+                  <span class="sf-deposit-tag">${escapeHtml(depositTxt)}</span>
+                  ${isSelected ? '<span class="ws-active-preview-tag">Sedang Dipilih</span>' : ''}
+                </div>
+                <div class="ws-link-row-url">${escapeHtml(fullUrl)}</div>
+              </div>
+              <div class="ws-link-row-actions">
+                <button type="button" class="ws-link-action-btn ws-btn-act-preview" data-act-preview="${l.id}" title="Pratonton di Phone Frame">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><line x1="12" x2="12.01" y1="18" y2="18"></line></svg>
+                  <span>Pratonton</span>
+                </button>
+                <button type="button" class="ws-link-action-btn" data-act-copy="${fullUrl}" title="Salin pautan">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                  <span>Salin</span>
+                </button>
+                <button type="button" class="ws-link-action-btn" data-act-wa="${fullUrl}" data-act-label="${escapeHtml(l.label || '')}" title="Kongsi WhatsApp">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                  <span>WhatsApp</span>
+                </button>
+                <a href="${fullUrl}" target="_blank" rel="noopener" class="ws-link-action-btn" title="Buka Tab Penuh">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  <span>Buka ↗</span>
+                </a>
+                <button type="button" class="ws-link-action-btn" data-act-edit="${l.id}" title="Edit di Tetapan Tempahan">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg>
+                  <span>Edit</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        // Wire action listeners
+        gridContainer.querySelectorAll("[data-act-preview]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            selectedWebsiteLinkId = btn.dataset.actPreview;
+            openWebsitePhonePreview(selectedWebsiteLinkId);
+          });
+        });
+
+        gridContainer.querySelectorAll("[data-act-copy]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const url = btn.dataset.actCopy;
+            navigator.clipboard.writeText(url).then(() => {
+              showToast("Pautan berjaya disalin: " + url, "success");
+            });
+          });
+        });
+
+        gridContainer.querySelectorAll("[data-act-wa]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const url = btn.dataset.actWa;
+            const biz = (typeof currentProfile !== "undefined" && currentProfile?.business_name) || "kami";
+            const msg = `Salam! Untuk semak ketersediaan tarikh, pakej & tempah slot ${btn.dataset.actLabel || biz}, layari pautan rasmi kami di sini:\n${url}`;
+            if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+              window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
+            } else {
+              navigator.clipboard.writeText(msg).then(() => {
+                showToast("Mesej jemputan WhatsApp berjaya disalin!", "success");
+              });
+            }
+          });
+        });
+
+        gridContainer.querySelectorAll("[data-act-edit]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            currentLinkId = btn.dataset.actEdit;
+            goToPage("booking-settings");
+            if (typeof renderLinkSwitcher === "function") renderLinkSwitcher(currentUserIsPro);
+            if (typeof loadSettingsForCurrentLink === "function") loadSettingsForCurrentLink();
+          });
+        });
+      }
+    } catch (err) {
+      console.warn("renderWebsiteStudioMultiLinks error:", err);
     }
   }
 
@@ -4078,15 +4284,18 @@
     }
   }
 
-  function openWebsitePhonePreview() {
+  function openWebsitePhonePreview(targetLinkId) {
     try {
+      if (typeof targetLinkId === "string" && targetLinkId) {
+        selectedWebsiteLinkId = targetLinkId;
+      }
       const modal = document.getElementById("ws-phone-preview-modal");
       const iframe = document.getElementById("ws-phone-preview-iframe");
       const spinner = document.getElementById("ws-phone-spinner");
       if (!modal || !iframe) return;
 
       refreshWebsiteStudioLinks();
-      const { liveUrl } = getWebsiteSlugAndUrls();
+      const { liveUrl, displaySlug, linkId } = getWebsiteSlugAndUrls();
 
       modal.style.display = "flex";
       modal.setAttribute("aria-hidden", "false");
@@ -4098,7 +4307,16 @@
         if (spinner) spinner.style.display = "none";
       };
 
-      if (!iframe.src || iframe.src === "about:blank" || iframe.src.indexOf(liveUrl) === -1) {
+      // Sync phone toolbar link selector
+      const phoneSelect = document.getElementById("ws-phone-link-select");
+      if (phoneSelect && linkId) {
+        phoneSelect.value = linkId;
+      }
+
+      const cleanLiveUrl = liveUrl.split("#")[0];
+      const currentIframeClean = (iframe.src || "").split("#")[0];
+
+      if (!iframe.src || iframe.src === "about:blank" || !currentIframeClean.endsWith(cleanLiveUrl)) {
         iframe.src = liveUrl;
       } else {
         if (spinner) spinner.style.display = "none";
@@ -4211,6 +4429,10 @@
   document.getElementById("ws-phone-share-wa-btn")?.addEventListener("click", shareWebsiteToWhatsApp);
 
   // Replace cover button trigger
+  document.getElementById("ws-manage-links-btn")?.addEventListener("click", () => {
+    goToPage("booking-settings");
+  });
+
   document.getElementById("ws-cover-replace-btn")?.addEventListener("click", () => {
     document.getElementById("ws-cover-file")?.click();
   });

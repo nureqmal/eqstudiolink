@@ -11359,3 +11359,296 @@ body.ws-modal-open {
     flex-shrink: 0;
   }
 }
+
+
+/* ═══════════════════════════════════════════════════════════
+   WEBSITE STUDIO: MULTI-LINKS SWITCHER & OVERVIEW CARD
+   ═══════════════════════════════════════════════════════════ */
+
+/* Multi-links Switcher Bar in Hero */
+.ws-multi-links-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+  padding: 0.45rem 0.75rem;
+  background: color-mix(in srgb, var(--paper) 70%, var(--surface));
+  border: 1px solid var(--paper-line);
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+.ws-multi-links-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+}
+
+.ws-multi-links-chips {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.ws-link-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--paper-line);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ws-link-chip:hover {
+  border-color: var(--stamp);
+  color: var(--stamp);
+  background: var(--stamp-soft);
+}
+
+.ws-link-chip.active {
+  background: var(--stamp);
+  color: #fff;
+  border-color: var(--stamp);
+  box-shadow: 0 2px 6px rgba(74, 9, 143, 0.22);
+}
+
+.ws-primary-star {
+  color: #f59e0b;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.ws-link-chip.active .ws-primary-star {
+  color: #fef08a;
+}
+
+.ws-chip-sub {
+  font-size: 0.68rem;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+/* Phone Modal Link Selector */
+.ws-phone-link-select {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  max-width: 140px;
+  cursor: pointer;
+  outline: none;
+}
+
+.ws-phone-link-select option {
+  background: #181824;
+  color: #fff;
+}
+
+/* All Booking Links Overview Card */
+.ws-links-overview-card {
+  padding: 1.35rem 1.5rem;
+  margin-bottom: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius-lg, 16px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.ws-links-overview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+  flex-wrap: wrap;
+}
+
+.ws-links-overview-title-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.ws-links-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--stamp-soft) 85%, transparent);
+  color: var(--stamp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ws-links-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.ws-links-card-sub {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin: 0.2rem 0 0 0;
+  line-height: 1.4;
+}
+
+.ws-links-manage-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.ws-links-manage-btn:hover {
+  background: var(--stamp-soft);
+  color: var(--stamp);
+  border-color: var(--stamp);
+}
+
+.ws-links-list-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ws-link-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1.15rem;
+  background: color-mix(in srgb, var(--paper) 40%, var(--surface));
+  border: 1px solid var(--paper-line);
+  border-radius: 12px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.ws-link-card-row:hover {
+  border-color: color-mix(in srgb, var(--stamp) 35%, var(--paper-line));
+}
+
+.ws-link-card-row.is-selected {
+  background: color-mix(in srgb, var(--stamp-soft) 30%, var(--surface));
+  border-color: color-mix(in srgb, var(--stamp) 45%, var(--paper-line));
+}
+
+.ws-link-row-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.ws-link-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.ws-link-row-name {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ws-active-preview-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--stamp);
+  color: #fff;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.ws-link-row-url {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ws-link-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.ws-link-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.ws-link-action-btn:hover {
+  background: var(--paper);
+  border-color: var(--ink);
+}
+
+.ws-btn-act-preview {
+  background: var(--stamp);
+  color: #fff;
+  border-color: var(--stamp);
+}
+
+.ws-btn-act-preview:hover {
+  background: color-mix(in srgb, var(--stamp) 85%, #000);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .ws-link-card-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .ws-link-row-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .ws-phone-link-select {
+    max-width: 100px;
+    font-size: 0.68rem;
+  }
+}

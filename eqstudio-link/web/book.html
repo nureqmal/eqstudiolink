@@ -193,7 +193,7 @@
     const pathMatch = window.location.pathname.match(/\/book\/([^/?#]+)/);
     const slug = new URLSearchParams(window.location.search).get("slug") || (pathMatch ? decodeURIComponent(pathMatch[1]) : null);
     const _search = new URLSearchParams(window.location.search);
-    const isPreviewMode = !slug || slug === "preview" || slug === "_preview" || slug === "demo" || slug === "lensa-kreatif" || slug === "bella-glam" || slug === "aiskrim-comel" || _search.has("preview") || _search.has("demo");
+    const isPreviewMode = !slug || slug === "preview" || slug === "_preview" || slug === "demo" || slug === "lensa-kreatif" || slug === "bella-glam" || slug === "aiskrim-comel" || ((_search.has("preview") || _search.has("demo")) && (!slug || slug === "preview" || slug === "_preview" || slug === "demo" || slug === "lensa-kreatif" || slug === "bella-glam" || slug === "aiskrim-comel"));
     let availabilityData = null;
     let selectedType = null;
     let selectedDate = null;

@@ -2976,7 +2976,8 @@
  let allBookingLinks = [];
  let bookingMilestones = new Map();
  let currentProfile = null;
- let currentStorefrontMetrics = {
+ let wsCoverPhotoUrl = null;
+  let currentStorefrontMetrics = {
  score: 0,
  hasProfile: false,
  hasPayment: false,
@@ -3704,6 +3705,7 @@
       if (aImg) { aImg.src = profile.logo_url; aImg.style.display = "block"; }
       if (aFb) { aFb.style.display = "none"; }
     }
+    wsCoverPhotoUrl = profile?.cover_photo_url || null;
     refreshWebsiteStudioLinks();
     updateWebsiteStudioBadges();
 
@@ -3716,7 +3718,7 @@
  document.getElementById("ws-cover-preview").style.display = "block";
  }
  }
- let wsCoverPhotoUrl = profile?.cover_photo_url || null;
+ wsCoverPhotoUrl = profile?.cover_photo_url || null;
  document.getElementById("ws-cover-upload-btn")?.addEventListener("click", () => {
  if (blockIfPastDue()) return;
  document.getElementById("ws-cover-file").click();
@@ -3895,204 +3897,120 @@
 
   // ── Website Saya: Storefront Studio & Phone Preview Modal Enhancements ──
   function getWebsiteSlugAndUrls() {
-    const pSlug = (Array.isArray(allBookingLinks) && (allBookingLinks.find(l => l.is_primary)?.slug || allBookingLinks[0]?.slug)) || (typeof currentProfile !== "undefined" && currentProfile?.booking_slug) || (typeof profile !== "undefined" && profile?.booking_slug) || "";
-    const liveUrl = pSlug ? `/book.html?slug=${encodeURIComponent(pSlug)}&preview=1` : `/book.html?preview=1`;
-    const shareUrl = pSlug ? `${window.location.origin}/book.html?slug=${encodeURIComponent(pSlug)}` : `${window.location.origin}/book.html`;
-    const displaySlug = pSlug || "pautan-anda";
-    return { pSlug, liveUrl, shareUrl, displaySlug };
+    try {
+      const pSlug = (Array.isArray(allBookingLinks) && (allBookingLinks.find(l => l.is_primary)?.slug || allBookingLinks[0]?.slug)) || (typeof currentProfile !== "undefined" && currentProfile?.booking_slug) || "";
+      const liveUrl = pSlug ? `/book.html?slug=${encodeURIComponent(pSlug)}&preview=1` : `/book.html?preview=1`;
+      const origin = (typeof window !== "undefined" && window.location.origin) || "";
+      const shareUrl = pSlug ? `${origin}/book.html?slug=${encodeURIComponent(pSlug)}` : `${origin}/book.html`;
+      const displaySlug = pSlug || "pautan-anda";
+      return { pSlug, liveUrl, shareUrl, displaySlug };
+    } catch (err) {
+      return { pSlug: "", liveUrl: "/book.html?preview=1", shareUrl: "/book.html", displaySlug: "pautan-anda" };
+    }
   }
 
   function refreshWebsiteStudioLinks() {
-    const { liveUrl, displaySlug } = getWebsiteSlugAndUrls();
-    const slugEl = document.getElementById("ws-slug-display");
-    if (slugEl) slugEl.textContent = displaySlug;
-    const phoneSlugEl = document.getElementById("ws-phone-url-slug");
-    if (phoneSlugEl) phoneSlugEl.textContent = displaySlug;
+    try {
+      const { liveUrl, displaySlug } = getWebsiteSlugAndUrls();
+      const slugEl = document.getElementById("ws-slug-display");
+      if (slugEl) slugEl.textContent = displaySlug;
+      const phoneSlugEl = document.getElementById("ws-phone-url-slug");
+      if (phoneSlugEl) phoneSlugEl.textContent = displaySlug;
 
-    const liveLink = document.getElementById("ws-preview-live-link");
-    if (liveLink) liveLink.href = liveUrl;
-    const heroTabBtn = document.getElementById("ws-hero-tab-btn");
-    if (heroTabBtn) heroTabBtn.href = liveUrl;
-    const phoneTabBtn = document.getElementById("ws-phone-open-tab-btn");
-    if (phoneTabBtn) phoneTabBtn.href = liveUrl;
+      const liveLink = document.getElementById("ws-preview-live-link");
+      if (liveLink) liveLink.href = liveUrl;
+      const heroTabBtn = document.getElementById("ws-hero-tab-btn");
+      if (heroTabBtn) heroTabBtn.href = liveUrl;
+      const phoneTabBtn = document.getElementById("ws-phone-open-tab-btn");
+      if (phoneTabBtn) phoneTabBtn.href = liveUrl;
+    } catch (err) {
+      console.warn("refreshWebsiteStudioLinks error:", err);
+    }
   }
 
   function updateWebsiteStudioBadges() {
-    // 01 Hero
-    const badgeHero = document.getElementById("ws-badge-hero");
-    if (badgeHero) {
-      const hasCover = !!(wsCoverPhotoUrl || (typeof currentProfile !== "undefined" && currentProfile?.cover_photo_url) || (typeof profile !== "undefined" && profile?.cover_photo_url));
-      const taglineVal = document.getElementById("ws-tagline")?.value?.trim();
-      if (hasCover) {
-        badgeHero.className = "ws-status-badge is-active";
-        badgeHero.textContent = "Cover Aktif";
-      } else if (taglineVal) {
-        badgeHero.className = "ws-status-badge is-active";
-        badgeHero.textContent = "Tagline Aktif";
-      } else {
-        badgeHero.className = "ws-status-badge is-empty";
-        badgeHero.textContent = "Belum Diisi";
+    try {
+      // 01 Hero
+      const badgeHero = document.getElementById("ws-badge-hero");
+      if (badgeHero) {
+        const hasCover = !!(wsCoverPhotoUrl || (typeof currentProfile !== "undefined" && currentProfile?.cover_photo_url));
+        const taglineVal = document.getElementById("ws-tagline")?.value?.trim();
+        if (hasCover) {
+          badgeHero.className = "ws-status-badge is-active";
+          badgeHero.textContent = "Cover Aktif";
+        } else if (taglineVal) {
+          badgeHero.className = "ws-status-badge is-active";
+          badgeHero.textContent = "Tagline Aktif";
+        } else {
+          badgeHero.className = "ws-status-badge is-empty";
+          badgeHero.textContent = "Belum Diisi";
+        }
       }
-    }
 
-    // 02 About
-    const badgeAbout = document.getElementById("ws-badge-about");
-    if (badgeAbout) {
-      const aboutText = document.getElementById("ws-about-editor")?.innerText?.trim();
-      if (aboutText && aboutText.length > 5) {
-        badgeAbout.className = "ws-status-badge is-active";
-        badgeAbout.textContent = "Cerita Diisi";
-      } else {
-        badgeAbout.className = "ws-status-badge is-empty";
-        badgeAbout.textContent = "Belum Diisi";
+      // 02 About
+      const badgeAbout = document.getElementById("ws-badge-about");
+      if (badgeAbout) {
+        const aboutText = document.getElementById("ws-about-editor")?.innerText?.trim();
+        if (aboutText && aboutText.length > 5) {
+          badgeAbout.className = "ws-status-badge is-active";
+          badgeAbout.textContent = "Cerita Diisi";
+        } else {
+          badgeAbout.className = "ws-status-badge is-empty";
+          badgeAbout.textContent = "Belum Diisi";
+        }
       }
-    }
 
-    // 03 Gallery
-    const badgeGallery = document.getElementById("ws-badge-gallery");
-    if (badgeGallery) {
-      const count = document.querySelectorAll("#ws-gallery-grid .ws-gallery-item").length;
-      if (count > 0) {
-        badgeGallery.className = "ws-status-badge is-active";
-        badgeGallery.textContent = `${count} Gambar Aktif`;
-      } else {
-        badgeGallery.className = "ws-status-badge is-empty";
-        badgeGallery.textContent = "Belum Ada Gambar";
+      // 03 Gallery
+      const badgeGallery = document.getElementById("ws-badge-gallery");
+      if (badgeGallery) {
+        const count = document.querySelectorAll("#ws-gallery-grid .ws-gallery-item").length;
+        if (count > 0) {
+          badgeGallery.className = "ws-status-badge is-active";
+          badgeGallery.textContent = `${count} Gambar Aktif`;
+        } else {
+          badgeGallery.className = "ws-status-badge is-empty";
+          badgeGallery.textContent = "Belum Ada Gambar";
+        }
       }
-    }
 
-    // 04 Testimonials
-    const badgeTestimonials = document.getElementById("ws-badge-testimonials");
-    if (badgeTestimonials) {
-      const count = document.querySelectorAll("#ws-testimonial-list .ws-testimonial-row").length;
-      if (count > 0) {
-        badgeTestimonials.className = "ws-status-badge is-active";
-        badgeTestimonials.textContent = `${count} Ulasan`;
-      } else {
-        badgeTestimonials.className = "ws-status-badge is-empty";
-        badgeTestimonials.textContent = "Belum Ada Ulasan";
+      // 04 Testimonials
+      const badgeTestimonials = document.getElementById("ws-badge-testimonials");
+      if (badgeTestimonials) {
+        const count = document.querySelectorAll("#ws-testimonial-list .ws-testimonial-row").length;
+        if (count > 0) {
+          badgeTestimonials.className = "ws-status-badge is-active";
+          badgeTestimonials.textContent = `${count} Ulasan`;
+        } else {
+          badgeTestimonials.className = "ws-status-badge is-empty";
+          badgeTestimonials.textContent = "Belum Ada Ulasan";
+        }
       }
-    }
 
-    // 05 Social
-    const badgeSocial = document.getElementById("ws-badge-social");
-    if (badgeSocial) {
-      const wa = document.getElementById("ws-whatsapp")?.value?.trim();
-      const maps = document.getElementById("ws-maps")?.value?.trim();
-      const ig = document.getElementById("ws-instagram")?.value?.trim();
-      const tt = document.getElementById("ws-tiktok")?.value?.trim();
-      const fb = document.getElementById("ws-facebook")?.value?.trim();
-      let activeCount = 0;
-      if (wa) activeCount++;
-      if (maps) activeCount++;
-      if (ig) activeCount++;
-      if (tt) activeCount++;
-      if (fb) activeCount++;
-      if (activeCount > 0) {
-        badgeSocial.className = "ws-status-badge is-active";
-        badgeSocial.textContent = `${activeCount} Pautan Aktif`;
-      } else {
-        badgeSocial.className = "ws-status-badge is-empty";
-        badgeSocial.textContent = "Belum Diisi";
+      // 05 Social
+      const badgeSocial = document.getElementById("ws-badge-social");
+      if (badgeSocial) {
+        const wa = document.getElementById("ws-whatsapp")?.value?.trim();
+        const maps = document.getElementById("ws-maps")?.value?.trim();
+        const ig = document.getElementById("ws-instagram")?.value?.trim();
+        const tt = document.getElementById("ws-tiktok")?.value?.trim();
+        const fb = document.getElementById("ws-facebook")?.value?.trim();
+        let activeCount = 0;
+        if (wa) activeCount++;
+        if (maps) activeCount++;
+        if (ig) activeCount++;
+        if (tt) activeCount++;
+        if (fb) activeCount++;
+        if (activeCount > 0) {
+          badgeSocial.className = "ws-status-badge is-active";
+          badgeSocial.textContent = `${activeCount} Pautan Aktif`;
+        } else {
+          badgeSocial.className = "ws-status-badge is-empty";
+          badgeSocial.textContent = "Belum Diisi";
+        }
       }
+    } catch (err) {
+      console.warn("updateWebsiteStudioBadges error:", err);
     }
-  }
-
-  function initWebsiteStudioAccordions() {
-    const cards = document.querySelectorAll(".ws-accordion-card");
-    cards.forEach(card => {
-      const header = card.querySelector(".ws-accordion-header");
-      const content = card.querySelector(".ws-accordion-content");
-      if (!header || !content) return;
-      header.addEventListener("click", () => {
-        const isExpanded = header.getAttribute("aria-expanded") === "true";
-        header.setAttribute("aria-expanded", !isExpanded);
-        content.style.display = isExpanded ? "none" : "block";
-      });
-    });
-
-    const toggleAllBtn = document.getElementById("ws-accordion-toggle-all");
-    if (toggleAllBtn) {
-      let allOpen = false;
-      toggleAllBtn.addEventListener("click", () => {
-        allOpen = !allOpen;
-        cards.forEach(card => {
-          const header = card.querySelector(".ws-accordion-header");
-          const content = card.querySelector(".ws-accordion-content");
-          if (header && content) {
-            header.setAttribute("aria-expanded", allOpen);
-            content.style.display = allOpen ? "block" : "none";
-          }
-        });
-        const label = document.getElementById("ws-toggle-all-label");
-        if (label) label.textContent = allOpen ? "Tutup Semua" : "Buka Semua";
-      });
-    }
-  }
-
-  function openWebsitePhonePreview() {
-    const modal = document.getElementById("ws-phone-preview-modal");
-    const iframe = document.getElementById("ws-phone-preview-iframe");
-    const spinner = document.getElementById("ws-phone-spinner");
-    if (!modal || !iframe) return;
-
-    refreshWebsiteStudioLinks();
-    const { liveUrl } = getWebsiteSlugAndUrls();
-
-    modal.style.display = "flex";
-    modal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("ws-modal-open");
-
-    if (spinner) spinner.style.display = "flex";
-
-    iframe.onload = () => {
-      if (spinner) spinner.style.display = "none";
-    };
-
-    if (!iframe.src || iframe.src === "about:blank" || iframe.src.indexOf(liveUrl) === -1) {
-      iframe.src = liveUrl;
-    } else {
-      if (spinner) spinner.style.display = "none";
-    }
-  }
-
-  function closeWebsitePhonePreview() {
-    const modal = document.getElementById("ws-phone-preview-modal");
-    if (!modal) return;
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("ws-modal-open");
-  }
-
-  function copyWebsiteBioLink() {
-    const { shareUrl } = getWebsiteSlugAndUrls();
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        showToast("Pautan mini-website disalin: " + shareUrl, "success");
-      }).catch(() => {
-        fallbackCopy(shareUrl);
-      });
-    } else {
-      fallbackCopy(shareUrl);
-    }
-    function fallbackCopy(text) {
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-      showToast("Pautan mini-website disalin: " + text, "success");
-    }
-  }
-
-  function shareWebsiteToWhatsApp() {
-    const { shareUrl } = getWebsiteSlugAndUrls();
-    const biz = (typeof profile !== "undefined" && profile?.business_name) || (typeof currentProfile !== "undefined" && currentProfile?.business_name) || "kami";
-    const msg = `Hai! Sila layari laman web rasmi ${biz} dan semak pakej atau buat tempahan anda di sini: ${shareUrl}`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
   }
 
   // Export globals

@@ -12023,22 +12023,17 @@ body.ws-modal-open {
   margin: 0 !important;
 }
 
-#page-website * {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.ws-page-topbar {
+/* Responsive Containment for Website Studio */
+.ws-page-topbar,
+.ws-storefront-hero-card,
+.ws-links-overview-card,
+.ws-studio-card,
+.ws-accordion-card,
+.ws-accordion-header,
+.ws-accordion-content {
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
-}
-
-.ws-storefront-hero-card {
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
 }
 
 .ws-hero-identity-main,
@@ -12068,7 +12063,6 @@ body.ws-modal-open {
 
 .ws-hero-slug-bar,
 .ws-slug-pill-box {
-  width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
   box-sizing: border-box !important;
@@ -12076,7 +12070,6 @@ body.ws-modal-open {
 
 .ws-slug-val {
   min-width: 0 !important;
-  flex: 1 !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
@@ -12091,47 +12084,115 @@ body.ws-modal-open {
   -webkit-overflow-scrolling: touch !important;
 }
 
-.ws-links-overview-card {
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
+/* ─── Links Overview Card: Desktop Layout (> 768px) ─── */
+@media (min-width: 769px) {
+  .ws-link-card-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    padding: 1rem 1.35rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .ws-link-row-main {
+    flex: 1 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+  }
+
+  .ws-link-row-meta {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+    margin-bottom: 0.4rem !important;
+    flex-wrap: wrap !important;
+  }
+
+  .ws-link-row-name {
+    font-size: 0.98rem !important;
+    font-weight: 700 !important;
+    color: var(--ink) !important;
+    white-space: nowrap !important;
+  }
+
+  .ws-link-row-url {
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-size: 0.82rem !important;
+    color: var(--ink-soft) !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: 100% !important;
+    display: block !important;
+  }
+
+  .ws-link-row-actions {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.45rem !important;
+    flex-wrap: nowrap !important;
+    margin-left: auto !important;
+  }
 }
 
-.ws-link-card-row {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  box-sizing: border-box !important;
-}
+/* ─── Links Overview Card: Mobile Layout (<= 768px) ─── */
+@media (max-width: 768px) {
+  .ws-link-card-row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.85rem !important;
+    width: 100% !important;
+    padding: 0.9rem 1rem !important;
+    box-sizing: border-box !important;
+  }
 
-.ws-link-row-main {
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: 100% !important;
-}
+  .ws-link-row-main {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
 
-.ws-link-row-url {
-  width: 100% !important;
-  max-width: 100% !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
-}
+  .ws-link-row-name {
+    font-size: 0.92rem !important;
+    word-break: break-word !important;
+  }
 
-.ws-link-row-actions {
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-}
+  .ws-link-row-url {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 0.78rem !important;
+    margin-top: 0.2rem !important;
+  }
 
-.ws-studio-card,
-.ws-accordion-card,
-.ws-accordion-header,
-.ws-accordion-content {
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
+  .ws-link-row-actions {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding-bottom: 2px !important;
+    box-sizing: border-box !important;
+  }
+
+  .ws-link-row-actions::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .ws-link-action-btn {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
 }
 
 /* Remove sticky bar rules completely */

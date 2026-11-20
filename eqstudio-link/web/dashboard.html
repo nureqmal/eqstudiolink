@@ -4013,6 +4013,123 @@
     }
   }
 
+  function initWebsiteStudioAccordions() {
+    try {
+      const cards = document.querySelectorAll(".ws-accordion-card");
+      cards.forEach(card => {
+        const header = card.querySelector(".ws-accordion-header");
+        const content = card.querySelector(".ws-accordion-content");
+        if (!header || !content) return;
+        header.addEventListener("click", () => {
+          const isExpanded = header.getAttribute("aria-expanded") === "true";
+          header.setAttribute("aria-expanded", !isExpanded);
+          content.style.display = isExpanded ? "none" : "block";
+        });
+      });
+
+      const toggleAllBtn = document.getElementById("ws-accordion-toggle-all");
+      if (toggleAllBtn) {
+        let allOpen = false;
+        toggleAllBtn.addEventListener("click", () => {
+          allOpen = !allOpen;
+          cards.forEach(card => {
+            const header = card.querySelector(".ws-accordion-header");
+            const content = card.querySelector(".ws-accordion-content");
+            if (header && content) {
+              header.setAttribute("aria-expanded", allOpen);
+              content.style.display = allOpen ? "block" : "none";
+            }
+          });
+          const label = document.getElementById("ws-toggle-all-label");
+          if (label) label.textContent = allOpen ? "Tutup Semua" : "Buka Semua";
+        });
+      }
+    } catch (err) {
+      console.warn("initWebsiteStudioAccordions error:", err);
+    }
+  }
+
+  function openWebsitePhonePreview() {
+    try {
+      const modal = document.getElementById("ws-phone-preview-modal");
+      const iframe = document.getElementById("ws-phone-preview-iframe");
+      const spinner = document.getElementById("ws-phone-spinner");
+      if (!modal || !iframe) return;
+
+      refreshWebsiteStudioLinks();
+      const { liveUrl } = getWebsiteSlugAndUrls();
+
+      modal.style.display = "flex";
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("ws-modal-open");
+
+      if (spinner) spinner.style.display = "flex";
+
+      iframe.onload = () => {
+        if (spinner) spinner.style.display = "none";
+      };
+
+      if (!iframe.src || iframe.src === "about:blank" || iframe.src.indexOf(liveUrl) === -1) {
+        iframe.src = liveUrl;
+      } else {
+        if (spinner) spinner.style.display = "none";
+      }
+    } catch (err) {
+      console.warn("openWebsitePhonePreview error:", err);
+    }
+  }
+
+  function closeWebsitePhonePreview() {
+    try {
+      const modal = document.getElementById("ws-phone-preview-modal");
+      if (!modal) return;
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("ws-modal-open");
+    } catch (err) {
+      console.warn("closeWebsitePhonePreview error:", err);
+    }
+  }
+
+  function copyWebsiteBioLink() {
+    try {
+      const { shareUrl } = getWebsiteSlugAndUrls();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast("Pautan mini-website disalin: " + shareUrl, "success");
+        }).catch(() => {
+          fallbackCopy(shareUrl);
+        });
+      } else {
+        fallbackCopy(shareUrl);
+      }
+      function fallbackCopy(text) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast("Pautan mini-website disalin: " + text, "success");
+      }
+    } catch (err) {
+      console.warn("copyWebsiteBioLink error:", err);
+    }
+  }
+
+  function shareWebsiteToWhatsApp() {
+    try {
+      const { shareUrl } = getWebsiteSlugAndUrls();
+      const biz = (typeof profile !== "undefined" && profile?.business_name) || (typeof currentProfile !== "undefined" && currentProfile?.business_name) || "kami";
+      const msg = `Hai! Sila layari laman web rasmi ${biz} dan semak pakej atau buat tempahan anda di sini: ${shareUrl}`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
+    } catch (err) {
+      console.warn("shareWebsiteToWhatsApp error:", err);
+    }
+  }
+
   // Export globals
   window.openWebsitePhonePreview = openWebsitePhonePreview;
   window.closeWebsitePhonePreview = closeWebsitePhonePreview;

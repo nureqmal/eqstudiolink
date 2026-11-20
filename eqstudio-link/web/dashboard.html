@@ -1687,277 +1687,425 @@
   </div> <!-- /page-tetapan-profil -->
 
   <div class="db-page" id="page-website">
- <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.6rem;">
- <div style="display:flex; align-items:center; gap:0.6rem;">
- <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
- <h1 style="margin:0; font-size:1.3rem; font-family:var(--font-display); display:flex; align-items:center; gap:0.5rem;">
- <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--stamp)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
- <span data-i18n="nav_website">Website Saya</span>
- </h1>
- </div>
- <div style="display:flex; align-items:center; gap:0.5rem;">
- <a href="/book.html?preview=1" target="_blank" rel="noopener" class="ws-preview-live-btn" id="ws-preview-live-link">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
- <span data-i18n="ws_preview_live">Lihat Laman Awam ↗</span>
- </a>
- </div>
- </div>
-
- <div class="card ws-studio-card" id="ws-studio-card">
- <div class="ws-studio-header">
- <div class="ws-studio-header-left">
- <div class="ws-studio-icon-badge">
- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
- </div>
- <div>
- <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
- <h2 class="ws-studio-title" data-i18n="ws_studio_title">Website Saya (Microsite &amp; Portal Tempahan)</h2>
- <span class="ws-live-status-badge">
- <span class="ws-status-live-dot"></span>
- <span data-i18n="ws_auto_sync">Auto-sync ke Laman Awam</span>
- </span>
- </div>
- <p class="ws-studio-desc" data-i18n="ws_studio_desc">Ubah halaman tempahan anda menjadi laman web rasmi perniagaan lengkap dengan gambar muka hadapan (cover), cerita pengenalan bisnes, portfolio galeri hasil kerja, dan ulasan pelanggan.</p>
- </div>
- </div>
- <div>
- <a href="/book.html?preview=1" target="_blank" rel="noopener" class="ws-preview-live-btn" class="ws-preview-live-btn ws-preview-live-card-btn">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
- <span>Lihat Laman Awam</span>
- </a>
- </div>
- </div>
-
- <div class="ws-section-card">
- <div class="ws-section-heading">
- <span class="ws-section-num">01</span>
- <div>
- <h3 class="ws-section-title">
- <span>Hero &amp; Gambar Muka Hadapan</span>
- <button type="button" class="info-icon-btn" data-info="Gambar besar dan tagline yang muncul di bahagian paling atas halaman tempahan awam anda, kesan pertama yang pelanggan nampak.">i</button>
- </h3>
- <p class="ws-section-sub" data-i18n="ws_hero_sub">Gambar impak besar dan tagline yang menyambut pelanggan pertama kali di portal tempahan.</p>
- </div>
- </div>
-
- <div>
- <label for="ws-cover-file" style="display:block; margin-bottom:0.45rem;">Gambar Cover Halaman<button type="button" class="info-icon-btn" data-info="Gambar impak besar untuk bahagian atas halaman tempahan. Jika tiada, sistem akan guna warna jenama atau gambar pertama galeri sebagai latar belakang.">i</button></label>
-
- <div class="ws-cover-preview-card" id="ws-cover-preview" style="display:none;">
- <img id="ws-cover-preview-img" alt="Cover Halaman Tempahan" />
- <div class="ws-cover-preview-overlay">
- <span class="ws-cover-status-badge">
- <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
- Cover Semasa Aktif
- </span>
- <button type="button" class="ws-cover-change-btn" id="ws-cover-replace-btn">Tukar Gambar</button>
- </div>
- </div>
-
- <div class="ws-upload-dropzone" id="ws-cover-dropzone">
- <input type="file" id="ws-cover-file" accept="image/*" style="display:none;" />
- <div class="ws-upload-icon-wrap">
- <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
- </div>
- <span class="ws-upload-label"><strong>Pilih gambar cover</strong> atau seret ke sini</span>
- <span class="ws-upload-sub" data-i18n="ws_hero_upload_sub">Nisbah 16:9 disyorkan (contoh 1200x675 px), JPG atau PNG (Maks 3MB)</span>
- </div>
- <button type="button" id="ws-cover-upload-btn" class="secondary" style="display:none;">Muat Naik Gambar Cover</button>
- </div>
-
- <div class="row" style="margin-top:1.1rem; align-items:flex-start;">
- <div style="flex:2; min-width:240px;">
- <label for="ws-tagline">Tagline Utama<button type="button" class="info-icon-btn" data-info="Frasa pendek dan padat, contoh: 'Kami prihatin tentang kesihatan anda.' Berbeza dari Cerita Bisnes yang lebih panjang.">i</button></label>
- <div class="ws-tagline-input-wrap">
- <input type="text" id="ws-tagline" placeholder="Contoh: Perkhidmatan fotografi perkahwinan teliti & berjiwa seni." maxlength="80" />
- <span class="ws-char-count-pill" id="ws-tagline-counter">0/80</span>
- </div>
- </div>
- <div style="flex:1; min-width:160px;">
- <label for="ws-since-year">Beroperasi Sejak<button type="button" class="info-icon-btn" data-info="Pilihan. Dipaparkan sebagai lencana kredibiliti, contoh: 'Beroperasi Sejak 2018'.">i</button></label>
- <input type="number" id="ws-since-year" placeholder="Contoh: 2018" min="1900" max="2099" />
- </div>
- </div>
-
- <div class="ws-section-actions">
- <button type="button" id="ws-hero-save-btn" class="ws-section-save-btn">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
- <span data-i18n="ws_save_hero">Simpan Hero</span>
- </button>
- <span class="ws-section-save-hint">
- <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
- Dipaparkan serta-merta pada kepala laman awam
- </span>
- </div>
- </div>
-
- <div class="ws-section-card">
- <div class="ws-section-heading">
- <span class="ws-section-num">02</span>
- <div>
- <h3 class="ws-section-title">
- <span>Cerita Bisnes (About Us)</span>
- <button type="button" class="info-icon-btn" data-info="Cerita ringkas tentang bisnes anda, dipaparkan di halaman tempahan awam. Pilihan, jika dibiarkan kosong seksyen ini tidak akan dipaparkan.">i</button>
- </h3>
- <p class="ws-section-sub" data-i18n="ws_about_sub">Kongsi latar belakang perkhidmatan, kepakaran, dan nilai yang anda bawa kepada pelanggan.</p>
- </div>
- </div>
-
- <div class="ws-rte-wrap">
- <div class="ws-rte-toolbar">
- <button type="button" class="ws-rte-btn rte-btn" data-rte-cmd="bold" title="Tebal (Bold)" aria-label="Teks tebal">B</button>
- <button type="button" class="ws-rte-btn rte-btn" data-rte-cmd="italic" title="Condong (Italic)" aria-label="Teks condong"><i>I</i></button>
- <button type="button" class="ws-rte-btn rte-btn" data-rte-cmd="underline" title="Garis Bawah (Underline)" aria-label="Teks garis bawah"><u>U</u></button>
- <div class="ws-rte-tip">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
- <span data-i18n="ws_about_tip">Penceritaan yang jelas membina keyakinan pelanggan</span>
- </div>
- </div>
- <div class="ws-rte-editor rte-editor" id="ws-about-editor" contenteditable="true" data-placeholder="Contoh: Kami bermula sejak 2020 dengan misi menyediakan servis berkualiti tinggi dan mesra pelanggan. Setiap sesi dijalankan dengan teliti..."></div>
- </div>
-
- <div class="ws-section-actions">
- <button type="button" id="ws-about-save-btn" class="ws-section-save-btn">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
- <span data-i18n="ws_save_about">Simpan Cerita Bisnes</span>
- </button>
- <span class="ws-section-save-hint" data-i18n="ws_about_side_hint">Akan muncul dalam kad tepi bersebelahan borang tempahan</span>
- </div>
- </div>
-
- <div class="ws-section-card">
- <div class="ws-gallery-toolbar">
- <div class="ws-section-heading" style="margin-bottom:0;">
- <span class="ws-section-num">03</span>
- <div>
- <h3 class="ws-section-title">
- <span>Galeri Karya &amp; Portfolio</span>
- <button type="button" class="info-icon-btn" data-info="Gambar kerja/servis anda, dipaparkan sebagai galeri bento di halaman tempahan awam. Pilihan, jika tiada gambar bahagian ini tidak akan dipaparkan.">i</button>
- </h3>
- <p class="ws-section-sub" data-i18n="ws_gallery_sub">Tunjukkan bukti visual hasil kerja anda dalam susunan bento interaktif.</p>
- </div>
- </div>
- <div style="display:flex; align-items:center; gap:0.6rem;">
- <span class="ws-gallery-count-pill" id="ws-gallery-count-badge">Galeri Aktif</span>
- <button type="button" id="ws-gallery-add-btn" class="secondary" style="width:auto; display:inline-flex; align-items:center; gap:0.35rem; font-size:0.82rem; padding:0.45rem 0.85rem;">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
- <span data-i18n="ws_add_photo">Tambah Gambar</span>
- </button>
- </div>
- </div>
-
- <input type="file" id="ws-gallery-file-input" accept="image/*" style="display:none;" />
-
- <div class="ws-upload-dropzone ws-gallery-dropzone" id="ws-gallery-dropzone" style="margin-bottom:1rem;">
- <span class="ws-upload-label"><strong>Muat naik foto portfolio</strong> (klik atau seret fail ke sini)</span>
- <span class="ws-upload-sub">Format JPG, PNG, WebP (Maksimum 2MB setiap imej)</span>
- </div>
-
- <div id="ws-gallery-grid" class="ws-gallery-grid">
- <div class="skeleton" style="aspect-ratio:1; border-radius:10px;"></div>
- <div class="skeleton" style="aspect-ratio:1; border-radius:10px;"></div>
- <div class="skeleton" style="aspect-ratio:1; border-radius:10px;"></div>
- </div>
- </div>
-
- <div class="ws-section-card">
- <div class="ws-gallery-toolbar">
- <div class="ws-section-heading" style="margin-bottom:0;">
- <span class="ws-section-num">04</span>
- <div>
- <h3 class="ws-section-title">
- <span data-i18n="ws_testimonials_title">Testimoni &amp; Ulasan Pelanggan</span>
- <button type="button" class="info-icon-btn" data-info="Kata-kata pelanggan sebenar anda sahaja. Jangan reka testimoni, ini akan menjejaskan integriti dan kepercayaan pelanggan baharu.">i</button>
- </h3>
- <p class="ws-section-sub" data-i18n="ws_testimonials_sub">Ulasan dan bukti kepuasan pelanggan untuk meningkatkan kadar penukaran tempahan.</p>
- </div>
- </div>
- <div style="display:flex; align-items:center; gap:0.6rem;">
- <span class="ws-gallery-count-pill" id="ws-testimonial-count-badge">Ulasan</span>
- <button type="button" id="ws-testimonial-add-btn" class="secondary" style="width:auto; display:inline-flex; align-items:center; gap:0.35rem; font-size:0.82rem; padding:0.45rem 0.85rem;">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
- <span data-i18n="ws_add_testimonial">Tambah Testimoni</span>
- </button>
- </div>
- </div>
-
- <div id="ws-testimonial-list">
- <div class="skeleton" style="height:70px; border-radius:10px; margin-bottom:0.6rem;"></div>
- </div>
- </div>
-
- <div class="ws-section-card">
- <div class="ws-section-heading">
- <span class="ws-section-num">05</span>
- <div>
- <h3 class="ws-section-title">
- <span>Saluran Sosial &amp; Lokasi Rasmi</span>
- <button type="button" class="info-icon-btn" data-info="Pautan ini dipaparkan sebagai butang interaktif di halaman tempahan awam anda. Pilihan, isi mana yang relevan sahaja.">i</button>
- </h3>
- <p class="ws-section-sub" data-i18n="ws_social_sub">Hubungkan pelanggan dengan saluran media sosial dan peta navigasi lokasi fizikal anda.</p>
- </div>
- </div>
-
- <div class="ws-social-grid">
- <div class="ws-social-field-card">
- <div class="ws-social-field-header">
- <span class="ws-social-brand-badge wa">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
- </span>
- <label for="ws-whatsapp" class="ws-social-label">Nombor WhatsApp Rasmi<button type="button" class="info-icon-btn" data-info="Contoh: 60123456789 (tanpa simbol + atau sengkang). Butang 'Chat di WhatsApp' akan muncul di halaman tempahan.">i</button></label>
- </div>
- <input type="text" id="ws-whatsapp" placeholder="cth: 60123456789" />
- </div>
-
- <div class="ws-social-field-card">
- <div class="ws-social-field-header">
- <span class="ws-social-brand-badge maps">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
- </span>
- <label for="ws-maps" class="ws-social-label">Pautan Google Maps<button type="button" class="info-icon-btn" data-info="Salin pautan 'Share' dari Google Maps lokasi premis atau studio anda. Peta interaktif akan disematkan di halaman tempahan.">i</button></label>
- </div>
- <input type="url" id="ws-maps" placeholder="https://maps.app.goo.gl/..." />
- </div>
-
- <div class="ws-social-field-card">
- <div class="ws-social-field-header">
- <span class="ws-social-brand-badge ig">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
- </span>
- <label for="ws-instagram" class="ws-social-label">Profil Instagram<button type="button" class="info-icon-btn" data-info="Pautan ke akaun Instagram anda, contoh: https://instagram.com/nama_perniagaan">i</button></label>
- </div>
- <input type="url" id="ws-instagram" placeholder="https://instagram.com/..." />
- </div>
-
- <div class="ws-social-field-card">
- <div class="ws-social-field-header">
- <span class="ws-social-brand-badge tt">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
- </span>
- <label for="ws-tiktok" class="ws-social-label">Profil TikTok<button type="button" class="info-icon-btn" data-info="Pautan ke akaun TikTok anda, contoh: https://tiktok.com/@nama_perniagaan">i</button></label>
- </div>
- <input type="url" id="ws-tiktok" placeholder="https://tiktok.com/@..." />
- </div>
-
- <div class="ws-social-field-card" style="grid-column: 1 / -1;">
- <div class="ws-social-field-header">
- <span class="ws-social-brand-badge fb">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"></path></svg>
- </span>
- <label for="ws-facebook" class="ws-social-label">Halaman Facebook<button type="button" class="info-icon-btn" data-info="Pautan ke Facebook Page atau profil bisnes anda.">i</button></label>
- </div>
- <input type="url" id="ws-facebook" placeholder="https://facebook.com/..." />
- </div>
- </div>
-
- <div class="ws-section-actions">
- <button type="button" id="ws-social-save-btn" class="ws-section-save-btn">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
- <span data-i18n="ws_save_social">Simpan Social &amp; Lokasi</span>
- </button>
- <span class="ws-section-save-hint" data-i18n="ws_social_hint">Semua butang media sosial dan pautan peta akan aktif di portal tempahan</span>
+    <!-- Top Nav / Back Header -->
+    <div class="ws-page-topbar">
+      <div class="ws-page-topbar-left">
+        <button type="button" class="home-back-btn" data-i18n="btn_home_back">← Home</button>
+        <div class="ws-page-topbar-title-wrap">
+          <h1 class="ws-page-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--stamp)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <span data-i18n="nav_website">Website Saya</span>
+          </h1>
+          <span class="ws-topbar-tag">Laman Web &amp; Bio Rasmi</span>
         </div>
       </div>
+      <div class="ws-page-topbar-right">
+        <button type="button" class="ws-topbar-preview-btn" id="ws-topbar-preview-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><line x1="12" x2="12.01" y1="18" y2="18"></line></svg>
+          <span>Lihat Mini-Website Live</span>
+        </button>
+        <a href="/book.html?preview=1" target="_blank" rel="noopener" class="ws-preview-live-btn" id="ws-preview-live-link" title="Buka tab penuh">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <span data-i18n="ws_preview_live">Tab Penuh ↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Storefront Hero Card (Identity & Instant Actions) -->
+    <div class="ws-storefront-hero-card">
+      <div class="ws-hero-identity-row">
+        <div class="ws-hero-avatar-wrap">
+          <div class="ws-hero-avatar" id="ws-hero-avatar">
+            <img id="ws-hero-avatar-img" src="" alt="Logo Bisnes" style="display:none;" />
+            <div class="ws-hero-avatar-fallback" id="ws-hero-avatar-fallback">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            </div>
+          </div>
+          <span class="ws-hero-verified-dot" title="Auto-Sync Aktif"></span>
+        </div>
+        <div class="ws-hero-meta">
+          <div class="ws-hero-title-row">
+            <h2 class="ws-hero-biz-name" id="ws-hero-biz-name">Perniagaan Anda</h2>
+            <span class="ws-live-status-badge">
+              <span class="ws-status-live-dot"></span>
+              <span data-i18n="ws_auto_sync">Auto-sync Laman Awam</span>
+            </span>
+          </div>
+          <p class="ws-hero-biz-tagline" id="ws-hero-biz-tagline">Ubah profil tempahan menjadi mini-website profesional dengan pautan bio &amp; portfolio hasil kerja.</p>
+          
+          <!-- Bio Slug Interactive Pill -->
+          <div class="ws-hero-slug-bar">
+            <div class="ws-slug-pill-box" id="ws-slug-pill-box" role="button" tabindex="0" title="Ketik untuk salin pautan mini-website">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              <span class="ws-slug-host">eqstudio.link/book/</span>
+              <strong class="ws-slug-val" id="ws-slug-display">...</strong>
+              <span class="ws-slug-copy-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+                <span>Salin</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Row -->
+      <div class="ws-hero-actions-row">
+        <button type="button" class="ws-cta-btn ws-cta-primary" id="ws-hero-preview-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><line x1="12" x2="12.01" y1="18" y2="18"></line></svg>
+          <span>Lihat Mini-Website Live</span>
+        </button>
+        <button type="button" class="ws-cta-btn ws-cta-secondary" id="ws-hero-copy-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+          <span>Salin Pautan Bio</span>
+        </button>
+        <button type="button" class="ws-cta-btn ws-cta-secondary" id="ws-hero-wa-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Kongsi ke WhatsApp</span>
+        </button>
+        <a href="/book.html?preview=1" target="_blank" rel="noopener" class="ws-cta-btn ws-cta-ghost ws-preview-live-card-btn" id="ws-hero-tab-btn" title="Buka di tab penuh pelayar">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <span>Tab Penuh</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Studio Card with Accordion Building Blocks -->
+    <div class="card ws-studio-card" id="ws-studio-card">
+      <div class="ws-studio-header">
+        <div class="ws-studio-header-left">
+          <div class="ws-studio-icon-badge">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+              <h2 class="ws-studio-title" data-i18n="ws_studio_title">Modul Bina Laman Web (Storefront Studio)</h2>
+              <span class="ws-live-status-badge">
+                <span class="ws-status-live-dot"></span>
+                <span data-i18n="ws_auto_sync">5 Blok Tersusun</span>
+              </span>
+            </div>
+            <p class="ws-studio-desc" data-i18n="ws_studio_desc">Bina dan kemas kini kandungan laman web mini &amp; bio storefront anda melalui modul boleh buka-tutup di bawah. Setiap perubahan diselaraskan terus ke halaman tempahan awam.</p>
+          </div>
+        </div>
+        <div class="ws-studio-header-right">
+          <button type="button" class="ws-accordion-toggle-all-btn" id="ws-accordion-toggle-all" title="Buka / Tutup Semua Modul">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline></svg>
+            <span id="ws-toggle-all-label">Buka Semua</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Accordion Section 01: Hero & Cover -->
+      <div class="ws-accordion-card ws-section-card" id="ws-card-01">
+        <button type="button" class="ws-accordion-header" id="ws-accordion-hdr-01" aria-expanded="true" aria-controls="ws-accordion-body-01">
+          <div class="ws-accordion-header-left">
+            <span class="ws-section-num">01</span>
+            <div class="ws-accordion-meta">
+              <div class="ws-accordion-title-line">
+                <h3 class="ws-section-title">
+                  <span>Hero &amp; Gambar Muka Hadapan</span>
+                  <button type="button" class="info-icon-btn" data-info="Gambar besar dan tagline yang muncul di bahagian paling atas halaman tempahan awam anda, kesan pertama yang pelanggan nampak." onclick="event.stopPropagation();">i</button>
+                </h3>
+                <span class="ws-status-badge" id="ws-badge-hero">Menyemak...</span>
+              </div>
+              <p class="ws-section-sub" data-i18n="ws_hero_sub">Gambar impak besar dan tagline yang menyambut pelanggan pertama kali di portal tempahan.</p>
+            </div>
+          </div>
+          <div class="ws-accordion-header-right">
+            <span class="ws-accordion-chevron">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </div>
+        </button>
+
+        <div class="ws-accordion-content" id="ws-accordion-body-01" style="display:block;">
+          <div class="ws-accordion-inner">
+            <label for="ws-cover-file" style="display:block; margin-bottom:0.45rem;">Gambar Cover Halaman<button type="button" class="info-icon-btn" data-info="Gambar impak besar untuk bahagian atas halaman tempahan. Jika tiada, sistem akan guna warna jenama atau gambar pertama galeri sebagai latar belakang.">i</button></label>
+
+            <div class="ws-cover-preview-card" id="ws-cover-preview" style="display:none;">
+              <img id="ws-cover-preview-img" alt="Cover Halaman Tempahan" />
+              <div class="ws-cover-preview-overlay">
+                <span class="ws-cover-status-badge">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Cover Semasa Aktif
+                </span>
+                <button type="button" class="ws-cover-change-btn" id="ws-cover-replace-btn">Tukar Gambar</button>
+              </div>
+            </div>
+
+            <div class="ws-upload-dropzone" id="ws-cover-dropzone">
+              <input type="file" id="ws-cover-file" accept="image/*" style="display:none;" />
+              <div class="ws-upload-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
+              </div>
+              <strong class="ws-upload-label">Klik atau seret gambar muka hadapan ke sini</strong>
+              <span class="ws-upload-sub" data-i18n="ws_hero_upload_sub">Nisbah 16:9 disyorkan (contoh 1200x675 px), JPG atau PNG (Maks 3MB)</span>
+              <button type="button" id="ws-cover-upload-btn" class="secondary" style="display:none;">Muat Naik Gambar Cover</button>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr; gap:1rem; margin-top:1.25rem;">
+              <div>
+                <label for="ws-tagline">Slogan / Tagline Bisnes<button type="button" class="info-icon-btn" data-info="Ayat pendek yang merumuskan kelebihan anda. Contoh: 'Solekan Pengantin Glam &amp; Natural Terbaik di Lembah Klang'. Muncul di bawah nama perniagaan.">i</button></label>
+                <div class="ws-tagline-input-wrap">
+                  <input type="text" id="ws-tagline" placeholder="Contoh: Perkhidmatan fotografi perkahwinan teliti &amp; berjiwa seni." maxlength="80" />
+                  <span class="ws-char-count-pill" id="ws-tagline-counter">0/80</span>
+                </div>
+              </div>
+
+              <div>
+                <label for="ws-since-year">Tahun Mula Beroperasi (Pilihan)<button type="button" class="info-icon-btn" data-info="Menunjukkan pengalaman anda, contoh: 'Sejak 2018'. Membina keyakinan pelanggan baharu.">i</button></label>
+                <input type="number" id="ws-since-year" placeholder="Contoh: 2018" min="1900" max="2099" />
+              </div>
+            </div>
+
+            <div class="ws-section-actions">
+              <button type="button" id="ws-hero-save-btn" class="ws-section-save-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                <span data-i18n="ws_save_hero">Simpan Hero</span>
+              </button>
+              <span class="ws-section-save-hint">Perubahan akan dipaparkan terus di bahagian header mini-website anda</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion Section 02: About Story -->
+      <div class="ws-accordion-card ws-section-card" id="ws-card-02">
+        <button type="button" class="ws-accordion-header" id="ws-accordion-hdr-02" aria-expanded="false" aria-controls="ws-accordion-body-02">
+          <div class="ws-accordion-header-left">
+            <span class="ws-section-num">02</span>
+            <div class="ws-accordion-meta">
+              <div class="ws-accordion-title-line">
+                <h3 class="ws-section-title">
+                  <span>Cerita Pengenalan Bisnes (About)</span>
+                  <button type="button" class="info-icon-btn" data-info="Ceritakan tentang diri anda, pengalaman, nilai dan sebab kenapa pelanggan patut memilih perkhidmatan anda. Dipaparkan dalam kad khas di halaman tempahan." onclick="event.stopPropagation();">i</button>
+                </h3>
+                <span class="ws-status-badge" id="ws-badge-about">Menyemak...</span>
+              </div>
+              <p class="ws-section-sub" data-i18n="ws_about_sub">Kongsi latar belakang perkhidmatan, kepakaran, dan nilai yang anda bawa kepada pelanggan.</p>
+            </div>
+          </div>
+          <div class="ws-accordion-header-right">
+            <span class="ws-accordion-chevron">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </div>
+        </button>
+
+        <div class="ws-accordion-content" id="ws-accordion-body-02" style="display:none;">
+          <div class="ws-accordion-inner">
+            <div class="ws-rte-wrap">
+              <div class="ws-rte-toolbar">
+                <button type="button" class="ws-rte-btn" data-cmd="bold" title="Tebal (Ctrl+B)">B</button>
+                <button type="button" class="ws-rte-btn" data-cmd="italic" title="Condong (Ctrl+I)"><em>I</em></button>
+                <button type="button" class="ws-rte-btn" data-cmd="insertUnorderedList" title="Senarai Bullet">• List</button>
+                <span class="ws-rte-tip" data-i18n="ws_about_tip">Penceritaan yang jelas membina keyakinan pelanggan</span>
+              </div>
+              <div class="ws-rte-editor rte-editor" id="ws-about-editor" contenteditable="true" data-placeholder="Contoh: Kami bermula sejak 2020 dengan misi menyediakan servis berkualiti tinggi dan mesra pelanggan. Setiap sesi dijalankan dengan teliti..."></div>
+            </div>
+
+            <div class="ws-section-actions">
+              <button type="button" id="ws-about-save-btn" class="ws-section-save-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                <span data-i18n="ws_save_about">Simpan Cerita Bisnes</span>
+              </button>
+              <span class="ws-section-save-hint" data-i18n="ws_about_side_hint">Akan muncul dalam kad tepi bersebelahan borang tempahan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion Section 03: Gallery Portfolio -->
+      <div class="ws-accordion-card ws-section-card" id="ws-card-03">
+        <button type="button" class="ws-accordion-header" id="ws-accordion-hdr-03" aria-expanded="false" aria-controls="ws-accordion-body-03">
+          <div class="ws-accordion-header-left">
+            <span class="ws-section-num">03</span>
+            <div class="ws-accordion-meta">
+              <div class="ws-accordion-title-line">
+                <h3 class="ws-section-title">
+                  <span>Galeri Portfolio Hasil Kerja</span>
+                  <button type="button" class="info-icon-btn" data-info="Gambar hasil kerja anda akan disusun dalam grid visual yang menarik di halaman tempahan awam. Pelanggan boleh tekan untuk lihat gambar penuh." onclick="event.stopPropagation();">i</button>
+                </h3>
+                <span class="ws-status-badge" id="ws-badge-gallery">Menyemak...</span>
+              </div>
+              <p class="ws-section-sub" data-i18n="ws_gallery_sub">Tunjukkan bukti visual hasil kerja anda dalam susunan bento interaktif.</p>
+            </div>
+          </div>
+          <div class="ws-accordion-header-right">
+            <span class="ws-accordion-chevron">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </div>
+        </button>
+
+        <div class="ws-accordion-content" id="ws-accordion-body-03" style="display:none;">
+          <div class="ws-accordion-inner">
+            <div class="ws-gallery-toolbar">
+              <span class="ws-gallery-count-pill" id="ws-gallery-count-badge">Galeri Aktif</span>
+              <button type="button" id="ws-gallery-add-btn" class="secondary" style="width:auto; display:inline-flex; align-items:center; gap:0.35rem; font-size:0.82rem; padding:0.45rem 0.85rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span data-i18n="ws_add_photo">Tambah Gambar</span>
+              </button>
+              <input type="file" id="ws-gallery-file-input" accept="image/*" style="display:none;" />
+            </div>
+
+            <div class="ws-upload-dropzone ws-gallery-dropzone" id="ws-gallery-dropzone" style="margin-bottom:1rem;">
+              <div class="ws-upload-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              </div>
+              <strong class="ws-upload-label">Klik atau seret gambar hasil kerja ke sini</strong>
+              <span class="ws-upload-sub">Format JPG/PNG, saiz disyorkan bawah 2MB setiap keping.</span>
+            </div>
+
+            <div id="ws-gallery-grid" class="ws-gallery-grid">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion Section 04: Testimonials -->
+      <div class="ws-accordion-card ws-section-card" id="ws-card-04">
+        <button type="button" class="ws-accordion-header" id="ws-accordion-hdr-04" aria-expanded="false" aria-controls="ws-accordion-body-04">
+          <div class="ws-accordion-header-left">
+            <span class="ws-section-num">04</span>
+            <div class="ws-accordion-meta">
+              <div class="ws-accordion-title-line">
+                <h3 class="ws-section-title">
+                  <span>Ulasan &amp; Testimoni Pelanggan</span>
+                  <button type="button" class="info-icon-btn" data-info="Ulasan positif daripada pelanggan terdahulu. Menambah keyakinan pelanggan sehingga 70% untuk membuat tempahan." onclick="event.stopPropagation();">i</button>
+                </h3>
+                <span class="ws-status-badge" id="ws-badge-testimonials">Menyemak...</span>
+              </div>
+              <p class="ws-section-sub" data-i18n="ws_testimonials_sub">Ulasan dan bukti kepuasan pelanggan untuk meningkatkan kadar penukaran tempahan.</p>
+            </div>
+          </div>
+          <div class="ws-accordion-header-right">
+            <span class="ws-accordion-chevron">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </div>
+        </button>
+
+        <div class="ws-accordion-content" id="ws-accordion-body-04" style="display:none;">
+          <div class="ws-accordion-inner">
+            <div class="ws-gallery-toolbar">
+              <span class="ws-gallery-count-pill" id="ws-testimonial-count-badge">Ulasan</span>
+              <button type="button" id="ws-testimonial-add-btn" class="secondary" style="width:auto; display:inline-flex; align-items:center; gap:0.35rem; font-size:0.82rem; padding:0.45rem 0.85rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span data-i18n="ws_add_testimonial">Tambah Testimoni</span>
+              </button>
+            </div>
+
+            <div id="ws-testimonial-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion Section 05: Social & Maps -->
+      <div class="ws-accordion-card ws-section-card" id="ws-card-05">
+        <button type="button" class="ws-accordion-header" id="ws-accordion-hdr-05" aria-expanded="false" aria-controls="ws-accordion-body-05">
+          <div class="ws-accordion-header-left">
+            <span class="ws-section-num">05</span>
+            <div class="ws-accordion-meta">
+              <div class="ws-accordion-title-line">
+                <h3 class="ws-section-title">
+                  <span>Saluran Sosial &amp; Lokasi Rasmi</span>
+                  <button type="button" class="info-icon-btn" data-info="Pautan ini dipaparkan sebagai butang interaktif di halaman tempahan awam anda. Pilihan, isi mana yang relevan sahaja." onclick="event.stopPropagation();">i</button>
+                </h3>
+                <span class="ws-status-badge" id="ws-badge-social">Menyemak...</span>
+              </div>
+              <p class="ws-section-sub" data-i18n="ws_social_sub">Hubungkan pelanggan dengan saluran media sosial dan peta navigasi lokasi fizikal anda.</p>
+            </div>
+          </div>
+          <div class="ws-accordion-header-right">
+            <span class="ws-accordion-chevron">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+          </div>
+        </button>
+
+        <div class="ws-accordion-content" id="ws-accordion-body-05" style="display:none;">
+          <div class="ws-accordion-inner">
+            <div class="ws-social-grid">
+              <div class="ws-social-field-card">
+                <div class="ws-social-field-header">
+                  <span class="ws-social-brand-badge wa">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                  </span>
+                  <label for="ws-whatsapp" class="ws-social-label">Nombor WhatsApp Rasmi<button type="button" class="info-icon-btn" data-info="Contoh: 60123456789 (tanpa simbol + atau sengkang). Butang 'Chat di WhatsApp' akan muncul di halaman tempahan.">i</button></label>
+                </div>
+                <input type="text" id="ws-whatsapp" placeholder="cth: 60123456789" />
+              </div>
+
+              <div class="ws-social-field-card">
+                <div class="ws-social-field-header">
+                  <span class="ws-social-brand-badge maps">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  </span>
+                  <label for="ws-maps" class="ws-social-label">Pautan Google Maps<button type="button" class="info-icon-btn" data-info="Salin pautan 'Share' dari Google Maps lokasi premis atau studio anda. Peta interaktif akan disematkan di halaman tempahan.">i</button></label>
+                </div>
+                <input type="url" id="ws-maps" placeholder="https://maps.app.goo.gl/..." />
+              </div>
+
+              <div class="ws-social-field-card">
+                <div class="ws-social-field-header">
+                  <span class="ws-social-brand-badge ig">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                  </span>
+                  <label for="ws-instagram" class="ws-social-label">Profil Instagram<button type="button" class="info-icon-btn" data-info="Pautan ke akaun Instagram anda, contoh: https://instagram.com/nama_perniagaan">i</button></label>
+                </div>
+                <input type="url" id="ws-instagram" placeholder="https://instagram.com/..." />
+              </div>
+
+              <div class="ws-social-field-card">
+                <div class="ws-social-field-header">
+                  <span class="ws-social-brand-badge tt">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                  </span>
+                  <label for="ws-tiktok" class="ws-social-label">Profil TikTok<button type="button" class="info-icon-btn" data-info="Pautan ke akaun TikTok anda, contoh: https://tiktok.com/@nama_perniagaan">i</button></label>
+                </div>
+                <input type="url" id="ws-tiktok" placeholder="https://tiktok.com/@..." />
+              </div>
+
+              <div class="ws-social-field-card" style="grid-column: 1 / -1;">
+                <div class="ws-social-field-header">
+                  <span class="ws-social-brand-badge fb">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"></path></svg>
+                  </span>
+                  <label for="ws-facebook" class="ws-social-label">Halaman Facebook<button type="button" class="info-icon-btn" data-info="Pautan ke Facebook Page atau profil bisnes anda.">i</button></label>
+                </div>
+                <input type="url" id="ws-facebook" placeholder="https://facebook.com/..." />
+              </div>
+            </div>
+
+            <div class="ws-section-actions">
+              <button type="button" id="ws-social-save-btn" class="ws-section-save-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                <span data-i18n="ws_save_social">Simpan Social &amp; Lokasi</span>
+              </button>
+              <span class="ws-section-save-hint" data-i18n="ws_social_hint">Semua butang media sosial dan pautan peta akan aktif di portal tempahan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Sticky Bottom Action Bar -->
+    <div class="ws-mobile-sticky-bar" id="ws-mobile-sticky-bar">
+      <button type="button" class="ws-mobile-bar-btn ws-mobile-bar-preview" id="ws-mobile-bar-preview-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><line x1="12" x2="12.01" y1="18" y2="18"></line></svg>
+        <span>Lihat Live</span>
+      </button>
+      <button type="button" class="ws-mobile-bar-btn ws-mobile-bar-copy" id="ws-mobile-bar-copy-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+        <span>Salin Link</span>
+      </button>
+      <button type="button" class="ws-mobile-bar-btn ws-mobile-bar-wa" id="ws-mobile-bar-wa-btn" title="Kongsi ke WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      </button>
     </div>
   </div> <!-- /page-website -->
 
@@ -2491,7 +2639,58 @@
  </div>
  </div>
 
- <!-- ── Mobile Bottom Navigation Bar (Dock) ── -->
+   <!-- ── Website Saya: Phone Frame Pop-up / Bottom Sheet Live Preview Modal ── -->
+  <div class="ws-phone-modal-backdrop" id="ws-phone-preview-modal" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Live Mini-Website Preview">
+    <div class="ws-phone-mockup" id="ws-phone-mockup">
+      <!-- Mobile Drag / Sheet Handle -->
+      <div class="ws-phone-drag-handle"></div>
+
+      <!-- Top Phone Dynamic Island / Speaker -->
+      <div class="ws-phone-dynamic-island">
+        <span class="ws-phone-speaker"></span>
+        <span class="ws-phone-lens"></span>
+      </div>
+
+      <!-- Modal Toolbar / Navigation Bar -->
+      <div class="ws-phone-toolbar">
+        <div class="ws-phone-url-bar" id="ws-phone-url-bar" title="Ketik untuk salin link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span class="ws-phone-url-host">eqstudio.link/book/</span><strong id="ws-phone-url-slug" class="ws-phone-url-slug">...</strong>
+          <span class="ws-phone-url-copy-icon" title="Salin pautan">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+          </span>
+        </div>
+        <div class="ws-phone-toolbar-actions">
+          <button type="button" class="ws-phone-btn" id="ws-phone-reload-btn" title="Muat semula preview">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          </button>
+          <button type="button" class="ws-phone-btn" id="ws-phone-copy-btn" title="Salin pautan">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+          </button>
+          <button type="button" class="ws-phone-btn" id="ws-phone-share-wa-btn" title="Kongsi WhatsApp">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          </button>
+          <a href="/book.html?preview=1" target="_blank" rel="noopener" class="ws-phone-btn" id="ws-phone-open-tab-btn" title="Buka tab penuh">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+          <button type="button" class="ws-phone-btn ws-phone-close-btn" id="ws-phone-close-btn" aria-label="Tutup preview">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Phone Screen Viewport -->
+      <div class="ws-phone-screen">
+        <div class="ws-phone-loading-spinner" id="ws-phone-spinner">
+          <div class="spinner"></div>
+          <span>Menyambung ke mini-website anda...</span>
+        </div>
+        <iframe id="ws-phone-preview-iframe" class="ws-phone-iframe" src="about:blank" title="Preview Mini-Website Live"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Mobile Bottom Navigation Bar (Dock) ── -->
  <nav class="mobile-bottom-dock" id="mobile-bottom-dock" aria-label="Navigasi Utama Mudah Alih">
  <button type="button" class="mobile-dock-item active" data-dock-page="home" id="dock-btn-home" aria-label="Laman Utama">
  <div class="mobile-dock-icon">
@@ -3495,6 +3694,18 @@
  document.getElementById("business-name-side").textContent = bizLabel;
  document.getElementById("mr-biz").textContent = bizLabel;
  document.getElementById("home-biz-name").textContent = bizLabel;
+    if (document.getElementById("ws-hero-biz-name")) document.getElementById("ws-hero-biz-name").textContent = bizLabel;
+    if (document.getElementById("ws-hero-biz-tagline")) {
+      document.getElementById("ws-hero-biz-tagline").textContent = profile?.tagline || "Ubah profil tempahan menjadi mini-website profesional dengan pautan bio & portfolio hasil kerja.";
+    }
+    if (profile?.logo_url) {
+      const aImg = document.getElementById("ws-hero-avatar-img");
+      const aFb = document.getElementById("ws-hero-avatar-fallback");
+      if (aImg) { aImg.src = profile.logo_url; aImg.style.display = "block"; }
+      if (aFb) { aFb.style.display = "none"; }
+    }
+    refreshWebsiteStudioLinks();
+    updateWebsiteStudioBadges();
 
  // ── Website Saya: populate Hero fields (cover photo, tagline, since year) ──
  if (document.getElementById("ws-tagline")) {
@@ -3545,7 +3756,7 @@
  const { error } = await supabase.from("profiles").update(payload).eq("id", user.id);
  if (error) { showToast("Gagal simpan: " + error.message, "error"); return; }
  flashButtonSuccess(btn, "Simpan Hero");
- showToast("Hero halaman tempahan disimpan.", "success");
+ showToast("Hero halaman tempahan disimpan.", "success"); updateWebsiteStudioBadges();
  });
 
  // ── Website Saya: populate About text + Social & Lokasi fields ──
@@ -3567,7 +3778,7 @@
  const { error } = await supabase.from("profiles").update({ about_text: aboutHtml }).eq("id", user.id);
  if (error) { showToast("Gagal simpan: " + error.message, "error"); return; }
  flashButtonSuccess(btn, "Simpan Cerita Bisnes");
- showToast("Cerita bisnes disimpan.", "success");
+ showToast("Cerita bisnes disimpan.", "success"); updateWebsiteStudioBadges();
  });
 
  document.getElementById("ws-social-save-btn")?.addEventListener("click", async () => {
@@ -3583,7 +3794,7 @@
  const { error } = await supabase.from("profiles").update(payload).eq("id", user.id);
  if (error) { showToast("Gagal simpan: " + error.message, "error"); return; }
  flashButtonSuccess(btn, "Simpan Social & Lokasi");
- showToast("Social & Lokasi disimpan.", "success");
+ showToast("Social & Lokasi disimpan.", "success"); updateWebsiteStudioBadges();
  });
 
  // ── Website Saya: Galeri (gallery_images CRUD) ──
@@ -3681,6 +3892,265 @@
  if (form) form.style.display = form.style.display === "none" ? "block" : "none";
  });
  if (document.getElementById("ws-testimonial-list")) loadTestimonials();
+
+  // ── Website Saya: Storefront Studio & Phone Preview Modal Enhancements ──
+  function getWebsiteSlugAndUrls() {
+    const pSlug = (Array.isArray(allBookingLinks) && (allBookingLinks.find(l => l.is_primary)?.slug || allBookingLinks[0]?.slug)) || (typeof currentProfile !== "undefined" && currentProfile?.booking_slug) || (typeof profile !== "undefined" && profile?.booking_slug) || "";
+    const liveUrl = pSlug ? `/book.html?slug=${encodeURIComponent(pSlug)}&preview=1` : `/book.html?preview=1`;
+    const shareUrl = pSlug ? `${window.location.origin}/book.html?slug=${encodeURIComponent(pSlug)}` : `${window.location.origin}/book.html`;
+    const displaySlug = pSlug || "pautan-anda";
+    return { pSlug, liveUrl, shareUrl, displaySlug };
+  }
+
+  function refreshWebsiteStudioLinks() {
+    const { liveUrl, displaySlug } = getWebsiteSlugAndUrls();
+    const slugEl = document.getElementById("ws-slug-display");
+    if (slugEl) slugEl.textContent = displaySlug;
+    const phoneSlugEl = document.getElementById("ws-phone-url-slug");
+    if (phoneSlugEl) phoneSlugEl.textContent = displaySlug;
+
+    const liveLink = document.getElementById("ws-preview-live-link");
+    if (liveLink) liveLink.href = liveUrl;
+    const heroTabBtn = document.getElementById("ws-hero-tab-btn");
+    if (heroTabBtn) heroTabBtn.href = liveUrl;
+    const phoneTabBtn = document.getElementById("ws-phone-open-tab-btn");
+    if (phoneTabBtn) phoneTabBtn.href = liveUrl;
+  }
+
+  function updateWebsiteStudioBadges() {
+    // 01 Hero
+    const badgeHero = document.getElementById("ws-badge-hero");
+    if (badgeHero) {
+      const hasCover = !!(wsCoverPhotoUrl || (typeof currentProfile !== "undefined" && currentProfile?.cover_photo_url) || (typeof profile !== "undefined" && profile?.cover_photo_url));
+      const taglineVal = document.getElementById("ws-tagline")?.value?.trim();
+      if (hasCover) {
+        badgeHero.className = "ws-status-badge is-active";
+        badgeHero.textContent = "Cover Aktif";
+      } else if (taglineVal) {
+        badgeHero.className = "ws-status-badge is-active";
+        badgeHero.textContent = "Tagline Aktif";
+      } else {
+        badgeHero.className = "ws-status-badge is-empty";
+        badgeHero.textContent = "Belum Diisi";
+      }
+    }
+
+    // 02 About
+    const badgeAbout = document.getElementById("ws-badge-about");
+    if (badgeAbout) {
+      const aboutText = document.getElementById("ws-about-editor")?.innerText?.trim();
+      if (aboutText && aboutText.length > 5) {
+        badgeAbout.className = "ws-status-badge is-active";
+        badgeAbout.textContent = "Cerita Diisi";
+      } else {
+        badgeAbout.className = "ws-status-badge is-empty";
+        badgeAbout.textContent = "Belum Diisi";
+      }
+    }
+
+    // 03 Gallery
+    const badgeGallery = document.getElementById("ws-badge-gallery");
+    if (badgeGallery) {
+      const count = document.querySelectorAll("#ws-gallery-grid .ws-gallery-item").length;
+      if (count > 0) {
+        badgeGallery.className = "ws-status-badge is-active";
+        badgeGallery.textContent = `${count} Gambar Aktif`;
+      } else {
+        badgeGallery.className = "ws-status-badge is-empty";
+        badgeGallery.textContent = "Belum Ada Gambar";
+      }
+    }
+
+    // 04 Testimonials
+    const badgeTestimonials = document.getElementById("ws-badge-testimonials");
+    if (badgeTestimonials) {
+      const count = document.querySelectorAll("#ws-testimonial-list .ws-testimonial-row").length;
+      if (count > 0) {
+        badgeTestimonials.className = "ws-status-badge is-active";
+        badgeTestimonials.textContent = `${count} Ulasan`;
+      } else {
+        badgeTestimonials.className = "ws-status-badge is-empty";
+        badgeTestimonials.textContent = "Belum Ada Ulasan";
+      }
+    }
+
+    // 05 Social
+    const badgeSocial = document.getElementById("ws-badge-social");
+    if (badgeSocial) {
+      const wa = document.getElementById("ws-whatsapp")?.value?.trim();
+      const maps = document.getElementById("ws-maps")?.value?.trim();
+      const ig = document.getElementById("ws-instagram")?.value?.trim();
+      const tt = document.getElementById("ws-tiktok")?.value?.trim();
+      const fb = document.getElementById("ws-facebook")?.value?.trim();
+      let activeCount = 0;
+      if (wa) activeCount++;
+      if (maps) activeCount++;
+      if (ig) activeCount++;
+      if (tt) activeCount++;
+      if (fb) activeCount++;
+      if (activeCount > 0) {
+        badgeSocial.className = "ws-status-badge is-active";
+        badgeSocial.textContent = `${activeCount} Pautan Aktif`;
+      } else {
+        badgeSocial.className = "ws-status-badge is-empty";
+        badgeSocial.textContent = "Belum Diisi";
+      }
+    }
+  }
+
+  function initWebsiteStudioAccordions() {
+    const cards = document.querySelectorAll(".ws-accordion-card");
+    cards.forEach(card => {
+      const header = card.querySelector(".ws-accordion-header");
+      const content = card.querySelector(".ws-accordion-content");
+      if (!header || !content) return;
+      header.addEventListener("click", () => {
+        const isExpanded = header.getAttribute("aria-expanded") === "true";
+        header.setAttribute("aria-expanded", !isExpanded);
+        content.style.display = isExpanded ? "none" : "block";
+      });
+    });
+
+    const toggleAllBtn = document.getElementById("ws-accordion-toggle-all");
+    if (toggleAllBtn) {
+      let allOpen = false;
+      toggleAllBtn.addEventListener("click", () => {
+        allOpen = !allOpen;
+        cards.forEach(card => {
+          const header = card.querySelector(".ws-accordion-header");
+          const content = card.querySelector(".ws-accordion-content");
+          if (header && content) {
+            header.setAttribute("aria-expanded", allOpen);
+            content.style.display = allOpen ? "block" : "none";
+          }
+        });
+        const label = document.getElementById("ws-toggle-all-label");
+        if (label) label.textContent = allOpen ? "Tutup Semua" : "Buka Semua";
+      });
+    }
+  }
+
+  function openWebsitePhonePreview() {
+    const modal = document.getElementById("ws-phone-preview-modal");
+    const iframe = document.getElementById("ws-phone-preview-iframe");
+    const spinner = document.getElementById("ws-phone-spinner");
+    if (!modal || !iframe) return;
+
+    refreshWebsiteStudioLinks();
+    const { liveUrl } = getWebsiteSlugAndUrls();
+
+    modal.style.display = "flex";
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("ws-modal-open");
+
+    if (spinner) spinner.style.display = "flex";
+
+    iframe.onload = () => {
+      if (spinner) spinner.style.display = "none";
+    };
+
+    if (!iframe.src || iframe.src === "about:blank" || iframe.src.indexOf(liveUrl) === -1) {
+      iframe.src = liveUrl;
+    } else {
+      if (spinner) spinner.style.display = "none";
+    }
+  }
+
+  function closeWebsitePhonePreview() {
+    const modal = document.getElementById("ws-phone-preview-modal");
+    if (!modal) return;
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("ws-modal-open");
+  }
+
+  function copyWebsiteBioLink() {
+    const { shareUrl } = getWebsiteSlugAndUrls();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        showToast("Pautan mini-website disalin: " + shareUrl, "success");
+      }).catch(() => {
+        fallbackCopy(shareUrl);
+      });
+    } else {
+      fallbackCopy(shareUrl);
+    }
+    function fallbackCopy(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      showToast("Pautan mini-website disalin: " + text, "success");
+    }
+  }
+
+  function shareWebsiteToWhatsApp() {
+    const { shareUrl } = getWebsiteSlugAndUrls();
+    const biz = (typeof profile !== "undefined" && profile?.business_name) || (typeof currentProfile !== "undefined" && currentProfile?.business_name) || "kami";
+    const msg = `Hai! Sila layari laman web rasmi ${biz} dan semak pakej atau buat tempahan anda di sini: ${shareUrl}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
+  }
+
+  // Export globals
+  window.openWebsitePhonePreview = openWebsitePhonePreview;
+  window.closeWebsitePhonePreview = closeWebsitePhonePreview;
+  window.copyWebsiteBioLink = copyWebsiteBioLink;
+  window.shareWebsiteToWhatsApp = shareWebsiteToWhatsApp;
+  window.updateWebsiteStudioBadges = updateWebsiteStudioBadges;
+  window.refreshWebsiteStudioLinks = refreshWebsiteStudioLinks;
+
+  // Initialize UI events for Website Studio
+  initWebsiteStudioAccordions();
+
+  // Preview Buttons
+  document.getElementById("ws-topbar-preview-btn")?.addEventListener("click", openWebsitePhonePreview);
+  document.getElementById("ws-hero-preview-btn")?.addEventListener("click", openWebsitePhonePreview);
+  document.getElementById("ws-mobile-bar-preview-btn")?.addEventListener("click", openWebsitePhonePreview);
+  document.getElementById("ws-phone-close-btn")?.addEventListener("click", closeWebsitePhonePreview);
+
+  // Close on backdrop or ESC
+  document.getElementById("ws-phone-preview-modal")?.addEventListener("click", (e) => {
+    if (e.target.id === "ws-phone-preview-modal") closeWebsitePhonePreview();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.getElementById("ws-phone-preview-modal")?.style.display === "flex") {
+      closeWebsitePhonePreview();
+    }
+  });
+
+  // Reload iframe preview
+  document.getElementById("ws-phone-reload-btn")?.addEventListener("click", () => {
+    const iframe = document.getElementById("ws-phone-preview-iframe");
+    const spinner = document.getElementById("ws-phone-spinner");
+    if (iframe) {
+      if (spinner) spinner.style.display = "flex";
+      const { liveUrl } = getWebsiteSlugAndUrls();
+      const sep = liveUrl.includes("?") ? "&" : "?";
+      iframe.src = liveUrl + sep + "_t=" + Date.now();
+    }
+  });
+
+  // Copy Bio Link triggers
+  document.getElementById("ws-hero-copy-btn")?.addEventListener("click", copyWebsiteBioLink);
+  document.getElementById("ws-slug-pill-box")?.addEventListener("click", copyWebsiteBioLink);
+  document.getElementById("ws-mobile-bar-copy-btn")?.addEventListener("click", copyWebsiteBioLink);
+  document.getElementById("ws-phone-copy-btn")?.addEventListener("click", copyWebsiteBioLink);
+  document.getElementById("ws-phone-url-bar")?.addEventListener("click", copyWebsiteBioLink);
+
+  // WhatsApp Share triggers
+  document.getElementById("ws-hero-wa-btn")?.addEventListener("click", shareWebsiteToWhatsApp);
+  document.getElementById("ws-mobile-bar-wa-btn")?.addEventListener("click", shareWebsiteToWhatsApp);
+  document.getElementById("ws-phone-share-wa-btn")?.addEventListener("click", shareWebsiteToWhatsApp);
+
+  // Replace cover button trigger
+  document.getElementById("ws-cover-replace-btn")?.addEventListener("click", () => {
+    document.getElementById("ws-cover-file")?.click();
+  });
+
 
  function renderTierBadge(el) {
  if (!el) return;

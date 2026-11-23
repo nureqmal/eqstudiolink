@@ -186,6 +186,51 @@
     </button>
   </div>
 
+    <!-- Social Media Showcase Sheet / Modal -->
+  <div class="book-social-modal-overlay" id="book-social-showcase-modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="social-modal-title">
+    <div class="book-social-modal-box">
+      <div class="book-social-modal-header">
+        <div class="book-social-modal-biz">
+          <div class="book-social-modal-avatar" id="social-modal-avatar"></div>
+          <div style="min-width:0;">
+            <h3 class="book-social-modal-title" id="social-modal-title">Koleksi Media Sosial Rasmi</h3>
+            <p class="book-social-modal-sub" id="social-modal-biz-name">-</p>
+          </div>
+        </div>
+        <button type="button" class="book-social-modal-close" id="book-social-modal-close-btn" aria-label="Tutup">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="book-social-modal-body">
+        <p class="book-social-modal-intro">
+          Terokai ratusan hasil kerja, video transformasi harian &amp; ulasan pelanggan kami di platform media sosial rasmi:
+        </p>
+
+        <!-- Social Channels List (Injected dynamically) -->
+        <div class="book-social-channels-list" id="book-social-channels-container"></div>
+
+        <!-- Safe Return / Booking Protection Notice -->
+        <div class="book-social-safe-box">
+          <div class="book-social-safe-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+          <div class="book-social-safe-text">
+            <strong>Pilihan slot &amp; pakej anda disimpan di sini</strong>
+            <p>Pautan luar akan dibuka dalam tab baharu supaya anda boleh kembali ke sini pada bila-bila masa untuk melengkapkan tempahan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-social-modal-footer">
+        <button type="button" class="book-social-stay-btn" id="book-social-stay-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Kekal di Sini &amp; Teruskan Tempahan</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Global Tooltip -->
   <div class="info-tooltip" id="global-info-tooltip"></div>
 
@@ -1074,7 +1119,7 @@
       const hasGallery = gallery && gallery.length > 0;
       const hasTestimonials = testimonials && testimonials.length > 0;
       const hasMap = biz.business_address && biz.business_address.trim();
-      const hasShowcaseContent = hasAbout || hasGallery || hasTestimonials || hasMap;
+      const hasShowcaseContent = hasAbout || hasGallery || hasTestimonials || hasMap || (biz && (biz.instagram_url || biz.tiktok_url || biz.facebook_url));
 
       const layoutSplit = document.getElementById("book-layout-split");
       const showcaseCol = document.getElementById("book-showcase-col");
@@ -1098,7 +1143,10 @@
           aboutEl.innerHTML = "";
         }
 
-        // 2. Bento Gallery
+        window.__currentBookBusiness = biz;
+        const hasSocial = !!(biz.instagram_url || biz.tiktok_url || biz.facebook_url);
+
+        // 2. Bento Gallery & Social Showcase Bar
         const galleryEl = document.getElementById("book-gallery-section");
         if (hasGallery) {
           const MAX_VISIBLE = 6;
@@ -1121,11 +1169,48 @@
                   </div>
                 `).join("")}
               </div>
+              ${hasSocial ? `
+                <div class="book-gallery-more-bar">
+                  <div class="book-gallery-more-text">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                    <span>Mahu lihat lagi ratusan hasil kerja?</span>
+                  </div>
+                  <button type="button" class="book-gallery-more-btn" id="book-open-social-modal-btn">
+                    <div class="book-gallery-social-icons">
+                      ${biz.instagram_url ? '<span class="social-mini-dot ig"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><circle cx="12" cy="12" r="3.5"></circle></svg></span>' : ''}
+                      ${biz.tiktok_url ? '<span class="social-mini-dot tt"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg></span>' : ''}
+                      ${biz.facebook_url ? '<span class="social-mini-dot fb"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></span>' : ''}
+                    </div>
+                    <span>Media Sosial Kami ▾</span>
+                  </button>
+                </div>
+              ` : ''}
             </div>`;
           window.__bookGalleryImages = gallery.map(g => g.image_url);
           galleryEl.querySelectorAll("[data-lightbox-index]").forEach(el => {
             el.addEventListener("click", () => openGalleryLightbox(Number(el.dataset.lightboxIndex)));
           });
+          document.getElementById("book-open-social-modal-btn")?.addEventListener("click", () => openSocialShowcaseModal(biz));
+        } else if (hasSocial) {
+          galleryEl.innerHTML = `
+            <div class="book-side-card">
+              <div class="book-side-title-row">
+                <h2 class="book-side-title" style="margin-bottom:0;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                  ${T().galleryTitle}
+                </h2>
+              </div>
+              <p class="hint" style="margin:0.5rem 0 0.85rem; font-size:0.82rem;">Koleksi portfolio foto, video dan hasil kerja rasmi kami dipamerkan secara langsung di media sosial:</p>
+              <button type="button" class="book-gallery-more-btn" id="book-open-social-modal-btn" style="width:100%; justify-content:center; padding:0.65rem 1rem;">
+                <div class="book-gallery-social-icons">
+                  ${biz.instagram_url ? '<span class="social-mini-dot ig"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><circle cx="12" cy="12" r="3.5"></circle></svg></span>' : ''}
+                  ${biz.tiktok_url ? '<span class="social-mini-dot tt"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg></span>' : ''}
+                  ${biz.facebook_url ? '<span class="social-mini-dot fb"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></span>' : ''}
+                </div>
+                <span>Terokai Galeri Media Sosial ▾</span>
+              </button>
+            </div>`;
+          document.getElementById("book-open-social-modal-btn")?.addEventListener("click", () => openSocialShowcaseModal(biz));
         } else {
           galleryEl.innerHTML = "";
         }
@@ -2180,6 +2265,138 @@
 
     // Gallery Lightbox
     let lightboxIndex = 0;
+    
+    // ── Social Media Showcase Modal ──
+    function extractSocialHandle(url, type) {
+      if (!url) return "";
+      try {
+        const clean = url.replace(/\/+$/, "");
+        const parts = clean.split("/");
+        const last = parts[parts.length - 1];
+        if (last && last.length > 1) {
+          return last.startsWith("@") ? last : ("@" + last);
+        }
+      } catch(e) {}
+      return type === "ig" ? "@instagram" : "@tiktok";
+    }
+
+    function openSocialShowcaseModal(biz) {
+      const modal = document.getElementById("book-social-showcase-modal");
+      if (!modal) return;
+
+      const currentBiz = biz || window.__currentBookBusiness || {};
+      const bizName = currentBiz.business_name || "Kami";
+      const nameEl = document.getElementById("social-modal-biz-name");
+      if (nameEl) nameEl.textContent = bizName;
+
+      // Avatar
+      const avatarEl = document.getElementById("social-modal-avatar");
+      if (avatarEl) {
+        if (currentBiz.logo_url) {
+          avatarEl.innerHTML = `<img src="${escapeHtml(currentBiz.logo_url)}" alt="${escapeHtml(bizName)}" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;" />`;
+        } else {
+          const initial = (bizName.charAt(0) || "S").toUpperCase();
+          avatarEl.innerHTML = `<span>${initial}</span>`;
+        }
+      }
+
+      // Channels
+      const container = document.getElementById("book-social-channels-container");
+      if (container) {
+        let channelsHtml = "";
+
+        if (currentBiz.instagram_url) {
+          const handle = extractSocialHandle(currentBiz.instagram_url, "ig");
+          channelsHtml += `
+            <div class="book-social-channel-card">
+              <div class="book-social-channel-icon ig">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </div>
+              <div class="book-social-channel-info">
+                <div class="book-social-channel-title-row">
+                  <strong>Instagram</strong>
+                  <span class="book-social-handle">${escapeHtml(handle)}</span>
+                </div>
+                <p class="book-social-channel-desc">Pameran foto hasil kerja terkini, reels &amp; review majlis.</p>
+              </div>
+              <a href="${escapeHtml(currentBiz.instagram_url)}" target="_blank" rel="noopener" class="book-social-channel-btn ig">
+                <span>Buka IG</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          `;
+        }
+
+        if (currentBiz.tiktok_url) {
+          const handle = extractSocialHandle(currentBiz.tiktok_url, "tt");
+          channelsHtml += `
+            <div class="book-social-channel-card">
+              <div class="book-social-channel-icon tt">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+              </div>
+              <div class="book-social-channel-info">
+                <div class="book-social-channel-title-row">
+                  <strong>TikTok</strong>
+                  <span class="book-social-handle">${escapeHtml(handle)}</span>
+                </div>
+                <p class="book-social-channel-desc">Video transformasi, tips servis &amp; behind-the-scenes.</p>
+              </div>
+              <a href="${escapeHtml(currentBiz.tiktok_url)}" target="_blank" rel="noopener" class="book-social-channel-btn tt">
+                <span>Buka TikTok</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          `;
+        }
+
+        if (currentBiz.facebook_url) {
+          channelsHtml += `
+            <div class="book-social-channel-card">
+              <div class="book-social-channel-icon fb">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+              </div>
+              <div class="book-social-channel-info">
+                <div class="book-social-channel-title-row">
+                  <strong>Facebook</strong>
+                  <span class="book-social-handle">Halaman Rasmi</span>
+                </div>
+                <p class="book-social-channel-desc">Album penuh majlis, maklumat promosi &amp; ulasan pelanggan.</p>
+              </div>
+              <a href="${escapeHtml(currentBiz.facebook_url)}" target="_blank" rel="noopener" class="book-social-channel-btn fb">
+                <span>Buka FB</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          `;
+        }
+
+        container.innerHTML = channelsHtml;
+      }
+
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeSocialShowcaseModal() {
+      const modal = document.getElementById("book-social-showcase-modal");
+      if (modal) modal.style.display = "none";
+      document.body.style.overflow = "";
+    }
+
+    document.getElementById("book-social-modal-close-btn")?.addEventListener("click", closeSocialShowcaseModal);
+    document.getElementById("book-social-showcase-modal")?.addEventListener("click", (e) => {
+      if (e.target.id === "book-social-showcase-modal") closeSocialShowcaseModal();
+    });
+    document.getElementById("book-social-stay-btn")?.addEventListener("click", () => {
+      closeSocialShowcaseModal();
+      document.getElementById("book-step-services")?.scrollIntoView({ behavior: "smooth" });
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && document.getElementById("book-social-showcase-modal")?.style.display === "flex") {
+        closeSocialShowcaseModal();
+      }
+    });
+
     function openGalleryLightbox(index) {
       lightboxIndex = index;
       updateLightboxImage();

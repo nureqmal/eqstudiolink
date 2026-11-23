@@ -12250,3 +12250,388 @@ body.ws-modal-open {
   opacity: 1;
   color: var(--stamp);
 }
+
+/* ═══════════════════════════════════════════════════════════
+   IN-APP SOCIAL SHOWCASE MODAL & GALLERY BAR (BOOKING PAGE)
+   ═══════════════════════════════════════════════════════════ */
+.book-gallery-more-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.95rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--paper-line);
+  flex-wrap: wrap;
+}
+
+.book-gallery-more-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.book-gallery-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  background: color-mix(in srgb, var(--paper) 65%, var(--surface));
+  border: 1px solid var(--paper-line);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.book-gallery-more-btn:hover {
+  background: var(--surface);
+  border-color: var(--stamp);
+  color: var(--stamp);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 9, 143, 0.08);
+}
+
+.book-gallery-social-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.social-mini-dot {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.social-mini-dot.ig {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.social-mini-dot.tt {
+  background: #000;
+}
+
+.social-mini-dot.fb {
+  background: #1877F2;
+}
+
+/* Modal Overlay */
+.book-social-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.book-social-modal-box {
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: socialModalEnter 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes socialModalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.book-social-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1.15rem 1.35rem;
+  border-bottom: 1px solid var(--paper-line);
+  background: color-mix(in srgb, var(--paper) 30%, var(--surface));
+}
+
+.book-social-modal-biz {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.book-social-modal-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--stamp-soft) 85%, transparent);
+  color: var(--stamp);
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid var(--paper-line);
+}
+
+.book-social-modal-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.book-social-modal-sub {
+  margin: 0.15rem 0 0 0;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.book-social-modal-close {
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.book-social-modal-close:hover {
+  background: var(--surface);
+  color: var(--ink);
+  transform: scale(1.05);
+}
+
+.book-social-modal-body {
+  padding: 1.25rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.book-social-modal-intro {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.book-social-channels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.book-social-channel-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background: color-mix(in srgb, var(--paper) 40%, var(--surface));
+  border: 1px solid var(--paper-line);
+  border-radius: 14px;
+  transition: all 0.18s ease;
+}
+
+.book-social-channel-card:hover {
+  border-color: color-mix(in srgb, var(--stamp) 35%, var(--paper-line));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.book-social-channel-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.book-social-channel-icon.ig {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.book-social-channel-icon.tt {
+  background: #000;
+}
+
+.book-social-channel-icon.fb {
+  background: #1877F2;
+}
+
+.book-social-channel-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.book-social-channel-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.book-social-channel-title-row strong {
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.book-social-handle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--stamp);
+  background: color-mix(in srgb, var(--stamp-soft) 80%, transparent);
+  padding: 0.1rem 0.45rem;
+  border-radius: 6px;
+}
+
+.book-social-channel-desc {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.77rem;
+  color: var(--ink-soft);
+  line-height: 1.35;
+}
+
+.book-social-channel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  color: var(--ink);
+}
+
+.book-social-channel-btn:hover {
+  background: var(--stamp);
+  border-color: var(--stamp);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(74, 9, 143, 0.2);
+}
+
+/* Safe Return Box */
+.book-social-safe-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: rgba(16, 185, 129, 0.07);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 12px;
+}
+
+.book-social-safe-icon {
+  color: var(--ok, #10b981);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.book-social-safe-text strong {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--ink);
+  margin-bottom: 0.15rem;
+}
+
+.book-social-safe-text p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  line-height: 1.35;
+}
+
+/* Modal Footer */
+.book-social-modal-footer {
+  padding: 1rem 1.35rem;
+  border-top: 1px solid var(--paper-line);
+  background: color-mix(in srgb, var(--paper) 25%, var(--surface));
+  display: flex;
+  justify-content: flex-end;
+}
+
+.book-social-stay-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  background: var(--stamp);
+  color: #fff;
+  border: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(74, 9, 143, 0.22);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.book-social-stay-btn:hover {
+  background: color-mix(in srgb, var(--stamp) 88%, #000);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(74, 9, 143, 0.3);
+}
+
+@media (max-width: 480px) {
+  .book-social-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .book-social-modal-box {
+    max-width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    animation: socialModalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes socialModalSlideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+}

@@ -13101,3 +13101,189 @@ body.ws-modal-open {
 }
 
 
+
+
+/* ── Interactive Image Cropper Modal ── */
+.crop-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100050;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.crop-modal-box {
+  background: var(--paper, #fff);
+  border: 1px solid var(--paper-line, #e2e8f0);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  animation: cropModalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes cropModalIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.crop-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--paper-line, #e2e8f0);
+  background: var(--paper, #fff);
+}
+.crop-header-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--brand-soft, #f0fdf4);
+  color: var(--brand, #16a34a);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.crop-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--ink-muted, #64748b);
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+.crop-modal-close:hover {
+  background: var(--paper-subtle, #f1f5f9);
+  color: var(--ink, #0f172a);
+}
+.crop-stage-wrapper {
+  background: #090d16;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  max-height: 52vh;
+  overflow: hidden;
+  position: relative;
+}
+.crop-image-container {
+  width: 100%;
+  max-height: 48vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.crop-image-container img {
+  max-width: 100%;
+  max-height: 48vh;
+  display: block;
+}
+.crop-circle-mask .cropper-view-box,
+.crop-circle-mask .cropper-face {
+  border-radius: 50% !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 1px #fff;
+}
+.crop-toolbar-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--paper-subtle, #f8fafc);
+  border-top: 1px solid var(--paper-line, #e2e8f0);
+  border-bottom: 1px solid var(--paper-line, #e2e8f0);
+}
+.crop-ratio-selector {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.crop-toolbar-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--ink-muted, #64748b);
+  margin-right: 0.2rem;
+}
+.crop-pill-btn {
+  padding: 0.28rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border: 1px solid var(--paper-line, #cbd5e1);
+  background: var(--paper, #fff);
+  color: var(--ink, #334155);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.crop-pill-btn:hover {
+  border-color: var(--brand, #16a34a);
+  color: var(--brand, #16a34a);
+}
+.crop-pill-btn.active {
+  background: var(--brand, #16a34a) !important;
+  color: #fff !important;
+  border-color: var(--brand, #16a34a) !important;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.25);
+}
+.crop-adjust-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.crop-ctrl-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--paper-line, #cbd5e1);
+  background: var(--paper, #fff);
+  color: var(--ink, #334155);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.crop-ctrl-btn:hover {
+  background: var(--paper-subtle, #f1f5f9);
+  color: var(--ink, #0f172a);
+  border-color: #94a3b8;
+}
+.crop-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--paper, #fff);
+}
+.crop-save-btn {
+  background: var(--brand, #16a34a);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.25);
+}
+.crop-save-btn:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+}

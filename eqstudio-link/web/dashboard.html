@@ -13,6 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css?v=80" />
+<link rel="stylesheet" href="/assets/cropper.min.css" />
+<script src="/assets/cropper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
  (function () {
@@ -3069,6 +3071,72 @@
  </div>
  </div>
 
+   <!-- ── Image Crop / Edit Modal (Client-side, Zero Storage Waste) ── -->
+  <div class="modal-overlay crop-modal-overlay" id="crop-image-modal" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-box crop-modal-box">
+      <div class="crop-modal-header">
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <span class="crop-header-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v14a2 2 0 0 0 2 2h14"></path><path d="M18 22V8a2 2 0 0 0-2-2H2"></path></svg>
+          </span>
+          <div>
+            <h3 id="crop-modal-title" style="margin:0; font-size:1.05rem; font-weight:700; color:var(--ink);">Laras &amp; Potong Gambar</h3>
+            <p id="crop-modal-subtitle" style="margin:0; font-size:0.75rem; color:var(--ink-muted);">Gerakkan, zoom dan sesuaikan bingkai sebelum muat naik</p>
+          </div>
+        </div>
+        <button type="button" class="crop-modal-close" id="crop-cancel-x-btn" aria-label="Tutup">&times;</button>
+      </div>
+
+      <!-- Cropper Display Stage -->
+      <div class="crop-stage-wrapper">
+        <div class="crop-image-container" id="crop-image-container">
+          <img id="crop-target-image" src="" alt="Gambar untuk dipotong" style="max-width:100%; display:block;" />
+        </div>
+      </div>
+
+      <!-- Toolbar: Presets & Controls -->
+      <div class="crop-toolbar-wrapper">
+        <div class="crop-ratio-selector" id="crop-ratio-selector">
+          <span class="crop-toolbar-label">Nisbah:</span>
+          <button type="button" class="crop-pill-btn active" data-ratio="16/9" id="crop-ratio-16-9">16:9 Cover</button>
+          <button type="button" class="crop-pill-btn" data-ratio="1/1" id="crop-ratio-1-1">1:1 Logo</button>
+          <button type="button" class="crop-pill-btn" data-ratio="4/3" id="crop-ratio-4-3">4:3 Poster</button>
+          <button type="button" class="crop-pill-btn" data-ratio="free" id="crop-ratio-free">Bebas</button>
+        </div>
+
+        <div class="crop-adjust-tools">
+          <button type="button" class="crop-ctrl-btn" id="crop-btn-rot-left" title="Pusing Kiri 90°">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 2v6h6"></path><path d="M2.66 15.57a10 10 0 1 0 .57-8.38L2.5 8"></path></svg>
+          </button>
+          <button type="button" class="crop-ctrl-btn" id="crop-btn-rot-right" title="Pusing Kanan 90°">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6"></path><path d="M21.34 15.57a10 10 0 1 1-.57-8.38L21.5 8"></path></svg>
+          </button>
+          <button type="button" class="crop-ctrl-btn" id="crop-btn-zoom-in" title="Besarkan">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+          </button>
+          <button type="button" class="crop-ctrl-btn" id="crop-btn-zoom-out" title="Kecilkan">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+          </button>
+          <button type="button" class="crop-ctrl-btn" id="crop-btn-reset" title="Set Semula">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="crop-modal-footer">
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <button type="button" class="secondary" id="crop-btn-cancel" style="padding:0.6rem 1rem;">Batal</button>
+          <button type="button" class="secondary" id="crop-btn-skip" style="padding:0.6rem 1rem;" title="Muat naik fail asal tanpa potong">Guna Fail Asal</button>
+        </div>
+        <button type="button" id="crop-btn-confirm" class="crop-save-btn" style="display:inline-flex; align-items:center; gap:0.4rem; padding:0.6rem 1.4rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span id="crop-confirm-label">Gunakan &amp; Muat Naik</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
  <script type="module">
  import { showToast } from "/assets/toast.js";
  import { loadNotices } from "/assets/notices.js";
@@ -3157,6 +3225,182 @@ let currentLinkPosters = [];
       }
     });
   }
+
+  // ── Universal Client-Side Cropper (Zero server cost, perfect framing) ──
+  let activeCropper = null;
+
+  function initCropperControls() {
+    document.querySelectorAll(".crop-pill-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (!activeCropper) return;
+        document.querySelectorAll(".crop-pill-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const r = btn.getAttribute("data-ratio");
+        if (r === "16/9") activeCropper.setAspectRatio(16 / 9);
+        else if (r === "1/1") activeCropper.setAspectRatio(1);
+        else if (r === "4/3") activeCropper.setAspectRatio(4 / 3);
+        else activeCropper.setAspectRatio(NaN);
+      });
+    });
+
+    document.getElementById("crop-btn-rot-left")?.addEventListener("click", () => activeCropper?.rotate(-90));
+    document.getElementById("crop-btn-rot-right")?.addEventListener("click", () => activeCropper?.rotate(90));
+    document.getElementById("crop-btn-zoom-in")?.addEventListener("click", () => activeCropper?.zoom(0.1));
+    document.getElementById("crop-btn-zoom-out")?.addEventListener("click", () => activeCropper?.zoom(-0.1));
+    document.getElementById("crop-btn-reset")?.addEventListener("click", () => activeCropper?.reset());
+  }
+  initCropperControls();
+
+  function promptCropImage(file, options = {}) {
+    return new Promise((resolve) => {
+      if (typeof Cropper === "undefined") {
+        console.warn("Cropper library not loaded, using original file");
+        resolve(file);
+        return;
+      }
+      if (!file || !file.type.startsWith("image/")) {
+        resolve(file);
+        return;
+      }
+
+      const {
+        title = "Laras & Potong Gambar",
+        subtitle = "Gerakkan dan laraskan bingkai sebelum muat naik",
+        aspectRatio = 16 / 9,
+        circular = false,
+        allowRatioChange = true,
+        confirmLabel = "Gunakan & Muat Naik"
+      } = options;
+
+      const modal = document.getElementById("crop-image-modal");
+      const titleEl = document.getElementById("crop-modal-title");
+      const subtitleEl = document.getElementById("crop-modal-subtitle");
+      const targetImg = document.getElementById("crop-target-image");
+      const confirmBtn = document.getElementById("crop-btn-confirm");
+      const confirmLabelEl = document.getElementById("crop-confirm-label");
+      const cancelBtn = document.getElementById("crop-btn-cancel");
+      const skipBtn = document.getElementById("crop-btn-skip");
+      const closeBtn = document.getElementById("crop-cancel-x-btn");
+      const ratioSelector = document.getElementById("crop-ratio-selector");
+      const container = document.getElementById("crop-image-container");
+
+      if (!modal || !targetImg) {
+        resolve(file);
+        return;
+      }
+
+      if (titleEl) titleEl.textContent = title;
+      if (subtitleEl) subtitleEl.textContent = subtitle;
+      if (confirmLabelEl) confirmLabelEl.textContent = confirmLabel;
+      if (ratioSelector) ratioSelector.style.display = allowRatioChange ? "flex" : "none";
+
+      if (circular) {
+        container?.classList.add("crop-circle-mask");
+      } else {
+        container?.classList.remove("crop-circle-mask");
+      }
+
+      // Set active ratio pill
+      document.querySelectorAll(".crop-pill-btn").forEach(p => p.classList.remove("active"));
+      if (aspectRatio && Math.abs(aspectRatio - 16 / 9) < 0.05) document.getElementById("crop-ratio-16-9")?.classList.add("active");
+      else if (aspectRatio && Math.abs(aspectRatio - 1) < 0.05) document.getElementById("crop-ratio-1-1")?.classList.add("active");
+      else if (aspectRatio && Math.abs(aspectRatio - 4 / 3) < 0.05) document.getElementById("crop-ratio-4-3")?.classList.add("active");
+      else document.getElementById("crop-ratio-free")?.classList.add("active");
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        targetImg.src = e.target.result;
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden", "false");
+
+        if (activeCropper) {
+          activeCropper.destroy();
+          activeCropper = null;
+        }
+
+        activeCropper = new Cropper(targetImg, {
+          aspectRatio: aspectRatio || NaN,
+          viewMode: 1,
+          dragMode: "move",
+          autoCropArea: 0.92,
+          restore: false,
+          guides: true,
+          center: true,
+          highlight: false,
+          cropBoxMovable: true,
+          cropBoxResizable: true,
+          toggleDragModeOnDblclick: false,
+          responsive: true,
+        });
+      };
+      reader.onerror = () => resolve(file);
+      reader.readAsDataURL(file);
+
+      function cleanup() {
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+        if (activeCropper) {
+          activeCropper.destroy();
+          activeCropper = null;
+        }
+        confirmBtn?.removeEventListener("click", onConfirm);
+        cancelBtn?.removeEventListener("click", onCancel);
+        closeBtn?.removeEventListener("click", onCancel);
+        skipBtn?.removeEventListener("click", onSkip);
+        document.removeEventListener("keydown", onKey);
+      }
+
+      function onCancel() {
+        cleanup();
+        resolve(null);
+      }
+
+      function onSkip() {
+        cleanup();
+        resolve(file);
+      }
+
+      function onConfirm() {
+        if (!activeCropper) {
+          cleanup();
+          resolve(file);
+          return;
+        }
+        const canvas = activeCropper.getCroppedCanvas({
+          maxWidth: 1920,
+          maxHeight: 1920,
+          imageSmoothingEnabled: true,
+          imageSmoothingQuality: "high"
+        });
+        if (!canvas) {
+          cleanup();
+          resolve(file);
+          return;
+        }
+        canvas.toBlob((blob) => {
+          cleanup();
+          if (blob) {
+            const cleanName = file.name ? file.name.replace(/\.[^.]+$/, ".jpg") : "cropped.jpg";
+            const croppedFile = new File([blob], cleanName, { type: "image/jpeg", lastModified: Date.now() });
+            resolve(croppedFile);
+          } else {
+            resolve(file);
+          }
+        }, "image/jpeg", 0.88);
+      }
+
+      function onKey(e) {
+        if (e.key === "Escape") onCancel();
+      }
+
+      confirmBtn?.addEventListener("click", onConfirm, { once: true });
+      cancelBtn?.addEventListener("click", onCancel, { once: true });
+      closeBtn?.addEventListener("click", onCancel, { once: true });
+      skipBtn?.addEventListener("click", onSkip, { once: true });
+      document.addEventListener("keydown", onKey, { once: true });
+    });
+  }
+
 
 function parsePosters(val) {
   if (!val) return [];
@@ -3925,15 +4169,24 @@ function parsePosters(val) {
 
   async function handleCoverUpload(file) {
     if (!file) return;
-    if (file.size > 3 * 1024 * 1024) {
-      showToast("Saiz gambar maksimum 3MB.", "error");
+    if (file.size > 8 * 1024 * 1024) {
+      showToast("Saiz fail melebihi had 8MB.", "error");
       return;
     }
+    const cropped = await promptCropImage(file, {
+      title: "Laras & Potong Cover Hero",
+      subtitle: "Nisbah 16:9 disyorkan untuk paparan banner penuh di telefon & desktop",
+      aspectRatio: 16 / 9,
+      circular: false,
+      allowRatioChange: true
+    });
+    if (!cropped) return;
+
     const dropzone = document.getElementById("ws-cover-dropzone");
     if (dropzone) dropzone.classList.add("uploading");
     showToast("Memuat naik gambar cover...", "info", 1500);
     try {
-      const compressed = await compressImageFile(file, 1600, 0.85);
+      const compressed = await compressImageFile(cropped, 1600, 0.85);
       const path = `${user.id}/cover-${Date.now()}.jpg`;
       const { error: uploadError } = await supabase.storage.from("gallery").upload(path, compressed, { contentType: "image/jpeg" });
       if (uploadError) throw uploadError;
@@ -4083,12 +4336,22 @@ function parsePosters(val) {
 
     let uploadedCount = 0;
     try {
-      for (const file of filesToUpload) {
-        if (file.size > 2 * 1024 * 1024) {
-          showToast(`Fail "${file.name}" melebihi had 2MB. Diabaikan.`, "error");
+      for (let i = 0; i < filesToUpload.length; i++) {
+        const file = filesToUpload[i];
+        if (file.size > 8 * 1024 * 1024) {
+          showToast(`Fail "${file.name}" melebihi had 8MB. Diabaikan.`, "error");
           continue;
         }
-        const compressed = await compressImageFile(file);
+        const cropped = await promptCropImage(file, {
+          title: filesToUpload.length > 1 ? `Laras Foto Galeri (${i + 1}/${filesToUpload.length})` : "Laras & Potong Foto Galeri",
+          subtitle: "Pilih nisbah terbaik (4:3, 1:1, atau Bebas) untuk susunan grid portfolio",
+          aspectRatio: 4 / 3,
+          circular: false,
+          allowRatioChange: true
+        });
+        if (!cropped) continue;
+
+        const compressed = await compressImageFile(cropped);
         const path = `${user.id}/${Date.now()}-${Math.random().toString(36).substring(2, 7)}.jpg`;
         const { error: uploadError } = await supabase.storage.from("gallery").upload(path, compressed, { contentType: "image/jpeg" });
         if (uploadError) throw uploadError;
@@ -4927,16 +5190,34 @@ function parsePosters(val) {
   // ── Logo & QR Code Upload Dropzones ──
   async function handleLogoUpload(file) {
     if (!file) return;
-    const ext = file.name.split(".").pop();
+    if (file.size > 8 * 1024 * 1024) {
+      showToast("Saiz fail logo melebihi 8MB.", "error");
+      return;
+    }
+    const cropped = await promptCropImage(file, {
+      title: "Laras & Potong Logo Perniagaan",
+      subtitle: "Nisbah 1:1 segi empat tepat dengan panduan avatar bulatan",
+      aspectRatio: 1,
+      circular: true,
+      allowRatioChange: false
+    });
+    if (!cropped) return;
+
+    const ext = "jpg";
     const path = `${user.id}/logo-${Date.now()}.${ext}`;
     showToast("Memuat naik logo...", "info", 1500);
-    const { error: uploadError } = await supabase.storage.from("business-assets").upload(path, file, { upsert: true });
-    if (uploadError) { showToast(uploadError.message, "error"); return; }
-    const { data: urlData } = supabase.storage.from("business-assets").getPublicUrl(path);
-    document.getElementById("p-logo").value = urlData.publicUrl;
-    document.getElementById("logo-preview").src = urlData.publicUrl;
-    document.getElementById("logo-preview-wrap").style.display = "block";
-    showToast("Logo dimuat naik. Sila klik 'Simpan Profil'.", "success");
+    try {
+      const compressed = await compressImageFile(cropped, 800, 0.88);
+      const { error: uploadError } = await supabase.storage.from("business-assets").upload(path, compressed, { upsert: true, contentType: "image/jpeg" });
+      if (uploadError) { showToast(uploadError.message, "error"); return; }
+      const { data: urlData } = supabase.storage.from("business-assets").getPublicUrl(path);
+      document.getElementById("p-logo").value = urlData.publicUrl;
+      document.getElementById("logo-preview").src = urlData.publicUrl;
+      document.getElementById("logo-preview-wrap").style.display = "block";
+      showToast("Logo dimuat naik. Sila klik 'Simpan Profil'.", "success");
+    } catch (err) {
+      showToast("Gagal muat naik logo: " + err.message, "error");
+    }
   }
 
   async function handleQrUpload(file) {
@@ -7693,12 +7974,22 @@ function parsePosters(val) {
 
     let uploaded = 0;
     try {
-      for (const file of filesToUpload) {
-        if (file.size > 2 * 1024 * 1024) {
-          showToast(`Poster "${file.name}" melebihi had 2MB.`, "error");
+      for (let i = 0; i < filesToUpload.length; i++) {
+        const file = filesToUpload[i];
+        if (file.size > 8 * 1024 * 1024) {
+          showToast(`Poster "${file.name}" melebihi had 8MB.`, "error");
           continue;
         }
-        const compressed = await compressImageFile(file);
+        const cropped = await promptCropImage(file, {
+          title: filesToUpload.length > 1 ? `Laras Poster (${i + 1}/${filesToUpload.length})` : "Laras & Potong Poster Servis",
+          subtitle: "Pilih nisbah terbaik (4:3, 16:9, atau Bebas) untuk carousel mini-website",
+          aspectRatio: 4 / 3,
+          circular: false,
+          allowRatioChange: true
+        });
+        if (!cropped) continue;
+
+        const compressed = await compressImageFile(cropped, 1200, 0.85);
         const path = `${user.id}/link-${Date.now()}-${Math.random().toString(36).substring(2, 7)}.jpg`;
         const { error: uploadError } = await supabase.storage.from("posters").upload(path, compressed, { contentType: "image/jpeg" });
         if (uploadError) throw uploadError;

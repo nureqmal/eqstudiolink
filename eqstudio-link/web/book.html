@@ -635,7 +635,8 @@
         galleryTitle: "Galeri & Hasil Kerja",
         testimonialsTitle: "Kata Pelanggan",
         locationTitle: "Lokasi Premis",
-        recentSocialProof: "🔥 14 pelanggan telah menempah slot minggu ini · 99% kepuasan dinilai",
+        recentSocialProof: (n) => `${n} pelanggan telah menempah slot minggu ini · Pengesahan pantas`,
+        welcomeProof: "Slot tempahan dibuka · Pengesahan pantas terus ke WhatsApp",
         allCategories: "Semua Pakej",
         mostPopular: "Paling Popular",
         addOnsTitle: "Pilihan Tambahan (Add-on)",
@@ -723,7 +724,8 @@
         galleryTitle: "Our Work & Gallery",
         testimonialsTitle: "Client Reviews",
         locationTitle: "Location & Directions",
-        recentSocialProof: "🔥 14 clients booked this week · 99% 5-star satisfaction rate",
+        recentSocialProof: (n) => `${n} client${n > 1 ? "s" : ""} booked this week · Instant confirmation`,
+        welcomeProof: "Booking slots open · Instant confirmation via WhatsApp",
         allCategories: "All Packages",
         mostPopular: "Most Popular",
         addOnsTitle: "Optional Extras (Add-ons)",
@@ -811,7 +813,8 @@
         galleryTitle: "精彩图集",
         testimonialsTitle: "客户评价",
         locationTitle: "商家地址",
-        recentSocialProof: "🔥 本周已有14位客户成功预约 · 99%好评率",
+        recentSocialProof: (n) => `本周已有 ${n} 位客户预约 · 即时确认`,
+        welcomeProof: "预约名额开放中 · WhatsApp 即时确认",
         allCategories: "全部项目",
         mostPopular: "最受欢迎",
         addOnsTitle: "可选附加服务 (Add-ons)",
@@ -891,7 +894,8 @@
         galleryTitle: "புகைப்படங்கள்",
         testimonialsTitle: "வாடிக்கையாளர் மதிப்புரை",
         locationTitle: "முகவரி",
-        recentSocialProof: "🔥 இந்த வாரம் 14 முன்பதிவுகள் செய்யப்பட்டுள்ளன",
+        recentSocialProof: (n) => `இந்த வாரம் ${n} முன்பதிவுகள் செய்யப்பட்டுள்ளன · உடனடி உறுதிப்படுத்தல்`,
+        welcomeProof: "முன்பதிவு திறக்கப்பட்டுள்ளது · உடனடி உறுதிப்படுத்தல்",
         allCategories: "அனைத்தும்",
         mostPopular: "மிகவும் பிரபலமானது",
         addOnsTitle: "கூடுதல் தேர்வுகள்",
@@ -948,7 +952,7 @@
     }
 
     function sanitizeRichText(html) {
-      const allowed = new Set(["B", "STRONG", "I", "EM", "U", "BR", "P"]);
+      const allowed = new Set(["B", "STRONG", "I", "EM", "U", "S", "STRIKE", "BR", "P", "H3", "H4", "UL", "OL", "LI", "BLOCKQUOTE"]);
       const container = document.createElement("div");
       container.innerHTML = html || "";
       (function clean(node) {
@@ -964,6 +968,23 @@
         });
       })(container);
       return container.innerHTML;
+    }
+
+    function parsePosterUrls(val) {
+      if (!val) return [];
+      if (Array.isArray(val)) return val.filter(Boolean);
+      if (typeof val === "string") {
+        const trimmed = val.trim();
+        if (!trimmed) return [];
+        if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+          try {
+            const arr = JSON.parse(trimmed);
+            if (Array.isArray(arr)) return arr.filter(Boolean);
+          } catch (_) {}
+        }
+        return [trimmed];
+      }
+      return [];
     }
 
     function dateLabel(dateKey) {
@@ -1362,14 +1383,66 @@
         ? types
         : types.filter(t => t.category === selectedCategory || !t.category);
 
+      const recentCount = availabilityData.recent_bookings_count || 0;
+      const socialProofText = recentCount > 0
+        ? (typeof T().recentSocialProof === "function" ? T().recentSocialProof(recentCount) : `${recentCount} pelanggan telah menempah slot minggu ini`)
+        : (T().welcomeProof || "Slot tempahan dibuka · Pengesahan pantas terus ke WhatsApp");
+      const socialProofIcon = recentCount > 0 ? "🔥" : "✨";
+
+      const linkPosters = parsePosterUrls(availabilityData.link_poster_url);
+      const linkDesc = availabilityData.link_description ? sanitizeRichText(availabilityData.link_description.trim()) : "";
+
+      let posterCarouselHtml = "";
+      if (linkPosters.length === 1) {
+        posterCarouselHtml = `
+          <div class="book-poster-carousel-wrap">
+            <div class="book-poster-slide">
+              <img src="${escapeHtml(linkPosters[0])}" alt="Poster Perkhidmatan" loading="lazy" />
+            </div>
+          </div>`;
+      } else if (linkPosters.length > 1) {
+        posterCarouselHtml = `
+          <div class="book-poster-carousel-wrap" id="book-poster-carousel-wrap">
+            <ul class="book-poster-carousel" id="book-poster-carousel" aria-label="Poster Perkhidmatan Carousel">
+              ${linkPosters.map((url, idx) => `
+                <li class="book-poster-slide" data-slide-index="${idx}">
+                  <img src="${escapeHtml(url)}" alt="Poster Perkhidmatan ${idx + 1}" loading="lazy" />
+                </li>
+              `).join("")}
+            </ul>
+            <button type="button" class="book-poster-nav-btn book-poster-prev" id="book-poster-prev-btn" aria-label="Poster sebelum">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button type="button" class="book-poster-nav-btn book-poster-next" id="book-poster-next-btn" aria-label="Poster seterusnya">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="book-poster-dots" id="book-poster-dots">
+              ${linkPosters.map((_, idx) => `
+                <button type="button" class="book-poster-dot ${idx === 0 ? "active" : ""}" data-dot-index="${idx}" aria-label="Pergi ke poster ${idx + 1}"></button>
+              `).join("")}
+            </div>
+          </div>`;
+      }
+
+      let descriptionHtml = "";
+      if (linkDesc) {
+        descriptionHtml = `
+          <div class="book-link-description-box">
+            ${linkDesc}
+          </div>`;
+      }
+
       content.innerHTML = `
         ${renderStepper(1)}
 
         <!-- Social Proof Live Ticker -->
-        <div class="book-social-proof-bar">
-          <span class="flame-icon">🔥</span>
-          <span>${T().recentSocialProof}</span>
+        <div class="book-social-proof-bar ${recentCount === 0 ? "authentic-welcome" : ""}">
+          <span class="flame-icon">${socialProofIcon}</span>
+          <span>${socialProofText}</span>
         </div>
+
+        ${posterCarouselHtml}
+        ${descriptionHtml}
 
         <div style="margin-bottom:1.25rem;">
           <h2 style="font-family:Fraunces, serif; font-size:1.35rem; margin:0 0 0.35rem; color:var(--ink);">${T().pickType}</h2>
@@ -1514,6 +1587,44 @@
           openServiceDetailModal(t);
         });
       });
+
+      // Poster carousel controls
+      const carouselEl = document.getElementById("book-poster-carousel");
+      if (carouselEl && linkPosters.length > 1) {
+        const prevBtn = document.getElementById("book-poster-prev-btn");
+        const nextBtn = document.getElementById("book-poster-next-btn");
+        const dots = document.querySelectorAll("#book-poster-dots .book-poster-dot");
+
+        const updateDots = () => {
+          const slideWidth = carouselEl.offsetWidth || 1;
+          const activeIndex = Math.round(carouselEl.scrollLeft / slideWidth);
+          dots.forEach((dot, idx) => {
+            dot.classList.toggle("active", idx === activeIndex);
+          });
+        };
+
+        prevBtn?.addEventListener("click", (e) => {
+          e.preventDefault();
+          carouselEl.scrollBy({ left: -carouselEl.offsetWidth, behavior: "smooth" });
+        });
+        nextBtn?.addEventListener("click", (e) => {
+          e.preventDefault();
+          carouselEl.scrollBy({ left: carouselEl.offsetWidth, behavior: "smooth" });
+        });
+
+        dots.forEach(dot => {
+          dot.addEventListener("click", (e) => {
+            e.preventDefault();
+            const idx = parseInt(dot.dataset.dotIndex, 10);
+            carouselEl.scrollTo({ left: idx * carouselEl.offsetWidth, behavior: "smooth" });
+          });
+        });
+
+        carouselEl.addEventListener("scroll", () => {
+          requestAnimationFrame(updateDots);
+        }, { passive: true });
+      }
+
       updateStickyCta();
     }
 

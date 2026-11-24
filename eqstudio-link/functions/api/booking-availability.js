@@ -54,8 +54,16 @@ export async function onRequestGet(context) {
     const eventTypes = await sbAdmin(env, `/event_types?booking_link_id=eq.${link.id}&is_active=eq.true&select=*&order=sort_order.asc`);
     const questions = await sbAdmin(env, `/booking_questions?booking_link_id=eq.${link.id}&select=id,question_text&order=sort_order.asc`);
 
+    // True statistics: count confirmed bookings made for this link in the last 7 days
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    let recentBookingsCount = 0;
+    try {
+      const recent = await sbAdmin(env, `/bookings?booking_link_id=eq.${link.id}&status=eq.confirmed&created_at=gte.${sevenDaysAgo}&select=id`);
+      recentBookingsCount = Array.isArray(recent) ? recent.length : 0;
+    } catch (_) {}
+
     if (eventTypes.length > 0 && !requestedTypeId) {
-      return json({ business, gallery, testimonials, event_types: eventTypes, slots_by_date: null, questions, link_description: link.description, link_poster_url: link.poster_url, cancel_notice_hours: link.cancel_notice_hours });
+      return json({ business, gallery, testimonials, event_types: eventTypes, slots_by_date: null, questions, link_description: link.description, link_poster_url: link.poster_url, cancel_notice_hours: link.cancel_notice_hours, recent_bookings_count: recentBookingsCount });
     }
 
     let durationMinutes = link.slot_duration_minutes || 60;
@@ -148,7 +156,7 @@ export async function onRequestGet(context) {
       if (daySlots.length > 0) slotsByDate[dateKey] = daySlots;
     }
 
-    return json({ business, gallery, testimonials, event_types: eventTypes, slot_duration_minutes: durationMinutes, capacity, slots_by_date: slotsByDate, questions, deposit_amount: depositAmount, link_description: link.description, link_poster_url: link.poster_url, cancel_notice_hours: link.cancel_notice_hours });
+    return json({ business, gallery, testimonials, event_types: eventTypes, slot_duration_minutes: durationMinutes, capacity, slots_by_date: slotsByDate, questions, deposit_amount: depositAmount, link_description: link.description, link_poster_url: link.poster_url, cancel_notice_hours: link.cancel_notice_hours, recent_bookings_count: recentBookingsCount });
   } catch (err) {
     return json({ error: err.message }, 500);
   }

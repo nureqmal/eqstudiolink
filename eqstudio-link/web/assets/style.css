@@ -12635,3 +12635,326 @@ body.ws-modal-open {
     to { transform: translateY(0); }
   }
 }
+
+/* ========================================================
+   UNIVERSAL DROPZONE DRAG & DROP FEEDBACK
+   ======================================================== */
+.profile-upload-dropzone.dragover,
+.poster-upload-zone.dragover,
+.ws-upload-dropzone.dragover {
+  border-color: var(--stamp, #4a098f) !important;
+  background: var(--stamp-soft, rgba(74, 9, 143, 0.08)) !important;
+  box-shadow: 0 0 0 3px rgba(74, 9, 143, 0.16) !important;
+  transform: scale(1.01);
+  transition: all 0.15s ease-in-out;
+}
+
+/* ========================================================
+   MULTI-POSTER THUMBNAIL GRID (DASHBOARD)
+   ======================================================== */
+.poster-thumbnail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.poster-thumb-item {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1.5px solid var(--paper-line, #e2e8f0);
+  background: var(--surface, #ffffff);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s ease;
+}
+
+.poster-thumb-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--stamp, #4a098f);
+}
+
+.poster-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.poster-thumb-remove {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.75);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  transition: all 0.15s ease;
+  padding: 0;
+  z-index: 2;
+}
+
+.poster-thumb-remove:hover {
+  background: #dc2626;
+  transform: scale(1.15);
+}
+
+.poster-quota-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--stamp, #4a098f) 10%, transparent);
+  color: var(--stamp, #4a098f);
+  margin-left: 0.5rem;
+}
+
+/* ========================================================
+   STOREFRONT POSTER SWIPE CAROUSEL (MINI-WEBSITE)
+   ======================================================== */
+.book-poster-carousel-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  background: #0f172a;
+}
+
+.book-poster-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.book-poster-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.book-poster-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: start;
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #0f172a;
+}
+
+.book-poster-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.book-poster-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.68);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.book-poster-nav-btn:hover {
+  background: rgba(15, 23, 42, 0.92);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.book-poster-prev { left: 10px; }
+.book-poster-next { right: 10px; }
+
+.book-poster-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  z-index: 3;
+}
+
+.book-poster-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.book-poster-dot.active {
+  background: #ffffff;
+  width: 22px;
+  border-radius: 6px;
+}
+
+.book-link-description-box {
+  margin-top: -0.35rem;
+  margin-bottom: 1.25rem;
+  padding: 0.85rem 1rem;
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--paper-line, #e2e8f0);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink, #1e293b);
+}
+
+/* ========================================================
+   ABOUT RTE TYPOGRAPHY & TOOLBAR
+   ======================================================== */
+.ws-rte-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  padding: 0.45rem 0.6rem;
+  background: color-mix(in srgb, var(--surface) 95%, var(--ink));
+  border: 1px solid var(--paper-line);
+  border-bottom: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.ws-rte-btn {
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.28rem 0.55rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: all 0.12s ease;
+  min-width: 28px;
+  min-height: 28px;
+}
+
+.ws-rte-btn:hover {
+  background: var(--stamp-soft, rgba(74, 9, 143, 0.08));
+  border-color: var(--stamp, #4a098f);
+  color: var(--stamp, #4a098f);
+}
+
+.ws-rte-btn.active {
+  background: var(--stamp, #4a098f);
+  color: #ffffff;
+  border-color: var(--stamp, #4a098f);
+}
+
+.ws-rte-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--paper-line);
+  margin: 0 0.2rem;
+}
+
+/* Rich text rendered content styling (in editor and public storefront) */
+.ws-rte-editor,
+.book-about-text {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.ws-rte-editor h3,
+.book-about-text h3 {
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0.8rem 0 0.4rem;
+  color: var(--ink);
+}
+
+.ws-rte-editor blockquote,
+.book-about-text blockquote {
+  margin: 0.75rem 0;
+  padding: 0.5rem 0.85rem;
+  border-left: 3.5px solid var(--stamp, #4a098f);
+  background: color-mix(in srgb, var(--stamp, #4a098f) 6%, transparent);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.ws-rte-editor ul,
+.book-about-text ul {
+  padding-left: 1.4rem;
+  margin: 0.5rem 0;
+  list-style-type: disc;
+}
+
+.ws-rte-editor ol,
+.book-about-text ol {
+  padding-left: 1.4rem;
+  margin: 0.5rem 0;
+  list-style-type: decimal;
+}
+
+.ws-rte-editor li,
+.book-about-text li {
+  margin-bottom: 0.25rem;
+}
+
+/* ========================================================
+   WARNA JENAMA PRESET SWATCH ACTIVE STATE
+   ======================================================== */
+.profile-swatch-btn {
+  cursor: pointer;
+  transition: transform 0.15s ease, outline 0.15s ease;
+}
+
+.profile-swatch-btn:hover {
+  transform: scale(1.18);
+}
+
+.profile-swatch-btn.active {
+  outline: 2.5px solid var(--ink, #1e293b);
+  outline-offset: 2.5px;
+  transform: scale(1.15);
+}
+

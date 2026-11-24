@@ -977,18 +977,22 @@
  </div>
  <div id="p-link-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis deskripsi servis atau syarat tempahan anda di sini..."></div>
 
- <div id="p-link-poster-wrap" style="display:none; margin-top:1rem;">
- <label for="p-link-poster-file">Poster / Banner Servis (maksimum 2MB) <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 untuk paparan terbaik pada halaman tempahan.">i</button></label>
- <div class="poster-upload-zone" id="p-link-poster-zone" style="margin-top:0.35rem;">
- <svg class="poster-upload-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
- <p class="hint" style="margin:0; font-weight:500;" data-i18n="bset_drag_poster">Klik atau seret gambar poster ke sini</p>
- <input type="file" id="p-link-poster-file" accept="image/*" />
- </div>
- <img id="p-link-poster-preview" style="max-width:140px; border-radius:10px; margin-top:0.6rem; display:none; border:1px solid var(--paper-line);" alt="" />
- <div class="poster-upload-success" id="p-link-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
- </div>
- <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.75rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Muat naik poster servis hanya tersedia untuk pelan Pro. <a href="/billing.html" style="font-weight:600;" data-i18n="upgrade_to_pro">Upgrade ke Pro</a> untuk membuka ciri ini.</p>
- </div>
+ <div id="p-link-poster-wrap" style="margin-top:1rem;">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.35rem;">
+    <label for="p-link-poster-file" style="margin:0;">Poster / Banner Servis (maksimum 2MB) <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 atau 16:9. Dipaparkan dalam carousel interaktif pada halaman tempahan pelanggan.">i</button></label>
+    <span class="poster-quota-pill" id="p-link-poster-quota-badge">0/1 Poster</span>
+  </div>
+  <div id="p-link-poster-list" class="poster-thumbnail-grid"></div>
+  <div class="poster-upload-zone" id="p-link-poster-zone" style="margin-top:0.35rem;">
+    <svg class="poster-upload-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+    <p class="hint" id="p-link-poster-zone-text" style="margin:0; font-weight:500;" data-i18n="bset_drag_poster">Klik atau seret gambar poster ke sini</p>
+    <input type="file" id="p-link-poster-file" accept="image/*" multiple style="display:none;" />
+  </div>
+  <img id="p-link-poster-preview" style="max-width:140px; border-radius:10px; margin-top:0.6rem; display:none; border:1px solid var(--paper-line);" alt="" />
+  <div class="poster-upload-success" id="p-link-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
+  <p class="hint" id="p-link-poster-locked" style="display:none; margin-top:0.65rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Pelan Percuma membenarkan 1 poster servis. <a href="/billing.html" style="font-weight:600;" data-i18n="upgrade_to_pro">Upgrade ke Pro</a> untuk muat naik sehingga 5 poster carousel!</p>
+</div>
+  </div>
 
  <button type="button" id="save-booking-btn" style="width:100%; padding:0.85rem; font-size:1rem; font-weight:700; border-radius:12px; display:flex; align-items:center; justify-content:center; gap:0.5rem; box-shadow:0 4px 14px rgba(74,9,143,0.25);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Simpan Tetapan Booking</button>
  </div>
@@ -2020,10 +2024,19 @@
         <div class="ws-accordion-content" id="ws-accordion-body-02" style="display:none;">
           <div class="ws-accordion-inner">
             <div class="ws-rte-wrap">
-              <div class="ws-rte-toolbar">
-                <button type="button" class="ws-rte-btn" data-cmd="bold" title="Tebal (Ctrl+B)">B</button>
+              <div class="ws-rte-toolbar" id="ws-about-toolbar">
+                <button type="button" class="ws-rte-btn" data-cmd="bold" title="Tebal (Ctrl+B)"><strong>B</strong></button>
                 <button type="button" class="ws-rte-btn" data-cmd="italic" title="Condong (Ctrl+I)"><em>I</em></button>
+                <button type="button" class="ws-rte-btn" data-cmd="underline" title="Garis Bawah (Ctrl+U)"><u>U</u></button>
+                <button type="button" class="ws-rte-btn" data-cmd="strikeThrough" title="Garis Batal"><s>S</s></button>
+                <span class="ws-rte-divider"></span>
+                <button type="button" class="ws-rte-btn" data-cmd="formatBlock" data-val="h3" title="Tajuk Kecil">H3</button>
+                <button type="button" class="ws-rte-btn" data-cmd="formatBlock" data-val="blockquote" title="Petikan Kata / Quote">❝❞</button>
+                <span class="ws-rte-divider"></span>
                 <button type="button" class="ws-rte-btn" data-cmd="insertUnorderedList" title="Senarai Bullet">• List</button>
+                <button type="button" class="ws-rte-btn" data-cmd="insertOrderedList" title="Senarai Nombor">1. List</button>
+                <span class="ws-rte-divider"></span>
+                <button type="button" class="ws-rte-btn" data-cmd="removeFormat" title="Padam Format">✕ Bersih</button>
                 <span class="ws-rte-tip" data-i18n="ws_about_tip">Penceritaan yang jelas membina keyakinan pelanggan</span>
               </div>
               <div class="ws-rte-editor rte-editor" id="ws-about-editor" contenteditable="true" data-placeholder="Contoh: Kami bermula sejak 2020 dengan misi menyediakan servis berkualiti tinggi dan mesra pelanggan. Setiap sesi dijalankan dengan teliti..."></div>
@@ -2071,7 +2084,7 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 <span data-i18n="ws_add_photo">Tambah Gambar</span>
               </button>
-              <input type="file" id="ws-gallery-file-input" accept="image/*" style="display:none;" />
+              <input type="file" id="ws-gallery-file-input" accept="image/*" multiple style="display:none;" />
             </div>
 
             <div class="ws-upload-dropzone ws-gallery-dropzone" id="ws-gallery-dropzone" style="margin-bottom:1rem;">
@@ -3099,6 +3112,24 @@
  let currentProfile = null;
  let wsCoverPhotoUrl = null;
   let currentUserIsPro = false;
+let currentLinkPosters = [];
+
+function parsePosters(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) return val.filter(Boolean);
+  if (typeof val === "string") {
+    const trimmed = val.trim();
+    if (!trimmed) return [];
+    if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+      try {
+        const arr = JSON.parse(trimmed);
+        if (Array.isArray(arr)) return arr.filter(Boolean);
+      } catch (_) {}
+    }
+    return [trimmed];
+  }
+  return [];
+}
   let onboardingChecked = false;
   let currentStorefrontMetrics = {
  score: 0,
@@ -3847,34 +3878,50 @@
  }
  }
  wsCoverPhotoUrl = profile?.cover_photo_url || null;
- document.getElementById("ws-cover-upload-btn")?.addEventListener("click", () => {
- if (blockIfPastDue()) return;
- document.getElementById("ws-cover-file").click();
- });
- document.getElementById("ws-cover-file")?.addEventListener("change", async (e) => {
- const file = e.target.files[0];
- if (!file) return;
- if (file.size > 3 * 1024 * 1024) { showToast("Saiz gambar maksimum 3MB.", "error"); e.target.value = ""; return; }
- const btn = document.getElementById("ws-cover-upload-btn");
- btn.disabled = true;
- btn.textContent = "Memuat naik...";
- try {
- const compressed = await compressImageFile(file, 1600, 0.85);
- const path = `${user.id}/cover-${Date.now()}.jpg`;
- const { error: uploadError } = await supabase.storage.from("gallery").upload(path, compressed, { contentType: "image/jpeg" });
- if (uploadError) throw uploadError;
- const { data: urlData } = supabase.storage.from("gallery").getPublicUrl(path);
- wsCoverPhotoUrl = urlData.publicUrl;
- document.getElementById("ws-cover-preview-img").src = wsCoverPhotoUrl;
- document.getElementById("ws-cover-preview").style.display = "block";
- showToast("Gambar cover dimuat naik. Jangan lupa tekan Simpan Hero.", "success");
- } catch (err) {
- showToast("Gagal muat naik: " + err.message, "error");
- }
- btn.disabled = false;
- btn.textContent = "Muat Naik Gambar Cover";
- e.target.value = "";
- });
+
+  async function handleCoverUpload(file) {
+    if (!file) return;
+    if (file.size > 3 * 1024 * 1024) {
+      showToast("Saiz gambar maksimum 3MB.", "error");
+      return;
+    }
+    const dropzone = document.getElementById("ws-cover-dropzone");
+    if (dropzone) dropzone.classList.add("uploading");
+    showToast("Memuat naik gambar cover...", "info", 1500);
+    try {
+      const compressed = await compressImageFile(file, 1600, 0.85);
+      const path = `${user.id}/cover-${Date.now()}.jpg`;
+      const { error: uploadError } = await supabase.storage.from("gallery").upload(path, compressed, { contentType: "image/jpeg" });
+      if (uploadError) throw uploadError;
+      const { data: urlData } = supabase.storage.from("gallery").getPublicUrl(path);
+      wsCoverPhotoUrl = urlData.publicUrl;
+      const previewImg = document.getElementById("ws-cover-preview-img");
+      const previewWrap = document.getElementById("ws-cover-preview");
+      if (previewImg) previewImg.src = wsCoverPhotoUrl;
+      if (previewWrap) previewWrap.style.display = "block";
+      showToast("Gambar cover dimuat naik! Sila tekan 'Simpan Hero' untuk simpan.", "success");
+    } catch (err) {
+      showToast("Gagal muat naik cover: " + err.message, "error");
+    } finally {
+      if (dropzone) dropzone.classList.remove("uploading");
+      const fileInput = document.getElementById("ws-cover-file");
+      if (fileInput) fileInput.value = "";
+    }
+  }
+
+  const coverDropzone = document.getElementById("ws-cover-dropzone");
+  const coverFileInput = document.getElementById("ws-cover-file");
+  setupDropzone(coverDropzone, coverFileInput, (files) => {
+    if (files && files[0]) handleCoverUpload(files[0]);
+  });
+  document.getElementById("ws-cover-upload-btn")?.addEventListener("click", () => {
+    if (blockIfPastDue()) return;
+    coverFileInput?.click();
+  });
+  document.getElementById("ws-cover-replace-btn")?.addEventListener("click", () => {
+    if (blockIfPastDue()) return;
+    coverFileInput?.click();
+  });
  document.getElementById("ws-hero-save-btn")?.addEventListener("click", async () => {
  if (blockIfPastDue()) return;
  const btn = document.getElementById("ws-hero-save-btn");
@@ -3927,55 +3974,108 @@
  showToast("Social & Lokasi disimpan.", "success"); updateWebsiteStudioBadges();
  });
 
- // ── Website Saya: Galeri (gallery_images CRUD) ──
- async function loadGalleryImages() {
- const grid = document.getElementById("ws-gallery-grid");
- if (!grid) return;
- const { data, error } = await supabase.from("gallery_images").select("id, image_url").eq("owner_id", user.id).order("sort_order", { ascending: true });
- if (error) { grid.innerHTML = `<p class="error">${error.message}</p>`; return; }
- if (!data || data.length === 0) { grid.innerHTML = `<p class="hint">Belum ada gambar. Tambah gambar pertama anda.</p>`; return; }
- grid.innerHTML = data.map(g => `
- <div class="ws-gallery-item">
- <img src="${g.image_url}" alt="" />
- <button type="button" class="ws-gallery-remove" data-gallery-id="${g.id}" aria-label="Padam gambar ini"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
- </div>
- `).join("");
- grid.querySelectorAll("[data-gallery-id]").forEach(btn => {
- btn.addEventListener("click", async () => {
- if (!confirm("Padam gambar ini?")) return;
- await supabase.from("gallery_images").delete().eq("id", btn.dataset.galleryId);
- loadGalleryImages();
- });
- });
- }
- document.getElementById("ws-gallery-add-btn")?.addEventListener("click", () => {
- if (blockIfPastDue()) return;
- document.getElementById("ws-gallery-file-input").click();
- });
- document.getElementById("ws-gallery-file-input")?.addEventListener("change", async (e) => {
- const file = e.target.files[0];
- if (!file) return;
- if (file.size > 2 * 1024 * 1024) { showToast("Saiz gambar maksimum 2MB.", "error"); e.target.value = ""; return; }
- const addBtn = document.getElementById("ws-gallery-add-btn");
- addBtn.disabled = true;
- addBtn.textContent = "Memuat naik...";
- try {
- const compressed = await compressImageFile(file);
- const path = `${user.id}/${Date.now()}.jpg`;
- const { error: uploadError } = await supabase.storage.from("gallery").upload(path, compressed, { contentType: "image/jpeg" });
- if (uploadError) throw uploadError;
- const { data: urlData } = supabase.storage.from("gallery").getPublicUrl(path);
- await supabase.from("gallery_images").insert({ owner_id: user.id, image_url: urlData.publicUrl });
- showToast("Gambar ditambah.", "success");
- loadGalleryImages();
- } catch (err) {
- showToast("Gagal muat naik: " + err.message, "error");
- }
- addBtn.disabled = false;
- addBtn.textContent = "+ Tambah Gambar";
- e.target.value = "";
- });
- if (document.getElementById("ws-gallery-grid")) loadGalleryImages();
+ // ── Website Saya: Galeri (gallery_images CRUD) dengan Had Pelan (Free: 4, Pro: 10) ──
+  let currentGalleryCount = 0;
+
+  async function loadGalleryImages() {
+    const grid = document.getElementById("ws-gallery-grid");
+    const countBadge = document.getElementById("ws-gallery-count-badge");
+    if (!grid) return;
+    const { data, error } = await supabase.from("gallery_images").select("id, image_url").eq("owner_id", user.id).order("sort_order", { ascending: true });
+    if (error) { grid.innerHTML = `<p class="error">${error.message}</p>`; return; }
+    const items = data || [];
+    currentGalleryCount = items.length;
+    const maxLimit = currentUserIsPro ? 10 : 4;
+
+    if (countBadge) {
+      countBadge.textContent = `${currentGalleryCount}/${maxLimit} Foto (${currentUserIsPro ? "Studio Pro" : "Pelan Percuma"})`;
+    }
+
+    if (items.length === 0) {
+      grid.innerHTML = `<p class="hint">Belum ada gambar hasil kerja. Klik atau seret gambar ke ruangan di atas untuk mula membina portfolio anda.</p>`;
+      return;
+    }
+
+    grid.innerHTML = items.map(g => `
+      <div class="ws-gallery-item">
+        <img src="${g.image_url}" alt="" />
+        <button type="button" class="ws-gallery-remove" data-gallery-id="${g.id}" aria-label="Padam gambar ini"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+    `).join("");
+
+    grid.querySelectorAll("[data-gallery-id]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Padam gambar portfolio ini?")) return;
+        await supabase.from("gallery_images").delete().eq("id", btn.dataset.galleryId);
+        loadGalleryImages();
+        updateWebsiteStudioBadges();
+      });
+    });
+  }
+
+  async function handleGalleryFilesUpload(files) {
+    if (!files || files.length === 0) return;
+    const maxLimit = currentUserIsPro ? 10 : 4;
+    const availableSlots = maxLimit - currentGalleryCount;
+
+    if (availableSlots <= 0) {
+      if (!currentUserIsPro) {
+        showToast("Had Pelan Percuma ialah maksimum 4 gambar galeri. Sila upgrade ke Pro untuk muat naik hingga 10 gambar atau padam gambar sedia ada.", "warning", 4500);
+      } else {
+        showToast("Maksimum 10 gambar portfolio telah dicapai.", "warning", 3000);
+      }
+      return;
+    }
+
+    const filesToUpload = Array.from(files).slice(0, availableSlots);
+    if (files.length > availableSlots) {
+      showToast(`Hanya ${availableSlots} gambar dimuat naik mengikut kuota pelan (${maxLimit} foto).`, "info", 3500);
+    }
+
+    const addBtn = document.getElementById("ws-gallery-add-btn");
+    const dropzone = document.getElementById("ws-gallery-dropzone");
+    if (addBtn) { addBtn.disabled = true; addBtn.textContent = "Memuat naik..."; }
+    if (dropzone) dropzone.classList.add("uploading");
+
+    let uploadedCount = 0;
+    try {
+      for (const file of filesToUpload) {
+        if (file.size > 2 * 1024 * 1024) {
+          showToast(`Fail "${file.name}" melebihi had 2MB. Diabaikan.`, "error");
+          continue;
+        }
+        const compressed = await compressImageFile(file);
+        const path = `${user.id}/${Date.now()}-${Math.random().toString(36).substring(2, 7)}.jpg`;
+        const { error: uploadError } = await supabase.storage.from("gallery").upload(path, compressed, { contentType: "image/jpeg" });
+        if (uploadError) throw uploadError;
+        const { data: urlData } = supabase.storage.from("gallery").getPublicUrl(path);
+        await supabase.from("gallery_images").insert({ owner_id: user.id, image_url: urlData.publicUrl });
+        uploadedCount++;
+      }
+      if (uploadedCount > 0) {
+        showToast(`${uploadedCount} gambar berjaya ditambah ke galeri portfolio.`, "success");
+        loadGalleryImages();
+        updateWebsiteStudioBadges();
+      }
+    } catch (err) {
+      showToast("Gagal muat naik gambar galeri: " + err.message, "error");
+    } finally {
+      if (addBtn) { addBtn.disabled = false; addBtn.textContent = "+ Tambah Gambar"; }
+      if (dropzone) dropzone.classList.remove("uploading");
+      const fileInput = document.getElementById("ws-gallery-file-input");
+      if (fileInput) fileInput.value = "";
+    }
+  }
+
+  const galleryDropzone = document.getElementById("ws-gallery-dropzone");
+  const galleryFileInput = document.getElementById("ws-gallery-file-input");
+  setupDropzone(galleryDropzone, galleryFileInput, handleGalleryFilesUpload);
+  document.getElementById("ws-gallery-add-btn")?.addEventListener("click", () => {
+    if (blockIfPastDue()) return;
+    galleryFileInput?.click();
+  });
+
+  if (document.getElementById("ws-gallery-grid")) loadGalleryImages();
 
  // ── Website Saya: Testimoni (testimonials CRUD) ──
  async function loadTestimonials() {
@@ -4745,55 +4845,77 @@
  document.getElementById("qr-preview-wrap").style.display = "block";
  }
  const color = profile.brand_color || "#C97A2B";
- document.getElementById("p-color").value = color;
- document.getElementById("p-color-hex").textContent = color.toUpperCase();
- }
+    applyBrandColor(color);
+  }
 
- document.getElementById("p-color")?.addEventListener("input", (e) => {
- document.getElementById("p-color-hex").textContent = e.target.value.toUpperCase();
- });
+  // ── Warna Jenama Interaktif (Input + Swatches + Pill Preview) ──
+  function applyBrandColor(color) {
+    if (!color) color = "#C97A2B";
+    const colorInput = document.getElementById("p-color");
+    const hexLabel = document.getElementById("p-color-hex");
+    const pillPreview = document.getElementById("brand-pill-preview");
+    if (colorInput) colorInput.value = color;
+    if (hexLabel) hexLabel.textContent = color.toUpperCase();
+    if (pillPreview) {
+      pillPreview.style.background = color;
+      const hex = color.replace("#", "");
+      const r = parseInt(hex.substr(0, 2), 16) || 0;
+      const g = parseInt(hex.substr(2, 2), 16) || 0;
+      const b = parseInt(hex.substr(4, 2), 16) || 0;
+      const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+      pillPreview.style.color = (yiq >= 140) ? "#1e293b" : "#ffffff";
+    }
+    document.querySelectorAll(".profile-swatch-btn").forEach(btn => {
+      const btnColor = btn.getAttribute("data-color");
+      btn.classList.toggle("active", btnColor && btnColor.toUpperCase() === color.toUpperCase());
+    });
+  }
 
- document.getElementById("p-logo-file")?.addEventListener("change", async (e) => {
- const file = e.target.files[0];
- if (!file) return;
+  document.getElementById("p-color")?.addEventListener("input", (e) => applyBrandColor(e.target.value));
+  document.getElementById("p-color")?.addEventListener("change", (e) => applyBrandColor(e.target.value));
+  document.querySelectorAll(".profile-swatch-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const c = btn.getAttribute("data-color");
+      if (c) applyBrandColor(c);
+    });
+  });
 
- const ext = file.name.split(".").pop();
- const path = `${user.id}/logo-${Date.now()}.${ext}`;
+  // ── Logo & QR Code Upload Dropzones ──
+  async function handleLogoUpload(file) {
+    if (!file) return;
+    const ext = file.name.split(".").pop();
+    const path = `${user.id}/logo-${Date.now()}.${ext}`;
+    showToast("Memuat naik logo...", "info", 1500);
+    const { error: uploadError } = await supabase.storage.from("business-assets").upload(path, file, { upsert: true });
+    if (uploadError) { showToast(uploadError.message, "error"); return; }
+    const { data: urlData } = supabase.storage.from("business-assets").getPublicUrl(path);
+    document.getElementById("p-logo").value = urlData.publicUrl;
+    document.getElementById("logo-preview").src = urlData.publicUrl;
+    document.getElementById("logo-preview-wrap").style.display = "block";
+    showToast("Logo dimuat naik. Sila klik 'Simpan Profil'.", "success");
+  }
 
- showToast("Memuat naik logo...", "success", 1500);
- const { error: uploadError } = await supabase.storage.from("business-assets").upload(path, file, { upsert: true });
- if (uploadError) {
- showToast(uploadError.message, "error");
- return;
- }
+  async function handleQrUpload(file) {
+    if (!file) return;
+    const ext = file.name.split(".").pop();
+    const path = `${user.id}/qr-${Date.now()}.${ext}`;
+    showToast("Memuat naik QR code...", "info", 1500);
+    const { error: uploadError } = await supabase.storage.from("business-assets").upload(path, file, { upsert: true });
+    if (uploadError) { showToast(uploadError.message, "error"); return; }
+    const { data: urlData } = supabase.storage.from("business-assets").getPublicUrl(path);
+    document.getElementById("p-qr").value = urlData.publicUrl;
+    document.getElementById("qr-preview").src = urlData.publicUrl;
+    document.getElementById("qr-preview-wrap").style.display = "block";
+    showToast("QR code dimuat naik. Sila klik 'Simpan Profil'.", "success");
+  }
 
- const { data: urlData } = supabase.storage.from("business-assets").getPublicUrl(path);
- document.getElementById("p-logo").value = urlData.publicUrl;
- document.getElementById("logo-preview").src = urlData.publicUrl;
- document.getElementById("logo-preview-wrap").style.display = "block";
- showToast("Logo dimuat naik. Klik 'Simpan Profil' untuk simpan.", "success");
- });
+  const logoFile = document.getElementById("p-logo-file");
+  const logoDropzone = logoFile?.closest(".profile-upload-dropzone");
+  setupDropzone(logoDropzone, logoFile, (files) => { if (files && files[0]) handleLogoUpload(files[0]); });
 
- document.getElementById("p-qr-file")?.addEventListener("change", async (e) => {
- const file = e.target.files[0];
- if (!file) return;
-
- const ext = file.name.split(".").pop();
- const path = `${user.id}/qr-${Date.now()}.${ext}`;
-
- showToast("Memuat naik QR code...", "success", 1500);
- const { error: uploadError } = await supabase.storage.from("business-assets").upload(path, file, { upsert: true });
- if (uploadError) {
- showToast(uploadError.message, "error");
- return;
- }
-
- const { data: urlData } = supabase.storage.from("business-assets").getPublicUrl(path);
- document.getElementById("p-qr").value = urlData.publicUrl;
- document.getElementById("qr-preview").src = urlData.publicUrl;
- document.getElementById("qr-preview-wrap").style.display = "block";
- showToast("QR code dimuat naik. Klik 'Simpan Profil' untuk simpan.", "success");
- });
+  const qrFile = document.getElementById("p-qr-file");
+  const qrDropzone = qrFile?.closest(".profile-upload-dropzone");
+  setupDropzone(qrDropzone, qrFile, (files) => { if (files && files[0]) handleQrUpload(files[0]); });
 
   // ── Keselamatan & Akses Log Masuk (Supabase Auth) ──
   function initAccountSecurity() {
@@ -5656,43 +5778,70 @@
  // defense in depth, since this content is shown to the owner's own
  // customers on a public page.
  function sanitizeRichText(html) {
- const allowed = new Set(["B", "STRONG", "I", "EM", "U", "BR"]);
- const container = document.createElement("div");
- container.innerHTML = html || "";
- (function clean(node) {
- [...node.childNodes].forEach(child => {
- if (child.nodeType === 1) {
- if (!allowed.has(child.tagName)) {
- child.replaceWith(document.createTextNode(child.textContent));
- } else {
- [...child.attributes].forEach(attr => child.removeAttribute(attr.name));
- clean(child);
- }
- }
- });
- })(container);
- return container.innerHTML;
- }
+  const allowed = new Set(["B", "STRONG", "I", "EM", "U", "S", "STRIKE", "BR", "P", "H3", "H4", "UL", "OL", "LI", "BLOCKQUOTE"]);
+  const container = document.createElement("div");
+  container.innerHTML = html || "";
+  (function clean(node) {
+    [...node.childNodes].forEach(child => {
+      if (child.nodeType === 1) {
+        if (!allowed.has(child.tagName)) {
+          child.replaceWith(document.createTextNode(child.textContent));
+        } else {
+          [...child.attributes].forEach(attr => child.removeAttribute(attr.name));
+          clean(child);
+        }
+      }
+    });
+  })(container);
+  return container.innerHTML;
+}
 
- // Rich-text toolbar wiring — shared logic for both description editors
- document.execCommand("defaultParagraphSeparator", false, "br");
- document.querySelectorAll(".rte-toolbar").forEach(toolbar => {
- const editor = toolbar.nextElementSibling;
- toolbar.querySelectorAll(".rte-btn").forEach(btn => {
- btn.addEventListener("click", () => {
- editor.focus();
- document.execCommand(btn.dataset.rteCmd, false, null);
- updateRteButtonStates(toolbar);
- });
- });
- editor.addEventListener("keyup", () => updateRteButtonStates(toolbar));
- editor.addEventListener("mouseup", () => updateRteButtonStates(toolbar));
- });
- function updateRteButtonStates(toolbar) {
- toolbar.querySelectorAll(".rte-btn").forEach(btn => {
- btn.classList.toggle("active", document.queryCommandState(btn.dataset.rteCmd));
- });
- }
+ // Rich-text toolbar wiring — shared logic for About story & description editors
+  function initAllRichTextToolbars() {
+    document.querySelectorAll(".rte-toolbar, .ws-rte-toolbar").forEach(toolbar => {
+      const editor = toolbar.nextElementSibling;
+      if (!editor) return;
+      toolbar.querySelectorAll(".rte-btn, .ws-rte-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          editor.focus();
+          const cmd = btn.dataset.cmd || btn.dataset.rteCmd;
+          const val = btn.dataset.val || null;
+          if (cmd === "formatBlock") {
+            const currentBlock = document.queryCommandValue("formatBlock") || "";
+            if (currentBlock.toLowerCase().includes(val.toLowerCase())) {
+              document.execCommand("formatBlock", false, "<p>");
+            } else {
+              document.execCommand("formatBlock", false, `<${val}>`);
+            }
+          } else {
+            document.execCommand(cmd, false, val);
+          }
+          updateRteButtonStates(toolbar);
+        });
+      });
+      editor.addEventListener("keyup", () => updateRteButtonStates(toolbar));
+      editor.addEventListener("mouseup", () => updateRteButtonStates(toolbar));
+    });
+  }
+
+  function updateRteButtonStates(toolbar) {
+    toolbar.querySelectorAll(".rte-btn, .ws-rte-btn").forEach(btn => {
+      const cmd = btn.dataset.cmd || btn.dataset.rteCmd;
+      if (!cmd || cmd === "removeFormat") return;
+      try {
+        if (cmd === "formatBlock") {
+          const val = btn.dataset.val || "";
+          const curVal = document.queryCommandValue("formatBlock") || "";
+          btn.classList.toggle("active", curVal.toLowerCase().includes(val.toLowerCase()));
+        } else {
+          btn.classList.toggle("active", document.queryCommandState(cmd));
+        }
+      } catch (_) {}
+    });
+  }
+
+  initAllRichTextToolbars();
 
 
  // slot_datetime is stored as UTC (timestamptz). Raw string-slicing it (e.g.
@@ -6826,8 +6975,9 @@
  if (posterWrap) posterWrap.style.display = isPro ? "block" : "none";
  if (posterLocked) posterLocked.style.display = isPro ? "none" : "block";
  const linkPosterWrap = document.getElementById("p-link-poster-wrap");
- const linkPosterLocked = document.getElementById("p-link-poster-locked");
- if (linkPosterWrap) linkPosterWrap.style.display = isPro ? "block" : "none";
+  const linkPosterLocked = document.getElementById("p-link-poster-locked");
+  if (linkPosterWrap) linkPosterWrap.style.display = "block"; // Always accessible (Free: 1, Pro: 5)
+  if (linkPosterLocked) linkPosterLocked.style.display = isPro ? "none" : "block";
  if (linkPosterLocked) linkPosterLocked.style.display = isPro ? "none" : "block";
 
  const { data: links } = await supabase.from("booking_links").select("*").eq("owner_id", user.id).order("is_primary", { ascending: false }).order("created_at", { ascending: true });
@@ -7430,7 +7580,107 @@
  document.getElementById(id)?.addEventListener("change", updateBsetLiveSummary);
  });
 
- async function loadSettingsForCurrentLink() {
+ function renderLinkPosterThumbnails() {
+    const listEl = document.getElementById("p-link-poster-list");
+    const quotaBadge = document.getElementById("p-link-poster-quota-badge");
+    const posterZone = document.getElementById("p-link-poster-zone");
+    const zoneText = document.getElementById("p-link-poster-zone-text");
+    const legacyPreview = document.getElementById("p-link-poster-preview");
+    const maxQuota = currentUserIsPro ? 5 : 1;
+
+    if (quotaBadge) {
+      quotaBadge.textContent = `${currentLinkPosters.length}/${maxQuota} Poster (${currentUserIsPro ? "Studio Pro" : "Pelan Percuma"})`;
+    }
+
+    if (legacyPreview) {
+      legacyPreview.src = currentLinkPosters[0] || "";
+      legacyPreview.style.display = currentLinkPosters.length > 0 ? "block" : "none";
+    }
+
+    if (listEl) {
+      listEl.innerHTML = currentLinkPosters.map((url, idx) => `
+        <div class="poster-thumb-item">
+          <img src="${url}" alt="Poster ${idx + 1}" />
+          <button type="button" class="poster-thumb-remove" data-poster-idx="${idx}" title="Padam poster ini">✕</button>
+        </div>
+      `).join("");
+
+      listEl.querySelectorAll("[data-poster-idx]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const idx = parseInt(btn.dataset.posterIdx, 10);
+          currentLinkPosters.splice(idx, 1);
+          renderLinkPosterThumbnails();
+          showToast("Poster dipadam. Tekan 'Simpan Tetapan Booking' untuk simpan perubahan.", "info", 3000);
+        });
+      });
+    }
+
+    if (posterZone && zoneText) {
+      if (currentLinkPosters.length >= maxQuota) {
+        zoneText.innerHTML = currentUserIsPro
+          ? `Kuota ${maxQuota} poster telah penuh. Padam mana-mana poster untuk muat naik yang baharu.`
+          : `Kuota 1 poster (Pelan Percuma) telah penuh. Padam untuk ganti atau <a href="/billing.html" style="font-weight:600; text-decoration:underline;">Upgrade ke Pro</a> untuk muat naik hingga 5 poster carousel!`;
+      } else {
+        zoneText.textContent = `Klik atau seret gambar poster ke sini (${maxQuota - currentLinkPosters.length} slot lagi)`;
+      }
+    }
+  }
+
+  async function handlePosterFilesUpload(files) {
+    if (!files || files.length === 0) return;
+    const maxQuota = currentUserIsPro ? 5 : 1;
+    const availableSlots = maxQuota - currentLinkPosters.length;
+
+    if (availableSlots <= 0) {
+      if (!currentUserIsPro) {
+        showToast("Pelan Percuma membenarkan 1 poster servis sahaja. Sila padam poster sedia ada atau upgrade ke Pro untuk muat naik sehingga 5 poster carousel.", "warning", 5000);
+      } else {
+        showToast("Maksimum 5 poster servis telah dicapai.", "warning", 3000);
+      }
+      return;
+    }
+
+    const filesToUpload = Array.from(files).slice(0, availableSlots);
+    const zone = document.getElementById("p-link-poster-zone");
+    const successPill = document.getElementById("p-link-poster-success");
+    if (zone) zone.classList.add("uploading");
+    if (successPill) successPill.classList.remove("show");
+    showToast("Memuat naik poster servis...", "info", 2000);
+
+    let uploaded = 0;
+    try {
+      for (const file of filesToUpload) {
+        if (file.size > 2 * 1024 * 1024) {
+          showToast(`Poster "${file.name}" melebihi had 2MB.`, "error");
+          continue;
+        }
+        const compressed = await compressImageFile(file);
+        const path = `${user.id}/link-${Date.now()}-${Math.random().toString(36).substring(2, 7)}.jpg`;
+        const { error: uploadError } = await supabase.storage.from("posters").upload(path, compressed, { contentType: "image/jpeg" });
+        if (uploadError) throw uploadError;
+        const { data: urlData } = supabase.storage.from("posters").getPublicUrl(path);
+        currentLinkPosters.push(urlData.publicUrl);
+        uploaded++;
+      }
+      if (uploaded > 0) {
+        renderLinkPosterThumbnails();
+        if (successPill) successPill.classList.add("show");
+        showToast(`${uploaded} poster dimuat naik! Sila tekan 'Simpan Tetapan Booking' untuk simpan perubahan.`, "success", 4000);
+      }
+    } catch (err) {
+      showToast("Gagal upload poster: " + err.message, "error");
+    } finally {
+      if (zone) zone.classList.remove("uploading");
+      const fileInput = document.getElementById("p-link-poster-file");
+      if (fileInput) fileInput.value = "";
+    }
+  }
+
+  const linkPosterDropzone = document.getElementById("p-link-poster-zone");
+  const linkPosterInput = document.getElementById("p-link-poster-file");
+  setupDropzone(linkPosterDropzone, linkPosterInput, handlePosterFilesUpload);
+
+  async function loadSettingsForCurrentLink() {
  const link = currentLink();
 
  document.getElementById("p-booking-slug").value = link?.slug || "";
@@ -7440,11 +7690,8 @@
  document.getElementById("p-cancel-notice").value = link?.cancellation_notice_hours ?? 0;
  document.getElementById("p-default-deposit").value = link?.default_deposit_amount != null ? link.default_deposit_amount : "";
  document.getElementById("p-link-description-rte").innerHTML = sanitizeRichText(link?.description || "");
- const posterPreview = document.getElementById("p-link-poster-preview");
- if (posterPreview) {
- posterPreview.src = link?.poster_url || "";
- posterPreview.style.display = link?.poster_url ? "block" : "none";
- }
+ currentLinkPosters = parsePosters(link?.poster_url);
+  renderLinkPosterThumbnails();
 
  if (link?.slug && link.default_deposit_amount == null) {
  document.getElementById("booking-slug-status").innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <strong>Pautan ini TIDAK berfungsi</strong>. Deposit Lalai belum diisi. Tempahan pelanggan akan gagal sehingga anda mengisi dan menyimpan semula.`;
@@ -7730,48 +7977,22 @@
  btn.textContent = "Menyimpan...";
 
  const description = sanitizeRichText(document.getElementById("p-link-description-rte").innerHTML.trim()) || null;
- const linkPosterFile = currentUserIsPro ? document.getElementById("p-link-poster-file")?.files[0] : null;
- let posterUrl = undefined; // undefined = don't touch existing value unless a new file was picked
 
- if (linkPosterFile) {
- if (linkPosterFile.size > 2 * 1024 * 1024) {
- showToast("Poster terlalu besar. Sila guna gambar bawah 2MB.", "error");
- btn.disabled = false;
- btn.textContent = "Simpan Tetapan Booking";
- return;
- }
- btn.textContent = "Memuat naik poster...";
- document.getElementById("p-link-poster-zone")?.classList.add("uploading");
- document.getElementById("p-link-poster-success")?.classList.remove("show");
- try {
- const compressed = await compressImageFile(linkPosterFile);
- const path = `${user.id}/link-${Date.now()}.jpg`;
- const { error: uploadError } = await supabase.storage.from("posters").upload(path, compressed, { contentType: "image/jpeg" });
- if (uploadError) throw uploadError;
- const { data: urlData } = supabase.storage.from("posters").getPublicUrl(path);
- posterUrl = urlData.publicUrl;
- document.getElementById("p-link-poster-zone")?.classList.remove("uploading");
- document.getElementById("p-link-poster-success")?.classList.add("show");
- } catch (err) {
- document.getElementById("p-link-poster-zone")?.classList.remove("uploading");
- showToast("Gagal upload poster: " + err.message, "error");
- btn.disabled = false;
- btn.textContent = "Simpan Tetapan Booking";
- return;
- }
- btn.textContent = "Menyimpan...";
- }
+  // Multi-poster storage: null if empty, string if 1, JSON array string if > 1
+  const posterPayload = currentLinkPosters.length === 0
+    ? null
+    : (currentLinkPosters.length === 1 ? currentLinkPosters[0] : JSON.stringify(currentLinkPosters));
 
- const linkUpdate = {
- slug,
- slot_duration_minutes: parseInt(document.getElementById("p-slot-duration").value, 10),
- booking_min_notice_hours: parseInt(document.getElementById("p-min-notice").value, 10),
- buffer_minutes: parseInt(document.getElementById("p-buffer").value, 10),
- cancellation_notice_hours: parseInt(document.getElementById("p-cancel-notice").value, 10),
- default_deposit_amount: depositValue,
- description,
- ...(posterUrl !== undefined ? { poster_url: posterUrl } : {}),
- };
+  const linkUpdate = {
+  slug,
+  slot_duration_minutes: parseInt(document.getElementById("p-slot-duration").value, 10),
+  booking_min_notice_hours: parseInt(document.getElementById("p-min-notice").value, 10),
+  buffer_minutes: parseInt(document.getElementById("p-buffer").value, 10),
+  cancellation_notice_hours: parseInt(document.getElementById("p-cancel-notice").value, 10),
+  default_deposit_amount: depositValue,
+  description,
+  poster_url: posterPayload,
+  };
 
  let linkErr;
  if (currentLinkId) {

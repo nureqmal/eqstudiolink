@@ -275,8 +275,18 @@
     }
 
     function calculateTotals() {
+      const selectedType = getSelectedType();
+      let extractedPrice = null;
+      if (selectedType) {
+        if (selectedType.price != null && selectedType.price > 0) {
+          extractedPrice = Number(selectedType.price);
+        } else if (selectedType.description) {
+          const m = selectedType.description.match(/<!--price:([0-9.]+)-->/);
+          if (m) extractedPrice = parseFloat(m[1]);
+        }
+      }
       const baseDeposit = Number(currentDeposit() || 0);
-      const basePrice = baseDeposit; // No separate "full price" field exists in the backend (event_types only tracks deposit_amount) — using deposit as the base so displayed totals are correct rather than showing RM0.00
+      const basePrice = (extractedPrice != null && extractedPrice > 0) ? extractedPrice : baseDeposit;
       const addOnsList = availabilityData?.add_ons || [];
       let addOnsTotal = 0;
       selectedAddons.forEach(id => {
@@ -954,7 +964,7 @@
     
     function formatServiceDescription(raw) {
       if (!raw) return "";
-      const trimmed = String(raw).replace(/<!--popular-->/g, "").trim();
+      const trimmed = String(raw).replace(/<!--popular-->/g, "").replace(/<!--price:[0-9.]+-->/g, "").trim();
       // If user provided HTML formatted tags from RTE (<ul>, <ol>, <li>, <p>, <br>, etc.)
       if (/<(p|br|ul|ol|li|div|b|i|u|strong|em|s)\b/i.test(trimmed)) {
         return sanitizeRichText(trimmed);
@@ -1511,6 +1521,12 @@
         <!-- Service Package Cards Grid -->
         <div class="event-type-grid">
           ${displayedTypes.map((t) => {
+            let fullPriceVal = (t.price != null && t.price > 0) ? t.price : null;
+            if (fullPriceVal == null && t.description) {
+              const mPrice = t.description.match(/<!--price:([0-9.]+)-->/);
+              if (mPrice) fullPriceVal = parseFloat(mPrice[1]);
+            }
+            if (fullPriceVal != null) t.price = fullPriceVal;
             const hasPrice = t.price != null && t.price > 0;
             const hasDeposit = t.deposit_amount != null && t.deposit_amount > 0;
             const isDepositFree = t.deposit_amount === 0;

@@ -444,7 +444,7 @@
  <input type="text" id="direct-b-slug" placeholder="nama-bisnes" autocomplete="off" />
  </div>
  <div class="desktop-direct-field">
- <label for="direct-b-deposit"><span data-i18n="ops_deposit_label">Deposit Lalai (RM)</span> <span class="req">*</span></label>
+ <label for="direct-b-deposit"><span data-i18n="ops_deposit_label">Deposit Asas (RM)</span> <span class="req">*</span></label>
  <input type="number" id="direct-b-deposit" min="0" step="0.5" placeholder="50.00" required />
  </div>
  <div class="desktop-direct-field">
@@ -909,9 +909,9 @@
  </div>
 
  <div>
- <label for="p-default-deposit">Deposit Lalai (RM) <span style="color:var(--warn); font-size:0.78rem;">*Wajib</span> <button type="button" class="info-icon-btn" data-info="Contoh: 50 (taip 0 sekiranya tempahan adalah percuma tanpa deposit)">i</button></label>
+ <label for="p-default-deposit">Deposit Asas Tempahan (RM) <span style="color:var(--warn); font-size:0.78rem;">*Wajib</span> <button type="button" class="info-icon-btn" data-info="Kadar deposit standard untuk 'lock' slot tempahan sekiranya anda tidak menetapkan pakej khusus. Nilai ini juga disalin secara automatik bila anda buat pakej servis baharu. Taip 0 sekiranya sesi percuma tanpa bayaran deposit.">i</button></label>
  <input type="number" id="p-default-deposit" step="0.01" min="0" placeholder="cth: 50.00" style="width:100%; margin-top:0.25rem;" />
- <p class="hint" style="margin-top:0.3rem;" data-i18n="bset_deposit_hint">Taip 0 sekiranya sesi percuma tanpa bayaran deposit.</p>
+ <p class="hint" style="margin-top:0.3rem;" data-i18n="bset_deposit_hint">Kadar deposit standard untuk pelanggan 'lock' slot jika tiada pakej khusus. (Taip 0 untuk percuma)</p>
  <div id="bset-deposit-tip"></div>
  </div>
  </div>
@@ -1111,11 +1111,15 @@
 
  <div class="row" style="margin-top:0.8rem;">
  <div style="flex:1;">
- <label for="et-deposit">Deposit (RM) <span style="font-size:0.75rem; color:var(--ink-soft);" data-i18n="bset_type_0_free">(taip 0 untuk percuma)</span> <button type="button" class="info-icon-btn" data-info="Bayaran komitmen pendahuluan. Contoh: 50.00">i</button></label>
+ <label for="et-price">Harga Sebenar / Penuh (RM) <span style="font-size:0.75rem; color:var(--ink-muted);">(pilihan)</span> <button type="button" class="info-icon-btn" data-info="Harga penuh pakej servis anda (cth: RM150). Jika diisi, mini-website akan paparkan harga penuh dicoret, deposit lock slot, dan baki yang perlu dibayar pelanggan semasa hari kejadian.">i</button></label>
+ <input type="number" id="et-price" step="0.01" min="0" placeholder="cth: 150.00" style="margin-top:0.25rem;" />
+ </div>
+ <div style="flex:1;">
+ <label for="et-deposit">Deposit Tempahan (RM) <span style="font-size:0.75rem; color:var(--warn);">*Wajib</span> <button type="button" class="info-icon-btn" data-info="Bayaran pendahuluan untuk 'lock' tarikh &amp; slot tempahan. Taip 0 sekiranya sesi percuma tanpa bayaran pendahuluan.">i</button></label>
  <input type="number" id="et-deposit" step="0.01" min="0" placeholder="cth: 50.00" style="margin-top:0.25rem;" />
  </div>
  <div style="flex:1;">
- <label for="et-capacity">Kapasiti Pelanggan <button type="button" class="info-icon-btn" data-info="Berapa orang boleh book pada satu slot masa yang sama. 1 untuk temu janji individu, lebih dari 1 untuk kelas atau bengkel berkumpulan.">i</button></label>
+ <label for="et-capacity">Kapasiti Pelanggan <button type="button" class="info-icon-btn" data-info="Berapa orang boleh book pada satu slot masa yang sama. 1 untuk sesi individu, lebih dari 1 untuk kelas atau bengkel berkumpulan.">i</button></label>
  <input type="number" id="et-capacity" value="1" min="1" style="margin-top:0.25rem;" />
  </div>
  </div>
@@ -5388,7 +5392,7 @@ function parsePosters(val) {
  </div>
  <div class="setup-checklist">
  ${item(step1Done, t("setup_step1", "Isi Profil Perniagaan (nama, contact, bank & QR DuitNow)"), "tetapan-profil")}
- ${item(step2Done, t("setup_step2", "Setup Booking (link, waktu available & deposit lalai)"), "booking-settings")}
+ ${item(step2Done, t("setup_step2", "Setup Booking (link, waktu operasi & deposit asas)"), "booking-settings")}
  ${item(step3Done, t("setup_step3", "Semak & simpan Jadual Reminder"), "tetapan-reminder")}
  ${item(step4Done, t("setup_step4", "Tambah pelanggan pertama (atau kongsi link booking)"), "pelanggan-add")}
  ${testItem(step5Done)}
@@ -8041,7 +8045,7 @@ function parsePosters(val) {
   renderLinkPosterThumbnails();
 
  if (link?.slug && link.default_deposit_amount == null) {
- document.getElementById("booking-slug-status").innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <strong>Pautan ini TIDAK berfungsi</strong>. Deposit Lalai belum diisi. Tempahan pelanggan akan gagal sehingga anda mengisi dan menyimpan semula.`;
+ document.getElementById("booking-slug-status").innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <strong>Pautan ini TIDAK berfungsi</strong>. Deposit Asas Tempahan belum diisi. Tempahan pelanggan akan gagal sehingga anda mengisi dan menyimpan semula.`;
  document.getElementById("booking-slug-status").style.color = "var(--warn)";
  document.getElementById("booking-qr-wrap").style.display = "none";
  document.getElementById("embed-code").value = "";
@@ -8174,6 +8178,12 @@ function parsePosters(val) {
  editingEventTypeId = t.id;
  document.getElementById("et-name").value = t.name;
  document.getElementById("et-duration").value = t.duration_minutes;
+ let fullPriceVal = t.price != null ? t.price : null;
+ if (fullPriceVal == null && t.description) {
+   const matchPrice = t.description.match(/<!--price:([0-9.]+)-->/);
+   if (matchPrice) fullPriceVal = parseFloat(matchPrice[1]);
+ }
+ document.getElementById("et-price").value = (fullPriceVal != null && !isNaN(fullPriceVal)) ? fullPriceVal : "";
  document.getElementById("et-deposit").value = t.deposit_amount != null ? t.deposit_amount : "";
  document.getElementById("et-capacity").value = t.capacity || 1;
  document.getElementById("et-description-rte").innerHTML = sanitizeRichText(t.description || "");
@@ -8189,6 +8199,7 @@ function parsePosters(val) {
  function stopEditingEventType() {
  editingEventTypeId = null;
  document.getElementById("et-name").value = "";
+ if (document.getElementById("et-price")) document.getElementById("et-price").value = "";
  document.getElementById("et-duration").value = "60";
  prefillEventTypeDeposit();
  document.getElementById("et-capacity").value = "1";
@@ -8351,11 +8362,17 @@ function parsePosters(val) {
  const depositRaw = document.getElementById("et-deposit").value.trim();
  const capacity = parseInt(document.getElementById("et-capacity").value, 10) || 1;
  const isPopular = document.getElementById("et-popular") ? document.getElementById("et-popular").checked : false;
+ const priceRaw = document.getElementById("et-price") ? document.getElementById("et-price").value.trim() : "";
+ const fullPrice = priceRaw ? parseFloat(priceRaw) : null;
 
  let cleanDesc = sanitizeRichText(document.getElementById("et-description-rte").innerHTML.trim()) || "";
- cleanDesc = cleanDesc.replace(/<!--popular-->/g, "").trim();
- if (isPopular) cleanDesc = "<!--popular-->" + cleanDesc;
- const description = cleanDesc || null;
+ cleanDesc = cleanDesc.replace(/<!--popular-->/g, "").replace(/<!--price:[0-9.]+-->/g, "").trim();
+
+ let metaTags = "";
+ if (isPopular) metaTags += "<!--popular-->";
+ if (fullPrice != null && !isNaN(fullPrice) && fullPrice > 0) metaTags += `<!--price:${fullPrice}-->`;
+
+ const description = (metaTags + cleanDesc) || null;
 
  if (!name || !duration) { showToast("Nama & tempoh diperlukan.", "error"); return; }
  if (depositRaw === "") { showToast("Deposit diperlukan (taip 0 untuk percuma).", "error"); document.getElementById("et-deposit").focus(); return; }
@@ -8407,7 +8424,7 @@ function parsePosters(val) {
  const depositValue = depositRaw === "" ? null : parseFloat(depositRaw);
 
  if (slug && depositValue == null) {
- showToast("Deposit Lalai WAJIB diisi supaya booking berfungsi untuk customer. Sila isi dulu.", "error");
+ showToast("Deposit Asas Tempahan WAJIB diisi supaya booking berfungsi untuk customer. Sila isi dulu.", "error");
  document.getElementById("p-default-deposit").focus();
  return;
  }
@@ -9431,7 +9448,7 @@ function parsePosters(val) {
  return;
  }
  if (depositVal == null) {
- showToast("Deposit lalai wajib diisi (contoh: 0 atau amaun).", "error");
+ showToast("Deposit Asas Tempahan wajib diisi (contoh: 0 atau amaun).", "error");
  depositInput.focus();
  return;
  }
@@ -9808,7 +9825,7 @@ function parsePosters(val) {
  "Status pembayaran di [Senarai Pelanggan] kemas kini secara manual selepas anda sahkan bayaran diterima.",
  "Tarikh cukup tempoh tentukan bila peringatan emel dihantar mengikut [Tetapan Reminder] anda.",
  "Pelanggan yang reschedule tak perlu tempah baharu. Mereka pilih slot lain terus dari link sama.",
- "Deposit lalai di [Tetapan Booking] jadi asas, tapi setiap Jenis Perkhidmatan boleh ada deposit berlainan.",
+ "Deposit Asas Tempahan di [Tetapan Booking] jadi nilai standard, tapi setiap Jenis Perkhidmatan boleh ada deposit berlainan.",
  "Bil langganan dibayar secara manual melalui pindahan bank di halaman Billing.",
  "Founding Member yang mengunci harga akan kekal pada kadar sama walau harga standard berubah kemudian.",
  "Reminder dihantar sekali sehari secara automatik, bukan secara masa nyata sebaik tarikh cukup tempoh sampai.",
@@ -9910,7 +9927,7 @@ function parsePosters(val) {
  "Status pembayaran di [Senarai Pelanggan] kemas kini secara manual selepas anda sahkan bayaran diterima.",
  "Tarikh cukup tempoh tentukan bila peringatan emel dihantar mengikut [Tetapan Reminder] anda.",
  "Pelanggan yang reschedule tak perlu tempah baharu. Mereka pilih slot lain terus dari link sama.",
- "Deposit lalai di [Tetapan Booking] jadi asas, tapi setiap Jenis Perkhidmatan boleh ada deposit berlainan.",
+ "Deposit Asas Tempahan di [Tetapan Booking] jadi nilai standard, tapi setiap Jenis Perkhidmatan boleh ada deposit berlainan.",
  "Bil langganan dibayar secara manual melalui pindahan bank di halaman Billing.",
  "Founding Member yang mengunci harga akan kekal pada kadar sama walau harga standard berubah kemudian.",
  "Reminder dihantar sekali sehari secara automatik, bukan secara masa nyata sebaik tarikh cukup tempoh sampai.",
@@ -11692,7 +11709,7 @@ function parsePosters(val) {
  { page: "home", selector: "#home-trend-chart", title: "Tren Tempahan", text: "Carta ini menunjukkan trend tempahan 14 hari terkini. Anda dapat melihat momentum perniagaan anda dengan mudah tanpa perlu membuka Laporan." },
  { page: "home", selector: '.bento-tile[data-page="booking-settings"]', title: "Mula Dari Sini: Tempahan", text: "Tempahan adalah ciri UTAMA sistem ini. Pelanggan menempah slot sendiri, deposit dan peringatan akan berjalan secara automatik selepas itu. Jom sediakan tetapan terlebih dahulu." },
  { page: "booking-settings", selector: "#p-booking-slug", title: "Pautan Tempahan Anda", text: "Pilih nama pautan (contoh: kedai-anda). Inilah yang akan anda kongsikan dengan pelanggan supaya mereka boleh menempah slot terus. Selepas disimpan, pautan ini turut dipaparkan di Laman Utama untuk memudahkan anda menyalin atau berkongsi." },
- { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai. WAJIB DIISI", text: "Ini PALING PENTING. Sekiranya tidak diisi, tempahan pelanggan akan GAGAL. Akan diguna pakai secara automatik untuk setiap tempahan baharu. Untuk tempahan PERCUMA seperti konsultasi, taip 0. Sistem kini memahami bahawa 0 adalah nilai yang sengaja ditetapkan, bukan medan yang tidak diisi." },
+ { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Asas Tempahan (Wajib Diisi)", text: "Ini PALING PENTING. Sekiranya tidak diisi, tempahan pelanggan akan GAGAL. Akan diguna pakai secara automatik untuk setiap tempahan baharu. Untuk tempahan PERCUMA seperti konsultasi, taip 0. Sistem kini memahami bahawa 0 adalah nilai yang sengaja ditetapkan, bukan medan yang tidak diisi." },
  { page: "booking-settings", selector: "#weekly-days", title: "Jadual Mingguan", text: "Set waktu buka anda sekali sahaja dan ia berulang setiap minggu. Ketik satu hari untuk ubah waktunya, dan guna butang Salin pantas untuk hari-hari lain." },
  { page: "booking-settings", selector: "#avail-cal-grid", title: "Kalendar Waktu Tersedia", text: "Kalendar menunjukkan waktu buka sebenar setiap tarikh. Klik satu tarikh untuk ubah atau tutup hari itu sahaja, contohnya cuti atau waktu khas." },
  { page: "booking-settings", selector: "#event-types-list", title: "Lebih Dari Satu Jenis Perkhidmatan?", text: "Contoh: Kutipan Kek (10 minit) berbanding Kelas Baking (2 jam, RM100). Setiap jenis mempunyai tempoh, harga, dan kapasiti tersendiri (kapasiti melebihi 1 untuk kelas berkumpulan). Kosongkan sekiranya semua tempahan anda adalah sama." },
@@ -11962,7 +11979,7 @@ function parsePosters(val) {
  { page: "booking-settings", selector: "#link-switcher-chips", title: "Link Switcher", text: "Kalau anda pelan Pro dengan lebih dari satu link booking, tukar link yang sedang diedit di sini." },
  { page: "booking-settings", selector: "#p-booking-slug", title: "Slug", text: "Nama unik untuk pautan awam anda. Menukar ini akan menukar URL tempahan anda." },
  { page: "booking-settings", selector: "#p-slot-duration", title: "Tempoh Slot", text: "Berapa lama setiap booking mengambil masa." },
- { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Lalai", text: "WAJIB diisi. Tempahan pelanggan akan gagal sekiranya medan ini kosong. Taip 0 sekiranya tempahan adalah percuma." },
+ { page: "booking-settings", selector: "#p-default-deposit", title: "Deposit Asas Tempahan", text: "WAJIB diisi. Tempahan pelanggan akan gagal sekiranya medan ini kosong. Taip 0 sekiranya tempahan adalah percuma." },
  { page: "booking-settings", selector: "#weekly-days", title: "Jadual Mingguan", text: "Set jam buka sekali, ia berulang setiap minggu. Ketik satu hari untuk ubah waktunya." },
  { page: "booking-settings", selector: "#avail-cal-grid", title: "Cuti & Waktu Khas", text: "Klik tarikh dalam kalendar untuk tukar atau tutup hari itu sahaja." },
  { page: "booking-settings", selector: "#bset-tabs", title: "Tab Tetapan", text: "Klik tab untuk tukar antara Asas, Jenis Perkhidmatan, Soalan Tambahan, dan Embed code." },

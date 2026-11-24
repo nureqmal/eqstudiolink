@@ -3253,7 +3253,8 @@
  function closeWizard(markComplete) {
  if (markComplete) {
  localStorage.setItem("eqstudio_onboarding_completed", "1");
- localStorage.setItem("eqstudio_setup_dismissed", "1");
+ const checklistDismissKey = (typeof user !== "undefined" && user?.id) ? ("eqstudio_setup_dismissed_" + user.id) : "eqstudio_setup_dismissed";
+  localStorage.setItem(checklistDismissKey, "1");
  }
  document.getElementById("wizard-modal").style.display = "none";
  }
@@ -4889,7 +4890,8 @@
 
  // ── Setup checklist (dismissable once all steps done or user closes it) ──
  function renderSetupChecklist(customerCount) {
- if (localStorage.getItem("eqstudio_setup_dismissed") === "1") return;
+ const checklistDismissKey = (typeof user !== "undefined" && user?.id) ? ("eqstudio_setup_dismissed_" + user.id) : "eqstudio_setup_dismissed";
+  if (localStorage.getItem(checklistDismissKey) === "1") return;
 
  const step1Done = !!profile?.business_name && !!profile?.bank_name && !!profile?.bank_account_number && !!profile?.qr_code_url;
  const step2Done = allBookingLinks.some(l => l.slug && l.default_deposit_amount != null);
@@ -6843,12 +6845,15 @@
  updateStorefrontReadiness();
 
  if (!onboardingChecked) {
-    onboardingChecked = true;
-    const wizardCompleted = localStorage.getItem("eqstudio_onboarding_completed") || localStorage.getItem("eqstudio_setup_dismissed");
-    if (!wizardCompleted && (allBookingLinks.length === 0 || !profile?.business_name)) {
-      openOnboardingWizard();
-    }
-  }
+     onboardingChecked = true;
+     const userScopedKey = (typeof user !== "undefined" && user?.id) ? ("eqstudio_onboarding_completed_" + user.id) : null;
+     const userWizardCompleted = userScopedKey ? (localStorage.getItem(userScopedKey) || localStorage.getItem("eqstudio_setup_dismissed_" + user.id)) : null;
+     const isBrandNewAccount = allBookingLinks.length === 0 || !profile?.business_name || !profile.business_name.trim();
+
+     if (!userWizardCompleted && isBrandNewAccount) {
+       openOnboardingWizard();
+     }
+   }
 }
 
  function renderLinkSwitcher(isPro) {
@@ -11084,7 +11089,8 @@
  });
 
  document.getElementById("reopen-setup-checklist-btn")?.addEventListener("click", () => {
- localStorage.removeItem("eqstudio_setup_dismissed");
+ if (typeof user !== "undefined" && user?.id) localStorage.removeItem("eqstudio_setup_dismissed_" + user.id);
+  localStorage.removeItem("eqstudio_setup_dismissed");
  goToPage("home");
  renderSetupChecklist(allCustomers.length);
  updateHomeLinkStatusBadge();

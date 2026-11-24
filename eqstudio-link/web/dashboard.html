@@ -3098,6 +3098,8 @@
  let bookingMilestones = new Map();
  let currentProfile = null;
  let wsCoverPhotoUrl = null;
+  let currentUserIsPro = false;
+  let onboardingChecked = false;
   let currentStorefrontMetrics = {
  score: 0,
  hasProfile: false,
@@ -4553,7 +4555,7 @@
  const isEn = curLang === "en";
 
  const activeTier = (typeof currentProfile !== "undefined" && currentProfile?.tier) || (typeof profile !== "undefined" && profile?.tier) || (typeof profTier !== "undefined" ? profTier?.tier : null);
- const isPro = activeTier === "pro" || (typeof currentUserIsPro !== "undefined" && currentUserIsPro);
+ const isPro = activeTier === "pro" || !!currentUserIsPro;
  const isLite = activeTier === "lite";
  // Issue 4: Studio Pro has unlimited bookings - quota card is irrelevant, so hide completely!
  if (isPro) {
@@ -6810,8 +6812,9 @@
  return allBookingLinks.find(l => l.id === currentLinkId) || null;
  }
 
- let onboardingChecked = false;
- let currentUserIsPro = false;
+ // onboardingChecked & currentUserIsPro initialized at top-level state
+ onboardingChecked = false;
+ currentUserIsPro = false;
  async function loadBookingLinksAndSettings() {
  const { data: profTier } = await supabase.from("profiles").select("tier").eq("id", user.id).single();
  const isPro = profTier?.tier === "pro";

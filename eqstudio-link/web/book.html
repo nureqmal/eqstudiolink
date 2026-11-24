@@ -951,6 +951,26 @@
       return div.innerHTML;
     }
 
+    
+    function formatServiceDescription(raw) {
+      if (!raw) return "";
+      const trimmed = String(raw).trim();
+      // If user provided HTML formatted tags from RTE (<ul>, <ol>, <li>, <p>, <br>, etc.)
+      if (/<(p|br|ul|ol|li|div|b|i|u|strong|em|s)\b/i.test(trimmed)) {
+        return sanitizeRichText(trimmed);
+      }
+      // If plain text with lines starting with -, •, *, or numbers
+      const lines = trimmed.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      if (lines.length > 1 && lines.some(l => /^[-•*]|\d+\./.test(l))) {
+        const listItems = lines.map(line => {
+          const clean = line.replace(/^[-•*]\s*/, "");
+          return `<li>${escapeHtml(clean)}</li>`;
+        }).join("");
+        return `<ul class="service-desc-list">${listItems}</ul>`;
+      }
+      return escapeHtml(trimmed).replace(/\n/g, "<br>");
+    }
+
     function sanitizeRichText(html) {
       const allowed = new Set(["B", "STRONG", "I", "EM", "U", "S", "STRIKE", "BR", "P", "H3", "H4", "UL", "OL", "LI", "BLOCKQUOTE"]);
       const container = document.createElement("div");
@@ -1518,7 +1538,7 @@
                       ${balanceAmount ? `<span class="event-type-balance-note">Baki RM ${balanceAmount} di lokasi</span>` : ""}
                     </div>
                   </div>
-                  ${t.description ? `<p class="event-type-card-desc">${escapeHtml(t.description.length > 110 ? t.description.slice(0, 110) + "..." : t.description)}</p>` : ""}
+                  ${t.description ? `<div class="event-type-card-desc">${formatServiceDescription(t.description)}</div>` : ""}
                   
                   ${t.inclusions && t.inclusions.length > 0 ? `
                     <ul class="event-type-inclusions-list">
@@ -1671,7 +1691,7 @@
       document.getElementById("service-detail-title").textContent = t.name;
       document.getElementById("service-detail-poster").style.display = t.poster_url ? "block" : "none";
       document.getElementById("service-detail-poster").src = t.poster_url || "";
-      document.getElementById("service-detail-description").innerHTML = sanitizeRichText(t.description || "");
+      document.getElementById("service-detail-description").innerHTML = formatServiceDescription(t.description || "");
       document.getElementById("service-detail-modal").style.display = "flex";
     }
     document.getElementById("service-detail-close-btn")?.addEventListener("click", () => {

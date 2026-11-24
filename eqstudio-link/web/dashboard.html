@@ -976,6 +976,10 @@
  <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal" aria-label="Teks tebal">B</button>
  <button type="button" class="rte-btn" data-rte-cmd="italic" title="Condong" aria-label="Teks condong"><i>I</i></button>
  <button type="button" class="rte-btn" data-rte-cmd="underline" title="Garis Bawah" aria-label="Teks garis bawah"><u>U</u></button>
+ <button type="button" class="rte-btn" data-rte-cmd="strikeThrough" title="Garis Batal" aria-label="Teks garis batal"><s>S</s></button>
+ <button type="button" class="rte-btn" data-rte-cmd="insertUnorderedList" title="Senarai Poin (Bullet List)" aria-label="Senarai Poin">• Poin</button>
+ <button type="button" class="rte-btn" data-rte-cmd="insertOrderedList" title="Senarai Nombor (Numbered List)" aria-label="Senarai Nombor">1. Nombor</button>
+ <button type="button" class="rte-btn" data-rte-cmd="removeFormat" title="Padam Format" aria-label="Padam format">✕</button>
  </div>
  <div id="p-link-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis deskripsi servis atau syarat tempahan anda di sini..."></div>
 
@@ -1119,24 +1123,28 @@
  <div class="optional-section" style="margin-top:1rem;">
  <span class="optional-section-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg> Pilihan Tambahan</span>
 
- <label for="et-description-rte" style="display:block; margin-top:0.35rem;">Deskripsi Perkhidmatan <button type="button" class="info-icon-btn" data-info="Penerangan terperinci apa yang termasuk dalam pakej servis ini.">i</button></label>
+ <label for="et-description-rte" style="display:block; margin-top:0.35rem;">Deskripsi Perkhidmatan <button type="button" class="info-icon-btn" data-info="Penerangan terperinci apa yang termasuk dalam pakej servis ini. Disyorkan guna senarai poin (bullet list) untuk susunan kemas.">i</button></label>
  <div class="rte-toolbar" style="margin-top:0.35rem;">
  <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal" aria-label="Teks tebal">B</button>
  <button type="button" class="rte-btn" data-rte-cmd="italic" title="Condong" aria-label="Teks condong"><i>I</i></button>
  <button type="button" class="rte-btn" data-rte-cmd="underline" title="Garis Bawah" aria-label="Teks garis bawah"><u>U</u></button>
+ <button type="button" class="rte-btn" data-rte-cmd="strikeThrough" title="Garis Batal" aria-label="Teks garis batal"><s>S</s></button>
+ <button type="button" class="rte-btn" data-rte-cmd="insertUnorderedList" title="Senarai Poin (Bullet List)" aria-label="Senarai Poin">• Poin</button>
+ <button type="button" class="rte-btn" data-rte-cmd="insertOrderedList" title="Senarai Nombor (Numbered List)" aria-label="Senarai Nombor">1. Nombor</button>
+ <button type="button" class="rte-btn" data-rte-cmd="removeFormat" title="Padam Format" aria-label="Padam format">✕</button>
  </div>
- <div id="et-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Tulis apa yang pelanggan akan peroleh dalam pakej servis ini..."></div>
+ <div id="et-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Cth:&#10;• 3 hours coverage&#10;• Outdoor &amp; Studio&#10;• Softcopy via Google Drive&#10;• Selected edited photos"></div>
 
- <div id="et-poster-wrap" style="display:none; margin-top:0.9rem;">
- <label for="et-poster-file" style="display:block;">Poster / Gambar Pakej (maksimum 2MB) <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3.">i</button></label>
+ <div id="et-poster-wrap" style="display:block; margin-top:0.9rem;">
+ <label for="et-poster-file" style="display:block;">Poster / Gambar Pakej <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3. Gambar boleh dipotong (crop) mengikut saiz kad pakej sebelum disimpan.">i</button></label>
  <div class="poster-upload-zone" id="et-poster-zone" style="margin-top:0.35rem;">
  <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
  <p class="hint" style="margin:0;" data-i18n="bset_drag_img">Klik atau seret gambar ke sini</p>
  <input type="file" id="et-poster-file" accept="image/*" />
  </div>
- <div class="poster-upload-success" id="et-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dimuat naik</div>
+ <div class="poster-upload-success" id="et-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dipilih</div>
  </div>
- <p class="hint" id="et-poster-locked" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Poster perkhidmatan hanya untuk pelan Pro. <a href="/billing.html" style="font-weight:600;" data-i18n="upgrade_to_pro">Upgrade ke Pro</a> untuk mengaktifkan.</p>
+ <p class="hint" id="et-poster-locked" style="margin-top:0.4rem; color:var(--ink-muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Semua pelan (termasuk Pelan Percuma) boleh muat naik 1 gambar poster pakej.</p>
 
  <label for="et-video-link" style="display:block; margin-top:0.9rem;">Link Panggilan Video (pilihan) <button type="button" class="info-icon-btn" data-info="Untuk servis konsultasi/temujanji jarak jauh — link Google Meet atau Zoom ini akan dipaparkan kepada pelanggan selepas mereka berjaya menempah.">i</button></label>
  <input type="url" id="et-video-link" placeholder="cth: https://meet.google.com/xxx-xxxx-xxx" style="margin-top:0.35rem;" />
@@ -7297,8 +7305,8 @@ function parsePosters(val) {
  currentUserIsPro = isPro;
  const posterWrap = document.getElementById("et-poster-wrap");
  const posterLocked = document.getElementById("et-poster-locked");
- if (posterWrap) posterWrap.style.display = isPro ? "block" : "none";
- if (posterLocked) posterLocked.style.display = isPro ? "none" : "block";
+ if (posterWrap) posterWrap.style.display = "block"; // Open for all plans
+ if (posterLocked) posterLocked.style.display = "block";
  const linkPosterWrap = document.getElementById("p-link-poster-wrap");
   const linkPosterLocked = document.getElementById("p-link-poster-locked");
   if (linkPosterWrap) linkPosterWrap.style.display = "block"; // Always accessible (Free: 1, Pro: 5)
@@ -8181,10 +8189,34 @@ function parsePosters(val) {
  document.getElementById("et-video-link").value = "";
   if (document.getElementById("et-popular")) document.getElementById("et-popular").checked = false;
  if (document.getElementById("et-poster-file")) document.getElementById("et-poster-file").value = "";
+  currentEtCroppedPosterFile = null;
+  document.getElementById("et-poster-success")?.classList.remove("show");
  document.getElementById("add-event-type-btn").textContent = "+ Tambah Jenis Perkhidmatan";
  document.getElementById("et-cancel-edit-btn").style.display = "none";
  }
  document.getElementById("et-cancel-edit-btn")?.addEventListener("click", stopEditingEventType);
+
+  // ── Package / Event Type Poster Dropzone & Cropper (Free: 1 poster, Pro: 1 poster per package) ──
+  let currentEtCroppedPosterFile = null;
+  const etPosterZone = document.getElementById("et-poster-zone");
+  const etPosterFileInput = document.getElementById("et-poster-file");
+  setupDropzone(etPosterZone, etPosterFileInput, async (files) => {
+    if (!files || !files[0]) return;
+    const file = files[0];
+    const cropped = await promptCropImage(file, {
+      title: "Laras & Potong Poster Pakej",
+      subtitle: "Nisbah 4:3 disyorkan untuk paparan kad pakej di mini-website",
+      aspectRatio: 4 / 3,
+      circular: false,
+      allowRatioChange: true
+    });
+    if (cropped) {
+      currentEtCroppedPosterFile = cropped;
+      document.getElementById("et-poster-success")?.classList.add("show");
+      showToast("Poster pakej sedia dimuat naik apabila disimpan.", "info", 2000);
+    }
+  });
+
 
  // Resizes+re-encodes an image client-side before upload, keeping the free
  // Supabase Storage tier (1GB total, shared across all Pro owners) usable —
@@ -8221,14 +8253,14 @@ function parsePosters(val) {
  const depositRaw = document.getElementById("et-deposit").value.trim();
  const capacity = parseInt(document.getElementById("et-capacity").value, 10) || 1;
  const description = sanitizeRichText(document.getElementById("et-description-rte").innerHTML.trim()) || null;
- const posterFile = currentUserIsPro ? document.getElementById("et-poster-file").files[0] : null;
+ const posterFile = currentEtCroppedPosterFile || (document.getElementById("et-poster-file")?.files[0]) || null;
 
  if (!name || !duration) { showToast("Nama & tempoh diperlukan.", "error"); return; }
  if (depositRaw === "") { showToast("Deposit diperlukan (taip 0 untuk percuma).", "error"); document.getElementById("et-deposit").focus(); return; }
  const deposit = parseFloat(depositRaw);
 
- if (posterFile && posterFile.size > 2 * 1024 * 1024) {
- showToast("Poster terlalu besar. Sila guna gambar bawah 2MB.", "error");
+ if (posterFile && posterFile.size > 8 * 1024 * 1024) {
+ showToast("Poster terlalu besar. Sila guna gambar bawah 8MB.", "error");
  return;
  }
 

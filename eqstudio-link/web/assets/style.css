@@ -13287,3 +13287,43 @@ body.ws-modal-open {
   background: #15803d;
   transform: translateY(-1px);
 }
+
+
+/* ── Service / Package Description Multi-Line & List Styling ── */
+.event-type-card-desc {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin: 0.45rem 0 0.55rem;
+  white-space: normal;
+  word-break: break-word;
+}
+.event-type-card-desc ul,
+.event-type-card-desc ol,
+.service-desc-list {
+  margin: 0.4rem 0 0.5rem;
+  padding-left: 1.25rem;
+  list-style: disc outside;
+}
+.event-type-card-desc ol {
+  list-style-type: decimal;
+}
+.event-type-card-desc li,
+.service-desc-list li {
+  margin-bottom: 0.3rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.event-type-card-desc p {
+  margin: 0.35rem 0;
+}
+#service-detail-description ul,
+#service-detail-description ol {
+  margin: 0.5rem 0;
+  padding-left: 1.35rem;
+  list-style: disc outside;
+}
+#service-detail-description li {
+  margin-bottom: 0.35rem;
+  line-height: 1.5;
+}

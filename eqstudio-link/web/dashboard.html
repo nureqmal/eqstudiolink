@@ -3113,6 +3113,42 @@
  let wsCoverPhotoUrl = null;
   let currentUserIsPro = false;
 let currentLinkPosters = [];
+  let selectedWebsiteLinkId = null;
+
+  // Prevent accidental browser navigation when dropping image outside dropzones
+  window.addEventListener("dragover", (e) => e.preventDefault());
+  window.addEventListener("drop", (e) => e.preventDefault());
+
+  // Reusable universal dropzone binder (available globally for all dashboard pages)
+  function setupDropzone(dropzoneEl, fileInputEl, onFilesSelected) {
+    if (!dropzoneEl || !fileInputEl) return;
+    dropzoneEl.addEventListener("click", (e) => {
+      if (e.target.closest("button") || e.target.closest("a") || e.target === fileInputEl) return;
+      if (typeof blockIfPastDue === "function" && blockIfPastDue()) return;
+      fileInputEl.click();
+    });
+    dropzoneEl.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropzoneEl.classList.add("dragover");
+    });
+    dropzoneEl.addEventListener("dragleave", (e) => {
+      e.preventDefault();
+      dropzoneEl.classList.remove("dragover");
+    });
+    dropzoneEl.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropzoneEl.classList.remove("dragover");
+      if (typeof blockIfPastDue === "function" && blockIfPastDue()) return;
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        onFilesSelected(e.dataTransfer.files);
+      }
+    });
+    fileInputEl.addEventListener("change", (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        onFilesSelected(e.target.files);
+      }
+    });
+  }
 
 function parsePosters(val) {
   if (!val) return [];
@@ -4124,7 +4160,7 @@ function parsePosters(val) {
  if (document.getElementById("ws-testimonial-list")) loadTestimonials();
 
   // ── Website Saya: Storefront Studio & Phone Preview Modal Enhancements ──
-  let selectedWebsiteLinkId = null;
+  selectedWebsiteLinkId = selectedWebsiteLinkId || null;
 
   function getWebsiteSlugAndUrls(targetLinkId) {
     try {

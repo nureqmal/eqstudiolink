@@ -1136,15 +1136,19 @@
  <div id="et-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Cth:&#10;• 3 hours coverage&#10;• Outdoor &amp; Studio&#10;• Softcopy via Google Drive&#10;• Selected edited photos"></div>
 
  <div id="et-poster-wrap" style="display:block; margin-top:0.9rem;">
- <label for="et-poster-file" style="display:block;">Poster / Gambar Pakej <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3. Gambar boleh dipotong (crop) mengikut saiz kad pakej sebelum disimpan.">i</button></label>
- <div class="poster-upload-zone" id="et-poster-zone" style="margin-top:0.35rem;">
- <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
- <p class="hint" style="margin:0;" data-i18n="bset_drag_img">Klik atau seret gambar ke sini</p>
- <input type="file" id="et-poster-file" accept="image/*" />
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.35rem;">
+    <label for="et-poster-file" style="margin:0;">Poster / Gambar Pakej <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 atau 16:9. Gambar boleh dipotong (crop) dan dipaparkan dalam bentuk carousel di mini-website.">i</button></label>
+    <span class="poster-quota-pill" id="et-poster-quota-badge">0/1 Gambar</span>
+  </div>
+  <div id="et-poster-list" class="poster-thumbnail-grid"></div>
+  <div class="poster-upload-zone" id="et-poster-zone" style="margin-top:0.35rem;">
+    <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+    <p class="hint" id="et-poster-zone-text" style="margin:0;" data-i18n="bset_drag_img">Klik atau seret gambar ke sini</p>
+    <input type="file" id="et-poster-file" accept="image/*" multiple style="display:none;" />
+  </div>
+  <div class="poster-upload-success" id="et-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dipilih</div>
  </div>
- <div class="poster-upload-success" id="et-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dipilih</div>
- </div>
- <p class="hint" id="et-poster-locked" style="margin-top:0.4rem; color:var(--ink-muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Semua pelan (termasuk Pelan Percuma) boleh muat naik 1 gambar poster pakej.</p>
+ <p class="hint" id="et-poster-locked" style="margin-top:0.4rem; color:var(--ink-muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Pelan Percuma membenarkan 1 gambar pakej. Pelan Pro boleh muat naik sehingga 3 gambar carousel!</p>
 
  <label for="et-video-link" style="display:block; margin-top:0.9rem;">Link Panggilan Video (pilihan) <button type="button" class="info-icon-btn" data-info="Untuk servis konsultasi/temujanji jarak jauh — link Google Meet atau Zoom ini akan dipaparkan kepada pelanggan selepas mereka berjaya menempah.">i</button></label>
  <input type="url" id="et-video-link" placeholder="cth: https://meet.google.com/xxx-xxxx-xxx" style="margin-top:0.35rem;" />
@@ -8174,7 +8178,10 @@ function parsePosters(val) {
  document.getElementById("et-capacity").value = t.capacity || 1;
  document.getElementById("et-description-rte").innerHTML = sanitizeRichText(t.description || "");
  document.getElementById("et-video-link").value = t.video_call_link || "";
-  if (document.getElementById("et-popular")) document.getElementById("et-popular").checked = Boolean(t.popular);
+  if (document.getElementById("et-popular")) document.getElementById("et-popular").checked = Boolean(t.popular || (t.description && t.description.includes("<!--popular-->")));
+ document.getElementById("et-description-rte").innerHTML = sanitizeRichText((t.description || "").replace(/<!--popular-->/g, ""));
+ currentEtPosters = parsePosters(t.poster_url);
+ renderEtPosterThumbnails();
  document.getElementById("add-event-type-btn").textContent = `Kemaskini "${t.name}"`;
  document.getElementById("et-cancel-edit-btn").style.display = "block";
  document.getElementById("et-name").scrollIntoView({ behavior: "smooth", block: "center" });
@@ -8189,33 +8196,124 @@ function parsePosters(val) {
  document.getElementById("et-video-link").value = "";
   if (document.getElementById("et-popular")) document.getElementById("et-popular").checked = false;
  if (document.getElementById("et-poster-file")) document.getElementById("et-poster-file").value = "";
-  currentEtCroppedPosterFile = null;
-  document.getElementById("et-poster-success")?.classList.remove("show");
+ currentEtPosters = [];
+ renderEtPosterThumbnails();
+ document.getElementById("et-poster-success")?.classList.remove("show");
  document.getElementById("add-event-type-btn").textContent = "+ Tambah Jenis Perkhidmatan";
  document.getElementById("et-cancel-edit-btn").style.display = "none";
  }
  document.getElementById("et-cancel-edit-btn")?.addEventListener("click", stopEditingEventType);
 
-  // ── Package / Event Type Poster Dropzone & Cropper (Free: 1 poster, Pro: 1 poster per package) ──
-  let currentEtCroppedPosterFile = null;
+  // ── Package / Event Type Multi-Poster System (Free: 1, Pro: up to 3) ──
+  let currentEtPosters = [];
+
+  function renderEtPosterThumbnails() {
+    const list = document.getElementById("et-poster-list");
+    const quotaBadge = document.getElementById("et-poster-quota-badge");
+    const zone = document.getElementById("et-poster-zone");
+    const maxQuota = currentUserIsPro ? 3 : 1;
+
+    if (quotaBadge) {
+      quotaBadge.textContent = `${currentEtPosters.length}/${maxQuota} Gambar`;
+    }
+
+    if (zone) {
+      zone.style.display = currentEtPosters.length >= maxQuota ? "none" : "block";
+    }
+
+    if (!list) return;
+    if (currentEtPosters.length === 0) {
+      list.innerHTML = "";
+      list.style.display = "none";
+      return;
+    }
+
+    list.style.display = "grid";
+    list.innerHTML = currentEtPosters.map((url, idx) => `
+      <div class="poster-thumb-card">
+        <img src="${escapeHtml(url)}" alt="Poster ${idx + 1}" />
+        <button type="button" class="poster-delete-btn" data-delete-et-poster="${idx}" title="Padam gambar ini">✕</button>
+      </div>
+    `).join("");
+
+    list.querySelectorAll("[data-delete-et-poster]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const delIdx = parseInt(btn.getAttribute("data-delete-et-poster"), 10);
+        if (!isNaN(delIdx)) {
+          currentEtPosters.splice(delIdx, 1);
+          renderEtPosterThumbnails();
+          showToast("Gambar dipadam dari senarai pakej.", "info", 2000);
+        }
+      });
+    });
+  }
+
+  async function handleEtPosterFilesUpload(files) {
+    if (!files || files.length === 0) return;
+    const maxQuota = currentUserIsPro ? 3 : 1;
+    const availableSlots = maxQuota - currentEtPosters.length;
+
+    if (availableSlots <= 0) {
+      if (!currentUserIsPro) {
+        showToast("Pelan Percuma membenarkan 1 gambar pakej sahaja. Upgrade ke Pro untuk muat naik sehingga 3 gambar carousel!", "warning", 5000);
+      } else {
+        showToast("Maksimum 3 gambar pakej telah dicapai.", "warning", 3000);
+      }
+      return;
+    }
+
+    const filesToUpload = Array.from(files).slice(0, availableSlots);
+    const zone = document.getElementById("et-poster-zone");
+    const successPill = document.getElementById("et-poster-success");
+
+    let uploaded = 0;
+    try {
+      for (let i = 0; i < filesToUpload.length; i++) {
+        const file = filesToUpload[i];
+        if (file.size > 8 * 1024 * 1024) {
+          showToast(`Gambar "${file.name}" melebihi had 8MB.`, "error");
+          continue;
+        }
+
+        const cropped = await promptCropImage(file, {
+          title: filesToUpload.length > 1 ? `Laras Gambar Pakej (${i + 1}/${filesToUpload.length})` : "Laras & Potong Gambar Pakej",
+          subtitle: "Nisbah 4:3 atau 16:9 disyorkan untuk paparan kad pakej mini-website",
+          aspectRatio: 4 / 3,
+          circular: false,
+          allowRatioChange: true
+        });
+        if (!cropped) continue;
+
+        if (zone) zone.classList.add("uploading");
+        if (successPill) successPill.classList.remove("show");
+        showToast("Memuat naik gambar pakej...", "info", 1500);
+
+        const compressed = await compressImageFile(cropped, 1200, 0.85);
+        const path = `${user.id}/et-${Date.now()}-${Math.random().toString(36).substring(2, 7)}.jpg`;
+        const { error: uploadError } = await supabase.storage.from("posters").upload(path, compressed, { contentType: "image/jpeg" });
+        if (uploadError) throw uploadError;
+        const { data: urlData } = supabase.storage.from("posters").getPublicUrl(path);
+        currentEtPosters.push(urlData.publicUrl);
+        uploaded++;
+      }
+      if (uploaded > 0) {
+        renderEtPosterThumbnails();
+        if (successPill) successPill.classList.add("show");
+        showToast(`${uploaded} gambar pakej dimuat naik! Sila klik simpan pakej.`, "success", 3000);
+      }
+    } catch (err) {
+      showToast("Gagal muat naik gambar pakej: " + err.message, "error");
+    } finally {
+      if (zone) zone.classList.remove("uploading");
+      const fileInput = document.getElementById("et-poster-file");
+      if (fileInput) fileInput.value = "";
+    }
+  }
+
   const etPosterZone = document.getElementById("et-poster-zone");
   const etPosterFileInput = document.getElementById("et-poster-file");
-  setupDropzone(etPosterZone, etPosterFileInput, async (files) => {
-    if (!files || !files[0]) return;
-    const file = files[0];
-    const cropped = await promptCropImage(file, {
-      title: "Laras & Potong Poster Pakej",
-      subtitle: "Nisbah 4:3 disyorkan untuk paparan kad pakej di mini-website",
-      aspectRatio: 4 / 3,
-      circular: false,
-      allowRatioChange: true
-    });
-    if (cropped) {
-      currentEtCroppedPosterFile = cropped;
-      document.getElementById("et-poster-success")?.classList.add("show");
-      showToast("Poster pakej sedia dimuat naik apabila disimpan.", "info", 2000);
-    }
-  });
+  setupDropzone(etPosterZone, etPosterFileInput, handleEtPosterFilesUpload);
 
 
  // Resizes+re-encodes an image client-side before upload, keeping the free
@@ -8252,57 +8350,33 @@ function parsePosters(val) {
  const duration = parseInt(document.getElementById("et-duration").value, 10);
  const depositRaw = document.getElementById("et-deposit").value.trim();
  const capacity = parseInt(document.getElementById("et-capacity").value, 10) || 1;
- const description = sanitizeRichText(document.getElementById("et-description-rte").innerHTML.trim()) || null;
- const posterFile = currentEtCroppedPosterFile || (document.getElementById("et-poster-file")?.files[0]) || null;
+ const isPopular = document.getElementById("et-popular") ? document.getElementById("et-popular").checked : false;
+
+ let cleanDesc = sanitizeRichText(document.getElementById("et-description-rte").innerHTML.trim()) || "";
+ cleanDesc = cleanDesc.replace(/<!--popular-->/g, "").trim();
+ if (isPopular) cleanDesc = "<!--popular-->" + cleanDesc;
+ const description = cleanDesc || null;
 
  if (!name || !duration) { showToast("Nama & tempoh diperlukan.", "error"); return; }
  if (depositRaw === "") { showToast("Deposit diperlukan (taip 0 untuk percuma).", "error"); document.getElementById("et-deposit").focus(); return; }
  const deposit = parseFloat(depositRaw);
 
- if (posterFile && posterFile.size > 8 * 1024 * 1024) {
- showToast("Poster terlalu besar. Sila guna gambar bawah 8MB.", "error");
- return;
- }
-
  const btn = document.getElementById("add-event-type-btn");
  btn.disabled = true;
- let posterUrl = null;
- if (posterFile) {
- btn.textContent = "Memuat naik poster...";
- document.getElementById("et-poster-zone")?.classList.add("uploading");
- document.getElementById("et-poster-success")?.classList.remove("show");
- try {
- const compressed = await compressImageFile(posterFile);
- const path = `${user.id}/${Date.now()}.jpg`;
- const { error: uploadError } = await supabase.storage.from("posters").upload(path, compressed, { contentType: "image/jpeg" });
- if (uploadError) throw uploadError;
- const { data: urlData } = supabase.storage.from("posters").getPublicUrl(path);
- posterUrl = urlData.publicUrl;
- document.getElementById("et-poster-zone")?.classList.remove("uploading");
- document.getElementById("et-poster-success")?.classList.add("show");
- } catch (err) {
- document.getElementById("et-poster-zone")?.classList.remove("uploading");
- showToast("Gagal upload poster: " + err.message, "error");
- btn.disabled = false;
- btn.textContent = editingEventTypeId ? `Kemaskini` : "+ Tambah Jenis Perkhidmatan";
- return;
- }
- }
  btn.textContent = editingEventTypeId ? "Menyimpan..." : "+ Tambah Jenis Perkhidmatan";
 
+ const posterUrl = currentEtPosters.length > 1 ? JSON.stringify(currentEtPosters) : (currentEtPosters[0] || null);
  const videoCallLink = document.getElementById("et-video-link").value.trim() || null;
-  const isPopular = document.getElementById("et-popular") ? document.getElementById("et-popular").checked : false;
 
  let error;
  if (editingEventTypeId) {
- const updatePayload = { name, duration_minutes: duration, deposit_amount: deposit, capacity, description, video_call_link: videoCallLink, popular: isPopular };
- if (posterUrl) updatePayload.poster_url = posterUrl;
+ const updatePayload = { name, duration_minutes: duration, deposit_amount: deposit, capacity, description, poster_url: posterUrl, video_call_link: videoCallLink };
  ({ error } = await supabase.from("event_types").update(updatePayload).eq("id", editingEventTypeId));
  } else {
  const { data: existing } = await supabase.from("event_types").select("id").eq("booking_link_id", currentLinkId);
  ({ error } = await supabase.from("event_types").insert({
  owner_id: user.id, booking_link_id: currentLinkId, name, duration_minutes: duration, deposit_amount: deposit, capacity, sort_order: (existing?.length || 0),
- description, poster_url: posterUrl, video_call_link: videoCallLink, popular: isPopular,
+ description, poster_url: posterUrl, video_call_link: videoCallLink,
  }));
  }
  btn.disabled = false;

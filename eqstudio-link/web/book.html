@@ -274,14 +274,18 @@
       el.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
     }
 
+    function getSelectedType() {
+      return selectedType || null;
+    }
+
     function calculateTotals() {
-      const selectedType = getSelectedType();
+      const typeObj = selectedType || null;
       let extractedPrice = null;
-      if (selectedType) {
-        if (selectedType.price != null && selectedType.price > 0) {
-          extractedPrice = Number(selectedType.price);
-        } else if (selectedType.description) {
-          const m = selectedType.description.match(/<!--price:([0-9.]+)-->/);
+      if (typeObj) {
+        if (typeObj.price != null && typeObj.price > 0) {
+          extractedPrice = Number(typeObj.price);
+        } else if (typeObj.description) {
+          const m = typeObj.description.match(/<!--price:([0-9.]+)-->/);
           if (m) extractedPrice = parseFloat(m[1]);
         }
       }
@@ -1408,6 +1412,7 @@
         }
         renderCurrentStep();
       } catch (err) {
+        console.error("loadAvailability error:", err);
         content.innerHTML = `<div style="text-align:center; padding:2rem;"><p class="error">${T().loadFail}</p></div>`;
       }
     }

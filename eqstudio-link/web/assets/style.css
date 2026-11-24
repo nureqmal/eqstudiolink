@@ -12958,3 +12958,146 @@ body.ws-modal-open {
   transform: scale(1.15);
 }
 
+/* ========================================================
+   POPULAR SERVICE HIGHLIGHT & PRICING TRANSPARENCY
+   ======================================================== */
+.event-type-card.is-popular {
+  border-color: var(--stamp, #4a098f);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--stamp, #4a098f) 14%, transparent);
+  position: relative;
+}
+
+.event-type-card.is-popular::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--stamp, #4a098f);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.event-type-price-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  margin-left: auto;
+  text-align: right;
+}
+
+.event-type-price-top {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.event-type-full-price {
+  font-size: 0.82rem;
+  text-decoration: line-through;
+  opacity: 0.65;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.event-type-deposit-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--stamp, #4a098f) 12%, transparent);
+  color: var(--stamp, #4a098f);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.event-type-deposit-badge.free {
+  background: rgba(34, 197, 94, 0.14);
+  color: #15803d;
+}
+
+.event-type-balance-note {
+  font-size: 0.73rem;
+  color: var(--ink-soft);
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* ========================================================
+   PRE-SALE WHATSAPP INQUIRY BANNER
+   ======================================================== */
+.book-inquiry-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, #22c55e 7%, var(--surface));
+  border: 1px solid color-mix(in srgb, #22c55e 24%, var(--paper-line));
+  margin-bottom: 1.1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.book-inquiry-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.book-inquiry-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.book-inquiry-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-inquiry-text strong {
+  font-size: 0.86rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.book-inquiry-text span {
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+}
+
+.book-inquiry-wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  background: #16a34a;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.book-inquiry-wa-btn:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.28);
+}
+
+/* ========================================================
+   FOOTER TRUST BADGES WITH SSM
+   ======================================================== */
+.book-footer-item.ssm {
+  background: rgba(14, 165, 233, 0.08);
+  border-color: rgba(14, 165, 233, 0.35);
+  color: #0284c7;
+  font-weight: 600;
+}
+
+

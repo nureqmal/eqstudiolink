@@ -1299,6 +1299,17 @@
         layoutSplit.classList.remove("has-sidebar");
         showcaseCol.style.display = "none";
       }
+
+      // Add SSM registration badge to footer if present in profile
+      if (biz && biz.ssm_number) {
+        const footerBadges = document.getElementById("book-footer-badges");
+        if (footerBadges && !footerBadges.querySelector(".ssm")) {
+          const ssmEl = document.createElement("span");
+          ssmEl.className = "book-footer-item ssm";
+          ssmEl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4 6 3v15"/><path d="M9 9h1"/><path d="M9 13h1"/><path d="M9 17h1"/><path d="M14 9h1"/><path d="M14 13h1"/><path d="M14 17h1"/></svg> <span>SSM: ${escapeHtml(biz.ssm_number)}</span>`;
+          footerBadges.prepend(ssmEl);
+        }
+      }
     }
 
     function renderCurrentStep() {
@@ -1460,14 +1471,36 @@
           </div>
         ` : ""}
 
+        <!-- Pre-Sale WhatsApp Inquiry Banner -->
+        ${(availabilityData.business && availabilityData.business.whatsapp_number) ? `
+          <div class="book-inquiry-banner">
+            <div class="book-inquiry-left">
+              <span class="book-inquiry-icon">💬</span>
+              <div class="book-inquiry-text">
+                <strong>Ada soalan sebelum tempah slot?</strong>
+                <span>Tanya pemilik terus untuk slot khas, lokasi atau perincian pakej</span>
+              </div>
+            </div>
+            <a href="https://wa.me/${availabilityData.business.whatsapp_number.replace(/[^0-9]/g, "")}?text=${encodeURIComponent("Hai " + (availabilityData.business.name || "") + ", saya sedang melihat halaman tempahan anda di eqstudio.link dan ingin bertanya sedikit soalan...")}" target="_blank" rel="noopener" class="book-inquiry-wa-btn">
+              <span>WhatsApp Kami</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        ` : ""}
+
         <!-- Service Package Cards Grid -->
         <div class="event-type-grid">
           ${displayedTypes.map((t) => {
-            const depositStr = t.deposit_amount === 0 ? T().free : (t.deposit_amount != null ? `Deposit RM ${Number(t.deposit_amount).toFixed(2)}` : "");
-            const fullPriceStr = t.price != null ? `RM ${Number(t.price).toFixed(2)}` : "";
-            const priceDisplay = fullPriceStr || depositStr;
+            const hasPrice = t.price != null && t.price > 0;
+            const hasDeposit = t.deposit_amount != null && t.deposit_amount > 0;
+            const isDepositFree = t.deposit_amount === 0;
+            const balanceAmount = (hasPrice && hasDeposit && t.price > t.deposit_amount)
+              ? (t.price - t.deposit_amount).toFixed(2)
+              : null;
+            const depositStr = isDepositFree ? T().free : (hasDeposit ? `Deposit RM ${Number(t.deposit_amount).toFixed(2)}` : "");
+            const fullPriceStr = hasPrice ? `RM ${Number(t.price).toFixed(2)}` : "";
             return `
-              <div class="event-type-card ${selectedType?.id === t.id ? "selected" : ""}" data-select-type="${t.id}" tabindex="0">
+              <div class="event-type-card ${t.popular ? "is-popular" : ""} ${selectedType?.id === t.id ? "selected" : ""}" data-select-type="${t.id}" tabindex="0">
                 ${t.poster_url ? `
                   <div class="event-type-card-poster" style="background-image:url('${escapeHtml(t.poster_url)}');"></div>
                 ` : ""}
@@ -1477,7 +1510,13 @@
                       <h3 class="event-type-card-title">${escapeHtml(t.name)}</h3>
                       ${t.popular ? `<span class="event-type-popular-tag">★ ${T().mostPopular}</span>` : ""}
                     </div>
-                    ${priceDisplay ? `<span class="event-type-price-pill">${priceDisplay}</span>` : ""}
+                    <div class="event-type-price-block">
+                      <div class="event-type-price-top">
+                        ${hasPrice && hasDeposit && balanceAmount ? `<span class="event-type-full-price">${fullPriceStr}</span>` : ""}
+                        <span class="event-type-deposit-badge ${isDepositFree ? "free" : ""}">${depositStr || fullPriceStr}</span>
+                      </div>
+                      ${balanceAmount ? `<span class="event-type-balance-note">Baki RM ${balanceAmount} di lokasi</span>` : ""}
+                    </div>
                   </div>
                   ${t.description ? `<p class="event-type-card-desc">${escapeHtml(t.description.length > 110 ? t.description.slice(0, 110) + "..." : t.description)}</p>` : ""}
                   
@@ -2102,7 +2141,7 @@
       const totals = calculateTotals();
 
       const waOwnerNumber = biz.whatsapp_number ? biz.whatsapp_number.replace(/[^0-9]/g, "") : null;
-      const waMessage = encodeURIComponent(`Hai ${biz.name}, saya telah membuat tempahan bagi slot ${dateStr}, ${slotStr} (No. Rujukan: #${bookingCode}).`);
+      const waMessage = encodeURIComponent(`Salam ${biz.name || ""}, saya telah selesai membuat tempahan di eqstudio.link!\n\n📋 No. Rujukan: #${bookingCode}\n💼 Pakej: ${savedTitle}\n📅 Tarikh: ${dateStr}\n⏰ Waktu: ${slotStr}\n\nMohon semak & sahkan tempahan saya ya. Terima kasih!`);
 
       // Calendar Deeplinks
       let googleCalUrl = "#";

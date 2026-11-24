@@ -1138,6 +1138,14 @@
 
  <label for="et-video-link" style="display:block; margin-top:0.9rem;">Link Panggilan Video (pilihan) <button type="button" class="info-icon-btn" data-info="Untuk servis konsultasi/temujanji jarak jauh — link Google Meet atau Zoom ini akan dipaparkan kepada pelanggan selepas mereka berjaya menempah.">i</button></label>
  <input type="url" id="et-video-link" placeholder="cth: https://meet.google.com/xxx-xxxx-xxx" style="margin-top:0.35rem;" />
+
+ <div style="display:flex; align-items:flex-start; gap:0.55rem; margin-top:0.95rem; padding:0.65rem 0.85rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:10px;">
+ <input type="checkbox" id="et-popular" style="width:18px; height:18px; cursor:pointer; margin-top:2px;" />
+ <label for="et-popular" style="margin:0; cursor:pointer; font-size:0.86rem; font-weight:600;">
+ ★ Tandakan sebagai Pakej Paling Laris / Pilihan Ramai
+ <span class="hint" style="display:block; font-weight:400; margin-top:0.15rem; font-size:0.78rem;">Ditandakan dengan lencana khas & border aksen di halaman tempahan pelanggan untuk memudahkan pilihan.</span>
+ </label>
+ </div>
  </div>
 
  <button type="button" id="add-event-type-btn" style="margin-top:1rem; width:100%; padding:0.75rem; font-weight:700; border-radius:10px;" data-i18n="bset_add_service">+ Tambah Jenis Perkhidmatan</button>
@@ -7867,6 +7875,7 @@ function parsePosters(val) {
  document.getElementById("et-capacity").value = t.capacity || 1;
  document.getElementById("et-description-rte").innerHTML = sanitizeRichText(t.description || "");
  document.getElementById("et-video-link").value = t.video_call_link || "";
+  if (document.getElementById("et-popular")) document.getElementById("et-popular").checked = Boolean(t.popular);
  document.getElementById("add-event-type-btn").textContent = `Kemaskini "${t.name}"`;
  document.getElementById("et-cancel-edit-btn").style.display = "block";
  document.getElementById("et-name").scrollIntoView({ behavior: "smooth", block: "center" });
@@ -7879,6 +7888,7 @@ function parsePosters(val) {
  document.getElementById("et-capacity").value = "1";
  document.getElementById("et-description-rte").innerHTML = "";
  document.getElementById("et-video-link").value = "";
+  if (document.getElementById("et-popular")) document.getElementById("et-popular").checked = false;
  if (document.getElementById("et-poster-file")) document.getElementById("et-poster-file").value = "";
  document.getElementById("add-event-type-btn").textContent = "+ Tambah Jenis Perkhidmatan";
  document.getElementById("et-cancel-edit-btn").style.display = "none";
@@ -7958,17 +7968,18 @@ function parsePosters(val) {
  btn.textContent = editingEventTypeId ? "Menyimpan..." : "+ Tambah Jenis Perkhidmatan";
 
  const videoCallLink = document.getElementById("et-video-link").value.trim() || null;
+  const isPopular = document.getElementById("et-popular") ? document.getElementById("et-popular").checked : false;
 
  let error;
  if (editingEventTypeId) {
- const updatePayload = { name, duration_minutes: duration, deposit_amount: deposit, capacity, description, video_call_link: videoCallLink };
+ const updatePayload = { name, duration_minutes: duration, deposit_amount: deposit, capacity, description, video_call_link: videoCallLink, popular: isPopular };
  if (posterUrl) updatePayload.poster_url = posterUrl;
  ({ error } = await supabase.from("event_types").update(updatePayload).eq("id", editingEventTypeId));
  } else {
  const { data: existing } = await supabase.from("event_types").select("id").eq("booking_link_id", currentLinkId);
  ({ error } = await supabase.from("event_types").insert({
  owner_id: user.id, booking_link_id: currentLinkId, name, duration_minutes: duration, deposit_amount: deposit, capacity, sort_order: (existing?.length || 0),
- description, poster_url: posterUrl, video_call_link: videoCallLink,
+ description, poster_url: posterUrl, video_call_link: videoCallLink, popular: isPopular,
  }));
  }
  btn.disabled = false;

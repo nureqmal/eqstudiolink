@@ -69,15 +69,20 @@ export async function onRequestGet(context) {
     let durationMinutes = link.slot_duration_minutes || 60;
     let capacity = 1;
     let depositAmount = link.default_deposit_amount;
+    let customSchedule = null;
+    let selectedType = null;
     if (requestedTypeId) {
-      const selectedType = eventTypes.find(t => t.id === requestedTypeId);
+      selectedType = eventTypes.find(t => t.id === requestedTypeId);
       if (!selectedType) return json({ error: "Jenis perkhidmatan tidak dijumpai." }, 404);
       durationMinutes = selectedType.duration_minutes;
       capacity = selectedType.capacity || 1;
-      // No fallback to the link default anymore — event types always carry an
-      // explicit deposit (the dashboard pre-fills it as a one-time convenience,
-      // but what's saved is what's charged, with no hidden runtime inheritance).
       depositAmount = selectedType.deposit_amount;
+      if (selectedType.description) {
+        const mSched = selectedType.description.match(/<!--schedule:([\s\S]*?)-->/);
+        if (mSched) {
+          try { customSchedule = JSON.parse(mSched[1]); } catch (_) {}
+        }
+      }
     }
     if (depositAmount == null) {
       return json({ error: "Perniagaan ni belum sedia untuk terima booking online. Sila hubungi mereka terus." }, 400);
@@ -85,7 +90,18 @@ export async function onRequestGet(context) {
 
     const now = new Date();
     const earliestAllowed = new Date(now.getTime() + (link.booking_min_notice_hours || 0) * 60 * 60 * 1000);
-    const rangeEnd = new Date(now.getTime() + daysAhead * 24 * 60 * 60 * 1000);
+
+    let effectiveDaysAhead = Math.min(parseInt(url.searchParams.get("days"), 10) || 30, 90);
+    if (customSchedule && customSchedule.mode === "dates" && Array.isArray(customSchedule.dates) && customSchedule.dates.length > 0) {
+      const sortedDates = [...customSchedule.dates].sort();
+      const lastDate = new Date(`${sortedDates[sortedDates.length - 1]}T23:59:59Z`);
+      const diffDays = Math.ceil((lastDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000));
+      if (diffDays > 0) {
+        effectiveDaysAhead = Math.min(Math.max(effectiveDaysAhead, diffDays + 1), 365);
+      }
+    }
+
+    const rangeEnd = new Date(now.getTime() + effectiveDaysAhead * 24 * 60 * 60 * 1000);
     const durationMs = durationMinutes * 60 * 1000;
     const bufferMs = (link.buffer_minutes || 0) * 60 * 1000;
 
@@ -116,7 +132,7 @@ export async function onRequestGet(context) {
     }
 
     const rangeEndDateKey = (() => {
-      const d = new Date(now.getTime() + daysAhead * 24 * 60 * 60 * 1000);
+      const d = new Date(now.getTime() + effectiveDaysAhead * 24 * 60 * 60 * 1000);
       const p = myDateParts(d);
       return `${p.year}-${String(p.month + 1).padStart(2, "0")}-${String(p.date).padStart(2, "0")}`;
     })();
@@ -128,10 +144,19 @@ export async function onRequestGet(context) {
     const availInputs = await loadAvailabilityInputs(sbAdmin, env, link.id, todayDateKey, rangeEndDateKey);
 
     const slotsByDate = {};
-    for (let d = 0; d <= daysAhead; d++) {
+    for (let d = 0; d <= effectiveDaysAhead; d++) {
       const cursor = new Date(now.getTime() + d * 24 * 60 * 60 * 1000);
-      const { year, month, date } = myDateParts(cursor);
+      const { year, month, date, day } = myDateParts(cursor);
       const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
+
+      if (customSchedule) {
+        if (customSchedule.mode === "dates" && Array.isArray(customSchedule.dates)) {
+          if (!customSchedule.dates.includes(dateKey)) continue;
+        } else if (customSchedule.mode === "days" && Array.isArray(customSchedule.days)) {
+          if (!customSchedule.days.includes(day)) continue;
+        }
+      }
+
       const dayRanges = rangesForDate(dateKey, availInputs);
       if (!dayRanges) continue;
 

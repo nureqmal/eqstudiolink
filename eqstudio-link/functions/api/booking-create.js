@@ -156,6 +156,28 @@ export async function onRequestPost(context) {
       const types = await typeRes.json();
       const type = types[0];
       if (!type) return json({ error: "Jenis perkhidmatan tidak dijumpai." }, 404);
+
+      if (type.description) {
+        const mSched = type.description.match(/<!--schedule:([\s\S]*?)-->/);
+        if (mSched) {
+          try {
+            const sched = JSON.parse(mSched[1]);
+            const slotDateObj = new Date(slot_iso);
+            const slotDateKey = slotDateObj.toISOString().slice(0, 10);
+            const mySlotDateKey = new Date(slotDateObj.getTime() + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
+            if (sched.mode === "dates" && Array.isArray(sched.dates) && sched.dates.length > 0) {
+              if (!sched.dates.includes(slotDateKey) && !sched.dates.includes(mySlotDateKey)) {
+                return json({ error: "Tarikh yang dipilih tidak dibuka untuk pakej ini." }, 400);
+              }
+            } else if (sched.mode === "days" && Array.isArray(sched.days) && sched.days.length > 0) {
+              const myDay = new Date(slotDateObj.getTime() + 8 * 60 * 60 * 1000).getUTCDay();
+              if (!sched.days.includes(myDay)) {
+                return json({ error: "Hari yang dipilih tidak dibuka untuk pakej ini." }, 400);
+              }
+            }
+          } catch (_) {}
+        }
+      }
       // No fallback to the link default — event types always carry an explicit
       // deposit set by the owner, no hidden runtime inheritance.
       depositAmount = type.deposit_amount;

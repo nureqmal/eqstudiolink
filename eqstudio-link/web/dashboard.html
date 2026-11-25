@@ -1164,6 +1164,61 @@
  <span class="hint" style="display:block; font-weight:400; margin-top:0.15rem; font-size:0.78rem;">Ditandakan dengan lencana khas & border aksen di halaman tempahan pelanggan untuk memudahkan pilihan.</span>
  </label>
  </div>
+
+ <!-- JADUAL & TARIKH BUKA PAKEJ (Tarikh Khas / Hari Pilihan) -->
+ <div style="margin-top:0.95rem; padding:0.85rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:10px;">
+ <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.4rem; flex-wrap:wrap; gap:0.4rem;">
+ <label style="margin:0; font-weight:700; font-size:0.88rem; color:var(--ink); display:flex; align-items:center; gap:0.4rem;">
+ <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+ Jadual &amp; Tarikh Buka Pakej
+ <button type="button" class="info-icon-btn" data-info="Tetapkan sama ada pakej ini dibuka mengikut jadual am studio, hari-hari tertentu setiap minggu, atau HANYA pada tarikh-tarikh khusus (contohnya tarikh majlis nikah / sanding yang anda buka slot).">i</button>
+ </label>
+ <span class="hint" id="et-sched-summary-badge" style="font-size:0.75rem; font-weight:600; color:var(--stamp);">Ikut Jadual Am</span>
+ </div>
+
+ <div style="display:flex; gap:0.5rem; margin-top:0.5rem; flex-wrap:wrap;">
+ <label class="et-sched-radio-pill" style="flex:1; min-width:130px; display:flex; align-items:center; gap:0.4rem; padding:0.45rem 0.65rem; border:1px solid var(--paper-line); border-radius:8px; cursor:pointer; background:var(--paper); font-size:0.82rem;">
+ <input type="radio" name="et-sched-mode" value="all" checked style="margin:0; cursor:pointer;" />
+ <span>Ikut Jadual Am</span>
+ </label>
+ <label class="et-sched-radio-pill" style="flex:1; min-width:140px; display:flex; align-items:center; gap:0.4rem; padding:0.45rem 0.65rem; border:1px solid var(--paper-line); border-radius:8px; cursor:pointer; background:var(--paper); font-size:0.82rem;">
+ <input type="radio" name="et-sched-mode" value="days" style="margin:0; cursor:pointer;" />
+ <span>Hari Tertentu</span>
+ </label>
+ <label class="et-sched-radio-pill" style="flex:1; min-width:150px; display:flex; align-items:center; gap:0.4rem; padding:0.45rem 0.65rem; border:1px solid var(--paper-line); border-radius:8px; cursor:pointer; background:var(--paper); font-size:0.82rem;">
+ <input type="radio" name="et-sched-mode" value="dates" style="margin:0; cursor:pointer;" />
+ <span>Tarikh Khas Sahaja</span>
+ </label>
+ </div>
+
+ <!-- PANEL HARI TERTENTU (days) -->
+ <div id="et-sched-days-wrap" style="display:none; margin-top:0.75rem; padding:0.65rem 0.8rem; background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px;">
+ <p class="hint" style="margin:0 0 0.45rem 0; font-size:0.78rem;">Tandakan hari yang dibuka untuk servis ini:</p>
+ <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="1" /> Isn</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="2" /> Sel</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="3" /> Rab</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="4" /> Kha</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="5" /> Jum</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer; font-weight:600; color:var(--stamp);"><input type="checkbox" class="et-day-cb" value="6" /> Sab</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer; font-weight:600; color:var(--stamp);"><input type="checkbox" class="et-day-cb" value="0" /> Ahd</label>
+ </div>
+ </div>
+
+ <!-- PANEL TARIKH KHAS (dates) -->
+ <div id="et-sched-dates-wrap" style="display:none; margin-top:0.75rem; padding:0.65rem 0.8rem; background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px;">
+ <p class="hint" style="margin:0 0 0.5rem 0; font-size:0.78rem;">
+ Pilih tarikh-tarikh khusus di bawah (contoh: 1 Dis, 5 Dis, 25 Dis). Bakal pelanggan hanya boleh klik tarikh ini sahaja di kalendar mini-website.
+ </p>
+ <div style="display:flex; gap:0.4rem; align-items:center;">
+ <input type="date" id="et-custom-date-picker" style="font-size:0.85rem; padding:0.4rem 0.55rem; flex:1;" />
+ <button type="button" id="et-add-custom-date-btn" class="secondary" style="font-size:0.78rem; padding:0.45rem 0.85rem; font-weight:600; flex-shrink:0;">+ Tambah Tarikh</button>
+ </div>
+ <div id="et-custom-dates-list" style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.55rem; min-height:26px;">
+ <!-- Chips injected here -->
+ </div>
+ </div>
+ </div>
  </div>
 
  <button type="button" id="add-event-type-btn" style="margin-top:1rem; width:100%; padding:0.75rem; font-weight:700; border-radius:10px;" data-i18n="bset_add_service">+ Tambah Jenis Perkhidmatan</button>
@@ -8147,12 +8202,28 @@ function parsePosters(val) {
  }
  list.innerHTML = types.map(t => {
  const priceLabel = t.deposit_amount === 0 ? "Percuma" : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "deposit belum diset");
+    let schedBadge = "";
+    if (t.description) {
+      const mSched = t.description.match(/<!--schedule:([\s\S]*?)-->/);
+      if (mSched) {
+        try {
+          const s = JSON.parse(mSched[1]);
+          if (s.mode === "dates" && Array.isArray(s.dates) && s.dates.length > 0) {
+            schedBadge = ' · <span style="color:var(--stamp); font-weight:600;">📅 ' + s.dates.length + ' tarikh khas</span>';
+          } else if (s.mode === "days" && Array.isArray(s.days) && s.days.length > 0) {
+            const dayNames = { 0: "Ahd", 1: "Isn", 2: "Sel", 3: "Rab", 4: "Kha", 5: "Jum", 6: "Sab" };
+            const names = s.days.map(d => dayNames[d] || d).join(", ");
+            schedBadge = ' · <span style="color:var(--stamp); font-weight:600;">📅 ' + names + '</span>';
+          }
+        } catch (_) {}
+      }
+    }
  return `
  <div class="etype-card">
  ${t.poster_url ? `<img src="${escapeHtml(t.poster_url)}" class="etype-card-thumb" alt="" />` : `<div class="etype-card-thumb" style="display:flex; align-items:center; justify-content:center; color:var(--ink-soft);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>`}
  <div class="etype-card-body">
  <div class="etype-card-name">${escapeHtml(t.name)}</div>
- <div class="etype-card-meta">${t.duration_minutes} minit · ${priceLabel}${t.capacity > 1 ? ` · kapasiti ${t.capacity}` : ""}</div>
+ <div class="etype-card-meta">${t.duration_minutes} minit · ${priceLabel}${t.capacity > 1 ? ` · kapasiti ${t.capacity}` : ""}${schedBadge}</div>
  </div>
  <button type="button" class="secondary" data-et-edit-id="${t.id}" style="padding:0.3rem 0.6rem; flex-shrink:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg></button>
  <button type="button" class="secondary" data-et-id="${t.id}" style="color:var(--warn); padding:0.3rem 0.6rem; flex-shrink:0;" aria-label="Padam jenis perkhidmatan ini"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
@@ -8173,7 +8244,76 @@ function parsePosters(val) {
  });
  }
 
- let editingEventTypeId = null;
+   // ── Package Specific Schedule (Custom Dates / Days) ──
+  let currentEtCustomDates = [];
+
+  function renderEtCustomDateChips() {
+    const container = document.getElementById("et-custom-dates-list");
+    if (!container) return;
+    if (currentEtCustomDates.length === 0) {
+      container.innerHTML = '<span class="hint" style="font-size:0.75rem; color:var(--warn); padding:0.2rem 0;">Belum ada tarikh dipilih. Sila pilih tarikh di atas dan tekan + Tambah Tarikh.</span>';
+      return;
+    }
+    currentEtCustomDates.sort();
+    container.innerHTML = currentEtCustomDates.map((dateStr, idx) => {
+      const d = new Date(dateStr + "T00:00:00");
+      const label = d.toLocaleDateString("ms-MY", { day: "numeric", month: "short", year: "numeric" });
+      return '<span class="custom-date-chip" style="display:inline-flex; align-items:center; gap:0.35rem; background:var(--surface); border:1px solid var(--stamp); color:var(--stamp); font-weight:600; font-size:0.76rem; padding:0.25rem 0.55rem; border-radius:20px;">📅 ' + label + ' <button type="button" data-del-custom-date="' + idx + '" style="background:none; border:none; padding:0; cursor:pointer; color:var(--warn); font-size:0.85rem; line-height:1;" title="Padam tarikh ini">✕</button></span>';
+    }).join("");
+
+    container.querySelectorAll("[data-del-custom-date]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.dataset.delCustomDate, 10);
+        currentEtCustomDates.splice(idx, 1);
+        renderEtCustomDateChips();
+        updateEtSchedSummary();
+      });
+    });
+  }
+
+  function updateEtSchedUI() {
+    const mode = document.querySelector('input[name="et-sched-mode"]:checked')?.value || "all";
+    const daysWrap = document.getElementById("et-sched-days-wrap");
+    const datesWrap = document.getElementById("et-sched-dates-wrap");
+    if (daysWrap) daysWrap.style.display = mode === "days" ? "block" : "none";
+    if (datesWrap) datesWrap.style.display = mode === "dates" ? "block" : "none";
+    updateEtSchedSummary();
+  }
+
+  function updateEtSchedSummary() {
+    const badge = document.getElementById("et-sched-summary-badge");
+    if (!badge) return;
+    const mode = document.querySelector('input[name="et-sched-mode"]:checked')?.value || "all";
+    if (mode === "all") {
+      badge.textContent = "Ikut Jadual Am";
+      badge.style.color = "var(--ink-soft)";
+    } else if (mode === "days") {
+      const checkedDays = Array.from(document.querySelectorAll(".et-day-cb:checked")).map(cb => parseInt(cb.value, 10));
+      badge.textContent = checkedDays.length > 0 ? (checkedDays.length + " Hari / Minggu") : "Pilih Hari";
+      badge.style.color = "var(--stamp)";
+    } else if (mode === "dates") {
+      badge.textContent = currentEtCustomDates.length > 0 ? (currentEtCustomDates.length + " Tarikh Khas") : "Pilih Tarikh";
+      badge.style.color = "var(--stamp)";
+    }
+  }
+
+  document.querySelectorAll('input[name="et-sched-mode"]').forEach(r => {
+    r.addEventListener("change", updateEtSchedUI);
+  });
+  document.querySelectorAll(".et-day-cb").forEach(cb => {
+    cb.addEventListener("change", updateEtSchedSummary);
+  });
+  document.getElementById("et-add-custom-date-btn")?.addEventListener("click", () => {
+    const picker = document.getElementById("et-custom-date-picker");
+    const val = picker?.value;
+    if (!val) { showToast("Sila pilih satu tarikh.", "warning", 2000); return; }
+    if (currentEtCustomDates.includes(val)) { showToast("Tarikh ini telah ditambah.", "info", 2000); return; }
+    currentEtCustomDates.push(val);
+    picker.value = "";
+    renderEtCustomDateChips();
+    updateEtSchedSummary();
+  });
+  let editingEventTypeId = null;
  function startEditingEventType(t) {
  editingEventTypeId = t.id;
  document.getElementById("et-name").value = t.name;
@@ -8189,7 +8329,25 @@ function parsePosters(val) {
  document.getElementById("et-description-rte").innerHTML = sanitizeRichText(t.description || "");
  document.getElementById("et-video-link").value = t.video_call_link || "";
   if (document.getElementById("et-popular")) document.getElementById("et-popular").checked = Boolean(t.popular || (t.description && t.description.includes("<!--popular-->")));
- document.getElementById("et-description-rte").innerHTML = sanitizeRichText((t.description || "").replace(/<!--popular-->/g, ""));
+   // Populate schedule settings
+    let schedObj = null;
+    if (t.description) {
+      const mSched = t.description.match(/<!--schedule:([\s\S]*?)-->/);
+      if (mSched) {
+        try { schedObj = JSON.parse(mSched[1]); } catch (_) {}
+      }
+    }
+    const schedMode = schedObj?.mode || "all";
+    const rMode = document.querySelector('input[name="et-sched-mode"][value="' + schedMode + '"]');
+    if (rMode) rMode.checked = true;
+    document.querySelectorAll(".et-day-cb").forEach(cb => {
+      cb.checked = schedObj?.mode === "days" && Array.isArray(schedObj.days) && schedObj.days.includes(parseInt(cb.value, 10));
+    });
+    currentEtCustomDates = (schedObj?.mode === "dates" && Array.isArray(schedObj.dates)) ? [...schedObj.dates] : [];
+    renderEtCustomDateChips();
+    updateEtSchedUI();
+
+    document.getElementById("et-description-rte").innerHTML = sanitizeRichText((t.description || "").replace(/<!--popular-->/g, "").replace(/<!--price:[0-9.]+-->/g, "").replace(/<!--schedule:[\s\S]*?-->/g, ""));
  currentEtPosters = parsePosters(t.poster_url);
  renderEtPosterThumbnails();
  document.getElementById("add-event-type-btn").textContent = `Kemaskini "${t.name}"`;
@@ -8204,6 +8362,12 @@ function parsePosters(val) {
  prefillEventTypeDeposit();
  document.getElementById("et-capacity").value = "1";
  document.getElementById("et-description-rte").innerHTML = "";
+    const rAll = document.querySelector('input[name="et-sched-mode"][value="all"]');
+    if (rAll) rAll.checked = true;
+    document.querySelectorAll(".et-day-cb").forEach(cb => { cb.checked = false; });
+    currentEtCustomDates = [];
+    renderEtCustomDateChips();
+    updateEtSchedUI();
  document.getElementById("et-video-link").value = "";
   if (document.getElementById("et-popular")) document.getElementById("et-popular").checked = false;
  if (document.getElementById("et-poster-file")) document.getElementById("et-poster-file").value = "";
@@ -8365,14 +8529,33 @@ function parsePosters(val) {
  const priceRaw = document.getElementById("et-price") ? document.getElementById("et-price").value.trim() : "";
  const fullPrice = priceRaw ? parseFloat(priceRaw) : null;
 
- let cleanDesc = sanitizeRichText(document.getElementById("et-description-rte").innerHTML.trim()) || "";
- cleanDesc = cleanDesc.replace(/<!--popular-->/g, "").replace(/<!--price:[0-9.]+-->/g, "").trim();
+     const schedMode = document.querySelector('input[name="et-sched-mode"]:checked')?.value || "all";
+    let schedTag = "";
+    if (schedMode === "days") {
+      const days = Array.from(document.querySelectorAll(".et-day-cb:checked")).map(cb => parseInt(cb.value, 10));
+      if (days.length === 0) {
+        showToast("Sila tandakan sekurang-kurangnya satu hari untuk jadual mingguan pakej ini.", "warning");
+        return;
+      }
+      schedTag = "<!--schedule:" + JSON.stringify({ mode: "days", days }) + "-->";
+    } else if (schedMode === "dates") {
+      if (currentEtCustomDates.length === 0) {
+        showToast("Sila pilih dan tambah sekurang-kurangnya satu tarikh khas untuk pakej ini.", "warning");
+        document.getElementById("et-custom-date-picker")?.focus();
+        return;
+      }
+      schedTag = "<!--schedule:" + JSON.stringify({ mode: "dates", dates: currentEtCustomDates }) + "-->";
+    }
 
- let metaTags = "";
- if (isPopular) metaTags += "<!--popular-->";
- if (fullPrice != null && !isNaN(fullPrice) && fullPrice > 0) metaTags += `<!--price:${fullPrice}-->`;
+    let cleanDesc = sanitizeRichText(document.getElementById("et-description-rte").innerHTML.trim()) || "";
+    cleanDesc = cleanDesc.replace(/<!--popular-->/g, "").replace(/<!--price:[0-9.]+-->/g, "").replace(/<!--schedule:[\s\S]*?-->/g, "").trim();
 
- const description = (metaTags + cleanDesc) || null;
+    let metaTags = "";
+    if (isPopular) metaTags += "<!--popular-->";
+    if (fullPrice != null && !isNaN(fullPrice) && fullPrice > 0) metaTags += `<!--price:${fullPrice}-->`;
+    if (schedTag) metaTags += schedTag;
+
+    const description = (metaTags + cleanDesc) || null;
 
  if (!name || !duration) { showToast("Nama & tempoh diperlukan.", "error"); return; }
  if (depositRaw === "") { showToast("Deposit diperlukan (taip 0 untuk percuma).", "error"); document.getElementById("et-deposit").focus(); return; }

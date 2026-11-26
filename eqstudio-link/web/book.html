@@ -1978,6 +1978,7 @@
         slotGrid.innerHTML = filteredSlots.map(s => `
           <button type="button" class="book-slot-chip ${selectedSlot?.iso === s.iso ? "selected" : ""}" data-iso="${s.iso}">
             <span>${s.label}</span>
+            ${s.session_label ? `<span class="book-slot-session-badge" style="font-size:0.65rem; opacity:0.85; display:block; margin-top:2px; font-weight:500;">${escapeHtml(s.session_label)}</span>` : ""}
           </button>
         `).join("");
 
@@ -2038,7 +2039,7 @@
 
             <div class="book-summary-item" style="border-top:1px solid var(--paper-line); margin-top:0.4rem; padding-top:0.4rem;">
               <span class="book-summary-label">${T().slotChosen}</span>
-              <span class="book-summary-val highlight">${dateLabel(selectedDate)}, ${selectedSlot.label} (${durationMins} ${T().durationLabel})</span>
+              <span class="book-summary-val highlight">${dateLabel(selectedDate)}, ${selectedSlot.label}${selectedSlot.session_label ? ` (${escapeHtml(selectedSlot.session_label)})` : ""} (${durationMins} ${T().durationLabel})</span>
             </div>
 
             <div class="book-summary-item" style="border-top:2px solid var(--paper-line); margin-top:0.6rem; padding-top:0.6rem; font-size:1rem; font-weight:700;">

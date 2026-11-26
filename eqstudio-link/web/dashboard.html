@@ -1233,6 +1233,58 @@
  <!-- Chips injected here -->
  </div>
  </div>
+
+ <!-- WAKTU / SESI SLOT PAKEJ -->
+ <div style="margin-top:0.85rem; padding-top:0.75rem; border-top:1px dashed var(--paper-line);">
+ <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.35rem; flex-wrap:wrap; gap:0.4rem;">
+ <label style="margin:0; font-weight:600; font-size:0.82rem; color:var(--ink); display:flex; align-items:center; gap:0.35rem;">
+ <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+ <span>Waktu Slot / Sesi Pakej</span>
+ <button type="button" class="info-icon-btn" data-info="Tetapkan sesi masa khusus untuk servis ini (cth: Sesi Pagi 09:00–13:00, Sesi Petang 14:00–18:00, Sesi Malam 20:00–23:00). Jika tidak ditetapkan, sistem akan menjana slot mengikut waktu operasi am studio.">i</button>
+ </label>
+ <span class="hint" id="et-time-mode-badge" style="font-size:0.72rem; font-weight:600; color:var(--ink-soft);">Ikut Waktu Am</span>
+ </div>
+
+ <div style="display:flex; gap:0.4rem; margin-top:0.35rem;">
+ <label class="et-time-tab active" data-time-mode="general" style="flex:1; display:flex; align-items:center; justify-content:center; gap:0.35rem; padding:0.45rem 0.6rem; border-radius:7px; border:1px solid var(--stamp); background:var(--surface); cursor:pointer; font-size:0.78rem; font-weight:600; color:var(--stamp); transition:all 0.15s; text-align:center;">
+ <input type="radio" name="et-time-mode" value="general" checked style="display:none;" />
+ <span>Ikut Waktu Operasi Am</span>
+ </label>
+ <label class="et-time-tab" data-time-mode="custom" style="flex:1; display:flex; align-items:center; justify-content:center; gap:0.35rem; padding:0.45rem 0.6rem; border-radius:7px; border:1px solid var(--paper-line); background:var(--paper); cursor:pointer; font-size:0.78rem; font-weight:500; color:var(--ink-soft); transition:all 0.15s; text-align:center;">
+ <input type="radio" name="et-time-mode" value="custom" style="display:none;" />
+ <span>Sesi / Waktu Khusus</span>
+ </label>
+ </div>
+
+ <!-- PANEL SESI KHUSUS (custom times) -->
+ <div id="et-custom-times-wrap" style="display:none; margin-top:0.65rem; padding:0.65rem 0.8rem; background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px;">
+ <p class="hint" style="margin:0 0 0.45rem 0; font-size:0.78rem;">Pilih sesi pantas atau masukkan waktu mula &amp; tamat sendiri:</p>
+ 
+ <!-- Quick Preset Buttons -->
+ <div style="display:flex; gap:0.35rem; flex-wrap:wrap; margin-bottom:0.6rem;">
+ <button type="button" class="et-time-preset-btn secondary" data-preset-start="09:00" data-preset-end="13:00" data-preset-label="Sesi Pagi" style="font-size:0.72rem; padding:0.25rem 0.55rem; border-radius:6px; cursor:pointer;">+ 🌅 Pagi (09:00–13:00)</button>
+ <button type="button" class="et-time-preset-btn secondary" data-preset-start="14:00" data-preset-end="18:00" data-preset-label="Sesi Petang" style="font-size:0.72rem; padding:0.25rem 0.55rem; border-radius:6px; cursor:pointer;">+ 🌇 Petang (14:00–18:00)</button>
+ <button type="button" class="et-time-preset-btn secondary" data-preset-start="20:00" data-preset-end="23:00" data-preset-label="Sesi Malam" style="font-size:0.72rem; padding:0.25rem 0.55rem; border-radius:6px; cursor:pointer;">+ 🌙 Malam (20:00–23:00)</button>
+ <button type="button" class="et-time-preset-btn secondary" data-preset-start="09:00" data-preset-end="17:00" data-preset-label="Seharian" style="font-size:0.72rem; padding:0.25rem 0.55rem; border-radius:6px; cursor:pointer;">+ ☀️ Seharian (09:00–17:00)</button>
+ </div>
+
+ <!-- Manual Time Input -->
+ <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
+ <input type="text" id="et-time-label-input" placeholder="Label Sesi (cth: Sesi Nikah)" style="font-size:0.8rem; padding:0.35rem 0.5rem; flex:1; min-width:130px;" />
+ <div style="display:flex; align-items:center; gap:0.25rem;">
+ <input type="time" id="et-time-start-input" value="09:00" style="font-size:0.8rem; padding:0.35rem 0.45rem;" />
+ <span class="hint" style="font-size:0.75rem;">–</span>
+ <input type="time" id="et-time-end-input" value="13:00" style="font-size:0.8rem; padding:0.35rem 0.45rem;" />
+ </div>
+ <button type="button" id="et-add-time-btn" class="secondary" style="font-size:0.78rem; padding:0.4rem 0.75rem; font-weight:600; flex-shrink:0;">+ Tambah</button>
+ </div>
+
+ <!-- Configured Sessions Chips List -->
+ <div id="et-custom-times-list" style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.55rem; min-height:26px;">
+ <!-- Chips injected here -->
+ </div>
+ </div>
+ </div>
  </div>
  </div>
 
@@ -8395,6 +8447,111 @@ function parsePosters(val) {
     renderEtCustomDateChips();
     updateEtSchedSummary();
   });
+  // ── Package Specific Time Slots (Custom Sessions) ──
+  let currentEtCustomTimes = [];
+
+  function renderEtCustomTimeChips() {
+    const container = document.getElementById("et-custom-times-list");
+    if (!container) return;
+    if (currentEtCustomTimes.length === 0) {
+      container.innerHTML = '<span class="hint" style="font-size:0.75rem; color:var(--warn); padding:0.2rem 0;">Belum ada sesi masa ditambah. Tekan butang sesi pantas di atas atau masukkan waktu mula & tamat.</span>';
+      return;
+    }
+    container.innerHTML = currentEtCustomTimes.map((item, idx) => {
+      const labelText = item.label ? ` (${item.label})` : "";
+      return '<span class="custom-time-chip" style="display:inline-flex; align-items:center; gap:0.35rem; background:var(--surface); border:1px solid var(--stamp); color:var(--stamp); font-weight:600; font-size:0.76rem; padding:0.25rem 0.55rem; border-radius:20px;">⏰ ' + item.start_time + '–' + item.end_time + labelText + ' <button type="button" data-del-custom-time="' + idx + '" style="background:none; border:none; padding:0; cursor:pointer; color:var(--warn); font-size:0.85rem; line-height:1;" title="Padam sesi ini">✕</button></span>';
+    }).join("");
+
+    container.querySelectorAll("[data-del-custom-time]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.dataset.delCustomTime, 10);
+        currentEtCustomTimes.splice(idx, 1);
+        renderEtCustomTimeChips();
+        updateEtTimeSummary();
+      });
+    });
+  }
+
+  function updateEtTimeUI() {
+    const timeMode = document.querySelector('input[name="et-time-mode"]:checked')?.value || "general";
+    const wrap = document.getElementById("et-custom-times-wrap");
+    if (wrap) wrap.style.display = timeMode === "custom" ? "block" : "none";
+    document.querySelectorAll(".et-time-tab").forEach(tab => {
+      const isSelected = tab.dataset.timeMode === timeMode;
+      tab.classList.toggle("active", isSelected);
+      if (isSelected) {
+        tab.style.background = "var(--surface)";
+        tab.style.color = "var(--stamp)";
+        tab.style.fontWeight = "600";
+        tab.style.boxShadow = "0 1px 3px rgba(0,0,0,0.08)";
+        tab.style.borderColor = "var(--stamp)";
+      } else {
+        tab.style.background = "var(--paper)";
+        tab.style.color = "var(--ink-soft)";
+        tab.style.fontWeight = "500";
+        tab.style.boxShadow = "none";
+        tab.style.borderColor = "var(--paper-line)";
+      }
+    });
+    updateEtTimeSummary();
+  }
+
+  function updateEtTimeSummary() {
+    const badge = document.getElementById("et-time-mode-badge");
+    if (!badge) return;
+    const timeMode = document.querySelector('input[name="et-time-mode"]:checked')?.value || "general";
+    if (timeMode === "general") {
+      badge.textContent = "Ikut Waktu Am";
+      badge.style.color = "var(--ink-soft)";
+    } else {
+      badge.textContent = currentEtCustomTimes.length > 0 ? (currentEtCustomTimes.length + " Sesi Khusus") : "Tetapkan Waktu";
+      badge.style.color = "var(--stamp)";
+    }
+  }
+
+  document.querySelectorAll('input[name="et-time-mode"]').forEach(r => {
+    r.addEventListener("change", updateEtTimeUI);
+  });
+
+  document.querySelectorAll(".et-time-preset-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const start = btn.dataset.presetStart;
+      const end = btn.dataset.presetEnd;
+      const label = btn.dataset.presetLabel;
+      if (currentEtCustomTimes.some(t => t.start_time === start && t.end_time === end)) {
+        showToast("Sesi ini telah ditambah.", "info", 1800);
+        return;
+      }
+      currentEtCustomTimes.push({ start_time: start, end_time: end, label: label });
+      renderEtCustomTimeChips();
+      updateEtTimeSummary();
+      showToast(`Ditambah: ${label} (${start}–${end})`, "success", 1500);
+    });
+  });
+
+  document.getElementById("et-add-time-btn")?.addEventListener("click", () => {
+    const start = document.getElementById("et-time-start-input")?.value;
+    const end = document.getElementById("et-time-end-input")?.value;
+    const label = document.getElementById("et-time-label-input")?.value.trim() || "";
+    if (!start || !end) {
+      showToast("Sila pilih waktu mula dan tamat.", "warning", 2000);
+      return;
+    }
+    if (start >= end) {
+      showToast("Waktu tamat mesti selepas waktu mula.", "warning", 2000);
+      return;
+    }
+    if (currentEtCustomTimes.some(t => t.start_time === start && t.end_time === end)) {
+      showToast("Sesi waktu ini telah ada dalam senarai.", "info", 1800);
+      return;
+    }
+    currentEtCustomTimes.push({ start_time: start, end_time: end, label: label || null });
+    const labelInp = document.getElementById("et-time-label-input");
+    if (labelInp) labelInp.value = "";
+    renderEtCustomTimeChips();
+    updateEtTimeSummary();
+  });
+
   let editingEventTypeId = null;
  function startEditingEventType(t) {
  editingEventTypeId = t.id;
@@ -8428,6 +8585,12 @@ function parsePosters(val) {
     currentEtCustomDates = (schedObj?.mode === "dates" && Array.isArray(schedObj.dates)) ? [...schedObj.dates] : [];
     renderEtCustomDateChips();
     updateEtSchedUI();
+    const timeMode = schedObj?.time_mode || "general";
+    const rTimeMode = document.querySelector('input[name="et-time-mode"][value="' + timeMode + '"]');
+    if (rTimeMode) rTimeMode.checked = true;
+    currentEtCustomTimes = (schedObj?.time_mode === "custom" && Array.isArray(schedObj.times)) ? [...schedObj.times] : [];
+    renderEtCustomTimeChips();
+    updateEtTimeUI();
 
     document.getElementById("et-description-rte").innerHTML = sanitizeRichText((t.description || "").replace(/<!--popular-->/g, "").replace(/<!--price:[0-9.]+-->/g, "").replace(/<!--schedule:[\s\S]*?-->/g, ""));
  currentEtPosters = parsePosters(t.poster_url);
@@ -8450,6 +8613,11 @@ function parsePosters(val) {
     currentEtCustomDates = [];
     renderEtCustomDateChips();
     updateEtSchedUI();
+    const rTimeGen = document.querySelector('input[name="et-time-mode"][value="general"]');
+    if (rTimeGen) rTimeGen.checked = true;
+    currentEtCustomTimes = [];
+    renderEtCustomTimeChips();
+    updateEtTimeUI();
  document.getElementById("et-video-link").value = "";
   if (document.getElementById("et-popular")) document.getElementById("et-popular").checked = false;
  if (document.getElementById("et-poster-file")) document.getElementById("et-poster-file").value = "";
@@ -8612,21 +8780,41 @@ function parsePosters(val) {
  const fullPrice = priceRaw ? parseFloat(priceRaw) : null;
 
      const schedMode = document.querySelector('input[name="et-sched-mode"]:checked')?.value || "all";
-    let schedTag = "";
+    const timeMode = document.querySelector('input[name="et-time-mode"]:checked')?.value || "general";
     if (schedMode === "days") {
       const days = Array.from(document.querySelectorAll(".et-day-cb:checked")).map(cb => parseInt(cb.value, 10));
       if (days.length === 0) {
         showToast("Sila tandakan sekurang-kurangnya satu hari untuk jadual mingguan pakej ini.", "warning");
         return;
       }
-      schedTag = "<!--schedule:" + JSON.stringify({ mode: "days", days }) + "-->";
     } else if (schedMode === "dates") {
       if (currentEtCustomDates.length === 0) {
         showToast("Sila pilih dan tambah sekurang-kurangnya satu tarikh khas untuk pakej ini.", "warning");
         document.getElementById("et-custom-date-picker")?.focus();
         return;
       }
-      schedTag = "<!--schedule:" + JSON.stringify({ mode: "dates", dates: currentEtCustomDates }) + "-->";
+    }
+    if (timeMode === "custom" && currentEtCustomTimes.length === 0) {
+      showToast("Sila tambah sekurang-kurangnya satu waktu/sesi slot untuk pakej ini.", "warning");
+      return;
+    }
+    let schedTag = "";
+    const schedPayload = {};
+    if (schedMode === "days") {
+      schedPayload.mode = "days";
+      schedPayload.days = Array.from(document.querySelectorAll(".et-day-cb:checked")).map(cb => parseInt(cb.value, 10));
+    } else if (schedMode === "dates") {
+      schedPayload.mode = "dates";
+      schedPayload.dates = currentEtCustomDates;
+    } else {
+      schedPayload.mode = "all";
+    }
+    if (timeMode === "custom" && currentEtCustomTimes.length > 0) {
+      schedPayload.time_mode = "custom";
+      schedPayload.times = currentEtCustomTimes;
+    }
+    if (schedPayload.mode !== "all" || schedPayload.time_mode === "custom") {
+      schedTag = "<!--schedule:" + JSON.stringify(schedPayload) + "-->";
     }
 
     let cleanDesc = sanitizeRichText(document.getElementById("et-description-rte").innerHTML.trim()) || "";

@@ -162,13 +162,17 @@ export async function onRequestGet(context) {
         }
       }
 
-      let dayRanges = rangesForDate(dateKey, availInputs);
-      if (!dayRanges && customSchedule && (customSchedule.mode === "dates" || customSchedule.mode === "days")) {
-        // If the owner specifically enabled this date or day for this service package,
-        // but the studio's general weekly template has that day marked closed (e.g. weekend/Sunday),
-        // fallback to the studio's active operating hours from their weekly schedule or standard 09:00-18:00,
-        // provided the date was not explicitly blacklisted in availability_closed_dates.
-        if (!availInputs.closedDates.has(dateKey)) {
+      // Check if date is explicitly blacklisted in availability_closed_dates
+      if (availInputs.closedDates.has(dateKey)) continue;
+
+      let dayRanges = null;
+      if (customSchedule && customSchedule.time_mode === "custom" && Array.isArray(customSchedule.times) && customSchedule.times.length > 0) {
+        // Use custom package session times directly
+        dayRanges = customSchedule.times;
+      } else {
+        dayRanges = rangesForDate(dateKey, availInputs);
+        if (!dayRanges && customSchedule && (customSchedule.mode === "dates" || customSchedule.mode === "days")) {
+          // Fallback to studio active hours if weekday was closed in weekly schedule
           for (const d of [1, 2, 3, 4, 5, 6, 0]) {
             const donor = availInputs.weeklyByDow.get(d);
             if (donor && donor.length > 0) { dayRanges = donor; break; }
@@ -191,7 +195,7 @@ export async function onRequestGet(context) {
           const capacityFull = requestedTypeId ? (sameSlotCounts.get(iso) || 0) >= capacity : false;
           if (slotStart >= earliestAllowed && !isBlocked(slotStart.getTime()) && !capacityFull) {
             const parts = myDateParts(slotStart);
-            daySlots.push({ iso, label: `${String(parts.hh).padStart(2, "0")}:${String(parts.mm).padStart(2, "0")}` });
+            daySlots.push({ iso, label: `${String(parts.hh).padStart(2, "0")}:${String(parts.mm).padStart(2, "0")}`, session_label: range.label || null });
           }
           slotStart = new Date(slotStart.getTime() + durationMs);
         }

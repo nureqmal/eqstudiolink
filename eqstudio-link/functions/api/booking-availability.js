@@ -93,11 +93,16 @@ export async function onRequestGet(context) {
 
     let effectiveDaysAhead = Math.min(parseInt(url.searchParams.get("days"), 10) || 30, 90);
     if (customSchedule && customSchedule.mode === "dates" && Array.isArray(customSchedule.dates) && customSchedule.dates.length > 0) {
-      const sortedDates = [...customSchedule.dates].sort();
-      const lastDate = new Date(`${sortedDates[sortedDates.length - 1]}T23:59:59Z`);
-      const diffDays = Math.ceil((lastDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000));
-      if (diffDays > 0) {
-        effectiveDaysAhead = Math.min(Math.max(effectiveDaysAhead, diffDays + 1), 365);
+      let maxDiff = 0;
+      for (const dStr of customSchedule.dates) {
+        const dObj = new Date(`${dStr}T23:59:59Z`);
+        if (!isNaN(dObj.getTime())) {
+          const diff = Math.ceil((dObj.getTime() - now.getTime()) / (24 * 60 * 60 * 1000));
+          if (diff > maxDiff) maxDiff = diff;
+        }
+      }
+      if (maxDiff > 0) {
+        effectiveDaysAhead = Math.min(Math.max(effectiveDaysAhead, maxDiff + 2), 365);
       }
     }
 
@@ -157,7 +162,20 @@ export async function onRequestGet(context) {
         }
       }
 
-      const dayRanges = rangesForDate(dateKey, availInputs);
+      let dayRanges = rangesForDate(dateKey, availInputs);
+      if (!dayRanges && customSchedule && (customSchedule.mode === "dates" || customSchedule.mode === "days")) {
+        // If the owner specifically enabled this date or day for this service package,
+        // but the studio's general weekly template has that day marked closed (e.g. weekend/Sunday),
+        // fallback to the studio's active operating hours from their weekly schedule or standard 09:00-18:00,
+        // provided the date was not explicitly blacklisted in availability_closed_dates.
+        if (!availInputs.closedDates.has(dateKey)) {
+          for (const d of [1, 2, 3, 4, 5, 6, 0]) {
+            const donor = availInputs.weeklyByDow.get(d);
+            if (donor && donor.length > 0) { dayRanges = donor; break; }
+          }
+          if (!dayRanges) dayRanges = [{ start_time: "09:00", end_time: "18:00" }];
+        }
+      }
       if (!dayRanges) continue;
 
       const daySlots = [];

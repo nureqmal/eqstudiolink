@@ -1225,10 +1225,31 @@
  <p class="hint" style="margin:0 0 0.5rem 0; font-size:0.78rem;">
  Pilih tarikh-tarikh khusus di bawah (contoh: 1 Dis, 5 Dis, 25 Dis). Bakal pelanggan hanya boleh klik tarikh ini sahaja di kalendar mini-website.
  </p>
- <div style="display:flex; gap:0.4rem; align-items:center;">
- <input type="date" id="et-custom-date-picker" style="font-size:0.85rem; padding:0.4rem 0.55rem; flex:1;" />
+ <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
+ <input type="date" id="et-custom-date-picker" style="font-size:0.85rem; padding:0.4rem 0.55rem; flex:1; min-width:140px;" />
  <button type="button" id="et-add-custom-date-btn" class="secondary" style="font-size:0.78rem; padding:0.45rem 0.85rem; font-weight:600; flex-shrink:0;">+ Tambah Tarikh</button>
  </div>
+
+ <!-- Pilihan Sesi Khusus untuk Tarikh Dipilih -->
+ <div style="margin-top:0.45rem; display:flex; align-items:center; gap:0.3rem; flex-wrap:wrap;">
+ <span class="hint" style="font-size:0.72rem; margin-right:0.15rem;">Sesi tarikh ini:</span>
+ <button type="button" class="et-date-session-tag" data-start="09:00" data-end="13:00" data-label="Pagi" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">🌅 Pagi (09:00–13:00)</button>
+ <button type="button" class="et-date-session-tag" data-start="14:00" data-end="18:00" data-label="Petang" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">🌇 Petang (14:00–18:00)</button>
+ <button type="button" class="et-date-session-tag" data-start="20:00" data-end="23:00" data-label="Malam" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">🌙 Malam (20:00–23:00)</button>
+ <button type="button" class="et-date-session-tag" data-start="09:00" data-end="17:00" data-label="Seharian" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">☀️ Seharian (09:00–17:00)</button>
+ <button type="button" id="et-date-custom-toggle-btn" style="background:none; border:none; color:var(--stamp); font-size:0.72rem; text-decoration:underline; cursor:pointer; padding:0.18rem 0.3rem;">Masa Lain...</button>
+ </div>
+
+ <!-- Input Manual Masa Khas Tarikh (Optional) -->
+ <div id="et-date-manual-time-wrap" style="display:none; margin-top:0.35rem; align-items:center; gap:0.3rem; flex-wrap:wrap; background:rgba(0,0,0,0.02); padding:0.35rem 0.5rem; border-radius:6px; border:1px solid var(--paper-line);">
+ <span class="hint" style="font-size:0.72rem;">Waktu Khas:</span>
+ <input type="time" id="et-date-manual-start" value="10:00" style="font-size:0.75rem; padding:0.2rem 0.35rem;" />
+ <span class="hint" style="font-size:0.72rem;">–</span>
+ <input type="time" id="et-date-manual-end" value="14:00" style="font-size:0.75rem; padding:0.2rem 0.35rem;" />
+ <input type="text" id="et-date-manual-label" placeholder="Nama Sesi (cth: Sanding)" style="font-size:0.75rem; padding:0.2rem 0.4rem; width:120px;" />
+ <button type="button" id="et-date-add-manual-btn" class="secondary" style="font-size:0.72rem; padding:0.2rem 0.5rem;">+ Tambah Sesi Ini</button>
+ </div>
+
  <div id="et-custom-dates-list" style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.55rem; min-height:26px;">
  <!-- Chips injected here -->
  </div>
@@ -8361,8 +8382,10 @@ function parsePosters(val) {
  });
  }
 
-   // ── Package Specific Schedule (Custom Dates / Days) ──
+   // ── Package Specific Schedule (Custom Dates / Days & Per-Date Sessions) ──
   let currentEtCustomDates = [];
+  let currentEtDateTimes = {}; // { "YYYY-MM-DD": [ { start_time, end_time, label } ] }
+  let pendingDateSessions = []; // temporary sessions selected for current date picker
 
   function renderEtCustomDateChips() {
     const container = document.getElementById("et-custom-dates-list");
@@ -8375,12 +8398,21 @@ function parsePosters(val) {
     container.innerHTML = currentEtCustomDates.map((dateStr, idx) => {
       const d = new Date(dateStr + "T00:00:00");
       const label = d.toLocaleDateString("ms-MY", { day: "numeric", month: "short", year: "numeric" });
-      return '<span class="custom-date-chip" style="display:inline-flex; align-items:center; gap:0.35rem; background:var(--surface); border:1px solid var(--stamp); color:var(--stamp); font-weight:600; font-size:0.76rem; padding:0.25rem 0.55rem; border-radius:20px;">📅 ' + label + ' <button type="button" data-del-custom-date="' + idx + '" style="background:none; border:none; padding:0; cursor:pointer; color:var(--warn); font-size:0.85rem; line-height:1;" title="Padam tarikh ini">✕</button></span>';
+      const sessions = currentEtDateTimes[dateStr] || [];
+      let sessionText = "";
+      if (sessions.length > 0) {
+        sessionText = " · " + sessions.map(s => (s.label ? s.label + " " : "") + s.start_time + "–" + s.end_time).join(", ");
+      }
+      return '<span class="custom-date-chip" style="display:inline-flex; align-items:center; gap:0.35rem; background:var(--surface); border:1px solid var(--stamp); color:var(--stamp); font-weight:600; font-size:0.76rem; padding:0.25rem 0.55rem; border-radius:20px;">📅 ' + label + '<span style="font-weight:400; opacity:0.85; font-size:0.72rem;">' + escapeHtml(sessionText) + '</span> <button type="button" data-del-custom-date="' + idx + '" style="background:none; border:none; padding:0; cursor:pointer; color:var(--warn); font-size:0.85rem; line-height:1;" title="Padam tarikh ini">✕</button></span>';
     }).join("");
 
     container.querySelectorAll("[data-del-custom-date]").forEach(btn => {
       btn.addEventListener("click", () => {
         const idx = parseInt(btn.dataset.delCustomDate, 10);
+        const removedDate = currentEtCustomDates[idx];
+        if (removedDate && currentEtDateTimes[removedDate]) {
+          delete currentEtDateTimes[removedDate];
+        }
         currentEtCustomDates.splice(idx, 1);
         renderEtCustomDateChips();
         updateEtSchedSummary();
@@ -8437,12 +8469,65 @@ function parsePosters(val) {
   document.querySelectorAll(".et-day-cb").forEach(cb => {
     cb.addEventListener("change", updateEtSchedSummary);
   });
+  // Toggle session tags for pending date
+  document.querySelectorAll(".et-date-session-tag").forEach(tag => {
+    tag.addEventListener("click", () => {
+      const start = tag.dataset.start;
+      const end = tag.dataset.end;
+      const label = tag.dataset.label;
+      const existingIdx = pendingDateSessions.findIndex(s => s.start_time === start && s.end_time === end);
+      if (existingIdx >= 0) {
+        pendingDateSessions.splice(existingIdx, 1);
+        tag.style.background = "var(--surface)";
+        tag.style.color = "var(--ink)";
+        tag.style.borderColor = "var(--paper-line)";
+        tag.style.fontWeight = "400";
+      } else {
+        pendingDateSessions.push({ start_time: start, end_time: end, label: label });
+        tag.style.background = "var(--stamp)";
+        tag.style.color = "#fff";
+        tag.style.borderColor = "var(--stamp)";
+        tag.style.fontWeight = "600";
+      }
+    });
+  });
+
+  document.getElementById("et-date-custom-toggle-btn")?.addEventListener("click", () => {
+    const wrap = document.getElementById("et-date-manual-time-wrap");
+    if (wrap) wrap.style.display = wrap.style.display === "none" ? "flex" : "none";
+  });
+
+  document.getElementById("et-date-add-manual-btn")?.addEventListener("click", () => {
+    const start = document.getElementById("et-date-manual-start")?.value;
+    const end = document.getElementById("et-date-manual-end")?.value;
+    const label = document.getElementById("et-date-manual-label")?.value.trim() || "";
+    if (!start || !end || start >= end) {
+      showToast("Waktu tidak sah.", "warning", 1800);
+      return;
+    }
+    pendingDateSessions.push({ start_time: start, end_time: end, label: label || null });
+    showToast(`Sesi ditambah: ${start}–${end}`, "success", 1500);
+  });
+
   document.getElementById("et-add-custom-date-btn")?.addEventListener("click", () => {
     const picker = document.getElementById("et-custom-date-picker");
     const val = picker?.value;
     if (!val) { showToast("Sila pilih satu tarikh.", "warning", 2000); return; }
     if (currentEtCustomDates.includes(val)) { showToast("Tarikh ini telah ditambah.", "info", 2000); return; }
     currentEtCustomDates.push(val);
+    if (pendingDateSessions.length > 0) {
+      currentEtDateTimes[val] = [...pendingDateSessions];
+    }
+    // Reset pending
+    pendingDateSessions = [];
+    document.querySelectorAll(".et-date-session-tag").forEach(tag => {
+      tag.style.background = "var(--surface)";
+      tag.style.color = "var(--ink)";
+      tag.style.borderColor = "var(--paper-line)";
+      tag.style.fontWeight = "400";
+    });
+    const manualWrap = document.getElementById("et-date-manual-time-wrap");
+    if (manualWrap) manualWrap.style.display = "none";
     picker.value = "";
     renderEtCustomDateChips();
     updateEtSchedSummary();
@@ -8583,6 +8668,7 @@ function parsePosters(val) {
       cb.checked = schedObj?.mode === "days" && Array.isArray(schedObj.days) && schedObj.days.includes(parseInt(cb.value, 10));
     });
     currentEtCustomDates = (schedObj?.mode === "dates" && Array.isArray(schedObj.dates)) ? [...schedObj.dates] : [];
+    currentEtDateTimes = (schedObj?.date_times && typeof schedObj.date_times === "object") ? JSON.parse(JSON.stringify(schedObj.date_times)) : {};
     renderEtCustomDateChips();
     updateEtSchedUI();
     const timeMode = schedObj?.time_mode || "general";
@@ -8611,6 +8697,8 @@ function parsePosters(val) {
     if (rAll) rAll.checked = true;
     document.querySelectorAll(".et-day-cb").forEach(cb => { cb.checked = false; });
     currentEtCustomDates = [];
+    currentEtDateTimes = {};
+    pendingDateSessions = [];
     renderEtCustomDateChips();
     updateEtSchedUI();
     const rTimeGen = document.querySelector('input[name="et-time-mode"][value="general"]');
@@ -8806,6 +8894,9 @@ function parsePosters(val) {
     } else if (schedMode === "dates") {
       schedPayload.mode = "dates";
       schedPayload.dates = currentEtCustomDates;
+      if (Object.keys(currentEtDateTimes).length > 0) {
+        schedPayload.date_times = currentEtDateTimes;
+      }
     } else {
       schedPayload.mode = "all";
     }

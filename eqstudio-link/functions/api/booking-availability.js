@@ -166,8 +166,11 @@ export async function onRequestGet(context) {
       if (availInputs.closedDates.has(dateKey)) continue;
 
       let dayRanges = null;
-      if (customSchedule && customSchedule.time_mode === "custom" && Array.isArray(customSchedule.times) && customSchedule.times.length > 0) {
-        // Use custom package session times directly
+      if (customSchedule && customSchedule.date_times && Array.isArray(customSchedule.date_times[dateKey]) && customSchedule.date_times[dateKey].length > 0) {
+        // Priority 1: Per-date custom sessions (e.g. 1 Dis Pagi, 5 Dis Pagi+Malam, 25 Dis Petang)
+        dayRanges = customSchedule.date_times[dateKey];
+      } else if (customSchedule && customSchedule.time_mode === "custom" && Array.isArray(customSchedule.times) && customSchedule.times.length > 0) {
+        // Priority 2: Package-level custom sessions
         dayRanges = customSchedule.times;
       } else {
         dayRanges = rangesForDate(dateKey, availInputs);

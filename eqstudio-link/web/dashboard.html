@@ -8700,9 +8700,9 @@ function parsePosters(val) {
         try { schedObj = JSON.parse(mSched[1]); } catch (_) {}
       }
     }
+    const schedMode = schedObj?.mode || "all";
     const isCustomSched = schedMode === "days" || schedMode === "dates" || schedObj?.time_mode === "custom";
     syncEtCustomSchedToggleState(isCustomSched);
-    const schedMode = schedObj?.mode || "all";
     const rMode = document.querySelector('input[name="et-sched-mode"][value="' + schedMode + '"]');
     if (rMode) rMode.checked = true;
     document.querySelectorAll(".et-day-cb").forEach(cb => {

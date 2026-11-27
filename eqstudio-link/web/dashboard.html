@@ -854,42 +854,10 @@
  </div>
  </div>
 
- <!-- Seksyen 01: Pautan & Kod QR -->
- <div class="bset-section-card">
- <div class="bset-section-heading">
- <span class="bset-section-num">01</span>
- <div>
- <h3 class="bset-section-title" data-i18n="bset_section_qr">Pautan Awam &amp; Kod QR Tempahan</h3>
- <p class="bset-section-sub" data-i18n="bset_section_qr_sub">Pelanggan menggunakan pautan ini untuk memilih slot waktu dan membayar deposit secara layan diri.</p>
- </div>
- </div>
-
- <label for="p-booking-slug">Slug Pautan Tempahan <button type="button" class="info-icon-btn" data-info="Nama unik untuk pautan awam anda. Contoh: kak-aina-bakery">i</button></label>
- <div class="bset-slug-wrapper">
- <span class="bset-slug-prefix">eqstudio.link/book.html?slug=</span>
- <input type="text" id="p-booking-slug" placeholder="nama-servis-anda" />
- </div>
- <div id="booking-slug-status" style="margin-top:0.45rem; font-size:0.82rem;"></div>
-
- <div id="booking-qr-wrap" style="display:none;">
- <div class="bset-qr-container">
- <div class="bset-qr-frame">
- <img id="booking-qr-img" alt="QR kod link booking" />
- <span class="bset-qr-caption"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Imbas untuk Tempah Slot</span>
- </div>
- <div class="row" style="margin-top:0.8rem; width:100%; max-width:320px;">
- <a id="booking-qr-download" download="qr-booking.png" class="secondary" style="flex:1; text-align:center; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:0.35rem; font-size:0.82rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Muat Turun</a>
- <button type="button" class="secondary" id="booking-qr-print" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:0.35rem; font-size:0.82rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Cetak</button>
- </div>
- <p class="hint" style="margin-top:0.5rem; text-align:center;" data-i18n="bset_counter_tip">Tip: Cetak dan letakkan di kaunter bersebelahan QR DuitNow supaya pelanggan boleh terus lock tarikh & masa!</p>
- </div>
- </div>
- </div>
-
  <!-- Seksyen 02: Slot & Deposit -->
  <div class="bset-section-card">
  <div class="bset-section-heading">
- <span class="bset-section-num">02</span>
+ <span class="bset-section-num">01</span>
  <div>
  <h3 class="bset-section-title">Ketetapan Tempoh &amp; Deposit</h3>
  <p class="bset-section-sub" data-i18n="bset_duration_sub">Tentukan masa yang diperuntukkan bagi setiap sesi dan bayaran pendahuluan komitmen pelanggan.</p>
@@ -920,7 +888,7 @@
  <!-- Seksyen 03: Peraturan Notis & Penampan -->
  <div class="bset-section-card">
  <div class="bset-section-heading">
- <span class="bset-section-num">03</span>
+ <span class="bset-section-num">02</span>
  <div>
  <h3 class="bset-section-title" data-i18n="bset_section_rules">Peraturan Notis &amp; Jeda Masa</h3>
  <p class="bset-section-sub" data-i18n="bset_section_rules_sub">Lindungi jadual kerja anda daripada tempahan saat akhir dan temu janji bertindih.</p>
@@ -964,7 +932,7 @@
  <!-- Seksyen 04: Deskripsi & Poster (Pilihan) -->
  <div class="bset-section-card">
  <div class="bset-section-heading">
- <span class="bset-section-num">04</span>
+ <span class="bset-section-num">03</span>
  <div>
  <h3 class="bset-section-title">Deskripsi &amp; Poster Perkhidmatan <span class="optional-section-badge" style="margin-left:0.4rem; vertical-align:middle;">Pilihan</span></h3>
  <p class="bset-section-sub" data-i18n="bset_info_sub">Beri maklumat tambahan seperti terma servis, persediaan awal pelanggan, atau gambar poster promosi.</p>
@@ -1206,22 +1174,18 @@
  <span class="hint" id="et-sched-summary-badge" style="font-size:0.75rem; font-weight:600; color:var(--stamp);">Ikut Jadual Am</span>
  </div>
 
- <div class="et-sched-segmented-bar">
-<label class="et-sched-tab active" data-mode="all" title="Servis ini boleh ditempah pada mana-mana hari/waktu buka studio">
-<input type="radio" name="et-sched-mode" value="all" checked style="position:absolute; opacity:0; pointer-events:none;" />
-<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-<span>Ikut Jadual Am</span>
+ <div class="et-sched-segmented-bar" style="grid-template-columns: repeat(2, 1fr);">
+<label class="et-sched-tab active" data-mode="dates" title="Buka pakej ini pada tarikh-tarikh khusus sahaja (cth: pakej nikah/sanding tarikh khas)">
+<input type="radio" name="et-sched-mode" value="dates" checked style="position:absolute; opacity:0; pointer-events:none;" />
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+<span>🎯 Buka Tarikh Khas Sahaja</span>
 </label>
-<label class="et-sched-tab" data-mode="days" title="Servis ini hanya dibuka pada hari-hari tertentu setiap minggu (cth: Sabtu & Ahad sahaja)">
+<label class="et-sched-tab" data-mode="days" title="Buka servis ini pada hari-hari tertentu setiap minggu (cth: Sabtu & Ahad sahaja)">
 <input type="radio" name="et-sched-mode" value="days" style="position:absolute; opacity:0; pointer-events:none;" />
 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-<span>Hari Tertentu</span>
+<span>📆 Buka Hari Tertentu Sahaja</span>
 </label>
-<label class="et-sched-tab" data-mode="dates" title="Servis ini hanya dibuka pada tarikh-tarikh terpilih sahaja (cth: pakej nikah/sanding tarikh khas)">
-<input type="radio" name="et-sched-mode" value="dates" style="position:absolute; opacity:0; pointer-events:none;" />
-<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-<span>Tarikh Khas Sahaja</span>
-</label>
+<input type="radio" name="et-sched-mode" value="all" id="et-sched-mode-all-hidden" style="display:none;" />
 </div>
 
  <!-- PANEL HARI TERTENTU (days) -->
@@ -1272,58 +1236,6 @@
  <!-- Chips injected here -->
  </div>
  </div>
-
- <!-- WAKTU / SESI SLOT PAKEJ -->
- <div style="margin-top:0.85rem; padding-top:0.75rem; border-top:1px dashed var(--paper-line);">
- <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.35rem; flex-wrap:wrap; gap:0.4rem;">
- <label style="margin:0; font-weight:600; font-size:0.82rem; color:var(--ink); display:flex; align-items:center; gap:0.35rem;">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
- <span>Waktu Slot / Sesi Pakej</span>
- <button type="button" class="info-icon-btn" data-info="Tetapkan sesi masa khusus untuk servis ini (cth: Sesi Pagi 09:00–13:00, Sesi Petang 14:00–18:00, Sesi Malam 20:00–23:00). Jika tidak ditetapkan, sistem akan menjana slot mengikut waktu operasi am studio.">i</button>
- </label>
- <span class="hint" id="et-time-mode-badge" style="font-size:0.72rem; font-weight:600; color:var(--ink-soft);">Ikut Waktu Am</span>
- </div>
-
- <div style="display:flex; gap:0.4rem; margin-top:0.35rem;">
- <label class="et-time-tab active" data-time-mode="general" style="flex:1; display:flex; align-items:center; justify-content:center; gap:0.35rem; padding:0.45rem 0.6rem; border-radius:7px; border:1px solid var(--stamp); background:var(--surface); cursor:pointer; font-size:0.78rem; font-weight:600; color:var(--stamp); transition:all 0.15s; text-align:center;">
- <input type="radio" name="et-time-mode" value="general" checked style="display:none;" />
- <span>Ikut Waktu Operasi Am</span>
- </label>
- <label class="et-time-tab" data-time-mode="custom" style="flex:1; display:flex; align-items:center; justify-content:center; gap:0.35rem; padding:0.45rem 0.6rem; border-radius:7px; border:1px solid var(--paper-line); background:var(--paper); cursor:pointer; font-size:0.78rem; font-weight:500; color:var(--ink-soft); transition:all 0.15s; text-align:center;">
- <input type="radio" name="et-time-mode" value="custom" style="display:none;" />
- <span>Sesi / Waktu Khusus</span>
- </label>
- </div>
-
- <!-- PANEL SESI KHUSUS (custom times) -->
- <div id="et-custom-times-wrap" style="display:none; margin-top:0.65rem; padding:0.65rem 0.8rem; background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px;">
- <p class="hint" style="margin:0 0 0.45rem 0; font-size:0.78rem;">Pilih sesi pantas atau masukkan waktu mula &amp; tamat sendiri:</p>
- 
- <!-- Quick Preset Buttons -->
- <div style="display:flex; gap:0.35rem; flex-wrap:wrap; margin-bottom:0.6rem;">
- <button type="button" class="et-time-preset-btn secondary" data-preset-start="09:00" data-preset-end="13:00" data-preset-label="Sesi Pagi" style="font-size:0.72rem; padding:0.25rem 0.55rem; border-radius:6px; cursor:pointer;">+ 🌅 Pagi (09:00–13:00)</button>
- <button type="button" class="et-time-preset-btn secondary" data-preset-start="14:00" data-preset-end="18:00" data-preset-label="Sesi Petang" style="font-size:0.72rem; padding:0.25rem 0.55rem; border-radius:6px; cursor:pointer;">+ 🌇 Petang (14:00–18:00)</button>
- <button type="button" class="et-time-preset-btn secondary" data-preset-start="20:00" data-preset-end="23:00" data-preset-label="Sesi Malam" style="font-size:0.72rem; padding:0.25rem 0.55rem; border-radius:6px; cursor:pointer;">+ 🌙 Malam (20:00–23:00)</button>
- <button type="button" class="et-time-preset-btn secondary" data-preset-start="09:00" data-preset-end="17:00" data-preset-label="Seharian" style="font-size:0.72rem; padding:0.25rem 0.55rem; border-radius:6px; cursor:pointer;">+ ☀️ Seharian (09:00–17:00)</button>
- </div>
-
- <!-- Manual Time Input -->
- <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
- <input type="text" id="et-time-label-input" placeholder="Label Sesi (cth: Sesi Nikah)" style="font-size:0.8rem; padding:0.35rem 0.5rem; flex:1; min-width:130px;" />
- <div style="display:flex; align-items:center; gap:0.25rem;">
- <input type="time" id="et-time-start-input" value="09:00" style="font-size:0.8rem; padding:0.35rem 0.45rem;" />
- <span class="hint" style="font-size:0.75rem;">–</span>
- <input type="time" id="et-time-end-input" value="13:00" style="font-size:0.8rem; padding:0.35rem 0.45rem;" />
- </div>
- <button type="button" id="et-add-time-btn" class="secondary" style="font-size:0.78rem; padding:0.4rem 0.75rem; font-weight:600; flex-shrink:0;">+ Tambah</button>
- </div>
-
- <!-- Configured Sessions Chips List -->
- <div id="et-custom-times-list" style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.55rem; min-height:26px;">
- <!-- Chips injected here -->
- </div>
- </div>
- </div>
  </div>
  </div>
  </div>
@@ -1347,6 +1259,24 @@
  </div>
 
  <!-- List of active questions -->
+ <!-- Soalan Asas Sistem (Sentiasa Wajib & Automatik) -->
+ <div style="background:var(--paper); border:1px solid var(--paper-line); border-radius:10px; padding:0.85rem 1rem; margin-top:0.85rem; margin-bottom:0.95rem;">
+ <div style="font-size:0.82rem; font-weight:700; color:var(--ink); margin-bottom:0.35rem; display:flex; align-items:center; gap:0.4rem;">
+ <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+ Soalan Standard Sistem (Sentiasa Automatik)
+ </div>
+ <p class="hint" style="margin:0 0 0.55rem 0; font-size:0.75rem;">Maklumat wajib berikut sentiasa diminta kepada pelanggan pada setiap tempahan tanpa perlu ditambah manual:</p>
+ <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
+ <span style="font-size:0.76rem; background:var(--surface); border:1px solid var(--paper-line); padding:0.25rem 0.6rem; border-radius:6px; display:inline-flex; align-items:center; gap:0.35rem; font-weight:500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Nama Penuh</span>
+ <span style="font-size:0.76rem; background:var(--surface); border:1px solid var(--paper-line); padding:0.25rem 0.6rem; border-radius:6px; display:inline-flex; align-items:center; gap:0.35rem; font-weight:500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Nombor WhatsApp / Telefon</span>
+ <span style="font-size:0.76rem; background:var(--surface); border:1px solid var(--paper-line); padding:0.25rem 0.6rem; border-radius:6px; display:inline-flex; align-items:center; gap:0.35rem; font-weight:500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Alamat Emel</span>
+ </div>
+ </div>
+
+ <div style="display:flex; align-items:center; justify-content:space-between; margin-top:0.95rem; margin-bottom:0.35rem;">
+ <strong style="font-size:0.84rem; color:var(--ink);">Soalan Tambahan Khusus Servis Anda</strong>
+ <span class="hint" style="font-size:0.72rem;">Pilihan Tambahan</span>
+ </div>
  <div id="booking-questions-list" style="margin-top:0.8rem;"></div>
 
  <!-- Question Form with Preset Chips -->
@@ -1372,6 +1302,40 @@
 
  <!-- PANEL 5: EMBED CODE -->
  <div class="bset-panel" id="bset-panel-embed">
+ <!-- Seksyen 01: Pautan & Kod QR -->
+ <div class="bset-section-card">
+ <div class="bset-section-heading">
+ <span class="bset-section-num">01</span>
+ <div>
+ <h3 class="bset-section-title" data-i18n="bset_section_qr">Pautan Awam &amp; Kod QR Tempahan</h3>
+ <p class="bset-section-sub" data-i18n="bset_section_qr_sub">Pelanggan menggunakan pautan ini untuk memilih slot waktu dan membayar deposit secara layan diri.</p>
+ </div>
+ </div>
+
+ <label for="p-booking-slug">Slug Pautan Tempahan <button type="button" class="info-icon-btn" data-info="Nama unik untuk pautan awam anda. Contoh: kak-aina-bakery">i</button></label>
+ <div class="bset-slug-wrapper">
+ <span class="bset-slug-prefix">eqstudio.link/book.html?slug=</span>
+ <input type="text" id="p-booking-slug" placeholder="nama-servis-anda" />
+ </div>
+ <div id="booking-slug-status" style="margin-top:0.45rem; font-size:0.82rem;"></div>
+
+ <div id="booking-qr-wrap" style="display:none;">
+ <div class="bset-qr-container">
+ <div class="bset-qr-frame">
+ <img id="booking-qr-img" alt="QR kod link booking" />
+ <span class="bset-qr-caption"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Imbas untuk Tempah Slot</span>
+ </div>
+ <div class="row" style="margin-top:0.8rem; width:100%; max-width:320px;">
+ <a id="booking-qr-download" download="qr-booking.png" class="secondary" style="flex:1; text-align:center; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:0.35rem; font-size:0.82rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Muat Turun</a>
+ <button type="button" class="secondary" id="booking-qr-print" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:0.35rem; font-size:0.82rem; font-weight:600;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> Cetak</button>
+ </div>
+ <p class="hint" style="margin-top:0.5rem; text-align:center;" data-i18n="bset_counter_tip">Tip: Cetak dan letakkan di kaunter bersebelahan QR DuitNow supaya pelanggan boleh terus lock tarikh & masa!</p>
+ </div>
+ </div>
+ </div>
+
+ 
+
  <div class="card bset-section-card">
  <div class="bset-section-heading">
  <div class="bset-header-icon" style="width:40px; height:40px;">

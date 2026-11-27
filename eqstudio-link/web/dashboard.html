@@ -71,29 +71,73 @@
  <div class="db-shell">
 
  <aside class="db-sidebar">
- <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:1rem;">
- <a href="/dashboard.html" class="brand"><img src="/assets/logo/logo-64.png" alt="eqstudio.link" /></a>
- <a href="/billing.html" id="tier-badge" class="tier-badge tier-free" style="display:inline-flex;">Pelan Percuma <span class="tier-badge-upgrade">· Naik Taraf</span></a>
- </div>
- <div class="kebab-wrap" style="margin-bottom:0.8rem;">
- <button type="button" class="secondary" id="quick-nav-btn" style="width:100%;">
- <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> Lompat ke Page
- </button>
- <div class="kebab-menu" id="quick-nav-menu"></div>
- </div>
- <button type="button" class="secondary" id="notif-bell-btn" style="width:100%; margin-bottom:0.8rem; position:relative;">
- <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg> Notifikasi
- <span id="notif-unread-badge" class="notif-unread-badge" style="display:none;"></span>
- </button>
- <div class="db-sidebar-footer">
- <div class="db-biz-name" id="business-name-side">-</div>
- <button class="secondary" id="restart-tour-btn" style="width:100%; margin-bottom:0.5rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <span data-i18n="topbar_tour">Panduan Guna Sistem</span></button>
- <button class="secondary theme-toggle-btn" id="theme-toggle-btn" style="width:100%; margin-bottom:0.5rem;">
- <span id="theme-toggle-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span id="theme-toggle-label">Mod Gelap</span>
- </button>
- <button class="secondary" id="logout-btn" style="width:100%;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> <span data-i18n="topbar_logout">Log Keluar</span></button>
- </div>
- </aside>
+    <div class="sidebar-brand-row">
+      <a href="/dashboard.html" class="brand" style="display:flex; align-items:center; gap:0.6rem; text-decoration:none;">
+        <img src="/assets/logo/logo-64.png" alt="eqstudio.link" style="width:34px; height:34px; border-radius:8px;" />
+        <span style="font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:var(--ink);">eqstudio</span>
+      </a>
+      <a href="/billing.html" id="tier-badge" class="tier-badge tier-free" style="display:inline-flex; font-size:0.72rem; padding:0.2rem 0.55rem;">Pelan Percuma</a>
+    </div>
+
+    <!-- Quick + Create Button (Calendly Style) -->
+    <button type="button" class="sidebar-create-btn" id="sidebar-quick-create-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      <span>+ Cipta</span>
+    </button>
+
+    <!-- Navigation List -->
+    <nav class="sidebar-nav">
+      <button type="button" class="sidebar-nav-item active" data-sidebar-page="booking-settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <span>Jadual &amp; Servis</span>
+      </button>
+
+      <button type="button" class="sidebar-nav-item" data-sidebar-page="kalendar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <span>Kalendar</span>
+      </button>
+
+      <button type="button" class="sidebar-nav-item" data-sidebar-page="booking-list">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+        <span>Senarai Tempahan</span>
+      </button>
+
+      <button type="button" class="sidebar-nav-item" data-sidebar-page="pelanggan-list">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <span>Pelanggan</span>
+      </button>
+
+      <button type="button" class="sidebar-nav-item" data-sidebar-page="website">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        <span>Laman Bio Studio</span>
+      </button>
+
+      <button type="button" class="sidebar-nav-item" data-sidebar-page="laporan">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <span>Laporan &amp; Analitik</span>
+      </button>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="db-sidebar-footer" style="display:flex; flex-direction:column; gap:0.4rem; padding-top:0.75rem; border-top:1px solid var(--paper-line); margin-top:auto;">
+      <button type="button" class="sidebar-nav-item" data-sidebar-page="tetapan-profil" style="padding:0.5rem 0.75rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>
+        <span>Tetapan &amp; Profil</span>
+      </button>
+
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:0.4rem 0.75rem;">
+        <span class="db-biz-name" id="business-name-side" style="margin:0; padding:0; font-size:0.8rem; font-weight:600; max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">-</span>
+        <button type="button" class="theme-toggle-btn" id="theme-toggle-btn" style="background:none; border:none; cursor:pointer; padding:0.2rem; color:var(--ink-soft);" title="Tukar Tema (Gelap/Cerah)">
+          <span id="theme-toggle-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+        </button>
+      </div>
+
+      <button type="button" class="secondary" id="logout-btn" style="width:100%; font-size:0.82rem; padding:0.45rem; justify-content:center; display:flex; align-items:center; gap:0.4rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        <span>Log Keluar</span>
+      </button>
+    </div>
+  </aside>
 
  <div class="db-topbar-mobile">
  <div style="display:flex; align-items:center; gap:0.5rem; min-width:0;">
@@ -782,63 +826,56 @@
  </div>
  </div>
 
- <!-- Hero Card / Studio Header -->
- <div class="card bset-hero-card">
- <div class="bset-header-flex">
- <div class="bset-header-left">
- <div class="bset-header-icon">
- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><circle cx="12" cy="15" r="2"></circle></svg>
- </div>
- <div>
- <div class="bset-header-title-row">
- <h2 class="bset-title" data-i18n="bset_hero_title">Tetapan Booking</h2>
- <span class="bset-live-badge">
- <span class="bset-status-dot"></span>
- <span data-i18n="bset_hero_badge">Sistem Tempahan Auto</span>
- </span>
- </div>
- <p class="bset-header-desc" data-i18n="bset_hero_desc">Kawal pautan tempahan awam anda, jadual ketersediaan slot, jenis perkhidmatan, deposit, dan soalan intake pelanggan.</p>
- </div>
- </div>
- </div>
+ <!-- Calendly Style Scheduling Topbar -->
+  <div class="cal-sched-header">
+    <div class="cal-sched-title-wrap">
+      <h1>Jadual &amp; Perkhidmatan</h1>
+      <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; margin-top:0.35rem;">
+        <span style="font-size:0.82rem; color:var(--ink-soft); font-weight:600;">Pautan Booking:</span>
+        <div id="link-switcher-chips" class="chip-row" style="margin:0; display:inline-flex;"></div>
+        <button type="button" id="show-add-link-btn" class="secondary" style="display:none; font-size:0.75rem; padding:0.2rem 0.5rem;">+ Link Baharu</button>
+      </div>
+    </div>
 
- <!-- Link Switcher Card -->
- <div class="bset-link-bar" id="link-switcher-card">
- <div class="bset-link-header">
- <div class="bset-link-label">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
- <span>Pautan Booking Aktif</span>
- </div>
- <span style="font-size:0.75rem; color:var(--ink-soft);" data-i18n="bset_select_link_hint">Pilih pautan untuk disunting</span>
- </div>
- <div id="link-switcher-chips" class="chip-row"></div>
- <div id="add-link-row" style="display:none; margin-top:0.8rem; background:var(--surface); padding:0.8rem; border-radius:10px; border:1px solid var(--paper-line);">
- <div class="row">
- <div style="flex:1;">
- <label style="font-size:0.75rem; font-weight:600; margin-bottom:0.25rem;">Slug Link</label>
- <input type="text" id="new-link-slug" placeholder="cth: kelas-piano" style="width:100%;" />
- </div>
- <div style="flex:1;">
- <label style="font-size:0.75rem; font-weight:600; margin-bottom:0.25rem;">Label Pautan</label>
- <input type="text" id="new-link-label" placeholder="cth: Kelas Piano" style="width:100%;" />
- </div>
- <div style="display:flex; align-items:flex-end;">
- <button type="button" id="confirm-new-link-btn" class="secondary" style="height:40px; padding:0 1.1rem; font-weight:600;">+ Cipta</button>
- </div>
- </div>
- </div>
- <button type="button" id="show-add-link-btn" class="secondary" style="display:none; margin-top:0.7rem; width:100%; font-size:0.82rem;" data-i18n="bset_add_link_btn">+ Tambah Link Booking (Pro)</button>
- <p class="hint" id="link-switcher-upsell" style="display:none; margin-top:0.6rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Setiap link ada kalendar & tetapan tersendiri. <a href="/billing.html" style="font-weight:600;" data-i18n="upgrade_to_pro">Upgrade ke Pro</a> untuk sehingga 3 pautan tempahan serentak.</p>
- </div>
+    <div class="cal-sched-actions">
+      <a id="bset-preview-live-btn" href="/book.html" target="_blank" class="cal-copy-link-btn" style="text-decoration:none; display:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        <span>Lihat Laman Booking ↗</span>
+      </a>
+      <button type="button" class="cal-btn-manage-avail" id="open-manage-avail-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <span>Urus Ketersediaan</span>
+      </button>
+      <button type="button" class="cal-btn-create-pkg" id="top-create-event-type-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span>+ Cipta Pakej</span>
+      </button>
+    </div>
+  </div>
 
- <!-- Segmented Modern Tabs -->
+  <!-- Google Calendar Hero Recommendation Banner -->
+  <div class="gcal-hero-card" id="cal-gcal-banner" style="display:none;">
+    <div class="gcal-hero-left">
+      <div class="gcal-hero-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      </div>
+      <div>
+        <h4 class="gcal-hero-title">Sambungkan Google Calendar Anda</h4>
+        <p class="gcal-hero-sub">Elak pertembungan masa secara automatik. Tempahan baharu dari pelanggan akan terus masuk ke kalendar telefon anda.</p>
+      </div>
+    </div>
+    <button type="button" class="btn primary" id="cal-gcal-quick-connect-btn" style="white-space:nowrap; padding:0.55rem 1.1rem; font-size:0.85rem; font-weight:700;">
+      Sambung Sekarang →
+    </button>
+  </div>
+
+  <!-- Segmented Modern Tabs -->
  <div class="bset-tabs" id="bset-tabs">
  <button type="button" class="bset-tab active" data-bset-tab="jenis"><span class="bset-tab-dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> <span data-i18n="bset_tab_types">Pakej &amp; Servis</span></button>
  <button type="button" class="bset-tab" data-bset-tab="waktu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> <span data-i18n="bset_tab_schedule">Jadual &amp; Waktu Buka</span></button>
  <button type="button" class="bset-tab" data-bset-tab="asas"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg> <span data-i18n="bset_tab_links">Deposit &amp; Polisi</span></button>
  <button type="button" class="bset-tab" data-bset-tab="soalan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg> <span data-i18n="bset_tab_questions">Soalan Intake</span></button>
  <button type="button" class="bset-tab" data-bset-tab="embed"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> <span data-i18n="bset_tab_embed">Pautan &amp; Embed</span></button>
- </div>
  </div>
 
  <!-- PANEL 1: ASAS -->
@@ -1069,9 +1106,20 @@
  </div>
 
  <!-- List of current services -->
+  <!-- Search bar & Add package button (Calendly style) -->
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem; margin-top:0.9rem; margin-bottom:0.75rem; flex-wrap:wrap;">
+    <div style="position:relative; flex:1; min-width:240px; max-width:380px;">
+      <input type="text" id="cal-search-events-input" placeholder="Cari pakej / perkhidmatan..." style="padding-left:2.2rem; width:100%; font-size:0.86rem; border-radius:10px;" />
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="position:absolute; left:0.75rem; top:50%; transform:translateY(-50%); color:var(--ink-soft); pointer-events:none;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </div>
+    <button type="button" class="btn primary" id="open-create-pkg-btn" style="font-size:0.84rem; padding:0.5rem 1rem; font-weight:700;">+ Tambah Pakej Baharu</button>
+  </div>
  <div id="event-types-list" style="margin-top:0.8rem;"></div>
 
  <!-- Form to add/edit service -->
+  <!-- Form to add/edit service (Encapsulated in Clean Modal) -->
+  <div class="modal-overlay" id="event-type-modal" style="display:none;">
+    <div class="modal-box" style="max-width:680px; max-height:90vh; overflow-y:auto; padding:1.5rem;">
  <div class="card" style="background:var(--paper); border:1px solid var(--paper-line); border-radius:14px; padding:1.25rem; margin-top:1.25rem;">
  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; border-bottom:1px solid var(--paper-line); padding-bottom:0.6rem;">
  <h4 style="margin:0; font-size:0.95rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:0.4rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg> Tambah / Kemaskini Perkhidmatan</h4>
@@ -1245,6 +1293,8 @@
  </div>
  </div>
  </div>
+    </div>
+  </div>
 
  <!-- PANEL 4: SOALAN INTAKE -->
  <div class="bset-panel" id="bset-panel-soalan">
@@ -2423,6 +2473,132 @@
  </div>
 
  <!-- Per-page contextual help (Lapisan 2) -->
+  <!-- ══════════════════════════════════════════════════════════════
+       MANAGE AVAILABILITY MODAL (Calendly Architecture)
+       ══════════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="manage-availability-modal" style="display:none; z-index:9999;">
+    <div class="modal-box avail-modal-box">
+      <!-- Modal Header -->
+      <div class="avail-modal-header">
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <h3 class="avail-modal-title">Tetapan Ketersediaan &amp; Waktu Buka</h3>
+        </div>
+        <button type="button" class="secondary" id="close-avail-modal-btn" style="border:none; padding:0.4rem 0.6rem; font-size:1.15rem; cursor:pointer;" aria-label="Tutup">✕</button>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="avail-modal-tabs">
+        <button type="button" class="avail-tab-btn active" data-avail-tab="hours">Waktu Tersedia (Available hours)</button>
+        <button type="button" class="avail-tab-btn" data-avail-tab="gcal">Google Calendar</button>
+        <button type="button" class="avail-tab-btn" data-avail-tab="advanced">Tetapan Lanjutan</button>
+      </div>
+
+      <!-- Sub-bar for Waktu Tersedia -->
+      <div class="avail-sub-bar" id="avail-sub-bar-hours">
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span style="font-size:0.75rem; font-weight:700; text-transform:uppercase; color:var(--ink-soft);">Jadual:</span>
+          <span style="font-size:0.88rem; font-weight:700; color:var(--ink);">Waktu Bekerja Standard (Default)</span>
+        </div>
+        <div class="avail-view-switcher">
+          <button type="button" class="avail-view-btn active" id="avail-view-list-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            Senarai
+          </button>
+          <button type="button" class="avail-view-btn" id="avail-view-cal-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Kalendar
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="avail-modal-body">
+        <!-- Tab 1: Available Hours -->
+        <div id="avail-tab-content-hours">
+          <!-- 1. List View (Split 2 Columns: Weekly Hours + Date Specific Hours) -->
+          <div id="avail-split-list-view" class="avail-split-layout">
+            <!-- Left Column: Weekly Hours -->
+            <div>
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.25rem;">
+                <h4 class="avail-col-title" style="margin:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Waktu Mingguan (Weekly hours)</h4>
+              </div>
+              <p class="avail-col-desc">Waktu standard anda beroperasi setiap minggu.</p>
+              <div id="avail-modal-weekly-mount">
+                <!-- Weekly days editor mounts here -->
+              </div>
+            </div>
+
+            <!-- Right Column: Date-specific hours -->
+            <div>
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.25rem;">
+                <h4 class="avail-col-title" style="margin:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Waktu Tarikh Khas (Date-specific)</h4>
+                <button type="button" class="btn secondary" id="avail-add-override-date-btn" style="font-size:0.78rem; padding:0.3rem 0.65rem; font-weight:600;">+ Tambah Tarikh</button>
+              </div>
+              <p class="avail-col-desc">Ubah waktu atau set cuti untuk tarikh tertentu sahaja.</p>
+              <div id="avail-modal-dates-list">
+                <!-- List of date overrides with hours/closed status rendered here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Calendar View (Interactive Monthly Grid like Calendly) -->
+          <div id="avail-calendar-view" style="display:none;">
+            <div id="avail-modal-cal-mount">
+              <!-- Calendar grid mounts here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Google Calendar -->
+        <div id="avail-tab-content-gcal" style="display:none;">
+          <div style="background:var(--paper); border:1px solid var(--paper-line); border-radius:12px; padding:1.25rem; max-width:600px; margin:0 auto;">
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
+              <div class="gcal-hero-icon" style="width:40px; height:40px;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              </div>
+              <div>
+                <h4 style="margin:0; font-size:1rem; font-weight:700;">Google Calendar Integration</h4>
+                <p style="margin:0; font-size:0.8rem; color:var(--ink-soft);">Segerakkan tempahan terus ke Google Calendar telefon anda.</p>
+              </div>
+            </div>
+            <div id="avail-gcal-mount-status" style="margin-bottom:1rem; font-size:0.85rem;"></div>
+            <div style="display:flex; gap:0.6rem;">
+              <button type="button" class="btn primary" id="avail-gcal-connect-btn" style="font-size:0.85rem; padding:0.55rem 1rem;">Sambungkan Google Calendar</button>
+              <button type="button" class="btn secondary" id="avail-gcal-disconnect-btn" style="font-size:0.85rem; padding:0.55rem 1rem; color:var(--warn); display:none;">Putuskan Sambungan</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Advanced Availability -->
+        <div id="avail-tab-content-advanced" style="display:none;">
+          <div style="max-width:600px; margin:0 auto; display:flex; flex-direction:column; gap:1.25rem;">
+            <div class="card" style="background:var(--paper); border:1px solid var(--paper-line); border-radius:12px; padding:1.15rem;">
+              <h4 style="margin:0 0 0.4rem; font-size:0.92rem; font-weight:700;">Notis Tempahan Minimum</h4>
+              <p style="margin:0 0 0.75rem; font-size:0.8rem; color:var(--ink-soft);">Berapa jam sebelum sesi pelanggan dibenarkan membuat tempahan.</p>
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <input type="number" id="avail-adv-notice" min="0" value="24" style="width:100px;" />
+                <span style="font-size:0.85rem; font-weight:600;">Jam</span>
+              </div>
+            </div>
+
+            <div class="card" style="background:var(--paper); border:1px solid var(--paper-line); border-radius:12px; padding:1.15rem;">
+              <h4 style="margin:0 0 0.4rem; font-size:0.92rem; font-weight:700;">Masa Rehat Antara Slot (Buffer Time)</h4>
+              <p style="margin:0 0 0.75rem; font-size:0.8rem; color:var(--ink-soft);">Masa rehat/kemas studio sebelum sesi seterusnya bermula.</p>
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <input type="number" id="avail-adv-buffer" min="0" step="5" value="15" style="width:100px;" />
+                <span style="font-size:0.85rem; font-weight:600;">Minit</span>
+              </div>
+            </div>
+
+            <button type="button" class="btn primary" id="avail-adv-save-btn" style="width:100%; padding:0.7rem; font-weight:700;">Simpan Tetapan Lanjutan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
  <div class="modal-overlay" id="milestone-modal-backdrop" style="display:none;">
  <div class="modal-box" style="max-width:460px;">
  <div class="section-title"><h2 style="margin:0; font-size:1.1rem;" data-i18n="milestone_title">Jadual Bayaran Ansuran</h2></div>
@@ -2801,6 +2977,17 @@
  <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:var(--ink-soft); margin-bottom:0.25rem;">Pautan Rasmi Bio Anda:</div>
  <div style="font-family:var(--font-mono); font-size:0.95rem; font-weight:700; color:var(--stamp); word-break:break-all;" id="wz-final-url">eqstudio.link/...</div>
  </div>
+      <!-- Step Tambahan: Google Calendar Recommendation Ala Calendly -->
+      <div style="background:linear-gradient(135deg, color-mix(in srgb, var(--surface) 90%, #eff6ff) 0%, color-mix(in srgb, var(--surface) 95%, #f5f3ff) 100%); border:1px solid color-mix(in srgb, #3b82f6 30%, var(--paper-line)); border-radius:12px; padding:0.9rem 1rem; margin-bottom:1.1rem; text-align:left;">
+        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.35rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <strong style="font-size:0.92rem; color:var(--ink);">Sambung Google Calendar (Disyorkan)</strong>
+        </div>
+        <p style="font-size:0.8rem; color:var(--ink-soft); margin:0 0 0.75rem; line-height:1.4;">Elak pertindihan tempahan secara automatik. Tempahan baharu dari pelanggan akan terus disegerakkan ke kalendar telefon anda.</p>
+        <button type="button" class="btn secondary" onclick="window.connectGoogleCalendar && window.connectGoogleCalendar()" style="width:100%; justify-content:center; font-size:0.82rem; font-weight:700; padding:0.55rem; background:var(--surface);">
+          Sambung Google Calendar Terus →
+        </button>
+      </div>
 
  <div style="display:flex; flex-direction:column; gap:0.55rem;">
  <a href="#" id="wz-view-live-btn" target="_blank" class="btn" style="width:100%; justify-content:center; padding:0.7rem; font-size:0.9rem;">
@@ -4042,6 +4229,11 @@ function parsePosters(val) {
     target.classList.add("active", "page-enter");
     window.scrollTo({ top: 0, behavior: "instant" });
     setTimeout(() => target.classList.remove("page-enter"), 350);
+
+    // Sync desktop sidebar navigation active state (Calendly style)
+    document.querySelectorAll(".sidebar-nav-item[data-sidebar-page]").forEach(item => {
+      item.classList.toggle("active", item.dataset.sidebarPage === id);
+    });
 
     // Sync mobile bottom dock active tab
     document.querySelectorAll(".mobile-dock-item").forEach(item => item.classList.remove("active"));
@@ -8316,90 +8508,141 @@ function parsePosters(val) {
  updateStorefrontReadiness();
  }
 
- function renderEventTypesList(types) {
- const list = document.getElementById("event-types-list");
- if (types.length === 0) {
- list.innerHTML = `<p class="hint">Tiada perkhidmatan ditambah. Gunakan borang di bawah untuk menambah yang pertama.</p>`;
- return;
- }
- list.innerHTML = types.map(t => {
- const priceLabel = t.deposit_amount === 0 ? "Percuma" : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "deposit belum diset");
-    let schedBadge = "";
-    if (t.description) {
-      const mSched = t.description.match(/<!--schedule:([\s\S]*?)-->/);
-      if (mSched) {
-        try {
-          const s = JSON.parse(mSched[1]);
-          if (s.mode === "dates" && Array.isArray(s.dates) && s.dates.length > 0) {
-            schedBadge = ' · <span style="color:var(--stamp); font-weight:600;">📅 ' + s.dates.length + ' tarikh khas</span>';
-          } else if (s.mode === "days" && Array.isArray(s.days) && s.days.length > 0) {
-            const dayNames = { 0: "Ahd", 1: "Isn", 2: "Sel", 3: "Rab", 4: "Kha", 5: "Jum", 6: "Sab" };
-            const names = s.days.map(d => dayNames[d] || d).join(", ");
-            schedBadge = ' · <span style="color:var(--stamp); font-weight:600;">📅 ' + names + '</span>';
-          }
-        } catch (_) {}
-      }
-    }
- return `
- <div class="etype-card">
- ${t.poster_url ? `<img src="${escapeHtml(t.poster_url)}" class="etype-card-thumb" alt="" />` : `<div class="etype-card-thumb" style="display:flex; align-items:center; justify-content:center; color:var(--ink-soft);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>`}
- <div class="etype-card-body">
- <div class="etype-card-name">${escapeHtml(t.name)}</div>
- <div class="etype-card-meta">${t.duration_minutes} minit · ${priceLabel}${t.capacity > 1 ? ` · kapasiti ${t.capacity}` : ""}${schedBadge}</div>
- </div>
- <button type="button" class="secondary" data-et-edit-id="${t.id}" style="padding:0.3rem 0.6rem; flex-shrink:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg></button>
- <button type="button" class="secondary" data-et-id="${t.id}" style="color:var(--warn); padding:0.3rem 0.6rem; flex-shrink:0;" aria-label="Padam jenis perkhidmatan ini"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
- </div>
- `;
- }).join("");
- list.querySelectorAll("[data-et-id]").forEach(btn => {
- btn.addEventListener("click", async () => {
- await supabase.from("event_types").delete().eq("id", btn.dataset.etId);
- loadEventTypes();
- });
- });
- list.querySelectorAll("[data-et-edit-id]").forEach(btn => {
- btn.addEventListener("click", () => {
- const t = types.find(t => t.id === btn.dataset.etEditId);
- if (t) startEditingEventType(t);
- });
- });
- }
+ let allEventTypesCache = [];
 
-   // ── Package Specific Schedule (Custom Dates / Days & Per-Date Sessions) ──
-  let currentEtCustomDates = [];
-  let currentEtDateTimes = {}; // { "YYYY-MM-DD": [ { start_time, end_time, label } ] }
-  let pendingDateSessions = []; // temporary sessions selected for current date picker
+  function renderEventTypesList(types) {
+    if (types) allEventTypesCache = types;
+    const list = document.getElementById("event-types-list");
+    if (!list) return;
 
-  function renderEtCustomDateChips() {
-    const container = document.getElementById("et-custom-dates-list");
-    if (!container) return;
-    if (currentEtCustomDates.length === 0) {
-      container.innerHTML = '<span class="hint" style="font-size:0.75rem; color:var(--warn); padding:0.2rem 0;">Belum ada tarikh dipilih. Sila pilih tarikh di atas dan tekan + Tambah Tarikh.</span>';
+    const searchTerm = (document.getElementById("cal-search-events-input")?.value || "").trim().toLowerCase();
+    const filtered = allEventTypesCache.filter(t => {
+      if (!searchTerm) return true;
+      return t.name.toLowerCase().includes(searchTerm) || (t.description && t.description.toLowerCase().includes(searchTerm));
+    });
+
+    if (filtered.length === 0) {
+      list.innerHTML = `
+        <div style="text-align:center; padding:2.5rem 1.5rem; background:var(--surface); border:1px dashed var(--paper-line); border-radius:14px; margin-top:0.5rem;">
+          <div style="width:48px; height:48px; border-radius:12px; background:var(--paper); display:inline-flex; align-items:center; justify-content:center; color:var(--ink-soft); margin-bottom:0.75rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h4 style="margin:0 0 0.35rem; font-size:1rem; font-weight:700;">${searchTerm ? "Tiada perkhidmatan sepadan dengan carian" : "Belum ada jenis perkhidmatan"}</h4>
+          <p class="hint" style="margin:0 0 1rem; font-size:0.82rem;">${searchTerm ? "Cuba kata kunci carian yang lain." : "Cipta pakej servis pertama anda untuk mula menerima tempahan automatik."}</p>
+          ${!searchTerm ? '<button type="button" class="btn primary" onclick="window.openCreateEventTypeModal && window.openCreateEventTypeModal()" style="font-size:0.85rem; font-weight:700; padding:0.55rem 1.1rem;">+ Cipta Pakej Sekarang</button>' : ''}
+        </div>
+      `;
       return;
     }
-    currentEtCustomDates.sort();
-    container.innerHTML = currentEtCustomDates.map((dateStr, idx) => {
-      const d = new Date(dateStr + "T00:00:00");
-      const label = d.toLocaleDateString("ms-MY", { day: "numeric", month: "short", year: "numeric" });
-      const sessions = currentEtDateTimes[dateStr] || [];
-      let sessionText = "";
-      if (sessions.length > 0) {
-        sessionText = " · " + sessions.map(s => (s.label ? s.label + " " : "") + s.start_time + "–" + s.end_time).join(", ");
-      }
-      return '<span class="custom-date-chip" style="display:inline-flex; align-items:center; gap:0.35rem; background:var(--surface); border:1px solid var(--stamp); color:var(--stamp); font-weight:600; font-size:0.76rem; padding:0.25rem 0.55rem; border-radius:20px;">📅 ' + label + '<span style="font-weight:400; opacity:0.85; font-size:0.72rem;">' + escapeHtml(sessionText) + '</span> <button type="button" data-del-custom-date="' + idx + '" style="background:none; border:none; padding:0; cursor:pointer; color:var(--warn); font-size:0.85rem; line-height:1;" title="Padam tarikh ini">✕</button></span>';
-    }).join("");
 
-    container.querySelectorAll("[data-del-custom-date]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const idx = parseInt(btn.dataset.delCustomDate, 10);
-        const removedDate = currentEtCustomDates[idx];
-        if (removedDate && currentEtDateTimes[removedDate]) {
-          delete currentEtDateTimes[removedDate];
+    const currentSlug = currentLink()?.slug || "";
+    const baseUrl = window.location.origin;
+
+    list.innerHTML = `<div class="cal-event-cards-grid">` + filtered.map(t => {
+      const priceLabel = t.deposit_amount === 0 ? "Percuma" : (t.deposit_amount != null ? `RM ${Number(t.deposit_amount).toFixed(2)}` : "Deposit belum diset");
+      
+      let fullPriceBadge = "";
+      if (t.description) {
+        const matchPrice = t.description.match(/<!--price:([0-9.]+)-->/);
+        if (matchPrice) {
+          fullPriceBadge = `<span class="cal-meta-pill" style="color:var(--ink-soft); text-decoration:line-through;">RM ${Number(matchPrice[1]).toFixed(2)}</span>`;
         }
-        currentEtCustomDates.splice(idx, 1);
-        renderEtCustomDateChips();
-        updateEtSchedSummary();
+      }
+
+      let schedBadge = "Waktu Bekerja Standard";
+      if (t.description) {
+        const mSched = t.description.match(/<!--schedule:([\s\S]*?)-->/);
+        if (mSched) {
+          try {
+            const s = JSON.parse(mSched[1]);
+            if (s.mode === "dates" && Array.isArray(s.dates) && s.dates.length > 0) {
+              schedBadge = `📅 ${s.dates.length} tarikh khas`;
+            } else if (s.mode === "days" && Array.isArray(s.days) && s.days.length > 0) {
+              const dayNames = { 0: "Ahd", 1: "Isn", 2: "Sel", 3: "Rab", 4: "Kha", 5: "Jum", 6: "Sab" };
+              schedBadge = s.days.map(d => dayNames[d] || d).join(", ");
+            }
+          } catch (_) {}
+        }
+      }
+
+      const eventUrl = currentSlug ? `${baseUrl}/book.html?slug=${encodeURIComponent(currentSlug)}&event=${encodeURIComponent(t.id)}` : `${baseUrl}/book.html`;
+
+      return `
+        <div class="cal-event-card">
+          <div class="cal-event-card-stripe"></div>
+          <div class="cal-event-card-left">
+            ${t.poster_url ? `<img src="${escapeHtml(t.poster_url)}" class="cal-event-card-thumb" alt="" />` : `
+              <div class="cal-event-card-thumb" style="display:flex; align-items:center; justify-content:center; color:var(--ink-soft);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              </div>
+            `}
+            <div class="cal-event-card-info">
+              <div class="cal-event-card-title">
+                <span>${escapeHtml(t.name)}</span>
+              </div>
+              <div class="cal-event-card-meta">
+                <span class="cal-meta-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ${t.duration_minutes} min</span>
+                ${fullPriceBadge}
+                <span class="cal-meta-pill" style="color:var(--stamp);">Deposit: ${priceLabel}</span>
+                ${t.capacity > 1 ? `<span class="cal-meta-pill">👥 Kapasiti: ${t.capacity}</span>` : ""}
+                <span class="cal-meta-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg> ${schedBadge}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-event-card-actions">
+            <button type="button" class="cal-copy-link-btn" data-cal-copy-link="${eventUrl}" title="Salin pautan tempahan khas untuk pakej ini">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              <span>Salin Pautan</span>
+            </button>
+
+            <a href="${eventUrl}" target="_blank" class="cal-icon-btn" title="Lihat pratonton laman tempahan" aria-label="Lihat pratonton">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+
+            <button type="button" class="cal-icon-btn" data-et-edit-id="${t.id}" title="Sunting pakej ini" aria-label="Sunting">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg>
+            </button>
+
+            <button type="button" class="cal-icon-btn danger" data-et-id="${t.id}" title="Padam pakej ini" aria-label="Padam">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join("") + `</div>`;
+
+    // Live search event listener
+    const searchInput = document.getElementById("cal-search-events-input");
+    if (searchInput && !searchInput.dataset.hasListener) {
+      searchInput.dataset.hasListener = "true";
+      searchInput.addEventListener("input", () => renderEventTypesList());
+    }
+
+    // Bind copy links
+    list.querySelectorAll("[data-cal-copy-link]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        navigator.clipboard.writeText(btn.dataset.calCopyLink).then(() => {
+          showToast("Pautan pakej berjaya disalin!", "success");
+        }).catch(() => {
+          showToast("Gagal menyalin pautan.", "error");
+        });
+      });
+    });
+
+    list.querySelectorAll("[data-et-id]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Padam jenis perkhidmatan ini? Tempahan sedia ada tidak terjejas.")) return;
+        await supabase.from("event_types").delete().eq("id", btn.dataset.etId);
+        showToast("Jenis perkhidmatan dipadam.", "success");
+        loadEventTypes();
+      });
+    });
+
+    list.querySelectorAll("[data-et-edit-id]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const t = allEventTypesCache.find(t => t.id === btn.dataset.etEditId);
+        if (t) startEditingEventType(t);
       });
     });
   }
@@ -12399,7 +12642,228 @@ function parsePosters(val) {
  }
  updatePushButtonState();
 
- // ── Google Calendar Sync ──
+ 
+  // ── Global Google Calendar Helper (Calendly Flow) ──
+  window.connectGoogleCalendar = async function() {
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (!sessionData?.session?.access_token) {
+        showToast("Sila log masuk semula untuk menyambungkan Google Calendar.", "error");
+        return;
+      }
+      window.location.href = `/api/google-calendar-auth-start?token=${encodeURIComponent(sessionData.session.access_token)}`;
+    } catch (err) {
+      showToast("Ralat sambung Google Calendar: " + err.message, "error");
+    }
+  };
+
+  // ── Calendly-Style Modal & Sidebar Controllers ──
+  function initCalendlyControllers() {
+    // 1. Sidebar desktop navigation items
+    document.querySelectorAll(".sidebar-nav-item[data-sidebar-page]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        goToPage(btn.dataset.sidebarPage);
+      });
+    });
+
+    // 2. Package Creation Modal Triggers
+    function openCreateEventTypeModal() {
+      stopEditingEventType();
+      const m = document.getElementById("event-type-modal");
+      if (m) m.style.display = "flex";
+    }
+    window.openCreateEventTypeModal = openCreateEventTypeModal;
+    document.getElementById("sidebar-quick-create-btn")?.addEventListener("click", openCreateEventTypeModal);
+    document.getElementById("top-create-event-type-btn")?.addEventListener("click", openCreateEventTypeModal);
+    document.getElementById("open-create-pkg-btn")?.addEventListener("click", openCreateEventTypeModal);
+    document.getElementById("et-cancel-edit-btn")?.addEventListener("click", () => {
+      stopEditingEventType();
+      const m = document.getElementById("event-type-modal");
+      if (m) m.style.display = "none";
+    });
+
+    // 3. Manage Availability Modal
+    function openManageAvailabilityModal() {
+      const m = document.getElementById("manage-availability-modal");
+      if (!m) return;
+      m.style.display = "flex";
+
+      // Mount weekly-card into modal
+      const weeklyMount = document.getElementById("avail-modal-weekly-mount");
+      const weeklyCard = document.getElementById("weekly-card");
+      if (weeklyMount && weeklyCard && !weeklyMount.contains(weeklyCard)) {
+        weeklyMount.appendChild(weeklyCard);
+      }
+
+      // Mount cal-wrapper into modal
+      const calMount = document.getElementById("avail-modal-cal-mount");
+      const calWrapper = document.querySelector(".avail-cal-wrapper");
+      if (calMount && calWrapper && !calMount.contains(calWrapper)) {
+        calMount.appendChild(calWrapper);
+      }
+
+      // Populate Advanced Settings
+      const link = currentLink();
+      if (link) {
+        const noticeEl = document.getElementById("avail-adv-notice");
+        const bufferEl = document.getElementById("avail-adv-buffer");
+        if (noticeEl) noticeEl.value = link.booking_min_notice_hours || 24;
+        if (bufferEl) bufferEl.value = link.buffer_minutes || 0;
+      }
+
+      renderWeeklyEditor();
+      renderAvailCalendar();
+      renderDateOverridesList();
+    }
+    window.openManageAvailabilityModal = openManageAvailabilityModal;
+    document.getElementById("open-manage-avail-btn")?.addEventListener("click", openManageAvailabilityModal);
+    document.getElementById("close-avail-modal-btn")?.addEventListener("click", () => {
+      document.getElementById("manage-availability-modal").style.display = "none";
+    });
+
+    // 4. Availability Modal Tabs
+    document.querySelectorAll("[data-avail-tab]").forEach(tabBtn => {
+      tabBtn.addEventListener("click", () => {
+        document.querySelectorAll("[data-avail-tab]").forEach(b => b.classList.remove("active"));
+        tabBtn.classList.add("active");
+        const tab = tabBtn.dataset.availTab;
+
+        const hoursContent = document.getElementById("avail-tab-content-hours");
+        const hoursSubBar = document.getElementById("avail-sub-bar-hours");
+        const gcalContent = document.getElementById("avail-tab-content-gcal");
+        const advContent = document.getElementById("avail-tab-content-advanced");
+
+        if (hoursContent) hoursContent.style.display = tab === "hours" ? "block" : "none";
+        if (hoursSubBar) hoursSubBar.style.display = tab === "hours" ? "flex" : "none";
+        if (gcalContent) gcalContent.style.display = tab === "gcal" ? "block" : "none";
+        if (advContent) advContent.style.display = tab === "advanced" ? "block" : "none";
+
+        if (tab === "gcal") syncGcalModalStatus();
+      });
+    });
+
+    // 5. View Switcher in Available Hours (List vs Calendar)
+    const listBtn = document.getElementById("avail-view-list-btn");
+    const calBtn = document.getElementById("avail-view-cal-btn");
+    const listView = document.getElementById("avail-split-list-view");
+    const calView = document.getElementById("avail-calendar-view");
+
+    listBtn?.addEventListener("click", () => {
+      listBtn.classList.add("active");
+      calBtn?.classList.remove("active");
+      if (listView) listView.style.display = "grid";
+      if (calView) calView.style.display = "none";
+    });
+
+    calBtn?.addEventListener("click", () => {
+      calBtn.classList.add("active");
+      listBtn?.classList.remove("active");
+      if (listView) listView.style.display = "none";
+      if (calView) calView.style.display = "block";
+      renderAvailCalendar();
+    });
+
+    // 6. Date overrides list rendering
+    window.renderDateOverridesList = function() {
+      const container = document.getElementById("avail-modal-dates-list");
+      if (!container) return;
+      const list = [];
+      if (availClosedCache) {
+        availClosedCache.forEach(d => list.push({ date: d, closed: true }));
+      }
+      if (availDatesCache) {
+        availDatesCache.forEach((blocks, d) => {
+          if (!availClosedCache.has(d)) list.push({ date: d, closed: false, blocks });
+        });
+      }
+      list.sort((a,b) => a.date.localeCompare(b.date));
+      if (list.length === 0) {
+        container.innerHTML = '<p class="hint" style="font-size:0.8rem; margin:0.5rem 0;">Tiada waktu tarikh khas atau cuti disetkan lagi. Tekan <strong>+ Tambah Tarikh</strong> untuk ubah waktu hari tertentu.</p>';
+        return;
+      }
+      container.innerHTML = list.map(item => {
+        const dObj = new Date(item.date + "T00:00:00");
+        const dateFormatted = dObj.toLocaleDateString("ms-MY", { day: "numeric", month: "short", year: "numeric", weekday: "short" });
+        const hoursLabel = item.closed ? '<span style="color:var(--warn); font-weight:700;">Tutup (Cuti)</span>' : item.blocks.map(b => `${b.start_time} - ${b.end_time}`).join(", ");
+        return `
+          <div class="date-hours-card">
+            <div>
+              <div class="date-hours-badge">${escapeHtml(dateFormatted)}</div>
+              <div class="date-hours-time">${hoursLabel}</div>
+            </div>
+            <button type="button" class="secondary" data-del-override="${item.date}" style="padding:0.25rem 0.5rem; font-size:0.75rem; color:var(--warn);" title="Padam pengecualian ini">Padam</button>
+          </div>
+        `;
+      }).join("");
+
+      container.querySelectorAll("[data-del-override]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const dKey = btn.dataset.delOverride;
+          const link = currentLink();
+          if (!link) return;
+          await removeDateRows(link, dKey);
+          availDatesCache.delete(dKey);
+          availClosedCache.delete(dKey);
+          renderAvailCalendar();
+          renderDateOverridesList();
+          showToast(`Pengecualian untuk ${dKey} dipadam.`, "success");
+        });
+      });
+    };
+
+    // 7. Add Date Override Button Trigger
+    document.getElementById("avail-add-override-date-btn")?.addEventListener("click", () => {
+      const todayIso = new Date().toISOString().slice(0, 10);
+      const chosen = prompt("Masukkan tarikh untuk waktu khas atau cuti (YYYY-MM-DD):", todayIso);
+      if (!chosen || !/^\d{4}-\d{2}-\d{2}$/.test(chosen)) return;
+      openAvailDateModal(chosen);
+    });
+
+    // 8. Connect buttons
+    document.getElementById("cal-gcal-quick-connect-btn")?.addEventListener("click", window.connectGoogleCalendar);
+    document.getElementById("avail-gcal-connect-btn")?.addEventListener("click", window.connectGoogleCalendar);
+    document.getElementById("avail-gcal-disconnect-btn")?.addEventListener("click", () => {
+      document.getElementById("gcal-disconnect-btn")?.click();
+    });
+
+    // 9. Advanced Settings Save
+    document.getElementById("avail-adv-save-btn")?.addEventListener("click", async () => {
+      const link = currentLink();
+      if (!link) return;
+      const noticeHours = parseInt(document.getElementById("avail-adv-notice").value, 10) || 24;
+      const bufferMins = parseInt(document.getElementById("avail-adv-buffer").value, 10) || 0;
+      const { error } = await supabase.from("booking_links").update({
+        booking_min_notice_hours: noticeHours,
+        buffer_minutes: bufferMins
+      }).eq("id", link.id);
+      if (error) {
+        showToast("Gagal menyimpan tetapan lanjutan: " + error.message, "error");
+      } else {
+        link.booking_min_notice_hours = noticeHours;
+        link.buffer_minutes = bufferMins;
+        showToast("Tetapan ketersediaan lanjutan berjaya disimpan!", "success");
+      }
+    });
+  }
+
+  function syncGcalModalStatus() {
+    const statusEl = document.getElementById("avail-gcal-mount-status");
+    const origStatus = document.getElementById("gcal-sync-status");
+    const connectBtn = document.getElementById("avail-gcal-connect-btn");
+    const disconnectBtn = document.getElementById("avail-gcal-disconnect-btn");
+    const notConn = document.getElementById("gcal-not-connected");
+    const isConn = notConn && notConn.style.display === "none";
+
+    if (statusEl) {
+      statusEl.innerHTML = isConn 
+        ? `<span style="color:var(--ok); font-weight:700;">● Disambungkan</span> — ${origStatus?.innerHTML || "Auto-sync aktif."}`
+        : `<span style="color:var(--ink-soft);">Belum disambungkan ke Google Calendar.</span>`;
+    }
+    if (connectBtn) connectBtn.style.display = isConn ? "none" : "inline-flex";
+    if (disconnectBtn) disconnectBtn.style.display = isConn ? "inline-flex" : "none";
+  }
+
+// ── Google Calendar Sync ──
  async function loadCalendarConnectionStatus() {
  const { data } = await supabase.from("google_calendar_connections").select("connected_at, last_sync_error, last_sync_at").eq("owner_id", user.id).maybeSingle();
  const notConnectedEl = document.getElementById("gcal-not-connected");
@@ -12422,6 +12886,7 @@ function parsePosters(val) {
  }
  }
  loadCalendarConnectionStatus();
+    initCalendlyControllers();
 
  document.getElementById("gcal-connect-btn")?.addEventListener("click", async () => {
  const { data: sessionData } = await supabase.auth.getSession();

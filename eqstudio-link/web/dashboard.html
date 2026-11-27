@@ -833,16 +833,16 @@
 
  <!-- Segmented Modern Tabs -->
  <div class="bset-tabs" id="bset-tabs">
- <button type="button" class="bset-tab active" data-bset-tab="asas"><span class="bset-tab-dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg> <span data-i18n="bset_tab_links">Asas &amp; Deposit</span></button>
- <button type="button" class="bset-tab" data-bset-tab="waktu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> <span data-i18n="bset_tab_schedule">Waktu Available</span></button>
- <button type="button" class="bset-tab" data-bset-tab="jenis"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> <span data-i18n="bset_tab_types">Jenis Perkhidmatan</span></button>
+ <button type="button" class="bset-tab active" data-bset-tab="jenis"><span class="bset-tab-dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> <span data-i18n="bset_tab_types">Pakej &amp; Servis</span></button>
+ <button type="button" class="bset-tab" data-bset-tab="waktu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> <span data-i18n="bset_tab_schedule">Jadual &amp; Waktu Buka</span></button>
+ <button type="button" class="bset-tab" data-bset-tab="asas"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg> <span data-i18n="bset_tab_links">Deposit &amp; Polisi</span></button>
  <button type="button" class="bset-tab" data-bset-tab="soalan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg> <span data-i18n="bset_tab_questions">Soalan Intake</span></button>
- <button type="button" class="bset-tab" data-bset-tab="embed"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Embed Code</button>
+ <button type="button" class="bset-tab" data-bset-tab="embed"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> <span data-i18n="bset_tab_embed">Pautan &amp; Embed</span></button>
  </div>
  </div>
 
  <!-- PANEL 1: ASAS -->
- <div class="bset-panel active" id="bset-panel-asas">
+ <div class="bset-panel" id="bset-panel-asas">
  <!-- Ringkasan Langsung -->
  <div class="bset-summary">
  <div class="bset-summary-icon">
@@ -1088,7 +1088,7 @@
  </div>
 
  <!-- PANEL 3: JENIS PERKHIDMATAN -->
- <div class="bset-panel" id="bset-panel-jenis">
+ <div class="bset-panel active" id="bset-panel-jenis">
  <div class="card bset-section-card">
  <div class="bset-section-heading">
  <div class="bset-header-icon" style="width:40px; height:40px;">
@@ -1177,6 +1177,24 @@
  </label>
  </div>
 
+ <!-- KAD JADUAL & TARIKH KHAS (PROGRESSIVE DISCLOSURE) -->
+ <div class="card" style="margin-top:1rem; padding:0.95rem 1.05rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:12px; transition:border-color 0.2s;">
+ <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; cursor:pointer;" id="et-custom-sched-header">
+ <div style="flex:1;">
+ <div style="display:flex; align-items:center; gap:0.45rem;">
+ <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--stamp); flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+ <strong style="font-size:0.88rem; color:var(--ink);">Ketetapan Tarikh &amp; Waktu Khas Pakej</strong>
+ <span class="hint" id="et-custom-sched-status-badge" style="font-size:0.72rem; padding:0.15rem 0.55rem; background:var(--paper); border-radius:999px; border:1px solid var(--paper-line); font-weight:600; color:var(--ink-soft);">Ikut Waktu Am Studio</span>
+ </div>
+ <p class="hint" style="margin:0.25rem 0 0 0; font-size:0.77rem; line-height:1.4;">Secara lalai, pakej dibuka mengikut jadual operasi studio. Aktifkan jika pakej ini <strong>HANYA</strong> dibuka pada hari tertentu (cth: Sabtu/Ahad) atau tarikh khas majlis (cth: nikah/sanding).</p>
+ </div>
+ <label class="switch" style="margin:0; flex-shrink:0; cursor:pointer;" title="Aktifkan jadual khas untuk pakej ini">
+ <input type="checkbox" id="et-custom-sched-toggle" style="width:20px; height:20px; cursor:pointer;" />
+ </label>
+ </div>
+
+ <!-- Container yang disorok secara automatik jika tidak aktif -->
+ <div id="et-advanced-sched-container" style="display:none; margin-top:0.85rem; padding-top:0.85rem; border-top:1px dashed var(--paper-line);">
  <!-- JADUAL & TARIKH BUKA PAKEJ (Tarikh Khas / Hari Pilihan) -->
  <div style="margin-top:0.95rem; padding:0.85rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:10px;">
  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.4rem; flex-wrap:wrap; gap:0.4rem;">
@@ -1303,6 +1321,7 @@
  <!-- Configured Sessions Chips List -->
  <div id="et-custom-times-list" style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.55rem; min-height:26px;">
  <!-- Chips injected here -->
+ </div>
  </div>
  </div>
  </div>
@@ -8463,6 +8482,62 @@ function parsePosters(val) {
     }
   }
 
+  // Progressive disclosure toggle for custom schedule in event type form
+  const etCustomSchedToggle = document.getElementById("et-custom-sched-toggle");
+  const etAdvancedSchedContainer = document.getElementById("et-advanced-sched-container");
+  const etCustomSchedStatusBadge = document.getElementById("et-custom-sched-status-badge");
+
+  function syncEtCustomSchedToggleState(isOpen) {
+    if (!etCustomSchedToggle || !etAdvancedSchedContainer) return;
+    etCustomSchedToggle.checked = Boolean(isOpen);
+    etAdvancedSchedContainer.style.display = isOpen ? "block" : "none";
+    if (etCustomSchedStatusBadge) {
+      if (isOpen) {
+        etCustomSchedStatusBadge.textContent = "Jadual Khas Aktif";
+        etCustomSchedStatusBadge.style.color = "var(--stamp)";
+        etCustomSchedStatusBadge.style.background = "rgba(79, 70, 229, 0.08)";
+        etCustomSchedStatusBadge.style.borderColor = "var(--stamp)";
+      } else {
+        etCustomSchedStatusBadge.textContent = "Ikut Waktu Am Studio";
+        etCustomSchedStatusBadge.style.color = "var(--ink-soft)";
+        etCustomSchedStatusBadge.style.background = "var(--paper)";
+        etCustomSchedStatusBadge.style.borderColor = "var(--paper-line)";
+      }
+    }
+  }
+
+  if (etCustomSchedToggle && etAdvancedSchedContainer) {
+    etCustomSchedToggle.addEventListener("change", () => {
+      const isChecked = etCustomSchedToggle.checked;
+      syncEtCustomSchedToggleState(isChecked);
+      if (!isChecked) {
+        // Reset to studio schedule
+        syncEtCustomSchedToggleState(false);
+    const rAll = document.querySelector('input[name="et-sched-mode"][value="all"]');
+        if (rAll) {
+          rAll.checked = true;
+          updateEtSchedUI();
+        }
+      } else {
+        // If currently 'all', switch to 'dates' by default so user can immediately add dates
+        const curMode = document.querySelector('input[name="et-sched-mode"]:checked')?.value || "all";
+        if (curMode === "all") {
+          const rDates = document.querySelector('input[name="et-sched-mode"][value="dates"]');
+          if (rDates) {
+            rDates.checked = true;
+            updateEtSchedUI();
+          }
+        }
+      }
+    });
+
+    document.getElementById("et-custom-sched-header")?.addEventListener("click", (e) => {
+      if (e.target.closest("label.switch") || e.target.id === "et-custom-sched-toggle") return;
+      etCustomSchedToggle.checked = !etCustomSchedToggle.checked;
+      etCustomSchedToggle.dispatchEvent(new Event("change"));
+    });
+  }
+
   document.querySelectorAll('input[name="et-sched-mode"]').forEach(r => {
     r.addEventListener("change", updateEtSchedUI);
   });
@@ -8661,6 +8736,8 @@ function parsePosters(val) {
         try { schedObj = JSON.parse(mSched[1]); } catch (_) {}
       }
     }
+    const isCustomSched = schedMode === "days" || schedMode === "dates" || schedObj?.time_mode === "custom";
+    syncEtCustomSchedToggleState(isCustomSched);
     const schedMode = schedObj?.mode || "all";
     const rMode = document.querySelector('input[name="et-sched-mode"][value="' + schedMode + '"]');
     if (rMode) rMode.checked = true;

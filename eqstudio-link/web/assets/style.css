@@ -13928,3 +13928,67 @@ body.ws-modal-open {
   color: var(--stamp);
   font-weight: 600;
 }
+
+/* ── Desktop Sleek Topbar ── */
+.db-desktop-topbar {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .db-desktop-topbar {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 2rem;
+    border-bottom: 1px solid var(--paper-line);
+    background: var(--surface);
+    position: sticky;
+    top: 0;
+    z-index: 55;
+  }
+  .db-desktop-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .db-desktop-search-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--paper);
+    border: 1px solid var(--paper-line);
+    border-radius: 8px;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .db-desktop-search-trigger:hover {
+    border-color: var(--stamp);
+    color: var(--ink);
+  }
+  .db-desktop-search-trigger kbd {
+    background: var(--surface);
+    border: 1px solid var(--paper-line);
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+    font-size: 0.72rem;
+    font-family: inherit;
+    color: var(--ink-soft);
+  }
+  .db-desktop-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+  .db-topbar-icon-btn {
+    border-radius: 8px !important;
+    padding: 0.42rem 0.65rem !important;
+    min-height: 36px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+  }
+}

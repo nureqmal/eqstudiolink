@@ -82,12 +82,17 @@
     <!-- Quick + Create Button (Calendly Style) -->
     <button type="button" class="sidebar-create-btn" id="sidebar-quick-create-btn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-      <span>+ Cipta</span>
+      <span>Cipta</span>
     </button>
 
     <!-- Navigation List -->
     <nav class="sidebar-nav">
-      <button type="button" class="sidebar-nav-item active" data-sidebar-page="booking-settings">
+      <button type="button" class="sidebar-nav-item active" data-sidebar-page="home">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Dashboard</span>
+      </button>
+
+      <button type="button" class="sidebar-nav-item" data-sidebar-page="booking-settings">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
         <span>Jadual &amp; Servis</span>
       </button>
@@ -110,6 +115,11 @@
       <button type="button" class="sidebar-nav-item" data-sidebar-page="website">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
         <span>Laman Bio Studio</span>
+      </button>
+
+      <button type="button" class="sidebar-nav-item" data-sidebar-page="tetapan-reminder">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+        <span>Jadual Peringatan</span>
       </button>
 
       <button type="button" class="sidebar-nav-item" data-sidebar-page="laporan">
@@ -153,7 +163,7 @@
  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
  </button>
  <div class="kebab-wrap">
- <button type="button" class="secondary" id="settings-dropdown-btn" onclick="window.openSettingsDropdown && window.openSettingsDropdown(event)" title="Tetapan &amp; Sambungan" style="padding:0.42rem 0.55rem; border-radius:999px;">
+ <button type="button" class="secondary" id="settings-dropdown-btn-mobile" onclick="window.openSettingsDropdown && window.openSettingsDropdown(event)" title="Tetapan &amp; Sambungan" style="padding:0.42rem 0.55rem; border-radius:999px;">
  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>
  </button>
  </div>
@@ -165,9 +175,47 @@
  </div>
 
  <main class="db-main">
- <div class="wrap" style="padding-bottom:0;">
- <div id="notice-container"></div>
- </div>
+  <!-- Desktop Sleek Topbar (Shown on >=900px) -->
+  <header class="db-desktop-topbar">
+    <div class="db-desktop-topbar-left">
+      <button type="button" class="db-desktop-search-trigger" onclick="openCommandPalette()" title="Carian Pantas (Ctrl+K)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="search-label">Carian pantas atau tekan</span>
+        <kbd class="search-kbd">Ctrl+K</kbd>
+      </button>
+    </div>
+
+    <div class="db-desktop-topbar-right">
+      <!-- Language Switcher -->
+      <div class="lang-toggle" id="db-lang-toggle" title="Tukar Bahasa / Switch Language">
+        <button type="button" class="lang-toggle-btn active" data-lang-toggle="ms">BM</button>
+        <button type="button" class="lang-toggle-btn" data-lang-toggle="en">EN</button>
+      </div>
+
+      <!-- User Guide Trigger -->
+      <button type="button" class="secondary db-topbar-icon-btn guide-btn" data-guide="home" title="Panduan Pengguna">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <span>Panduan</span>
+      </button>
+
+      <!-- Notification Bell -->
+      <button type="button" class="secondary db-topbar-icon-btn" id="notif-bell-btn" onclick="window.openNotifModal && window.openNotifModal(event)" title="Notifikasi" style="position:relative;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+        <span id="notif-unread-badge" class="notif-unread-badge" style="display:none;"></span>
+      </button>
+
+      <!-- Settings & Sambungan Dropdown Trigger -->
+      <div class="kebab-wrap" style="position:relative;">
+        <button type="button" class="secondary db-topbar-icon-btn" id="settings-dropdown-btn" onclick="window.openSettingsDropdown && window.openSettingsDropdown(event)" title="Tetapan &amp; Sambungan (Kalendar, Push Noti, dll)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap" style="padding-bottom:0;">
+    <div id="notice-container"></div>
+  </div>
 
  <div class="wrap">
 
@@ -677,83 +725,7 @@
  </div>
  </div>
 
- <div class="bento-grid">
- <button type="button" class="bento-tile bento-hero" data-page="booking-list" data-cat="coral">
- <div class="bento-tile-top">
- <div class="bento-tile-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
- <div>
- <div class="bento-tile-label" data-i18n="nav_booking_list">Senarai Booking</div>
- <div class="bento-tile-stat" id="home-stat-booking">-</div>
- <div class="hint" id="home-streak" style="font-size:0.72rem; margin-top:0.2rem;"></div>
- </div>
- </div>
- <div class="bento-hero-preview" id="home-hero-preview">
- <div style="display:flex; flex-direction:column; gap:0.5rem; padding:0.4rem 0;">
- <div class="skeleton" style="height:14px; width:75%; border-radius:4px;"></div>
- <div class="skeleton" style="height:12px; width:50%; border-radius:4px;"></div>
- </div>
- </div>
- </button>
-
- <button type="button" class="bento-tile" data-page="pelanggan-list" data-cat="sage">
- <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
- <div class="bento-tile-label" data-i18n="nav_customer_list">Senarai Pelanggan</div>
- <div class="bento-tile-stat" id="home-stat-pelanggan">-</div>
- </button>
-
- <button type="button" class="bento-tile" data-page="laporan" data-cat="sun">
- <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg></div>
- <div class="bento-tile-label" data-i18n="nav_reports">Laporan</div>
- <div class="bento-sparkline" id="home-sparkline"></div>
- <div class="bento-tile-stat" id="home-stat-laporan">-</div>
- </button>
-
- <button type="button" class="bento-tile" data-page="pelanggan-add" data-cat="sage">
- <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></div>
- <div class="bento-tile-label" data-i18n="nav_add_customer">Tambah Pelanggan</div>
- <div class="bento-tile-stat">Manual / CSV</div>
- </button>
-
- <button type="button" class="bento-tile" data-page="kalendar" data-cat="sun">
- <div class="bento-tile-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
- <div class="bento-tile-label" data-i18n="nav_calendar">Kalendar</div>
- <div class="bento-tile-stat" id="home-stat-kalendar">-</div>
- </button>
-
- <button type="button" class="bento-tile bento-small" data-page="booking-settings" data-cat="coral">
- <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg></div>
- <div class="bento-tile-label" data-i18n="nav_booking_settings">Tetapan Booking</div>
- </button>
-
- <button type="button" class="bento-tile bento-small" data-page="tetapan-profil" data-cat="lilac">
- <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg></div>
- <div class="bento-tile-label" data-i18n="nav_profile">Profil Perniagaan</div>
- </button>
-
- <button type="button" class="bento-tile bento-small" data-page="tetapan-reminder" data-cat="lilac">
- <div class="bento-tile-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></div>
- <div class="bento-tile-label" data-i18n="nav_reminders">Jadual Reminder</div>
- </button>
- <button type="button" class="bento-tile bento-small bento-website-tile" data-page="website" id="bento-tile-website" data-cat="stamp">
-    <div class="bento-ws-tile-inner">
-      <div class="bento-tile-icon bento-ws-icon-wrap">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-      </div>
-      <div class="bento-tile-label bento-ws-title" data-i18n="nav_website">Website Saya</div>
-    </div>
-    <div class="bento-ws-desktop-meta">
-      <div class="bento-ws-header-row">
-        <strong class="bento-ws-desktop-title" data-i18n="nav_website">Website Saya</strong>
-        <span class="bento-ws-badge"><span class="ws-status-live-dot"></span><span>Microsite &amp; Bio Storefront</span></span>
-      </div>
-      <p class="bento-ws-sub">Pamerkan portfolio galeri, ulasan pelanggan &amp; pautan rasmi bio Instagram / TikTok anda.</p>
-    </div>
-    <div class="bento-ws-cta">
-      <span>Buka Studio Laman Web</span>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-    </div>
-  </button>
- </div>
+ 
  </div>
 
  <div class="db-page" id="page-booking-list">
@@ -835,6 +807,14 @@
         <div id="link-switcher-chips" class="chip-row" style="margin:0; display:inline-flex;"></div>
         <button type="button" id="show-add-link-btn" class="secondary" style="display:none; font-size:0.75rem; padding:0.2rem 0.5rem;">+ Link Baharu</button>
       </div>
+      <div id="add-link-row" style="display:none; margin-top:0.5rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:8px; padding:0.6rem 0.8rem;">
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;">
+          <input type="text" id="new-link-slug" placeholder="slug-link (cth: raya2026)" style="font-size:0.82rem; padding:0.35rem 0.55rem; width:160px;" />
+          <input type="text" id="new-link-label" placeholder="Label (cth: Sesi Raya)" style="font-size:0.82rem; padding:0.35rem 0.55rem; width:160px;" />
+          <button type="button" id="confirm-new-link-btn" class="primary" style="font-size:0.78rem; padding:0.35rem 0.75rem;">Simpan</button>
+        </div>
+      </div>
+      <p class="hint" id="link-switcher-upsell" style="display:none; font-size:0.75rem; margin-top:0.3rem;">Pelan percuma dihadkan kepada 1 pautan tempahan. <a href="/billing.html">Naik taraf ke Pro</a> untuk cipta sehingga 3 pautan.</p>
     </div>
 
     <div class="cal-sched-actions">
@@ -4284,7 +4264,7 @@ function parsePosters(val) {
 
  function openSettingsDropdown(e) {
     if (e) e.stopPropagation();
-    const btn = document.getElementById("settings-dropdown-btn");
+    const btn = (e && e.currentTarget) || document.getElementById("settings-dropdown-btn") || document.getElementById("settings-dropdown-btn-mobile");
     const panel = document.getElementById("settings-dropdown-panel");
     if (!panel) return;
     const isOpen = panel.classList.contains("open");
@@ -7684,8 +7664,10 @@ function parsePosters(val) {
  }
 
  const canAddMore = isPro && allBookingLinks.length < 3;
- document.getElementById("show-add-link-btn").style.display = canAddMore ? "block" : "none";
- document.getElementById("link-switcher-upsell").style.display = (!isPro && allBookingLinks.length >= 1) ? "block" : "none";
+    const showAddBtn = document.getElementById("show-add-link-btn");
+    if (showAddBtn) showAddBtn.style.display = canAddMore ? "block" : "none";
+    const upsellEl = document.getElementById("link-switcher-upsell");
+    if (upsellEl) upsellEl.style.display = (!isPro && allBookingLinks.length >= 1) ? "block" : "none";
  }
 
  document.getElementById("show-add-link-btn")?.addEventListener("click", () => {

@@ -14284,3 +14284,115 @@ button.cal-icon-btn.cal-danger-btn:hover,
   margin-bottom: 0 !important;
   height: 100%;
 }
+
+
+/* ═════════════════════════════════════════════════════════════════════
+   CALENDLY-STYLE REFINEMENTS: NO HORIZONTAL SCROLL & CLEAN TABS
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* 1. Prevent ANY horizontal scrollbar on sidebar */
+.db-sidebar {
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.create-dropdown-wrap {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+.create-dropdown-menu {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.create-dd-item {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.sidebar-community-card {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* 2. Calendly Flat Navigation Tabs for Scheduling */
+.cal-tabs-bar,
+.bset-tabs {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.5rem !important;
+  border-bottom: 1px solid var(--paper-line) !important;
+  margin-bottom: 1.75rem !important;
+  padding-bottom: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.cal-tabs-bar::-webkit-scrollbar,
+.bset-tabs::-webkit-scrollbar {
+  display: none !important;
+}
+
+.bset-tab {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2.5px solid transparent !important;
+  border-radius: 0 !important;
+  padding: 0.75rem 0.25rem !important;
+  font-size: 0.92rem !important;
+  font-weight: 500 !important;
+  color: var(--ink-soft) !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: color 0.15s ease, border-color 0.15s ease !important;
+}
+
+.bset-tab:hover {
+  color: var(--ink) !important;
+  background: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.bset-tab.active {
+  color: var(--stamp) !important;
+  font-weight: 700 !important;
+  border-bottom-color: var(--stamp) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.bset-tab-dot {
+  display: none !important;
+}
+
+/* 3. Top-Level Package Modal (.event-type-modal) */
+#event-type-modal {
+  z-index: 10000 !important;
+}
+
+#event-type-modal .modal-box {
+  max-width: 680px !important;
+  width: 95% !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  padding: 1.75rem !important;
+  background: var(--surface) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.25) !important;
+}

@@ -88,15 +88,38 @@
       </button>
 
       <div class="create-dropdown-menu" id="create-dropdown-menu">
-        <div class="create-dd-header">JENIS PERKHIDMATAN (EVENT TYPE)</div>
-        <button type="button" class="create-dd-item" data-create-action="one-on-one">
+        <div class="create-dd-header">TINDAKAN PANTAS (EQSTUDIO)</div>
+        <button type="button" class="create-dd-item" data-create-action="create-package">
           <div class="create-dd-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           </div>
           <div class="create-dd-text">
-            <div class="create-dd-title">Servis Individu (1-on-1)</div>
-            <div class="create-dd-desc">1 host &rarr; 1 pelanggan. Sesuai untuk appointment, konsultasi, dsb.</div>
+            <div class="create-dd-title">Pakej / Perkhidmatan Baharu</div>
+            <div class="create-dd-desc">Cipta pakej servis, sesi fotografi, rawatan atau sewaan untuk pelanggan.</div>
           </div>
+        </button>
+
+        <button type="button" class="create-dd-item" data-create-action="manual-booking">
+          <div class="create-dd-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </div>
+          <div class="create-dd-text">
+            <div class="create-dd-title">Booking Manual (Walk-in / WhatsApp)</div>
+            <div class="create-dd-desc">Rekod slot tempahan terus ke jadual kalendar tanpa bayaran dalam talian.</div>
+          </div>
+        </button>
+
+        <button type="button" class="create-dd-item" data-create-action="add-customer">
+          <div class="create-dd-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+          </div>
+          <div class="create-dd-text">
+            <div class="create-dd-title">Tambah Pelanggan Baharu</div>
+            <div class="create-dd-desc">Daftar rekod profil dan nombor telefon pelanggan ke database CRM studio.</div>
+          </div>
+        </button>
+      </div>
+    </div>
         </button>
 
         <button type="button" class="create-dd-item" data-create-action="group">
@@ -764,12 +787,27 @@
 
   <!-- Segmented Modern Tabs -->
  <div class="bset-tabs" id="bset-tabs">
- <button type="button" class="bset-tab active" data-bset-tab="jenis"><span class="bset-tab-dot"></span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> <span data-i18n="bset_tab_types">Pakej &amp; Servis</span></button>
- <button type="button" class="bset-tab" data-bset-tab="waktu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> <span data-i18n="bset_tab_schedule">Jadual &amp; Waktu Buka</span></button>
- <button type="button" class="bset-tab" data-bset-tab="asas"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg> <span data-i18n="bset_tab_links">Deposit &amp; Polisi</span></button>
- <button type="button" class="bset-tab" data-bset-tab="soalan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"></path></svg> <span data-i18n="bset_tab_questions">Soalan Intake</span></button>
- <button type="button" class="bset-tab" data-bset-tab="embed"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> <span data-i18n="bset_tab_embed">Pautan &amp; Embed</span></button>
- </div>
+    <button type="button" class="bset-tab active" data-bset-tab="jenis">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      <span>Jenis Servis &amp; Pakej</span>
+    </button>
+    <button type="button" class="bset-tab" data-bset-tab="single-use">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+      <span>Pautan Sekali Guna</span>
+    </button>
+    <button type="button" class="bset-tab" data-bset-tab="soalan">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+      <span>Borang Pertanyaan (Intake)</span>
+    </button>
+    <button type="button" class="bset-tab" data-bset-tab="embed">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+      <span>Pautan &amp; Embed</span>
+    </button>
+    <button type="button" class="bset-tab" data-bset-tab="asas">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      <span>Deposit &amp; Polisi</span>
+    </button>
+  </div>
 
  <!-- PANEL 1: ASAS -->
  <div class="bset-panel" id="bset-panel-asas">
@@ -1011,185 +1049,43 @@
 
  <!-- Form to add/edit service -->
   <!-- Form to add/edit service (Encapsulated in Clean Modal) -->
-  <div class="modal-overlay" id="event-type-modal" style="display:none;">
-    <div class="modal-box" style="max-width:680px; max-height:90vh; overflow-y:auto; padding:1.5rem;">
- <div class="card" style="background:var(--paper); border:1px solid var(--paper-line); border-radius:14px; padding:1.25rem; margin-top:1.25rem;">
- <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; border-bottom:1px solid var(--paper-line); padding-bottom:0.6rem;">
- <h4 style="margin:0; font-size:0.95rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:0.4rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg> Tambah / Kemaskini Perkhidmatan</h4>
- <button type="button" id="et-cancel-edit-btn" class="secondary" style="font-size:0.75rem; padding:0.25rem 0.6rem; display:none;" data-i18n="bset_cancel_edit">✕ Batal Kemaskini</button>
- </div>
-
- <div class="row">
- <div style="flex:1;">
- <label for="et-name">Nama Perkhidmatan <button type="button" class="info-icon-btn" data-info="Contoh: Potong &amp; Cuci Rambut, Sesi Fotografi Studio, Kelas Kek 1 Hari">i</button></label>
- <input type="text" id="et-name" placeholder="cth: Kelas Asas Fotografi" style="margin-top:0.25rem;" />
- </div>
- <div style="flex:1;">
- <label for="et-duration">Tempoh (Minit) <button type="button" class="info-icon-btn" data-info="Berapa lama sesi servis ini mengambil masa. Mengatasi nilai tempoh di tab Asas.">i</button></label>
- <input type="number" id="et-duration" value="60" min="5" style="margin-top:0.25rem;" />
- </div>
- </div>
-
- <div class="row" style="margin-top:0.8rem;">
- <div style="flex:1;">
- <label for="et-price">Harga Sebenar / Penuh (RM) <span style="font-size:0.75rem; color:var(--ink-muted);">(pilihan)</span> <button type="button" class="info-icon-btn" data-info="Harga penuh pakej servis anda (cth: RM150). Jika diisi, mini-website akan paparkan harga penuh dicoret, deposit lock slot, dan baki yang perlu dibayar pelanggan semasa hari kejadian.">i</button></label>
- <input type="number" id="et-price" step="0.01" min="0" placeholder="cth: 150.00" style="margin-top:0.25rem;" />
- </div>
- <div style="flex:1;">
- <label for="et-deposit">Deposit Tempahan (RM) <span style="font-size:0.75rem; color:var(--warn);">*Wajib</span> <button type="button" class="info-icon-btn" data-info="Bayaran pendahuluan untuk 'lock' tarikh &amp; slot tempahan. Taip 0 sekiranya sesi percuma tanpa bayaran pendahuluan.">i</button></label>
- <input type="number" id="et-deposit" step="0.01" min="0" placeholder="cth: 50.00" style="margin-top:0.25rem;" />
- </div>
- <div style="flex:1;">
- <label for="et-capacity">Kapasiti Pelanggan <button type="button" class="info-icon-btn" data-info="Berapa orang boleh book pada satu slot masa yang sama. 1 untuk sesi individu, lebih dari 1 untuk kelas atau bengkel berkumpulan.">i</button></label>
- <input type="number" id="et-capacity" value="1" min="1" style="margin-top:0.25rem;" />
- </div>
- </div>
-
- <div class="optional-section" style="margin-top:1rem;">
- <span class="optional-section-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg> Pilihan Tambahan</span>
-
- <label for="et-description-rte" style="display:block; margin-top:0.35rem;">Deskripsi Perkhidmatan <button type="button" class="info-icon-btn" data-info="Penerangan terperinci apa yang termasuk dalam pakej servis ini. Disyorkan guna senarai poin (bullet list) untuk susunan kemas.">i</button></label>
- <div class="rte-toolbar" style="margin-top:0.35rem;">
- <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal" aria-label="Teks tebal">B</button>
- <button type="button" class="rte-btn" data-rte-cmd="italic" title="Condong" aria-label="Teks condong"><i>I</i></button>
- <button type="button" class="rte-btn" data-rte-cmd="underline" title="Garis Bawah" aria-label="Teks garis bawah"><u>U</u></button>
- <button type="button" class="rte-btn" data-rte-cmd="strikeThrough" title="Garis Batal" aria-label="Teks garis batal"><s>S</s></button>
- <button type="button" class="rte-btn" data-rte-cmd="insertUnorderedList" title="Senarai Poin (Bullet List)" aria-label="Senarai Poin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></button>
-<button type="button" class="rte-btn" data-rte-cmd="insertOrderedList" title="Senarai Nombor (Numbered List)" aria-label="Senarai Nombor"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"></line><line x1="10" y1="12" x2="21" y2="12"></line><line x1="10" y1="18" x2="21" y2="18"></line><path d="M4 6h1v4"></path><path d="M4 10h2"></path><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"></path></svg></button>
- <button type="button" class="rte-btn" data-rte-cmd="removeFormat" title="Padam Format" aria-label="Padam format">✕</button>
- </div>
- <div id="et-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Cth:&#10;• 3 hours coverage&#10;• Outdoor &amp; Studio&#10;• Softcopy via Google Drive&#10;• Selected edited photos"></div>
-
- <div id="et-poster-wrap" style="display:block; margin-top:0.9rem;">
-  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.35rem;">
-    <label for="et-poster-file" style="margin:0;">Poster / Gambar Pakej <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 atau 16:9. Gambar boleh dipotong (crop) dan dipaparkan dalam bentuk carousel di mini-website.">i</button></label>
-    <span class="poster-quota-pill" id="et-poster-quota-badge">0/1 Gambar</span>
-  </div>
-  <div id="et-poster-list" class="poster-thumbnail-grid"></div>
-  <div class="poster-upload-zone" id="et-poster-zone" style="margin-top:0.35rem;">
-    <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-    <p class="hint" id="et-poster-zone-text" style="margin:0;" data-i18n="bset_drag_img">Klik atau seret gambar ke sini</p>
-    <input type="file" id="et-poster-file" accept="image/*" multiple style="display:none;" />
-  </div>
-  <div class="poster-upload-success" id="et-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dipilih</div>
- </div>
- <p class="hint" id="et-poster-locked" style="margin-top:0.4rem; color:var(--ink-muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Pelan Percuma membenarkan 1 gambar pakej. Pelan Pro boleh muat naik sehingga 3 gambar carousel!</p>
-
- <label for="et-video-link" style="display:block; margin-top:0.9rem;">Link Panggilan Video (pilihan) <button type="button" class="info-icon-btn" data-info="Untuk servis konsultasi/temujanji jarak jauh — link Google Meet atau Zoom ini akan dipaparkan kepada pelanggan selepas mereka berjaya menempah.">i</button></label>
- <input type="url" id="et-video-link" placeholder="cth: https://meet.google.com/xxx-xxxx-xxx" style="margin-top:0.35rem;" />
-
- <div style="display:flex; align-items:flex-start; gap:0.55rem; margin-top:0.95rem; padding:0.65rem 0.85rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:10px;">
- <input type="checkbox" id="et-popular" style="width:18px; height:18px; cursor:pointer; margin-top:2px;" />
- <label for="et-popular" style="margin:0; cursor:pointer; font-size:0.86rem; font-weight:600;">
- ★ Tandakan sebagai Pakej Paling Laris / Pilihan Ramai
- <span class="hint" style="display:block; font-weight:400; margin-top:0.15rem; font-size:0.78rem;">Ditandakan dengan lencana khas & border aksen di halaman tempahan pelanggan untuk memudahkan pilihan.</span>
- </label>
- </div>
-
- <!-- KAD JADUAL & TARIKH KHAS (PROGRESSIVE DISCLOSURE) -->
- <div class="card" style="margin-top:1rem; padding:0.95rem 1.05rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:12px; transition:border-color 0.2s;">
- <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; cursor:pointer;" id="et-custom-sched-header">
- <div style="flex:1;">
- <div style="display:flex; align-items:center; gap:0.45rem;">
- <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--stamp); flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
- <strong style="font-size:0.88rem; color:var(--ink);">Ketetapan Tarikh &amp; Waktu Khas Pakej</strong>
- <span class="hint" id="et-custom-sched-status-badge" style="font-size:0.72rem; padding:0.15rem 0.55rem; background:var(--paper); border-radius:999px; border:1px solid var(--paper-line); font-weight:600; color:var(--ink-soft);">Ikut Waktu Am Studio</span>
- </div>
- <p class="hint" style="margin:0.25rem 0 0 0; font-size:0.77rem; line-height:1.4;">Secara lalai, pakej dibuka mengikut jadual operasi studio. Aktifkan jika pakej ini <strong>HANYA</strong> dibuka pada hari tertentu (cth: Sabtu/Ahad) atau tarikh khas majlis (cth: nikah/sanding).</p>
- </div>
- <label class="switch" style="margin:0; flex-shrink:0; cursor:pointer;" title="Aktifkan jadual khas untuk pakej ini">
- <input type="checkbox" id="et-custom-sched-toggle" style="width:20px; height:20px; cursor:pointer;" />
- </label>
- </div>
-
- <!-- Container yang disorok secara automatik jika tidak aktif -->
- <div id="et-advanced-sched-container" style="display:none; margin-top:0.85rem; padding-top:0.85rem; border-top:1px dashed var(--paper-line);">
- <!-- JADUAL & TARIKH BUKA PAKEJ (Tarikh Khas / Hari Pilihan) -->
- <div style="margin-top:0.95rem; padding:0.85rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:10px;">
- <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.4rem; flex-wrap:wrap; gap:0.4rem;">
- <label style="margin:0; font-weight:700; font-size:0.88rem; color:var(--ink); display:flex; align-items:center; gap:0.4rem;">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
- Jadual &amp; Tarikh Buka Pakej
- <button type="button" class="info-icon-btn" data-info="Tetapkan sama ada pakej ini dibuka mengikut jadual am studio, hari-hari tertentu setiap minggu, atau HANYA pada tarikh-tarikh khusus (contohnya tarikh majlis nikah / sanding yang anda buka slot).">i</button>
- </label>
- <span class="hint" id="et-sched-summary-badge" style="font-size:0.75rem; font-weight:600; color:var(--stamp);">Ikut Jadual Am</span>
- </div>
-
- <div class="et-sched-segmented-bar" style="grid-template-columns: repeat(2, 1fr);">
-<label class="et-sched-tab active" data-mode="dates" title="Buka pakej ini pada tarikh-tarikh khusus sahaja (cth: pakej nikah/sanding tarikh khas)">
-<input type="radio" name="et-sched-mode" value="dates" checked style="position:absolute; opacity:0; pointer-events:none;" />
-<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-<span>🎯 Buka Tarikh Khas Sahaja</span>
-</label>
-<label class="et-sched-tab" data-mode="days" title="Buka servis ini pada hari-hari tertentu setiap minggu (cth: Sabtu & Ahad sahaja)">
-<input type="radio" name="et-sched-mode" value="days" style="position:absolute; opacity:0; pointer-events:none;" />
-<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-<span>📆 Buka Hari Tertentu Sahaja</span>
-</label>
-<input type="radio" name="et-sched-mode" value="all" id="et-sched-mode-all-hidden" style="display:none;" />
-</div>
-
- <!-- PANEL HARI TERTENTU (days) -->
- <div id="et-sched-days-wrap" style="display:none; margin-top:0.75rem; padding:0.65rem 0.8rem; background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px;">
- <p class="hint" style="margin:0 0 0.45rem 0; font-size:0.78rem;">Tandakan hari yang dibuka untuk servis ini:</p>
- <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
- <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="1" /> Isn</label>
- <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="2" /> Sel</label>
- <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="3" /> Rab</label>
- <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="4" /> Kha</label>
- <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="5" /> Jum</label>
- <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer; font-weight:600; color:var(--stamp);"><input type="checkbox" class="et-day-cb" value="6" /> Sab</label>
- <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer; font-weight:600; color:var(--stamp);"><input type="checkbox" class="et-day-cb" value="0" /> Ahd</label>
- </div>
- </div>
-
- <!-- PANEL TARIKH KHAS (dates) -->
- <div id="et-sched-dates-wrap" style="display:none; margin-top:0.75rem; padding:0.65rem 0.8rem; background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px;">
- <p class="hint" style="margin:0 0 0.5rem 0; font-size:0.78rem;">
- Pilih tarikh-tarikh khusus di bawah (contoh: 1 Dis, 5 Dis, 25 Dis). Bakal pelanggan hanya boleh klik tarikh ini sahaja di kalendar mini-website.
- </p>
- <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
- <input type="date" id="et-custom-date-picker" style="font-size:0.85rem; padding:0.4rem 0.55rem; flex:1; min-width:140px;" />
- <button type="button" id="et-add-custom-date-btn" class="secondary" style="font-size:0.78rem; padding:0.45rem 0.85rem; font-weight:600; flex-shrink:0;">+ Tambah Tarikh</button>
- </div>
-
- <!-- Pilihan Sesi Khusus untuk Tarikh Dipilih -->
- <div style="margin-top:0.45rem; display:flex; align-items:center; gap:0.3rem; flex-wrap:wrap;">
- <span class="hint" style="font-size:0.72rem; margin-right:0.15rem;">Sesi tarikh ini:</span>
- <button type="button" class="et-date-session-tag" data-start="09:00" data-end="13:00" data-label="Pagi" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">🌅 Pagi (09:00–13:00)</button>
- <button type="button" class="et-date-session-tag" data-start="14:00" data-end="18:00" data-label="Petang" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">🌇 Petang (14:00–18:00)</button>
- <button type="button" class="et-date-session-tag" data-start="20:00" data-end="23:00" data-label="Malam" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">🌙 Malam (20:00–23:00)</button>
- <button type="button" class="et-date-session-tag" data-start="09:00" data-end="17:00" data-label="Seharian" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">☀️ Seharian (09:00–17:00)</button>
- <button type="button" id="et-date-custom-toggle-btn" style="background:none; border:none; color:var(--stamp); font-size:0.72rem; text-decoration:underline; cursor:pointer; padding:0.18rem 0.3rem;">Masa Lain...</button>
- </div>
-
- <!-- Input Manual Masa Khas Tarikh (Optional) -->
- <div id="et-date-manual-time-wrap" style="display:none; margin-top:0.35rem; align-items:center; gap:0.3rem; flex-wrap:wrap; background:rgba(0,0,0,0.02); padding:0.35rem 0.5rem; border-radius:6px; border:1px solid var(--paper-line);">
- <span class="hint" style="font-size:0.72rem;">Waktu Khas:</span>
- <input type="time" id="et-date-manual-start" value="10:00" style="font-size:0.75rem; padding:0.2rem 0.35rem;" />
- <span class="hint" style="font-size:0.72rem;">–</span>
- <input type="time" id="et-date-manual-end" value="14:00" style="font-size:0.75rem; padding:0.2rem 0.35rem;" />
- <input type="text" id="et-date-manual-label" placeholder="Nama Sesi (cth: Sanding)" style="font-size:0.75rem; padding:0.2rem 0.4rem; width:120px;" />
- <button type="button" id="et-date-add-manual-btn" class="secondary" style="font-size:0.72rem; padding:0.2rem 0.5rem;">+ Tambah Sesi Ini</button>
- </div>
-
- <div id="et-custom-dates-list" style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.55rem; min-height:26px;">
- <!-- Chips injected here -->
- </div>
- </div>
- </div>
- </div>
- </div>
-
- <button type="button" id="add-event-type-btn" style="margin-top:1rem; width:100%; padding:0.75rem; font-weight:700; border-radius:10px;" data-i18n="bset_add_service">+ Tambah Jenis Perkhidmatan</button>
- </div>
- </div>
- </div>
- </div>
+  
     </div>
   </div>
 
  <!-- PANEL 4: SOALAN INTAKE -->
+ 
+  <!-- Panel 2: Pautan Sekali Guna (Single-Use Links - Calendly Feature) -->
+  <div class="bset-panel" id="bset-panel-single-use">
+    <div class="card" style="background:var(--surface); border:1px solid var(--paper-line); border-radius:14px; padding:1.5rem; margin-bottom:1.5rem;">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.25rem;">
+        <div>
+          <h3 style="margin:0 0 0.35rem; font-size:1.1rem; font-weight:700;">Pautan Sekali Guna (Single-Use Links)</h3>
+          <p class="hint" style="margin:0; font-size:0.85rem;">Jana pautan tempahan khas yang hanya boleh digunakan untuk 1 kali tempahan sahaja. Pautan akan luput serta-merta selepas pelanggan menempah slot.</p>
+        </div>
+        <button type="button" class="btn primary" id="generate-single-use-link-btn" style="font-size:0.85rem; font-weight:700; padding:0.6rem 1.2rem;">
+          + Jana Pautan Baharu
+        </button>
+      </div>
+
+      <div id="single-use-link-output" style="display:none; background:var(--paper); border:1.5px dashed var(--stamp); border-radius:12px; padding:1rem; margin-bottom:1.25rem;">
+        <div style="font-size:0.75rem; font-weight:700; color:var(--stamp); text-transform:uppercase; margin-bottom:0.35rem;">Pautan Aktif Baharu:</div>
+        <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+          <input type="text" id="single-use-url-field" readonly style="flex:1; min-width:240px; font-family:var(--font-mono); font-size:0.85rem; padding:0.5rem 0.75rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:8px;" />
+          <button type="button" class="btn primary" id="copy-single-use-url-btn" style="padding:0.5rem 1rem; font-size:0.85rem;">Salin Pautan</button>
+        </div>
+        <p class="hint" style="margin:0.5rem 0 0; font-size:0.78rem;">Pautan ini sah untuk 1 slot tempahan sahaja bagi mengelakkan perkongsian pautan tanpa kebenaran.</p>
+      </div>
+
+      <div id="single-use-links-history" style="border-top:1px solid var(--paper-line); padding-top:1rem;">
+        <h4 style="margin:0 0 0.75rem; font-size:0.9rem; font-weight:700;">Sejarah Pautan Dijana</h4>
+        <div id="single-use-links-list" style="font-size:0.85rem; color:var(--ink-soft);">
+          Belum ada pautan sekali guna dijana. Klik butang di atas untuk mencipta satu.
+        </div>
+      </div>
+    </div>
+  </div>
+
  <div class="bset-panel" id="bset-panel-soalan">
  <div class="card bset-section-card">
  <div class="bset-section-heading">
@@ -2369,6 +2265,182 @@
   <!-- ══════════════════════════════════════════════════════════════
        MANAGE AVAILABILITY MODAL (Calendly Architecture)
        ══════════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="event-type-modal" style="display:none;">
+    <div class="modal-box" style="max-width:680px; max-height:90vh; overflow-y:auto; padding:1.5rem;">
+ <div class="card" style="background:var(--paper); border:1px solid var(--paper-line); border-radius:14px; padding:1.25rem; margin-top:1.25rem;">
+ <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; border-bottom:1px solid var(--paper-line); padding-bottom:0.6rem;">
+ <h4 style="margin:0; font-size:0.95rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:0.4rem;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg> Tambah / Kemaskini Perkhidmatan</h4>
+ <button type="button" id="et-cancel-edit-btn" class="secondary" style="font-size:0.75rem; padding:0.25rem 0.6rem; display:none;" data-i18n="bset_cancel_edit">✕ Batal Kemaskini</button>
+ </div>
+
+ <div class="row">
+ <div style="flex:1;">
+ <label for="et-name">Nama Perkhidmatan <button type="button" class="info-icon-btn" data-info="Contoh: Potong &amp; Cuci Rambut, Sesi Fotografi Studio, Kelas Kek 1 Hari">i</button></label>
+ <input type="text" id="et-name" placeholder="cth: Kelas Asas Fotografi" style="margin-top:0.25rem;" />
+ </div>
+ <div style="flex:1;">
+ <label for="et-duration">Tempoh (Minit) <button type="button" class="info-icon-btn" data-info="Berapa lama sesi servis ini mengambil masa. Mengatasi nilai tempoh di tab Asas.">i</button></label>
+ <input type="number" id="et-duration" value="60" min="5" style="margin-top:0.25rem;" />
+ </div>
+ </div>
+
+ <div class="row" style="margin-top:0.8rem;">
+ <div style="flex:1;">
+ <label for="et-price">Harga Sebenar / Penuh (RM) <span style="font-size:0.75rem; color:var(--ink-muted);">(pilihan)</span> <button type="button" class="info-icon-btn" data-info="Harga penuh pakej servis anda (cth: RM150). Jika diisi, mini-website akan paparkan harga penuh dicoret, deposit lock slot, dan baki yang perlu dibayar pelanggan semasa hari kejadian.">i</button></label>
+ <input type="number" id="et-price" step="0.01" min="0" placeholder="cth: 150.00" style="margin-top:0.25rem;" />
+ </div>
+ <div style="flex:1;">
+ <label for="et-deposit">Deposit Tempahan (RM) <span style="font-size:0.75rem; color:var(--warn);">*Wajib</span> <button type="button" class="info-icon-btn" data-info="Bayaran pendahuluan untuk 'lock' tarikh &amp; slot tempahan. Taip 0 sekiranya sesi percuma tanpa bayaran pendahuluan.">i</button></label>
+ <input type="number" id="et-deposit" step="0.01" min="0" placeholder="cth: 50.00" style="margin-top:0.25rem;" />
+ </div>
+ <div style="flex:1;">
+ <label for="et-capacity">Kapasiti Pelanggan <button type="button" class="info-icon-btn" data-info="Berapa orang boleh book pada satu slot masa yang sama. 1 untuk sesi individu, lebih dari 1 untuk kelas atau bengkel berkumpulan.">i</button></label>
+ <input type="number" id="et-capacity" value="1" min="1" style="margin-top:0.25rem;" />
+ </div>
+ </div>
+
+ <div class="optional-section" style="margin-top:1rem;">
+ <span class="optional-section-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg> Pilihan Tambahan</span>
+
+ <label for="et-description-rte" style="display:block; margin-top:0.35rem;">Deskripsi Perkhidmatan <button type="button" class="info-icon-btn" data-info="Penerangan terperinci apa yang termasuk dalam pakej servis ini. Disyorkan guna senarai poin (bullet list) untuk susunan kemas.">i</button></label>
+ <div class="rte-toolbar" style="margin-top:0.35rem;">
+ <button type="button" class="rte-btn" data-rte-cmd="bold" title="Tebal" aria-label="Teks tebal">B</button>
+ <button type="button" class="rte-btn" data-rte-cmd="italic" title="Condong" aria-label="Teks condong"><i>I</i></button>
+ <button type="button" class="rte-btn" data-rte-cmd="underline" title="Garis Bawah" aria-label="Teks garis bawah"><u>U</u></button>
+ <button type="button" class="rte-btn" data-rte-cmd="strikeThrough" title="Garis Batal" aria-label="Teks garis batal"><s>S</s></button>
+ <button type="button" class="rte-btn" data-rte-cmd="insertUnorderedList" title="Senarai Poin (Bullet List)" aria-label="Senarai Poin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></button>
+<button type="button" class="rte-btn" data-rte-cmd="insertOrderedList" title="Senarai Nombor (Numbered List)" aria-label="Senarai Nombor"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"></line><line x1="10" y1="12" x2="21" y2="12"></line><line x1="10" y1="18" x2="21" y2="18"></line><path d="M4 6h1v4"></path><path d="M4 10h2"></path><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"></path></svg></button>
+ <button type="button" class="rte-btn" data-rte-cmd="removeFormat" title="Padam Format" aria-label="Padam format">✕</button>
+ </div>
+ <div id="et-description-rte" class="rte-editor" contenteditable="true" data-placeholder="Cth:&#10;• 3 hours coverage&#10;• Outdoor &amp; Studio&#10;• Softcopy via Google Drive&#10;• Selected edited photos"></div>
+
+ <div id="et-poster-wrap" style="display:block; margin-top:0.9rem;">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.35rem;">
+    <label for="et-poster-file" style="margin:0;">Poster / Gambar Pakej <button type="button" class="info-icon-btn" data-info="Format JPG/PNG, disyorkan nisbah 4:3 atau 16:9. Gambar boleh dipotong (crop) dan dipaparkan dalam bentuk carousel di mini-website.">i</button></label>
+    <span class="poster-quota-pill" id="et-poster-quota-badge">0/1 Gambar</span>
+  </div>
+  <div id="et-poster-list" class="poster-thumbnail-grid"></div>
+  <div class="poster-upload-zone" id="et-poster-zone" style="margin-top:0.35rem;">
+    <svg class="poster-upload-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+    <p class="hint" id="et-poster-zone-text" style="margin:0;" data-i18n="bset_drag_img">Klik atau seret gambar ke sini</p>
+    <input type="file" id="et-poster-file" accept="image/*" multiple style="display:none;" />
+  </div>
+  <div class="poster-upload-success" id="et-poster-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Gambar berjaya dipilih</div>
+ </div>
+ <p class="hint" id="et-poster-locked" style="margin-top:0.4rem; color:var(--ink-muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Pelan Percuma membenarkan 1 gambar pakej. Pelan Pro boleh muat naik sehingga 3 gambar carousel!</p>
+
+ <label for="et-video-link" style="display:block; margin-top:0.9rem;">Link Panggilan Video (pilihan) <button type="button" class="info-icon-btn" data-info="Untuk servis konsultasi/temujanji jarak jauh — link Google Meet atau Zoom ini akan dipaparkan kepada pelanggan selepas mereka berjaya menempah.">i</button></label>
+ <input type="url" id="et-video-link" placeholder="cth: https://meet.google.com/xxx-xxxx-xxx" style="margin-top:0.35rem;" />
+
+ <div style="display:flex; align-items:flex-start; gap:0.55rem; margin-top:0.95rem; padding:0.65rem 0.85rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:10px;">
+ <input type="checkbox" id="et-popular" style="width:18px; height:18px; cursor:pointer; margin-top:2px;" />
+ <label for="et-popular" style="margin:0; cursor:pointer; font-size:0.86rem; font-weight:600;">
+ ★ Tandakan sebagai Pakej Paling Laris / Pilihan Ramai
+ <span class="hint" style="display:block; font-weight:400; margin-top:0.15rem; font-size:0.78rem;">Ditandakan dengan lencana khas & border aksen di halaman tempahan pelanggan untuk memudahkan pilihan.</span>
+ </label>
+ </div>
+
+ <!-- KAD JADUAL & TARIKH KHAS (PROGRESSIVE DISCLOSURE) -->
+ <div class="card" style="margin-top:1rem; padding:0.95rem 1.05rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:12px; transition:border-color 0.2s;">
+ <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; cursor:pointer;" id="et-custom-sched-header">
+ <div style="flex:1;">
+ <div style="display:flex; align-items:center; gap:0.45rem;">
+ <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--stamp); flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+ <strong style="font-size:0.88rem; color:var(--ink);">Ketetapan Tarikh &amp; Waktu Khas Pakej</strong>
+ <span class="hint" id="et-custom-sched-status-badge" style="font-size:0.72rem; padding:0.15rem 0.55rem; background:var(--paper); border-radius:999px; border:1px solid var(--paper-line); font-weight:600; color:var(--ink-soft);">Ikut Waktu Am Studio</span>
+ </div>
+ <p class="hint" style="margin:0.25rem 0 0 0; font-size:0.77rem; line-height:1.4;">Secara lalai, pakej dibuka mengikut jadual operasi studio. Aktifkan jika pakej ini <strong>HANYA</strong> dibuka pada hari tertentu (cth: Sabtu/Ahad) atau tarikh khas majlis (cth: nikah/sanding).</p>
+ </div>
+ <label class="switch" style="margin:0; flex-shrink:0; cursor:pointer;" title="Aktifkan jadual khas untuk pakej ini">
+ <input type="checkbox" id="et-custom-sched-toggle" style="width:20px; height:20px; cursor:pointer;" />
+ </label>
+ </div>
+
+ <!-- Container yang disorok secara automatik jika tidak aktif -->
+ <div id="et-advanced-sched-container" style="display:none; margin-top:0.85rem; padding-top:0.85rem; border-top:1px dashed var(--paper-line);">
+ <!-- JADUAL & TARIKH BUKA PAKEJ (Tarikh Khas / Hari Pilihan) -->
+ <div style="margin-top:0.95rem; padding:0.85rem; background:var(--surface); border:1px solid var(--paper-line); border-radius:10px;">
+ <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.4rem; flex-wrap:wrap; gap:0.4rem;">
+ <label style="margin:0; font-weight:700; font-size:0.88rem; color:var(--ink); display:flex; align-items:center; gap:0.4rem;">
+ <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+ Jadual &amp; Tarikh Buka Pakej
+ <button type="button" class="info-icon-btn" data-info="Tetapkan sama ada pakej ini dibuka mengikut jadual am studio, hari-hari tertentu setiap minggu, atau HANYA pada tarikh-tarikh khusus (contohnya tarikh majlis nikah / sanding yang anda buka slot).">i</button>
+ </label>
+ <span class="hint" id="et-sched-summary-badge" style="font-size:0.75rem; font-weight:600; color:var(--stamp);">Ikut Jadual Am</span>
+ </div>
+
+ <div class="et-sched-segmented-bar" style="grid-template-columns: repeat(2, 1fr);">
+<label class="et-sched-tab active" data-mode="dates" title="Buka pakej ini pada tarikh-tarikh khusus sahaja (cth: pakej nikah/sanding tarikh khas)">
+<input type="radio" name="et-sched-mode" value="dates" checked style="position:absolute; opacity:0; pointer-events:none;" />
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+<span>🎯 Buka Tarikh Khas Sahaja</span>
+</label>
+<label class="et-sched-tab" data-mode="days" title="Buka servis ini pada hari-hari tertentu setiap minggu (cth: Sabtu & Ahad sahaja)">
+<input type="radio" name="et-sched-mode" value="days" style="position:absolute; opacity:0; pointer-events:none;" />
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+<span>📆 Buka Hari Tertentu Sahaja</span>
+</label>
+<input type="radio" name="et-sched-mode" value="all" id="et-sched-mode-all-hidden" style="display:none;" />
+</div>
+
+ <!-- PANEL HARI TERTENTU (days) -->
+ <div id="et-sched-days-wrap" style="display:none; margin-top:0.75rem; padding:0.65rem 0.8rem; background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px;">
+ <p class="hint" style="margin:0 0 0.45rem 0; font-size:0.78rem;">Tandakan hari yang dibuka untuk servis ini:</p>
+ <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="1" /> Isn</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="2" /> Sel</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="3" /> Rab</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="4" /> Kha</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer;"><input type="checkbox" class="et-day-cb" value="5" /> Jum</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer; font-weight:600; color:var(--stamp);"><input type="checkbox" class="et-day-cb" value="6" /> Sab</label>
+ <label style="font-size:0.78rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer; font-weight:600; color:var(--stamp);"><input type="checkbox" class="et-day-cb" value="0" /> Ahd</label>
+ </div>
+ </div>
+
+ <!-- PANEL TARIKH KHAS (dates) -->
+ <div id="et-sched-dates-wrap" style="display:none; margin-top:0.75rem; padding:0.65rem 0.8rem; background:var(--paper); border:1px dashed var(--paper-line); border-radius:8px;">
+ <p class="hint" style="margin:0 0 0.5rem 0; font-size:0.78rem;">
+ Pilih tarikh-tarikh khusus di bawah (contoh: 1 Dis, 5 Dis, 25 Dis). Bakal pelanggan hanya boleh klik tarikh ini sahaja di kalendar mini-website.
+ </p>
+ <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
+ <input type="date" id="et-custom-date-picker" style="font-size:0.85rem; padding:0.4rem 0.55rem; flex:1; min-width:140px;" />
+ <button type="button" id="et-add-custom-date-btn" class="secondary" style="font-size:0.78rem; padding:0.45rem 0.85rem; font-weight:600; flex-shrink:0;">+ Tambah Tarikh</button>
+ </div>
+
+ <!-- Pilihan Sesi Khusus untuk Tarikh Dipilih -->
+ <div style="margin-top:0.45rem; display:flex; align-items:center; gap:0.3rem; flex-wrap:wrap;">
+ <span class="hint" style="font-size:0.72rem; margin-right:0.15rem;">Sesi tarikh ini:</span>
+ <button type="button" class="et-date-session-tag" data-start="09:00" data-end="13:00" data-label="Pagi" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">🌅 Pagi (09:00–13:00)</button>
+ <button type="button" class="et-date-session-tag" data-start="14:00" data-end="18:00" data-label="Petang" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">🌇 Petang (14:00–18:00)</button>
+ <button type="button" class="et-date-session-tag" data-start="20:00" data-end="23:00" data-label="Malam" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">🌙 Malam (20:00–23:00)</button>
+ <button type="button" class="et-date-session-tag" data-start="09:00" data-end="17:00" data-label="Seharian" style="border:1px solid var(--paper-line); background:var(--surface); border-radius:14px; font-size:0.72rem; padding:0.18rem 0.5rem; cursor:pointer; color:var(--ink); transition:all 0.15s;">☀️ Seharian (09:00–17:00)</button>
+ <button type="button" id="et-date-custom-toggle-btn" style="background:none; border:none; color:var(--stamp); font-size:0.72rem; text-decoration:underline; cursor:pointer; padding:0.18rem 0.3rem;">Masa Lain...</button>
+ </div>
+
+ <!-- Input Manual Masa Khas Tarikh (Optional) -->
+ <div id="et-date-manual-time-wrap" style="display:none; margin-top:0.35rem; align-items:center; gap:0.3rem; flex-wrap:wrap; background:rgba(0,0,0,0.02); padding:0.35rem 0.5rem; border-radius:6px; border:1px solid var(--paper-line);">
+ <span class="hint" style="font-size:0.72rem;">Waktu Khas:</span>
+ <input type="time" id="et-date-manual-start" value="10:00" style="font-size:0.75rem; padding:0.2rem 0.35rem;" />
+ <span class="hint" style="font-size:0.72rem;">–</span>
+ <input type="time" id="et-date-manual-end" value="14:00" style="font-size:0.75rem; padding:0.2rem 0.35rem;" />
+ <input type="text" id="et-date-manual-label" placeholder="Nama Sesi (cth: Sanding)" style="font-size:0.75rem; padding:0.2rem 0.4rem; width:120px;" />
+ <button type="button" id="et-date-add-manual-btn" class="secondary" style="font-size:0.72rem; padding:0.2rem 0.5rem;">+ Tambah Sesi Ini</button>
+ </div>
+
+ <div id="et-custom-dates-list" style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.55rem; min-height:26px;">
+ <!-- Chips injected here -->
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <button type="button" id="add-event-type-btn" style="margin-top:1rem; width:100%; padding:0.75rem; font-weight:700; border-radius:10px;" data-i18n="bset_add_service">+ Tambah Jenis Perkhidmatan</button>
+ </div>
+ </div>
+ </div>
+ </div>
+
   <div class="modal-overlay" id="manage-availability-modal" style="display:none; z-index:9999;">
     <div class="modal-box avail-modal-box">
       <!-- Modal Header -->
@@ -8533,9 +8605,17 @@ function parsePosters(val) {
     });
 
     list.querySelectorAll("[data-et-edit-id]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const t = allEventTypesCache.find(t => t.id === btn.dataset.etEditId);
-        if (t) startEditingEventType(t);
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const targetId = String(btn.dataset.etEditId || "");
+        const t = allEventTypesCache.find(item => String(item.id) === targetId);
+        if (t) {
+          startEditingEventType(t);
+        } else {
+          console.warn("Event type not found in cache for id:", targetId);
+          showToast("Maklumat pakej sedang dimuatkan...", "info");
+        }
       });
     });
   }
@@ -9229,7 +9309,149 @@ function parsePosters(val) {
  // allBookings and bookingMilestones are declared at module top
  // (reschedule state variables declared near the reschedule modal logic below)
 
- async function loadBookings() {
+ 
+  // ── Desktop Operations Telemetry Cockpit Engine ──
+  function renderDesktopOpsCockpit() {
+    try {
+      // 1. Avg Ticket & Active Links
+      const avgTicketEl = document.getElementById("desktop-ops-avg-ticket");
+      const activeLinksEl = document.getElementById("desktop-ops-active-links");
+
+      if (avgTicketEl) {
+        const paidCustomers = allCustomers.filter(c => c.status === "dah_bayar" && Number(c.amount) > 0);
+        const totalPaid = paidCustomers.reduce((acc, c) => acc + Number(c.amount), 0);
+        const avg = paidCustomers.length > 0 ? (totalPaid / paidCustomers.length) : 0;
+        avgTicketEl.textContent = "RM" + avg.toFixed(2);
+      }
+
+      if (activeLinksEl) {
+        activeLinksEl.textContent = String(allBookingLinks.length || 1);
+      }
+
+      // 2. Aging Receivables Matrix
+      const totalUnpaidTag = document.getElementById("aging-total-unpaid-tag");
+      const valSafe = document.getElementById("aging-val-safe");
+      const cntSafe = document.getElementById("aging-cnt-safe");
+      const valWarning = document.getElementById("aging-val-warning");
+      const cntWarning = document.getElementById("aging-cnt-warning");
+      const valDanger = document.getElementById("aging-val-danger");
+      const cntDanger = document.getElementById("aging-cnt-danger");
+
+      const unpaidCusts = allCustomers.filter(c => c.status !== "dah_bayar" && Number(c.amount) > 0);
+      const totalUnpaid = unpaidCusts.reduce((acc, c) => acc + Number(c.amount), 0);
+      if (totalUnpaidTag) totalUnpaidTag.textContent = "RM" + totalUnpaid.toFixed(2) + " Belum Dikutip";
+
+      const now = Date.now();
+      let safeAmt = 0, safeCount = 0;
+      let warnAmt = 0, warnCount = 0;
+      let dangAmt = 0, dangCount = 0;
+
+      unpaidCusts.forEach(c => {
+        const created = c.created_at ? new Date(c.created_at).getTime() : now;
+        const diffDays = Math.max(0, Math.floor((now - created) / (1000 * 60 * 60 * 24)));
+        const amt = Number(c.amount) || 0;
+        if (diffDays <= 7) {
+          safeAmt += amt;
+          safeCount++;
+        } else if (diffDays <= 14) {
+          warnAmt += amt;
+          warnCount++;
+        } else {
+          dangAmt += amt;
+          dangCount++;
+        }
+      });
+
+      if (valSafe) valSafe.textContent = "RM" + safeAmt.toFixed(2);
+      if (cntSafe) cntSafe.textContent = safeCount + " pelanggan";
+      if (valWarning) valWarning.textContent = "RM" + warnAmt.toFixed(2);
+      if (cntWarning) cntWarning.textContent = warnCount + " pelanggan";
+      if (valDanger) valDanger.textContent = "RM" + dangAmt.toFixed(2);
+      if (cntDanger) cntDanger.textContent = dangCount + " pelanggan";
+
+      // 3. Weekly Slot Heatmap (Mon-Sun x Morning, Afternoon, Evening, Night)
+      const heatmapContainer = document.getElementById("desktop-booking-heatmap");
+      const heatmapTag = document.getElementById("heatmap-total-slots-tag");
+      if (heatmapTag) heatmapTag.textContent = allBookings.length + " slot tempahan";
+
+      if (heatmapContainer) {
+        const days = ["Isn", "Sel", "Rab", "Kha", "Jum", "Sab", "Ahd"];
+        const grid = Array.from({ length: 7 }, () => [0, 0, 0, 0]); // 4 time blocks per day
+
+        allBookings.forEach(b => {
+          if (!b.slot_datetime) return;
+          const dt = new Date(b.slot_datetime);
+          let dayIdx = dt.getDay() - 1; // 0=Mon, 6=Sun
+          if (dayIdx < 0) dayIdx = 6;
+          const hr = dt.getHours();
+          let block = 0;
+          if (hr >= 6 && hr < 12) block = 0;       // Pagi
+          else if (hr >= 12 && hr < 16) block = 1; // Tengahari
+          else if (hr >= 16 && hr < 20) block = 2; // Petang
+          else block = 3;                          // Malam
+          if (dayIdx >= 0 && dayIdx < 7) grid[dayIdx][block]++;
+        });
+
+        let heatHtml = '<div style="display:grid; grid-template-columns: repeat(7, 1fr); gap: 6px; padding: 0.5rem 0;">';
+        days.forEach((dayName, dIdx) => {
+          heatHtml += '<div style="display:flex; flex-direction:column; gap:4px; align-items:center;">';
+          heatHtml += `<span style="font-size:0.7rem; font-weight:700; color:var(--ink-soft); margin-bottom:2px;">${dayName}</span>`;
+          for (let b = 0; b < 4; b++) {
+            const count = grid[dIdx][b];
+            let lvl = "lvl-0";
+            if (count >= 3) lvl = "lvl-3";
+            else if (count === 2) lvl = "lvl-2";
+            else if (count === 1) lvl = "lvl-1";
+            heatHtml += `<div class="swatch ${lvl}" style="width:100%; height:18px; border-radius:4px;" title="${dayName}: ${count} tempahan"></div>`;
+          }
+          heatHtml += '</div>';
+        });
+        heatHtml += '</div>';
+        heatmapContainer.innerHTML = heatHtml;
+      }
+
+      // 4. Audit Feed
+      const auditFeed = document.getElementById("desktop-audit-feed");
+      if (auditFeed) {
+        const events = [];
+        allBookings.slice(0, 5).forEach(b => {
+          events.push({
+            type: "booking",
+            text: `Tempahan disahkan: ${escapeHtml(b.customer_name)} (${fmtBookingDateTime(b.slot_datetime)})`,
+            time: b.created_at ? new Date(b.created_at) : new Date()
+          });
+        });
+        allCustomers.filter(c => c.status === "dah_bayar").slice(0, 3).forEach(c => {
+          events.push({
+            type: "payment",
+            text: `Bayaran diterima: ${escapeHtml(c.name)} - RM${Number(c.amount || 0).toFixed(2)}`,
+            time: c.created_at ? new Date(c.created_at) : new Date()
+          });
+        });
+
+        if (events.length === 0) {
+          auditFeed.innerHTML = '<div class="audit-feed-empty hint" style="padding:0.75rem; text-align:center;">Sistem aktif dan bersedia menerima tempahan secara automatik.</div>';
+        } else {
+          events.sort((a, b) => b.time - a.time);
+          auditFeed.innerHTML = events.slice(0, 6).map(e => `
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:0.45rem 0.6rem; border-bottom:1px solid var(--paper-line); font-size:0.8rem;">
+              <span style="display:flex; align-items:center; gap:0.4rem;">
+                <span style="color:${e.type === "payment" ? "var(--ok)" : "var(--stamp)"}; font-weight:700;">●</span>
+                <span>${e.text}</span>
+              </span>
+              <span class="hint" style="font-size:0.72rem; white-space:nowrap; margin-left:0.5rem;">${e.time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
+            </div>
+          `).join("");
+        }
+      }
+    } catch (err) {
+      console.warn("renderDesktopOpsCockpit non-fatal warning:", err);
+    }
+  }
+  window.renderDesktopOpsCockpit = renderDesktopOpsCockpit;
+
+
+  async function loadBookings() {
  const { data, error } = await supabase
  .from("bookings")
  .select("id, slot_datetime, duration_minutes, customer_name, customer_email, customer_phone, customer_notes, status, customer_id, custom_answers, booking_link_id, event_type_id, created_at, group_id, ceremony_label")
@@ -9262,14 +9484,14 @@ function parsePosters(val) {
  console.warn("Could not load booking milestones:", mErr);
  }
 
- renderBookingList();
- updateHomeTileStats();
- updateMoneyDashboardExtras();
- renderHomeMobileAgenda();
- renderDesktopOpsCockpit();
- renderHomeTrendChart();
- renderHomeNextAction();
- renderCalendar();
+ try { renderBookingList(); } catch (e) { console.warn("renderBookingList:", e); }
+ try { updateHomeTileStats(); } catch (e) { console.warn("updateHomeTileStats:", e); }
+ try { updateMoneyDashboardExtras(); } catch (e) { console.warn("updateMoneyDashboardExtras:", e); }
+ try { renderHomeMobileAgenda(); } catch (e) { console.warn("renderHomeMobileAgenda:", e); }
+ try { renderDesktopOpsCockpit(); } catch (e) { console.warn("renderDesktopOpsCockpit:", e); }
+ try { renderHomeTrendChart(); } catch (e) { console.warn("renderHomeTrendChart:", e); }
+ try { renderHomeNextAction(); } catch (e) { console.warn("renderHomeNextAction:", e); }
+ try { renderCalendar(); } catch (e) { console.warn("renderCalendar:", e); }
  }
 
  function animateCountUp(el, targetValue, isMoney, prefix = "") {
@@ -12369,18 +12591,17 @@ function parsePosters(val) {
           createQuickBtn.setAttribute("aria-expanded", "false");
 
           const action = item.dataset.createAction;
-          if (action === "one-on-one") {
+          if (action === "create-package" || action === "one-on-one" || action === "group") {
             openCreateEventTypeModal();
-            const cap = document.getElementById("et-capacity");
-            if (cap) cap.value = "1";
-            document.getElementById("et-name")?.focus();
-          } else if (action === "group") {
-            openCreateEventTypeModal();
-            const cap = document.getElementById("et-capacity");
-            if (cap) cap.value = "5";
             document.getElementById("et-name")?.focus();
           } else if (action === "manual-booking") {
-            document.getElementById("open-manual-booking-btn")?.click();
+            const manualBtn = document.getElementById("open-manual-booking-btn");
+            if (manualBtn) {
+              manualBtn.click();
+            } else {
+              const modal = document.getElementById("manual-booking-modal-backdrop");
+              if (modal) modal.style.display = "flex";
+            }
           } else if (action === "add-customer") {
             goToPage("pelanggan-add");
           }
@@ -12393,6 +12614,37 @@ function parsePosters(val) {
       stopEditingEventType();
       const m = document.getElementById("event-type-modal");
       if (m) m.style.display = "none";
+    });
+
+    // Close modal on backdrop click
+    document.getElementById("event-type-modal")?.addEventListener("click", (e) => {
+      if (e.target.id === "event-type-modal") {
+        stopEditingEventType();
+        e.target.style.display = "none";
+      }
+    });
+
+    // Single-Use Links Generator Controller
+    document.getElementById("generate-single-use-link-btn")?.addEventListener("click", () => {
+      const slug = currentLink()?.slug || "studio";
+      const token = "1x-" + Math.random().toString(36).substring(2, 9);
+      const url = `${window.location.origin}/book.html?slug=${encodeURIComponent(slug)}&single_use=${token}`;
+      const outBox = document.getElementById("single-use-link-output");
+      const urlField = document.getElementById("single-use-url-field");
+      if (outBox && urlField) {
+        urlField.value = url;
+        outBox.style.display = "block";
+      }
+      showToast("Pautan sekali guna berjaya dijana!", "success");
+    });
+
+    document.getElementById("copy-single-use-url-btn")?.addEventListener("click", () => {
+      const urlField = document.getElementById("single-use-url-field");
+      if (urlField && urlField.value) {
+        navigator.clipboard.writeText(urlField.value).then(() => {
+          showToast("Pautan sekali guna berjaya disalin!", "success");
+        });
+      }
     });
 
     // 3. Manage Availability Modal

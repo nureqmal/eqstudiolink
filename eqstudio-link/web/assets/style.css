@@ -13992,3 +13992,295 @@ body.ws-modal-open {
     cursor: pointer;
   }
 }
+
+
+/* ═════════════════════════════════════════════════════════════════════
+   CALENDLY DESIGN SYSTEM UPGRADE: ACTION BUTTONS, DROPDOWN & SIDEBAR
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* 1. Package Action Buttons (.cal-icon-btn) - Crisp & 100% Visible */
+button.cal-icon-btn,
+a.cal-icon-btn,
+.cal-icon-btn {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  border-radius: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1.5px solid var(--paper-line) !important;
+  background: var(--surface) !important;
+  color: var(--ink-soft) !important;
+  stroke: var(--ink-soft) !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+}
+
+button.cal-icon-btn svg,
+a.cal-icon-btn svg,
+.cal-icon-btn svg {
+  width: 16px !important;
+  height: 16px !important;
+  stroke: currentColor !important;
+  color: inherit !important;
+  fill: none !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+}
+
+button.cal-icon-btn:hover,
+a.cal-icon-btn:hover,
+.cal-icon-btn:hover {
+  background: var(--paper) !important;
+  color: var(--stamp) !important;
+  stroke: var(--stamp) !important;
+  border-color: var(--stamp) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 8px rgba(74, 9, 143, 0.12) !important;
+}
+
+button.cal-icon-btn.danger:hover,
+button.cal-icon-btn.cal-danger-btn:hover,
+.cal-icon-btn.danger:hover {
+  color: #dc2626 !important;
+  stroke: #dc2626 !important;
+  border-color: #fca5a5 !important;
+  background: #fef2f2 !important;
+  box-shadow: 0 3px 8px rgba(220, 38, 38, 0.12) !important;
+}
+
+/* 2. Calendly-Style + Create Dropdown Menu */
+.create-dropdown-wrap {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.25rem;
+}
+
+.create-dropdown-wrap .sidebar-create-btn {
+  margin-bottom: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: var(--stamp);
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.92rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(74, 9, 143, 0.28);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.create-dropdown-wrap .sidebar-create-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(74, 9, 143, 0.38);
+  background: color-mix(in srgb, var(--stamp) 92%, black);
+}
+
+.create-dropdown-wrap .sidebar-create-btn .create-chevron {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+
+.create-dropdown-wrap.open .sidebar-create-btn .create-chevron {
+  transform: rotate(180deg);
+}
+
+.create-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 290px;
+  background: var(--surface);
+  border: 1px solid var(--paper-line);
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.15), 0 4px 8px rgba(0,0,0,0.04);
+  padding: 0.5rem;
+  z-index: 1000;
+  display: none;
+  animation: ddFadeDown 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.create-dropdown-wrap.open .create-dropdown-menu {
+  display: block;
+}
+
+@keyframes ddFadeDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.create-dd-header {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  padding: 0.5rem 0.75rem 0.3rem;
+  text-transform: uppercase;
+}
+
+.create-dd-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, transform 0.1s ease;
+  color: var(--ink);
+}
+
+.create-dd-item:hover {
+  background: var(--paper);
+  transform: none;
+  box-shadow: none;
+}
+
+.create-dd-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--pending-bg);
+  color: var(--stamp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.create-dd-item:hover .create-dd-icon {
+  background: var(--stamp);
+  color: #ffffff;
+}
+
+.create-dd-text {
+  flex: 1;
+}
+
+.create-dd-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.create-dd-desc {
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+  margin-top: 0.2rem;
+  line-height: 1.35;
+}
+
+.create-dd-divider {
+  height: 1px;
+  background: var(--paper-line);
+  margin: 0.4rem 0.5rem;
+}
+
+/* 3. Dedicated Sidebar Community Card */
+.sidebar-community-card {
+  margin-top: auto;
+  margin-bottom: 1rem;
+  padding: 0.85rem;
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.sidebar-community-card:hover {
+  border-color: var(--stamp);
+  background: var(--surface);
+  box-shadow: 0 4px 12px rgba(74, 9, 143, 0.08);
+}
+
+.sidebar-community-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.sidebar-community-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: var(--pending-bg);
+  color: var(--stamp);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-community-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.sidebar-community-desc {
+  font-size: 0.73rem;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.sidebar-community-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--stamp);
+  text-decoration: none;
+  margin-top: 0.2rem;
+  transition: gap 0.15s ease;
+}
+
+.sidebar-community-link:hover {
+  gap: 0.55rem;
+  text-decoration: underline;
+}
+
+/* 4. Operational Dual-Column Grid on Dashboard */
+.home-ops-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 960px) {
+  .home-ops-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.home-ops-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-ops-col .card,
+.home-ops-col .mobile-today-agenda-card {
+  margin-bottom: 0 !important;
+  height: 100%;
+}

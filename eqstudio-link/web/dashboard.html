@@ -79,11 +79,60 @@
       <a href="/billing.html" id="tier-badge" class="tier-badge tier-free" style="display:inline-flex; font-size:0.72rem; padding:0.2rem 0.55rem;">Pelan Percuma</a>
     </div>
 
-    <!-- Quick + Create Button (Calendly Style) -->
-    <button type="button" class="sidebar-create-btn" id="sidebar-quick-create-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-      <span>Cipta</span>
-    </button>
+    <!-- Quick + Create Button (Calendly Style with Dropdown) -->
+    <div class="create-dropdown-wrap" id="create-dropdown-wrap">
+      <button type="button" class="sidebar-create-btn" id="sidebar-quick-create-btn" aria-haspopup="true" aria-expanded="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span>Cipta</span>
+        <svg class="create-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+
+      <div class="create-dropdown-menu" id="create-dropdown-menu">
+        <div class="create-dd-header">JENIS PERKHIDMATAN (EVENT TYPE)</div>
+        <button type="button" class="create-dd-item" data-create-action="one-on-one">
+          <div class="create-dd-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </div>
+          <div class="create-dd-text">
+            <div class="create-dd-title">Servis Individu (1-on-1)</div>
+            <div class="create-dd-desc">1 host &rarr; 1 pelanggan. Sesuai untuk appointment, konsultasi, dsb.</div>
+          </div>
+        </button>
+
+        <button type="button" class="create-dd-item" data-create-action="group">
+          <div class="create-dd-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <div class="create-dd-text">
+            <div class="create-dd-title">Servis Kumpulan (Group)</div>
+            <div class="create-dd-desc">1 host &rarr; Ramai pelanggan. Kelas, bengkel, sesi serentak.</div>
+          </div>
+        </button>
+
+        <div class="create-dd-divider"></div>
+        <div class="create-dd-header">OPERASI PANTAS</div>
+
+        <button type="button" class="create-dd-item" data-create-action="manual-booking">
+          <div class="create-dd-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </div>
+          <div class="create-dd-text">
+            <div class="create-dd-title">Booking Manual (Walk-in / Offline)</div>
+            <div class="create-dd-desc">Daftar slot terus ke sistem bagi pelanggan luar talian / WhatsApp.</div>
+          </div>
+        </button>
+
+        <button type="button" class="create-dd-item" data-create-action="add-customer">
+          <div class="create-dd-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+          </div>
+          <div class="create-dd-text">
+            <div class="create-dd-title">Tambah Pelanggan Baharu</div>
+            <div class="create-dd-desc">Daftar rekod profil dan nombor telefon pelanggan ke database.</div>
+          </div>
+        </button>
+      </div>
+    </div>
 
     <!-- Navigation List -->
     <nav class="sidebar-nav">
@@ -127,6 +176,21 @@
         <span>Laporan &amp; Analitik</span>
       </button>
     </nav>
+
+    <!-- Dedicated Sidebar Community Card -->
+    <div class="sidebar-community-card">
+      <div class="sidebar-community-header-row">
+        <div class="sidebar-community-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <div class="sidebar-community-title">Komuniti &amp; Ciri</div>
+      </div>
+      <p class="sidebar-community-desc">Sertai komuniti pengguna, kongsi idea atau cadang ciri baharu bersama kami.</p>
+      <a href="/forum.html" target="_blank" class="sidebar-community-link">
+        <span>Buka Forum Komuniti</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
 
     <!-- Sidebar Footer -->
     <div class="db-sidebar-footer" style="display:flex; flex-direction:column; gap:0.4rem; padding-top:0.75rem; border-top:1px solid var(--paper-line); margin-top:auto;">
@@ -223,7 +287,7 @@
  <div id="setup-checklist-slot"></div>
 
  <div class="db-page active" id="page-home">
- <div class="home-hero" style="display:flex; justify-content:space-between; align-items:flex-end; gap:0.6rem; flex-wrap:wrap;">
+  <div class="home-hero" style="display:flex; justify-content:space-between; align-items:flex-end; gap:0.6rem; flex-wrap:wrap;">
  <div>
  <p class="hint" id="home-greeting" data-i18n="home_greeting">Selamat kembali</p>
  <h1 class="home-biz-name" id="home-biz-name">-</h1>
@@ -339,28 +403,7 @@
  <div class="sf-links-list" id="sf-links-list"></div>
  </div>
 
- <div class="mobile-today-agenda-card" id="mobile-today-agenda-card">
- <div class="mobile-agenda-header">
- <div class="mobile-agenda-title-group">
- <div class="mobile-agenda-badge-icon">
- <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
- </div>
- <div>
- <h3 class="mobile-agenda-title" data-i18n="home_agenda_title">Jadual &amp; Tempahan Terdekat</h3>
- <div class="skeleton" style="height:12px; width:110px; border-radius:4px; margin-top:3px;" id="mobile-agenda-subtitle"></div>
- </div>
- </div>
- <button type="button" class="mobile-agenda-viewall-btn" id="mobile-agenda-viewall-btn" data-i18n="home_agenda_viewall">Lihat Semua →</button>
- </div>
- <div class="mobile-agenda-list" id="mobile-agenda-list">
- <div style="padding:0.4rem 0; display:flex; flex-direction:column; gap:0.5rem;">
- <div class="skeleton" style="height:48px; border-radius:10px;"></div>
- <div class="skeleton" style="height:48px; border-radius:10px;"></div>
- </div>
- </div>
- </div>
-
- <div class="home-stat-grid" id="home-stat-grid">
+  <div class="home-stat-grid" id="home-stat-grid">
  <div class="home-stat-box" data-accent="coral">
  <div class="home-stat-icon-chip" data-accent="coral"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
  <div class="home-stat-value" id="hs-upcoming">0</div>
@@ -391,8 +434,54 @@
  <!-- ═════════════════════════════════════════════════════════════════════
  DESKTOP OPERATIONS COMMAND COCKPIT (Desktop Only — Hidden on Mobile)
  ═════════════════════════════════════════════════════════════════════ -->
- <div class="desktop-ops-cockpit" id="desktop-ops-cockpit">
- <!-- 1. Ops Pulse & Telemetry Status Bar -->
+
+  <!-- Operational Dual-Column: Upcoming Bookings (Left) & Recent Bookings (Right) -->
+  <div class="home-ops-row">
+    <div class="home-ops-col">
+      <div class="mobile-today-agenda-card" id="mobile-today-agenda-card">
+ <div class="mobile-agenda-header">
+ <div class="mobile-agenda-title-group">
+ <div class="mobile-agenda-badge-icon">
+ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+ </div>
+ <div>
+ <h3 class="mobile-agenda-title" data-i18n="home_agenda_title">Jadual &amp; Tempahan Terdekat</h3>
+ <div class="skeleton" style="height:12px; width:110px; border-radius:4px; margin-top:3px;" id="mobile-agenda-subtitle"></div>
+ </div>
+ </div>
+ <button type="button" class="mobile-agenda-viewall-btn" id="mobile-agenda-viewall-btn" data-i18n="home_agenda_viewall">Lihat Semua →</button>
+ </div>
+ <div class="mobile-agenda-list" id="mobile-agenda-list">
+ <div style="padding:0.4rem 0; display:flex; flex-direction:column; gap:0.5rem;">
+ <div class="skeleton" style="height:48px; border-radius:10px;"></div>
+ <div class="skeleton" style="height:48px; border-radius:10px;"></div>
+ </div>
+ </div>
+ </div>
+    </div>
+    <div class="home-ops-col">
+      <div class="card" id="home-recent-bookings-card" style="margin-bottom:1.5rem; display:block;">
+ <div class="section-title"><h2 style="margin:0; font-size:0.95rem;" data-i18n="home_recent_bookings_title">Booking Terbaru</h2></div>
+ <div style="overflow-x:auto; margin-top:0.6rem;">
+ <table class="home-recent-table">
+ <thead>
+ <tr>
+ <th data-i18n="home_recent_th_client">Pelanggan</th>
+ <th data-i18n="home_recent_th_date">Tarikh Booking</th>
+ <th data-i18n="home_recent_th_status">Status</th>
+ <th style="text-align:right;" data-i18n="home_recent_th_amount">Amaun</th>
+ </tr>
+ </thead>
+ <tbody id="home-recent-bookings-body"></tbody>
+ </table>
+ </div>
+ </div>
+    </div>
+  </div>
+
+  <!-- Telemetry Cockpit: Pulse Bar + Aging Matrix & Heatmap -->
+  <div class="desktop-ops-cockpit" id="desktop-ops-cockpit">
+    <!-- 1. Ops Pulse & Telemetry Status Bar -->
  <div class="desktop-ops-pulse-bar">
  <div class="ops-pulse-group">
  <span class="ops-pulse-indicator">
@@ -484,183 +573,10 @@
  </div>
  </div>
  </div>
+  </div>
 
- <!-- 3. Real-Time Operations Activity Feed / Audit Ticker -->
- <div class="card desktop-telemetry-card" style="margin-bottom:1.25rem;">
- <div class="desktop-telemetry-header">
- <div class="desktop-telemetry-title">
- <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
- <span data-i18n="ops_audit_title">Log Audit & Telemetri Aktiviti Masa Nyata</span>
- </div>
- <span class="desktop-telemetry-tag live-badge" data-i18n="ops_audit_live">● AKTIF</span>
- </div>
- <div class="desktop-audit-feed" id="desktop-audit-feed">
- <div class="audit-feed-empty hint" data-i18n="ops_audit_empty">Menyemak log sistem dan aktiviti pelanggan...</div>
- </div>
- </div>
-
- <!-- 4. Direct-Action Desktop Command Panel (Live Inline Configuration Engine) -->
- <div class="card desktop-direct-action-panel" style="margin-bottom:1.5rem;">
- <div class="desktop-direct-header">
- <div class="desktop-direct-title-group">
- <span class="desktop-direct-badge" data-i18n="ops_direct_badge">INLINE OPS</span>
- <h3 class="desktop-direct-title" data-i18n="ops_direct_title">Kawalan Operasi Terus (Direct Action Engine)</h3>
- <span class="desktop-direct-sub" data-i18n="ops_direct_sub">Kemas kini parameter sistem utama terus dari sini tanpa berpindah halaman</span>
- </div>
- <div class="desktop-direct-tabs" id="desktop-direct-tabs" role="tablist">
- <button type="button" class="desktop-direct-tab active" data-direct-tab="booking" id="tab-direct-booking">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
- <span data-i18n="ops_tab_booking">Tetapan Booking</span>
- </button>
- <button type="button" class="desktop-direct-tab" data-direct-tab="profile" id="tab-direct-profile">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
- <span data-i18n="ops_tab_profile">Profil & Perbankan</span>
- </button>
- <button type="button" class="desktop-direct-tab" data-direct-tab="reminder" id="tab-direct-reminder">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
- <span data-i18n="ops_tab_reminder">Jadual Reminder</span>
- </button>
- <button type="button" class="desktop-direct-tab" data-direct-tab="faq" id="tab-direct-faq">
- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
- <span data-i18n="ops_tab_faq">Jawapan Pantas (FAQ)</span>
- </button>
- </div>
- </div>
-
- <!-- Tab Content 1: Direct Booking Controls -->
- <div class="desktop-direct-content active" id="direct-content-booking">
- <form id="direct-booking-form" class="desktop-direct-form" onsubmit="return false;">
- <div class="desktop-direct-grid-4">
- <div class="desktop-direct-field">
- <label for="direct-b-slug"><span data-i18n="ops_slug_label">Slug Link Utama</span> <span class="mono hint" style="font-size:0.7rem;">(/book/slug)</span></label>
- <input type="text" id="direct-b-slug" placeholder="nama-bisnes" autocomplete="off" />
- </div>
- <div class="desktop-direct-field">
- <label for="direct-b-deposit"><span data-i18n="ops_deposit_label">Deposit Asas (RM)</span> <span class="req">*</span></label>
- <input type="number" id="direct-b-deposit" min="0" step="0.5" placeholder="50.00" required />
- </div>
- <div class="desktop-direct-field">
- <label for="direct-b-duration" data-i18n="ops_duration_label">Tempoh Slot</label>
- <select id="direct-b-duration">
- <option value="15">15 min</option>
- <option value="30">30 min</option>
- <option value="45">45 min</option>
- <option value="60">1 hr (60 min)</option>
- <option value="90">1.5 hr (90 min)</option>
- <option value="120">2 hr (120 min)</option>
- <option value="180">3 hr (180 min)</option>
- </select>
- </div>
- <div class="desktop-direct-field">
- <label for="direct-b-min-notice" data-i18n="ops_min_notice_label">Notis Tempahan Min.</label>
- <select id="direct-b-min-notice">
- <option value="0" data-i18n="ops_notice_none">Tiada (Boleh book terus)</option>
- <option value="2" data-i18n="ops_notice_2h">2 jam sebelum</option>
- <option value="6" data-i18n="ops_notice_6h">6 jam sebelum</option>
- <option value="12" data-i18n="ops_notice_12h">12 jam sebelum</option>
- <option value="24" data-i18n="ops_notice_24h">24 jam (1 hari sebelum)</option>
- <option value="48" data-i18n="ops_notice_48h">48 jam (2 hari sebelum)</option>
- </select>
- </div>
- </div>
- <div class="desktop-direct-footer">
- <span class="desktop-direct-status hint" id="direct-b-status" data-i18n="ops_b_status_syncing">Menyelaraskan data booking...</span>
- <div class="desktop-direct-actions">
- <button type="button" class="secondary" id="direct-b-open-full" data-i18n="ops_b_open_full">Buka Tetapan Penuh ↗</button>
- <button type="button" class="primary" id="direct-b-save-btn">
- <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
- <span data-i18n="ops_b_save_btn">Kemas Kini Booking</span>
- </button>
- </div>
- </div>
- </form>
- </div>
-
- <!-- Tab Content 2: Direct Business & Banking Profile Controls -->
- <div class="desktop-direct-content" id="direct-content-profile">
- <form id="direct-profile-form" class="desktop-direct-form" onsubmit="return false;">
- <div class="desktop-direct-grid-4">
- <div class="desktop-direct-field">
- <label for="direct-p-biz-name" data-i18n="ops_prof_biz_label">Nama Perniagaan</label>
- <input type="text" id="direct-p-biz-name" placeholder="Nama bisnes atau studio" data-i18n-placeholder="ops_prof_biz_ph" />
- </div>
- <div class="desktop-direct-field">
- <label for="direct-p-phone" data-i18n="ops_prof_phone_label">No Telefon / WhatsApp</label>
- <input type="text" id="direct-p-phone" placeholder="Contoh: 0123456789" data-i18n-placeholder="ops_prof_phone_ph" />
- </div>
- <div class="desktop-direct-field">
- <label for="direct-p-bank-name" data-i18n="ops_prof_bank_label">Nama Bank</label>
- <input type="text" id="direct-p-bank-name" placeholder="Maybank, CIMB, Bank Islam..." data-i18n-placeholder="ops_prof_bank_ph" />
- </div>
- <div class="desktop-direct-field">
- <label for="direct-p-bank-acc" data-i18n="ops_prof_acc_label">No Akaun Bank</label>
- <input type="text" id="direct-p-bank-acc" placeholder="Nombor akaun simpanan/semasa" data-i18n-placeholder="ops_prof_acc_ph" />
- </div>
- </div>
- <div class="desktop-direct-footer">
- <span class="desktop-direct-status hint" id="direct-p-status" data-i18n="ops_prof_ready">Data perniagaan bersedia.</span>
- <div class="desktop-direct-actions">
- <button type="button" class="secondary" id="direct-p-open-full" data-i18n="ops_prof_open_full">Profil Lengkap ↗</button>
- <button type="button" class="primary" id="direct-p-save-btn">
- <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
- <span data-i18n="ops_prof_save_btn">Simpan Profil &amp; Bank</span>
- </button>
- </div>
- </div>
- </form>
- </div>
-
- <!-- Tab Content 3: Direct Reminder Schedule Offset Toggle Engine -->
- <div class="desktop-direct-content" id="direct-content-reminder">
- <div class="desktop-direct-reminder-wrap">
- <div class="desktop-direct-reminder-intro">
- <span class="hint" data-i18n="ops_rem_intro">Togol hari bila sistem menghantar reminder emel automatik kepada pelanggan sebelum & selepas tarikh due:</span>
- </div>
- <div class="desktop-direct-chips" id="direct-reminder-chips">
- <!-- Populated dynamically: H-7, H-5, H-3, H-2, H-1, Hari-Ini, H+1, H+3 -->
- </div>
- <div class="desktop-direct-footer">
- <span class="desktop-direct-status hint" id="direct-reminder-summary">Peringatan: -</span>
- <div class="desktop-direct-actions">
- <button type="button" class="secondary" id="direct-reminder-reset-btn" data-i18n="ops_rem_reset_btn">↻ Reset Asal</button>
- <button type="button" class="primary" id="direct-reminder-save-btn">
- <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
- <span data-i18n="ops_rem_save_btn">Simpan Jadual</span>
- </button>
- </div>
- </div>
- </div>
- </div>
-
- <!-- Tab Content 4: Direct FAQ & Quick Response Templates -->
- <div class="desktop-direct-content" id="direct-content-faq">
- <div class="desktop-direct-faq-wrap">
- <div class="desktop-direct-faq-grid">
- <div class="desktop-direct-faq-form-col">
- <p class="hint" style="font-weight:600; font-size:0.75rem; margin:0 0 0.4rem; text-transform:uppercase; letter-spacing:0.04em;" data-i18n="ops_faq_new_title">Tambah Template Baru</p>
- <div class="desktop-direct-field" style="margin-bottom:0.45rem;">
- <input type="text" id="direct-faq-label-input" placeholder="Tajuk Pintas (cth: Nombor Akaun, Lokasi)" data-i18n-placeholder="ops_faq_label_ph" />
- </div>
- <div class="desktop-direct-field" style="margin-bottom:0.55rem;">
- <textarea id="direct-faq-answer-input" rows="2" placeholder="Teks jawapan pantas yang dihantar ke pelanggan..." data-i18n-placeholder="ops_faq_answer_ph"></textarea>
- </div>
- <button type="button" class="primary" id="direct-faq-add-btn" style="width:100%; font-size:0.8rem; padding:0.4rem 0.8rem;">
- <span data-i18n="ops_faq_add_btn">+ Tambah Jawapan Pantas</span>
- </button>
- </div>
- <div class="desktop-direct-faq-list-col">
- <p class="hint" style="font-weight:600; font-size:0.75rem; margin:0 0 0.4rem; text-transform:uppercase; letter-spacing:0.04em;" data-i18n="ops_faq_active_title">Senarai Template Aktif</p>
- <div class="desktop-direct-faq-list" id="direct-faq-active-list">
- <span class="hint" style="font-size:0.78rem;" data-i18n="ops_faq_loading">Memuatkan template FAQ...</span>
- </div>
- </div>
- </div>
- </div>
- </div>
- </div>
- </div>
-
- <div class="card home-trend-card" style="margin-bottom:1.5rem;">
+  <!-- 14-Day Booking Trend & Next Action -->
+  <div class="card home-trend-card" style="margin-bottom:1.5rem;">
  <div class="section-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
  <h2 style="margin:0; font-size:0.95rem; display:flex; align-items:center; gap:0.45rem;">
  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--stamp);"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
@@ -678,30 +594,29 @@
  </div>
  </div>
 
- <div class="card tile-enter" id="home-next-action-card" style="margin-bottom:1.5rem; display:none; border-left:4px solid var(--stamp);">
+  <div class="card tile-enter" id="home-next-action-card" style="margin-bottom:1.5rem; display:none; border-left:4px solid var(--stamp);">
  <p class="hint" style="text-transform:uppercase; font-size:0.7rem; font-weight:700; letter-spacing:0.03em; color:var(--stamp); margin:0 0 0.5rem;">Next Action</p>
  <p style="font-weight:600; margin:0 0 0.8rem; font-size:0.95rem;" id="home-next-action-text"></p>
  <button type="button" class="secondary" id="home-next-action-btn" style="width:auto; padding:0.5rem 1rem; font-size:0.85rem;"></button>
  </div>
 
- <div class="card" id="home-recent-bookings-card" style="margin-bottom:1.5rem; display:none;">
- <div class="section-title"><h2 style="margin:0; font-size:0.95rem;" data-i18n="home_recent_bookings_title">Booking Terbaru</h2></div>
- <div style="overflow-x:auto; margin-top:0.6rem;">
- <table class="home-recent-table">
- <thead>
- <tr>
- <th data-i18n="home_recent_th_client">Pelanggan</th>
- <th data-i18n="home_recent_th_date">Tarikh Booking</th>
- <th data-i18n="home_recent_th_status">Status</th>
- <th style="text-align:right;" data-i18n="home_recent_th_amount">Amaun</th>
- </tr>
- </thead>
- <tbody id="home-recent-bookings-body"></tbody>
- </table>
+  <!-- Audit Log & Real-Time Telemetry Feed (At the Very Bottom of Dashboard) -->
+  <!-- 3. Real-Time Operations Activity Feed / Audit Ticker -->
+ <div class="card desktop-telemetry-card" style="margin-bottom:1.25rem;">
+ <div class="desktop-telemetry-header">
+ <div class="desktop-telemetry-title">
+ <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+ <span data-i18n="ops_audit_title">Log Audit & Telemetri Aktiviti Masa Nyata</span>
+ </div>
+ <span class="desktop-telemetry-tag live-badge" data-i18n="ops_audit_live">● AKTIF</span>
+ </div>
+ <div class="desktop-audit-feed" id="desktop-audit-feed">
+ <div class="audit-feed-empty hint" data-i18n="ops_audit_empty">Menyemak log sistem dan aktiviti pelanggan...</div>
  </div>
  </div>
 
- <div class="card home-booking-link-card" id="home-booking-link-card" style="display:none;">
+  <!-- Utilities & Mobile Stats Strip -->
+  <div class="card home-booking-link-card" id="home-booking-link-card" style="display:none;">
  <p class="hint" style="text-transform:uppercase; font-size:0.7rem; margin:0 0 0.4rem;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> <span id="home-link-card-label" data-i18n="home_your_links_title">Link Booking Anda</span></p>
  <div id="home-link-list"></div>
  </div>
@@ -724,9 +639,7 @@
  <span><span class="pill-value" id="pill-stat-customers">0</span> <span class="pill-label" data-i18n="home_stat_clients_suffix">pelanggan</span></span>
  </div>
  </div>
-
- 
- </div>
+</div>
 
  <div class="db-page" id="page-booking-list">
  <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -3230,12 +3143,6 @@
  </div>
 
  <div class="settings-dropdown-section">
- <div class="settings-dropdown-section-title">Komuniti &amp; Cadangan Ciri</div>
- <a href="/forum.html" target="_blank" style="width:100%; justify-content:center; display:flex; align-items:center; gap:0.45rem; padding:0.55rem; text-decoration:none; font-size:0.82rem; border-radius:8px; border:1px solid var(--paper-line); color:var(--ink); background:var(--paper); transition:background 0.15s;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> <span>Buka Forum &amp; Idea Ciri ↗</span></a>
- </div>
- 
-
-        <div class="settings-dropdown-section">
       <div class="settings-dropdown-section-title">Keselamatan &amp; Akses Akaun</div>
       <button type="button" class="secondary" onclick="window.goToPage && window.goToPage('tetapan-profil'); setTimeout(() => { document.getElementById('account-security-card')?.scrollIntoView({ behavior: 'smooth' }); }, 150);" style="width:100%; justify-content:center; display:flex; align-items:center; gap:0.45rem; font-size:0.82rem; padding:0.5rem; cursor:pointer;">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -8500,7 +8407,9 @@ function parsePosters(val) {
     const searchTerm = (document.getElementById("cal-search-events-input")?.value || "").trim().toLowerCase();
     const filtered = allEventTypesCache.filter(t => {
       if (!searchTerm) return true;
-      return t.name.toLowerCase().includes(searchTerm) || (t.description && t.description.toLowerCase().includes(searchTerm));
+      const nameStr = (t.name || "").toLowerCase();
+      const descStr = (t.description || "").toLowerCase();
+      return nameStr.includes(searchTerm) || descStr.includes(searchTerm);
     });
 
     if (filtered.length === 0) {
@@ -8598,7 +8507,9 @@ function parsePosters(val) {
     const searchInput = document.getElementById("cal-search-events-input");
     if (searchInput && !searchInput.dataset.hasListener) {
       searchInput.dataset.hasListener = "true";
-      searchInput.addEventListener("input", () => renderEventTypesList());
+      ["input", "keyup", "search"].forEach(evt => {
+        searchInput.addEventListener(evt, () => renderEventTypesList());
+      });
     }
 
     // Bind copy links
@@ -8950,7 +8861,9 @@ function parsePosters(val) {
  renderEtPosterThumbnails();
  document.getElementById("add-event-type-btn").textContent = `Kemaskini "${t.name}"`;
  document.getElementById("et-cancel-edit-btn").style.display = "block";
- document.getElementById("et-name").scrollIntoView({ behavior: "smooth", block: "center" });
+ const mEdit = document.getElementById("event-type-modal");
+ if (mEdit) mEdit.style.display = "flex";
+ document.getElementById("et-name")?.focus();
  }
  function stopEditingEventType() {
  editingEventTypeId = null;
@@ -9809,11 +9722,11 @@ function parsePosters(val) {
  .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
  .slice(0, 6);
 
+ card.style.display = "block";
  if (recent.length === 0) {
- card.style.display = "none";
+ body.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:1.5rem; color:var(--ink-soft); font-size:0.85rem;">Belum ada tempahan terkini direkodkan.</td></tr>';
  return;
  }
- card.style.display = "block";
 
  const customerByBookingCustomerId = new Map(allCustomers.map(c => [c.id, c]));
  body.innerHTML = recent.map(b => {
@@ -9905,274 +9818,49 @@ function parsePosters(val) {
  `;
  }).join("");
  } else if (upcomingFuture.length > 0) {
- const nextB = upcomingFuture[0];
+ const nextList = upcomingFuture.slice(0, 4);
+ if (subEl) subEl.textContent = `${upcomingFuture.length} ${t("agenda_upcoming_scheduled", "tempahan akan datang")}`;
+ listEl.innerHTML = nextList.map(nextB => {
  const nextDate = new Date(nextB.slot_datetime);
  const dateLabel = nextDate.toLocaleDateString(locale, { weekday: "short", day: "numeric", month: "short" });
- const timeLabel = nextDate.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
+ const timeStr = nextDate.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
  const cust = customerMap.get(nextB.customer_id);
  const isPaid = cust?.status === "dah_bayar";
-
- if (subEl) subEl.textContent = `${t("agenda_no_today_next", "Tiada tempahan hari ini. Slot seterusnya:")} ${dateLabel}`;
- const rawPhoneNext = nextB?.customer_phone || cust?.contact_phone || "";
- let cleanPhoneNext = rawPhoneNext.replace(/\D/g, "");
- if (cleanPhoneNext.startsWith("0")) cleanPhoneNext = "60" + cleanPhoneNext.slice(1);
- const waBtnNext = cleanPhoneNext ? `
- <a href="https://wa.me/${cleanPhoneNext}?text=${encodeURIComponent(`Hai ${nextB.customer_name}, pengesahan untuk sesi tempahan anda pada ${dateLabel} jam ${timeLabel}.`)}" target="_blank" rel="noopener" class="mobile-agenda-wa-btn" style="margin-left:auto;" title="WhatsApp Pelanggan">
+ const rawPhone = nextB?.customer_phone || cust?.contact_phone || "";
+ let cleanPhone = rawPhone.replace(/\D/g, "");
+ if (cleanPhone.startsWith("0")) cleanPhone = "60" + cleanPhone.slice(1);
+ const waBtnHtml = cleanPhone ? `
+ <a href="https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hai ${nextB.customer_name}, peringatan untuk sesi tempahan anda pada ${dateLabel} jam ${timeStr}.`)}" target="_blank" rel="noopener" class="mobile-agenda-wa-btn" style="margin-left:auto;" title="WhatsApp Pelanggan">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
  <span>WhatsApp</span>
  </a>
  ` : "";
 
- listEl.innerHTML = `
- <div class="mobile-agenda-item next-slot">
+ return `
+ <div class="mobile-agenda-item">
  <div class="mobile-agenda-time-col">
- <span class="mobile-agenda-time">${timeLabel}</span>
- <span class="mobile-agenda-tag upcoming">${dateLabel}</span>
+ <span class="mobile-agenda-time">${timeStr}</span>
+ <span class="mobile-agenda-tag future">${dateLabel}</span>
  </div>
  <div class="mobile-agenda-info-col">
  <div class="mobile-agenda-cust-name">${escapeHtml(nextB.customer_name)}</div>
  <div class="mobile-agenda-cust-meta">
  <span class="badge ${isPaid ? "dah_bayar" : "belum_bayar"} mobile-agenda-badge">${isPaid ? t("status_dah_bayar", "Dah Bayar") : t("status_belum_bayar", "Belum Bayar")}</span>
- <span class="mobile-agenda-duration">${t("agenda_tag_closest", "Slot Terdekat")}</span>
+ ${nextB.duration_minutes ? `<span class="mobile-agenda-duration">${nextB.duration_minutes} min</span>` : ""}
  </div>
  </div>
- ${waBtnNext}
+ ${waBtnHtml}
  </div>
  `;
+ }).join("");
  } else {
  if (subEl) subEl.textContent = t("agenda_none_scheduled", "Tiada tempahan dijadualkan");
  listEl.innerHTML = `
  <div class="mobile-agenda-empty-state">
  <p class="mobile-agenda-empty-msg">${t("agenda_empty_msg", "Tiada tempahan aktif hari ini. Kongsi pautan tempahan kepada prospek atau tambah pelanggan baharu.")}</p>
- <div class="mobile-agenda-empty-actions">
- <button type="button" class="secondary" id="mobile-agenda-share-btn" style="font-size:0.78rem; padding:0.4rem 0.8rem; border-radius:8px;">${t("agenda_copy_link_btn", "Salin Link Booking")}</button>
- <button type="button" class="secondary" id="mobile-agenda-add-btn" style="font-size:0.78rem; padding:0.4rem 0.8rem; border-radius:8px;">${t("agenda_add_client_btn", "+ Tambah Pelanggan")}</button>
- </div>
  </div>
  `;
- document.getElementById("mobile-agenda-share-btn")?.addEventListener("click", () => {
- const activeLink = allBookingLinks.find(l => !!l.slug) || allBookingLinks[0];
- if (activeLink && activeLink.slug) {
- const fullUrl = `${window.location.origin}/book/${activeLink.slug}`;
- navigator.clipboard.writeText(fullUrl).then(() => showToast(t("link_copied", "Pautan booking disalin ke clipboard!"), "success"));
- } else {
- goToPage("booking-settings");
  }
- });
- document.getElementById("mobile-agenda-add-btn")?.addEventListener("click", () => {
- document.getElementById("quick-add-open-btn")?.click();
- });
- }
- }
-
- document.getElementById("mobile-agenda-viewall-btn")?.addEventListener("click", () => {
- goToPage("booking-list");
- });
-
- // ── Desktop Operations Command Cockpit (Telemetry HUD, Aging Matrix, Heatmap, Audit Ticker) ──
- function renderDesktopOpsCockpit() {
- // 1. Ops Pulse & Status Bar Telemetry
- const totalBilled = allCustomers.reduce((sum, c) => sum + Number(c.amount || 0), 0);
- const totalCollected = allCustomers.filter(c => c.status === "dah_bayar").reduce((sum, c) => sum + Number(c.amount || 0), 0);
- const collectionRate = totalBilled > 0 ? ((totalCollected / totalBilled) * 100).toFixed(1) : "0.0";
- const avgTicket = allCustomers.length > 0 ? (totalBilled / allCustomers.length).toFixed(2) : "0.00";
- const activeLinksCount = allBookingLinks.filter(l => !!l.slug).length;
-
- const collEl = document.getElementById("desktop-ops-collection-rate");
- const ticketEl = document.getElementById("desktop-ops-avg-ticket");
- const linksEl = document.getElementById("desktop-ops-active-links");
- if (collEl) collEl.textContent = `${collectionRate}%`;
- if (ticketEl) ticketEl.textContent = `RM ${avgTicket}`;
- if (linksEl) linksEl.textContent = `${activeLinksCount} ${t("ops_active_links_count", "pautan")}`;
-
- // 2. Aging Receivables Matrix Calculation
- const unpaidCustomers = allCustomers.filter(c => c.status !== "dah_bayar");
- const now = new Date();
- const todayMs = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-
- let safeAmount = 0, safeCount = 0;
- let warnAmount = 0, warnCount = 0;
- let dangerAmount = 0, dangerCount = 0;
-
- for (const c of unpaidCustomers) {
- const amt = Number(c.amount || 0);
- const dueMs = new Date(c.due_date).getTime();
- const diffDays = Math.floor((todayMs - dueMs) / (1000 * 60 * 60 * 24));
-
- if (diffDays <= 7) {
- safeAmount += amt;
- safeCount++;
- } else if (diffDays <= 14) {
- warnAmount += amt;
- warnCount++;
- } else {
- dangerAmount += amt;
- dangerCount++;
- }
- }
-
- const totalUnpaid = safeAmount + warnAmount + dangerAmount;
- const agingTag = document.getElementById("aging-total-unpaid-tag");
- if (agingTag) agingTag.textContent = `RM ${totalUnpaid.toFixed(2)} ${t("ops_aging_uncollected", "Belum Dikutip")}`;
-
- const safeValEl = document.getElementById("aging-val-safe");
- const safeCntEl = document.getElementById("aging-cnt-safe");
- const warnValEl = document.getElementById("aging-val-warning");
- const warnCntEl = document.getElementById("aging-cnt-warning");
- const dangerValEl = document.getElementById("aging-val-danger");
- const dangerCntEl = document.getElementById("aging-cnt-danger");
-
- if (safeValEl) safeValEl.textContent = `RM ${safeAmount.toFixed(2)}`;
- if (safeCntEl) safeCntEl.textContent = `${safeCount} ${t("ops_clients_suffix", "pelanggan")}`;
- if (warnValEl) warnValEl.textContent = `RM ${warnAmount.toFixed(2)}`;
- if (warnCntEl) warnCntEl.textContent = `${warnCount} ${t("ops_clients_suffix", "pelanggan")}`;
- if (dangerValEl) dangerValEl.textContent = `RM ${dangerAmount.toFixed(2)}`;
- if (dangerCntEl) dangerCntEl.textContent = `${dangerCount} ${t("ops_clients_suffix", "pelanggan")}`;
-
- // Distribution Bar %
- const safePct = totalUnpaid > 0 ? (safeAmount / totalUnpaid) * 100 : 0;
- const warnPct = totalUnpaid > 0 ? (warnAmount / totalUnpaid) * 100 : 0;
- const dangerPct = totalUnpaid > 0 ? (dangerAmount / totalUnpaid) * 100 : 0;
-
- const barEl = document.getElementById("aging-progress-bar");
- if (barEl) {
- barEl.innerHTML = `
- <div class="aging-bar-seg seg-safe" style="width:${safePct}%;" title="${t("ops_aging_normal_hint", "Normal (< 7 hari)")}: RM ${safeAmount.toFixed(2)} (${safePct.toFixed(0)}%)"></div>
- <div class="aging-bar-seg seg-warning" style="width:${warnPct}%;" title="${t("ops_aging_warn_hint", "Perhatian (7-14 hari)")}: RM ${warnAmount.toFixed(2)} (${warnPct.toFixed(0)}%)"></div>
- <div class="aging-bar-seg seg-danger" style="width:${dangerPct}%;" title="${t("ops_aging_danger_hint", "Lewat (> 14 hari)")}: RM ${dangerAmount.toFixed(2)} (${dangerPct.toFixed(0)}%)"></div>
- `;
- }
-
- // 3. Booking Heatmap Matrix: Days (Isnin - Ahad) vs Time Windows
- // Time Windows: Pagi (08:00 - 12:00), Tengahari (12:00 - 15:00), Petang (15:00 - 19:00), Malam (19:00 - 23:00)
- const daysLabel = [
- t("ops_day_mon", "Isn"),
- t("ops_day_tue", "Sel"),
- t("ops_day_wed", "Rab"),
- t("ops_day_thu", "Kha"),
- t("ops_day_fri", "Jum"),
- t("ops_day_sat", "Sab"),
- t("ops_day_sun", "Ahd")
- ];
- // slot matrix: dayIndex (0=Mon..6=Sun) x period (0..3)
- const matrix = Array.from({ length: 7 }, () => [0, 0, 0, 0]);
-
- let totalHeatmapBookings = 0;
- for (const b of allBookings) {
- if (b.status !== "confirmed" || !b.slot_datetime) continue;
- const d = new Date(b.slot_datetime);
- let dayIdx = d.getDay() - 1; // getDay: 0=Sun, 1=Mon...
- if (dayIdx < 0) dayIdx = 6; // Sunday is index 6
- const hr = d.getHours();
-
- let periodIdx = 0;
- if (hr >= 8 && hr < 12) periodIdx = 0; // Pagi
- else if (hr >= 12 && hr < 15) periodIdx = 1; // Tengahari
- else if (hr >= 15 && hr < 19) periodIdx = 2; // Petang
- else periodIdx = 3; // Malam
-
- matrix[dayIdx][periodIdx]++;
- totalHeatmapBookings++;
- }
-
- const heatmapTag = document.getElementById("heatmap-total-slots-tag");
- if (heatmapTag) heatmapTag.textContent = `${totalHeatmapBookings} ${t("ops_heatmap_slots", "slot tempahan direkod")}`;
-
- const heatmapEl = document.getElementById("desktop-booking-heatmap");
- if (heatmapEl) {
- const periodLabels = [
- t("ops_period_morn", "Pagi (8-12)"),
- t("ops_period_noon", "Tgh (12-3)"),
- t("ops_period_eve", "Ptg (3-7)"),
- t("ops_period_night", "Mlm (7-11)")
- ];
- let html = `
- <div class="heatmap-table">
- <div class="heatmap-row header">
- <div class="heatmap-cell day-hdr">${t("ops_day_hdr", "Hari")}</div>
- ${periodLabels.map(p => `<div class="heatmap-cell period-hdr">${p}</div>`).join("")}
- </div>
- `;
-
- for (let i = 0; i < 7; i++) {
- html += `<div class="heatmap-row"><div class="heatmap-cell day-col">${daysLabel[i]}</div>`;
- for (let p = 0; p < 4; p++) {
- const count = matrix[i][p];
- let lvl = 0;
- if (count >= 3) lvl = 3;
- else if (count === 2) lvl = 2;
- else if (count === 1) lvl = 1;
- html += `<div class="heatmap-cell block lvl-${lvl}" title="${daysLabel[i]} ${periodLabels[p]}: ${count}">${count > 0 ? count : ""}</div>`;
- }
- html += `</div>`;
- }
- html += `</div>`;
- heatmapEl.innerHTML = html;
- }
-
- // 4. Real-Time Operations Activity Feed / Audit Ticker
- const feedEl = document.getElementById("desktop-audit-feed");
- if (feedEl) {
- const events = [];
-
- // Add confirmed bookings as events
- allBookings.slice(0, 10).forEach(b => {
- events.push({
- time: new Date(b.created_at || b.slot_datetime),
- type: "booking",
- icon: "",
- title: b.status === "confirmed" ? t("ops_audit_booking_confirmed", "Tempahan Disahkan") : b.status,
- desc: `${b.customer_name} — Slot ${fmtBookingDateTime(b.slot_datetime)}`,
- });
- });
-
- // Add customer invoices/payments as events
- allCustomers.slice(0, 10).forEach(c => {
- if (c.status === "dah_bayar" && c.paid_at) {
- events.push({
- time: new Date(c.paid_at),
- type: "payment",
- icon: "",
- title: t("ops_audit_payment_received", "Bayaran Diterima"),
- desc: `${c.name} — RM ${Number(c.amount).toFixed(2)}`,
- });
- } else if (c.created_at) {
- events.push({
- time: new Date(c.created_at),
- type: "customer",
- icon: "",
- title: t("ops_audit_client_invoice", "Pelanggan Baharu / Invois"),
- desc: `${c.name} — RM ${Number(c.amount).toFixed(2)} (Due ${c.due_date})`,
- });
- }
- });
-
- // Sort events chronologically descending
- events.sort((a, b) => b.time - a.time);
- const topEvents = events.slice(0, 6);
-
- if (topEvents.length === 0) {
- feedEl.innerHTML = `<div class="audit-feed-empty hint">${t("ops_audit_empty", "Menyemak log sistem dan aktiviti pelanggan...")}</div>`;
- } else {
- const lang = getCurrentLang();
- const locale = lang === "en" ? "en-US" : "ms-MY";
- feedEl.innerHTML = topEvents.map(e => {
- const timeStr = isNaN(e.time) ? "-" : e.time.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit", second: "2-digit" });
- const dateStr = isNaN(e.time) ? "" : e.time.toLocaleDateString(locale, { day: "numeric", month: "short" });
- return `
- <div class="audit-feed-item">
- <span class="audit-item-time">[${dateStr} ${timeStr}]</span>
- <span class="audit-item-icon">${e.icon}</span>
- <span class="audit-item-title">${escapeHtml(e.title)}:</span>
- <span class="audit-item-desc">${escapeHtml(e.desc)}</span>
- </div>
- `;
- }).join("");
- }
- }
-
- // 5. Initialize Direct-Action Desktop Command Panel
- initDesktopDirectActionEngine();
  }
 
  // ── Direct-Action Desktop Command Engine Controller ──
@@ -12655,7 +12343,50 @@ function parsePosters(val) {
       if (m) m.style.display = "flex";
     }
     window.openCreateEventTypeModal = openCreateEventTypeModal;
-    document.getElementById("sidebar-quick-create-btn")?.addEventListener("click", openCreateEventTypeModal);
+    // Dropdown Toggle & Actions for Sidebar + Create Button
+    const createDdWrap = document.getElementById("create-dropdown-wrap");
+    const createQuickBtn = document.getElementById("sidebar-quick-create-btn");
+
+    if (createQuickBtn && createDdWrap) {
+      createQuickBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = createDdWrap.classList.contains("open");
+        createDdWrap.classList.toggle("open", !isOpen);
+        createQuickBtn.setAttribute("aria-expanded", String(!isOpen));
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!createDdWrap.contains(e.target)) {
+          createDdWrap.classList.remove("open");
+          createQuickBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      createDdWrap.querySelectorAll("[data-create-action]").forEach(item => {
+        item.addEventListener("click", (e) => {
+          e.stopPropagation();
+          createDdWrap.classList.remove("open");
+          createQuickBtn.setAttribute("aria-expanded", "false");
+
+          const action = item.dataset.createAction;
+          if (action === "one-on-one") {
+            openCreateEventTypeModal();
+            const cap = document.getElementById("et-capacity");
+            if (cap) cap.value = "1";
+            document.getElementById("et-name")?.focus();
+          } else if (action === "group") {
+            openCreateEventTypeModal();
+            const cap = document.getElementById("et-capacity");
+            if (cap) cap.value = "5";
+            document.getElementById("et-name")?.focus();
+          } else if (action === "manual-booking") {
+            document.getElementById("open-manual-booking-btn")?.click();
+          } else if (action === "add-customer") {
+            goToPage("pelanggan-add");
+          }
+        });
+      });
+    }
     document.getElementById("top-create-event-type-btn")?.addEventListener("click", openCreateEventTypeModal);
     document.getElementById("open-create-pkg-btn")?.addEventListener("click", openCreateEventTypeModal);
     document.getElementById("et-cancel-edit-btn")?.addEventListener("click", () => {
@@ -12966,8 +12697,15 @@ function parsePosters(val) {
  goToTourStep(0);
  }
  function startPageGuide(pageKey) {
+ if (pageKey === "home" || !pageKey) {
+   startTour();
+   return;
+ }
  const steps = PAGE_GUIDES[pageKey];
- if (!steps || steps.length === 0) return;
+ if (!steps || steps.length === 0) {
+   startTour();
+   return;
+ }
  isMainTour = false;
  activeTourSteps = steps;
  tourStepIndex = 0;
@@ -12987,7 +12725,7 @@ function parsePosters(val) {
  });
  document.getElementById("tour-back-btn").addEventListener("click", () => goToTourStep(tourStepIndex - 1));
  document.getElementById("tour-skip-btn").addEventListener("click", endTour);
- document.getElementById("restart-tour-btn").addEventListener("click", startTour);
+ document.getElementById("restart-tour-btn")?.addEventListener("click", startTour);
   document.getElementById("restart-tour-btn-mobile")?.addEventListener("click", startTour);
 
   // Document-level event delegation for all Guide buttons across every page
